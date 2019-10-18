@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+// import { renderRoutes } from 'react-router-config';
+import '../src/App.scss';
+import { ApolloProvider } from 'react-apollo';
+import client from './Graphql';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
+const Login = React.lazy(() => import('./components/views/Login/login'));
+const SignUp = React.lazy(() => import('./components/views/SignUp/signup'));
+const Cuestions = React.lazy(() => import('./components//addCuestions/cuestions'));
+const Home = React.lazy(() => import('./components/Home/home'));
+// import "@fortawesome/fontawesome-free/css/all.min.css";
+// import "bootstrap-css-only/css/bootstrap.min.css";
+// import "mdbreact/dist/css/mdb.css";
+
+
+class App extends Component {
+
+  render() {
+    return (
+      <ApolloProvider client={client}>
+      <HashRouter>
+          <React.Suspense fallback={loading()}>
+            <Switch>
+              <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
+              <Route exact path="/signup" name="SignUp Page" render={props => <SignUp {...props}/>} />
+              <Route exact path="/" name="Home Page" render={props => <Home {...props}/>} />
+
+            </Switch>
+          </React.Suspense>
+      </HashRouter>
+
+      </ApolloProvider>
+    );
+  }
 }
 
 export default App;
