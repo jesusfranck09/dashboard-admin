@@ -46,7 +46,12 @@ handleData = (data) => {
       alert('Error en login...');
      
       return false;
-    } localStorage.setItem('elToken', data.login.token) 
+    }
+    if (data=! undefined){
+
+    console.log("la data ha llegado " ,  data) 
+    } 
+   // localStorage.setItem('elToken', data.login.token) 
   console.log('Sesión iniciada exitosamente!');
   this.props.history.push("/signup")
 }

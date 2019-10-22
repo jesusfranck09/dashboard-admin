@@ -6,18 +6,14 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const CUESTIONS = gql`
-    mutation CUESTIONS(
-        $data:String
-        ){
-            registerData(data:{
-                data:$data
-            }){
-            
+    mutation CUESTIONS($data:[String]!){
+            registerData(data:$data){
                 message
 
             }
     }
 `
+
 class Cuestions extends Component{
 
     constructor(props){
@@ -32,11 +28,11 @@ class Cuestions extends Component{
         this.setState({cuestions : [...this.state.cuestions,""]})
     }
 
-    handleChange(e , index){
-        this.state.cuestions[index]=e.target.value
-        this.setState({cuestions : this.state.cuestions})
-        console.log("handle change" , this.state.cuestions)
-    }
+    // handleChange(e , index){
+    //     this.state.cuestions[index]=e.target.value
+    //     this.setState({cuestions : this.state.cuestions})
+    //     console.log("handle change" , this.state.cuestions)
+    // }
 
     // handleRemove(index){
     //     this.state.cuestions.splice(index,1)
@@ -48,28 +44,38 @@ class Cuestions extends Component{
 
     // }
 
+    handleInput = (e) => {
+      const {id, value} = e.target
+       this.setState({
+          [id]:value
+      });
+    }
 
     handleForm = (e, cuestions) => {
         e.preventDefault();
         console.log('Enviando formulario...');
-        console.log("cuestions",this.state.cuestions)
         cuestions({variables: { 
-            ...this.state.cuestions
-            
+            ...this.state
         }});
+        console.log("el estado  " , this.state)
       }
       
     handleData = (data) => {
         if (data    === 'ERROR'){
-          console.log("la data es "+ data)
             alert('hubo un error ...');
             return false;
           }
+          if (data =! undefined){
+      console.log("la data llego " ,  data)
+
+          }
+
         alert('Envio Exitoso');
         this.props.history.push('/login');
       }
       
     handleError = (error) => {
+      console.log(error)
         alert('Error en en el Envio...');
       }
 
@@ -82,9 +88,11 @@ class Cuestions extends Component{
                    if (loading) console.log(loading);
                    if (data) this.handleData(data);
                    if (error) this.handleError(error);
-                   
+           
         return(
       <React.Fragment>
+             <form onSubmit={e => this.handleForm(e, cuestions)}>
+
            <div className="app flex-row align-items-center">
            <Container>
            <Row className="justify-content-center">
@@ -102,7 +110,7 @@ class Cuestions extends Component{
                          <div key = {index}>
                             <Card>
                             <Form inline>                          
-                            <Input id = "data" placeholder="Ingrese la pregunta " onChange ={(e)=> this.handleChange(e,index) } value = {cuestion} size="60"/>
+                            <Input id ="data" placeholder="Ingrese la pregunta " onChange={this.handleInput} size="60"/>
                             {/* <Button  onClick = {(e)=>this.handleRemove(e)}>Eliminar</Button>   */}
                             </Form>
                             </Card>
@@ -114,9 +122,8 @@ class Cuestions extends Component{
                             <Col>            
                             <Button color="primary" onClick={(e)=>this.addCuestions(e)}> Agregar Preguntas</Button> 
                             </Col>
-                            <form onSubmit={e => this.handleForm(e, cuestions)}>
                             <Button color="success" >Enviar</Button>       
-                            </form>
+                           
                             </Row> 
                      </div>
                     </InputGroup>
@@ -129,6 +136,7 @@ class Cuestions extends Component{
              </Row>
             </Container>
            </div>
+           </form>
          </React.Fragment>
                 )
                                                 }

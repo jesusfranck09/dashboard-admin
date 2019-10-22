@@ -98,9 +98,9 @@ handleError = (error) => {
       <div className="app flex-row align-items-center">
         <Container>
           <Row className="justify-content-center">
-            <Col xs="22">
+            <Col xs="8">
               <CardGroup>
-                <Card className="p-1">
+                <Card className="p-8">
                   <CardBody>
                     <Form>                      
                       <h1>Singup</h1>
