@@ -3,55 +3,51 @@ import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler
 import { BrowserRouter as Router } from 'react-router-dom';
 import ModalLogin from './modalLogin'
 import ModalSignup from './modalSignup'
-import {Row,Col } from 'reactstrap'
+import { Row, Col } from 'reactstrap'
 import Carrousell from './carrousel'
-import {  AppNavbarBrand} from '@coreui/react';
+import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 
-class FixedNavbarExample extends React.Component {
+
+class Home extends React.Component {
   constructor(props) {
-      super(props);
-      this.state = {
-          collapse: false,
-      };
-      this.onClick = this.onClick.bind(this);
-      
+    super(props);
+    this.state = {
+      collapse: false,
+    };
+    this.onClick = this.onClick.bind(this);
+
   }
 
   onClick() {
     this.setState({
-        collapse: !this.state.collapse,
-      });
+      collapse: !this.state.collapse,
+    });
   }
-
-  
-
-
-
   render() {
-    const bgPink = {backgroundColor: '#04B4AE'}
-    const container = {width:2500 , height:1300}
-    return(
+    const bgPink = { backgroundColor: '#04B4AE' }
+    const container = { width: 2500, height: 1300 }
+    return (
       <div>
         <Router>
           <header>
             <MDBNavbar style={bgPink} dark expand="md" scrolling fixed="top">
               <MDBNavbarBrand href="/">
-                   <AppNavbarBrand 
-                     full={{ src: logo, width: 89, height: 25, alt: 'ADS' }}/>
-                  {/* <strong>Bienvenido</strong> */}
+                <AppNavbarBrand
+                  full={{ src: logo, width: 89, height: 25, alt: 'ADS' }} />
+                {/* <strong>Bienvenido</strong> */}
               </MDBNavbarBrand>
-              <MDBNavbarToggler onClick={ this.onClick } />
-              <MDBCollapse isOpen = { this.state.collapse } navbar>
+              <MDBNavbarToggler onClick={this.onClick} />
+              <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav left>
                   <MDBNavItem active>
-                  <MDBNavLink to="#">Inicio</MDBNavLink>
+                    <MDBNavLink to="#">Inicio</MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                      <MDBNavLink to="#">Sevicios</MDBNavLink>
+                    <MDBNavLink to="#">Sevicios</MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                      <MDBNavLink to="#">Beneficios</MDBNavLink>
+                    <MDBNavLink to="#">Beneficios</MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
                     <MDBNavLink to="#">Opciones</MDBNavLink>
@@ -62,26 +58,26 @@ class FixedNavbarExample extends React.Component {
                     <MDBNavLink to="#"><MDBIcon fab icon="facebook-f" /></MDBNavLink>
                   </MDBNavItem>
                   <Row>
-                  <MDBNavItem>
-                  <ModalLogin/>
-                  </MDBNavItem>
-                  <Col>
-                  <MDBNavItem>
-                      <ModalSignup/>
-                  </MDBNavItem>
-                  </Col>
+                    <MDBNavItem>
+                      <ModalLogin />
+                    </MDBNavItem>
+                    <Col>
+                      <MDBNavItem>
+                        <ModalSignup />
+                      </MDBNavItem>
+                    </Col>
                   </Row>
                 </MDBNavbarNav>
               </MDBCollapse>
             </MDBNavbar>
           </header>
         </Router>
-        <MDBContainer  style={container} className="text-center mt-5 pt-5">
-        <Carrousell></Carrousell> 
+        <MDBContainer style={container} className="text-center mt-5 pt-5">
+          <Carrousell></Carrousell>
         </MDBContainer>
       </div>
     );
   }
 }
 
-export default FixedNavbarExample;
+export default Home;

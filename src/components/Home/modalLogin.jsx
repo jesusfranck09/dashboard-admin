@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalBody, } from 'reactstrap';
 import Login from '../views/Login/login'
+
+
+
 const ModalExample = (props) => {
   const {
     buttonLabel,
@@ -17,7 +20,8 @@ const ModalExample = (props) => {
       <Modal isOpen={modal} toggle={toggle} className={className}>
         {/* <ModalHeader toggle={toggle}></ModalHeader> */}
         <ModalBody>
-         <Login></Login>
+         <Login ></Login>
+
         </ModalBody>
         {/* <ModalFooter>
           <Button color="primary" onClick={toggle}></Button>{' '}
@@ -28,4 +32,4 @@ const ModalExample = (props) => {
   );
 }
 
-export default ModalExample;
+export default ModalExample ;

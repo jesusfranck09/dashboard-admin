@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+
+
  
 
 const LOGIN = gql`
@@ -15,10 +17,13 @@ const LOGIN = gql`
 `
 class Login extends Component {
 
-  state = { 
-    email: '',
-    password: '',
-}
+  constructor(props){
+    super(props);
+    this.state = {
+        email: '',
+        password: ''
+    }
+  }
 
 handleInput = (e) => {
   const {id, value} = e.target
@@ -39,11 +44,11 @@ handleData = (data) => {
   if (data.login.token === 'ERROR'){
     console.log("el token es "+ data.login.token)
       alert('Error en login...');
+     
       return false;
-    }
-  localStorage.setItem('mawiToken', data.login.token) 
-  alert('Sesión iniciada exitosamente!');
-  this.props.history.push('/users');
+    } localStorage.setItem('elToken', data.login.token) 
+  console.log('Sesión iniciada exitosamente!');
+  this.props.history.push("/signup")
 }
 
 handleError = (error) => {
@@ -68,11 +73,11 @@ handleError = (error) => {
             <Col md="8">
               <CardGroup>
                 <Card className="p-4">
-                  <CardBody>
+                  <CardBody color = "primary">
                     <Form>                      
                       <h1>Login</h1>
                       <p className="text-muted">Inicia sesion por favor</p>     
-                      <InputGroup className="mb-3">
+                      <InputGroup   className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
                             <i className="icon-user"></i>
@@ -90,7 +95,7 @@ handleError = (error) => {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="secondary" className="px-4" type='submit'>Entrar</Button>
+                          <Button color="success" className="px-4" type='submit'>Entrar</Button>
                         </Col>
                         {/* <Col xs="6" className="text-right">
                           <Button color="link" className="px-0" >Olvidaste tu Contraseña?</Button>

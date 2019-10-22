@@ -18,17 +18,16 @@ const CUESTIONS = gql`
             }
     }
 `
-
-
 class Cuestions extends Component{
 
- 
-        state= {
+    constructor(props){
+        super(props);
+        this.state = {
             cuestions:[]
         }
+      }
 
-    
-  
+
     addCuestions(){
         this.setState({cuestions : [...this.state.cuestions,""]})
     }
@@ -39,12 +38,11 @@ class Cuestions extends Component{
         console.log("handle change" , this.state.cuestions)
     }
 
-    handleRemove(index){
-        this.state.cuestions.splice(index,1)
-        console.log( this.state.cuestions ,"aqui se elimina")
-        this.setState({cuestions:this.state.cuestions})
-    }
-
+    // handleRemove(index){
+    //     this.state.cuestions.splice(index,1)
+    //     console.log( this.state.cuestions ,"aqui se elimina")
+    //     this.setState({cuestions:this.state.cuestions})
+    // }
     // handleSubmit(e){
     //     console.log("este es lo que se envia",this.state.cuestions)
 
@@ -61,7 +59,7 @@ class Cuestions extends Component{
         }});
       }
       
-      handleData = (data) => {
+    handleData = (data) => {
         if (data    === 'ERROR'){
           console.log("la data es "+ data)
             alert('hubo un error ...');
@@ -71,7 +69,7 @@ class Cuestions extends Component{
         this.props.history.push('/login');
       }
       
-      handleError = (error) => {
+    handleError = (error) => {
         alert('Error en en el Envio...');
       }
 
@@ -81,7 +79,7 @@ class Cuestions extends Component{
             <Mutation mutation={CUESTIONS}>
             {
                  (cuestions, {data, error, loading}) => {
-                    if (loading) console.log(loading);
+                   if (loading) console.log(loading);
                    if (data) this.handleData(data);
                    if (error) this.handleError(error);
                    
@@ -92,48 +90,50 @@ class Cuestions extends Component{
            <Row className="justify-content-center">
            <Col md="8">
            <CardGroup>
-                <Card className="p-4">
-                  <CardBody>
-                  <Form>
-                  <h2>Ingrese las preguntas en el formulario </h2>
-                  <InputGroup className="mb-3">
-                <div className= "cuestion">               
-                    {
-                    this.state.cuestions.map((cuestion,index)=>{ 
-                        
+            <Card className="p-4">
+             <CardBody>
+              <Form>
+                <h2>Ingrese las preguntas en el formulario </h2>
+                <InputGroup className="mb-3">
+                    <div className= "cuestion">               
+                        {
+                         this.state.cuestions.map((cuestion,index)=>{
                         return (
-                        <div key = {index}>
+                         <div key = {index}>
                             <Card>
-                            <Form inline>
-                           
+                            <Form inline>                          
                             <Input id = "data" placeholder="Ingrese la pregunta " onChange ={(e)=> this.handleChange(e,index) } value = {cuestion} size="60"/>
-                            <Button  onClick = {(e)=>this.handleRemove(e)}>Eliminar</Button>  
+                            {/* <Button  onClick = {(e)=>this.handleRemove(e)}>Eliminar</Button>   */}
                             </Form>
                             </Card>
-                        </div>
+                          </div>
                         )})                    
-                    }               
-            <hr/>                   
-                <Button color="primary" onClick={(e)=>this.addCuestions(e)}> Agregar Preguntas</Button> 
-                <form onSubmit={e => this.handleForm(e, cuestions)}>
-                <Button color="success" >Enviar</Button>       
-                </form>
-                 </div>
-                 </InputGroup>
-            </Form>
-            </CardBody>
-            </Card>
-            </CardGroup>
+                        }               
+                         <hr/>   
+                            <Row> 
+                            <Col>            
+                            <Button color="primary" onClick={(e)=>this.addCuestions(e)}> Agregar Preguntas</Button> 
+                            </Col>
+                            <form onSubmit={e => this.handleForm(e, cuestions)}>
+                            <Button color="success" >Enviar</Button>       
+                            </form>
+                            </Row> 
+                     </div>
+                    </InputGroup>
+                   </Form>
+                  </CardBody>
+                 </Card>
+                </CardGroup>
 
-            </Col>
-            </Row>
+              </Col>
+             </Row>
             </Container>
-            </div>
-            </React.Fragment>
-        )
-                         }
-                    }
-                </Mutation>
+           </div>
+         </React.Fragment>
+                )
+                                                }
+               }
+             </Mutation>
 
             )   
         }
