@@ -1,9 +1,9 @@
 import React from 'react';
 import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon } from 'mdbreact';
 import { BrowserRouter as Router } from 'react-router-dom';
-import ModalLogin from './modalLogin'
-import ModalSignup from './modalSignup'
-import { Row, Col } from 'reactstrap'
+// import ModalLogin from '../reciclaje/modalLogin'
+// import ModalSignup from '../views/Login/reciclaje/modalSignup'
+// import { Row, Col } from 'reactstrap'
 import Carrousell from './carrousel'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
@@ -57,7 +57,7 @@ class Home extends React.Component {
                   <MDBNavItem>
                     <MDBNavLink to="#"><MDBIcon fab icon="facebook-f" /></MDBNavLink>
                   </MDBNavItem>
-                  <Row>
+                  {/* <Row>
                     <MDBNavItem>
                       <ModalLogin />
                     </MDBNavItem>
@@ -66,7 +66,7 @@ class Home extends React.Component {
                         <ModalSignup />
                       </MDBNavItem>
                     </Col>
-                  </Row>
+                  </Row> */}
                 </MDBNavbarNav>
               </MDBCollapse>
             </MDBNavbar>

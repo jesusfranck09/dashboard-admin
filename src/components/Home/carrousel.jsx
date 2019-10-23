@@ -11,7 +11,7 @@ import {
 const items = [
   {
     caption: 'Nuestros Servicios te Convencerán',
-    src: 'https://cdn.pixabay.com/photo/2017/08/23/11/12/notebook-2672467_960_720.jpg',
+    src: 'https://images.pexels.com/photos/1311518/pexels-photo-1311518.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
     altText: 'Modelo1'
    
   },

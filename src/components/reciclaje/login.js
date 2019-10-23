@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+ import { Link } from 'react-router-dom';
+import {Form, InputGroup, InputGroupAddon, InputGroupText,Input } from 'reactstrap';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-
-
- 
-
+import {withRouter} from 'react-router-dom'
+import {MDBBtn,MDBCard,MDBContainer,MDBCardBody,MDBRow ,  MDBCol} from 'mdbreact'
 const LOGIN = gql`
     mutation LOGIN($email: String!, $password: String!){
         login(email: $email, password: $password){
@@ -51,15 +49,16 @@ handleData = (data) => {
 
     console.log("la data ha llegado " ,  data) 
     } 
-   // localStorage.setItem('elToken', data.login.token) 
-  console.log('Sesión iniciada exitosamente!');
-  this.props.history.push("/signup")
+    //localStorage.setItem('elToken', data.login.token) 
+  alert('Sesión iniciada exitosamente!');
+  this.props.history.push("/inicio")
 }
 
 handleError = (error) => {
   console.log(error);
   alert('Error en login...');
 }
+
   render() {
     return (
       <Mutation mutation={LOGIN}>
@@ -71,17 +70,17 @@ handleError = (error) => {
           return ( 
 
       <React.Fragment>
+        
    <form onSubmit={e => this.handleForm(e, login)}>
-      <div className="app flex-row align-items-center">
-        <Container>
-          <Row className="justify-content-center">
-            <Col md="8">
-              <CardGroup>
-                <Card className="p-4">
-                  <CardBody color = "primary">
+      <div className="app flex-row align-items-center grey-text">
+        <MDBContainer>
+      
+          <MDBRow className="justify-content-center">      
+            <MDBCol md="8">
+                 <MDBCard className="p-4 " >
+                  <MDBCardBody color = "primary">
                     <Form>                      
-                      <h1>Login</h1>
-                      <p className="text-muted">Inicia sesion por favor</p>     
+                      <h1>Ingresar</h1>
                       <InputGroup   className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -98,31 +97,25 @@ handleError = (error) => {
                         </InputGroupAddon>
                         <Input id="password" onChange={this.handleInput} type="password" placeholder="Contraseña"/>
                       </InputGroup>
-                      <Row>
-                        <Col xs="6">
-                          <Button color="success" className="px-4" type='submit'>Entrar</Button>
-                        </Col>
-                        {/* <Col xs="6" className="text-right">
-                          <Button color="link" className="px-0" >Olvidaste tu Contraseña?</Button>
-                        </Col> */}
-                        {/* <Col>
-                        <Link to="/signup">
-                        <Button  color="primary" className="mt-3" active tabIndex={-1}>
-                            ¿No tienes una cuenta ?
-                            Regístrate ahora!</Button>
-                        </Link>
-                        
-                        </Col> */}
-
-
-                      </Row>
+                      <MDBRow>
+                        <MDBCol md="8">
+                          <MDBBtn color="success" className="px-4" type='submit'>Entrar</MDBBtn>
+                        </MDBCol>
+    
+                        <MDBCol>                   
+                        <Link to="/signup">                  
+                        <MDBBtn  color="primary" >
+                            Regístrate ahora!</MDBBtn>
+                        </Link>                        
+                        </MDBCol>
+                      </MDBRow>
                     </Form>
-                  </CardBody>
-                </Card>
-              </CardGroup>
-            </Col>
-          </Row>
-        </Container>
+                  </MDBCardBody>
+                </MDBCard>
+              
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
       </div>
       </form>
       </React.Fragment>
@@ -134,4 +127,4 @@ handleError = (error) => {
       );
   }
 }
-export default Login;
+// export default withRouter(Login) ;

@@ -1,29 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+// import { renderRoutes } from 'react-router-config';
+import '../src/App.scss';
+import { ApolloProvider } from 'react-apollo';
+import client from './Graphql';
 
-const Login = React.lazy(() => import('../src/components/views/Login/login'));
-const Signup = React.lazy(() => import('../src/components/views/SignUp/signup'));
-const Home = React.lazy(() => import('../src/components/Home/home'));
-const Cuestions = React.lazy(() => import('../src/components/addCuestions/cuestions'));
+const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
+const Login = React.lazy(() => import('./components/views/Login/login'));
+const SignUp = React.lazy(() => import('./components/views/SignUp/signup'));
+const Cuestions = React.lazy(() => import('./components//addCuestions/cuestions'));
+const Home = React.lazy(() => import('./components/Home/home'));
+const Dashboard = React.lazy(() => import('./components/dashboard/dashboard'));
+// const Loginprueba = React.lazy(() => import('./components/views/Login/login'));
 
-const Dashboard = React.lazy(() => import('../src/components/dashboard/dashboard'));
-
-
-
-const routes = [
-
-  { path: '/login', exact: true, name: 'Login', component:Login},
-  { path: '/signup', exact: true, name: 'Signup', component:Signup},
-  { path: '/Home', exact: true, name: 'Home', component:Home},
-  { path: '/cuestions', exact: true, name: 'Cuestions', component:Cuestions},
-  { path: '/Dashboard', exact: true, name: 'Dashboard', component:Dashboard},
-
-];
-
-export default routes;  
+// import "@fortawesome/fontawesome-free/css/all.min.css";
+// import "bootstrap-css-only/css/bootstrap.min.css";
+// import "mdbreact/dist/css/mdb.css";
 
 
+class Routes extends Component {
 
+  render() {
+    return (
+      <ApolloProvider client={client}>
+      <HashRouter>
+          <React.Suspense fallback={loading()}>
+            <Switch>
+              <Route exact path="/" name="Home Page" render={props => <Login {...props}/>} />
+              <Route exact path="/signup" name="SignUp Page" render={props => <SignUp {...props}/>} />
+              <Route exact path="/inicio" name="Inicio Page" render={props => <Home {...props}/>} />
+              <Route exact path="/cuestions" name="Cuestions Page" render={props => <Cuestions {...props}/>} />
+              <Route exact path="/das" name="Dashboard Page" render={props => <Dashboard {...props}/>} />
+              {/* <Route exact path="/loginprueba" name="Dashboard Page" render={props => <Loginprueba {...props}/>} /> */}
 
+            </Switch>
+          </React.Suspense>
+      </HashRouter>
 
+      </ApolloProvider>
+    );
+  }
+}
 
-
+export default Routes;
