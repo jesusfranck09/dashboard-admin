@@ -4,9 +4,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 // import ModalLogin from '../reciclaje/modalLogin'
 // import ModalSignup from '../views/Login/reciclaje/modalSignup'
 // import { Row, Col } from 'reactstrap'
-import Carrousell from './carrousel'
+import Sidebar from './sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
+import './index.css'
 
 
 class Home extends React.Component {
@@ -25,13 +26,15 @@ class Home extends React.Component {
     });
   }
   render() {
-    const bgPink = { backgroundColor: '#04B4AE' }
+    const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
     return (
       <div>
+
         <Router>
           <header>
-            <MDBNavbar style={bgPink} dark expand="md" scrolling fixed="top">
+          
+            <MDBNavbar className = "navbar" style={bgPink} dark expand="md" scrolling fixed="top">
               <MDBNavbarBrand href="/">
                 <AppNavbarBrand
                   full={{ src: logo, width: 89, height: 25, alt: 'ADS' }} />
@@ -41,10 +44,10 @@ class Home extends React.Component {
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav left>
                   <MDBNavItem active>
-                    <MDBNavLink to="#">Inicio</MDBNavLink>
+                    <MDBNavLink to="www.ads.com.mx">Inicio</MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink to="#">Sevicios</MDBNavLink>
+                    <MDBNavLink to="#/cuestions">Realizar encuesta</MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
                     <MDBNavLink to="#">Beneficios</MDBNavLink>
@@ -55,7 +58,8 @@ class Home extends React.Component {
                 </MDBNavbarNav>
                 <MDBNavbarNav right>
                   <MDBNavItem>
-                    <MDBNavLink to="#"><MDBIcon fab icon="facebook-f" /></MDBNavLink>
+                    Bienvenido
+                    {/* <MDBNavLink to="#">Bienvenido<MDBIcon fab icon="facebook-f" /></MDBNavLink> */}
                   </MDBNavItem>
                   {/* <Row>
                     <MDBNavItem>
@@ -70,11 +74,14 @@ class Home extends React.Component {
                 </MDBNavbarNav>
               </MDBCollapse>
             </MDBNavbar>
+            
           </header>
         </Router>
         <MDBContainer style={container} className="text-center mt-5 pt-5">
-          <Carrousell></Carrousell>
+         
         </MDBContainer>
+        
+        <Sidebar></Sidebar>
       </div>
     );
   }

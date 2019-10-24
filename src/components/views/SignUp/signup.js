@@ -75,7 +75,7 @@ handleData = (data) => {
     }
   localStorage.setItem('elToken', data.signup.token) 
   alert('Registro Exitoso');
-  this.props.history.push('/login');
+  this.props.history.push('/');
 }
 
 handleError = (error) => {
