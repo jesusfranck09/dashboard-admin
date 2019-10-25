@@ -4,8 +4,6 @@ import {  MDBInput, MDBBadge ,MDBBtn} from "mdbreact";
 import axios from 'axios';
 
 
-
-
  class Dashboard extends Component{
            
               constructor(props){
@@ -17,13 +15,6 @@ import axios from 'axios';
             }
 
             onClick = (nr , data) => () => {
-              this.setState({
-                radio: nr,
-                data
-              });
-             
-            }
-             onClick = (nr , data) => () => {
               this.setState({
                 radio: nr,
                 data

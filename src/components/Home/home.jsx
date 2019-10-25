@@ -1,13 +1,11 @@
 import React from 'react';
 import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBIcon } from 'mdbreact';
 import { BrowserRouter as Router } from 'react-router-dom';
-// import ModalLogin from '../reciclaje/modalLogin'
-// import ModalSignup from '../views/Login/reciclaje/modalSignup'
-// import { Row, Col } from 'reactstrap'
 import Sidebar from './sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import './index.css'
+import Company from '../views/addCompany/addCompany'
 
 
 class Home extends React.Component {
@@ -17,9 +15,7 @@ class Home extends React.Component {
       collapse: false,
     };
     this.onClick = this.onClick.bind(this);
-
   }
-
   onClick() {
     this.setState({
       collapse: !this.state.collapse,
@@ -30,15 +26,17 @@ class Home extends React.Component {
     const container = { width: 2500, height: 1300 }
     return (
       <div>
-
+        
         <Router>
           <header>
-          
             <MDBNavbar className = "navbar" style={bgPink} dark expand="md" scrolling fixed="top">
+            <Sidebar/>
               <MDBNavbarBrand href="/">
                 <AppNavbarBrand
+                
                   full={{ src: logo, width: 89, height: 25, alt: 'ADS' }} />
                 {/* <strong>Bienvenido</strong> */}
+               
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
@@ -57,10 +55,10 @@ class Home extends React.Component {
                   </MDBNavItem>
                 </MDBNavbarNav>
                 <MDBNavbarNav right>
-                  <MDBNavItem>
-                    Bienvenido
+                  {/* <MDBNavItem>
+                   
                     {/* <MDBNavLink to="#">Bienvenido<MDBIcon fab icon="facebook-f" /></MDBNavLink> */}
-                  </MDBNavItem>
+                  {/* </MDBNavItem> */}
                   {/* <Row>
                     <MDBNavItem>
                       <ModalLogin />
@@ -74,14 +72,13 @@ class Home extends React.Component {
                 </MDBNavbarNav>
               </MDBCollapse>
             </MDBNavbar>
-            
           </header>
         </Router>
+        
         <MDBContainer style={container} className="text-center mt-5 pt-5">
-         
+        <Company/>
         </MDBContainer>
         
-        <Sidebar></Sidebar>
       </div>
     );
   }
