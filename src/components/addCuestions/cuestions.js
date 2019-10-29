@@ -28,21 +28,6 @@ class Cuestions extends Component{
         this.setState({cuestions : [...this.state.cuestions,""]})
     }
 
-    // handleChange(e , index){
-    //     this.state.cuestions[index]=e.target.value
-    //     this.setState({cuestions : this.state.cuestions})
-    //     console.log("handle change" , this.state.cuestions)
-    // }
-
-    // handleRemove(index){
-    //     this.state.cuestions.splice(index,1)
-    //     console.log( this.state.cuestions ,"aqui se elimina")
-    //     this.setState({cuestions:this.state.cuestions})
-    // }
-    // handleSubmit(e){
-    //     console.log("este es lo que se envia",this.state.cuestions)
-
-    // }
 
     handleInput = (e) => {
       const {id, value} = e.target

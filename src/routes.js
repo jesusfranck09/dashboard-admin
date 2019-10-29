@@ -12,7 +12,7 @@ const Cuestions = React.lazy(() => import('./components//addCuestions/cuestions'
 const Home = React.lazy(() => import('./components/Home/home'));
 const Dashboard = React.lazy(() => import('./components/dashboard/dashboard'));
 const Company = React.lazy(() => import('./components/views/addCompany/addCompany'));
-
+const ProfileAdmin = React.lazy(() => import('./components/profiles/ProfileAmin'));
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 // import "bootstrap-css-only/css/bootstrap.min.css";
 // import "mdbreact/dist/css/mdb.css";
@@ -31,7 +31,8 @@ class Routes extends Component {
               <Route exact path="/inicio" name="Inicio Page" render={props => <Home {...props}/>} />
               <Route exact path="/cuestions" name="Cuestions Page" render={props => <Cuestions {...props}/>} />
               <Route exact path="/das" name="Dashboard Page" render={props => <Dashboard {...props}/>} />
-             <Route exact path="/company" name="company Page" render={props => <Company {...props}/>} /> */}
+              <Route exact path="/company" name="company Page" render={props => <Company {...props}/>} /> 
+              <Route exact path="/profileA" name="profile Page" render={props => <ProfileAdmin {...props}/>} />
 
             </Switch>
           </React.Suspense>

@@ -15,7 +15,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-
+import {Link} from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -127,10 +127,11 @@ export default function MiniDrawer() {
           </IconButton>
         </div>
         {/* <Divider /> */}
+        <Link to="/company" style={{ textDecoration: 'none' }}>
         <List >
-          {['Alta de Empresas', 'Seguimiento', 'Alta de Empleados', 'Resultados'].map((text, index) => (
+          {['Alta de Empresas'].map((text, index) => (
             <ListItem button key={text} >
-              <ListItemIcon>{index % 4 === 0 ? <PersonAddIcon /> : <MailIcon />  }</ListItemIcon>
+              <ListItemIcon>{index % 1 === 0 ? <PersonAddIcon /> : <MailIcon />  }</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -144,6 +145,7 @@ export default function MiniDrawer() {
             </ListItem>
           ))}
         </List>
+        </Link>
       </Drawer>
       <IconButton
             color="inherit"

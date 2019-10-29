@@ -1,35 +1,33 @@
-// import React, { useState } from 'react';
-// import { Button, Modal, ModalBody, } from 'reactstrap';
-// import Login from '../views/Login/login'
+import React, { useState } from 'react';
+import { Button, Modal, ModalBody, ModalFooter} from 'reactstrap';
+import Upload from '../Upload/Employes';
 
 
+const ModalPrueba = (props) => {
+  const {
+    buttonLabel,
+    className
+  } = props;
 
-// const ModalExample = (props) => {
-//   const {
-//     buttonLabel,
-//     className
-//   } = props;
+  const [modal, setModal] = useState(false);
 
-//   const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
 
-//   const toggle = () => setModal(!modal);
+  return (
+    <div>
+      <Button  color="primary" onClick={toggle}>{buttonLabel}Cargar Empleados</Button>
+      <Modal isOpen={modal} toggle={toggle} className={className} tabindex="-1">
+        {/* <ModalHeader toggle={toggle}></ModalHeader> */}
+        <ModalBody>
+        <Upload/>
+        </ModalBody>
+        {/* <ModalFooter>
+          
+          <Button color="secondary" onClick={toggle}>Cancel</Button>
+        </ModalFooter> */}
+      </Modal>
+    </div>
+  );
+}
 
-//   return (
-//     <div>
-//       <Button  color="secondary" onClick={toggle}>{buttonLabel}Iniciar Sesion</Button>
-//       <Modal isOpen={modal} toggle={toggle} className={className} tabindex="-1">
-//         {/* <ModalHeader toggle={toggle}></ModalHeader> */}
-//         <ModalBody>
-//          <Login ></Login>
-
-//         </ModalBody>
-//         {/* <ModalFooter>
-//           <Button color="primary" onClick={toggle}></Button>{' '}
-//           <Button color="secondary" onClick={toggle}>Cancel</Button>
-//         </ModalFooter> */}
-//       </Modal>
-//     </div>
-//   );
-// }
-
-// export default ModalExample ;
+export default ModalPrueba ;

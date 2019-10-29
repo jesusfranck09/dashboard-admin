@@ -26,11 +26,6 @@ import axios from 'axios';
 
             handleSubmit = event => {
               event.preventDefault();
-
-              // const datos = {
-              //   data: this.state.data,
-              //   datas:this.state.radio
-              // };
               const pregunta = this.state.data
               const radio =this.state.radio
               console.log("los datos en la promesa son  " , pregunta , radio)

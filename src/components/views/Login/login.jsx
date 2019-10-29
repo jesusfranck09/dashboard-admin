@@ -6,6 +6,7 @@ import logo from '../../images/logotipo.png'
 import { AppNavbarBrand } from '@coreui/react';
 
 
+
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -38,6 +39,7 @@ const LOGIN = gql`
     }
 `
 
+
 class Login extends React.Component {
     constructor(props){
         super(props);
@@ -47,6 +49,7 @@ class Login extends React.Component {
         
         }
       }
+
 
 //   handleTogglerClick = () => {
 //     this.setState({
@@ -80,6 +83,7 @@ handleInput = (e) => {
       } 
       //localStorage.setItem('elToken', data.login.token) 
     alert('Sesión iniciada exitosamente!');
+    
     this.props.history.push("/inicio")
   }
 

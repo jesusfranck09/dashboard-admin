@@ -3,23 +3,10 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-// import Box from '@material-ui/core/Box';
-//import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
-
-const REGISTERRS = gql`
-    mutation REGISTERRS($data:[String]!){
-        registerRS(data:$data){
-                message
-
-            }
-    }
-`
-
+import axios from 'axios';
 
   makeStyles(theme => ({
   '@global': {
@@ -49,16 +36,13 @@ const REGISTERRS = gql`
 
 const classes = makeStyles()
 
-
-
-
 class Cuestions extends Component{
 
     constructor(props){
         super(props);
         this.state = {           
-          data:[]
-
+          data:[],
+          
         }
       }
 
@@ -66,68 +50,53 @@ class Cuestions extends Component{
         
         const {id, value} = e.target
          this.setState({
-            [id]:value
-           
+            [id]:value,
         });
-        
-      }
-      
-    
-      
-      handleForm = (e, registerRS) => {
-        e.preventDefault();
-        // const rfc = this.state.rfc
-        // const razonSocial = this.state.razonsocial
-        // const empleados = this.state.empleados
-        // const representante = this.state.representante
-        // const direccion  = this.state.direccion
-        // const telefono  = this.state.telefono
-        // const correo   = this.state.correo 
-    
-        console.log('Enviando formulario...');
-      
-        registerRS({variables: { 
-            ...this.rfc,
-            ...this.razonSocial
-            
-        }});
-      }
-
-      
-      handleData = (data) => {
-        console.log("la data  que deberia ser es " , this.state)
-        alert('Registro Exitoso');
-     
-      }
-      
-      handleError = (error) => {
-        alert('Error en en el Registro...');
-      }
-
-  render(){
-    return (
-        <Mutation mutation={REGISTERRS}>
-        {
-(registerRS, {data, error, loading}) => {
-    if (loading) console.log(loading);
-   if (data) this.handleData(data);
-   if (error) this.handleError(error);
-
-
-  return (
-    <React.Fragment>
- <form onSubmit={e => this.handleForm(e, registerRS)}>
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
        
-        {/* <Avatar className={classes.avatar}>
-        <BusinessOutlinedIcon />
-        </Avatar> */}
+        console.log("el estado es ",this.state)
         
-        <Typography component="h1" variant="h5" style={{ color: '#AFE1CE' }}>
-         <strong>Razón Social</strong>
-        </Typography>
+      }
+
+      handleSubmit = event => {
+        event.preventDefault();
+        const rfc = this.state.rfc
+        const razonsocial =this.state.razonsocial
+        const empleados = this.state.empleados
+        const representante = this.state.representante
+        const direccion = this.state.direccion
+        const telefono =  this.state.telefono
+        const correo = this.state.correo
+      
+        const url = 'http://localhost:8000/graphql'
+        axios({
+          url:  url,
+          method:'post',
+          data:{
+          query:`
+           mutation{
+              registerRS(data:"${[rfc,razonsocial,empleados,representante,direccion,telefono,correo]}"){
+                message
+                  }
+                }
+              `
+          }
+              }).then((datos) => {
+                console.log("los datos son ",datos)
+                alert("Registro Exitoso");
+                this.props.history.push("/inicio")
+              });       
+            }
+
+      render(){
+      return (
+        <React.Fragment>
+          <form onSubmit={this.handleSubmit}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+             <Typography component="h1" variant="h5" style={{ color: '#AFE1CE' }}>
+               <strong>Razón Social</strong>
+              </Typography>
       
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -226,7 +195,7 @@ class Cuestions extends Component{
               />
               
             </Grid>
-        
+ 
           <Button
             type="submit"
             fullWidth
@@ -236,22 +205,16 @@ class Cuestions extends Component{
           >
            <strong>Registrar mi Empresa</strong> 
           </Button>
-       
           </Grid>
-        
         </form>
       </div>
     </Container>
-    </form>
+    </form> 
     </React.Fragment>
                     );    
-                }           
-            }
-        </Mutation>
 
-    )
-  }
-  }
+             }
+        }
 
 
 export default Cuestions
