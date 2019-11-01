@@ -8,66 +8,79 @@ class SheetJSApp extends React.Component {
 		super(props);
 		this.state = {
 			data: [],
-			cols: []
+			open: true 
 		};
 		this.handleFile = this.handleFile.bind(this);
 		this.exportFile = this.exportFile.bind(this);
-    };
+	};
+	
 
-    
+
+
     handleSubmit = event => {
-        event.preventDefault();
-      
-        
-       for (var i=0; i< this.state.data.length; i++)
-       {
-           var hotel = this.state.data[i];
-       
-          
-        console.log("el hotel es " , hotel)
-        
-            const url = 'http://localhost:8000/graphql'
-            axios({
-                url:  url,
-                method:'post',
-               
-                query:`
-                mutation{
-                    registerRS(data:"${hotel }"){
-                    message
-                        }
-                    }
-                    `
-                    }).then((datoos) => {
-                 
-                    })
-                    .catch(error => {
-                        console.log("este es el error en el catch" , error.response.data)
-                    });
-                    
-                    ;
-       }
+		event.preventDefault();
+	
+        for (var i=0; i< this.state.data.length; i++)
+     	  {
+			console.log(this.state.data[i])
+				const url  = 'http://localhost:8000/graphql'
+				var estado = this.state.data[i]				
+				const query =  `
+				mutation {
+					registerEmployee(
+						data:["${estado}"]
+						
+					){
+						message
+					}
+				}
+				`;
+				console.log("la query" ,  query)
 
-            }
-      
+				axios({
+
+				url:  url,
+				method: 'post',
+				data: {
+					query,
+
+					variables: {
+						data: `${estado}`
+					}
+				}
+				
+				}).then((result) => {
+					console.log(".then" , result.data)
+					this.toggle()
+				})
+
+
+				.catch((error) => {
+					console.log(".cartch" , error.response)
+				});
+					
+
+						}
+	}
+
 
 	handleFile(file) {
 		const reader = new FileReader();
 		const rABS = !!reader.readAsBinaryString;
 		reader.onload = (e) => {
-			
+
 			const bstr = e.target.result;
 
 			const wb = XLSX.read(bstr, { type: rABS ? 'binary' : 'array' });
-		
+
 			const wsname = wb.SheetNames[0];
 			const ws = wb.Sheets[wsname];
 
 			const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
 			//aqui podemos visualizar la data
-            this.setState({ data: data, cols: make_cols(ws['!ref']) });
-        
-            
+            this.setState({ data: data});
+
+
 		};
 		if (rABS) reader.readAsBinaryString(file); else reader.readAsArrayBuffer(file);
 	};
@@ -76,10 +89,6 @@ class SheetJSApp extends React.Component {
 		const wb = XLSX.utils.book_new();
 		XLSX.utils.book_append_sheet(wb, ws, "SheetJS");
         XLSX.writeFile(wb, "sheetjs.xlsx")
-    
-
-
-        
 
 	};
 	render() {
@@ -89,7 +98,7 @@ class SheetJSApp extends React.Component {
 				<div className="row"><div className="col-xs-12">
 					<DataInput handleFile={this.handleFile} />
                     <MDBCol className=" text-center mt-2 pt-2 ml-4" >
-                    <MDBBtn color="success" type="submit" onClick={this.handleSubmit}>Cargar</MDBBtn>
+                    <MDBBtn className="boton" disabled={!this.state.data.length}  className = "boton" color="info" type="submit" onClick={this.handleSubmit}>Cargar</MDBBtn>
                     </MDBCol> 
 				</div> </div>
 				{/* <div className="row"><div className="col-xs-12">
@@ -99,8 +108,8 @@ class SheetJSApp extends React.Component {
 					<OutTable data={this.state.data} cols={this.state.cols} />
 				</div></div> */}
 			</DragDropFile>
-			
-	  
+
+
 		);
 	};
 };
@@ -109,7 +118,7 @@ class DragDropFile extends React.Component {
 	constructor(props) {
 		super(props);
 		this.onDrop = this.onDrop.bind(this);
-		
+
 	};
 	suppress(evt) { evt.stopPropagation(); evt.preventDefault(); };
 	onDrop(evt) {
@@ -119,12 +128,12 @@ class DragDropFile extends React.Component {
 	};
 	render() {
 		return (
-			
-			
+
+
 			<div onDrop={this.onDrop} onDragEnter={this.suppress} onDragOver={this.suppress}>
 				{this.props.children}
 			</div>
-		
+
 		);
 	};
 };
@@ -138,24 +147,22 @@ class DataInput extends React.Component {
 	handleChange(e) {
 		const files = e.target.files;
 		if (files && files[0]) this.props.handleFile(files[0]);
-	
+
 
 	};
 
 	render() {
 		return (
-			
+
 			<form > 
 				<div className="form-group">
                 <MDBBadge tag="b"  color="success " mb="7rem" ><strong>Por favor seleccione su base de datos, Puede cargar archivos ("xlsx","csv")</strong></MDBBadge>
                 <input type="file" className="form-control" id="file" accept={SheetJSFT} onChange={this.handleChange} />
-                  
+
                 </div>
-           
-             
+
+
                 </form>
-			 
-		
 		);
 	};
 }

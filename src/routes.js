@@ -13,6 +13,9 @@ const Home = React.lazy(() => import('./components/Home/home'));
 const Dashboard = React.lazy(() => import('./components/dashboard/dashboard'));
 const Company = React.lazy(() => import('./components/views/addCompany/addCompany'));
 const ProfileAdmin = React.lazy(() => import('./components/profiles/ProfileAmin'));
+
+
+
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 // import "bootstrap-css-only/css/bootstrap.min.css";
 // import "mdbreact/dist/css/mdb.css";
