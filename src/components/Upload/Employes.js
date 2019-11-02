@@ -2,20 +2,20 @@ import React from 'react'
 import XLSX from 'xlsx'
 import { MDBBadge ,MDBBtn ,MDBCol} from "mdbreact";
 import axios from 'axios';
+import Table from '../Home/table'
+import ReactDom from 'react-dom'
+import { readdirSync } from 'fs';
 
 class SheetJSApp extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			data: [],
-			open: true 
+		 
 		};
 		this.handleFile = this.handleFile.bind(this);
 		this.exportFile = this.exportFile.bind(this);
 	};
-	
-
-
 
     handleSubmit = event => {
 		event.preventDefault();
@@ -24,12 +24,11 @@ class SheetJSApp extends React.Component {
      	  {
 			console.log(this.state.data[i])
 				const url  = 'http://localhost:8000/graphql'
-				var estado = this.state.data[i]				
+				var estado = this.state.data[i]			
 				const query =  `
 				mutation {
 					registerEmployee(
-						data:["${estado}"]
-						
+						data:["${estado}"]	
 					){
 						message
 					}
@@ -49,19 +48,17 @@ class SheetJSApp extends React.Component {
 					}
 				}
 				
-				}).then((result) => {
+					}).then((result) => {
 					console.log(".then" , result.data)
-					this.toggle()
-				})
-
-
-				.catch((error) => {
-					console.log(".cartch" , error.response)
-				});
 					
-
-						}
-	}
+					})
+					 .catch((error) => {
+					 console.log(".cartch" , error.response)
+				});
+				};
+					alert("Personal Registrado")
+					
+				}
 
 
 	handleFile(file) {
@@ -79,8 +76,6 @@ class SheetJSApp extends React.Component {
 			const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
 			//aqui podemos visualizar la data
             this.setState({ data: data});
-
-
 		};
 		if (rABS) reader.readAsBinaryString(file); else reader.readAsArrayBuffer(file);
 	};
@@ -91,15 +86,15 @@ class SheetJSApp extends React.Component {
         XLSX.writeFile(wb, "sheetjs.xlsx")
 
 	};
+	
 	render() {
 		return (
-
 				<DragDropFile handleFile={this.handleFile}>	
 				<div className="row"><div className="col-xs-12">
 					<DataInput handleFile={this.handleFile} />
                     <MDBCol className=" text-center mt-2 pt-2 ml-4" >
-                    <MDBBtn className="boton" disabled={!this.state.data.length}  className = "boton" color="info" type="submit" onClick={this.handleSubmit}>Cargar</MDBBtn>
-                    </MDBCol> 
+                    <MDBBtn className="boton" disabled={!this.state.data.length}  color="info" type="submit" onClick={this.handleSubmit }  >Cargar </MDBBtn>
+                    </MDBCol> 		
 				</div> </div>
 				{/* <div className="row"><div className="col-xs-12">
 					<button disabled={!this.state.data.length} className="btn btn-success" onClick={this.exportFile}>Export</button>
@@ -107,12 +102,11 @@ class SheetJSApp extends React.Component {
 				{/* <div className="row"><div className="col-xs-12">
 					<OutTable data={this.state.data} cols={this.state.cols} />
 				</div></div> */}
-			</DragDropFile>
-
-
+			</DragDropFile>	
 		);
 	};
 };
+
 
 class DragDropFile extends React.Component {
 	constructor(props) {
@@ -147,8 +141,6 @@ class DataInput extends React.Component {
 	handleChange(e) {
 		const files = e.target.files;
 		if (files && files[0]) this.props.handleFile(files[0]);
-
-
 	};
 
 	render() {
@@ -158,10 +150,7 @@ class DataInput extends React.Component {
 				<div className="form-group">
                 <MDBBadge tag="b"  color="success " mb="7rem" ><strong>Por favor seleccione su base de datos, Puede cargar archivos ("xlsx","csv")</strong></MDBBadge>
                 <input type="file" className="form-control" id="file" accept={SheetJSFT} onChange={this.handleChange} />
-
                 </div>
-
-
                 </form>
 		);
 	};

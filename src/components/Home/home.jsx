@@ -1,11 +1,11 @@
 import React from 'react';
-import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink} from 'mdbreact';
+import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
 import Sidebar from './sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import './index.css'
 import Table from './table'
-import Modal from '../reciclaje/modalLogin'
+import Modal from '../Upload/modalUpload'
 
 class Home extends React.Component {
   constructor(props) {
@@ -35,9 +35,7 @@ class Home extends React.Component {
               <MDBNavbarBrand href="/">
                 <AppNavbarBrand
                 
-                  full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />
-                {/* <strong>Bienvenido</strong> */}
-               
+                  full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
