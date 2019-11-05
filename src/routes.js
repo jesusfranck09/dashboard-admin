@@ -12,7 +12,9 @@ const Cuestions = React.lazy(() => import('./components//addCuestions/cuestions'
 const Home = React.lazy(() => import('./components/Home/home'));
 const Dashboard = React.lazy(() => import('./components/dashboard/dashboard'));
 const Company = React.lazy(() => import('./components/views/addCompany/addCompany'));
-const ProfileAdmin = React.lazy(() => import('./components/profiles/ProfileAmin'));
+const Employees = React.lazy(() => import('./components/Upload/modalUpload'));
+const Table = React.lazy(() => import('./components/Home/table'));
+
 
 
 
@@ -35,7 +37,8 @@ class Routes extends Component {
               <Route exact path="/cuestions" name="Cuestions Page" render={props => <Cuestions {...props}/>} />
               <Route exact path="/das" name="Dashboard Page" render={props => <Dashboard {...props}/>} />
               <Route exact path="/company" name="company Page" render={props => <Company {...props}/>} /> 
-              <Route exact path="/profileA" name="profile Page" render={props => <ProfileAdmin {...props}/>} />
+              <Route exact path="/table" name="table Page" render={props => <Table {...props}/>} />
+              <Route exact path="/employees" name="employee Page" render={props => <Employees {...props}/>} />
 
             </Switch>
           </React.Suspense>

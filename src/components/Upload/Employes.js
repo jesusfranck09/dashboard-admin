@@ -2,9 +2,9 @@ import React from 'react'
 import XLSX from 'xlsx'
 import { MDBBadge ,MDBBtn ,MDBCol} from "mdbreact";
 import axios from 'axios';
-import Table from '../Home/table'
-import ReactDom from 'react-dom'
-import { readdirSync } from 'fs';
+import { Alert } from 'reactstrap';
+// import ReactDom from 'react-dom'
+// import { readdirSync } from 'fs';
 
 class SheetJSApp extends React.Component {
 	constructor(props) {
@@ -89,12 +89,14 @@ class SheetJSApp extends React.Component {
 	
 	render() {
 		return (
-				<DragDropFile handleFile={this.handleFile}>	
+
+			 	<DragDropFile handleFile={this.handleFile}>	
 				<div className="row"><div className="col-xs-12">
 					<DataInput handleFile={this.handleFile} />
                     <MDBCol className=" text-center mt-2 pt-2 ml-4" >
-                    <MDBBtn className="boton" disabled={!this.state.data.length}  color="info" type="submit" onClick={this.handleSubmit }  >Cargar </MDBBtn>
-                    </MDBCol> 		
+                    <MDBBtn className="boton" disabled={!this.state.data.length}  color="info" type="submit" onClick={this.handleSubmit } >Cargar </MDBBtn>
+                 
+					</MDBCol> 		
 				</div> </div>
 				{/* <div className="row"><div className="col-xs-12">
 					<button disabled={!this.state.data.length} className="btn btn-success" onClick={this.exportFile}>Export</button>
@@ -148,8 +150,7 @@ class DataInput extends React.Component {
 
 			<form > 
 				<div className="form-group">
-                <MDBBadge tag="b"  color="success " mb="7rem" ><strong>Por favor seleccione su base de datos, Puede cargar archivos ("xlsx","csv")</strong></MDBBadge>
-                <input type="file" className="form-control" id="file" accept={SheetJSFT} onChange={this.handleChange} />
+				<Alert color="primary">Por favor seleccione su base de datos, Puede cargar archivos ("xlsx","csv")</Alert>   <input type="file" className="form-control" id="file" accept={SheetJSFT} onChange={this.handleChange} />
                 </div>
                 </form>
 		);
@@ -188,7 +189,7 @@ const SheetJSFT = [
 const make_cols = refstr => {
 	let o = [], C = XLSX.utils.decode_range(refstr).e.c + 1;
 	for (var i = 0; i < C; ++i) o[i] = { name: XLSX.utils.encode_col(i), key: i }
-	return o;
+	return o; 
 
 };
 
