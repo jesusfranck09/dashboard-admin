@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { InputGroup, InputGroupAddon, InputGroupText,Input } from 'reactstrap';
 import logo from '../../images/logotipo.png'
 import { AppNavbarBrand } from '@coreui/react';
-
+import Home from '../../Home/home'
 
 
 import {
@@ -57,6 +57,7 @@ class Login extends React.Component {
 //     });
 //   };
 
+
 handleInput = (e) => {
     const {id, value} = e.target
      this.setState({
@@ -78,22 +79,15 @@ handleInput = (e) => {
         alert('Error en login...');
         return false;
       }
-      if (data=! undefined){
-      console.log("la data ha llegado " ,  data) 
-      } 
       //localStorage.setItem('elToken', data.login.token) 
     alert('Sesión iniciada exitosamente!');
-    
-    this.props.history.push("/inicio")
+    this.props.history.push("/inicio")    
   }
-
 
   handleError = (error) => {
     console.log(error);
     alert('Error en login...');
   }
-
-
 
   render() {
     const overlay = (
@@ -223,7 +217,7 @@ handleInput = (e) => {
 
                     </MDBCard>
                     <strong>NORMA OFICIAL MEXICANA NOM-035-STPS-2018, FACTORES DE RIESGO PSICOSOCIAL EN EL
-TRABAJO-IDENTIFICACIÓN, ANÁLISIS Y PREVENCIÓN</strong>
+                      TRABAJO-IDENTIFICACIÓN, ANÁLISIS Y PREVENCIÓN</strong>
                   </MDBAnimation>
                 </MDBCol>
                 <MDBCol md="6" xl="5" className="mt-xl-5">

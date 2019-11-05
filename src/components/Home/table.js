@@ -6,6 +6,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import { Card } from '@material-ui/core';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,10 +48,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ScrollableTabsButtonAuto() {
+export default function ScrollableTabsButtonAuto(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -67,18 +68,18 @@ export default function ScrollableTabsButtonAuto() {
           aria-label="scrollable auto tabs example"
         >
           <Tab label="Tabla de Clientes" {...a11yProps(0)} />
-          <Tab label="Enviar" {...a11yProps(1)} />
+          {/* <Tab label="Enviar" {...a11yProps(1)} />
           <Tab label="Estadisticas" {...a11yProps(2)} />
           <Tab label="Ranking" {...a11yProps(3)} />
-          <Tab label="Status" {...a11yProps(4)} />
+          <Tab label="Status" {...a11yProps(4)} /> */}
           {/* <Tab label="" {...a11yProps(5)} />
           <Tab label="Item Seven" {...a11yProps(6)} /> */}
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        Item One
+    
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      {/* <TabPanel value={value} index={1}>
         Item Two
       </TabPanel>
       <TabPanel value={value} index={2}>
@@ -89,7 +90,7 @@ export default function ScrollableTabsButtonAuto() {
       </TabPanel>
       <TabPanel value={value} index={4}>
         Item Five
-      </TabPanel>
+      </TabPanel> */}
       {/* <TabPanel value={value} index={5}>
         Item Six
       </TabPanel>
