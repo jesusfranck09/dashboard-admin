@@ -24,7 +24,7 @@ const SIGNUP = gql`
                 password: $password
               
             }){
-                token
+             
                 message
             }
     }
@@ -68,18 +68,19 @@ handleForm = (e, signup) => {
 }
 
 handleData = (data) => {
-  if (data.signup.token === 'ERROR'){
-    console.log("el token es "+ data.signup.token)
-      alert('hubo un error ...');
-      return false;
-    }
-  localStorage.setItem('elToken', data.signup.token) 
+  // if (data.signup.token === 'ERROR'){
+  //   console.log("el token es "+ data.signup.token)
+  //     alert('hubo un error ...');
+  //     return false;
+  //   }
+  // localStorage.setItem('elToken', data.signup.token) 
   alert('Registro Exitoso');
   this.props.history.push('/');
 }
 
 handleError = (error) => {
   alert('Error en en el Registro...');
+  console.log("el error es " , error.response)
 }
   render() {
    

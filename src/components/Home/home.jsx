@@ -4,15 +4,7 @@ import Sidebar from './sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import './index.css'
-import { isAuthenticated } from '../utils';
 
-import { Link } from 'react-router-dom';
-import {
-
-  NavItem,
-  NavLink,
-  } from 'reactstrap';
- 
 
 class Home extends React.Component {
   constructor(props) {
@@ -20,7 +12,7 @@ class Home extends React.Component {
     this.state = {
       collapse: false,
       isOpen: false,
-      auth: isAuthenticated()
+    
     };
     this.onClick = this.onClick.bind(this);
   }
@@ -30,48 +22,6 @@ class Home extends React.Component {
     });
   }
 
-
-  renderAuth = () => {
-    console.log(this.state.auth);
-    if( !this.state.auth ){
-      return <React.Fragment>
-                <NavItem>
-                  <NavLink>
-                    <Link 
-                      style={{
-                        textDecoration: 'none',
-                        color: 'white'
-                      }}
-                      to="/signup">Signup</Link>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink>
-                    <Link
-                      style={{
-                        textDecoration: 'none',
-                        color: 'white'
-                      }} 
-                      to="/login">Login</Link>
-                  </NavLink>
-                </NavItem>
-              </React.Fragment>
-    } else {
-      return <React.Fragment>
-      <NavItem>
-        <NavLink>
-          <Link 
-            style={{
-              textDecoration: 'none',
-              color: 'white'
-            }}
-            to="/logout">Logout</Link>
-        </NavLink>
-      </NavItem>
-    </React.Fragment>
-    }
-    }
-  
   render() {
     const { children, ...attributes } = this.props;
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }

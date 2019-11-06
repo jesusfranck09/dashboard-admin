@@ -33,7 +33,6 @@ import gql from 'graphql-tag';
 const LOGIN = gql`
     mutation LOGIN($email: String!, $password: String!){
         login(email: $email, password: $password){
-            token
             message
         }
     }
@@ -75,7 +74,7 @@ handleInput = (e) => {
   
   handleData = (data) => {
     if (data.login.token === 'ERROR'){
-      console.log("el token es "+ data.login.token)
+
         alert('Error en login...');
         return false;
       }

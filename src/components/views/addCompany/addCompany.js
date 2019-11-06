@@ -83,7 +83,7 @@ class Cuestions extends Component{
               }).then((datos) => {
                 console.log("los datos son ",datos)
                 alert("Registro Exitoso");
-                this.props.history.push("/inicio")
+                // this.props.history.push("/inicio")
               });       
             }
 
