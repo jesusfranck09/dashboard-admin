@@ -8,6 +8,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 
+import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
+import Sidebar from '../../Home/sidebar'
+import { AppNavbarBrand } from '@coreui/react';
+import logo from '../../../components/images/logotipo.png'
+import '../../Home/index.css'
+
+
   makeStyles(theme => ({
   '@global': {
     body: {
@@ -42,10 +49,17 @@ class Cuestions extends Component{
         super(props);
         this.state = {           
           data:[],
-          
+          collapse: false,
+          isOpen: false,
         }
+        this.onClick = this.onClick.bind(this);
       }
 
+      onClick() {
+        this.setState({
+          collapse: !this.state.collapse,
+        });
+      }
     handleInput = (e) => {
         
         const {id, value} = e.target
@@ -88,8 +102,44 @@ class Cuestions extends Component{
             }
 
       render(){
+    const { children, ...attributes } = this.props;
+    const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
+    const container = { width: 2500, height: 1300 }
       return (
         <React.Fragment>
+            <div>
+            <header>  
+              <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
+              <Sidebar/>
+                <MDBNavbarBrand href="/inicio">
+                  <AppNavbarBrand
+                    full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
+                </MDBNavbarBrand>
+                <MDBNavbarToggler onClick={this.onClick} />
+                <MDBCollapse isOpen={this.state.collapse} navbar>
+                  <MDBNavbarNav left>
+                    <MDBNavItem active>
+                      <MDBNavLink to="/employees">Cargar Empleados</MDBNavLink>
+                    </MDBNavItem>
+                    <MDBNavItem>
+                      <MDBNavLink to="#">Beneficios</MDBNavLink>
+                    </MDBNavItem>
+                    <MDBNavItem>
+                      <MDBNavLink to="#">Opciones</MDBNavLink>
+                    </MDBNavItem>
+                  </MDBNavbarNav>
+                  <MDBNavbarNav right>
+                  <MDBNavItem>
+                    <MDBNavLink to="#">Mi Perfil</MDBNavLink>
+                  </MDBNavItem>
+  
+                  </MDBNavbarNav>
+                </MDBCollapse>
+                
+              </MDBNavbar>
+            </header>
+          <MDBContainer style={container} className="text-center mt-2 pt-5">
+      
           <form onSubmit={this.handleSubmit}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -210,6 +260,15 @@ class Cuestions extends Component{
       </div>
     </Container>
     </form> 
+          {/* <MDBDataTable /> */}
+          </MDBContainer>
+      
+        </div>
+
+
+
+
+          
     </React.Fragment>
                     );    
 

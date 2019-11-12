@@ -57,6 +57,8 @@ class SheetJSApp extends React.Component {
 				});
 				};
 					alert("Personal Registrado")
+				
+
 					
 				}
 

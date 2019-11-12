@@ -32,10 +32,9 @@ class Home extends React.Component {
       <React.Fragment>
       <div>
           <header>
-      
             <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
             <Sidebar/>
-              <MDBNavbarBrand href="/">
+              <MDBNavbarBrand href="/inicio">
                 <AppNavbarBrand
                   full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
               </MDBNavbarBrand>
@@ -56,10 +55,8 @@ class Home extends React.Component {
                 <MDBNavItem>
                   <MDBNavLink to="#">Mi Perfil</MDBNavLink>
                 </MDBNavItem>
-
                 </MDBNavbarNav>
               </MDBCollapse>
-              
             </MDBNavbar>
           </header>
         <MDBContainer style={container} className="text-center mt-2 pt-5">
