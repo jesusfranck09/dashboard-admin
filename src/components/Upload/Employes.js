@@ -12,6 +12,8 @@ class SheetJSApp extends React.Component {
 		super(props);
 		this.state = {
 			data: [],
+			emailAdmin:[],
+			passAdmin:[]
 	
 		};
 		this.handleFile = this.handleFile.bind(this);
@@ -20,12 +22,9 @@ class SheetJSApp extends React.Component {
 
     handleSubmit = event => {
 		event.preventDefault();
-		const uri  = 'http://localhost:8000/graphql'
-		const token = localStorage.getItem('elToken')
-		let pl = payload(token);
 
-		const hola = "hola"
-
+		console.log("el estado en la posicion local es " ,  this.state.emailAdmin,this.state.passAdmin)
+ 
         for (var i=0; i< this.state.data.length; i++)
      	  {
 			// console.log(this.state.data[i])
@@ -34,8 +33,7 @@ class SheetJSApp extends React.Component {
 				const query =  `
 				mutation {
 					registerEmployee(
-						data:["${estado}"],
-						email:"${hola}"
+						data:["${estado},${this.state.emailAdmin},${this.state.passAdmin}"]
 					){
 						message
 					}
@@ -47,9 +45,7 @@ class SheetJSApp extends React.Component {
 				data: {
 					query,
 					variables: {
-						data: `${estado}`,
-
-						email:`${hola}`
+						data: `${estado}`
 					}
 				}
 					}).then((result) => {
@@ -97,8 +93,13 @@ class SheetJSApp extends React.Component {
 			const ws = wb.Sheets[wsname];
 
 			const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+			const token = localStorage.getItem('elToken')
+			let pl = payload(token);
+			var correoAdmin  = pl.email
+			var passAdmin = pl.password 
+
 			//aqui podemos visualizar la data
-            this.setState({ data: data});
+            this.setState({ data: data, emailAdmin:correoAdmin,passAdmin:passAdmin });
 		};
 		if (rABS) reader.readAsBinaryString(file); else reader.readAsArrayBuffer(file);
 	};
