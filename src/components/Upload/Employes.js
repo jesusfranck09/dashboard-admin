@@ -3,6 +3,7 @@ import XLSX from 'xlsx'
 import { MDBBadge ,MDBBtn ,MDBCol} from "mdbreact";
 import axios from 'axios';
 import { Alert } from 'reactstrap';
+import payload from '../../resolvers/payload';
 // import ReactDom from 'react-dom'
 // import { readdirSync } from 'fs';
 
@@ -11,7 +12,7 @@ class SheetJSApp extends React.Component {
 		super(props);
 		this.state = {
 			data: [],
-		 
+	
 		};
 		this.handleFile = this.handleFile.bind(this);
 		this.exportFile = this.exportFile.bind(this);
@@ -19,47 +20,67 @@ class SheetJSApp extends React.Component {
 
     handleSubmit = event => {
 		event.preventDefault();
-	
+		const uri  = 'http://localhost:8000/graphql'
+		const token = localStorage.getItem('elToken')
+		let pl = payload(token);
+
+		const hola = "hola"
+
         for (var i=0; i< this.state.data.length; i++)
      	  {
-			console.log(this.state.data[i])
+			// console.log(this.state.data[i])
 				const url  = 'http://localhost:8000/graphql'
-				var estado = this.state.data[i]			
+				var estado = this.state.data[i]	
 				const query =  `
 				mutation {
 					registerEmployee(
-						data:["${estado}"]	
+						data:["${estado}"],
+						email:"${hola}"
 					){
 						message
 					}
 				}
 				`;
-				console.log("la query" ,  query)
-
 				axios({
-
 				url:  url,
 				method: 'post',
 				data: {
 					query,
-
 					variables: {
-						data: `${estado}`
+						data: `${estado}`,
+
+						email:`${hola}`
 					}
 				}
-				
 					}).then((result) => {
-					console.log(".then" , result.data)
-					
 					})
 					 .catch((error) => {
 					 console.log(".cartch" , error.response)
 				});
 				};
-					alert("Personal Registrado")
 				
 
-					
+				// const correoAdmin =  pl.email
+				// const passAdmin = pl.password
+				// console.log("correoAdmin " , correoAdmin)
+				// console.log("passadmin", passAdmin)
+				// axios({
+				// 	url:  uri,
+				// 	method:'post',
+				// 	data:{
+				// 	query:`
+				// 	 mutation{
+				// 		fkEmployee(email:"${correoAdmin}", password:"${passAdmin}"){
+				// 		  message
+				// 			}
+				// 		  }
+				// 		`
+				// 	}
+				// 		}).then((datos) => {
+				// 		  console.log("los datos son ",datos)
+				// 		  alert("Registro Exitoso");
+				// 		  // this.props.history.push("/inicio")
+				// 		}); 
 				}
 
 

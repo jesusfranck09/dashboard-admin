@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
+import payload from '../../../resolvers/payload';
 
 import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
 import Sidebar from '../../Home/sidebar'
@@ -43,6 +44,10 @@ import '../../Home/index.css'
 
 const classes = makeStyles()
 
+
+
+
+
 class Cuestions extends Component{
 
     constructor(props){
@@ -51,6 +56,7 @@ class Cuestions extends Component{
           data:[],
           collapse: false,
           isOpen: false,
+          localstorage:[]
         }
         this.onClick = this.onClick.bind(this);
       }
@@ -74,12 +80,20 @@ class Cuestions extends Component{
       handleSubmit = event => {
         event.preventDefault();
         const rfc = this.state.rfc
-        const razonsocial =this.state.razonsocial
+        const razonsocial = this.state.razonsocial
         const empleados = this.state.empleados
         const representante = this.state.representante
         const direccion = this.state.direccion
         const telefono =  this.state.telefono
         const correo = this.state.correo
+    
+
+        const token = localStorage.getItem('elToken')
+        let pl = payload(token);
+
+        const correoAdmin =  pl.email
+        const passAdmin = pl.password
+
       
         const url = 'http://localhost:8000/graphql'
         axios({
@@ -88,7 +102,7 @@ class Cuestions extends Component{
           data:{
           query:`
            mutation{
-              registerRS(data:"${[rfc,razonsocial,empleados,representante,direccion,telefono,correo]}"){
+              registerRS(data:"${[rfc,razonsocial,empleados,representante,direccion,telefono,correo,correoAdmin,passAdmin]}"){
                 message
                   }
                 }

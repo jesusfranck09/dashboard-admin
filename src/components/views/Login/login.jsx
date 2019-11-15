@@ -4,7 +4,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { InputGroup, InputGroupAddon, InputGroupText,Input } from 'reactstrap';
 import logo from '../../images/logotipo.png'
 import { AppNavbarBrand } from '@coreui/react';
-import Home from '../../Home/home'
 
 
 import {
@@ -34,6 +33,7 @@ const LOGIN = gql`
     mutation LOGIN($email: String!, $password: String!){
         login(email: $email, password: $password){
             message
+            token
         }
     }
 `
@@ -78,7 +78,7 @@ handleInput = (e) => {
         alert('Error en login...');
         return false;
       }
-      //localStorage.setItem('elToken', data.login.token) 
+      localStorage.setItem('elToken', data.login.token) 
     alert('Sesión iniciada exitosamente!');
     this.props.history.push("/inicio")    
   }

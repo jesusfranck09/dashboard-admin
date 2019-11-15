@@ -26,6 +26,7 @@ const SIGNUP = gql`
             }){
              
                 message
+                token
             }
     }
 `
