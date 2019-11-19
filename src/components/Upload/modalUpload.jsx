@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalBody, ModalFooter} from 'reactstrap';
 import Upload from './Employes';
 
-import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
+import {MDBRow, MDBCol, MDBInput,MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
 import Sidebar from '../Home/sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import '../Home/index.css'
+import FormEmployee from './formEmployee'
 
 
 class CargarArchivos extends React.Component {
@@ -63,8 +64,14 @@ class CargarArchivos extends React.Component {
             </MDBNavbar>
           </header>
         <MDBContainer style={container} className="text-center mt-2 pt-5">
-    
-      <ModalPrueba></ModalPrueba>
+
+      <MDBRow>
+        <MDBCol><FormEmployee/></MDBCol> <MDBCol  md="3" className="white-text text-center text-md-left mt-xl-5 mb-5"><strong>¿Desea cargar por csv o xls?</strong> <ModalPrueba/></MDBCol> 
+      </MDBRow>
+      
+
+
+
         {/* <MDBDataTable /> */}
         </MDBContainer>
     
