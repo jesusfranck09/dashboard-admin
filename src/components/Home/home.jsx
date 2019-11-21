@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
+import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink} from 'mdbreact';
 import Sidebar from './sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
@@ -23,7 +23,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { children, ...attributes } = this.props;
+    // const { children} = this.props;
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
     return (

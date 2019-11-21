@@ -1,6 +1,6 @@
 import React from 'react'
 import XLSX from 'xlsx'
-import { MDBBadge ,MDBBtn ,MDBCol} from "mdbreact";
+import {MDBBtn ,MDBCol} from "mdbreact";
 import axios from 'axios';
 import { Alert } from 'reactstrap';
 import payload from '../../resolvers/payload';
@@ -210,11 +210,11 @@ const SheetJSFT = [
 ].map(function (x) { return "." + x; }).join(",");
 
 
-const make_cols = refstr => {
-	let o = [], C = XLSX.utils.decode_range(refstr).e.c + 1;
-	for (var i = 0; i < C; ++i) o[i] = { name: XLSX.utils.encode_col(i), key: i }
-	return o; 
+// const make_cols = refstr => {
+// 	let o = [], C = XLSX.utils.decode_range(refstr).e.c + 1;
+// 	for (var i = 0; i < C; ++i) o[i] = { name: XLSX.utils.encode_col(i), key: i }
+// 	return o; 
 
-};
+// };
 
 export default SheetJSApp;

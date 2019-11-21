@@ -91,7 +91,7 @@ class TableEmployees extends React.Component {
 
 
   render() {
-    const { children, ...attributes } = this.props;
+    // const { children, ...attributes } = this.props;
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
     return (
@@ -179,7 +179,7 @@ const useStyles = makeStyles(theme => ({
     console.log("estas son las props en densetable" , props.data.getUsersTableEmployees)
   };
 
-  if(props!=undefined){
+  if(props !== undefined){
   return (
     <div className={classes.root}>
       <Paper >

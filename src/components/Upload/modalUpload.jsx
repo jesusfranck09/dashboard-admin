@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalBody, ModalFooter} from 'reactstrap';
+import { Button, Modal, ModalBody} from 'reactstrap';
 import Upload from './Employes';
 
-import {MDBRow, MDBCol, MDBInput,MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
+import {MDBRow, MDBCol,MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
 import Sidebar from '../Home/sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
@@ -27,7 +27,7 @@ class CargarArchivos extends React.Component {
   }
 
   render() {
-    const { children, ...attributes } = this.props;
+    // const { children, ...attributes } = this.props;
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
     return (

@@ -1,27 +1,63 @@
+
 import React from 'react';
 import { Form, Field } from 'react-final-form';
-import { TextField, Checkbox, Radio, Select } from 'final-form-material-ui';
+import { TextField, Radio, Select } from 'final-form-material-ui';
 import {
   Paper,
   Grid,
   Button,
-  CssBaseline,
   RadioGroup,
   FormLabel,
   MenuItem,
-  FormGroup,
   FormControl,
   FormControlLabel,
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
 
-import { MDBRow, MDBCol ,MDBPopoverHeader} from 'mdbreact';
+// import axios from 'axios';
 
-const onSubmit = async values => {
-  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-  await sleep(300);
-  window.alert(JSON.stringify(values, 0, 2));
+import { MDBRow, MDBCol } from 'mdbreact';
+
+function onSubmit (values) {
+  // const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+  // await sleep(300);
+
+ 
+  alert ( JSON.stringify(values, 0, 2))
+
+  console.log("hola prros" )
+
+
+//  const url = 'http://localhost:8000/graphql'
+//   axios({
+//     url:  url,
+//     method:'post',
+//     data:{
+//     query:`
+//      mutation{
+//       registerSingleEmployee(data:"${resultados}"){
+//           message
+//             }
+//           }
+//         `
+//     }
+//         }).then((datos) => {
+//           console.log("los datos son ",datos)
+//           alert("Registro Exitoso");
+//           // this.props.history.push("/inicio")
+//         })
+        
+//         .catch((err) => {
+//           console.log("los datos son ",err.response)
+        
+//         })
+
+
 };
+
+
+
+
 const validate = values => {
   const errors = {};
   if (!values.Nombre) {
@@ -50,26 +86,21 @@ const validate = values => {
     errors.area = 'Required';
   }
 
-  if (!values.añoNacimiento) {
-    errors.añoNacimiento = 'Required';
-  }
+ 
 
   return errors;
 };
 
 function App() {
   return (
-    
-
     <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
-      <CssBaseline />
-  
+      {/* <CssBaseline /> */}
       <Form
         onSubmit={onSubmit}
         initialValues={{ employed: true, stooge: 'sexo',estadoC: 'estadoC',rotacion : 'rotacion' }}
         validate={validate}
-        render={({ handleSubmit, reset, submitting, pristine, values }) => (
-          <form onSubmit={handleSubmit} noValidate>
+        render={({ handleSubmit, reset, submitting, pristine,values }) => (
+          <form onSubmit={handleSubmit}>
            <Alert color="primary">Datos Personales del Colaborador</Alert>
             <Paper style={{ padding: 16 }}>
               <Grid container alignItems="flex-start" spacing={2}>
@@ -132,7 +163,6 @@ function App() {
                 <Grid item xs={6}>
                   <Field
                     required
-                    name="añoNacimiento"
                     fullWidth
                     name="fechaN"
                     component={Select}
@@ -622,7 +652,8 @@ function App() {
                     </FormGroup>
                   </FormControl>
                 </Grid> */}
-               <Grid item style={{ marginTop: 16 }}>
+                
+               {/* <Grid item style={{ marginTop: 16 }}>
                   <Button
                     type="button"
                     variant="contained"
@@ -631,20 +662,21 @@ function App() {
                   >
                     Cancelar
                   </Button>
-                </Grid>
-                <Grid item style={{ marginTop: 16 }} >
+                </Grid> */}
+
+                <Grid item style={{ marginTop: 16 }}>
                   <Button
-                    variant="contained"
+                   variant="contained"
                     color="secondary"
                     type="submit"
                     disabled={submitting}
                   >
-                    Enviar
+                    Submit
                   </Button>
                 </Grid>
               </Grid>
             </Paper>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
+           <pre>{JSON.stringify(values, 0, 2)}</pre> 
           </form>
         )}
       />

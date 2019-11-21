@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import payload from '../../../resolvers/payload';
 
-import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
+import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink} from 'mdbreact';
 import Sidebar from '../../Home/sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../../../components/images/logotipo.png'
@@ -116,7 +116,7 @@ class Cuestions extends Component{
             }
 
       render(){
-    const { children, ...attributes } = this.props;
+    // const { children} = this.props;
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
       return (
