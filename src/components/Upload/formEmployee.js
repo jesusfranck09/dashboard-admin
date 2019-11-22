@@ -14,18 +14,15 @@ import {
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
 
-// import axios from 'axios';
+ import axios from 'axios';
 
 import { MDBRow, MDBCol } from 'mdbreact';
+import { object } from 'prop-types';
 
 function onSubmit (values) {
   // const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
   // await sleep(300);
-
- 
-  alert ( JSON.stringify(values, 0, 2))
-
-  console.log("hola prros" )
+const vari = JSON.stringify(values,1,2)
 
 
 //  const url = 'http://localhost:8000/graphql'
@@ -35,7 +32,7 @@ function onSubmit (values) {
 //     data:{
 //     query:`
 //      mutation{
-//       registerSingleEmployee(data:"${resultados}"){
+//       registerSingleEmployee(data:$input){
 //           message
 //             }
 //           }
@@ -43,15 +40,54 @@ function onSubmit (values) {
 //     }
 //         }).then((datos) => {
 //           console.log("los datos son ",datos)
-//           alert("Registro Exitoso");
+//           alert("exito")
+     
+//           alert(vari)
+     
+        
+
 //           // this.props.history.push("/inicio")
 //         })
         
 //         .catch((err) => {
+//           alert("error")
+    
+//           alert(vari)
+//           alert(vari.Nombre)
 //           console.log("los datos son ",err.response)
         
 //         })
+const url  = 'http://localhost:8000/graphql'
+				
+				const query =  `
+				mutation {
+					registerSingleEmployee(
+						data:${vari}
+					){
+						message
+					}
+				}
+				`;
+				axios({
+				url:  url,
+				method: 'post',
+				data: {
+					query,
+					variables: {
+						data: `${vari}`
+					}
+				}
+					}).then((result) => {
+            alert("exito")
+     
+           alert(vari[0].Nombre)
+					})
+					 .catch((error) => {
+            alert("error")
+            alert(query)
 
+					 console.log(".cartch" , error.response)
+				});
 
 };
 
@@ -97,7 +133,7 @@ function App() {
       {/* <CssBaseline /> */}
       <Form
         onSubmit={onSubmit}
-        initialValues={{ employed: true, stooge: 'sexo',estadoC: 'estadoC',rotacion : 'rotacion' }}
+        
         validate={validate}
         render={({ handleSubmit, reset, submitting, pristine,values }) => (
           <form onSubmit={handleSubmit}>
@@ -676,7 +712,7 @@ function App() {
                 </Grid>
               </Grid>
             </Paper>
-           <pre>{JSON.stringify(values, 0, 2)}</pre> 
+           <pre>{JSON.stringify(values,1,2)}</pre> 
           </form>
         )}
       />

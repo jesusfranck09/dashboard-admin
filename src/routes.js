@@ -14,6 +14,7 @@ const Dashboard = React.lazy(() => import('./components/dashboard/dashboard'));
 const Company = React.lazy(() => import('./components/views/addCompany/addCompany'));
 const Employees = React.lazy(() => import('./components/Upload/modalUpload'));
 const Table = React.lazy(() => import('./components/Home/table'));
+const Survey = React.lazy(() => import('./components/addCuestions/surveyDashboard'));
 
 
 
@@ -39,6 +40,7 @@ class Routes extends Component {
               <Route exact path="/company" name="company Page" render={props => <Company {...props}/>} /> 
               <Route exact path="/table" name="table Page" render={props => <Table {...props}/>} />
               <Route exact path="/employees" name="employee Page" render={props => <Employees {...props}/>} />
+              <Route exact path="/survey" name="survey Page" render={props => <Survey {...props}/>} />
 
             </Switch>
           </React.Suspense>
