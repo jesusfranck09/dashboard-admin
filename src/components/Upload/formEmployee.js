@@ -14,10 +14,9 @@ import {
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
 
- import axios from 'axios';
+import axios from 'axios';
 
 import { MDBRow, MDBCol } from 'mdbreact';
-import { object } from 'prop-types';
 
 function onSubmit (values) {
   // const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));

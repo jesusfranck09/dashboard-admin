@@ -14,7 +14,7 @@ const Dashboard = React.lazy(() => import('./components/dashboard/dashboard'));
 const Company = React.lazy(() => import('./components/views/addCompany/addCompany'));
 const Employees = React.lazy(() => import('./components/Upload/modalUpload'));
 const Table = React.lazy(() => import('./components/Home/table'));
-const Survey = React.lazy(() => import('./components/addCuestions/surveyDashboard'));
+const Survey = React.lazy(() => import('./components/addCuestions/survey'));
 
 
 
