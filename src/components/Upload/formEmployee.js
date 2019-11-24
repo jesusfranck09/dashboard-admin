@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 import { TextField, Radio, Select } from 'final-form-material-ui';
@@ -17,13 +16,15 @@ import { Alert } from 'reactstrap';
 import axios from 'axios';
 
 import { MDBRow, MDBCol } from 'mdbreact';
+import payload from '../../resolvers/payload';
+
 
 function onSubmit (values) {
-  // const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-  // await sleep(300);
+
+// const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+// await sleep(300);
+
 const vari = JSON.stringify(values,1,2)
-
-
 //  const url = 'http://localhost:8000/graphql'
 //   axios({
 //     url:  url,
@@ -42,8 +43,6 @@ const vari = JSON.stringify(values,1,2)
 //           alert("exito")
      
 //           alert(vari)
-     
-        
 
 //           // this.props.history.push("/inicio")
 //         })
@@ -56,40 +55,62 @@ const vari = JSON.stringify(values,1,2)
 //           console.log("los datos son ",err.response)
         
 //         })
-const url  = 'http://localhost:8000/graphql'
-				
-				const query =  `
-				mutation {
-					registerSingleEmployee(
-						data:${vari}
-					){
-						message
-					}
-				}
-				`;
-				axios({
-				url:  url,
-				method: 'post',
-				data: {
-					query,
-					variables: {
-						data: `${vari}`
-					}
-				}
-					}).then((result) => {
-            alert("exito")
-     
-           alert(vari[0].Nombre)
-					})
-					 .catch((error) => {
-            alert("error")
-            alert(query)
-
-					 console.log(".cartch" , error.response)
-				});
 
 };
 
+
+const evaluar  = (values) =>{
+
+  const Nombre = values.Nombre
+  const ApellidoP = values.ApellidoP
+  const ApellidoM = values.ApellidoM
+  const curp = values.curp
+  const rfc =  values.rfc
+  const fechaN = values.fechaN
+  const sexo = values.stooge
+  const cp= values.cp
+  const Estado_Civil= values.Estado_Civil
+  const Correo = values.Correo
+  const area = values.area
+  const puesto = values.puesto
+  const city =  values.city
+  const estudios = values.estudios
+  const personal =  values.personal
+  const Jornada = values.Jornada
+  const contratacion = values.contratacion
+  const Tiempo_puestoActual = values.Tiempo_puestoActual 
+  const experiencia_Laboral = values.experiencia_Laboral  
+  const rotacion = values.rotacion
+
+
+  const token = localStorage.getItem('elToken')
+  let pl = payload(token);
+
+  const correoAdmin =  pl.email
+  const passAdmin = pl.password
+console.log("datos" , values)
+
+  const url = 'http://localhost:8000/graphql'
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+     mutation{
+      registerSingleEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,cp,Estado_Civil,Correo,area,puesto,city,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,correoAdmin,passAdmin]}"){
+          message
+            }
+          }
+        `
+    }
+  }).then((datos) => {
+    console.log("los datos son ",datos)
+    alert("Registro Exitoso");
+    // this.props.history.push("/inicio")
+  });       
+
+
+}
 
 
 
@@ -263,7 +284,7 @@ function App() {
                   <Grid item xs={12}>
                   <Field
                     fullWidth
-                    name="Estado Civil"
+                    name="Estado_Civil"
                     component={Select}
                     label="Estado Civil"
                     formControlProps={{ fullWidth: true }}
@@ -312,7 +333,7 @@ function App() {
                 <Grid item xs={6}>
                   <Field
                     fullWidth
-                    name="city"
+                    name="puesto"
                     component={Select}
                     label="Puesto"
                     formControlProps={{ fullWidth: true }}
@@ -519,7 +540,7 @@ function App() {
                     <Grid item xs={12}>
                   <Field
                     fullWidth
-                    name="Tiempo en el puesto Actual"
+                    name="Tiempo_puestoActual"
                     component={Select}
                     label="Tiempo en el puesto Actual"
                     formControlProps={{ fullWidth: true }}
@@ -539,7 +560,7 @@ function App() {
                     <Grid item xs={12}>
                   <Field
                     fullWidth
-                    name="Tiempo experiencia laboral"
+                    name="experiencia_Laboral"
                     component={Select}
                     label="Tiempo experiencia laboral"
                     formControlProps={{ fullWidth: true }}
@@ -705,13 +726,14 @@ function App() {
                     color="secondary"
                     type="submit"
                     disabled={submitting}
+                    onClick={(e) =>evaluar(values)}
                   >
                     Submit
                   </Button>
                 </Grid>
               </Grid>
             </Paper>
-           <pre>{JSON.stringify(values,1,2)}</pre> 
+           
           </form>
         )}
       />

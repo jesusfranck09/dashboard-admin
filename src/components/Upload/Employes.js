@@ -49,6 +49,7 @@ class SheetJSApp extends React.Component {
 					}
 				}
 					}).then((result) => {
+						alert("registro exitoso")
 					})
 					 .catch((error) => {
 					 console.log(".cartch" , error.response)

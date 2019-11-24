@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React from 'react';
 import { Form, Field } from 'react-final-form';
 import { TextField, Radio, Select } from 'final-form-material-ui';
 import {
@@ -13,28 +13,30 @@ import {
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
 import axios from 'axios';
+import Ok from '../images/ok.png'
 
-
-import { MDBRow, MDBCol } from 'mdbreact';
+import { MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 
 import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink} from 'mdbreact';
 import Sidebar from '../Home/sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import '../Home/index.css'
+import Modal from 'react-modal';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-     data:[],
+     data:'',
      collapse: false,
      isOpen: false,
+    showModal2:false
+
     
     };
     this.onClick = this.onClick.bind(this);
   }
-
 
   onClick() {
     this.setState({
@@ -44,7 +46,33 @@ class Home extends React.Component {
 
 
 
-  handleClick(values){
+  evaluar= (values) => {
+    console.log("los values son" , values)
+    if(values.rotacion === 'si'){
+
+   this.props.history.push("./Initsurvey")
+
+
+ 
+    }
+    
+    if (values.rotacion === 'no') {
+           
+      this.setState({
+      showModal2:true
+}) 
+
+
+       }
+  }
+
+
+  componentWillMount(){
+    setTimeout(() => { this.setState({showModal:false})},1500)
+}
+
+
+  handleClick(){
 
     
 
@@ -59,20 +87,12 @@ class Home extends React.Component {
 
   
 // }
-
-
-console.log("jlklkhklhkh",values.rotacion)
-
+ 
 
 console.log("data" ,this.state.data)
 
   }
 
-
-  onChange(values) {
-    this.setState({ data: JSON.stringify(values, 0,2) })
-  }
-  
 
   render() {
     // const { children} = this.props;
@@ -175,30 +195,70 @@ console.log("data" ,this.state.data)
                   </FormControl>
                 </Grid>
                 <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
+                <center>
                   <Button 
                    variant="contained"
                     color="primary"
-                    onClick={this.handleClick(values)}
-                    
+
+                    onClick={(e) => this.evaluar(values)}
+                   
+                    type = "submit"
                   >
                     Siguiente
                   </Button>
+                  </center>
                 </Grid>
               </Grid>
             </Paper>
-
-            
-           {/* <pre>{JSON.stringify(values,1,2)}</pre>  */}
           </form>
         )}
       />
     </div>
-  );
         </MDBContainer>
     
       </div>
+
+      <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
+                    <div className="row">
+                        <div className="col-md-12" item xs={12}>
+                            <center><br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <img src={Ok} alt="ok" className="img-fluid"/><br/><br/>
+                                
+                                <br/>
+                                <br/>
+                                <br/>
+                                <Alert color="secondary" style={{fontSize: 24}}>Gracias por realizar su Encuesta</Alert>
+                                <br/>
+                                <br/>
+                                <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
+                                <Button 
+                                  variant="contained"
+                                    color="secondary"
+                                    type = "submit"
+                                    onClick={()=>{this.props.history.push('/inicio')}}
+                                  >
+                                    Pantalla de inicio  
+                                  </Button>
+                                  </Grid>
+                            </center>
+                        </div>
+                    </div>
+
+                </Modal>
       </React.Fragment>
+
+
+
+
+
     );
+
+
+    
   }
 }
 

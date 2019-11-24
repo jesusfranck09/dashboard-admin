@@ -14,15 +14,8 @@ const Dashboard = React.lazy(() => import('./components/dashboard/dashboard'));
 const Company = React.lazy(() => import('./components/views/addCompany/addCompany'));
 const Employees = React.lazy(() => import('./components/Upload/modalUpload'));
 const Table = React.lazy(() => import('./components/Home/table'));
-const Survey = React.lazy(() => import('./components/addCuestions/survey'));
-
-
-
-
-// import "@fortawesome/fontawesome-free/css/all.min.css";
-// import "bootstrap-css-only/css/bootstrap.min.css";
-// import "mdbreact/dist/css/mdb.css";
-
+const Survey = React.lazy(() => import('./components/addCuestions/surveyTraumaticoSevero'));
+const InitSurvey = React.lazy(() => import('./components/addCuestions/InitSurvey'))
 
 class Routes extends Component {
 
@@ -41,6 +34,7 @@ class Routes extends Component {
               <Route exact path="/table" name="table Page" render={props => <Table {...props}/>} />
               <Route exact path="/employees" name="employee Page" render={props => <Employees {...props}/>} />
               <Route exact path="/survey" name="survey Page" render={props => <Survey {...props}/>} />
+              <Route exact path="/Initsurvey" name="survey Page" render={props => <InitSurvey {...props}/>} />
 
             </Switch>
           </React.Suspense>

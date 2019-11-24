@@ -22,32 +22,28 @@ import axios from 'axios';
              
             }
 
-
-
             handleSubmit = event => {
               event.preventDefault();
               const pregunta = this.state.data
               const radio =this.state.radio
               console.log("los datos en la promesa son  " , pregunta , radio)
-          const url = 'http://localhost:8000/graphql'
+              const url = 'http://localhost:8000/graphql'
               axios({
                 url:  url,
                 method:'post',
-        data:{
-            query:`
-            mutation{
-              registerData(data:"${[pregunta,radio]}"){
-                message
-                }
-                      }
-                    `
-                }
-              }).then((datos) => {
-                console.log("los datos son ",datos)
-              });
-
-                
-            }
+                data:{
+                    query:`
+                    mutation{
+                      registerData(data:"${[pregunta,radio]}"){
+                        message
+                        }
+                              }
+                            `
+                        }
+                      }).then((datos) => {
+                        console.log("los datos son ",datos)
+                      }); 
+                  }
    
             render() {
               const Titulo1  =  "¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los siguientes: "
