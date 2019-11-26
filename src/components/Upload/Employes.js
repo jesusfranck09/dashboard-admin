@@ -1,11 +1,112 @@
-import React from 'react'
+import React , { useState } from 'react'
 import XLSX from 'xlsx'
-import {MDBBtn ,MDBCol} from "mdbreact";
+import {MDBCol} from "mdbreact";
 import axios from 'axios';
 import { Alert } from 'reactstrap';
 import payload from '../../resolvers/payload';
-// import ReactDom from 'react-dom'
-// import { readdirSync } from 'fs';
+import { Button, Modal, ModalBody} from 'reactstrap';
+import {MDBRow, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
+import Sidebar from '../Home/sidebar'
+import { AppNavbarBrand } from '@coreui/react';
+import logo from '../images/logotipo.png'
+import '../Home/index.css'
+import FormEmployee from './formEmployee'
+
+
+class CargarArchivos extends React.Component {
+	constructor(props) {
+	  super(props);
+	  this.state = {
+		collapse: false,
+		isOpen: false,
+	  
+	  };
+	  this.onClick = this.onClick.bind(this);
+	}
+	onClick() {
+	  this.setState({
+		collapse: !this.state.collapse,
+	  });
+	}
+  
+	render() {
+	  // const { children, ...attributes } = this.props;
+	  const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
+	  const container = { width: 2500, height: 1300 }
+	  return (
+  
+  
+		<React.Fragment>
+		<div>
+			<header>
+			  <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
+			  <Sidebar/>
+				<MDBNavbarBrand href="/inicio">
+				  <AppNavbarBrand
+					full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
+				</MDBNavbarBrand>
+				<MDBNavbarToggler onClick={this.onClick} />
+				<MDBCollapse isOpen={this.state.collapse} navbar>
+				  <MDBNavbarNav left>
+					<MDBNavItem active>
+					  <MDBNavLink to="/employees">Cargar Empleados</MDBNavLink>
+					</MDBNavItem>
+					<MDBNavItem>
+					  <MDBNavLink to="#">Beneficios</MDBNavLink>
+					</MDBNavItem>
+					<MDBNavItem>
+					  <MDBNavLink to="#">Opciones</MDBNavLink>
+					</MDBNavItem>
+				  </MDBNavbarNav>
+				  <MDBNavbarNav right>
+				  <MDBNavItem>
+					<MDBNavLink to="#">Mi Perfil</MDBNavLink>
+				  </MDBNavItem>
+				  </MDBNavbarNav>
+				</MDBCollapse>
+			  </MDBNavbar>
+			</header>
+		  <MDBContainer style={container} className="text-center mt-2 pt-5">
+  
+		<MDBRow>
+		  <MDBCol><FormEmployee/></MDBCol> <MDBCol  md="3" className="white-text text-center text-md-left mt-xl-5 mb-5"><strong>¿Desea cargar por csv o xls?</strong> <ModalPrueba/></MDBCol> 
+		</MDBRow>
+		  </MDBContainer>
+		</div>
+		</React.Fragment>
+	  );
+	}
+  }
+
+  const ModalPrueba = (props) => {
+	const {
+	  buttonLabel,
+	  className
+	} = props;
+  
+	const [modal, setModal] = useState(false);
+  
+	const toggle = () => setModal(!modal);
+	
+	const handleToggle = () => setModal(!modal);
+	
+  
+	return (
+	  <div>
+		<Button  color="primary" onClick={toggle}>{buttonLabel}Cargar Empleados</Button>
+		<Modal isOpen={modal} toggle={toggle} className={className} tabindex="-1" >
+		  <ModalBody>
+		  <SheetJSApp/>
+		  </ModalBody>
+		  <MDBBtn color="secondary" onClick={handleToggle}>Cerrar</MDBBtn>
+		</Modal>
+	  </div>
+	);
+  }
+  
+
+
+
 
 class SheetJSApp extends React.Component {
 	constructor(props) {
@@ -49,7 +150,6 @@ class SheetJSApp extends React.Component {
 					}
 				}
 					}).then((result) => {
-						alert("registro exitoso")
 					})
 					 .catch((error) => {
 					 console.log(".cartch" , error.response)
@@ -119,7 +219,7 @@ class SheetJSApp extends React.Component {
 				<div className="row"><div className="col-xs-12">
 					<DataInput handleFile={this.handleFile} />
                     <MDBCol className=" text-center mt-2 pt-2 ml-4" >
-                    <MDBBtn className="boton" disabled={!this.state.data.length}  color="info" type="submit" onClick={this.handleSubmit } >Cargar </MDBBtn>
+                    <MDBBtn className="boton mr-6 " disabled={!this.state.data.length}  color="info" type="submit" onClick={this.handleSubmit } >Cargar </MDBBtn>
                  
 					</MDBCol> 		
 				</div> </div>
@@ -217,5 +317,4 @@ const SheetJSFT = [
 // 	return o; 
 
 // };
-
-export default SheetJSApp;
+export default CargarArchivos ;

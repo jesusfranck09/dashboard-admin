@@ -12,10 +12,11 @@ const Cuestions = React.lazy(() => import('./components//addCuestions/cuestions'
 const Home = React.lazy(() => import('./components/Home/home'));
 const Dashboard = React.lazy(() => import('./components/dashboard/dashboard'));
 const Company = React.lazy(() => import('./components/views/addCompany/addCompany'));
-const Employees = React.lazy(() => import('./components/Upload/modalUpload'));
+const Employees = React.lazy(() => import('./components/Upload/Employes'));
 const Table = React.lazy(() => import('./components/Home/table'));
-const Survey = React.lazy(() => import('./components/addCuestions/surveyTraumaticoSevero'));
-const InitSurvey = React.lazy(() => import('./components/addCuestions/InitSurvey'))
+const Survey = React.lazy(() => import('./components/addCuestions/PoliticaPrivacidad'));
+const InitSurvey = React.lazy(() => import('./components/addCuestions/surveyTraumaticoSevero'))
+const SurveyPage1 = React.lazy(() => import('./components/addCuestions/SurveyPage1'))
 
 class Routes extends Component {
 
@@ -35,6 +36,7 @@ class Routes extends Component {
               <Route exact path="/employees" name="employee Page" render={props => <Employees {...props}/>} />
               <Route exact path="/survey" name="survey Page" render={props => <Survey {...props}/>} />
               <Route exact path="/Initsurvey" name="survey Page" render={props => <InitSurvey {...props}/>} />
+              <Route exact path="/page1" name="survey Page" render={props => <SurveyPage1 {...props}/>} />
 
             </Switch>
           </React.Suspense>

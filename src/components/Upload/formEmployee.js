@@ -150,12 +150,11 @@ const validate = values => {
 function App() {
   return (
     <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
-      {/* <CssBaseline /> */}
       <Form
         onSubmit={onSubmit}
         
         validate={validate}
-        render={({ handleSubmit, reset, submitting, pristine,values }) => (
+        render={({ handleSubmit, submitting,values }) => (
           <form onSubmit={handleSubmit}>
            <Alert color="primary">Datos Personales del Colaborador</Alert>
             <Paper style={{ padding: 16 }}>

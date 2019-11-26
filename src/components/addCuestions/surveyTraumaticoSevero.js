@@ -50,7 +50,7 @@ class Home extends React.Component {
     console.log("los values son" , values)
     if(values.rotacion === 'si'){
 
-   this.props.history.push("./Initsurvey")
+   this.props.history.push("./page1")
 
 
  
