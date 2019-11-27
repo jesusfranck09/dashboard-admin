@@ -48,15 +48,15 @@ class CargarArchivos extends React.Component {
 				<MDBNavbarToggler onClick={this.onClick} />
 				<MDBCollapse isOpen={this.state.collapse} navbar>
 				  <MDBNavbarNav left>
-					<MDBNavItem active>
-					  <MDBNavLink to="/employees">Cargar Empleados</MDBNavLink>
-					</MDBNavItem>
-					<MDBNavItem>
-					  <MDBNavLink to="#">Beneficios</MDBNavLink>
-					</MDBNavItem>
-					<MDBNavItem>
-					  <MDBNavLink to="#">Opciones</MDBNavLink>
-					</MDBNavItem>
+				  <MDBNavItem active>
+                    <MDBNavLink to="/employees">Cargar Empleados</MDBNavLink>
+                  </MDBNavItem>
+                  <MDBNavItem active>
+                    <MDBNavLink to="/survey">Cuestionario ATS</MDBNavLink>
+                  </MDBNavItem>
+                  <MDBNavItem active>
+                    <MDBNavLink to="/politicaRP">Cuestionario RP</MDBNavLink>
+                  </MDBNavItem>
 				  </MDBNavbarNav>
 				  <MDBNavbarNav right>
 				  <MDBNavItem>

@@ -13,20 +13,19 @@ import {
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
 import axios from 'axios';
-import Ok from '../images/ok.png'
+ 
 
 import { MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 
 import { MDBContainer,MDBTableBody,MDBTable,MDBTableHead,MDBCollapse} from 'mdbreact';
 
-import Modal from 'react-modal';
-
+ 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
      data:'',
-    showModal2:false
+ 
 
     
     };
@@ -36,19 +35,11 @@ class Home extends React.Component {
     console.log("los values son" , values)
     if(values.rotacion === 'si'){
 
-   this.props.history.push("./page1")
-
-
- 
+   this.props.history.push("./RPpage7")
     }
     
     if (values.rotacion === 'no') {
-           
-      this.setState({
-      showModal2:true
-}) 
-
-
+        this.props.history.push("./RPValidate8")   
        }
   }
 
@@ -100,8 +91,8 @@ console.log("data" ,this.state.data)
         validate={validate}
         render={({ handleSubmit, reset, submitting, pristine,values }) => (
           <form onSubmit={handleSubmit}>
-           <Alert color="primary"> Sección ATS <br></br> INSTRUCCIONES : Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
-            <Paper style={{ padding: 16 }}><Alert color="secondary">I.- Acontecimiento traumático severo </Alert>
+           <Alert color="primary"> Sección RP <br></br> INSTRUCCIONES : Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
+            <Paper style={{ padding: 16 }}><Alert color="secondary">VII.¿ En mi trabajo debo brindar servicio a clientes o usuarios?</Alert>
 
 
               <Grid container alignItems="flex-start" spacing={2} item xs={12}>
@@ -110,13 +101,6 @@ console.log("data" ,this.state.data)
                   <FormControl component="fieldset">
                     <RadioGroup row>
                       <MDBRow>
-                      <FormLabel component="legend" className="text-center mt-3 ml-4">¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los siguientes?</FormLabel>
-                        <MDBCol>
-                        <FormLabel component="legend" className="text-center mt-3 ">1.- Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión grave?</FormLabel>
-                        <FormLabel component="legend" className="text-center mt-3 ml-4">2.-¿Asaltos , Actos violentos que derivaron en lesiones graves? </FormLabel>
-                        <FormLabel component="legend" className="text-center mt-3 ml-4">3.-¿Secuestro,Amenazas o Cualquier otro que ponga en riesgo su vida o salud, y/o la de otras personas?</FormLabel>
-                        
-                        </MDBCol>
                        
                       <MDBCol className="text-center mt-5 ml-3">
                       <FormControlLabel  
@@ -176,38 +160,6 @@ console.log("data" ,this.state.data)
         </MDBContainer>
     
       </div>
-
-      <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
-                    <div className="row">
-                        <div className="col-md-12" item xs={12}>
-                            <center><br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <img src={Ok} alt="ok" className="img-fluid"/><br/><br/>
-                                
-                                <br/>
-                                <br/>
-                                <br/>
-                                <Alert color="secondary" style={{fontSize: 24}}>Gracias por realizar su Encuesta</Alert>
-                                <br/>
-                                <br/>
-                                <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
-                                <Button 
-                                  variant="contained"
-                                    color="secondary"
-                                    type = "submit"
-                                    onClick={()=>{this.props.history.push('/inicio')}}
-                                  >
-                                    Pantalla de inicio  
-                                  </Button>
-                                  </Grid>
-                            </center>
-                        </div>
-                    </div>
-
-                </Modal>
       </React.Fragment>
 
 

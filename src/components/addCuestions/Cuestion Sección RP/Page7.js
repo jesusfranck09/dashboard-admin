@@ -7,7 +7,6 @@ import {
   Button,
   RadioGroup,
   FormLabel,
-  MenuItem,
   FormControl,
   FormControlLabel,
 } from '@material-ui/core';
@@ -32,21 +31,23 @@ class Home extends React.Component {
     };
   }
 
+  onClick() {
+    this.setState({
+      collapse: !this.state.collapse,
+    });
+  }
 
 
 
   evaluar= (values) => {
 
-console.log("los values son  " , values)
+    if( (values.pregunta1 == "Siempre" || values.pregunta1=="CasiSiempre"|| values.pregunta1=="AlgunasVeces"|| values.pregunta1=="CasiNunca"|| values.pregunta1=="Nunca") 
+    && (values.pregunta2 == "Siempre" || values.pregunta2=="CasiSiempre"|| values.pregunta2=="AlgunasVeces"|| values.pregunta2=="CasiNunca"|| values.pregunta2=="Nunca") 
+    && (values.pregunta3 == "Siempre" || values.pregunta3=="CasiSiempre"|| values.pregunta3=="AlgunasVeces"|| values.pregunta3=="CasiNunca"|| values.pregunta3=="Nunca")
+    ){
+        this.props.history.push("./RPValidate8")
+      }
 
-if( (values.pregunta1 == "Siempre" || values.pregunta1=="CasiSiempre"|| values.pregunta1=="AlgunasVeces"|| values.pregunta1=="CasiNunca"|| values.pregunta1=="Nunca") && (values.pregunta2 == "Siempre" || values.pregunta2=="CasiSiempre"|| values.pregunta2=="AlgunasVeces"|| values.pregunta2=="CasiNunca"|| values.pregunta2=="Nunca")){
-  this.props.history.push("./page2")
-}
-
-
-
-  //  
- 
   }
 
 
@@ -86,7 +87,6 @@ console.log("data" ,this.state.data)
 
       <React.Fragment>
       <div>
-        
         <MDBContainer style={container} className="text-center mt-2 pt-5">
     
         <div style={{ padding: 16, margin: 'auto', maxWidth: 1050 }}>
@@ -97,13 +97,12 @@ console.log("data" ,this.state.data)
         validate={validate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
-           <Alert color="primary">Sección ATS <br></br> INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
-            <Paper style={{ padding: 16 }}><Alert color="dark">II.- Recuerdos persistentes sobre el acontecimiento (durante el último mes).</Alert>
-
-
+            
+           <Alert color="primary">Sección RP<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
+            <Paper style={{ padding: 16 }}><Alert color="dark">VII. En mi trabajo debo brindar servicio a clientes o usuarios</Alert>
               <Grid container alignItems="flex-start" spacing={2} item xs={12}>
               <FormControl component="fieldset">
-                   <RadioGroup >
+              <RadioGroup >
               <MDBTable striped>
                  
                   <MDBTableHead>
@@ -119,7 +118,7 @@ console.log("data" ,this.state.data)
                   
                     <tr>
                     
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>1.- ¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>Atiendo clientes o usuarios muy enojados.</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta1" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta1" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta1" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -129,14 +128,22 @@ console.log("data" ,this.state.data)
                     </tr>
                    
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>2.-¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas.</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta2" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta2" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
-
                       <td> <FormControlLabel  control={<Field required name="pregunta2" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta2" component={Radio} type="radio" value="CasiNunca"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta2" component={Radio} type="radio" value="Nunca"/>} /></td>
                     </tr> 
+                    <tr>
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>Para hacer mi trabajo debo demostrar sentimientos distintos a los míos.</FormLabel></td> 
+                      <td> <FormControlLabel  control={<Field required name="pregunta3" component={Radio} type="radio" value="Siempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta3" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta3" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta3" component={Radio} type="radio" value="CasiNunca"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta3" component={Radio} type="radio" value="Nunca"/>} /></td>
+                    </tr> 
+                    
                   </MDBTableBody>
                   
                 </MDBTable>

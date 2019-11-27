@@ -141,9 +141,9 @@ class Home extends React.Component {
   evaluar= (values) => {
  
 
-if(values.stooge=="acepto" && values.correo ){
+if(values.stooge=="acepto" && values.correo){
 
-  this.props.history.push("./Initsurvey")
+  this.props.history.push("./RPpage1")
 }
 
   }
@@ -182,8 +182,7 @@ if(values.stooge=="acepto" && values.correo ){
             <Grid spacing={2} style={{ marginLeft: 280 }}>
          
                     <MDBCard spacing={5} style={{marginTop:50,  width: "27rem", marginBottom:50}} >
-                    <MDBCardHeader><Alert>Sección ATS</Alert></MDBCardHeader>
-
+                        <MDBCardHeader><Alert>Sección RP</Alert></MDBCardHeader>
                         <MDBCardBody>
                             <Grid item>
                             <Grid  item style={{ marginTop: 16,marginLeft:50 }} spacing={2} item xs={9} >                          
