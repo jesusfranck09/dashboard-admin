@@ -13,6 +13,7 @@ import { Alert } from 'reactstrap';
 // import axios from 'axios';
 import Modal from 'react-modal';
 import Ok from '../../images/ok.png'
+import axios from 'axios';
 
 import { MDBRow, MDBCol} from 'mdbreact';
 
@@ -33,10 +34,49 @@ class Home extends React.Component {
   evaluar= (values) => {
     console.log("los values son" , values)
     if(values.rotacion === 'si'){
+
+      const correo = localStorage.getItem('correo')
+
+      const url = 'http://localhost:8000/graphql'
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         mutation{
+          rpValidadorPage8(data:"${[values.rotacion,correo]}"){
+              message
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              console.log("los datos son ",datos)
+            }); 
+
    this.props.history.push("./RPpage8")
     }
     
     if (values.rotacion === 'no') {
+      const correo = localStorage.getItem('correo')
+
+      const url = 'http://localhost:8000/graphql'
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         mutation{
+          rpValidadorPage8(data:"${[values.rotacion,correo]}"){
+              message
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              console.log("los datos son ",datos)
+            }); 
+
         this.setState({
             showModal2:true
       })   

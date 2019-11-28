@@ -35,10 +35,47 @@ class Home extends React.Component {
     console.log("los values son" , values)
     if(values.rotacion === 'si'){
 
-   this.props.history.push("./RPpage7")
+      const correo = localStorage.getItem('correo')
+
+      const url = 'http://localhost:8000/graphql'
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         mutation{
+          rpValidadorPage7(data:"${[values.rotacion,correo]}"){
+              message
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              console.log("los datos son ",datos)
+            }); 
+        this.props.history.push("./RPpage7")
     }
     
     if (values.rotacion === 'no') {
+
+      const correo = localStorage.getItem('correo')
+
+      const url = 'http://localhost:8000/graphql'
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         mutation{
+          rpValidadorPage7(data:"${[values.rotacion,correo]}"){
+              message
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              console.log("los datos son ",datos)
+            }); 
         this.props.history.push("./RPValidate8")   
        }
   }

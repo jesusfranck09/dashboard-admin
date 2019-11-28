@@ -14,6 +14,8 @@ import {
 import { Alert } from 'reactstrap';
 import axios from 'axios';
 import Ok from '../images/ok.png'
+import payload from '../../resolvers/payload';
+
 
 import { MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 
@@ -35,24 +37,55 @@ class Home extends React.Component {
   evaluar= (values) => {
     console.log("los values son" , values)
     if(values.rotacion === 'si'){
+      const correo = localStorage.getItem('correo')
+      const respuesta = values.rotacion
+      const url = 'http://localhost:8000/graphql'
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         mutation{
+          atsPage1(data:"${[respuesta,correo]}"){
+              message
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              console.log("los datos son ",datos)
+            });     
+         this.props.history.push("./page1")
 
-   this.props.history.push("./page1")
-
-
- 
-    }
+      }
     
-    if (values.rotacion === 'no') {
+     if (values.rotacion === 'no') {
+      const correo = localStorage.getItem('correo')
+      const respuesta = values.rotacion
+    
+      const url = 'http://localhost:8000/graphql'
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         mutation{
+          atsPage1(data:"${[respuesta,correo]}"){
+              message
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              console.log("los datos son ",datos)
+            });    
            
       this.setState({
       showModal2:true
 }) 
 
-
        }
   }
-
-
   componentWillMount(){
     setTimeout(() => { this.setState({showModal:false})},1500)
 }

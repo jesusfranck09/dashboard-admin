@@ -16,6 +16,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import payload from '../../resolvers/payload';
 
 import axios from 'axios';
 
@@ -143,14 +144,32 @@ class Home extends React.Component {
 
 if(values.stooge=="acepto" && values.correo ){
 
+  const correo = values.correo
+  const acepto  = values.stooge
+
+  
+  localStorage.setItem('correo', correo) 
+
+  const url = 'http://localhost:8000/graphql'
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+     mutation{
+      atsPoliticaPrivacidad(data:"${[correo,acepto]}"){
+          message
+            }
+          }
+        `
+    }
+        }).then((datos) => {
+          console.log("los datos son ",datos)
+        }); 
   this.props.history.push("./Initsurvey")
 }
 
   }
-  
-  
-
-
   componentWillMount(){
     setTimeout(() => { this.setState({showModal:false})},1500)
 }

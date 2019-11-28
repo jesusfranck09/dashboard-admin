@@ -43,7 +43,26 @@ class Home extends React.Component {
     && (values.pregunta12 == "Siempre" || values.pregunta12=="CasiSiempre"|| values.pregunta12=="AlgunasVeces"|| values.pregunta12=="CasiNunca"|| values.pregunta12=="Nunca") 
     && (values.pregunta13 == "Siempre" || values.pregunta13=="CasiSiempre"|| values.pregunta13=="AlgunasVeces"|| values.pregunta13=="CasiNunca"|| values.pregunta13=="Nunca") 
     && (values.pregunta14 == "Siempre" || values.pregunta14=="CasiSiempre"|| values.pregunta14=="AlgunasVeces"|| values.pregunta14=="CasiNunca"|| values.pregunta14=="Nunca")){
-        this.setState({
+        
+      const correo = localStorage.getItem('correo')
+      const url = 'http://localhost:8000/graphql'
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         mutation{
+          atsPage4(data:"${[values.pregunta10,values.pregunta11,values.pregunta12,values.pregunta13,values.pregunta14,correo]}"){
+              message
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              //localStorage.removeItem('correo')
+            }); 
+
+      this.setState({
             showModal2:true
       }) 
       }

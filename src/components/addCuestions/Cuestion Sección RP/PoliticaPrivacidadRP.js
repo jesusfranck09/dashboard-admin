@@ -143,6 +143,28 @@ class Home extends React.Component {
 
 if(values.stooge=="acepto" && values.correo){
 
+  const correo = values.correo
+  const acepto  = values.stooge
+
+  
+  localStorage.setItem('correo', correo) 
+
+  const url = 'http://localhost:8000/graphql'
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+     mutation{
+      rpPoliticaPrivacidad(data:"${[correo,acepto]}"){
+          message
+            }
+          }
+        `
+    }
+        }).then((datos) => {
+          console.log("los datos son ",datos)
+        }); 
   this.props.history.push("./RPpage1")
 }
 

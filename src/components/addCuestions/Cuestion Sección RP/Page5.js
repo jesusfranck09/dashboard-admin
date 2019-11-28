@@ -37,6 +37,26 @@ class Home extends React.Component {
     && (values.pregunta26 == "Siempre" || values.pregunta26=="CasiSiempre"|| values.pregunta26=="AlgunasVeces"|| values.pregunta26=="CasiNunca"|| values.pregunta26=="Nunca")
     && (values.pregunta27 == "Siempre" || values.pregunta27=="CasiSiempre"|| values.pregunta27=="AlgunasVeces"|| values.pregunta27=="CasiNunca"|| values.pregunta27=="Nunca")
     ) {
+
+      const correo = localStorage.getItem('correo')
+
+      const url = 'http://localhost:8000/graphql'
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         mutation{
+          rpPage5(data:"${[values.pregunta23,values.pregunta24,values.pregunta25,values.pregunta26,values.pregunta27,correo]}"){
+              message
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              console.log("los datos son ",datos)
+            }); 
+
         this.props.history.push("./RPpage6")                                  
       }                                    
   }
@@ -113,7 +133,7 @@ class Home extends React.Component {
                       <td> <FormControlLabel  control={<Field required name="pregunta26" component={Radio} type="radio" value="Nunca"/>} /></td>
                     </tr> 
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>27.- yRecibo capacitación útil para hacer mi trabajo.</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>27.- Recibo capacitación útil para hacer mi trabajo.</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta27" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta27" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta27" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>

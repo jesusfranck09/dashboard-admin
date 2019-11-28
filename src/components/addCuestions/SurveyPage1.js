@@ -32,21 +32,35 @@ class Home extends React.Component {
     };
   }
 
-
-
-
   evaluar= (values) => {
 
-console.log("los values son  " , values)
 
-if( (values.pregunta1 == "Siempre" || values.pregunta1=="CasiSiempre"|| values.pregunta1=="AlgunasVeces"|| values.pregunta1=="CasiNunca"|| values.pregunta1=="Nunca") && (values.pregunta2 == "Siempre" || values.pregunta2=="CasiSiempre"|| values.pregunta2=="AlgunasVeces"|| values.pregunta2=="CasiNunca"|| values.pregunta2=="Nunca")){
+if( (values.pregunta1 == "Siempre" || values.pregunta1=="CasiSiempre"|| values.pregunta1=="AlgunasVeces"|| values.pregunta1=="CasiNunca"|| values.pregunta1=="Nunca") 
+&& (values.pregunta2 == "Siempre" || values.pregunta2=="CasiSiempre"|| values.pregunta2=="AlgunasVeces"|| values.pregunta2=="CasiNunca"|| values.pregunta2=="Nunca")){
+  
+  const correo = localStorage.getItem('correo')
+
+
+  const url = 'http://localhost:8000/graphql'
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+     mutation{
+      atsPage2(data:"${[values.pregunta1,values.pregunta2,correo]}"){
+          message
+            }
+          }
+        `
+    }
+        }).then((datos) => {
+          console.log("los datos son ",datos)
+        });    
+  
   this.props.history.push("./page2")
 }
 
-
-
-  //  
- 
   }
 
 
@@ -54,25 +68,7 @@ if( (values.pregunta1 == "Siempre" || values.pregunta1=="CasiSiempre"|| values.p
     setTimeout(() => { this.setState({showModal:false})},1500)
 }
 
-
   handleClick(){
-
-    
-
-// var val =  JSON.parse(values)
-// console.log(val.rotacion)
-// if(val.rotacion=="si"){
-
-// return(
-// console.log("jlkjl")
-// )
-// }else if(val.rotacion=="no"){ 
-
-  
-// }
- 
-
-console.log("data" ,this.state.data)
 
   }
 
