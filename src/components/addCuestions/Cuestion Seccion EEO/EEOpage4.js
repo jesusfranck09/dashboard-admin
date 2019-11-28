@@ -41,12 +41,13 @@ class Home extends React.Component {
 
   evaluar= (values) => {
 
-    if( (values.pregunta14 == "Siempre" || values.pregunta14=="CasiSiempre"|| values.pregunta14=="AlgunasVeces"|| values.pregunta14=="CasiNunca"|| values.pregunta14=="Nunca") 
-    && (values.pregunta15 == "Siempre" || values.pregunta15=="CasiSiempre"|| values.pregunta15=="AlgunasVeces"|| values.pregunta15=="CasiNunca"|| values.pregunta15=="Nunca") 
+    if( (values.pregunta13 == "Siempre" || values.pregunta13=="CasiSiempre"|| values.pregunta13=="AlgunasVeces"|| values.pregunta13=="CasiNunca"|| values.pregunta13=="Nunca") 
+    && (values.pregunta14 == "Siempre" || values.pregunta14=="CasiSiempre"|| values.pregunta14=="AlgunasVeces"|| values.pregunta14=="CasiNunca"|| values.pregunta14=="Nunca") 
+    && (values.pregunta15 == "Siempre" || values.pregunta15=="CasiSiempre"|| values.pregunta15=="AlgunasVeces"|| values.pregunta15=="CasiNunca"|| values.pregunta15=="Nunca")
     && (values.pregunta16 == "Siempre" || values.pregunta16=="CasiSiempre"|| values.pregunta16=="AlgunasVeces"|| values.pregunta16=="CasiNunca"|| values.pregunta16=="Nunca")
-    && (values.pregunta17 == "Siempre" || values.pregunta17=="CasiSiempre"|| values.pregunta17=="AlgunasVeces"|| values.pregunta17=="CasiNunca"|| values.pregunta17=="Nunca")
+
     ){
-        this.props.history.push("./RPpage4")
+        this.props.history.push("./EEOpage5")
       }
 
   }
@@ -88,7 +89,7 @@ console.log("data" ,this.state.data)
 
       <React.Fragment>
       <div>
-        <MDBContainer style={container} className="text-center mt-2 pt-5">
+      <MDBContainer style={container} className="text-center  ">
     
         <div style={{ padding: 16, margin: 'auto', maxWidth: 1050 }}>
       {/* <CssBaseline /> */}
@@ -98,8 +99,8 @@ console.log("data" ,this.state.data)
         validate={validate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
-           <Alert color="primary">Sección RP<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
-            <Paper style={{ padding: 16 }}><Alert color="dark">III. El tiempo destinado a su trabajo y sus responsabilidades familiares.</Alert>
+           <Alert color="primary">Sección EEO<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
+            <Paper style={{ padding: 16 }}><Alert color="dark">IV. Trabajo y las responsabilidades que tiene.</Alert>
               <Grid container alignItems="flex-start" spacing={2} item xs={12}>
               <FormControl component="fieldset">
               <RadioGroup >
@@ -118,39 +119,39 @@ console.log("data" ,this.state.data)
                   
                     <tr>
                     
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>14.- Trabajo horas extras más de tres veces a la semana.</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>13.- En mi trabajo soy responsable de cosas de mucho valor</FormLabel></td> 
+                      <td> <FormControlLabel  control={<Field required name="pregunta13" component={Radio} type="radio" value="Siempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta13" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta13" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta13" component={Radio} type="radio" value="CasiNunca"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta13" component={Radio} type="radio" value="Nunca"/>} /></td>
+                 
+                    </tr>
+                   
+                    <tr>
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>14.- Respondo ante mi jefe por los resultados de toda mi área de trabajo</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta14" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta14" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta14" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta14" component={Radio} type="radio" value="CasiNunca"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta14" component={Radio} type="radio" value="Nunca"/>} /></td>
-                 
-                    </tr>
-                   
+                    </tr> 
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>15.- Mi trabajo me exige laborar en días de descanso, festivos o fines de semana.</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>15.- En el trabajo me dan órdenes contradictorias</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta15" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta15" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta15" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta15" component={Radio} type="radio" value="CasiNunca"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta15" component={Radio} type="radio" value="Nunca"/>} /></td>
-                    </tr> 
+                    </tr>
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>16.- Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales.</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>16.- Considero que en mi trabajo me piden hacer cosas innecesarias</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta16" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta16" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta16" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta16" component={Radio} type="radio" value="CasiNunca"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta16" component={Radio} type="radio" value="Nunca"/>} /></td>
-                    </tr> 
-                    <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>17.- Pienso en las actividades familiares o personales cuando estoy en mi trabajo.</FormLabel></td> 
-                      <td> <FormControlLabel  control={<Field required name="pregunta17" component={Radio} type="radio" value="Siempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta17" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta17" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta17" component={Radio} type="radio" value="CasiNunca"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta17" component={Radio} type="radio" value="Nunca"/>} /></td>
-                    </tr> 
+                    </tr>
                   </MDBTableBody>
                   
                 </MDBTable>

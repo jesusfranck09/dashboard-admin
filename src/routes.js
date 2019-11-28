@@ -35,6 +35,22 @@ const RPPage8 = React.lazy(() => import('./components/addCuestions/Cuestion Secc
 const RPValidateCuestion7 = React.lazy(() => import('./components/addCuestions/Cuestion Sección RP/ValidateCuestion7'))
 const RPValidateCuestion8 = React.lazy(() => import('./components/addCuestions/Cuestion Sección RP/ValidateCuestion8'))
 
+const PoliticaEEO = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/PoliticaPrivacidadEEO'))
+const EEOpage1 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage1'))
+const EEOpage2 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage2'))
+const EEOpage3 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage3'))
+const EEOpage4 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage4'))
+const EEOpage5 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage5'))
+const EEOpage6 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage6'))
+const EEOpage7 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage7.js'))
+const EEOpage8 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage8.js'))
+const EEOpage9 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage9.js'))
+const EEOpage10 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage10.js'))
+const EEOpage11 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage11.js'))
+const EEOpage12 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage12.js'))
+const EEOpage13 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage13.js'))
+const EEOpage14 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage14.js'))
+
 class Routes extends Component {
 
   render() {
@@ -71,6 +87,22 @@ class Routes extends Component {
               <Route exact path="/RPValidate7" name="RPPage7Validate" render={props => <RPValidateCuestion7 {...props}/>} />
               <Route exact path="/RPValidate8" name="RPPage8Validate" render={props => <RPValidateCuestion8 {...props}/>} />
 
+
+              <Route exact path="/politicaEEO" name="politicaEEO" render={props => <PoliticaEEO {...props}/>} />
+              <Route exact path="/EEOpage1" name="EEOpage1" render={props => <EEOpage1 {...props}/>} />
+              <Route exact path="/EEOpage2" name="EEOpage2" render={props => <EEOpage2 {...props}/>} />
+              <Route exact path="/EEOpage3" name="EEOpage3" render={props => <EEOpage3 {...props}/>} />
+              <Route exact path="/EEOpage4" name="EEOpage4" render={props => <EEOpage4 {...props}/>} />
+              <Route exact path="/EEOpage5" name="EEOpage4" render={props => <EEOpage5 {...props}/>} />
+              <Route exact path="/EEOpage6" name="EEOpage4" render={props => <EEOpage6 {...props}/>} />
+              <Route exact path="/EEOpage7" name="EEOpage7" render={props => <EEOpage7 {...props}/>} />
+              <Route exact path="/EEOpage8" name="EEOpage8" render={props => <EEOpage8 {...props}/>} />
+              <Route exact path="/EEOpage9" name="EEOpage9" render={props => <EEOpage9 {...props}/>} />
+              <Route exact path="/EEOpage10" name="EEOpage10" render={props => <EEOpage10 {...props}/>} />
+              <Route exact path="/EEOpage11" name="EEOpage11" render={props => <EEOpage11 {...props}/>} />
+              <Route exact path="/EEOpage12" name="EEOpage12" render={props => <EEOpage12 {...props}/>} />
+              <Route exact path="/EEOpage13" name="EEOpage13" render={props => <EEOpage13 {...props}/>} />
+              <Route exact path="/EEOpage14" name="EEOpage14" render={props => <EEOpage14 {...props}/>} />
 
             </Switch>
           </React.Suspense>

@@ -50,6 +50,9 @@ class Home extends React.Component {
                   <MDBNavItem active>
                     <MDBNavLink to="/politicaRP">Cuestionario RP</MDBNavLink>
                   </MDBNavItem>
+                  <MDBNavItem active>
+                    <MDBNavLink to="/politicaEEO">Cuestionario EEO</MDBNavLink>
+                  </MDBNavItem>
                 </MDBNavbarNav>
                 <MDBNavbarNav right>
                 <MDBNavItem>

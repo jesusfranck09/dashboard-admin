@@ -143,7 +143,7 @@ class Home extends React.Component {
 
 if(values.stooge=="acepto" && values.correo){
 
-  this.props.history.push("./RPpage1")
+  this.props.history.push("./EEOpage1")
 }
 
   }
@@ -167,7 +167,7 @@ if(values.stooge=="acepto" && values.correo){
       <div>
           <header>
           </header>
-          <MDBContainer style={container} className="text-center  ">
+        <MDBContainer style={container} className="text-center  ">
     
         <div style={{ padding: 16, margin: 'auto', maxWidth: 1050 ,marginLeft:20}}>
       {/* <CssBaseline /> */}
@@ -182,7 +182,7 @@ if(values.stooge=="acepto" && values.correo){
             <Grid spacing={2} style={{ marginLeft: 280 }}>
          
                     <MDBCard spacing={5} style={{marginTop:50,  width: "27rem", marginBottom:50}} >
-                        <MDBCardHeader><Alert>Sección RP</Alert></MDBCardHeader>
+                        <MDBCardHeader><Alert>Sección EEO</Alert></MDBCardHeader>
                         <MDBCardBody>
                             <Grid item>
                             <Grid  item style={{ marginTop: 16,marginLeft:50 }} spacing={2} item xs={9} >                          

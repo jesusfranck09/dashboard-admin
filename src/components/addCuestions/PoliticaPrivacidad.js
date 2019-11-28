@@ -167,7 +167,7 @@ if(values.stooge=="acepto" && values.correo ){
       <div>
           <header>
           </header>
-        <MDBContainer style={container} className="text-center mt-2 pt-5">
+          <MDBContainer style={container} className="text-center  ">
     
         <div style={{ padding: 16, margin: 'auto', maxWidth: 1050 ,marginLeft:20}}>
       {/* <CssBaseline /> */}

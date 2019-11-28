@@ -12,14 +12,13 @@ import {
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
 import axios from 'axios';
-import Modal from 'react-modal';
-import Ok from '../../images/ok.png'
  
 
 import { MDBRow, MDBCol, MDBBadge } from 'mdbreact';
 
 import { MDBContainer,MDBTableBody,MDBTable,MDBTableHead,MDBCollapse} from 'mdbreact';
-
+import Modal from 'react-modal';
+import Ok from '../../images/ok.png'
  
 
 class Home extends React.Component {
@@ -43,14 +42,17 @@ class Home extends React.Component {
 
   evaluar= (values) => {
 
-    if( (values.pregunta44 == "Siempre" || values.pregunta44=="CasiSiempre"|| values.pregunta44=="AlgunasVeces"|| values.pregunta44=="CasiNunca"|| values.pregunta44=="Nunca") 
-    && (values.pregunta45 == "Siempre" || values.pregunta45=="CasiSiempre"|| values.pregunta45=="AlgunasVeces"|| values.pregunta45=="CasiNunca"|| values.pregunta45=="Nunca") 
-    && (values.pregunta46 == "Siempre" || values.pregunta46=="CasiSiempre"|| values.pregunta46=="AlgunasVeces"|| values.pregunta46=="CasiNunca"|| values.pregunta46=="Nunca")
-   
+    if( (values.pregunta69 == "Siempre" || values.pregunta69=="CasiSiempre"|| values.pregunta69=="AlgunasVeces"|| values.pregunta69=="CasiNunca"|| values.pregunta69=="Nunca") 
+    && (values.pregunta70 == "Siempre" || values.pregunta70=="CasiSiempre"|| values.pregunta70=="AlgunasVeces"|| values.pregunta70=="CasiNunca"|| values.pregunta70=="Nunca") 
+    && (values.pregunta71 == "Siempre" || values.pregunta71=="CasiSiempre"|| values.pregunta71=="AlgunasVeces"|| values.pregunta71=="CasiNunca"|| values.pregunta71=="Nunca")
+    && (values.pregunta72 == "Siempre" || values.pregunta72=="CasiSiempre"|| values.pregunta72=="AlgunasVeces"|| values.pregunta72=="CasiNunca"|| values.pregunta72=="Nunca")
+
     ){
+
         this.setState({
             showModal2:true
       }) 
+
       }
 
   }
@@ -62,6 +64,22 @@ class Home extends React.Component {
 
 
   handleClick(){
+
+    
+
+// var val =  JSON.parse(values)
+// console.log(val.rotacion)
+// if(val.rotacion=="si"){
+
+// return(
+// console.log("jlkjl")
+// )
+// }else if(val.rotacion=="no"){ 
+
+  
+// }
+ 
+
 console.log("data" ,this.state.data)
 
   }
@@ -76,7 +94,7 @@ console.log("data" ,this.state.data)
 
       <React.Fragment>
       <div>
-        <MDBContainer style={container} className="text-center mt-2 pt-5">
+      <MDBContainer style={container} className="text-center  ">
     
         <div style={{ padding: 16, margin: 'auto', maxWidth: 1050 }}>
       {/* <CssBaseline /> */}
@@ -86,8 +104,8 @@ console.log("data" ,this.state.data)
         validate={validate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
-           <Alert color="primary">Sección RP<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
-            <Paper style={{ padding: 16 }}><Alert color="dark">VIII. Soy jefe de otros trabajadores</Alert>
+           <Alert color="primary">Sección EEO<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
+            <Paper style={{ padding: 16 }}><Alert color="dark">XIV.  Las actitudes de las personas que supervisa.</Alert>
               <Grid container alignItems="flex-start" spacing={2} item xs={12}>
               <FormControl component="fieldset">
               <RadioGroup >
@@ -106,31 +124,39 @@ console.log("data" ,this.state.data)
                   
                     <tr>
                     
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>44.- Comunican tarde los asuntos de trabajo.</FormLabel></td> 
-                      <td> <FormControlLabel  control={<Field required name="pregunta44" component={Radio} type="radio" value="Siempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta44" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta44" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta44" component={Radio} type="radio" value="CasiNunca"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta44" component={Radio} type="radio" value="Nunca"/>} /></td>
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>69.- Para hacer mi trabajo debo demostrar sentimientos distintos a los míos</FormLabel></td> 
+                      <td> <FormControlLabel  control={<Field required name="pregunta69" component={Radio} type="radio" value="Siempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta69" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta69" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta69" component={Radio} type="radio" value="CasiNunca"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta69" component={Radio} type="radio" value="Nunca"/>} /></td>
                  
                     </tr>
                    
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>45.- Dificultan el logro de los resultados del trabajo.</FormLabel></td> 
-                      <td> <FormControlLabel  control={<Field required name="pregunta45" component={Radio} type="radio" value="Siempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta45" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta45" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta45" component={Radio} type="radio" value="CasiNunca"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta45" component={Radio} type="radio" value="Nunca"/>} /></td>
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>70.- Dificultan el logro de los resultados del trabajo</FormLabel></td> 
+                      <td> <FormControlLabel  control={<Field required name="pregunta70" component={Radio} type="radio" value="Siempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta70" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta70" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta70" component={Radio} type="radio" value="CasiNunca"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta70" component={Radio} type="radio" value="Nunca"/>} /></td>
                     </tr> 
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>46.- Ignoran las sugerencias para mejorar su trabajo.</FormLabel></td> 
-                      <td> <FormControlLabel  control={<Field required name="pregunta46" component={Radio} type="radio" value="Siempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta46" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta46" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta46" component={Radio} type="radio" value="CasiNunca"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta46" component={Radio} type="radio" value="Nunca"/>} /></td>
-                    </tr> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>71.- Cooperan poco cuando se necesita</FormLabel></td> 
+                      <td> <FormControlLabel  control={<Field required name="pregunta71" component={Radio} type="radio" value="Siempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta71" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta71" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta71" component={Radio} type="radio" value="CasiNunca"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta71" component={Radio} type="radio" value="Nunca"/>} /></td>
+                    </tr>
+                    <tr>
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>72.- Ignoran las sugerencias para mejorar su trabajo</FormLabel></td> 
+                      <td> <FormControlLabel  control={<Field required name="pregunta72" component={Radio} type="radio" value="Siempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta72" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta72" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta72" component={Radio} type="radio" value="CasiNunca"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta72" component={Radio} type="radio" value="Nunca"/>} /></td>
+                    </tr>
                   </MDBTableBody>
                   
                 </MDBTable>
@@ -160,7 +186,6 @@ console.log("data" ,this.state.data)
         </MDBContainer>
     
       </div>
-
       <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
                     <div className="row">
                         <div className="col-md-12" item xs={12}>

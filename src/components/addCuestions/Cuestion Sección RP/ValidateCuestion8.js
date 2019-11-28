@@ -1,24 +1,22 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
-import { TextField, Radio, Select } from 'final-form-material-ui';
+import {  Radio } from 'final-form-material-ui';
 import {
   Paper,
   Grid,
   Button,
   RadioGroup,
-  FormLabel,
-  MenuItem,
   FormControl,
   FormControlLabel,
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
-import axios from 'axios';
+// import axios from 'axios';
 import Modal from 'react-modal';
 import Ok from '../../images/ok.png'
 
-import { MDBRow, MDBCol, MDBBtn } from 'mdbreact';
+import { MDBRow, MDBCol} from 'mdbreact';
 
-import { MDBContainer,MDBTableBody,MDBTable,MDBTableHead,MDBCollapse} from 'mdbreact';
+import { MDBContainer} from 'mdbreact';
 
  
 class Home extends React.Component {
@@ -75,7 +73,7 @@ console.log("data" ,this.state.data)
 
   render() {
     // const { children} = this.props;
-    const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
+    // const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
     return (
 
@@ -95,15 +93,11 @@ console.log("data" ,this.state.data)
           <form onSubmit={handleSubmit}>
            <Alert color="primary"> Sección RP <br></br> INSTRUCCIONES : Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
             <Paper style={{ padding: 16 }}><Alert color="secondary">VIII.¿ Soy jefe de otros trabajadores?</Alert>
-
-
-              <Grid container alignItems="flex-start" spacing={2} item xs={12}>
-            
+              <Grid container alignItems="flex-start" spacing={2} item xs={12}>       
                     <Grid  item xs={12}>
                   <FormControl component="fieldset">
                     <RadioGroup row>
-                      <MDBRow>
-                       
+                      <MDBRow>                   
                       <MDBCol className="text-center mt-5 ml-3">
                       <FormControlLabel  
                         label="Si"
@@ -114,7 +108,6 @@ console.log("data" ,this.state.data)
                             component={Radio}
                             type="radio"
                             value="si"
-
                           />
                         }
                       />
@@ -178,7 +171,7 @@ console.log("data" ,this.state.data)
                                 <Alert color="secondary" style={{fontSize: 24}}>Su encuesta ha finalizado, Gracias por su colaboración</Alert>
                                 <br/>
                                 <br/>
-                                <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
+                                <Grid style={{ marginTop: 16 }} spacing={2} item xs={12}>
                                 <Button 
                                   variant="contained"
                                     color="secondary"

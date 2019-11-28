@@ -12,8 +12,6 @@ import {
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
 import axios from 'axios';
-import Modal from 'react-modal';
-import Ok from '../../images/ok.png'
  
 
 import { MDBRow, MDBCol, MDBBadge } from 'mdbreact';
@@ -43,14 +41,14 @@ class Home extends React.Component {
 
   evaluar= (values) => {
 
-    if( (values.pregunta44 == "Siempre" || values.pregunta44=="CasiSiempre"|| values.pregunta44=="AlgunasVeces"|| values.pregunta44=="CasiNunca"|| values.pregunta44=="Nunca") 
-    && (values.pregunta45 == "Siempre" || values.pregunta45=="CasiSiempre"|| values.pregunta45=="AlgunasVeces"|| values.pregunta45=="CasiNunca"|| values.pregunta45=="Nunca") 
+    if( (values.pregunta42 == "Siempre" || values.pregunta42=="CasiSiempre"|| values.pregunta42=="AlgunasVeces"|| values.pregunta42=="CasiNunca"|| values.pregunta42=="Nunca") 
+    && (values.pregunta43 == "Siempre" || values.pregunta43=="CasiSiempre"|| values.pregunta43=="AlgunasVeces"|| values.pregunta43=="CasiNunca"|| values.pregunta43=="Nunca") 
+    && (values.pregunta44 == "Siempre" || values.pregunta44=="CasiSiempre"|| values.pregunta44=="AlgunasVeces"|| values.pregunta44=="CasiNunca"|| values.pregunta44=="Nunca")
+    && (values.pregunta45 == "Siempre" || values.pregunta45=="CasiSiempre"|| values.pregunta45=="AlgunasVeces"|| values.pregunta45=="CasiNunca"|| values.pregunta45=="Nunca")
     && (values.pregunta46 == "Siempre" || values.pregunta46=="CasiSiempre"|| values.pregunta46=="AlgunasVeces"|| values.pregunta46=="CasiNunca"|| values.pregunta46=="Nunca")
-   
+
     ){
-        this.setState({
-            showModal2:true
-      }) 
+        this.props.history.push("./EEOpage11")
       }
 
   }
@@ -62,6 +60,22 @@ class Home extends React.Component {
 
 
   handleClick(){
+
+    
+
+// var val =  JSON.parse(values)
+// console.log(val.rotacion)
+// if(val.rotacion=="si"){
+
+// return(
+// console.log("jlkjl")
+// )
+// }else if(val.rotacion=="no"){ 
+
+  
+// }
+ 
+
 console.log("data" ,this.state.data)
 
   }
@@ -76,7 +90,7 @@ console.log("data" ,this.state.data)
 
       <React.Fragment>
       <div>
-        <MDBContainer style={container} className="text-center mt-2 pt-5">
+      <MDBContainer style={container} className="text-center  ">
     
         <div style={{ padding: 16, margin: 'auto', maxWidth: 1050 }}>
       {/* <CssBaseline /> */}
@@ -86,8 +100,8 @@ console.log("data" ,this.state.data)
         validate={validate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
-           <Alert color="primary">Sección RP<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
-            <Paper style={{ padding: 16 }}><Alert color="dark">VIII. Soy jefe de otros trabajadores</Alert>
+           <Alert color="primary">Sección EEO<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
+            <Paper style={{ padding: 16 }}><Alert color="dark">X. Relaciones con sus compañeros.</Alert>
               <Grid container alignItems="flex-start" spacing={2} item xs={12}>
               <FormControl component="fieldset">
               <RadioGroup >
@@ -106,17 +120,33 @@ console.log("data" ,this.state.data)
                   
                     <tr>
                     
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>44.- Comunican tarde los asuntos de trabajo.</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>42.- Puedo confiar en mis compañeros de trabajo</FormLabel></td> 
+                      <td> <FormControlLabel  control={<Field required name="pregunta42" component={Radio} type="radio" value="Siempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta42" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta42" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta42" component={Radio} type="radio" value="CasiNunca"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta42" component={Radio} type="radio" value="Nunca"/>} /></td>
+                 
+                    </tr>
+                   
+                    <tr>
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>43.- Entre compañeros solucionamos los problemas de trabajo de forma respetuosa</FormLabel></td> 
+                      <td> <FormControlLabel  control={<Field required name="pregunta43" component={Radio} type="radio" value="Siempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta43" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta43" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta43" component={Radio} type="radio" value="CasiNunca"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta43" component={Radio} type="radio" value="Nunca"/>} /></td>
+                    </tr> 
+                    <tr>
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>44.-En mi trabajo me hacen sentir parte del grupo</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta44" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta44" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta44" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta44" component={Radio} type="radio" value="CasiNunca"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta44" component={Radio} type="radio" value="Nunca"/>} /></td>
-                 
-                    </tr>
-                   
+                    </tr> 
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>45.- Dificultan el logro de los resultados del trabajo.</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>45.- Cuando tenemos que realizar trabajo de equipo los compañeros colaboran</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta45" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta45" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta45" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -124,7 +154,7 @@ console.log("data" ,this.state.data)
                       <td> <FormControlLabel  control={<Field required name="pregunta45" component={Radio} type="radio" value="Nunca"/>} /></td>
                     </tr> 
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>46.- Ignoran las sugerencias para mejorar su trabajo.</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>46.-Mis compañeros de trabajo me ayudan cuando tengo dificultades</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta46" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta46" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta46" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -160,38 +190,6 @@ console.log("data" ,this.state.data)
         </MDBContainer>
     
       </div>
-
-      <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
-                    <div className="row">
-                        <div className="col-md-12" item xs={12}>
-                            <center><br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <img src={Ok} alt="ok" className="img-fluid"/><br/><br/>
-                                
-                                <br/>
-                                <br/>
-                                <br/>
-                                <Alert color="secondary" style={{fontSize: 24}}>Su encuesta ha finalizado, Gracias por su colaboración</Alert>
-                                <br/>
-                                <br/>
-                                <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
-                                <Button 
-                                  variant="contained"
-                                    color="secondary"
-                                    type = "submit"
-                                    onClick={()=>{this.props.history.push('/inicio')}}
-                                  >
-                                    Pantalla de inicio  
-                                  </Button>
-                                  </Grid>
-                            </center>
-                        </div>
-                    </div>
-
-                </Modal>
       </React.Fragment>
 
 
