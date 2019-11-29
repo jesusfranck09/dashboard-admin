@@ -74,7 +74,7 @@ class Home extends React.Component {
             `
         }
             }).then((datos) => {
-              console.log("los datos son ",datos)
+              localStorage.removeItem('correo')
             }); 
 
         this.setState({

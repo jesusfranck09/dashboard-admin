@@ -49,6 +49,25 @@ class Home extends React.Component {
 
     ){
 
+      const correo   = localStorage.getItem("correo")
+    
+      const url = 'http://localhost:8000/graphql'
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         mutation{
+          eeoPage14(data:"${[values.pregunta69,values.pregunta70,values.pregunta71,values.pregunta72,correo]}"){
+              message
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              localStorage.removeItem('correo')
+            }); 
+
         this.setState({
             showModal2:true
       }) 

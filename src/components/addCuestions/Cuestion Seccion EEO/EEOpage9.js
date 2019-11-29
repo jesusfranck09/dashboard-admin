@@ -48,6 +48,26 @@ class Home extends React.Component {
     && (values.pregunta41 == "Siempre" || values.pregunta41=="CasiSiempre"|| values.pregunta41=="AlgunasVeces"|| values.pregunta41=="CasiNunca"|| values.pregunta41=="Nunca")
    
     ){
+
+      const correo   = localStorage.getItem("correo")
+    
+      const url = 'http://localhost:8000/graphql'
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         mutation{
+          eeoPage9(data:"${[values.pregunta37,values.pregunta38,values.pregunta39,values.pregunta40,values.pregunta41,correo]}"){
+              message
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              console.log("los datos son ",datos)
+            }); 
+
         this.props.history.push("./EEOpage10")
       }
 

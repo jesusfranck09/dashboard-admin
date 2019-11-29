@@ -59,7 +59,7 @@ class Home extends React.Component {
             `
         }
             }).then((datos) => {
-              //localStorage.removeItem('correo')
+              localStorage.removeItem('correo')
             }); 
 
       this.setState({
