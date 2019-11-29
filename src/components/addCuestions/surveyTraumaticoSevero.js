@@ -143,11 +143,11 @@ console.log("data" ,this.state.data)
                   <FormControl component="fieldset">
                     <RadioGroup row>
                       <MDBRow>
-                      <FormLabel component="legend" className="text-center mt-3 ml-4">¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los siguientes?</FormLabel>
+                      <FormLabel component="legend" className="text-left mt-3 ml-4">¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los siguientes?</FormLabel>
                         <MDBCol>
-                        <FormLabel component="legend" className="text-center mt-3 ">1.- Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión grave?</FormLabel>
-                        <FormLabel component="legend" className="text-center mt-3 ml-4">2.-¿Asaltos , Actos violentos que derivaron en lesiones graves? </FormLabel>
-                        <FormLabel component="legend" className="text-center mt-3 ml-4">3.-¿Secuestro,Amenazas o Cualquier otro que ponga en riesgo su vida o salud, y/o la de otras personas?</FormLabel>
+                        <FormLabel component="legend" className="text-left mt-3 ml-4">1.- Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión grave?</FormLabel>
+                        <FormLabel component="legend" className="text-left mt-3 ml-4">2.-¿Asaltos , Actos violentos que derivaron en lesiones graves? </FormLabel>
+                        <FormLabel component="legend" className="text-left mt-3 ml-4">3.-¿Secuestro,Amenazas o Cualquier otro que ponga en riesgo su vida o salud, y/o la de otras personas?</FormLabel>
                         
                         </MDBCol>
                        

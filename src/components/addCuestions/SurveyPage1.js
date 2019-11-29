@@ -115,7 +115,7 @@ if( (values.pregunta1 == "Siempre" || values.pregunta1=="CasiSiempre"|| values.p
                   
                     <tr>
                     
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>1.- ¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left" style={{ marginRight:200}}>1.- ¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta1" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta1" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta1" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -125,7 +125,7 @@ if( (values.pregunta1 == "Siempre" || values.pregunta1=="CasiSiempre"|| values.p
                     </tr>
                    
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>2.-¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left" style={{ marginRight:200}}>2.-¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta2" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta2" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
 
@@ -154,7 +154,7 @@ if( (values.pregunta1 == "Siempre" || values.pregunta1=="CasiSiempre"|| values.p
                 </Grid>
               </Grid>
             </Paper>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
+            {/* <pre>{JSON.stringify(values, 0, 2)}</pre> */}
           </form>
         )}
       />

@@ -101,7 +101,7 @@ class Home extends React.Component {
                   </MDBTableHead>
                   <MDBTableBody>                
                     <tr>                   
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>23.- Me informan con claridad cuáles son mis funciones.</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>23.- Me informan con claridad cuáles son mis funciones.</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta23" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta23" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta23" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -109,7 +109,7 @@ class Home extends React.Component {
                       <td> <FormControlLabel  control={<Field required name="pregunta23" component={Radio} type="radio" value="Nunca"/>} /></td>
                     </tr>
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>24.- Me explican claramente los resultados que debo obtener en mi trabajo.</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>24.- Me explican claramente los resultados que debo obtener en mi trabajo.</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta24" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta24" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta24" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -117,7 +117,7 @@ class Home extends React.Component {
                       <td> <FormControlLabel  control={<Field required name="pregunta24" component={Radio} type="radio" value="Nunca"/>} /></td>
                     </tr> 
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>25.- Me informan con quién puedo resolver problemas o asuntos de trabajo.</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>25.- Me informan con quién puedo resolver problemas o asuntos de trabajo.</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta25" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta25" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta25" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -125,7 +125,7 @@ class Home extends React.Component {
                       <td> <FormControlLabel  control={<Field required name="pregunta25" component={Radio} type="radio" value="Nunca"/>} /></td>
                     </tr> 
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>26.- Me permiten asistir a capacitaciones relacionadas con mi trabajo.</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>26.- Me permiten asistir a capacitaciones relacionadas con mi trabajo.</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta26" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta26" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta26" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -133,7 +133,7 @@ class Home extends React.Component {
                       <td> <FormControlLabel  control={<Field required name="pregunta26" component={Radio} type="radio" value="Nunca"/>} /></td>
                     </tr> 
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>27.- Recibo capacitación útil para hacer mi trabajo.</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>27.- Recibo capacitación útil para hacer mi trabajo.</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta27" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta27" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta27" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -158,7 +158,7 @@ class Home extends React.Component {
                 </Grid>
               </Grid>
             </Paper>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
+            {/* <pre>{JSON.stringify(values, 0, 2)}</pre> */}
           </form>
         )}
       />

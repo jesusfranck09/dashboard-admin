@@ -141,7 +141,7 @@ console.log("data" ,this.state.data)
                   
                     <tr>
                     
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>23.- Mi trabajo permite que desarrolle nuevas habilidades</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>23.- Mi trabajo permite que desarrolle nuevas habilidades</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta23" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta23" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta23" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -151,7 +151,7 @@ console.log("data" ,this.state.data)
                     </tr>
                    
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>24.- En mi trabajo puedo aspirar a un mejor puesto</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>24.- En mi trabajo puedo aspirar a un mejor puesto</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta24" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta24" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta24" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -159,7 +159,7 @@ console.log("data" ,this.state.data)
                       <td> <FormControlLabel  control={<Field required name="pregunta24" component={Radio} type="radio" value="Nunca"/>} /></td>
                     </tr> 
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>25.- Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>25.- Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta25" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta25" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta25" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -167,7 +167,7 @@ console.log("data" ,this.state.data)
                       <td> <FormControlLabel  control={<Field required name="pregunta25" component={Radio} type="radio" value="Nunca"/>} /></td>
                     </tr>
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>26.- Puedo decidir cuánto trabajo realizo durante la jornada laboral</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>26.- Puedo decidir cuánto trabajo realizo durante la jornada laboral</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta26" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta26" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta26" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -175,7 +175,7 @@ console.log("data" ,this.state.data)
                       <td> <FormControlLabel  control={<Field required name="pregunta26" component={Radio} type="radio" value="Nunca"/>} /></td>
                     </tr>
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>27.- Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>27.- Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta27" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta27" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta27" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -183,7 +183,7 @@ console.log("data" ,this.state.data)
                       <td> <FormControlLabel  control={<Field required name="pregunta27" component={Radio} type="radio" value="Nunca"/>} /></td>
                     </tr>
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>28.- Puedo cambiar el orden de las actividades que realizo en mi trabajo </FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>28.- Puedo cambiar el orden de las actividades que realizo en mi trabajo </FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta28" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta28" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta28" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -211,7 +211,7 @@ console.log("data" ,this.state.data)
                 </Grid>
               </Grid>
             </Paper>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
+            {/* <pre>{JSON.stringify(values, 0, 2)}</pre> */}
           </form>
         )}
       />

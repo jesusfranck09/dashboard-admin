@@ -252,7 +252,7 @@ if(values.stooge=="acepto" && values.correo){
                 </Grid>
               </Grid>
             </Paper>
-            <pre>{JSON.stringify(values,1,2)}</pre>
+            {/* <pre>{JSON.stringify(values,1,2)}</pre> */}
           </form>
         )}
       />

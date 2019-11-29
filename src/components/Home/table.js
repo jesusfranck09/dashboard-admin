@@ -132,7 +132,7 @@ class TableEmployees extends React.Component {
           </header>
         <MDBContainer style={container} className="text-center mt-2 pt-5">
         <MDBBtn onClick = {this.getEmployees} >consulta </MDBBtn>
-    <ScrollableTabsButtonAuto datos={this.state.datos}></ScrollableTabsButtonAuto>
+    <DenseTable datos={this.state.datos}></DenseTable>
         
         {/* <MDBDataTable /> */}
         </MDBContainer>
@@ -179,11 +179,14 @@ const useStyles = makeStyles(theme => ({
 
 
   const propiedades = (event)=> {
-    console.log("estas son las props en densetable" , props.data.getUsersTableEmployees)
+    console.log("estas son las props en densetable" , props.datos.getUsersTableEmployees)
   };
+  var rows = []
 
+  rows.push( props.datos.getUsersTableEmployees)
   if(props !== undefined){
   return (
+    
     <div className={classes.root}>
       <Paper >
       <button  onClick ={propiedades}>props</button>
@@ -203,7 +206,7 @@ const useStyles = makeStyles(theme => ({
             </TableRow>
           </TableHead>
           <TableBody>
-       
+              {rows}
 
               <TableRow >
                 <TableCell component="th" scope="row">
@@ -307,7 +310,7 @@ function ScrollableTabsButtonAuto(props) {
       
       <TabPanel value={value} index={0}>
          
-      <DenseTable data = {props.datos}  ></DenseTable> 
+      <DenseTable  ></DenseTable> 
       </TabPanel>
       
       <TabPanel value={value} index={1}>

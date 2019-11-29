@@ -136,7 +136,7 @@ console.log("data" ,this.state.data)
                   
                     <tr>
                     
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>29.- Los cambios que se presentan en mi trabajo dificultan mi labor</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>29.- Los cambios que se presentan en mi trabajo dificultan mi labor</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta29" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta29" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta29" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -146,7 +146,7 @@ console.log("data" ,this.state.data)
                     </tr>
                    
                     <tr>
-                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-center " style={{ marginRight:200}}>30.- Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</FormLabel></td> 
+                      <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left " style={{ marginRight:200}}>30.- Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</FormLabel></td> 
                       <td> <FormControlLabel  control={<Field required name="pregunta30" component={Radio} type="radio" value="Siempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta30" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
                       <td> <FormControlLabel  control={<Field required name="pregunta30" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
@@ -175,7 +175,7 @@ console.log("data" ,this.state.data)
                 </Grid>
               </Grid>
             </Paper>
-            <pre>{JSON.stringify(values, 0, 2)}</pre>
+            {/* <pre>{JSON.stringify(values, 0, 2)}</pre> */}
           </form>
         )}
       />
