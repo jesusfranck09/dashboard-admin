@@ -70,11 +70,13 @@ class TableEmployees extends React.Component {
               `
           }
               }).then((datos) => {
-                console.log("los datos son ",datos.data.data.getUsersTableEmployees)
-                this.setState({ datos: datos.data.data});
-              
 
-          console.log("la data del estado es " , this.state.datos) 
+                console.log("parseo" ,JSON.stringify(datos.data.data))
+    
+                
+                console.log("datps" ,datos.data.data.getUsersTableEmployees)
+                this.setState({ datos: datos.data.data});
+
                 // this.props.history.push("/inicio")
               })
 
@@ -132,7 +134,7 @@ class TableEmployees extends React.Component {
           </header>
         <MDBContainer style={container} className="text-center mt-2 pt-5">
         <MDBBtn onClick = {this.getEmployees} >consulta </MDBBtn>
-    <DenseTable datos={this.state.datos}></DenseTable>
+    <ScrollableTabsButtonAuto datos={ this.state.datos.getUsersTableEmployees}></ScrollableTabsButtonAuto>
         
         {/* <MDBDataTable /> */}
         </MDBContainer>
@@ -177,19 +179,36 @@ const useStyles = makeStyles(theme => ({
  function DenseTable(props) {
   const classes = useStyles();
 
+var columna =[]
+ 
+    // console.log("estas son las props en densetable" , props.data[1].correo)
 
-  const propiedades = (event)=> {
-    console.log("estas son las props en densetable" , props.datos.getUsersTableEmployees)
-  };
-  var rows = []
+if(props.data){
 
-  rows.push( props.datos.getUsersTableEmployees)
-  if(props !== undefined){
+props.data.map(
+rows=>{
+
+console.log("las rows" ,rows)
+columna = rows
+}
+
+
+)
+
+}
+
+    // var divisiones = miCadena.split(",");
+
+
+    // console.log("divisiones" , divisiones)
+
+
+// console.log("array" ,  array)
+
   return (
     
-    <div className={classes.root}>
+    <div clssName={classes.root}>
       <Paper >
-      <button  onClick ={propiedades}>props</button>
         <Table  size="small" aria-label="a dense table">
           <TableHead>
             <TableRow  >
@@ -206,13 +225,14 @@ const useStyles = makeStyles(theme => ({
             </TableRow>
           </TableHead>
           <TableBody>
-              {rows}
+  
+
 
               <TableRow >
                 <TableCell component="th" scope="row">
-             1
+            
                 </TableCell>
-                <TableCell align="right"></TableCell>
+                <TableCell align="right">{columna.nombre}</TableCell>
                 <TableCell align="right">2</TableCell>
                 <TableCell align="right">3</TableCell>
                 <TableCell align="right">4</TableCell>
@@ -233,9 +253,6 @@ const useStyles = makeStyles(theme => ({
     </div>
   );
   }
-}
-
-
 
 
 function TabPanel(props) {
@@ -283,7 +300,6 @@ function ScrollableTabsButtonAuto(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     <div className={classes.root}>
       <AppBar position="static" color="info">
@@ -310,7 +326,7 @@ function ScrollableTabsButtonAuto(props) {
       
       <TabPanel value={value} index={0}>
          
-      <DenseTable  ></DenseTable> 
+      <DenseTable data  = {props.datos} ></DenseTable> 
       </TabPanel>
       
       <TabPanel value={value} index={1}>
