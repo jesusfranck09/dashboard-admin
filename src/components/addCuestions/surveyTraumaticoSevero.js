@@ -1,25 +1,24 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
-import { TextField, Radio, Select } from 'final-form-material-ui';
+import {  Radio } from 'final-form-material-ui';
 import {
   Paper,
   Grid,
   Button,
   RadioGroup,
   FormLabel,
-  MenuItem,
   FormControl,
   FormControlLabel,
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
 import axios from 'axios';
 import Ok from '../images/ok.png'
-import payload from '../../resolvers/payload';
+// import payload from '../../resolvers/payload';
 
 
-import { MDBRow, MDBCol, MDBBtn } from 'mdbreact';
+import { MDBRow, MDBCol} from 'mdbreact';
 
-import { MDBContainer,MDBTableBody,MDBTable,MDBTableHead,MDBCollapse} from 'mdbreact';
+import { MDBContainer} from 'mdbreact';
 
 import Modal from 'react-modal';
 

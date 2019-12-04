@@ -16,7 +16,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-import payload from '../../resolvers/payload';
+
 
 import axios from 'axios';
 
@@ -204,8 +204,8 @@ if(values.stooge=="acepto" && values.correo ){
                     <MDBCardHeader><Alert>Sección ATS</Alert></MDBCardHeader>
 
                         <MDBCardBody>
-                            <Grid item>
-                            <Grid  item style={{ marginTop: 16,marginLeft:50 }} spacing={2} item xs={9} >                          
+                            <Grid >
+                            <Grid   style={{ marginTop: 16,marginLeft:50 }} spacing={2} item xs={9} >                          
                             <Field      
                                 name="correo"
                                 fullWidth

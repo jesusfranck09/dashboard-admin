@@ -159,28 +159,6 @@ class SheetJSApp extends React.Component {
 				});
 				};
 				
-
-				// const correoAdmin =  pl.email
-				// const passAdmin = pl.password
-				// console.log("correoAdmin " , correoAdmin)
-				// console.log("passadmin", passAdmin)
-				// axios({
-				// 	url:  uri,
-				// 	method:'post',
-				// 	data:{
-				// 	query:`
-				// 	 mutation{
-				// 		fkEmployee(email:"${correoAdmin}", password:"${passAdmin}"){
-				// 		  message
-				// 			}
-				// 		  }
-				// 		`
-				// 	}
-				// 		}).then((datos) => {
-				// 		  console.log("los datos son ",datos)
-				// 		  alert("Registro Exitoso");
-				// 		  // this.props.history.push("/inicio")
-				// 		}); 
 				}
 
 

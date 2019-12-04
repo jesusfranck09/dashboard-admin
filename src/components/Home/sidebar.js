@@ -17,9 +17,6 @@ import MailIcon from '@material-ui/icons/Mail';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import {Link} from 'react-router-dom'
 import ApartmentIcon from '@material-ui/icons/Apartment';
-import payload from '../../resolvers/payload';
-import axios from 'axios';
-import  TableEmployees from  './table'
 
 const drawerWidth = 240;
 
@@ -86,39 +83,6 @@ const useStyles = makeStyles(theme => ({
 
 
 const evaluar = () => {
-
-  // const token = localStorage.getItem('elToken')
-  // let pl = payload(token);
-
-  // const correoAdmin =  pl.email
-
-  // const url = 'http://localhost:8000/graphql'
-  // axios({
-  //   url:  url,
-  //   method:'post',
-  //   data:{
-  //   query:`
-  //    query{
-  //     getUsersTableEmployees(email:"${correoAdmin}"){
-  //       correo
-  //       nombre
-  //       RFC
-  //         Apellidos
-  //         Usuario
-  //         }
-  //       }
-  //       `
-  //   }
-  //       }).then((datos) => {
-  //         console.log("los datos son ",datos.data.data.getUsersTableEmployees)
-         
-  //       })
-
-  //       .catch((error) => {
-    
-  //         //console.log("errores" ,error.response.data.errors[0].message)
-  //         console.log(".cartch" , error.response)
-  //      });
 
 }
 
