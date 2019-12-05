@@ -50,6 +50,7 @@ const EEOpage11 = React.lazy(() => import('./components/addCuestions/Cuestion Se
 const EEOpage12 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage12.js'))
 const EEOpage13 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage13.js'))
 const EEOpage14 = React.lazy(() => import('./components/addCuestions/Cuestion Seccion EEO/EEOpage14.js'))
+const Alert = React.lazy(() => import('./components/Home/alert'))
 
 class Routes extends Component {
 
@@ -103,6 +104,7 @@ class Routes extends Component {
               <Route exact path="/EEOpage12" name="EEOpage12" render={props => <EEOpage12 {...props}/>} />
               <Route exact path="/EEOpage13" name="EEOpage13" render={props => <EEOpage13 {...props}/>} />
               <Route exact path="/EEOpage14" name="EEOpage14" render={props => <EEOpage14 {...props}/>} />
+              <Route exact path="/alert" name="alert" render={props => <Alert {...props}/>} />
 
             </Switch>
           </React.Suspense>

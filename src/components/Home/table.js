@@ -12,6 +12,7 @@
       import { MDBRow,MDBCol} from 'mdbreact'
       import Button from '@material-ui/core/Button';
       import axios from 'axios'
+      import { DialogUtility } from '@syncfusion/ej2-popups';
 
       class TableEmployees extends React.Component {
         constructor(props) {
@@ -29,6 +30,9 @@
             collapse: !this.state.collapse,
           });
         }
+
+      
+
         getEmployees = event => {
 
             var correo  = "d93409@gmail.com"       
@@ -80,6 +84,9 @@
                       console.log(".cartch" , error.response)
                   });
             }
+
+
+           
 
         render() {
           // const { children, ...attributes } = this.props;
@@ -180,13 +187,42 @@
                   {/* <MDBBtn className="boton mt-10 " color="info" onClick = {this.getEmployees}>consulta </MDBBtn> */}
                   </MDBCol>
                   </MDBRow>
-                
+
+
                  
                   {this.state.datos.map(function(title,index){
 
-                  return (
+                   const sendMailATS =  async  (event,valor) =>{
+                   console.log("valor" , valor)
+               
+                      const armando = "jesus.francisco@ads.com.mx"
+                      const url = 'http://localhost:8000/graphql'
+                     await  axios({
+                        url:  url,
+                        method:'post',
+                        data:{
+                        query:`
+                         mutation{
+                          sendMail(data:"${[armando]}"){
+                              message
+                                }
+                              }
+                            `
+                        }
+                            }).then((datos) => {
+                              DialogUtility.alert({
+                                animationSettings: { effect: 'Zoom' },           
+                                content: "Su encuesta fue enviada Exitosamente!",
+                                title: 'Aviso!',
+                                position: "fixed"
+                            });
+                              console.log("los datos son ",datos)
+                            }); 
+                     }
+
+                           return (
                            <Paper  >
-                             
+                            
                             <Table  size="small" aria-label="a dense table">
                             <Table.Body>
                                 <TableCell>{title.nombre}</TableCell>
@@ -196,12 +232,10 @@
                                 <TableCell>{title.rfc}</TableCell>
                                 <TableCell>{title.FechaNacimiento}</TableCell>
                                 <TableCell>{title.EstadoCivil}</TableCell>
-                           
-                                <TableCell><MDBBtn outline color="success">ATS</MDBBtn></TableCell>
-                                <TableCell><MDBBtn outline color="primary">RP</MDBBtn></TableCell>
-                                <TableCell><MDBBtn outline color="info">EEO</MDBBtn></TableCell>
+                                <TableCell><MDBBtn outline color="success"   onClick={(e) => sendMailATS(e,1)} >ATS</MDBBtn></TableCell>
+                                <TableCell><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,2)}>RP</MDBBtn></TableCell>
+                                <TableCell><MDBBtn outline color="info" onClick={(e) => sendMailATS(e,3)}>EEO </MDBBtn></TableCell>
                                 <TableCell><MDBBtn outline color="info">Resultado</MDBBtn></TableCell>
-
                             </Table.Body>
                           </Table>
                           </Paper>
@@ -211,11 +245,11 @@
                   </MDBContainer >
         </MDBContainer>
       </div>
+   
       </React.Fragment>
     );
   }
 }
-
 
 
 export default TableEmployees
