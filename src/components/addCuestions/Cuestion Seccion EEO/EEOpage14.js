@@ -17,8 +17,9 @@ import axios from 'axios';
 import { MDBRow, MDBCol, MDBBadge } from 'mdbreact';
 
 import { MDBContainer,MDBTableBody,MDBTable,MDBTableHead,MDBCollapse} from 'mdbreact';
-import Modal from 'react-modal';
-import Ok from '../../images/ok.png'
+// import Modal from 'react-modal';
+// import Ok from '../../images/ok.png'
+import { DialogUtility } from '@syncfusion/ej2-popups';
  
 
 class Home extends React.Component {
@@ -68,9 +69,15 @@ class Home extends React.Component {
               localStorage.removeItem('correo')
             }); 
 
-        this.setState({
-            showModal2:true
-      }) 
+            localStorage.removeItem('correo')
+            DialogUtility.alert({
+              animationSettings: { effect: 'Zoom' },           
+              content: "Su Encuesta EEO ha finalizado, gracias por su colaboracion!",
+              title: 'Aviso!',
+              position: "fixed",
+           
+          })
+          this.props.history.push("./inicio")
 
       }
 
@@ -205,7 +212,7 @@ console.log("data" ,this.state.data)
         </MDBContainer>
     
       </div>
-      <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
+      {/* <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
                     <div className="row">
                         <div className="col-md-12" item xs={12}>
                             <center><br/>
@@ -235,7 +242,7 @@ console.log("data" ,this.state.data)
                         </div>
                     </div>
 
-                </Modal>
+                </Modal> */}
       </React.Fragment>
 
 

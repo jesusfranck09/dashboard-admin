@@ -28,6 +28,7 @@ import {
 import "./index.css";
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import { DialogUtility } from '@syncfusion/ej2-popups';
 
 const LOGIN = gql`
     mutation LOGIN($email: String!, $password: String!){
@@ -79,7 +80,12 @@ handleInput = (e) => {
         return false;
       }
       localStorage.setItem('elToken', data.login.token) 
-    alert('Sesión iniciada exitosamente!');
+      DialogUtility.alert({
+        animationSettings: { effect: 'Zoom' },           
+        title: 'Sesión iniciada exitosamente!',
+        position: "fixed",
+     
+    })
     this.props.history.push("/inicio")    
   }
 

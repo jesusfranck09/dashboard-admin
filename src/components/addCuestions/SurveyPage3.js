@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 import {  Radio  } from 'final-form-material-ui';
-import Modal from 'react-modal';
-import Ok from '../images/ok.png'
+// import Modal from 'react-modal';
+//  import Ok from '../images/ok.png'
 import {
   Paper,
   Grid,
@@ -15,9 +15,9 @@ import {
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
 import axios from 'axios';
- 
+import { DialogUtility } from '@syncfusion/ej2-popups';
 
-import { MDBRow, MDBCol, MDBBadge } from 'mdbreact';
+import {MDBBadge } from 'mdbreact';
 
 import { MDBContainer,MDBTableBody,MDBTable,MDBTableHead,MDBCollapse} from 'mdbreact';
  
@@ -60,11 +60,16 @@ class Home extends React.Component {
         }
             }).then((datos) => {
               localStorage.removeItem('correo')
-            }); 
-
-      this.setState({
-            showModal2:true
-      }) 
+            });  
+          
+            DialogUtility.alert({
+              animationSettings: { effect: 'Zoom' },           
+              content: "Su Encuesta ATS, ha finalizado gracias por su colaboracion!",
+              title: 'Aviso!',
+              position: "fixed",
+           
+          })
+          this.props.history.push("/inicio")
       }
 
 
@@ -212,7 +217,7 @@ console.log("data" ,this.state.data)
     
       </div>
 
-
+{/* 
       <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
                     <div className="row">
                         <div className="col-md-12" item xs={12}>
@@ -243,7 +248,7 @@ console.log("data" ,this.state.data)
                         </div>
                     </div>
 
-                </Modal>
+                </Modal> */}
       </React.Fragment>
 
     );  

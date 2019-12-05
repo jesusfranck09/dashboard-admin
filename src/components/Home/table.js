@@ -191,10 +191,10 @@
 
                  
                   {this.state.datos.map(function(title,index){
-
+           
+                
                    const sendMailATS =  async  (event,valor) =>{
                    console.log("valor" , valor)
-               
                       const armando = "jesus.francisco@ads.com.mx"
                       const url = 'http://localhost:8000/graphql'
                      await  axios({
@@ -203,21 +203,22 @@
                         data:{
                         query:`
                          mutation{
-                          sendMail(data:"${[armando]}"){
+                          sendMail(data:"${[title.correo,title.id,valor]}"){
                               message
                                 }
                               }
                             `
                         }
-                            }).then((datos) => {
-                              DialogUtility.alert({
-                                animationSettings: { effect: 'Zoom' },           
-                                content: "Su encuesta fue enviada Exitosamente!",
-                                title: 'Aviso!',
-                                position: "fixed"
-                            });
+                            }).then(datos => {
+                              
                               console.log("los datos son ",datos)
                             }); 
+                            DialogUtility.alert({
+                              animationSettings: { effect: 'Zoom' },           
+                              content: "Su encuesta fue enviada Exitosamente!",
+                              title: 'Aviso!',
+                              position: "fixed"
+                          });
                      }
 
                            return (

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button as Boton, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-
+import { DialogUtility } from '@syncfusion/ej2-popups';
 
 
 const SIGNUP = gql`
@@ -75,7 +75,12 @@ handleData = (data) => {
   //     return false;
   //   }
   // localStorage.setItem('elToken', data.signup.token) 
-  alert('Registro Exitoso');
+  DialogUtility.alert({
+    animationSettings: { effect: 'Zoom' },           
+    content: "Registro Exitoso!",
+    title: 'Aviso!',
+    position: "fixed"
+  });
   this.props.history.push('/');
 }
 
