@@ -35,6 +35,8 @@ const LOGIN = gql`
         login(email: $email, password: $password){
             message
             token
+            nombre
+            Apellidos
         }
     }
 `
@@ -83,9 +85,10 @@ handleInput = (e) => {
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
         title: 'Sesión iniciada exitosamente!',
+        content:`Bienvenido ${data.login.nombre}  ${data.login.Apellidos}`,
         position: "fixed",
-     
     })
+
     this.props.history.push("/inicio")    
   }
 

@@ -172,11 +172,20 @@ class SheetJSApp extends React.Component {
 					}
 				}
 					}).then((result) => {
+	
 					})
 					 .catch((error) => {
 					 console.log(".cartch" , error.response)
 				});
 				};
+
+				DialogUtility.alert({
+					animationSettings: { effect: 'Zoom' },           
+			 
+					title: "Datos Cargados Exitosamente!",
+					position: "fixed"
+				});
+				
 				
 				}
 
@@ -218,8 +227,8 @@ class SheetJSApp extends React.Component {
 			 	<DragDropFile handleFile={this.handleFile}>	
 				<div className="row"><div className="col-xs-12">
 					<DataInput handleFile={this.handleFile} />
-                    <MDBCol className=" text-center mt-2 pt-2 ml-4" >
-                    <MDBBtn className="boton mr-6 " disabled={!this.state.data.length}  color="info" type="submit" onClick={this.handleSubmit } >Cargar </MDBBtn>
+                    <MDBCol className=" text-center mt-2 pt-2 " >
+                    <MDBBtn className="boton" disabled={!this.state.data.length}  color="info" type="submit" onClick={this.handleSubmit } >Cargar </MDBBtn>
                  
 					</MDBCol> 		
 				</div> </div>

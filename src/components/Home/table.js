@@ -195,7 +195,13 @@
                 
                    const sendMailATS =  async  (event,valor) =>{
                    console.log("valor" , valor)
-                      const armando = "jesus.francisco@ads.com.mx"
+                   DialogUtility.alert({
+                    animationSettings: { effect: 'Zoom' },           
+                    content: "Su encuesta fue enviada Exitosamente!",
+                    title: 'Aviso!',
+                    position: "fixed"
+                });
+                    
                       const url = 'http://localhost:8000/graphql'
                      await  axios({
                         url:  url,
@@ -213,12 +219,7 @@
                               
                               console.log("los datos son ",datos)
                             }); 
-                            DialogUtility.alert({
-                              animationSettings: { effect: 'Zoom' },           
-                              content: "Su encuesta fue enviada Exitosamente!",
-                              title: 'Aviso!',
-                              position: "fixed"
-                          });
+                           
                      }
 
                            return (
