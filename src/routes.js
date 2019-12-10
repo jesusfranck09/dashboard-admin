@@ -54,6 +54,9 @@ import EEOpage13 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
 import EEOpage14 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
 import ProfileUser from './components/Home/ProfileUser';
 
+import Result from './components/resultsCuestions/result';
+
+
 
 
 
@@ -76,6 +79,8 @@ class Routes extends Component{
                   <Route exact path='/login' component={Login}/>
                   {/* <Route exact path='/verify/:id' component={Verify}/> */}
                   <PrivateRoute exact path='/signup' component={SignUp}/>
+                  <PrivateRoute exact path='/result' component={Result}/>
+
                   <PrivateRoute exact path='/cuestions' component={Cuestions}/>
                   <PrivateRoute exact path='/inicio' component={Home}/>
                   <PrivateRoute exact path='/company' component={Company}/>
@@ -85,8 +90,8 @@ class Routes extends Component{
                   <PrivateRoute exact path='/Initsurvey' component={InitSurvey}/>
 
                   <PrivateRoute exact path='/page1' component={SurveyPage1}/>
-                  <PrivateRoute exact path='page2' component={SurveyPage2}/>
-                  <PrivateRoute exact path='page3' component={SurveyPage3}/>
+                  <PrivateRoute exact path='/page2' component={SurveyPage2}/>
+                  <PrivateRoute exact path='/page3' component={SurveyPage3}/>
 
                   <PrivateRoute exact path='/politicaRP' component={PoliticaRP}/>
 
@@ -120,6 +125,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/EEOpage13' component={EEOpage13}/>
                   <PrivateRoute exact path='/EEOpage14' component={EEOpage14}/>
                   <PrivateRoute exact path='/profile' component={ProfileUser}/>
+                  <PrivateRoute exact path='/result' component={Result}/>
 
               </main>
           </Router>

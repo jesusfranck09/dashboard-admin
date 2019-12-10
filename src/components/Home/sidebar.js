@@ -12,11 +12,13 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+// import InboxIcon from '@material-ui/icons/MoveToInbox';
+// import MailIcon from '@material-ui/icons/Mail';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import {Link} from 'react-router-dom'
 import ApartmentIcon from '@material-ui/icons/Apartment';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import BarChartIcon from '@material-ui/icons/BarChart';
 
 const drawerWidth = 240;
 
@@ -24,21 +26,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
+ 
+ 
   menuButton: {
     marginRight: 36,
   },
@@ -72,19 +61,35 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
+    padding: theme.spacing(0, 2),
+    // ...theme.mixins.toolbar,
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+
+  drawerPaper: {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerPaperClose: {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    width: theme.spacing(7),
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(9),
+    },
+  },
 }));
-
-
-const evaluar = () => {
-
-}
 
 export default function MiniDrawer() {
   const classes = useStyles();
@@ -156,15 +161,26 @@ export default function MiniDrawer() {
         </Link>
 
 
+        <Link to="/result" style={{ textDecoration: 'none' }}>
+        <List >
+          {['Resultados'].map((text) => (
+            <ListItem button key={text} >
+              <ListItemIcon> <BarChartIcon /> </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>    
+        </Link>
+
         <Divider />
-        <List>
+        {/* <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
         
       </Drawer>
       <IconButton
@@ -175,9 +191,7 @@ export default function MiniDrawer() {
             className={clsx(classes.menuButton, {
               [classes.hide]: open,
             })}
-          >
-            
-         
+          >     
           <MenuIcon  />
           
           </IconButton>

@@ -5,10 +5,10 @@ import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import './index.css'
 import usuario from '../images/usuario.png'
-import AppBar from 'material-ui/AppBar';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import AppBar from 'material-ui/AppBar';
+// import DropDownMenu from 'material-ui/DropDownMenu';
+// import MenuItem from 'material-ui/MenuItem';
+// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 class Home extends React.Component {

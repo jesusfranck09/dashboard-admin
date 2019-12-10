@@ -6,6 +6,8 @@
       import logo from '../images/logotipo.png'
       import '../Home/index.css'
       import TableCell from '@material-ui/core/TableCell';
+      import TableRow from '@material-ui/core/TableCell';
+      
       import {Table } from 'semantic-ui-react'
       import Paper from '@material-ui/core/Paper';
       import { Alert } from 'reactstrap';
@@ -13,6 +15,9 @@
       import Button from '@material-ui/core/Button';
       import axios from 'axios'
       import { DialogUtility } from '@syncfusion/ej2-popups';
+      import TableBody from '@material-ui/core/TableBody';
+
+import TableHead from '@material-ui/core/TableHead';
 
       class TableEmployees extends React.Component {
         constructor(props) {
@@ -20,7 +25,8 @@
           this.state = {
             collapse: false,
             isOpen: false,
-            datos:[],          
+            datos:[],
+            propiedades:[]          
           };
           this.onClick = this.onClick.bind(this);
 
@@ -74,7 +80,8 @@
                       // console.log("parseo" ,JSON.stringify(datos.data.data))
                       // console.log("datps" ,datos.data.data.getUsersTableEmployees)
                       this.setState({ datos: datos.data.data.getUsersTableEmployees});
-                      console.log("el estado" , this.state.datos)
+                    
+                     
                       // this.props.history.push("/inicio")
                     })
 
@@ -93,8 +100,6 @@
           const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
           const container = { width: 2500, height: 1300 }
           return (
-
-
                     <React.Fragment>
                     <div>
                         <header>
@@ -154,7 +159,7 @@
                     size="large"
  
                   >
-                  <strong>Resultados Globales</strong> 
+                  <strong>Opcion</strong> 
                   </Button> </Alert>
 
                   
@@ -191,17 +196,16 @@
 
                  
                   {this.state.datos.map(function(title,index){
-           
                 
                    const sendMailATS =  async  (event,valor) =>{
-                   console.log("valor" , valor)
+                  
                    DialogUtility.alert({
                     animationSettings: { effect: 'Zoom' },           
                     content: "Su encuesta fue enviada Exitosamente!",
                     title: 'Aviso!',
                     position: "fixed"
                 });
-                    
+    
                       const url = 'http://localhost:8000/graphql'
                      await  axios({
                         url:  url,
@@ -215,39 +219,51 @@
                               }
                             `
                         }
-                            }).then(datos => {
-                              
-                              console.log("los datos son ",datos)
-                            }); 
-                           
+                            }).then(datos => {  
+                            });       
+                            
+                            console.log("los datos son ",title)
                      }
+                        //  const renderBodyRow = ({ name, status, notes }, i) => ({
+                        //   key: name || `row-${i}`,
+                        //   warning: !!(status && status.match('Requires Action')),
+                        //   cells: [
+                        //     name || 'No name specified',
+                        //     status ? { key: 'status', icon: 'attention', content: status } : 'Unknown',
+                        //     notes ? { key: 'notes', icon: 'attention', content: notes, warning: true } : 'None',
+                        //   ],
+                        // })
+
 
                            return (
-                           <Paper  >
-                            
-                            <Table  size="small" aria-label="a dense table">
-                            <Table.Body>
-                                <TableCell>{title.nombre}</TableCell>
-                                <TableCell>{title.ApellidoP}</TableCell>
-                                <TableCell>{title.ApellidoM}</TableCell>
-                                <TableCell>{title.Curp}</TableCell>
-                                <TableCell>{title.rfc}</TableCell>
-                                <TableCell>{title.FechaNacimiento}</TableCell>
-                                <TableCell>{title.EstadoCivil}</TableCell>
-                                <TableCell><MDBBtn outline color="success"   onClick={(e) => sendMailATS(e,1)} >ATS</MDBBtn></TableCell>
-                                <TableCell><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,2)}>RP</MDBBtn></TableCell>
-                                <TableCell><MDBBtn outline color="info" onClick={(e) => sendMailATS(e,3)}>EEO </MDBBtn></TableCell>
-                                <TableCell><MDBBtn outline color="info">Resultado</MDBBtn></TableCell>
-                            </Table.Body>
+
+                            <Table celled fixed singleLine size="small" aria-label="responsive" className=" table-bordered">
+                       
+                            <Table.Row>
+                                <Table.Cell >{title.nombre}</Table.Cell>
+                                <Table.Cell>{title.ApellidoP}</Table.Cell>
+                                <Table.Cell>{title.ApellidoM}</Table.Cell>
+                                <Table.Cell>{title.Curp}</Table.Cell>
+                                <Table.Cell>{title.rfc}</Table.Cell>
+                                <Table.Cell>{title.FechaNacimiento}</Table.Cell>
+                                <Table.Cell>{title.EstadoCivil}</Table.Cell>
+                                <Table.Cell><MDBBtn outline color="success"   onClick={(e) => sendMailATS(e,1)} >ATS</MDBBtn></Table.Cell>
+                                <Table.Cell><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,2)}>RP</MDBBtn></Table.Cell>
+                                <Table.Cell><MDBBtn outline color="info" onClick={(e) => sendMailATS(e,3)}>EEO </MDBBtn></Table.Cell>
+                                {/* <TableCell><MDBBtn outline color="info" onClick={(e) => resultSurvey(e)}>Resultado</MDBBtn></TableCell>                      */}
+                           
+                                </Table.Row>
+                                {/* <Table celled headerRow={headerRow} renderBodyRow={renderBodyRow} tableData={title.ApellidoP}/> */}
+                 
                           </Table>
-                          </Paper>
+                       
                         )
                   })}
                   </ul>
                   </MDBContainer >
+
         </MDBContainer>
-      </div>
-   
+      </div>   
       </React.Fragment>
     );
   }
