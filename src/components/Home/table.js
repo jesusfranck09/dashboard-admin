@@ -10,13 +10,12 @@
       
       import {Table } from 'semantic-ui-react'
       import Paper from '@material-ui/core/Paper';
-      import { Alert } from 'reactstrap';
       import { MDBRow,MDBCol} from 'mdbreact'
       import Button from '@material-ui/core/Button';
       import axios from 'axios'
       import { DialogUtility } from '@syncfusion/ej2-popups';
       import TableBody from '@material-ui/core/TableBody';
-
+      import { Alert } from 'reactstrap';
 import TableHead from '@material-ui/core/TableHead';
 
       class TableEmployees extends React.Component {
@@ -90,10 +89,7 @@ import TableHead from '@material-ui/core/TableHead';
                       //console.log("errores" ,error.response.data.errors[0].message)
                       console.log(".cartch" , error.response)
                   });
-            }
-
-
-           
+            }  
 
         render() {
           // const { children, ...attributes } = this.props;
@@ -193,8 +189,14 @@ import TableHead from '@material-ui/core/TableHead';
                   </MDBCol>
                   </MDBRow>
 
-
                  
+                  <table>
+                  <Alert style={{marginTop:'55', width:'1075px'}}  color="primary" isOpen={this.state.datos.length}>
+                  <tr><td width="9%" >Nombre</td><td width="10%">Apellido P.</td><td width="10%" >Apellido M. </td><td width="13%">Curp</td><td width="10%">RFC</td><td width="10%">Fecha de N.</td><td width="8%">Estado C.</td><td width="12%">Encuesta ATS</td><td width="10%">Encuesta RP</td><td width="10%">Encuesta EEO</td></tr>
+                  </Alert>
+                  </table>
+
+
                   {this.state.datos.map(function(title,index){
                 
                    const sendMailATS =  async  (event,valor) =>{
@@ -205,7 +207,7 @@ import TableHead from '@material-ui/core/TableHead';
                     title: 'Aviso!',
                     position: "fixed"
                 });
-    
+   
                       const url = 'http://localhost:8000/graphql'
                      await  axios({
                         url:  url,
@@ -224,6 +226,9 @@ import TableHead from '@material-ui/core/TableHead';
                             
                             console.log("los datos son ",title)
                      }
+
+                 
+                    
                         //  const renderBodyRow = ({ name, status, notes }, i) => ({
                         //   key: name || `row-${i}`,
                         //   warning: !!(status && status.match('Requires Action')),
@@ -233,13 +238,21 @@ import TableHead from '@material-ui/core/TableHead';
                         //     notes ? { key: 'notes', icon: 'attention', content: notes, warning: true } : 'None',
                         //   ],
                         // })
+                       
 
+                        console.log("el idex es " , index)
+                        console.log("el title es " , title)
 
                            return (
+                         
 
-                            <Table celled fixed singleLine size="small" aria-label="responsive" className=" table-bordered">
+                            <Table   aria-label="responsive" width="1000" border="1">
+                          
+                        <tr><td width="10%" >{title.nombre}</td><td width="10%">{title.ApellidoP}</td><td width="10%" >{title.ApellidoM}</td><td width="10%">{title.Curp}</td><td width="10%">{title.rfc}</td><td width="10%">{title.FechaNacimiento}</td><td width="10%">{title.EstadoCivil}</td><td width="10%"> <MDBBtn outline color="success"   onClick={(e) => sendMailATS(e,1)} >ATS</MDBBtn></td><td width="10%"><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,2)}>RP</MDBBtn></td><td width="10%"><MDBBtn outline color="info" onClick={(e) => sendMailATS(e,3)}>EEO </MDBBtn></td></tr>
                        
-                            <Table.Row>
+                                
+                                
+                            {/* <Table.Row>
                                 <Table.Cell >{title.nombre}</Table.Cell>
                                 <Table.Cell>{title.ApellidoP}</Table.Cell>
                                 <Table.Cell>{title.ApellidoM}</Table.Cell>
@@ -247,12 +260,10 @@ import TableHead from '@material-ui/core/TableHead';
                                 <Table.Cell>{title.rfc}</Table.Cell>
                                 <Table.Cell>{title.FechaNacimiento}</Table.Cell>
                                 <Table.Cell>{title.EstadoCivil}</Table.Cell>
-                                <Table.Cell><MDBBtn outline color="success"   onClick={(e) => sendMailATS(e,1)} >ATS</MDBBtn></Table.Cell>
-                                <Table.Cell><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,2)}>RP</MDBBtn></Table.Cell>
-                                <Table.Cell><MDBBtn outline color="info" onClick={(e) => sendMailATS(e,3)}>EEO </MDBBtn></Table.Cell>
+                                */}
                                 {/* <TableCell><MDBBtn outline color="info" onClick={(e) => resultSurvey(e)}>Resultado</MDBBtn></TableCell>                      */}
-                           
-                                </Table.Row>
+{/*                            
+                                </Table.Row> */}
                                 {/* <Table celled headerRow={headerRow} renderBodyRow={renderBodyRow} tableData={title.ApellidoP}/> */}
                  
                           </Table>
