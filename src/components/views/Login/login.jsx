@@ -33,10 +33,14 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
 const LOGIN = gql`
     mutation LOGIN($email: String!, $password: String!){
         login(email: $email, password: $password){
-            message
-            token
-            nombre
-            Apellidos
+          message 
+          token 
+          nombre 
+          Apellidos 
+          RFC
+          RazonSocial
+          Usuario
+          correo
         }
     }
 `
@@ -82,6 +86,13 @@ handleInput = (e) => {
         return false;
       }
       localStorage.setItem('elToken', data.login.token) 
+      localStorage.setItem('nombre', data.login.nombre)
+      localStorage.setItem('apellidos', data.login.Apellidos) 
+      localStorage.setItem('rfc', data.login.RFC) 
+      localStorage.setItem('razonsocial', data.login.RazonSocial) 
+      localStorage.setItem('usuario', data.login.Usuario) 
+      localStorage.setItem('correo', data.login.correo) 
+
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
         title: 'Sesión iniciada exitosamente!',
