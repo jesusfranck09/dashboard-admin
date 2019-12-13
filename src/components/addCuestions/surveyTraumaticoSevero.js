@@ -36,7 +36,7 @@ class Home extends React.Component {
   evaluar= (values) => {
     console.log("los values son" , values)
     if(values.rotacion === 'si'){
-      const correo = localStorage.getItem('correo')
+      const correo = localStorage.getItem('correoATS')
       const respuesta = values.rotacion
       const url = 'http://localhost:8000/graphql'
       axios({

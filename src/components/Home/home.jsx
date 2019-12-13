@@ -87,8 +87,6 @@ class Home extends React.Component {
     this.handleclick = this.handleclick.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.ads = this.ads.bind(this);
-
-    
     
   }
 
@@ -121,6 +119,8 @@ this.props.history.push("/profile")
 
 }
 
+
+
 handleLogOut(){
 localStorage.removeItem("elToken")
 localStorage.removeItem("nombre")
@@ -139,6 +139,7 @@ DialogUtility.alert({
 }
 )
 }
+
 
 ads(){
 

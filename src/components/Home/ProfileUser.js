@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
@@ -13,8 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {MDBMask,MDBAnimation} from 'mdbreact'
-
+import axios from  'axios'
 import { Image } from 'semantic-ui-react'
+import AddressAdmin from  './addressAdmin'
 
 
 const useStyles = makeStyles(theme => ({
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
         height: 200,
       },
   card: {
-    width: 600,
+    width: 700,
     
   },
   media: {
@@ -58,12 +58,6 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function RecipeReviewCard() {
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   var LaFecha=new Date();
   var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
@@ -79,6 +73,38 @@ export default function RecipeReviewCard() {
   var razonsocial = localStorage.getItem("razonsocial")
   var usuario = localStorage.getItem("usuario")
   var correo = localStorage.getItem("correo")
+ 
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+  const [datosAdmin, setdatosAdmin] = React.useState("");
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+ 
+
+    const url = 'http://localhost:8000/graphql'
+    axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+       mutation{
+        getAdmin(data:"${[correo]}"){
+            id
+              }
+            }
+          `
+      }
+          }).then((datos) => {
+           console.log("datos " , datos.data.data.getAdmin)
+           var resultado = Object.keys(datos.data.data.getAdmin).length
+           setdatosAdmin(resultado);
+
+          }).catch((err) =>{
+            console.log("error", err.response)
+          })
+  };
+
 
   return (
     <MDBMask style={{marginTop:30}} className="d-flex justify-content-center align-items-center gradient">
@@ -120,6 +146,8 @@ export default function RecipeReviewCard() {
          <br/>
          correo : {correo}
          <br/>
+          Número de Trabajadores : {datosAdmin}
+        
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -141,11 +169,11 @@ export default function RecipeReviewCard() {
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>undefined</Typography>
-          <Typography paragraph>
-            undefined
-          </Typography>
+        <CardContent >
+          <Typography paragraph>Dirección</Typography>
+        
+         <AddressAdmin/>
+         
           <Typography paragraph>
          undefined
           </Typography>
@@ -153,7 +181,8 @@ export default function RecipeReviewCard() {
            undefined
           </Typography>
           <Typography>
-undefined          </Typography>
+          undefined          
+            </Typography>
         </CardContent>
       </Collapse>
     </Card>

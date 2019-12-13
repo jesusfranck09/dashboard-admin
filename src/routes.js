@@ -2,6 +2,9 @@ import '../src/App.scss';
 import { ApolloProvider } from 'react-apollo';
 import client from './Graphql';
 import checkToken from '../src/resolvers/checkToken';
+import checkSurveyATS from '../src/resolvers/checkSurveyATS';
+import checkSurveyRP from '../src/resolvers/checkSurveyRP';
+import checkSurveyEEO from '../src/resolvers/checkSurveyEEO';
 import {
   BrowserRouter as Router,
   Route,Redirect
@@ -57,17 +60,13 @@ import ProfileUser from './components/Home/ProfileUser';
 import Result from './components/resultsCuestions/result';
 
 
-
-
-
 class Routes extends Component{
   
   render(){
       
       const PrivateRoute = ({component:Component, ...rest}) => (
-          <Route {...rest} render = {(props) => (
-              checkToken() === true ? <Component {...props}/> : <Redirect to="/"/>
-          )}/>
+      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/"/>)}/>
+      
       )
       return(
         <ApolloProvider client={client}>

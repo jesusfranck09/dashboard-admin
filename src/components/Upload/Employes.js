@@ -371,6 +371,7 @@ function onSubmit (values) {
 	
 	const evaluar  = (values) =>{
 	
+	var contador = ''
 	  const Nombre = values.Nombre
 	  const ApellidoP = values.ApellidoP
 	  const ApellidoM = values.ApellidoM
@@ -399,8 +400,27 @@ function onSubmit (values) {
 	  const correoAdmin =  pl.email
 	  const passAdmin = pl.password
 
-	
-	  const url = 'http://localhost:8000/graphql'
+	//   const url = 'http://localhost:8000/graphql'
+	//   axios({
+	// 	url:  url,
+	// 	method:'post',
+	// 	data:{
+	// 	query:`
+	// 	 mutation{
+	// 		authRegisterSingleEmployee(data:"${[correoAdmin]}"){
+	// 		  max
+	// 			}
+	// 		  }
+	// 		`
+	// 	}
+	//   })
+	//   .then(datos => {		
+	// 	contador=datos
+ 	
+	//   });    
+
+	//   console.log("count" , contador)
+	 
 	  axios({
 		url:  url,
 		method:'post',
@@ -429,7 +449,7 @@ function onSubmit (values) {
 	}
 	
 	
-	
+
 	const validate = values => {
 	  const errors = {};
 	  if (!values.Nombre) {

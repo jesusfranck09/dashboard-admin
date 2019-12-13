@@ -48,7 +48,7 @@ class Home extends React.Component {
 
     ){
 
-      const correo   = localStorage.getItem("correo")
+      const correo   = localStorage.getItem("correoEEO")
     
       const url = 'http://localhost:8000/graphql'
       axios({

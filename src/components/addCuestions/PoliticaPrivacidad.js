@@ -148,7 +148,7 @@ if(values.stooge=="acepto" && values.correo ){
   const acepto  = values.stooge
 
   
-  localStorage.setItem('correo', correo) 
+  localStorage.setItem('correoATS', correo) 
 
   const url = 'http://localhost:8000/graphql'
   axios({

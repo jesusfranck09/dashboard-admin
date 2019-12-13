@@ -46,7 +46,7 @@ class Home extends React.Component {
     && (values.pregunta43 == "Siempre" || values.pregunta43=="CasiSiempre"|| values.pregunta43=="AlgunasVeces"|| values.pregunta43=="CasiNunca"|| values.pregunta43=="Nunca")
     ){
 
-      const correo = localStorage.getItem('correo')
+      const correo = localStorage.getItem('correoRP')
 
       const url = 'http://localhost:8000/graphql'
       axios({

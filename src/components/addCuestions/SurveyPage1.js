@@ -38,7 +38,7 @@ class Home extends React.Component {
 if( (values.pregunta1 == "Siempre" || values.pregunta1=="CasiSiempre"|| values.pregunta1=="AlgunasVeces"|| values.pregunta1=="CasiNunca"|| values.pregunta1=="Nunca") 
 && (values.pregunta2 == "Siempre" || values.pregunta2=="CasiSiempre"|| values.pregunta2=="AlgunasVeces"|| values.pregunta2=="CasiNunca"|| values.pregunta2=="Nunca")){
   
-  const correo = localStorage.getItem('correo')
+  const correo = localStorage.getItem('correoATS')
 
 
   const url = 'http://localhost:8000/graphql'
