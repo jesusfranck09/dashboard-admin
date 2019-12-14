@@ -17,8 +17,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import {Link} from 'react-router-dom'
 import ApartmentIcon from '@material-ui/icons/Apartment';
-import AssessmentIcon from '@material-ui/icons/Assessment';
+// import AssessmentIcon from '@material-ui/icons/Assessment';
 import BarChartIcon from '@material-ui/icons/BarChart';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 const drawerWidth = 240;
 
@@ -163,9 +165,29 @@ export default function MiniDrawer() {
 
         <Link to="/result" style={{ textDecoration: 'none' }}>
         <List >
-          {['Resultados'].map((text) => (
+          {['Res. EncuestaATS'].map((text) => (
             <ListItem button key={text} >
               <ListItemIcon> <BarChartIcon /> </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>    
+        </Link>
+        <Link to="/resultRP" style={{ textDecoration: 'none' }}>
+        <List >
+          {['Res. EncuestaRP'].map((text) => (
+            <ListItem button key={text} >
+              <ListItemIcon> <EventNoteIcon /> </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>    
+        </Link>
+        <Link to="/resultEEO" style={{ textDecoration: 'none' }}>
+        <List >
+          {['Res. EncuestaEEO'].map((text) => (
+            <ListItem button key={text} >
+              <ListItemIcon> <MenuBookIcon /> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}

@@ -5,7 +5,7 @@ import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import '../Home/index.css'
 import usuario from '../images/usuario.png'
-import { Alert } from 'reactstrap';
+// import { Alert } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 // import AppBar from 'material-ui/AppBar';
 // import DropDownMenu from 'material-ui/DropDownMenu';
@@ -15,14 +15,14 @@ import axios from 'axios'
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
-import PDF from '../PDF/index'
+import PDF from '../PDFEEO/index'
 
 
 import {
   Grid,
 } from '@material-ui/core';
 
-import Result from './results'
+import Result from './resultsEEO'
 class Home extends React.Component {
   constructor(props) {
     super(props);

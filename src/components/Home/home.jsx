@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink} from 'mdbreact';
+import {MDBRow, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol} from 'mdbreact';
 import Sidebar from './sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
@@ -13,6 +13,9 @@ import {
   Button,
 
 } from '@material-ui/core';
+import {Alert} from 'reactstrap'
+
+import ProgressBar from '../ProgressBar/index'
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 
 
@@ -129,7 +132,7 @@ localStorage.removeItem("rfc")
 localStorage.removeItem("razonsocial")
 localStorage.removeItem("usuario")
 localStorage.removeItem("correo")
-
+localStorage.removeItem("max")
 this.props.history.push("/login")
 DialogUtility.alert({
   animationSettings: { effect: 'Fade' },           
@@ -151,6 +154,7 @@ ads(){
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
     const container2 = { width: 500, height: 300 ,marginLeft:50 }
+    const container3={marginLeft:200}
     return (
 
 
@@ -207,14 +211,21 @@ ads(){
                 </MDBNavbarNav>
               </MDBCollapse>
             </MDBNavbar>
-            
+          
           </header>
         <MDBContainer style={container} >
         {/* {this.state.nombre.nombre} */}
+        <MDBRow>
+        <MDBCol>
+        <MDBContainer className=" mt-5 pt-5" ><Alert color = "primary">Su licencia caduca en undefined dias</Alert>  <ProgressBar/></MDBContainer>
+        </MDBCol>
+        <MDBCol>
         <MDBContainer style={container2} className="text-left mt-2 pt-5" >
         <h5 >Ejemplo de Ponderación</h5>
         <Bar  data={this.state.dataBar} options={this.state.barChartOptions} />
       </MDBContainer>
+      </MDBCol>
+      </MDBRow>
       
         {/* <MDBDataTable /> */}
         </MDBContainer>

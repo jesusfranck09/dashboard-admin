@@ -10,6 +10,10 @@ import Sidebar from '../Home/sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import '../Home/index.css'
+import { DialogUtility } from '@syncfusion/ej2-popups';
+import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
+import usuario from '../images/usuario.png'
+
 
 import {
 	Paper,
@@ -25,10 +29,6 @@ import {
 
   import { Form, Field } from 'react-final-form';
 
-
-import { DialogUtility } from '@syncfusion/ej2-popups';
-
-
   import { TextField, Radio, Select } from 'final-form-material-ui';
 
 
@@ -38,23 +38,68 @@ class CargarArchivos extends React.Component {
 	  this.state = {
 		collapse: false,
 		isOpen: false,
+		showModal2: false,
 	  
 	  };
+	 
 	  this.onClick = this.onClick.bind(this);
+    this.handleclick = this.handleclick.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
+    this.ads = this.ads.bind(this);
 	}
 	onClick() {
 	  this.setState({
 		collapse: !this.state.collapse,
 	  });
 	}
-  
+	
+	componentWillMount(){
+		var Nombre = localStorage.getItem("nombre")
+		var Apellidos = localStorage.getItem("apellidos")
+	
+	
+		var LaFecha=new Date();
+		var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+		var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
+		var diasemana=LaFecha.getDay();
+		var FechaCompleta="";
+		var NumeroDeMes="";    
+		NumeroDeMes=LaFecha.getMonth();
+		FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
+	
+		this.setState({date:FechaCompleta}) 
+		this.setState({nombre:Nombre}) 
+		this.setState({apellidos:Apellidos}) 
+	  }
+	
+	handleclick(){
+	this.props.history.push("/profile")
+	}
+	handleLogOut(){
+	localStorage.removeItem("elToken")
+	localStorage.removeItem("nombre")
+	localStorage.removeItem("apellidos")
+	localStorage.removeItem("rfc")
+	localStorage.removeItem("razonsocial")
+	localStorage.removeItem("usuario")
+	localStorage.removeItem("correo")
+	localStorage.removeItem("max")
+	this.props.history.push("/login")
+	DialogUtility.alert({
+	  animationSettings: { effect: 'Fade' },           
+	  title: 'Hasta luego...!',
+	  position: "fixed",
+	}
+	)
+	}	
+	ads(){
+	  this.setState({showModal2:true})	  
+	}
 	render() {
 	  // const { children, ...attributes } = this.props;
 	  const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
 	  const container = { width: 2500, height: 1300 }
 	  return (
-  
-  
 		<React.Fragment>
 		<div>
 			<header>
@@ -80,19 +125,86 @@ class CargarArchivos extends React.Component {
                     <MDBNavLink to="/politicaEEO">Cuestionario EEO</MDBNavLink>
                   </MDBNavItem>
 				  </MDBNavbarNav>
-				  <MDBNavbarNav right>
-				  <MDBNavItem>
-					<MDBNavLink to="#">Mi Perfil</MDBNavLink>
-				  </MDBNavItem>
-				  </MDBNavbarNav>
-				</MDBCollapse>
-			  </MDBNavbar>
+				  <strong>{this.state.date}</strong> 
+                <MDBNavbarNav right>
+                <MDBNavbarBrand>
+              <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
+              {this.state.nombre}
+              </MDBNavbarBrand>
+              <MDBNavbarBrand>
+              <MDBNavItem>
+              <MDBDropdown>
+                <MDBDropdownToggle nav caret>   
+                </MDBDropdownToggle>
+                <MDBDropdownMenu className="dropdown-default">
+                  <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
+                  <MDBDropdownItem href="#!">Configuración</MDBDropdownItem>
+                  <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
+                  <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
+
+                </MDBDropdownMenu>
+              </MDBDropdown>
+            </MDBNavItem>
+            </MDBNavbarBrand>
+                </MDBNavbarNav>
+              </MDBCollapse>
+            </MDBNavbar>
 			</header>
 		  <MDBContainer style={container} className="text-center mt-2 pt-5">
   
 		<MDBRow>
 		  <MDBCol><App/></MDBCol> <MDBCol  md="3" className="white-text text-center text-md-left mt-xl-5 mb-5"><strong>¿Desea cargar por csv o xls?</strong> <ModalPrueba/></MDBCol> 
 		</MDBRow>
+
+		<Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
+                    <div className="row">
+                        <div className="col-md-12" item xs={12}>
+                            <center><br/>
+                                <br/>
+                                <br/>
+                                <font size="4">
+                                El Distribuidor Asociado Master de CONTPAQi® que ha recibido el reconocimiento como el
+                                <br/>
+                                 Primer Lugar en Ventas por 15 Años Consecutivos en la Ciudad de México.
+                                
+                                <br/>
+                                <br/>
+                                Alfa Diseño de Sistemas: 
+                               
+                                Somos un distribuidor asociado master de CONTPAQi®, 
+                                <br/>
+                                 una casa desarrolladora de software, que además es PAC (Proveedor Autorizado de Certificación) y PCRDD 
+                                <br/>
+                                (Proveedor de Certificación y Recepción de Documentos Digitales) por parte del SAT.
+                                {/* <img src={Ok} alt="ok" className="img-fluid"/><br/><br/> */}
+                                <br/>
+                                <br/>
+                                Conoce más sobre nosotros en 
+                                <br></br>
+                                  <a href="www.ads.com.mx">www.ads.com.mx</a>
+                                </font>
+
+                                <br/>
+                                <br/>
+                                <br/>
+                                {/* <Alert color="secondary" style={{fontSize: 24}}>Su encuesta ha finalizado, Gracias por su colaboración</Alert> */}
+                                <br/>
+                                <br/>
+                                <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
+                                <Button 
+                                  variant="outlined"
+                                    color="primary"
+                                    type = "submit"
+                                     onClick={()=>{this.setState({showModal2:false})}}
+                                  >
+                                   Cerrar
+                                  </Button>
+                                  </Grid>
+                            </center>
+                        </div>
+                    </div>
+
+                </Modal>
 		  </MDBContainer>
 		</div>
 		</React.Fragment>
@@ -146,8 +258,34 @@ class SheetJSApp extends React.Component {
     handleSubmit = event => {
 		event.preventDefault();
 
-		console.log("el estado en la posicion local es " ,  this.state.emailAdmin,this.state.passAdmin)
+		
+		const token = localStorage.getItem('elToken')
+		let pl = payload(token);
+	  
+		const correoAdmin =  pl.email
+  
+		 const url = 'http://localhost:8000/graphql'
+		axios({
+		  url:  url,
+		  method:'post',
+		  data:{
+		  query:`
+		   mutation{
+			  authRegisterSingleEmployee(data:"${[correoAdmin]}"){
+				max
+				  }
+				}
+			  `
+		  }
+		})
+		.then(datos => {		
+		 localStorage.setItem("max" , datos.data.data.authRegisterSingleEmployee[0].max)
+	  
+		});    
+	   
+		var max = localStorage.getItem("max")
  
+		if(max<15){
         for (var i=0; i< this.state.data.length; i++)
      	  {
 			// console.log(this.state.data[i])
@@ -186,7 +324,16 @@ class SheetJSApp extends React.Component {
 					position: "fixed"
 				});
 				
-				
+			    }else{
+					DialogUtility.alert({
+						animationSettings: { effect: 'Zoom' },           
+						content: 'Su suscripción no le permite registrar mas Empleados, por favor póngase en contacto con su asesor de ADS para ampliar el numero de sus usuarios. !',
+						position: "fixed"
+					});
+
+					localStorage.removeItem("max")
+
+				}
 				}
 
 
@@ -370,8 +517,7 @@ function onSubmit (values) {
 	
 	
 	const evaluar  = (values) =>{
-	
-	var contador = ''
+
 	  const Nombre = values.Nombre
 	  const ApellidoP = values.ApellidoP
 	  const ApellidoM = values.ApellidoM
@@ -400,27 +546,27 @@ function onSubmit (values) {
 	  const correoAdmin =  pl.email
 	  const passAdmin = pl.password
 
-	//   const url = 'http://localhost:8000/graphql'
-	//   axios({
-	// 	url:  url,
-	// 	method:'post',
-	// 	data:{
-	// 	query:`
-	// 	 mutation{
-	// 		authRegisterSingleEmployee(data:"${[correoAdmin]}"){
-	// 		  max
-	// 			}
-	// 		  }
-	// 		`
-	// 	}
-	//   })
-	//   .then(datos => {		
-	// 	contador=datos
- 	
-	//   });    
-
-	//   console.log("count" , contador)
+	   const url = 'http://localhost:8000/graphql'
+	  axios({
+		url:  url,
+		method:'post',
+		data:{
+		query:`
+		 mutation{
+			authRegisterSingleEmployee(data:"${[correoAdmin]}"){
+			  max
+				}
+			  }
+			`
+		}
+	  })
+	  .then(datos => {		
+       localStorage.setItem("max" , datos.data.data.authRegisterSingleEmployee[0].max)
+	
+	  });    
 	 
+	  var max = localStorage.getItem("max")
+	  if(max <15 ){
 	  axios({
 		url:  url,
 		method:'post',
@@ -435,16 +581,25 @@ function onSubmit (values) {
 		}
 	  })
 	  
-	  .then(datos => {
-	
+	  .then((datos )=> {
+       console.log("los segundos datos" , datos)
 	    DialogUtility.alert({
 			animationSettings: { effect: 'Zoom' },           
 			content: "Empleado Registrado!",
 			title: 'Aviso!',
 			position: "fixed"
 		});
-		this.props.history.push("./inicio")
-	  });       
+		// this.props.history.push("./inicio")
+	  });   
+	} else{
+
+		DialogUtility.alert({
+			animationSettings: { effect: 'Zoom' },           
+			content: 'Su suscripción no le permite registrar mas Empleados, por favor póngase en contacto con su asesor para ampliar el numero de sus usuarios. !',
+			position: "fixed",
+		})
+		localStorage.removeItem("max")
+	}   
 
 	}
 	

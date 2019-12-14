@@ -56,9 +56,12 @@ import EEOpage12 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
 import EEOpage13 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
 import EEOpage14 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
 import ProfileUser from './components/Home/ProfileUser';
+import PDF from './components/PDF/index';
 
 import Result from './components/resultsCuestions/result';
-
+import ResultRP from './components/resultsCuestionsRP/resultRP';
+import ResultEEO from './components/resultsCuestionsEEO/resultEEO';
+import ProgressBar from './components/ProgressBar/index';
 
 class Routes extends Component{
   
@@ -125,7 +128,10 @@ class Routes extends Component{
                   <PrivateRoute exact path='/EEOpage14' component={EEOpage14}/>
                   <PrivateRoute exact path='/profile' component={ProfileUser}/>
                   <PrivateRoute exact path='/result' component={Result}/>
-
+                  <PrivateRoute exact path='/pdf' component={PDF}/>
+                  <PrivateRoute exact path='/resultRP' component={ResultRP}/>
+                  <PrivateRoute exact path='/resultEEO' component={ResultEEO}/>
+                  <PrivateRoute exact path='/progressbar' component={ProgressBar}/>
               </main>
           </Router>
           </ApolloProvider>
