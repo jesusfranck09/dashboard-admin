@@ -1,5 +1,5 @@
 import React from 'react';
-import {MDBRow, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol} from 'mdbreact';
+import {MDBRow, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol, MDBCardHeader} from 'mdbreact';
 import Sidebar from './sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
@@ -13,12 +13,13 @@ import {
   Button,
 
 } from '@material-ui/core';
-import {Alert} from 'reactstrap'
+import axios from 'axios'
+import {Alert} from 'reactstrap';
 
-import ProgressBar from '../ProgressBar/index'
+// import ProgressBar from '../ProgressBar/index'
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 
-
+import { MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
 
 
 class Home extends React.Component {
@@ -32,6 +33,11 @@ class Home extends React.Component {
       showModal2: false,
       nombre:'',
       apellidos:'',
+      dias:'',
+      horas:'',
+      minutos:'',
+      segundos:'',
+      licencia:'',
       dataBar: {
         labels: ["Siempre", "Casi Siempre", "Algunas Veces", "Casi nunca", "Nunca"],
         datasets: [
@@ -110,6 +116,8 @@ class Home extends React.Component {
     this.setState({date:FechaCompleta}) 
     this.setState({nombre:Nombre}) 
     this.setState({apellidos:Apellidos}) 
+    this.countdown('Dec 16 2019 22:03:20 GMT-0600')
+
   }
   onClick() {
     this.setState({
@@ -149,11 +157,77 @@ ads(){
   this.setState({showModal2:true})
   
 }
+
+countdown = (deadline) => {
+
+
+  const timerUpdate = setInterval( () => {
+    const licencia ="su licencia ha caducado"
+    let t = this.getRemainingTime(deadline);
+   this.setState ({dias:t.remainDays})
+   this.setState ({horas:t.remainHours})
+   this.setState ({minutos:t.remainMinutes})
+   this.setState ({segundos:t.remainSeconds})
+   this.setState({licencia:licencia})
+    if(t.remainTime <= 1) {
+      clearInterval(timerUpdate);
+      const correo   = localStorage.getItem('correo')
+      console.log("entro")
+      const url = 'http://localhost:8000/graphql'
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         mutation{
+          inactiveAdmin(data:"${[correo]}"){
+              message
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              console.log("los datos son ",datos)
+            }); 
+
+
+    }else {
+this.setState({licencia:""})
+
+    }
+
+  }, 1000)
+};
+
+getRemainingTime = deadline => {
+  let now = new Date(),
+      remainTime = (new Date(deadline) - now + 1000) / 1000,
+      remainSeconds = ('0' + Math.floor(remainTime % 60)).slice(-2),
+      remainMinutes = ('0' + Math.floor(remainTime / 60 % 60)).slice(-2),
+      remainHours = ('0' + Math.floor(remainTime / 3600 % 24)).slice(-2),
+      remainDays = Math.floor(remainTime / (3600 * 24));
+
+  return {
+    remainSeconds,
+    remainMinutes,
+    remainHours,
+    remainDays,
+    remainTime
+  }
+};
+
+
   render() {
+    let expiro;
+    if(this.state.licencia){
+
+      expiro = <Alert color="danger" className="text-center ">{this.state.licencia}</Alert>
+
+    }
     // const { children} = this.props;
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
-    const container2 = { width: 500, height: 300 ,marginLeft:50 }
+    const container2 = { width: 500, height: 300 }
     const container3={marginLeft:200}
     return (
 
@@ -217,19 +291,29 @@ ads(){
         {/* {this.state.nombre.nombre} */}
         <MDBRow>
         <MDBCol>
-        <MDBContainer className=" mt-5 pt-5" ><Alert color = "primary">Su licencia caduca en undefined dias</Alert>  <ProgressBar/></MDBContainer>
-        </MDBCol>
-        <MDBCol>
         <MDBContainer style={container2} className="text-left mt-2 pt-5" >
         <h5 >Ejemplo de Ponderación</h5>
         <Bar  data={this.state.dataBar} options={this.state.barChartOptions} />
+        {/* <span>{this.state.dias} {this.state.horas} {this.state.minutos} {this.state.segundos}</span> */}
+        <MDBCol>
+        </MDBCol>
       </MDBContainer>
+        {/* <MDBContainer className=" mt-5 pt-5" ><Alert color = "primary">Su licencia caduca en undefined dias</Alert>  <ProgressBar/></MDBContainer> */}
+        </MDBCol>
+        <MDBCol>
+        <MDBCard style={{ width: "22rem" ,marginTop:100,marginLeft:100}}>
+          <MDBCardBody>        
+          <MDBCardTitle>Su Licencia caduca en :</MDBCardTitle>
+         <MDBCardHeader>{this.state.dias} Dias  {this.state.horas} horas {this.state.minutos} minutos {this.state.segundos} segundos</MDBCardHeader>                 
+        {expiro}
+       </MDBCardBody>
+      </MDBCard>
+
       </MDBCol>
       </MDBRow>
-      
+    
         {/* <MDBDataTable /> */}
         </MDBContainer>
-    
       </div>
 
       <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">

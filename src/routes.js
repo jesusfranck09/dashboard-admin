@@ -2,9 +2,9 @@ import '../src/App.scss';
 import { ApolloProvider } from 'react-apollo';
 import client from './Graphql';
 import checkToken from '../src/resolvers/checkToken';
-import checkSurveyATS from '../src/resolvers/checkSurveyATS';
-import checkSurveyRP from '../src/resolvers/checkSurveyRP';
-import checkSurveyEEO from '../src/resolvers/checkSurveyEEO';
+// import checkSurveyATS from '../src/resolvers/checkSurveyATS';
+// import checkSurveyRP from '../src/resolvers/checkSurveyRP';
+// import checkSurveyEEO from '../src/resolvers/checkSurveyEEO';
 import {
   BrowserRouter as Router,
   Route,Redirect
@@ -58,10 +58,13 @@ import EEOpage14 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
 import ProfileUser from './components/Home/ProfileUser';
 import PDF from './components/PDF/index';
 
+
 import Result from './components/resultsCuestions/result';
 import ResultRP from './components/resultsCuestionsRP/resultRP';
 import ResultEEO from './components/resultsCuestionsEEO/resultEEO';
-import ProgressBar from './components/ProgressBar/index';
+// import ProgressBar from './components/ProgressBar/index';
+
+
 
 class Routes extends Component{
   
@@ -80,7 +83,7 @@ class Routes extends Component{
                   <Route exact path='/' component={Login}/>
                   <Route exact path='/login' component={Login}/>
                   {/* <Route exact path='/verify/:id' component={Verify}/> */}
-                  <PrivateRoute exact path='/signup' component={SignUp}/>
+                  <Route exact path='/signup' component={SignUp}/>
                   <PrivateRoute exact path='/result' component={Result}/>
 
                   <PrivateRoute exact path='/cuestions' component={Cuestions}/>
@@ -131,7 +134,9 @@ class Routes extends Component{
                   <PrivateRoute exact path='/pdf' component={PDF}/>
                   <PrivateRoute exact path='/resultRP' component={ResultRP}/>
                   <PrivateRoute exact path='/resultEEO' component={ResultEEO}/>
-                  <PrivateRoute exact path='/progressbar' component={ProgressBar}/>
+                  {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}
+    
+
               </main>
           </Router>
           </ApolloProvider>

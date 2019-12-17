@@ -41,6 +41,7 @@ const LOGIN = gql`
           RazonSocial
           Usuario
           correo
+          Activo
         }
     }
 `
@@ -80,11 +81,14 @@ handleInput = (e) => {
   }
   
   handleData = (data) => {
+    console.log("la data es " , data )
     if (data.login.token === 'ERROR'){
 
         alert('Error en login...');
         return false;
       }
+      if(data.login.Activo=='true'){
+
       localStorage.setItem('elToken', data.login.token) 
       localStorage.setItem('nombre', data.login.nombre)
       localStorage.setItem('apellidos', data.login.Apellidos) 
@@ -102,10 +106,23 @@ handleInput = (e) => {
 
     this.props.history.push("/inicio")    
   }
+  if(data.login.Activo=='false'){
+
+    DialogUtility.alert({
+      animationSettings: { effect: 'Zoom' },           
+      title: 'Su licencia ha Expirado',
+      content: `Estimado cliente por el momento no puede iniciar sesión en el sistema de evaluaciones por favor contáctese con su Asesor de ADS para renovar su Suscripción`, 
+     
+      position: "fixed",
+  })
+
+  }
+  }
 
   handleError = (error) => {
-    console.log(error);
-    alert('Error en login...');
+
+    console.log("el error es este " ,error);
+    alert('Error en Inicio  de sesión...');
   }
 
   render() {
@@ -122,8 +139,14 @@ handleInput = (e) => {
 
     (login, {data, error, loading}) => {
     if (loading) console.log(loading);
-    if (data) this.handleData(data);
-    if (error) this.handleError(error);
+    if (data){
+      this.handleData(data)
+      console.log("la data es " , data)
+    } 
+    if (error){
+      this.handleError(error);
+      console.log("el error es " , error)
+    } 
     return ( 
         <React.Fragment>
     <form onSubmit={e => this.handleForm(e, login)}>
