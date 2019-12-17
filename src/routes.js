@@ -62,7 +62,7 @@ import PDF from './components/PDF/index';
 import Result from './components/resultsCuestions/result';
 import ResultRP from './components/resultsCuestionsRP/resultRP';
 import ResultEEO from './components/resultsCuestionsEEO/resultEEO';
-// import ProgressBar from './components/ProgressBar/index';
+
 
 
 

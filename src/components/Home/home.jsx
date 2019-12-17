@@ -119,6 +119,9 @@ class Home extends React.Component {
     this.countdown('Dec 30 2019 10:50:44 GMT-0600')
 
   }
+//osdjofsdklfjsldfjlskdfjksdjflksdjfklsjdfklsdjfklsjdfklsdklfjsdlkfjslkjkj
+//wepiwefweñkfnweñfknlknkln
+
   onClick() {
     this.setState({
       collapse: !this.state.collapse,
@@ -130,6 +133,10 @@ this.props.history.push("/profile")
 
 }
 
+handleFront(){
+console.log("hola mundo")
+
+}
 
 
 handleLogOut(){
