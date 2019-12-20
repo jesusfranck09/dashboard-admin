@@ -162,8 +162,7 @@ export default function MiniDrawer() {
         </List>    
         </Link>
 
-
-        <Link to="/result" style={{ textDecoration: 'none' }}>
+        <Link to="/res" style={{ textDecoration: 'none' }}>
         <List >
           {['Res. EncuestaATS'].map((text) => (
             <ListItem button key={text} >

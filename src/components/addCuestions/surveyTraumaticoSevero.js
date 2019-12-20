@@ -59,7 +59,7 @@ class Home extends React.Component {
       }
     
      if (values.rotacion === 'no') {
-      const correo = localStorage.getItem('correo')
+      const correo = localStorage.getItem('correoATS')
       const respuesta = values.rotacion
     
       const url = 'http://localhost:8000/graphql'

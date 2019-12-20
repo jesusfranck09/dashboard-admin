@@ -9,7 +9,7 @@ import {
   Button,
   RadioGroup,
   FormLabel,
-  MenuItem,
+  // MenuItem,
   FormControl,
   FormControlLabel,
 } from '@material-ui/core';
@@ -28,16 +28,14 @@ class Home extends React.Component {
     super(props);
     this.state = {
      data:'',
-    showModal2:false
 
-    
     };
     
   }
  
 
   evaluar= (values) => {
-
+    console.log("entro a evaluar")
     if( (values.pregunta10 == "Siempre" || values.pregunta10=="CasiSiempre"|| values.pregunta10=="AlgunasVeces"|| values.pregunta10=="CasiNunca"|| values.pregunta10=="Nunca") 
     && (values.pregunta11 == "Siempre" || values.pregunta11=="CasiSiempre"|| values.pregunta11=="AlgunasVeces"|| values.pregunta11=="CasiNunca"|| values.pregunta11=="Nunca") 
     && (values.pregunta12 == "Siempre" || values.pregunta12=="CasiSiempre"|| values.pregunta12=="AlgunasVeces"|| values.pregunta12=="CasiNunca"|| values.pregunta12=="Nunca") 
@@ -59,7 +57,7 @@ class Home extends React.Component {
             `
         }
             }).then((datos) => {
-              localStorage.removeItem('correo')
+              localStorage.removeItem('correoATS')
             });  
           
             DialogUtility.alert({
@@ -67,7 +65,6 @@ class Home extends React.Component {
               content: "Su Encuesta ATS, ha finalizado gracias por su colaboracion!",
               title: 'Aviso!',
               position: "fixed",
-           
           })
           this.props.history.push("/inicio")
       }

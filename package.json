@@ -13,6 +13,7 @@
     "@material-ui/pickers": "^3.2.8",
     "@progress/kendo-drawing": "^1.6.0",
     "@progress/kendo-react-pdf": "^3.9.0",
+    "@react-pdf/renderer": "^1.6.8",
     "@syncfusion/ej2-popups": "^17.3.29",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",

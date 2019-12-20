@@ -56,14 +56,14 @@ import EEOpage12 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
 import EEOpage13 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
 import EEOpage14 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
 import ProfileUser from './components/Home/ProfileUser';
-import PDF from './components/PDF/index';
 
 
-import Result from './components/resultsCuestions/result';
+
+// import Result from './components/resultsCuestions/result';
 import ResultRP from './components/resultsCuestionsRP/resultRP';
 import ResultEEO from './components/resultsCuestionsEEO/resultEEO';
 
-
+import Res from './components/resultsCuestions/resultados';
 
 
 class Routes extends Component{
@@ -84,7 +84,7 @@ class Routes extends Component{
                   <Route exact path='/login' component={Login}/>
                   {/* <Route exact path='/verify/:id' component={Verify}/> */}
                   <Route exact path='/signup' component={SignUp}/>
-                  <PrivateRoute exact path='/result' component={Result}/>
+                  {/* <PrivateRoute exact path='/result' component={Result}/> */}
 
                   <PrivateRoute exact path='/cuestions' component={Cuestions}/>
                   <PrivateRoute exact path='/inicio' component={Home}/>
@@ -130,10 +130,11 @@ class Routes extends Component{
                   <PrivateRoute exact path='/EEOpage13' component={EEOpage13}/>
                   <PrivateRoute exact path='/EEOpage14' component={EEOpage14}/>
                   <PrivateRoute exact path='/profile' component={ProfileUser}/>
-                  <PrivateRoute exact path='/result' component={Result}/>
-                  <PrivateRoute exact path='/pdf' component={PDF}/>
+                  {/* <PrivateRoute exact path='/result' component={Result}/> */}
+                  {/* <PrivateRoute exact path='/pdf' component={PDF}/> */}
                   <PrivateRoute exact path='/resultRP' component={ResultRP}/>
                   <PrivateRoute exact path='/resultEEO' component={ResultEEO}/>
+                  <PrivateRoute exact path='/res' component={Res}/>
                   {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}
     
 

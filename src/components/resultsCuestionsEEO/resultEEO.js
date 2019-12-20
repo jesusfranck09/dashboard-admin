@@ -99,7 +99,7 @@ ads(){
 
   viewEmmployee = event  =>{
 
-    var correo  = "d93409@gmail.com"       
+    var correo  = localStorage.getItem("correo")       
     const url = 'http://localhost:8000/graphql'
     axios({
       url:  url,

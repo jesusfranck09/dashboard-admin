@@ -8,7 +8,7 @@ export default (props) => {
       <section className="pdf-toolbar">
         <button onClick={createPdf}>Descargar PDF</button>
       </section>
-      <section className="pdf-body" ref={bodyRef}>
+      <section className="pdf-body bg-white  pa4" ref={bodyRef}>
         {props.children}
       </section>
     </section>
