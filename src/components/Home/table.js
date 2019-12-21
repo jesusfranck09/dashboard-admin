@@ -306,7 +306,6 @@
                             }).then(datos => {  
                             });       
                             
-                            console.log("los datos son ",title)
                      }
 
                  

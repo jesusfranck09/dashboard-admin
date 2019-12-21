@@ -29,13 +29,13 @@ class Home extends React.Component {
       collapse: false,
       isOpen: false,
       showModal2: false,  
-      componentepdf:'0'
+      // componentepdf:'0'
     };
     this.onClick = this.onClick.bind(this);
     this.handleclick = this.handleclick.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.ads = this.ads.bind(this);
-    this.change = this.change.bind(this);
+    // this.change = this.change.bind(this);
     
   }
   componentWillMount(){
@@ -90,16 +90,16 @@ DialogUtility.alert({
 ads(){
   this.setState({showModal2:true}) 
 }
-change(){
-    this.setState({componentepdf:'1'})
-}
+// change(){
+//     this.setState({componentepdf:'1'})
+// }
   render() {
 
-    let pdfComponente;
-    if(this.state.componentepdf ==1){
-      pdfComponente =  <PDF></PDF>
+    // let pdfComponente;
+    // if(this.state.componentepdf ==1){
+    //   pdfComponente =  <PDF></PDF>
 
-    }
+    // }
     // const { children} = this.props;
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
@@ -253,9 +253,9 @@ change(){
 
                 </Modal>
         <MDBContainer className="text-center mt-5 pt-5">
-        {/* <PDF></PDF> */}
-       {pdfComponente}
-       <button onClick={this.change}>Prueba</button>
+        <PDF></PDF>
+       {/* {pdfComponente}
+       <button onClick={this.change}>Prueba</button> */}
         </MDBContainer>
         </MDBContainer>
     
