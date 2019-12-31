@@ -5,8 +5,8 @@
       import { AppNavbarBrand } from '@coreui/react';
       import logo from '../images/logotipo.png'
       import '../Home/index.css'
-      // import TableCell from '@material-ui/core/TableCell';
-      // import TableRow from '@material-ui/core/TableCell';
+      import TableCell from '@material-ui/core/TableCell';
+      import TableRow from '@material-ui/core/TableCell';
       
       import {Table } from 'semantic-ui-react'
       // import Paper from '@material-ui/core/Paper';
@@ -24,6 +24,9 @@
       import {
         Grid    
       } from '@material-ui/core';
+
+      import TableBody from '@material-ui/core/TableBody';
+      import Paper from '@material-ui/core/Paper';
 
       class TableEmployees extends React.Component {
         constructor(props) {
@@ -153,6 +156,8 @@
           }
 
         render() {
+       
+
           // const { children, ...attributes } = this.props;
           const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
           const container = { width: 2500, height: 1300 }
@@ -271,16 +276,16 @@
                   </MDBCol>
                   </MDBRow>
 
-                 
+                  <Paper >
                   <table>
                   <Alert style={{marginTop:'55', width:'1075px'}}  color="primary" isOpen={this.state.datos.length}>
                   <tr><td width="9%" >Nombre</td><td width="10%">Apellido P.</td><td width="10%" >Apellido M. </td><td width="13%">Curp</td><td width="10%">RFC</td><td width="10%">Fecha de N.</td><td width="8%">Estado C.</td><td width="12%">Encuesta ATS</td><td width="10%">Encuesta RP</td><td width="10%">Encuesta EEO</td></tr>
                   </Alert>
                   </table>
+                  <Table  >
 
-
-                  {this.state.datos.map(function(title,index){
-                
+                  {this.state.datos.map(rows =>{
+                         
                    const sendMailATS =  async  (event,valor) =>{
                   
                    DialogUtility.alert({
@@ -297,60 +302,43 @@
                         data:{
                         query:`
                          mutation{
-                          sendMail(data:"${[title.correo,title.id,valor]}"){
+                          sendMail(data:"${[rows.correo,rows.id,valor]}"){
                               message
                                 }
                               }
                             `
                         }
                             }).then(datos => {  
+
                             });       
                             
                      }
 
-                 
-                    
-                        //  const renderBodyRow = ({ name, status, notes }, i) => ({
-                        //   key: name || `row-${i}`,
-                        //   warning: !!(status && status.match('Requires Action')),
-                        //   cells: [
-                        //     name || 'No name specified',
-                        //     status ? { key: 'status', icon: 'attention', content: status } : 'Unknown',
-                        //     notes ? { key: 'notes', icon: 'attention', content: notes, warning: true } : 'None',
-                        //   ],
-                        // })
-                       
-
-                        console.log("el idex es " , index)
-                        console.log("el title es " , title)
-
                            return (
-                         
-
-                            <Table   aria-label="responsive" width="1000" border="1">
-                          
-                        <tr><td width="10%" >{title.nombre}</td><td width="10%">{title.ApellidoP}</td><td width="10%" >{title.ApellidoM}</td><td width="10%">{title.Curp}</td><td width="10%">{title.rfc}</td><td width="10%">{title.FechaNacimiento}</td><td width="10%">{title.EstadoCivil}</td><td width="10%"> <MDBBtn outline color="success"   onClick={(e) => sendMailATS(e,1)} >ATS</MDBBtn></td><td width="10%"><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,2)}>RP</MDBBtn></td><td width="10%"><MDBBtn outline color="info" onClick={(e) => sendMailATS(e,3)}>EEO </MDBBtn></td></tr>
-                       
-                                
-                                
-                            {/* <Table.Row>
-                                <Table.Cell >{title.nombre}</Table.Cell>
-                                <Table.Cell>{title.ApellidoP}</Table.Cell>
-                                <Table.Cell>{title.ApellidoM}</Table.Cell>
-                                <Table.Cell>{title.Curp}</Table.Cell>
-                                <Table.Cell>{title.rfc}</Table.Cell>
-                                <Table.Cell>{title.FechaNacimiento}</Table.Cell>
-                                <Table.Cell>{title.EstadoCivil}</Table.Cell>
-                                */}
-                                {/* <TableCell><MDBBtn outline color="info" onClick={(e) => resultSurvey(e)}>Resultado</MDBBtn></TableCell>                      */}
-{/*                            
-                                </Table.Row> */}
-                                {/* <Table celled headerRow={headerRow} renderBodyRow={renderBodyRow} tableData={title.ApellidoP}/> */}
-                 
-                          </Table>
-                       
-                        )
+                            <TableBody>
+                            <TableRow >
+                            <TableCell >
+                              {rows.id}
+                            </TableCell>
+                            <TableCell >{rows.nombre}</TableCell>
+                            <TableCell  >{rows.ApellidoP}</TableCell>
+                            <TableCell  >{rows.ApellidoM}</TableCell>
+                            <TableCell  >{rows.Curp}</TableCell>
+                            <TableCell  >{rows.Ciudad}</TableCell>
+                            <TableCell  >{rows.Sexo}</TableCell>
+                            <TableCell  >{rows.rfc} </TableCell>
+                            <TableCell  >  <MDBBtn outline color="success"   onClick={(e) => sendMailATS(e,1)} >ATS</MDBBtn></TableCell>
+                            <TableCell  ><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,2)}>RP</MDBBtn></TableCell>
+                            <TableCell  ><MDBBtn outline color="info" onClick={(e) => sendMailATS(e,3)}>EEO </MDBBtn></TableCell>
+                          </TableRow>     
+                          </TableBody>                 
+                        )       
                   })}
+
+                
+                  </Table>
+                  </Paper>
+                 
                   </ul>
 
 

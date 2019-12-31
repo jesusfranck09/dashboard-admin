@@ -116,7 +116,7 @@ class Home extends React.Component {
     this.setState({date:FechaCompleta}) 
     this.setState({nombre:Nombre}) 
     this.setState({apellidos:Apellidos}) 
-    this.countdown('Dec 31 2019 10:09:58 GMT-0600')
+    this.countdown('Dec 31 2019 22:09:58 GMT-0600')
 
   }
 //osdjofsdklfjsldfjlskdfjksdjflksdjfklsjdfklsdjfklsjdfklsdklfjsdlkfjslkjkj
