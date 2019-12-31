@@ -65,10 +65,10 @@ class Home extends React.Component {
             `
         }
             }).then((datos) => {
-              localStorage.removeItem('correo')
+              localStorage.removeItem('correoRP')
             }); 
 
-            localStorage.removeItem('correo')
+            localStorage.removeItem('correoRP')
             DialogUtility.alert({
               animationSettings: { effect: 'Zoom' },           
               content: "Su Encuesta RP ha finalizado, gracias por su colaboracion!",

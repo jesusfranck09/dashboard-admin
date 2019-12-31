@@ -11,11 +11,10 @@ import Button from '@material-ui/core/Button';
 // import DropDownMenu from 'material-ui/DropDownMenu';
 // import MenuItem from 'material-ui/MenuItem';
 // import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import axios from 'axios'
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
-import PDF from '../PDFEEO/index'
+ import PDF from '../PDFEEO/index'
 
 
 import {
@@ -29,15 +28,14 @@ class Home extends React.Component {
     this.state = {
       collapse: false,
       isOpen: false,
-      datos:[],
-      resultados:[]    ,
       showModal2: false,  
-    
+      // componentepdf:'0'
     };
     this.onClick = this.onClick.bind(this);
     this.handleclick = this.handleclick.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.ads = this.ads.bind(this);
+    // this.change = this.change.bind(this);
     
   }
   componentWillMount(){
@@ -57,6 +55,7 @@ class Home extends React.Component {
     this.setState({date:FechaCompleta}) 
     this.setState({nombre:Nombre}) 
     this.setState({apellidos:Apellidos}) 
+   
   }
   onClick() {
     this.setState({
@@ -85,124 +84,22 @@ DialogUtility.alert({
   animationSettings: { effect: 'Fade' },           
   title: 'Hasta luego...!',
   position: "fixed",
-
 }
 )
 }
-
-
 ads(){
-
-  this.setState({showModal2:true})
-  
+  this.setState({showModal2:true}) 
 }
-
-  viewEmmployee = event  =>{
-
-    var correo  = localStorage.getItem("correo")       
-    const url = 'http://localhost:8000/graphql'
-    axios({
-      url:  url,
-      method:'post',
-      data:{
-      query:`
-      query{
-        getUsersTableEmployees(email:"${correo}"){
-          id
-          nombre
-          ApellidoP
-          ApellidoM
-          Curp
-          rfc
-          FechaNacimiento
-          Sexo
-          cp
-          EstadoCivil
-          correo
-          AreaTrabajo
-          Puesto
-          Ciudad
-          NivelEstudios
-          TipoPersonal
-          JornadaTrabajo
-          TipoContratacion
-          TiempoPuesto
-          ExperienciaLaboral
-          RotacionTurnos
-          fk_administrador
-            }
-          }
-          `
-      }
-          }).then((datos) => {
-            // console.log("parseo" ,JSON.stringify(datos.data.data))
-            // console.log("datps" ,datos.data.data.getUsersTableEmployees)
-            this.setState({ datos: datos.data.data.getUsersTableEmployees});
-          console.log("este es el estado " , this.state.datos)
-                            
-          {this.state.datos.map(function(title,index){     
-            const url = 'http://localhost:8000/graphql'
-             axios({
-               url:  url,
-               method:'post',
-               data:{
-               query:`
-                query{
-                 resultSingleSurvey(data:"${[title.id]}"){
-                  id 
-                  Respuestas 
-                  fk_preguntasATS 
-                  fk_Empleados 
-                  nombre 
-                  ApellidoP 
-                  ApellidoM 
-                  Curp 
-                  RFC 
-                  FechaNacimiento 
-                  Sexo 
-                  CP 
-                  EstadoCivil 
-                  correo 
-                  AreaTrabajo 
-                  Puesto 
-                  Ciudad 
-                  NivelEstudios 
-                  TipoPersonal 
-                  JornadaTrabajo 
-                  TipoContratacion 
-                  TiempoPuesto 
-                  ExperienciaLaboral 
-                  RotacionTurnos 
-                  fk_administrador 
-                  fk_correos 
-                       }
-                     }
-                   `
-               }
-                   }).then(datos => {
-                     console.log("los datos en la consulta son ",datos.data.data.resultSingleSurvey)
-                     this.setState({ resultados: datos.data.data.resultSingleSurvey});
-                     console.log("este es el estado  "  , this.state.resultados)
-                   })
-                   .catch(err => {
-                    console.log("los datos son ",err.response)
-                  }); 
-           })}
-          })
-
-          .catch((error) => {
-      
-            //console.log("errores" ,error.response.data.errors[0].message)
-            console.log(".cartch" , error.response)
-        });
-
-
-                    
-                
-         }
-
-
+// change(){
+//     this.setState({componentepdf:'1'})
+// }
   render() {
+
+    // let pdfComponente;
+    // if(this.state.componentepdf ==1){
+    //   pdfComponente =  <PDF></PDF>
+
+    // }
     // const { children} = this.props;
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
@@ -357,6 +254,8 @@ ads(){
                 </Modal>
         <MDBContainer className="text-center mt-5 pt-5">
         <PDF></PDF>
+       {/* {pdfComponente}
+       <button onClick={this.change}>Prueba</button> */}
         </MDBContainer>
         </MDBContainer>
     

@@ -66,10 +66,10 @@ class Home extends React.Component {
             `
         }
             }).then((datos) => {
-              localStorage.removeItem('correo')
+              localStorage.removeItem('correoEEO')
             }); 
 
-            localStorage.removeItem('correo')
+            localStorage.removeItem('correoEEO')
             DialogUtility.alert({
               animationSettings: { effect: 'Zoom' },           
               content: "Su Encuesta EEO ha finalizado, gracias por su colaboracion!",

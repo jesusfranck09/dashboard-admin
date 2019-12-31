@@ -42,19 +42,19 @@ import RPValidateCuestion8 from './components/addCuestions/Cuestion Sección RP/
 import PoliticaEEO from './components/addCuestions/Cuestion Seccion EEO/PoliticaPrivacidadEEO';
 
 import EEOpage1 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage2 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage3 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage4 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage5 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage6 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage7 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage8 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage9 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage10 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage11 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage12 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage13 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
-import EEOpage14 from './components/addCuestions/Cuestion Seccion EEO/EEOpage1';
+import EEOpage2 from './components/addCuestions/Cuestion Seccion EEO/EEOpage2';
+import EEOpage3 from './components/addCuestions/Cuestion Seccion EEO/EEOpage3';
+import EEOpage4 from './components/addCuestions/Cuestion Seccion EEO/EEOpage4';
+import EEOpage5 from './components/addCuestions/Cuestion Seccion EEO/EEOpage5';
+import EEOpage6 from './components/addCuestions/Cuestion Seccion EEO/EEOpage6';
+import EEOpage7 from './components/addCuestions/Cuestion Seccion EEO/EEOpage7';
+import EEOpage8 from './components/addCuestions/Cuestion Seccion EEO/EEOpage8';
+import EEOpage9 from './components/addCuestions/Cuestion Seccion EEO/EEOpage9';
+import EEOpage10 from './components/addCuestions/Cuestion Seccion EEO/EEOpage10';
+import EEOpage11 from './components/addCuestions/Cuestion Seccion EEO/EEOpage11';
+import EEOpage12 from './components/addCuestions/Cuestion Seccion EEO/EEOpage12';
+import EEOpage13 from './components/addCuestions/Cuestion Seccion EEO/EEOpage13';
+import EEOpage14 from './components/addCuestions/Cuestion Seccion EEO/EEOpage14';
 import ProfileUser from './components/Home/ProfileUser';
 
 

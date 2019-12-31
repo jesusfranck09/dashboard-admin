@@ -5,7 +5,7 @@ import Doc from './pdfDat';
 import PdfContainer from './pdf';
 import axios from 'axios'
 //  import ADS from '../images/foto.jpeg'
-import {MDBContainer, MDBRow, MDBCol,MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+import {MDBContainer, MDBRow, MDBCol,MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdbreact';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
@@ -136,8 +136,8 @@ class App extends Component {
     const container = { marginLeft:20}
     let pdfView1;
     let pdfView2;
-    if(this.state.resultados[2]){
-
+    if(this.state.resultados[2]){ 
+      console.log("este es lo que contiene el estado ")
       pdfView1 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la Aplicación de la encuesta ATS </Alert>
 
       <PdfContainer createPdf={this.createPdf}>
@@ -183,11 +183,11 @@ class App extends Component {
                   <MDBTableBody>
                     <tr>
                       <td>1</td>
-                      <td>¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los
+                      <td >¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los
                           siguientes: Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
                           grave? Asaltos? Actos violentos que derivaron en lesiones graves? Secuestro? Amenazas?, o Cualquier otro
                           que ponga en riesgo su vida o salud, y/o la de otras personas?</td>
-                      <td>{this.state.resultados[1].Respuestas}</td>
+                      <td width="10%">{this.state.resultados[1].Respuestas}</td>
                        
                     </tr>
  
@@ -205,12 +205,12 @@ class App extends Component {
                     <tr>
                       <td>2</td>
                       <td>¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</td>   
-                      <td>{this.state.resultados[2].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[2].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>3</td>
                       <td>¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</td>   
-                      <td>{this.state.resultados[3].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[3].Respuestas}</td> 
                     </tr>
                   </MDBTableBody>
                 </MDBTable> 
@@ -227,32 +227,32 @@ class App extends Component {
                     <tr>
                       <td>4</td>
                       <td>¿Se ha esforzado por evitar todo tipo de sentimientos, conversaciones o situaciones que le puedan recordar el acontecimiento?</td>   
-                      <td>{this.state.resultados[4].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[4].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>5</td>
                       <td>¿Se ha esforzado por evitar todo tipo de actividades, lugares o personas que motivan recuerdos del acontecimiento?</td>   
-                      <td>{this.state.resultados[5].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[5].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>6</td>
                       <td>¿Ha tenido dificultad para recordar alguna parte importante del evento?</td>   
-                      <td>{this.state.resultados[6].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[6].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>7</td>
                       <td>¿Ha disminuido su interés en sus actividades cotidianas?</td>   
-                      <td>{this.state.resultados[7].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[7].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>8</td>
                       <td>¿Se ha sentido usted alejado o distante de los demás?</td>   
-                      <td>{this.state.resultados[8].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[8].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>9</td>
                       <td>¿Ha tenido la impresión de que su vida se va a acortar, que va a morir antes que otras personas o que tiene un futuro limitado?</td>   
-                      <td>{this.state.resultados[9].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[9].Respuestas}</td> 
                     </tr>
                    
                   </MDBTableBody>
@@ -271,27 +271,27 @@ class App extends Component {
                     <tr>
                       <td>10</td>
                       <td>¿Ha tenido usted dificultades para dormir?</td>   
-                      <td>{this.state.resultados[10].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[10].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>11</td>
                       <td>¿Ha estado particularmente irritable o le han dado arranques de coraje?</td>   
-                      <td>{this.state.resultados[11].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[11].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>12</td>
                       <td>¿Ha tenido dificultad para concentrarse?</td>   
-                      <td>{this.state.resultados[12].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[12].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>13</td>
                       <td>¿Ha estado nervioso o constantemente en alerta?</td>   
-                      <td>{this.state.resultados[13].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[13].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>14</td>
                       <td>¿Se ha sobresaltado fácilmente por cualquier cosa?</td>   
-                      <td>{this.state.resultados[14].Respuestas}</td> 
+                      <td width="10%">{this.state.resultados[14].Respuestas}</td> 
                     </tr>
                   </MDBTableBody>
                 </MDBTable> 
@@ -307,7 +307,8 @@ class App extends Component {
         </React.Fragment>
       </PdfContainer>
       </MDBContainer>
-    }if(this.state.resultados[0]){
+    }else if(this.state.resultados[0]){
+      console.log("preview " , this.state.resultados.length)
       pdfView2 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la Aplicación de la encuesta ATS </Alert>
 
       <PdfContainer createPdf={this.createPdf}>
@@ -357,7 +358,7 @@ class App extends Component {
                           siguientes: Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
                           grave? Asaltos? Actos violentos que derivaron en lesiones graves? Secuestro? Amenazas?, o Cualquier otro
                           que ponga en riesgo su vida o salud, y/o la de otras personas?</td>
-                      <td>No</td>
+                      <td width="10%">No</td>
                        
                     </tr>
  
@@ -375,12 +376,12 @@ class App extends Component {
                     <tr>
                       <td>2</td>
                       <td>¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                     <tr>
                       <td>3</td>
                       <td>¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                   </MDBTableBody>
                 </MDBTable> 
@@ -397,32 +398,32 @@ class App extends Component {
                     <tr>
                       <td>4</td>
                       <td>¿Se ha esforzado por evitar todo tipo de sentimientos, conversaciones o situaciones que le puedan recordar el acontecimiento?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                     <tr>
                       <td>5</td>
                       <td>¿Se ha esforzado por evitar todo tipo de actividades, lugares o personas que motivan recuerdos del acontecimiento?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                     <tr>
                       <td>6</td>
                       <td>¿Ha tenido dificultad para recordar alguna parte importante del evento?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                     <tr>
                       <td>7</td>
                       <td>¿Ha disminuido su interés en sus actividades cotidianas?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                     <tr>
                       <td>8</td>
                       <td>¿Se ha sentido usted alejado o distante de los demás?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                     <tr>
                       <td>9</td>
                       <td>¿Ha tenido la impresión de que su vida se va a acortar, que va a morir antes que otras personas o que tiene un futuro limitado?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                    
                   </MDBTableBody>
@@ -441,27 +442,27 @@ class App extends Component {
                     <tr>
                       <td>10</td>
                       <td>¿Ha tenido usted dificultades para dormir?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                     <tr>
                       <td>11</td>
                       <td>¿Ha estado particularmente irritable o le han dado arranques de coraje?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                     <tr>
                       <td>12</td>
                       <td>¿Ha tenido dificultad para concentrarse?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                     <tr>
                       <td>13</td>
                       <td>¿Ha estado nervioso o constantemente en alerta?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                     <tr>
                       <td>14</td>
                       <td>¿Se ha sobresaltado fácilmente por cualquier cosa?</td>   
-                      <td>No</td> 
+                      <td width="10%">No</td> 
                     </tr>
                   </MDBTableBody>
                 </MDBTable> 
@@ -505,7 +506,7 @@ class App extends Component {
                 <TableCell  >{rows.Ciudad}</TableCell>
                 <TableCell  >{rows.Sexo}</TableCell>
                 <TableCell  >{rows.rfc} </TableCell>
-                <TableCell  ><button  onClick={(e) => this.click(rows.id)}>Ver Resultado</button></TableCell>
+                <TableCell  ><MDBBtn color ="danger" onClick={(e) => this.click(rows.id)}>Ver Resultado</MDBBtn></TableCell>
               </TableRow>
               
             );
