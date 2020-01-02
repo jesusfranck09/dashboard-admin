@@ -36,7 +36,8 @@
             isOpen: false,
             datos:[],
             propiedades:[]   ,
-            showModal2: false,       
+            showModal2: false,     
+            idCorreos:[]
           };
           this.onClick = this.onClick.bind(this);
           this.handleclick = this.handleclick.bind(this);
@@ -47,7 +48,7 @@
 
         getEmployees = event => {
 
-            var correo  = "d93409@gmail.com"       
+            var correo  =localStorage.getItem("correo")       
               const url = 'http://localhost:8000/graphql'
               axios({
                 url:  url,
@@ -87,7 +88,7 @@
                       // console.log("datps" ,datos.data.data.getUsersTableEmployees)
                       this.setState({ datos: datos.data.data.getUsersTableEmployees});
                     
-                     
+                     console.log("estos son los id" , datos.data.data.getUsersTableEmployees)
                       // this.props.history.push("/inicio")
                     })
 
@@ -96,6 +97,7 @@
                       //console.log("errores" ,error.response.data.errors[0].message)
                       console.log(".cartch" , error.response)
                   });
+                  
             }  
 
             componentWillMount(){
@@ -147,8 +149,7 @@
           }
           )
           }
-          
-          
+                   
           ads(){
           
             this.setState({showModal2:true})
@@ -156,8 +157,6 @@
           }
 
         render() {
-       
-
           // const { children, ...attributes } = this.props;
           const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
           const container = { width: 2500, height: 1300 }
@@ -275,17 +274,49 @@
                   {/* <MDBBtn className="boton mt-10 " color="info" onClick = {this.getEmployees}>consulta </MDBBtn> */}
                   </MDBCol>
                   </MDBRow>
-
+                  <Alert style={{marginTop:'55', width:'1075px'}}  color="secondary" isOpen={this.state.datos.length}>
+                  <tr><td width="5%" ></td><td width="9%" ></td>Si desea puede enviar su encuesta a los colaboradores </tr>
+                  </Alert>
                   <Paper >
+                
                   <table>
+                  
                   <Alert style={{marginTop:'55', width:'1075px'}}  color="primary" isOpen={this.state.datos.length}>
-                  <tr><td width="9%" >Nombre</td><td width="10%">Apellido P.</td><td width="10%" >Apellido M. </td><td width="13%">Curp</td><td width="10%">RFC</td><td width="10%">Fecha de N.</td><td width="8%">Estado C.</td><td width="12%">Encuesta ATS</td><td width="10%">Encuesta RP</td><td width="10%">Encuesta EEO</td></tr>
+                  <tr><td width="5%" ></td><td width="9%" >Nombre</td><td width="10%">Apellido P.</td><td width="10%" >Apellido M. </td><td width="13%">Curp</td><td width="10%">Ciudad</td><td width="10%">Sexo</td><td width="8%">RFC</td></tr>
                   </Alert>
                   </table>
-                  <Table  >
-
+                  <Table>
                   {this.state.datos.map(rows =>{
+                     
+                     const url = 'http://localhost:8000/graphql'
+                     axios({
+                     url:  url,
+                     method:'post',
+                     data:{
+                     query:`
+                     query{
+                       verifiEmailSurvey(data:"${[rows.id]}"){
+                           contestado
+                           fk_empleados
+                             }
+                           }
+                         `
+                     }
+                         }).then(datos => {  
+                          datos.data.data.verifiEmailSurvey.map(rows=>{
                          
+                           if(rows.contestado=="true"){
+                             
+                           }
+                          })
+                           // console.log("los datos son " , datos.data.data.verifiEmailSurvey)
+                          // this.setState({idCorreos:datos.data.data.verifiEmailSurvey})
+
+                          // console.log("idcorreos", this.state.idCorreos)
+                         }).catch(err =>{
+                           console.log(err.response)
+                         })      
+   
                    const sendMailATS =  async  (event,valor) =>{
                   
                    DialogUtility.alert({
@@ -309,10 +340,11 @@
                             `
                         }
                             }).then(datos => {  
-
-                            });       
+                            });        
+                            
                             
                      }
+
 
                            return (
                             <TableBody>
@@ -320,16 +352,16 @@
                             <TableCell >
                               {rows.id}
                             </TableCell>
-                            <TableCell >{rows.nombre}</TableCell>
-                            <TableCell  >{rows.ApellidoP}</TableCell>
-                            <TableCell  >{rows.ApellidoM}</TableCell>
-                            <TableCell  >{rows.Curp}</TableCell>
-                            <TableCell  >{rows.Ciudad}</TableCell>
-                            <TableCell  >{rows.Sexo}</TableCell>
-                            <TableCell  >{rows.rfc} </TableCell>
-                            <TableCell  >  <MDBBtn outline color="success"   onClick={(e) => sendMailATS(e,1)} >ATS</MDBBtn></TableCell>
-                            <TableCell  ><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,2)}>RP</MDBBtn></TableCell>
-                            <TableCell  ><MDBBtn outline color="info" onClick={(e) => sendMailATS(e,3)}>EEO </MDBBtn></TableCell>
+                            <TableCell width="9%">{rows.nombre}</TableCell>
+                            <TableCell width="9%" >{rows.ApellidoP}</TableCell>
+                            <TableCell width="9%" >{rows.ApellidoM}</TableCell>
+                            <TableCell  width="9%">{rows.Curp}</TableCell>
+                            <TableCell  width="9%">{rows.Ciudad}</TableCell>
+                            <TableCell  width="9%">{rows.Sexo}</TableCell>
+                            <TableCell width="9%" >{rows.rfc} </TableCell>
+                            <TableCell width="9%" >  <MDBBtn outline color="success"   onClick={(e) => sendMailATS(e,1)} >ATS</MDBBtn></TableCell>
+                            <TableCell width="9%" ><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,2)}>RP</MDBBtn></TableCell>
+                            <TableCell  width="9%"><MDBBtn outline color="info" onClick={(e) => sendMailATS(e,3)}>EEO </MDBBtn></TableCell>
                           </TableRow>     
                           </TableBody>                 
                         )       
