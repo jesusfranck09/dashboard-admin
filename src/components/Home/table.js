@@ -37,7 +37,9 @@
             datos:[],
             propiedades:[]   ,
             showModal2: false,     
-            idCorreos:[]
+            ATSContestado:'',
+
+         
           };
           this.onClick = this.onClick.bind(this);
           this.handleclick = this.handleclick.bind(this);
@@ -79,6 +81,9 @@
                     ExperienciaLaboral
                     RotacionTurnos
                     fk_administrador
+                    ATSContestado
+                    RPContestado
+                    EEOContestado
                       }
                     }
                     `
@@ -101,6 +106,7 @@
             }  
 
             componentWillMount(){
+              this.getEmployees()
               var Nombre = localStorage.getItem("nombre")
               var Apellidos = localStorage.getItem("apellidos")
           
@@ -157,6 +163,7 @@
           }
 
         render() {
+
           // const { children, ...attributes } = this.props;
           const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
           const container = { width: 2500, height: 1300 }
@@ -220,7 +227,7 @@
                   <ul>
                   <MDBRow>
                   <MDBCol> 
-                  <Alert  color="light"><Button
+                  {/* <Alert  color="light"><Button
                    onClick = {this.getEmployees}
                     type="submit"
                     fullWidth
@@ -230,7 +237,7 @@
  
                   >
                   <strong>Consultar Empleados</strong> 
-                  </Button> </Alert> 
+                  </Button> </Alert>  */}
                   
                   <Alert  color="light"><Button
                    
@@ -287,64 +294,183 @@
                   </table>
                   <Table>
                   {this.state.datos.map(rows =>{
-                     
-                     const url = 'http://localhost:8000/graphql'
-                     axios({
-                     url:  url,
-                     method:'post',
-                     data:{
-                     query:`
-                     query{
-                       verifiEmailSurvey(data:"${[rows.id]}"){
-                           contestado
-                           fk_empleados
-                             }
-                           }
-                         `
-                     }
+                  
+                          const sendMailATS =  async  (event,valor,idSurvey) =>{
+                            
+                            const url = 'http://localhost:8000/graphql'
+                            axios({
+                            url:  url,
+                            method:'post',
+                            data:{
+                            query:`
+                            query{
+                              verifiEmailSurveyATS(data:"${[valor]}"){
+                                  ATSContestado
+                                    }
+                                  }
+                                `
+                            }
                          }).then(datos => {  
-                          datos.data.data.verifiEmailSurvey.map(rows=>{
-                         
-                           if(rows.contestado=="true"){
-                             
+                       
+                          //  this.setState({ATSContestado:datos.data.data.verifiEmailSurveyATS[0].ATSContestado})
+                          var contestado = datos.data.data.verifiEmailSurveyATS[0].ATSContestado
+                          localStorage.setItem("ATSContestado" ,contestado )
+                          console.log("entro primero aqui")
+                          if(localStorage.getItem("ATSContestado") =='true'){
+                            console.log("entro deoues aqui")
+                            console.log("atscontestado" , this.state.ATSContestado)
+                            DialogUtility.alert({
+                              animationSettings: { effect: 'Zoom' },           
+                              title: "Su colaborador ya ha respondido la encuesta",
+                              // title: 'Aviso!',
+                              position: "fixed"
+                              });
+                              localStorage.removeItem("ATSContestado")
                            }
-                          })
-                           // console.log("los datos son " , datos.data.data.verifiEmailSurvey)
-                          // this.setState({idCorreos:datos.data.data.verifiEmailSurvey})
-
-                          // console.log("idcorreos", this.state.idCorreos)
+                           else if (localStorage.getItem("ATSContestado")=='false'){
+                             
+                            DialogUtility.alert({
+                              animationSettings: { effect: 'Zoom' },           
+                              content: "Su encuesta fue enviada Exitosamente!",
+                              title: 'Aviso!',
+                              position: "fixed"
+                              });
+                              axios({
+                              url:  url,
+                              method:'post',
+                              data:{
+                              query:`
+                              mutation{
+                                sendMail(data:"${[rows.correo,valor,idSurvey]}"){
+                                    message
+                                      }
+                                    }
+                                  `
+                              }
+                                  }).then(datos => {  
+                                    localStorage.removeItem("ATSContestado")
+                                  });
+  
+                           }        
                          }).catch(err =>{
                            console.log(err.response)
-                         })      
-   
-                   const sendMailATS =  async  (event,valor) =>{
-                  
-                   DialogUtility.alert({
-                    animationSettings: { effect: 'Zoom' },           
-                    content: "Su encuesta fue enviada Exitosamente!",
-                    title: 'Aviso!',
-                    position: "fixed"
-                });
-   
-                      const url = 'http://localhost:8000/graphql'
-                     await  axios({
-                        url:  url,
-                        method:'post',
-                        data:{
-                        query:`
-                         mutation{
-                          sendMail(data:"${[rows.correo,rows.id,valor]}"){
-                              message
-                                }
-                              }
-                            `
-                        }
-                            }).then(datos => {  
-                            });        
-                            
-                            
-                     }
+                         })             
 
+                        }    
+                        
+                              ///////////////////////////////////////////////////////////////////////////////////////
+                              const sendMailRP =  async  (event,valor,idSurvey) =>{
+                            
+                                const url = 'http://localhost:8000/graphql'
+                                axios({
+                                url:  url,
+                                method:'post',
+                                data:{
+                                query:`
+                                query{
+                                  verifiEmailSurveyRP(data:"${[valor]}"){
+                                      RPContestado
+                                        }
+                                      }
+                                    `
+                                }
+                             }).then(datos => {  
+                              var contestado = datos.data.data.verifiEmailSurveyRP[0].RPContestado
+                              localStorage.setItem("RPContestado" ,contestado )
+                              if(localStorage.getItem("RPContestado") =='true'){
+                                DialogUtility.alert({
+                                  animationSettings: { effect: 'Zoom' },           
+                                  title: "Su colaborador ya ha respondido la encuesta",
+                                  // title: 'Aviso!',
+                                  position: "fixed"
+                                  });
+                                  localStorage.removeItem("RPContestado")
+                               }
+                               else if (localStorage.getItem("RPContestado")=='false'){
+                                 
+                                DialogUtility.alert({
+                                  animationSettings: { effect: 'Zoom' },           
+                                  content: "Su encuesta fue enviada Exitosamente!",
+                                  title: 'Aviso!',
+                                  position: "fixed"
+                                  });
+                                  axios({
+                                  url:  url,
+                                  method:'post',
+                                  data:{
+                                  query:`
+                                  mutation{
+                                    sendMail(data:"${[rows.correo,valor,idSurvey]}"){
+                                        message
+                                          }
+                                        }
+                                      `
+                                  }
+                                      }).then(datos => {  
+                                        localStorage.removeItem("RPContestado")
+                                      });
+                               }        
+                             }).catch(err =>{
+                               console.log(err.response)
+                             })          
+                            }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            const sendMailEEO =  async  (event,valor,idSurvey) =>{
+                            console.log("valor EEO" , valor)
+                              const url = 'http://localhost:8000/graphql'
+                              axios({
+                              url:  url,
+                              method:'post',
+                              data:{
+                              query:`
+                              query{
+                                verifiEmailSurveyEEO(data:"${[valor]}"){
+                                    EEOContestado
+                                      }
+                                    }
+                                  `
+                              }
+                           }).then(datos => {  
+                            var contestado = datos.data.data.verifiEmailSurveyEEO[0].EEOContestado
+                            localStorage.setItem("EEOContestado" ,contestado )
+                            if(localStorage.getItem("EEOContestado") =='true'){
+                              DialogUtility.alert({
+                                animationSettings: { effect: 'Zoom' },           
+                                title: "Su colaborador ya ha respondido la encuesta",
+                                // title: 'Aviso!',
+                                position: "fixed"
+                                });
+                                localStorage.removeItem("EEOContestado")
+                             }
+                             else if (localStorage.getItem("EEOContestado")=='false'){
+                               
+                              DialogUtility.alert({
+                                animationSettings: { effect: 'Zoom' },           
+                                content: "Su encuesta fue enviada Exitosamente!",
+                                title: 'Aviso!',
+                                position: "fixed"
+                                });
+                                axios({
+                                url:  url,
+                                method:'post',
+                                data:{
+                                query:`
+                                mutation{
+                                  sendMail(data:"${[rows.correo,valor,idSurvey]}"){
+                                      message
+                                        }
+                                      }
+                                    `
+                                }
+                                    }).then(datos => {  
+                                      localStorage.removeItem("EEOContestado")
+                                    });
+                             }        
+                           }).catch(err =>{
+                             console.log(err.response)
+                           })          
+                          }
+      
 
                            return (
                             <TableBody>
@@ -359,9 +485,9 @@
                             <TableCell  width="9%">{rows.Ciudad}</TableCell>
                             <TableCell  width="9%">{rows.Sexo}</TableCell>
                             <TableCell width="9%" >{rows.rfc} </TableCell>
-                            <TableCell width="9%" >  <MDBBtn outline color="success"   onClick={(e) => sendMailATS(e,1)} >ATS</MDBBtn></TableCell>
-                            <TableCell width="9%" ><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,2)}>RP</MDBBtn></TableCell>
-                            <TableCell  width="9%"><MDBBtn outline color="info" onClick={(e) => sendMailATS(e,3)}>EEO </MDBBtn></TableCell>
+                            <TableCell width="9%" ><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,rows.id,1)}>ATS</MDBBtn></TableCell>
+                            <TableCell width="9%" ><MDBBtn outline color="primary"  onClick={(e) => sendMailRP(e,rows.id,2)}>RP</MDBBtn></TableCell>
+                            <TableCell  width="9%"><MDBBtn outline color="info" onClick={(e) => sendMailEEO(e,rows.id,3)}>EEO </MDBBtn></TableCell>
                           </TableRow>     
                           </TableBody>                 
                         )       

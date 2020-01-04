@@ -11,6 +11,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
+import { DialogUtility } from '@syncfusion/ej2-popups';
+
 
 
 
@@ -78,7 +80,7 @@ class App extends Component {
   }
 
               click(id){
-              console.log("el id es " , id)
+              
                   
                       const url = 'http://localhost:8000/graphql'
                       axios({
@@ -119,9 +121,19 @@ class App extends Component {
                             `
                         }
                             }).then(datos => {   
-                              console.log("los resultados son " , datos.data.data.resultSingleSurveyRP)
-                            this.setState({resultados :datos.data.data.resultSingleSurveyRP })                
-                          console.log(this.state.resultados[0].nombre)
+                            
+                            console.log("los resultados son " , datos.data.data.resultSingleSurveyRP)
+                            if(datos.data.data.resultSingleSurveyRP.length > 0 ){
+                              this.setState({resultados :datos.data.data.resultSingleSurveyRP })                
+
+                            } if(datos.data.data.resultSingleSurveyRP.length <= 0){
+                              DialogUtility.alert({
+                                animationSettings: { effect: 'Zoom' },           
+                                title: "Su colaborador aun no responde la Encuesta",
+                                // title: 'Aviso!',
+                                position: "fixed"
+                                });
+                            }
                           })
                             .catch(err => {
                               console.log("el error es  ",err)

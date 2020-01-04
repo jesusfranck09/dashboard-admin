@@ -4,6 +4,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { InputGroup, InputGroupAddon, InputGroupText,Input } from 'reactstrap';
 import logo from '../../images/logotipo.png'
 import { AppNavbarBrand } from '@coreui/react';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
+
 
 
 import {
@@ -215,26 +218,25 @@ handleInput = (e) => {
                 <MDBRow>
                 <MDBCol md="6" className="mb-8">
                   <MDBAnimation type="fadeInRight" delay=".3s">
-                    <MDBCard id="classic-card">
+                    <MDBCard id="classic-card"  >
                       <MDBCardBody className="white-text">
                         <h3 className="text-center">
-                          <MDBIcon icon="user" /> Ingresar:
+                             Ingresar:
                         </h3>
                         <hr className="hr-light" />
 
                         <InputGroup   className="mb-3">
                         <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="icon-user"></i>
-                          </InputGroupText>
+                          <InputGroupText><MDBIcon icon="user" /></InputGroupText>
                         </InputGroupAddon>
-                        <Input id="email" onChange={this.handleInput} type="email"  placeholder="Usuario" />
+                        <Input id="email" onChange={this.handleInput} type="email"  placeholder="Correo" />
                       </InputGroup>
+  
 
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="icon-lock"></i>
+                          <MDBIcon icon="lock" />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input id="password" onChange={this.handleInput} type="password" placeholder="Contraseña"/>
@@ -243,12 +245,12 @@ handleInput = (e) => {
                            
                       <MDBRow>
                         <MDBCol md="8">
-                          <MDBBtn color="success" className="px-4" type='submit'>Entrar</MDBBtn>
+                          <MDBBtn outline color="success" className="px-4" type='submit'>Entrar</MDBBtn>
                         </MDBCol>
     
                         <MDBCol>                   
                         <Link to="/signup">                  
-                        <MDBBtn  color="primary" >
+                        <MDBBtn outline color="primary" >
                             Regístrate ahora!</MDBBtn>
                         </Link>                        
                         </MDBCol>

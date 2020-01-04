@@ -3,8 +3,8 @@ import { Button as Boton, Card, CardBody, CardGroup, Col, Container, Form, Input
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { DialogUtility } from '@syncfusion/ej2-popups';
-
-
+import {Alert} from 'reactstrap'
+import "@fortawesome/fontawesome-free/css/all.min.css";
 const SIGNUP = gql`
     mutation SIGNUP($first_name:String!,
         $last_name:String!,
@@ -110,10 +110,11 @@ handleError = (error) => {
                 <Card className="p-8">
                   <CardBody>
                     <Form>                      
-                      <h1>Singup</h1>
-                      <p className="text-muted">Ingrese sus datos por favor</p>     
+                     <h1><Alert color="primary" className="text-center mt-4 ">Formulario de Registro</Alert></h1>
+                      <Alert color ="secondary" className="text-center text-muted">Ingrese sus datos por favor</Alert>     
                       
                       <InputGroup className="mb-3">
+                        
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
                             <i className="icon-user"></i>
@@ -178,7 +179,7 @@ handleError = (error) => {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Boton color="primary" className="px-4" type='submit'>Registrarme</Boton>
+                          <Boton outline color="primary" className="px-4" type='submit'>Registrarme</Boton>
                         </Col>
 
                         {/* <Col>
