@@ -33,6 +33,8 @@ import RPPage5 from './components/addCuestions/Cuestion Sección RP/Page5';
 import RPPage6 from './components/addCuestions/Cuestion Sección RP/Page6';
 import RPPage7 from './components/addCuestions/Cuestion Sección RP/Page7';
 import RPPage8 from './components/addCuestions/Cuestion Sección RP/Page8';
+import AdminGral from './components/adminGeneral/AdminGral';
+
 
 import PoliticaRP from './components/addCuestions/Cuestion Sección RP/PoliticaPrivacidadRP';
 
@@ -56,7 +58,7 @@ import EEOpage12 from './components/addCuestions/Cuestion Seccion EEO/EEOpage12'
 import EEOpage13 from './components/addCuestions/Cuestion Seccion EEO/EEOpage13';
 import EEOpage14 from './components/addCuestions/Cuestion Seccion EEO/EEOpage14';
 import ProfileUser from './components/Home/ProfileUser';
-
+import Sucursales from './components/adminGeneral/Sucursales';
 
 
 // import Result from './components/resultsCuestions/result';
@@ -135,6 +137,8 @@ class Routes extends Component{
                   <PrivateRoute exact path='/resultRP' component={ResultRP}/>
                   <PrivateRoute exact path='/resultEEO' component={ResultEEO}/>
                   <PrivateRoute exact path='/res' component={Res}/>
+                  <PrivateRoute exact path='/adminGral' component={AdminGral}/>
+                  <PrivateRoute exact path='/sucursales' component={Sucursales}/>
                   {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}
     
 

@@ -545,8 +545,9 @@ function onSubmit (values) {
 	
 	  const correoAdmin =  pl.email
 	  const passAdmin = pl.password
-
-	   const url = 'http://localhost:8000/graphql'
+	  const url = 'http://localhost:8000/graphql'
+	  if(Nombre && ApellidoP && ApellidoM && curp && rfc && fechaN && sexo && cp && Estado_Civil && Correo && area && puesto && city && estudios && personal && Jornada && contratacion && Tiempo_puestoActual && experiencia_Laboral && rotacion){
+	 
 	  axios({
 		url:  url,
 		method:'post',
@@ -564,6 +565,7 @@ function onSubmit (values) {
        localStorage.setItem("max" , datos.data.data.authRegisterSingleEmployee[0].max)
 	
 	  });    
+	
 	 
 	  var max = localStorage.getItem("max")
 	  if(max <15 ){
@@ -599,7 +601,8 @@ function onSubmit (values) {
 			position: "fixed",
 		})
 		localStorage.removeItem("max")
-	}   
+	}  
+} 
 
 	}
 	

@@ -4,7 +4,6 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -12,16 +11,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
-// import MailIcon from '@material-ui/icons/Mail';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
 import {Link} from 'react-router-dom'
-import ApartmentIcon from '@material-ui/icons/Apartment';
-// import AssessmentIcon from '@material-ui/icons/Assessment';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import EventNoteIcon from '@material-ui/icons/EventNote';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import SettingsIcon from '@material-ui/icons/Settings';
+import EmojiTransportationIcon from '@material-ui/icons/EmojiTransportation';
+import DirectionsWalkOutlinedIcon from '@material-ui/icons/DirectionsWalkOutlined';
+import ComputerOutlinedIcon from '@material-ui/icons/ComputerOutlined';
 
 const drawerWidth = 240;
 
@@ -65,7 +59,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 2),
-    // ...theme.mixins.toolbar,
   },
   content: {
     flexGrow: 1,
@@ -94,7 +87,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MiniDrawer() {
+ function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -110,14 +103,6 @@ export default function MiniDrawer() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      {/* <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      > */}
-     
-      {/* </AppBar> */}
       <Drawer
 
         variant="permanent"
@@ -141,11 +126,11 @@ export default function MiniDrawer() {
           </IconButton>
         </div>
         {/* <Divider /> */}
-        <Link to="/company" style={{ textDecoration: 'none' }}>
+        <Link to="/sucursales" style={{ textDecoration: 'none' }}>
         <List >
-          {['Alta de Empresas'].map((text) => (
+          {['Centros de Trabajo'].map((text) => (
             <ListItem button key={text} >
-              <ListItemIcon> <ApartmentIcon /> </ListItemIcon>
+              <ListItemIcon> <EmojiTransportationIcon /> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -154,9 +139,9 @@ export default function MiniDrawer() {
 
         <Link to="/table" style={{ textDecoration: 'none' }}>
         <List >
-          {['Consultar Empleados'].map((text) => (
+          {['Departamentos'].map((text) => (
             <ListItem button key={text} >
-              <ListItemIcon> <PersonAddIcon /> </ListItemIcon>
+              <ListItemIcon> <WorkOutlineIcon /> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -165,9 +150,9 @@ export default function MiniDrawer() {
 
         <Link to="/res" style={{ textDecoration: 'none' }}>
         <List >
-          {['Res. EncuestaATS'].map((text) => (
+          {['Mis Empleados'].map((text) => (
             <ListItem button key={text} >
-              <ListItemIcon> <BarChartIcon /> </ListItemIcon>
+              <ListItemIcon> <DirectionsWalkOutlinedIcon /> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -175,47 +160,15 @@ export default function MiniDrawer() {
         </Link>
         <Link to="/resultRP" style={{ textDecoration: 'none' }}>
         <List >
-          {['Res. EncuestaRP'].map((text) => (
+          {['Puestos'].map((text) => (
             <ListItem button key={text} >
-              <ListItemIcon> <EventNoteIcon /> </ListItemIcon>
+              <ListItemIcon> <ComputerOutlinedIcon /> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>    
         </Link>
-        <Link to="/resultEEO" style={{ textDecoration: 'none' }}>
-        <List >
-          {['Res. EncuestaEEO'].map((text) => (
-            <ListItem button key={text} >
-              <ListItemIcon> <MenuBookIcon /> </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>    
-        </Link>
-
-        
-
-        <Divider />
-
-        <Link to="/adminGral" style={{ textDecoration: 'none' }}>
-        <List >
-          {['Gestionar mi Empresa'].map((text) => (
-            <ListItem button key={text} >
-              <ListItemIcon> <SettingsIcon /> </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>    
-        </Link>
-        {/* <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List> */}
+      
         
       </Drawer>
       <IconButton
@@ -233,3 +186,5 @@ export default function MiniDrawer() {
     </div>
   );
 }
+
+export default MiniDrawer
