@@ -13,6 +13,8 @@ import Table from '@material-ui/core/Table';
 import MiniDrawer from './Sidebar'
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+import { DialogUtility } from '@syncfusion/ej2-popups';
 
 import {
   Grid,
@@ -211,6 +213,49 @@ class AdminGral extends React.Component {
                     `
                 }
                     }).then((datos) => {
+                      DialogUtility.alert({
+                        animationSettings: { effect: 'Fade' },        
+                        title:"AVISO!",   
+                        content: 'Empleado Eliminado Exitosamente',
+                        position: "fixed",
+                      
+                      }
+                      )
+                    })
+
+                    .catch((error) => {
+                
+                      //console.log("errores" ,error.response.data.errors[0].message)
+                      console.log(".cartch" , error.response)
+                  });  
+            
+
+          }
+
+
+          update(i,id){
+            let rows = [...this.state.datos]
+            rows.splice(i, 1)
+            this.setState({ 
+              datos: rows
+            })
+
+            var correo  =localStorage.getItem("correo")       
+            const url = 'http://localhost:8000/graphql'
+
+              axios({
+                url:  url,
+                method:'post',
+                data:{
+                query:`
+                mutation{
+                  deleteEmployees(data:"${[id,correo]}"){
+                   message               
+                      }
+                    }
+                    `
+                }
+                    }).then((datos) => {
                       
                     })
 
@@ -285,9 +330,15 @@ class AdminGral extends React.Component {
                                           <TableCell  >{rows.Sexo}</TableCell>
                                           <TableCell  >{rows.rfc} </TableCell>
                                           
-                                          <IconButton onClick={(e) => this.delete(i,rows.id)}>
+                                          <IconButton onClick={(e) => { if (window.confirm('Está seguro de Eliminar a este Empleado ? , Los datos se perderán')) this.delete(i,rows.id)} } >
                                               <DeleteIcon />
                                             </IconButton>
+
+                                            <IconButton onClick={(e) => this.update(i,rows.id)}>
+                                              <CreateOutlinedIcon />
+                                            </IconButton>
+
+                                            
                                         </TableRow>
                                         
                                       );
