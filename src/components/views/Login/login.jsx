@@ -6,9 +6,6 @@ import logo from '../../images/logotipo.png'
 import { AppNavbarBrand } from '@coreui/react';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-
-
-
 import {
   MDBNavbar,
   MDBNavbarBrand,

@@ -5,7 +5,8 @@ import gql from 'graphql-tag';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import {Alert} from 'reactstrap'
 import "@fortawesome/fontawesome-free/css/all.min.css";
-const SIGNUP = gql`
+import {MDBIcon} from 'mdbreact'
+ const SIGNUP = gql`
     mutation SIGNUP($first_name:String!,
         $last_name:String!,
         $rfc:String!,
@@ -117,7 +118,7 @@ handleError = (error) => {
                         
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="icon-user"></i>
+                          <MDBIcon icon="male"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input id="first_name" onChange={this.handleInput} type="text"  placeholder="Nombre/Nombres" />
@@ -127,7 +128,7 @@ handleError = (error) => {
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="icon-user"></i>
+                          <MDBIcon icon="male"/>
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input id="last_name" onChange={this.handleInput} type="text"  placeholder="Apellidos" />
@@ -136,7 +137,7 @@ handleError = (error) => {
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="icon-user"></i>
+                          <MDBIcon icon="building" />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input id="rfc" onChange={this.handleInput} type="text"  placeholder="RFC" />
@@ -145,7 +146,7 @@ handleError = (error) => {
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="icon-user"></i>
+                          <MDBIcon icon="building" />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input id="razon_social" onChange={this.handleInput} type="text"  placeholder="Razón Social" />
@@ -154,7 +155,7 @@ handleError = (error) => {
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="icon-user"></i>
+                          <MDBIcon icon="user-circle" />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input id="user" onChange={this.handleInput} type="text"  placeholder="Nombre de Usuario" />
@@ -163,7 +164,7 @@ handleError = (error) => {
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="icon-user"></i>
+                          <MDBIcon icon="at" />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input id="email" onChange={this.handleInput} type="email"  placeholder="Correo" />
@@ -172,7 +173,7 @@ handleError = (error) => {
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                            <i className="icon-lock"></i>
+                          <MDBIcon icon="lock" />
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input id="password" onChange={this.handleInput} type="password" placeholder="Contraseña"/>
