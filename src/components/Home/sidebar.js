@@ -14,7 +14,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 // import InboxIcon from '@material-ui/icons/MoveToInbox';
 // import MailIcon from '@material-ui/icons/Mail';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import {Link} from 'react-router-dom'
 import ApartmentIcon from '@material-ui/icons/Apartment';
 // import AssessmentIcon from '@material-ui/icons/Assessment';
@@ -143,7 +143,7 @@ export default function MiniDrawer() {
         {/* <Divider /> */}
         <Link to="/company" style={{ textDecoration: 'none' }}>
         <List >
-          {['Alta de Empresas'].map((text) => (
+          {[' Sucursal Principal'].map((text) => (
             <ListItem button key={text} >
               <ListItemIcon> <ApartmentIcon /> </ListItemIcon>
               <ListItemText primary={text} />
@@ -154,9 +154,9 @@ export default function MiniDrawer() {
 
         <Link to="/table" style={{ textDecoration: 'none' }}>
         <List >
-          {['Consultar Empleados'].map((text) => (
+          {['Enviar Encuestas'].map((text) => (
             <ListItem button key={text} >
-              <ListItemIcon> <PersonAddIcon /> </ListItemIcon>
+              <ListItemIcon> <MailOutlineIcon /> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}

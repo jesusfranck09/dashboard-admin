@@ -115,19 +115,8 @@ ads(){
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
-                <MDBNavbarNav left>
-                  <MDBNavItem active>
-                    <MDBNavLink to="/employees">Cargar Empleados</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem active>
-                    <MDBNavLink to="/survey">Cuestionario ATS</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem active>
-                    <MDBNavLink to="/politicaRP">Cuestionario RP</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem active>
-                    <MDBNavLink to="/politicaEEO">Cuestionario EEO</MDBNavLink>
-                  </MDBNavItem>
+                <MDBNavbarNav >
+                 
                 </MDBNavbarNav>
                 <strong>{this.state.date}</strong> 
                 <MDBNavbarNav right>

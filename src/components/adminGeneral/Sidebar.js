@@ -137,7 +137,7 @@ const useStyles = makeStyles(theme => ({
         </List>
         </Link>
 
-        <Link to="/table" style={{ textDecoration: 'none' }}>
+        <Link to="/apartments" style={{ textDecoration: 'none' }}>
         <List >
           {['Departamentos'].map((text) => (
             <ListItem button key={text} >
@@ -148,7 +148,7 @@ const useStyles = makeStyles(theme => ({
         </List>    
         </Link>
 
-        <Link to="/res" style={{ textDecoration: 'none' }}>
+        <Link to="/employees" style={{ textDecoration: 'none' }}>
         <List >
           {['Mis Empleados'].map((text) => (
             <ListItem button key={text} >
@@ -158,7 +158,7 @@ const useStyles = makeStyles(theme => ({
           ))}
         </List>    
         </Link>
-        <Link to="/resultRP" style={{ textDecoration: 'none' }}>
+        <Link to="/puestos" style={{ textDecoration: 'none' }}>
         <List >
           {['Puestos'].map((text) => (
             <ListItem button key={text} >

@@ -331,13 +331,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
          
           
         }
-      
-        componentDidUpdate(){
-         const local = localStorage.getItem("ok")
-         if (local){
-             this.props.history.push("/adminGral")
-         }   
-        }
+
         onClick() {
           this.setState({
             collapse: !this.state.collapse,
@@ -363,7 +357,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
                         full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
                     </MDBNavbarBrand>
                     <MDBNavbarBrand >
-                    <strong> Agregar Sucursales</strong>
+                    <strong> Registrar Sucursales</strong>
                     </MDBNavbarBrand>
                     <MDBNavbarNav left>
                   <MDBNavItem active>

@@ -59,11 +59,13 @@ import EEOpage13 from './components/addCuestions/Cuestion Seccion EEO/EEOpage13'
 import EEOpage14 from './components/addCuestions/Cuestion Seccion EEO/EEOpage14';
 import ProfileUser from './components/Home/ProfileUser';
 import Sucursales from './components/adminGeneral/Sucursales';
-
+import adminEmployees from './components/adminGeneral/adminEmployees';
+import Puestos from './components/adminGeneral/Puestos';
 
 // import Result from './components/resultsCuestions/result';
 import ResultRP from './components/resultsCuestionsRP/resultRP';
 import ResultEEO from './components/resultsCuestionsEEO/resultEEO';
+import Apartments from './components/adminGeneral/Apartments';
 
 import Res from './components/resultsCuestions/resultados';
 
@@ -139,6 +141,10 @@ class Routes extends Component{
                   <PrivateRoute exact path='/res' component={Res}/>
                   <PrivateRoute exact path='/adminGral' component={AdminGral}/>
                   <PrivateRoute exact path='/sucursales' component={Sucursales}/>
+                  <PrivateRoute exact path='/apartments' component={Apartments}/>
+                  <PrivateRoute exact path='/adminEmployees' component={adminEmployees}/>
+                  <PrivateRoute exact path='/puestos' component={Puestos}/>
+
                   {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}
     
 

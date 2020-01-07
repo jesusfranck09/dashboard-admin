@@ -251,9 +251,6 @@ getRemainingTime = deadline => {
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav left>
                   <MDBNavItem active>
-                    <MDBNavLink to="/employees">Cargar Empleados</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem active>
                     <MDBNavLink to="/survey">Cuestionario ATS</MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem active>

@@ -1,16 +1,18 @@
 import React from 'react';
-import {MDBRow,MDBBtn, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol, MDBCardHeader, MDBTable} from 'mdbreact';
+import {MDBRow,MDBBtn, MDBContainer, MDBNavbar,MDBNavbarNav, MDBNavbarBrand, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol, MDBCardHeader, MDBTable} from 'mdbreact';
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import '../Home/index.css'
 import Paper from '@material-ui/core/Paper';
+import inicio from '../images/house.png'
 
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
 import MiniDrawer from './Sidebar'
-
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import {
   Grid,
@@ -28,7 +30,9 @@ class AdminGral extends React.Component {
       this.state = {
         collapse: false,
         datos:[],
-    
+        datosSucursales:[],
+        datosDeptos:[],
+        datosPuestos:[],
       };
       this.getEmployees = this.getEmployees.bind(this);
 
@@ -86,7 +90,7 @@ class AdminGral extends React.Component {
               }).then((datos) => {
                
                 this.setState({ datos: datos.data.data.getUsersTableEmployees});
-
+                console.log("los datos de los empleados" , datos.data.data.getUsersTableEmployees) 
               })
 
               .catch((error) => {
@@ -95,15 +99,136 @@ class AdminGral extends React.Component {
                 console.log(".cartch" , error.response)
             });  
 
+              axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+              query{
+                getSucursales(data:"${correo}"){
+                  id
+                  nombreSucursal
+                  calle
+                  numExt
+                  numInt
+                  colonia
+                  CP
+                  Ciudad
+                  Estado
+                  rfc
+                  telefono
+                  correo
+                  fk_administrador
+                    }
+                  }
+                  `
+              }
+              }).then((datos) => {
+               console.log("datos correctos" ,datos.data.data.getSucursales)
+                this.setState({ datosSucursales: datos.data.data.getSucursales});
+
+              })
+
+              .catch((error) => {
+                
+                //console.log("errores" ,error.response.data.errors[0].message)
+                console.log(".cartch" , error.response)
+            });  
+
+            axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+              query{
+                getDeptos(data:"${correo}"){
+                  id
+                  nombre
+                  fk_Administrador                 
+                    }
+                  }
+                  `
+              }
+                  }).then((datos) => {
+                   
+                    console.log("datos correctos" , datos.data.data.getDeptos)
+                     this.setState({ datosDeptos: datos.data.data.getDeptos});
+    
+                  })
+    
+                  .catch((error) => {
+              
+                    //console.log("errores" ,error.response.data.errors[0].message)
+                    console.log(".cartch" , error.response)
+                });  
+
+                axios({
+                  url:  url,
+                  method:'post',
+                  data:{
+                  query:`
+                  query{
+                    getPuestos(data:"${correo}"){
+                      id
+                      nombre
+                      fk_Administrador                 
+                        }
+                      }
+                      `
+                  }
+                      }).then((datos) => {
+                         this.setState({ datosPuestos: datos.data.data.getPuestos});
+                      })
+        
+                      .catch((error) => {
+                  
+                        //console.log("errores" ,error.response.data.errors[0].message)
+                        console.log(".cartch" , error.response)
+                    });  
     }
+
+
+          delete(i,id){
+            let rows = [...this.state.datos]
+            rows.splice(i, 1)
+            this.setState({ 
+              datos: rows
+            })
+
+            var correo  =localStorage.getItem("correo")       
+            const url = 'http://localhost:8000/graphql'
+
+              axios({
+                url:  url,
+                method:'post',
+                data:{
+                query:`
+                mutation{
+                  deleteEmployees(data:"${[id,correo]}"){
+                   message               
+                      }
+                    }
+                    `
+                }
+                    }).then((datos) => {
+                      
+                    })
+
+                    .catch((error) => {
+                
+                      //console.log("errores" ,error.response.data.errors[0].message)
+                      console.log(".cartch" , error.response)
+                  });  
+            
+
+          }
+
     render() {
    
       // const { children} = this.props;
       const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
       const container = { width: 2500, height: 1300 }
       return (
-  
-  
         <React.Fragment>
         <div>
             <header>
@@ -116,18 +241,25 @@ class AdminGral extends React.Component {
                 <MDBNavbarBrand>
                 <strong> Administración general de  Mi Empresa </strong>
                 </MDBNavbarBrand>
+                <MDBNavbarBrand>              
+                </MDBNavbarBrand>
+                <MDBNavbarNav right> 
+                <MDBNavbarBrand a href="./inicio">
+
+                <AppNavbarBrand full={{ src: inicio, width: 30, height: 25, alt: 'Inicio' }} />              
+                Página Principal  
+              </MDBNavbarBrand>
+              </MDBNavbarNav>
                 <MDBNavbarToggler onClick={this.onClick} />
                 <MDBCollapse isOpen={this.state.collapse} navbar>
-  
                 </MDBCollapse>
               </MDBNavbar>
-            
             </header>
                 <MDBContainer style={container} >
                     <MDBRow style={{ marginTop:60}}>
 
                     <MDBCol>
-                    <Alert  color="primary">Nota : Puede editar los diferentes campos desde el menú Hamburguesa</Alert>    
+                    <Alert  color="primary">Nota : Puede editar y/o eliminar los campos si así lo desea</Alert>    
 
                     <Paper >
 
@@ -139,7 +271,7 @@ class AdminGral extends React.Component {
                                 <Table bordered>
                            
                                   <TableBody>
-                                    {this.state.datos.map(rows => {
+                                    {this.state.datos.map((rows,i )=> {
                                       return (
                                         <TableRow >
                                           <TableCell component="th" scope="row">
@@ -152,60 +284,120 @@ class AdminGral extends React.Component {
                                           <TableCell  >{rows.Ciudad}</TableCell>
                                           <TableCell  >{rows.Sexo}</TableCell>
                                           <TableCell  >{rows.rfc} </TableCell>
+                                          
+                                          <IconButton onClick={(e) => this.delete(i,rows.id)}>
+                                              <DeleteIcon />
+                                            </IconButton>
                                         </TableRow>
                                         
                                       );
                                     })}
                                   </TableBody>
-                          
-                          
                           </Table>
-                     
-
                         </MDBCardBody>
                     </MDBCard>
                     </Paper>
   
                     </MDBCol>
                     <MDBCol>
-                    <Paper style={{ width: "33rem"}}>
-                    <MDBCard  style={{ width: "33rem" ,marginTop:60}}>
+                    <Paper >
+                    <MDBCard >
                         <MDBCardBody>
                         <MDBCardTitle>Centros de Trabajo</MDBCardTitle>
                    
                         </MDBCardBody>
+                         
+                        <Table bordered>
+                           
+                           <TableBody>
+                             {this.state.datosSucursales.map(rows => {
+                               return (
+                                 <TableRow >
+                                   <TableCell component="th" scope="row">
+                                     {rows.id}
+                                   </TableCell>
+                                   <TableCell >{rows.nombreSucursal}</TableCell>
+                                   <TableCell  >{rows.calle}</TableCell>
+                                   <TableCell  >{rows.numExt}</TableCell>
+                                   <TableCell  >{rows.numInt}</TableCell>
+                                   <TableCell  >{rows.colonia}</TableCell>
+                                   <TableCell  >{rows.CP}</TableCell>
+                                   <TableCell  >{rows.Ciudad} </TableCell>
+                                   <TableCell  >{rows.Estado}</TableCell>
+                                   <TableCell  >{rows.rfc} </TableCell>
+                                   <TableCell  >{rows.telefono}</TableCell>
+                                   <TableCell  >{rows.correo} </TableCell>
+                                 </TableRow>                                
+                               );
+                             })}
+                           </TableBody>
+                   </Table>
+                    </MDBCard>
+                    </Paper>
+                    <MDBRow>
+                      <MDBCol>
+                    <Paper style={{ width: "22rem" }}>
+                    <MDBCard style={{ width: "22rem" }}>
+                        <MDBCardBody>
+                        <MDBCardTitle>Departamentos Actuales</MDBCardTitle>
+                   
+                        </MDBCardBody>
+                         
+                        <Table bordered>
+                           
+                           <TableBody>
+                             {this.state.datosDeptos.map(rows => {
+                               return (
+                                 <TableRow >
+                                   <TableCell component="th" scope="row">
+                                     {rows.id}
+                                   </TableCell>
+                                 <TableCell ><strong> {rows.nombre}</strong> </TableCell>
+                                
+                                 </TableRow>                                
+                               );
+                             })}
+                           </TableBody>
+                   </Table>
+                    </MDBCard>
+                    </Paper>
+                    </MDBCol>
+                    <MDBCol>
+                    <Paper style={{ width: "22rem" }}>
+                    <MDBCard style={{ width: "22rem" }} >
+                        <MDBCardBody>
+                        <MDBCardTitle>Puestos Actuales</MDBCardTitle>
+                   
+                        </MDBCardBody>
+                         
+                        <Table bordered>
+                           
+                           <TableBody>
+                             {this.state.datosPuestos.map(rows => {
+                               return (
+                                 <TableRow >
+                                   <TableCell component="th" scope="row">
+                                     {rows.id}
+                                   </TableCell>
+                                 <TableCell ><strong> {rows.nombre}</strong> </TableCell>
+                           
+                                 </TableRow>                                
+                               );
+                             })}
+                           </TableBody>
+                   </Table>
                     </MDBCard>
                     </Paper>
                     </MDBCol>
                     </MDBRow>
-
-                    <MDBRow>
-                    <MDBCol>
-                    <Paper style={{ width: "33rem"}}>
-                    <MDBCard  style={{ width: "33rem" ,marginTop:25}}>
-                        <MDBCardBody>
-                        <MDBCardTitle>Departamentos</MDBCardTitle>
-                   
-                        </MDBCardBody>
-                    </MDBCard>
-                    </Paper>
-  
                     </MDBCol>
                     <MDBCol>
-                    <Paper style={{ width: "33rem"}}>
-                    <MDBCard  style={{ width: "33rem" ,marginTop:25}}>
-                        <MDBCardBody>
-                        <MDBCardTitle>Puestos</MDBCardTitle>
-                   
-                        </MDBCardBody>
-                    </MDBCard>
-                    </Paper>
+
+
                     </MDBCol>
                     </MDBRow>
                  </MDBContainer>
         </div>
-  
-       
         </React.Fragment>
       );
     }
