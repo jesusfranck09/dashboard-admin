@@ -1,5 +1,5 @@
 import React from 'react';
-import {MDBRow,MDBBtn, MDBContainer, MDBNavbar,MDBNavbarNav, MDBNavbarBrand, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol, MDBCardHeader, MDBTable} from 'mdbreact';
+import {MDBRow,MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBContainer, MDBNavbar,MDBNavbarNav, MDBNavbarBrand, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol, MDBCardHeader, MDBTable} from 'mdbreact';
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import '../Home/index.css'
@@ -35,6 +35,8 @@ class AdminGral extends React.Component {
         datosSucursales:[],
         datosDeptos:[],
         datosPuestos:[],
+        modal13: false,
+        updateRows:[]
       };
       this.getEmployees = this.getEmployees.bind(this);
 
@@ -228,19 +230,16 @@ class AdminGral extends React.Component {
                       //console.log("errores" ,error.response.data.errors[0].message)
                       console.log(".cartch" , error.response)
                   });  
-            
+               }
 
-          }
-
-
-          update(i,id){
-            let rows = [...this.state.datos]
+          deleteSucursales(i,id){
+            let rows = [...this.state.datosSucursales]
             rows.splice(i, 1)
             this.setState({ 
-              datos: rows
+              datosSucursales: rows
             })
-
-            var correo  =localStorage.getItem("correo")       
+            
+            var correo  = localStorage.getItem("correo")       
             const url = 'http://localhost:8000/graphql'
 
               axios({
@@ -249,24 +248,154 @@ class AdminGral extends React.Component {
                 data:{
                 query:`
                 mutation{
-                  deleteEmployees(data:"${[id,correo]}"){
+                  deleteSucursales(data:"${[id,correo]}"){
                    message               
                       }
                     }
                     `
                 }
                     }).then((datos) => {
+                      DialogUtility.alert({
+                        animationSettings: { effect: 'Fade' },        
+                        title:"AVISO!",   
+                        content: 'Sucursal Eliminada Exitosamente',
+                        position: "fixed",
                       
+                      }
+                      )
                     })
 
                     .catch((error) => {
-                
-                      //console.log("errores" ,error.response.data.errors[0].message)
                       console.log(".cartch" , error.response)
                   });  
+                }
+
+                deleteDepartamentos(i,id){
+                  let rows = [...this.state.datosDeptos]
+                  rows.splice(i, 1)
+                  this.setState({ 
+                    datosDeptos: rows
+                  })
+                  
+                  var correo  = localStorage.getItem("correo")       
+                  const url = 'http://localhost:8000/graphql'
+      
+                    axios({
+                      url:  url,
+                      method:'post',
+                      data:{
+                      query:`
+                      mutation{
+                        deleteDeptos(data:"${[id,correo]}"){
+                         message               
+                            }
+                          }
+                          `
+                      }
+                          }).then((datos) => {
+                            DialogUtility.alert({
+                              animationSettings: { effect: 'Fade' },        
+                              title:"AVISO!",   
+                              content: 'Departamento Eliminado Exitosamente',
+                              position: "fixed",
+                            
+                            }
+                            )
+                          })
+      
+                          .catch((error) => {
+                            console.log(".cartch" , error.response)
+                        });  
+                      }
+
+                      deletePuestos(i,id){
+                        let rows = [...this.state.datosPuestos]
+                        rows.splice(i, 1)
+                        this.setState({ 
+                          datosPuestos: rows
+                        })
+                        
+                        var correo  = localStorage.getItem("correo")       
+                        const url = 'http://localhost:8000/graphql'
+            
+                          axios({
+                            url:  url,
+                            method:'post',
+                            data:{
+                            query:`
+                            mutation{
+                              deletePuestos(data:"${[id,correo]}"){
+                               message               
+                                  }
+                                }
+                                `
+                            }
+                                }).then((datos) => {
+                                  DialogUtility.alert({
+                                    animationSettings: { effect: 'Fade' },        
+                                    title:"AVISO!",   
+                                    content: 'El Puesto fue Eliminado Exitosamente',
+                                    position: "fixed",
+                                  
+                                  }
+                                  )
+                                })
+            
+                                .catch((error) => {
+                                  console.log(".cartch" , error.response)
+                              });  
+                            }
+      
+
+
+
+          // update(i,id){
+          //   let rows = [...this.state.datos]
+          //   // rows.splice(i, 1)
+          //   this.setState({ 
+          //     datos: rows
+          //   })
+
+          //   var correo  =localStorage.getItem("correo")       
+          //   const url = 'http://localhost:8000/graphql'
+
+          //     axios({
+          //       url:  url,
+          //       method:'post',
+          //       data:{
+          //       query:`
+          //       mutation{
+          //         deleteEmployees(data:"${[id,correo]}"){
+          //          message               
+          //             }
+          //           }
+          //           `
+          //       }
+          //           }).then((datos) => {
+                      
+          //           })
+
+          //           .catch((error) => {
+                
+          //             //console.log("errores" ,error.response.data.errors[0].message)
+          //             console.log(".cartch" , error.response)
+          //         });  
             
 
+          // }
+
+          toggle = (nr,id) => () => {
+           
+            
+            let modalNumber = 'modal' + nr
+            this.setState({
+              [modalNumber]: !this.state[modalNumber]
+            });
+
+           
+
           }
+          
 
     render() {
    
@@ -329,14 +458,15 @@ class AdminGral extends React.Component {
                                           <TableCell  >{rows.Ciudad}</TableCell>
                                           <TableCell  >{rows.Sexo}</TableCell>
                                           <TableCell  >{rows.rfc} </TableCell>
-                                          
-                                          <IconButton onClick={(e) => { if (window.confirm('Está seguro de Eliminar a este Empleado ? , Los datos se perderán')) this.delete(i,rows.id)} } >
+                                          <TableCell  >
+                                          <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } >
                                               <DeleteIcon />
-                                            </IconButton>
-
-                                            <IconButton onClick={(e) => this.update(i,rows.id)}>
+                                            </IconButton></TableCell>
+                                            <TableCell>
+                                            <IconButton onClick={this.toggle(13,rows)}>
                                               <CreateOutlinedIcon />
                                             </IconButton>
+                                            </TableCell>
 
                                             
                                         </TableRow>
@@ -361,7 +491,7 @@ class AdminGral extends React.Component {
                         <Table bordered>
                            
                            <TableBody>
-                             {this.state.datosSucursales.map(rows => {
+                             {this.state.datosSucursales.map((rows,i) => {
                                return (
                                  <TableRow >
                                    <TableCell component="th" scope="row">
@@ -369,15 +499,17 @@ class AdminGral extends React.Component {
                                    </TableCell>
                                    <TableCell >{rows.nombreSucursal}</TableCell>
                                    <TableCell  >{rows.calle}</TableCell>
-                                   <TableCell  >{rows.numExt}</TableCell>
-                                   <TableCell  >{rows.numInt}</TableCell>
                                    <TableCell  >{rows.colonia}</TableCell>
+                                   <TableCell  >{rows.numExt}</TableCell>
                                    <TableCell  >{rows.CP}</TableCell>
                                    <TableCell  >{rows.Ciudad} </TableCell>
                                    <TableCell  >{rows.Estado}</TableCell>
                                    <TableCell  >{rows.rfc} </TableCell>
-                                   <TableCell  >{rows.telefono}</TableCell>
                                    <TableCell  >{rows.correo} </TableCell>
+                                   <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a esta Sucursal ?.Los datos se perderán')) this.deleteSucursales(i,rows.id)} } >
+                                   <DeleteIcon /></IconButton></TableCell>
+                                   <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } >
+                                   <CreateOutlinedIcon /></IconButton></TableCell>
                                  </TableRow>                                
                                );
                              })}
@@ -391,25 +523,28 @@ class AdminGral extends React.Component {
                     <MDBCard style={{ width: "22rem" }}>
                         <MDBCardBody>
                         <MDBCardTitle>Departamentos Actuales</MDBCardTitle>
-                   
-                        </MDBCardBody>
-                         
                         <Table bordered>
                            
                            <TableBody>
-                             {this.state.datosDeptos.map(rows => {
+                             {this.state.datosDeptos.map((rows,i) => {
                                return (
                                  <TableRow >
                                    <TableCell component="th" scope="row">
                                      {rows.id}
                                    </TableCell>
                                  <TableCell ><strong> {rows.nombre}</strong> </TableCell>
-                                
+                                 <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Departamento ?.Los datos se perderán')) this.deleteDepartamentos(i,rows.id)} } >
+                                   <DeleteIcon /></IconButton></TableCell>
+                                   <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } >
+                                   <CreateOutlinedIcon /></IconButton></TableCell>
                                  </TableRow>                                
                                );
                              })}
                            </TableBody>
-                   </Table>
+                          </Table>
+                        </MDBCardBody>
+                         
+                       
                     </MDBCard>
                     </Paper>
                     </MDBCol>
@@ -418,25 +553,29 @@ class AdminGral extends React.Component {
                     <MDBCard style={{ width: "22rem" }} >
                         <MDBCardBody>
                         <MDBCardTitle>Puestos Actuales</MDBCardTitle>
-                   
-                        </MDBCardBody>
-                         
                         <Table bordered>
                            
                            <TableBody>
-                             {this.state.datosPuestos.map(rows => {
+                             {this.state.datosPuestos.map((rows,i) => {
                                return (
                                  <TableRow >
                                    <TableCell component="th" scope="row">
                                      {rows.id}
                                    </TableCell>
                                  <TableCell ><strong> {rows.nombre}</strong> </TableCell>
+                                 <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Puesto ?.Los datos se perderán')) this.deletePuestos(i,rows.id)} } >
+                                   <DeleteIcon /></IconButton></TableCell>
+                                   <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } >
+                                   <CreateOutlinedIcon /></IconButton></TableCell>
                            
                                  </TableRow>                                
                                );
                              })}
                            </TableBody>
                    </Table>
+                        </MDBCardBody>
+                         
+                        
                     </MDBCard>
                     </Paper>
                     </MDBCol>
@@ -447,6 +586,24 @@ class AdminGral extends React.Component {
 
                     </MDBCol>
                     </MDBRow>
+
+
+                    <MDBContainer>
+                    <MDBModal isOpen={this.state.modal13} toggle={this.toggle(13)}>
+                      <MDBModalHeader toggle={this.toggle(13)}>
+                        Actualizar Empleados
+                      </MDBModalHeader>
+                      <MDBModalBody>
+                     
+                      </MDBModalBody>
+                      <MDBModalFooter>
+                        <MDBBtn color="secondary" onClick={this.toggle(13)}>
+                          Close
+                        </MDBBtn>
+                        <MDBBtn color="primary">Save changes</MDBBtn>
+                      </MDBModalFooter>
+                    </MDBModal>
+                  </MDBContainer>
                  </MDBContainer>
         </div>
         </React.Fragment>
