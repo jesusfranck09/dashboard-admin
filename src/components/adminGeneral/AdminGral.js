@@ -15,6 +15,12 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import { DialogUtility } from '@syncfusion/ej2-popups';
+import { Form, Field } from 'react-final-form';
+import { TextField ,Select} from 'final-form-material-ui';
+import {
+	MenuItem,
+  } from '@material-ui/core';
+
 
 import {
   Grid,
@@ -36,7 +42,9 @@ class AdminGral extends React.Component {
         datosDeptos:[],
         datosPuestos:[],
         modal13: false,
-        updateRows:[]
+        modal14: false,
+        updateRows:[],
+        updateRowsSucursales:[]
       };
       this.getEmployees = this.getEmployees.bind(this);
 
@@ -347,57 +355,764 @@ class AdminGral extends React.Component {
                             }
       
 
+                toggle = (nr,id) => () => {
+                console.log("id rows",id)
+                this.setState({updateRows:id} )
+                  
+                  let modalNumber = 'modal' + nr
+                  this.setState({
+                    [modalNumber]: !this.state[modalNumber]
+                  });
+                }
+
+                toggleSucursales = (nr,id) => () => {
+                  console.log("id rows",id)
+                  this.setState({updateRowsSucursales:id} )
+                  
+                  let modalNumber = 'modal' + nr
+                  this.setState({
+                    [modalNumber]: !this.state[modalNumber]
+                  });
+                }
 
 
-          // update(i,id){
-          //   let rows = [...this.state.datos]
-          //   // rows.splice(i, 1)
-          //   this.setState({ 
-          //     datos: rows
-          //   })
+                onSubmit (values) {
+                };
+        
+          validate = values => {
+                const errors = {};
+                if (!values.nombre) {
+                  errors.nombre = 'Este campo es requerido';
+                }
+                if (!values.ApellidoP) {
+                  errors.ApellidoP = 'Este campo es requerido';
+                }
+                if (!values.ApellidoM) {
+                  errors.ApellidoM = 'Este campo es requerido';
+                }
+                if (!values.Curp) {
+                  errors.Curp = 'Este campo es requerido';
+                }
+                if (!values.rfc) {
+                  errors.rfc = 'Este campo es requerido';
+                }
+                if (!values.FechaNacimiento) {
+                  errors.FechaNacimiento = 'Este campo es requerido';
+                }
+                if (!values.sexo) {
+                  errors.sexo = 'Este campo es requerido';
+                }
+                if (!values.cp) {
+                  errors.cp = 'Este campo es requerido';
+                }
+                if (!values.EstadoCivil) {
+                  errors.EstadoCivil = 'Este campo es requerido';
+                }
+                if (!values.correo) {
+                  errors.correo = 'Este campo es requerido';
+                }
+                if (!values.Curp) {
+                  errors.Curp = 'Este campo es requerido';
+                }
+                if (!values.AreaTrabajo) {
+                  errors.AreaTrabajo = 'Este campo es requerido';
+                }
+                if (!values.Puesto) {
+                  errors.Puesto = 'Este campo es requerido';
+                }
+                if (!values.Ciudad) {
+                  errors.Ciudad = 'Este campo es requerido';
+                }
 
-          //   var correo  =localStorage.getItem("correo")       
-          //   const url = 'http://localhost:8000/graphql'
+                if (!values.NivelEstudios) {
+                  errors.NivelEstudios = 'Este campo es requerido';
+                }
+                if (!values.TipoPersonal) {
+                  errors.TipoPersonal = 'Este campo es requerido';
+                }
+                if (!values.JornadaTrabajo) {
+                  errors.JornadaTrabajo = 'Este campo es requerido';
+                }
+                if (!values.TipoContratacion) {
+                  errors.TipoContratacion = 'Este campo es requerido';
+                }
+                if (!values.TiempoPuesto) {
+                  errors.TiempoPuesto = 'Este campo es requerido';
+                }
+                if (!values.ExperienciaLaboral) {
+                  errors.ExperienciaLaboral = 'Este campo es requerido';
+                }
+              
+              
+              
+              
+                return errors;
+              };
 
-          //     axios({
-          //       url:  url,
-          //       method:'post',
-          //       data:{
-          //       query:`
-          //       mutation{
-          //         deleteEmployees(data:"${[id,correo]}"){
-          //          message               
-          //             }
-          //           }
-          //           `
-          //       }
-          //           }).then((datos) => {
-                      
-          //           })
 
-          //           .catch((error) => {
+
+              validate2 = values => {
+                const errors = {};
+                if (!values.nombreSucursal) {
+                  errors.nombreSucursal = 'Este campo es requerido';
+                }
+                if (!values.calle) {
+                  errors.calle = 'Este campo es requerido';
+                }
+                if (!values.numExt) {
+                  errors.numExt = 'Este campo es requerido';
+                }
+                if (!values.numInt) {
+                  errors.numInt = 'Este campo es requerido';
+                }
+                if (!values.colonia) {
+                  errors.colonia = 'Este campo es requerido';
+                }
+                if (!values.Ciudad) {
+                  errors.Ciudad = 'Este campo es requerido';
+                }
+                if (!values.rfc) {
+                  errors.rfc = 'Este campo es requerido';
+                }
+                if (!values.telefono) {
+                  errors.telefono = 'Este campo es requerido';
+                }
+                if (!values.correo) {
+                  errors.correo = 'Este campo es requerido';
+                }
+
+                if (!values.CP) {
+                  errors.CP = 'Este campo es requerido';
+                }
+              
+                return errors;
+              };
+        
+              evaluar  = (values,id) =>{
+                console.log("los valores son ",values,id)
+               console.log("entro")
+                // if(values){
+                //   let modalNumber = 'modal' + 13
+                //   this.setState({
+                //     [modalNumber]: !this.state[modalNumber]
+                //   });
+                // }
                 
-          //             //console.log("errores" ,error.response.data.errors[0].message)
-          //             console.log(".cartch" , error.response)
-          //         });  
+
+                const nombre = values.nombre
+                const ApellidoP = values.ApellidoP
+                const ApellidoM = values.ApellidoM
+                const Curp = values.Curp
+                const rfc = values.rfc
+                const sexo = values.sexo
+                const cp = values.cp
+                const correoEmployee =values.correo
+                const AreaTrabajo= values.AreaTrabajo
+                const Puesto = values.Puesto
+                const Ciudad = values.Ciudad
+                
+                const correo = localStorage.getItem('correo')
+        
+                if(values){
+                    const url = 'http://localhost:8000/graphql'
+                    axios({
+                      url:  url,
+                      method:'post',
+                      data:{
+                      query:`
+                       mutation{
+                        updateEmployees(data:"${[nombre,ApellidoP,ApellidoM,Curp,rfc,sexo,cp,correoEmployee,AreaTrabajo,Puesto,Ciudad,id,correo]}"){
+                            message
+                              }
+                            }
+                          `
+                      }
+                    })
+                    .then(datos => {	
+                      console.log("exito")
+                      let modalNumber = 'modal' + 13
+                      this.setState({
+                        [modalNumber]: !this.state[modalNumber]
+                      });
+                      DialogUtility.alert({
+                        animationSettings: { effect: 'Fade' },        
+                        title:"AVISO!",   
+                        content: 'Empleado Actualizado',
+                        position: "fixed",
+                      
+                      }
+                      )
+
+                      this.props.history.push("/inicio")
+                    })
+                   
+                } 
+              }
+
+              evaluarSucursales  = (values,id) =>{
+                console.log("los valores son ",values,id)
+               console.log("entro")
+                // if(values){
+                //   let modalNumber = 'modal' + 13
+                //   this.setState({
+                //     [modalNumber]: !this.state[modalNumber]
+                //   });
+                // }
+                
+
+                const nombreSucursal = values.nombreSucursal
+                const calle = values.calle
+                const numExt = values.numExt
+                const numInt = values.numInt
+                const colonia = values.colonia
+                const CP = values.CP
+                const rfc =values.rfc
+                const telefono= values.telefono
+                const correoSucursal = values.correo
+                const Ciudad= values.Ciudad
             
+                
+                const correo = localStorage.getItem('correo')
+        
+                if(values){
+                    const url = 'http://localhost:8000/graphql'
+                    axios({
+                      url:  url,
+                      method:'post',
+                      data:{
+                      query:`
+                       mutation{
+                        updateSucursales(data:"${[nombreSucursal,calle,numExt,numInt,colonia,CP,Ciudad,rfc,telefono,correoSucursal,id,correo]}"){
+                            message
+                              }
+                            }
+                          `
+                      }
+                    })
+                    .then(datos => {	
+                      console.log("exito")
+                      let modalNumber = 'modal' + 14
+                      this.setState({
+                        [modalNumber]: !this.state[modalNumber]
+                      });
+                      DialogUtility.alert({
+                        animationSettings: { effect: 'Fade' },        
+                        title:"AVISO!",   
+                        content: 'Sucursal Actualizada',
+                        position: "fixed",
+                      
+                      }
+                      )
 
-          // }
-
-          toggle = (nr,id) => () => {
-           
-            
-            let modalNumber = 'modal' + nr
-            this.setState({
-              [modalNumber]: !this.state[modalNumber]
-            });
-
-           
-
-          }
+                      this.props.history.push("/inicio")
+                    })
+                   
+                } 
+              }
           
 
     render() {
+
+      let modal 
+      let modalSucursales
+      if(this.state.modal13){
+        console.log("update rows" , this.state.updateRows)
+       modal  =  <MDBContainer>
+        <MDBModal isOpen={this.state.modal13} toggle={this.toggle(13)}>
+          <MDBModalHeader toggle={this.toggle(13)}>
+            Actualizar Empleados
+          </MDBModalHeader>
+          <MDBModalBody>
+         
+          <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
+            <Form
+              onSubmit={this.onSubmit}
+              
+              validate={this.validate}
+              render={({ handleSubmit, submitting,values }) => (
+                <form onSubmit={handleSubmit}>
+                 <Alert color="success">Nota : Puede que Algunos datos no aparezcan en el formulario de edición ,
+                 por favor comuniquese con su asesor de ADS para Actualizar  si así lo desea.</Alert>
+                  <Paper style={{ padding: 16} }>
+                    <Grid container alignItems="flex-start" spacing={2} >
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="nombre"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRows.nombre}
+                        />
+                      </Grid>
+
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="ApellidoP"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRows.ApellidoP}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="ApellidoM"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRows.ApellidoM}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="Curp"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRows.Curp}
+                        />
+                      </Grid>
+                      
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="rfc"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRows.rfc}
+                        />
+                      </Grid>
+                      {/* <Grid item xs={6}>
+                      <Field
+                      required
+                      fullWidth
+                      name="FechaNacimiento"
+                      component={Select}
+                      label={this.state.updateRows.FechaNacimiento}
+                      formControlProps={{ fullWidth: true }}
+                      >
+                      <MenuItem value="1950">1950</MenuItem>
+                      <MenuItem value="1951">1951</MenuItem>
+                      <MenuItem value="1952">1952</MenuItem>
+                      <MenuItem value="1953">1953</MenuItem>
+                      <MenuItem value="1954">1954</MenuItem>
+                      <MenuItem value="1955">1955</MenuItem>
+                      <MenuItem value="1956">1956</MenuItem>
+                      <MenuItem value="1957">1957</MenuItem>
+                      <MenuItem value="1958">1958</MenuItem>
+                      <MenuItem value="1959">1959</MenuItem>
+                      <MenuItem value="1960">1960</MenuItem>
+                      <MenuItem value="1961">1961</MenuItem>
+                      <MenuItem value="1962">1962</MenuItem>
+                      <MenuItem value="1963">1963</MenuItem>
+                      <MenuItem value="1964">1964</MenuItem>
+                      <MenuItem value="1965">1965</MenuItem>
+                      <MenuItem value="1966">1966</MenuItem>
+                      <MenuItem value="1967">1967</MenuItem>
+                      <MenuItem value="1968">1968</MenuItem>
+                      <MenuItem value="1969">1969</MenuItem>
+                      <MenuItem value="1970">1970</MenuItem>
+                      <MenuItem value="1971">1971</MenuItem>
+                      <MenuItem value="1972">1972</MenuItem>
+                      <MenuItem value="1973">1973</MenuItem>
+                      <MenuItem value="1974">1973</MenuItem>
+                      <MenuItem value="1975">1975</MenuItem>
+                      <MenuItem value="1976">1976</MenuItem>
+                      <MenuItem value="1977">1977</MenuItem>
+                      <MenuItem value="1979">1979</MenuItem>
+                      <MenuItem value="1980">1980</MenuItem>
+                      <MenuItem value="1981">1981</MenuItem>
+                      <MenuItem value="1982">1982</MenuItem>
+                      <MenuItem value="1983">1983</MenuItem>
+                      <MenuItem value="1984">1984</MenuItem>
+                      <MenuItem value="1985">1985</MenuItem>
+                      <MenuItem value="1986">1986</MenuItem>
+                      <MenuItem value="1987">1987</MenuItem>
+                      <MenuItem value="1988">1988</MenuItem>
+                      <MenuItem value="1989">1989</MenuItem>
+                      <MenuItem value="1990">1990</MenuItem>
+                      <MenuItem value="1991">1991</MenuItem>
+                      <MenuItem value="1992">1992</MenuItem>
+                      <MenuItem value="1993">1993</MenuItem>
+                      <MenuItem value="1994">1994</MenuItem>
+                      <MenuItem value="1995">1995</MenuItem>
+                      <MenuItem value="1996">1996</MenuItem>
+                      <MenuItem value="1997">1997</MenuItem>
+                      <MenuItem value="1998">1998</MenuItem>
+                      <MenuItem value="1999">1999</MenuItem>
+                      <MenuItem value="2000">2000</MenuItem>
+                      <MenuItem value="2001">2001</MenuItem>
+                      
+                      
+                      </Field>
+                      </Grid> */}
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="sexo"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRows.Sexo}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="cp"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRows.cp}
+                        />
+                      </Grid>
+                      {/* <Grid item xs={12}>
+                        <Field
+                        fullWidth
+                        name="EstadoCivil"
+                        component={Select}
+                        label={this.state.updateRows.EstadoCivil}
+                        formControlProps={{ fullWidth: true }}
+                        >
+              
+                        <MenuItem value="Casado">Casado</MenuItem>
+                        <MenuItem value="Soltero">Soltero</MenuItem>
+                        <MenuItem value="Unión libre">Unión libre</MenuItem>
+                        <MenuItem value="Divorciado">Divorciado</MenuItem>
+                        <MenuItem value="Viudo">Viudo</MenuItem>
+                        </Field>
+                        </Grid> */}
+
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="correo"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRows.correo}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="AreaTrabajo"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRows.AreaTrabajo}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="Puesto"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRows.Puesto}
+                        />
+                      </Grid>
+
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="Ciudad"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRows.Ciudad}
+                        />
+                      </Grid>
+                     {/* <Grid item xs={12}>
+                      <Field
+                      fullWidth
+                      name="NivelEstudios"
+                      component={Select}
+                      label={this.state.updateRows.NivelEstudios}
+                      formControlProps={{ fullWidth: true }}
+                      >
+            
+                      <MenuItem value="Sin formación">Sin formación</MenuItem>
+                      <MenuItem value="Primaria">Primaria</MenuItem>
+                      <MenuItem value="Secundaria">Secundaria</MenuItem>
+                      <MenuItem value="Preparatoria o Bachillerato">Preparatoria o Bachillerato</MenuItem>
+                      <MenuItem value="Licenciatura">Licenciatura</MenuItem>
+                      <MenuItem value="Maestría">Maestría</MenuItem>
+                      <MenuItem value="Doctorado">Doctorado</MenuItem>
+            
+                      </Field>
+                      </Grid> */}
+
+{/* 
+                      <Grid item xs={12}>
+                        <Field
+                        fullWidth
+                        name="TipoPersonal"
+                        component={Select}
+                        label={this.state.updateRows.TipoPersonal}
+                        formControlProps={{ fullWidth: true }}
+                        >
+                        <MenuItem value="Sindicalizado">Sindicalizado</MenuItem>
+                        <MenuItem value="Ninguno">Ninguno</MenuItem>
+                        <MenuItem value="Confianza">Confianza</MenuItem>
+                        </Field>
+                        </Grid> */}
+
+                        {/* <Grid item xs={12}>
+                        <Field
+                        fullWidth
+                        name="JornadaTrabajo"
+                        component={Select}
+                        label={this.state.updateRows.JornadaTrabajo}
+                        formControlProps={{ fullWidth: true }}
+                        >
+                        <MenuItem value="Fijo nocturno (entre las 20:00 y 6:00 hrs)">Fijo nocturno (entre las 20:00 y 6:00 hrs)</MenuItem>
+                        <MenuItem value="Fijo diurno (entre las 6:00 y 20:00 hrs">Fijo diurno (entre las 6:00 y 20:00 hrs</MenuItem>
+                        <MenuItem value="Fijo mixto (combinación de nocturno y diurno)">Fijo mixto (combinación de nocturno y diurno)</MenuItem>
+                
+                        
+                        </Field>
+                        </Grid> */}
+
+                        {/* <Grid item xs={12}>
+                        <Field
+                        fullWidth
+                        name="TipoContratacion"
+                        component={Select}
+                        label={this.state.updateRows.TipoContratacion}
+                        formControlProps={{ fullWidth: true }}
+                        >
+                        <MenuItem value="Por obra o proyecto">Por obra o proyecto</MenuItem>
+                        <MenuItem value="por tiempo">Por tiempo determinado (temporal)</MenuItem>
+                        <MenuItem value="Tiempo indeterminado">Tiempo indeterminado</MenuItem>
+                        <MenuItem value="Honorarios">Honorarios</MenuItem>
+                        </Field>
+                        </Grid> */}
+              
+                        {/* <Grid item xs={12}>
+                        <Field
+                        fullWidth
+                        name="TiempoPuesto"
+                        component={Select}
+                        label={this.state.updateRows.TiempoPuesto}
+                        formControlProps={{ fullWidth: true }}
+                        >
+              
+                        <MenuItem value="Menos de 6 meses">Menos de 6 meses</MenuItem>
+                        <MenuItem value="Entre 6 meses y 1 año">Entre 6 meses y 1 año</MenuItem>
+                        <MenuItem value="Entre 1 a 4 años">Entre 1 a 4 años</MenuItem>
+                        <MenuItem value="Entre 5 a 9 años">Entre 5 a 9 años</MenuItem>
+                        <MenuItem value="Entre 10 a 14 años">Entre 10 a 14 años</MenuItem>
+                        <MenuItem value="Entre 15 a 19 años">Entre 15 a 19 años</MenuItem>
+                        <MenuItem value="Entre 20 a 24 años">Entre 20 a 24 años</MenuItem>
+                        <MenuItem value="25 años o más">25 años o más</MenuItem>
+                        </Field>
+                        </Grid> */}
+
+                        {/* <Grid item xs={12}>
+                        <Field
+                        fullWidth
+                        name="ExperienciaLaboral"
+                        component={Select}
+                        label={this.state.updateRows.ExperienciaLaboral}
+                        formControlProps={{ fullWidth: true }}
+                        
+                        >
+              
+                        <MenuItem value="Menos de 6 meses">Menos de 6 meses</MenuItem>
+                        <MenuItem value="Entre 6 meses y 1 año">Entre 6 meses y 1 año</MenuItem>
+                        <MenuItem value="Entre 1 a 4 años">Entre 1 a 4 años</MenuItem>
+                        <MenuItem value="Entre 5 a 9 años">Entre 5 a 9 años</MenuItem>
+                        <MenuItem value="Entre 10 a 14 años">Entre 10 a 14 años</MenuItem>
+                        <MenuItem value="Entre 15 a 19 años">Entre 15 a 19 años</MenuItem>
+                        <MenuItem value="Entre 20 a 24 años">Entre 20 a 24 años</MenuItem>
+                        <MenuItem value="25 años o más">25 años o más</MenuItem>
+                        </Field>
+                        </Grid>
+	 */}
+	                      <Grid item >
+                        <Button
+                         variant="outlined"
+                          color="primary"
+                          type="submit"
+                          disabled={submitting}
+                          onClick={(e) =>this.evaluar(values,this.state.updateRows.id)}
+                        >
+                          Actualizar Empleado
+                        </Button>
+                        <MDBBtn outlined color="danger" onClick={this.toggle(13)} style={{margin:60}} >
+                          Cerrar
+                        </MDBBtn>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </form>
+              )}
+            />    
+          </div>
+          </MDBModalBody>   
+        </MDBModal>
+      </MDBContainer>
+      }
+
+
+      if(this.state.modal14){
+        console.log("update rows" , this.state.updateRowsSucursales)
+       modalSucursales  =  <MDBContainer>
+        <MDBModal isOpen={this.state.modal14} toggle={this.toggleSucursales(14)}>
+          <MDBModalHeader toggle={this.toggleSucursales(14)}>
+            Actualizar Sucursales
+          </MDBModalHeader>
+          <MDBModalBody>
+         
+          <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
+            <Form
+              onSubmit={this.onSubmit}
+              
+              validate={this.validate2}
+              render={({ handleSubmit, submitting,values }) => (
+                <form onSubmit={handleSubmit}>
+                 <Alert color="primary">Nota : Puede que Algunos datos no aparezcan en el formulario de edición ,
+                 por favor comuniquese con su asesor de ADS para Actualizar  si así lo desea.</Alert>
+                  <Paper style={{ padding: 16} }>
+                    <Grid container alignItems="flex-start" spacing={2} >
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="nombreSucursal"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRowsSucursales.nombreSucursal}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="calle"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRowsSucursales.calle}
+                        />
+                      </Grid>
+
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="numExt"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRowsSucursales.numExt}
+                        />
+                      </Grid>
+
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="numInt"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRowsSucursales.numInt}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="colonia"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRowsSucursales.colonia}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="CP"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRowsSucursales.CP}
+                        />
+                      </Grid>
+
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="Ciudad"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRowsSucursales.Ciudad}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="rfc"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRowsSucursales.rfc}
+                        />
+                      </Grid>
+
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="telefono"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRowsSucursales.telefono}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="correo"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRowsSucursales.correo}
+                        />
+                      </Grid>
+
+
+	                      <Grid item >
+                        <Button
+                         variant="outlined"
+                          color="primary"
+                          type="submit"
+                          disabled={submitting}
+                          onClick={(e) =>this.evaluarSucursales(values,this.state.updateRowsSucursales.id)}
+                        >
+                          Actualizar Sucursal
+                        </Button>
+                        <MDBBtn outlined color="danger" onClick={this.toggleSucursales(14)} style={{margin:60}} >
+                          Cerrar
+                        </MDBBtn>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </form>
+              )}
+            />    
+          </div>
+          </MDBModalBody>   
+        </MDBModal>
+      </MDBContainer>
+
+      }
    
       // const { children} = this.props;
       const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
@@ -508,7 +1223,7 @@ class AdminGral extends React.Component {
                                    <TableCell  >{rows.correo} </TableCell>
                                    <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a esta Sucursal ?.Los datos se perderán')) this.deleteSucursales(i,rows.id)} } >
                                    <DeleteIcon /></IconButton></TableCell>
-                                   <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } >
+                                   <TableCell  > <IconButton onClick={this.toggleSucursales(14,rows)} >
                                    <CreateOutlinedIcon /></IconButton></TableCell>
                                  </TableRow>                                
                                );
@@ -583,27 +1298,13 @@ class AdminGral extends React.Component {
                     </MDBCol>
                     <MDBCol>
 
-
+                      {modal}
+                      {modalSucursales}
                     </MDBCol>
                     </MDBRow>
 
 
-                    <MDBContainer>
-                    <MDBModal isOpen={this.state.modal13} toggle={this.toggle(13)}>
-                      <MDBModalHeader toggle={this.toggle(13)}>
-                        Actualizar Empleados
-                      </MDBModalHeader>
-                      <MDBModalBody>
-                     
-                      </MDBModalBody>
-                      <MDBModalFooter>
-                        <MDBBtn color="secondary" onClick={this.toggle(13)}>
-                          Close
-                        </MDBBtn>
-                        <MDBBtn color="primary">Save changes</MDBBtn>
-                      </MDBModalFooter>
-                    </MDBModal>
-                  </MDBContainer>
+                 
                  </MDBContainer>
         </div>
         </React.Fragment>
