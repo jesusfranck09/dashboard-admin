@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Alert } from 'reactstrap';
 import payload from '../../resolvers/payload';
 import { Button as Boton, Modal, ModalBody} from 'reactstrap';
-import {MDBRow, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
+import {MDBRow,MDBTable, MDBTableBody, MDBTableHead, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import '../Home/index.css'
@@ -91,7 +91,61 @@ import {
 			</MDBContainer>
 		</div>
   
-	   
+		<MDBContainer>
+			<Alert style = {{marginTop:20}} color ="danger" >1.- Su excel no debe llevar Encabezados solo el contenido ya que el encabezado solo se muestra como ejemplo.</Alert>
+
+			<MDBTable style={{fontSize: '6pt'}} large >
+			<MDBTableHead>
+				<tr>
+				<th>nombre</th>
+				<th>Apellido P</th>
+				<th>Apellido M</th>
+				<th>Curp</th>
+				<th>RFC</th>
+				<th>Año de Nacimiento</th>
+				<th>Sexo</th>
+				<th>CP</th>
+				<th>Estado Civil</th>
+				<th>Correo</th>
+				<th>Area de trabajo</th>
+				<th>Puesto</th>
+				<th>Ciudad</th>
+				<th>Nivel Estudios</th>
+				<th>Tipo de Personal</th>
+				<th>Tipo Contratacion</th>
+				<th>Tiempo Puesto</th>
+				<th>Experiencia Laboral</th>
+				<th>Rotacion de Turnos</th>
+
+				</tr>
+			</MDBTableHead>
+			<MDBTableBody>
+				<tr>
+				<th>JOSE</th>
+				<th>ÁLVAREZ</th>
+				<th>HERNANDEZ</th>
+				<th>AAHJ000110HMCLRSA6</th>
+				<th>AAHJ000110RR3</th>
+				<th>2000</th>
+				<th>HOMBRE</th>
+				<th>24349</th>
+				<th>SOLTERO</th>
+				<th>jose@gmail.com</th>
+				<th>VENTAS</th>
+				<th>GERENTE</th>
+				<th>CIUDAD DE MEXICO</th>
+				<th>LICENCIATURA</th>
+				<th>CONNFIANZA</th>
+				<th>FIJO</th>
+				<th>ENTRE 1 Y 4 AÑOS</th>
+				<th>ENTRE 1 Y 4 AÑOS</th>
+				<th>NO</th>
+				</tr>
+			</MDBTableBody>
+			</MDBTable>
+
+		<Alert color="primary" style={{marginTop:20}}>2.- En los apartados:<br/> <br/> Estado Civil <br/>Nivel de Estudios <br/>Tipo de Personal <br/> Tipo de Jornada de Trabajo <br/> Tipo de Contratacion <br/>Tiempo en el puesto Actual <br/>Tiempo de Experiencia laboral<br/>Rotación de Turnos <br/><br/> Se puede basar en las opciones del formulario de registro para poder ingresar los datos.</Alert>	
+		</MDBContainer>
 		</React.Fragment>
 	  );
 	}
@@ -114,6 +168,7 @@ import {
 	
   
 	return (
+	<React.Fragment>
 	  <div>
 		<Boton  color="primary" onClick={toggle}>{buttonLabel}Cargar Empleados</Boton>
 		<Modal isOpen={modal} toggle={toggle} className={className} tabindex="-1" >
@@ -123,6 +178,10 @@ import {
 		  <MDBBtn color="secondary" onClick={handleToggle}>Cerrar</MDBBtn>
 		</Modal>
 	  </div>
+	 
+	<Alert style = {{marginTop:40,width:400}} color ="success">Nota : Puede visualizar los requisitos de su Excel en la parte de Abajo<br/></Alert>
+	
+	  </React.Fragment>	
 	);
   }
   
@@ -174,9 +233,11 @@ class SheetJSApp extends React.Component {
 		var max = localStorage.getItem("max")
  
 		if(max<15){
+	
+		console.log("this.state.data la data que se carga" , this.state.data)
+			
         for (var i=0; i< this.state.data.length; i++)
      	  {
-			// console.log(this.state.data[i])
 				const url  = 'http://localhost:8000/graphql'
 				var estado = this.state.data[i]	
 				const query =  `
@@ -211,6 +272,7 @@ class SheetJSApp extends React.Component {
 					title: "Datos Cargados Exitosamente!",
 					position: "fixed"
 				});
+				window.location.reload();
 				
 			    }else{
 					DialogUtility.alert({
@@ -222,6 +284,7 @@ class SheetJSApp extends React.Component {
 					localStorage.removeItem("max")
 
 				}
+		
 				}
 
 
@@ -479,7 +542,7 @@ function onSubmit (values) {
 			title: 'Aviso!',
 			position: "fixed"
 		});
-		// this.props.history.push("./inicio")
+		window.location.reload();
 	  });   
 	} else{
 
@@ -531,6 +594,7 @@ function onSubmit (values) {
 	
 	function App() {
 	  return (
+		  <React.Fragment>
 		<div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
 		  <Form
 			onSubmit={onSubmit}
@@ -1119,6 +1183,8 @@ function onSubmit (values) {
 			)}
 		  />
 		</div>
+
+		</React.Fragment>
 	  );
 	}
  

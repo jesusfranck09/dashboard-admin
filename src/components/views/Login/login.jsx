@@ -72,8 +72,9 @@ handleInput = (e) => {
     });
   }
 
-  handleForm = (e, login) => {
+  handleForm = (e, login) => { 
     e.preventDefault();
+
     console.log('Enviando formulario...');
     login({variables: { 
         ...this.state
@@ -81,12 +82,14 @@ handleInput = (e) => {
   }
   
   handleData = (data) => {
-    console.log("la data es " , data )
     if (data.login.token === 'ERROR'){
 
         alert('Error en login...');
         return false;
       }
+
+
+
       if(data.login.Activo=='true'){
 
       localStorage.setItem('elToken', data.login.token) 
@@ -121,8 +124,13 @@ handleInput = (e) => {
 
   handleError = (error) => {
 
-    console.log("el error es este " ,error);
-    alert('Error en Inicio  de sesión...');
+    DialogUtility.alert({
+      animationSettings: { effect: 'Zoom' },           
+      title: 'Aviso!',
+      content: `Error de Inicio de Sesión`, 
+     
+      position: "fixed",
+  })
   }
 
   render() {
@@ -141,11 +149,10 @@ handleInput = (e) => {
     if (loading) console.log(loading);
     if (data){
       this.handleData(data)
-      console.log("la data es " , data)
     } 
     if (error){
       this.handleError(error);
-      console.log("el error es " , error)
+      console.log("el error es " , error.response)
     } 
     return ( 
         <React.Fragment>

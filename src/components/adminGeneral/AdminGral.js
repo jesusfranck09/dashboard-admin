@@ -43,8 +43,12 @@ class AdminGral extends React.Component {
         datosPuestos:[],
         modal13: false,
         modal14: false,
+        modal15: false,
+        modal16: false,
         updateRows:[],
-        updateRowsSucursales:[]
+        updateRowsSucursales:[],
+        updateRowsDeptos:[],
+        updateRowsPuestos:[]
       };
       this.getEmployees = this.getEmployees.bind(this);
 
@@ -375,6 +379,26 @@ class AdminGral extends React.Component {
                   });
                 }
 
+                toggleDeptos = (nr,id) => () => {
+                  console.log("id rows deptos",id)
+                  this.setState({updateRowsDeptos:id} )
+                  
+                  let modalNumber = 'modal' + nr
+                  this.setState({
+                    [modalNumber]: !this.state[modalNumber]
+                  });
+                }
+
+                togglePuestos = (nr,id) => () => {
+                  console.log("id rows deptos",id)
+                  this.setState({updateRowsPuestos:id} )
+                  
+                  let modalNumber = 'modal' + nr
+                  this.setState({
+                    [modalNumber]: !this.state[modalNumber]
+                  });
+                }
+
 
                 onSubmit (values) {
                 };
@@ -442,13 +466,29 @@ class AdminGral extends React.Component {
                 if (!values.ExperienciaLaboral) {
                   errors.ExperienciaLaboral = 'Este campo es requerido';
                 }
-              
-              
-              
-              
+    
                 return errors;
               };
 
+
+              validate3 = values => {
+                const errors = {};
+                if (!values.nombreDepto) {
+                  errors.nombreDepto = 'Este campo es requerido';
+                }
+                
+                return errors;
+              };
+
+              validate4 = values => {
+                const errors = {};
+                if (!values.nombrePuesto) {
+                  errors.nombrePuesto = 'Este campo es requerido';
+                }
+                
+                return errors;
+              };
+        
 
 
               validate2 = values => {
@@ -513,7 +553,7 @@ class AdminGral extends React.Component {
                 
                 const correo = localStorage.getItem('correo')
         
-                if(values){
+                if(values.nombre){
                     const url = 'http://localhost:8000/graphql'
                     axios({
                       url:  url,
@@ -543,7 +583,7 @@ class AdminGral extends React.Component {
                       }
                       )
 
-                      this.props.history.push("/inicio")
+                      window.location.reload();
                     })
                    
                 } 
@@ -574,7 +614,7 @@ class AdminGral extends React.Component {
                 
                 const correo = localStorage.getItem('correo')
         
-                if(values){
+                if(values.nombreSucursal){
                     const url = 'http://localhost:8000/graphql'
                     axios({
                       url:  url,
@@ -604,7 +644,96 @@ class AdminGral extends React.Component {
                       }
                       )
 
-                      this.props.history.push("/inicio")
+                      window.location.reload();
+                    })
+                   
+                } 
+              }
+
+
+
+              evaluarDeptos  = (values,id) =>{
+
+                console.log("values" , values , id)
+                const nombreDepto = values.nombreDepto
+               
+            
+                
+                const correo = localStorage.getItem('correo')
+        
+                if(values.nombreDepto){
+                    const url = 'http://localhost:8000/graphql'
+                    axios({
+                      url:  url,
+                      method:'post',
+                      data:{
+                      query:`
+                       mutation{
+                        updateDeptos(data:"${[nombreDepto,id,correo]}"){
+                            message
+                              }
+                            }
+                          `
+                      }
+                    })
+                    .then(datos => {	
+                      console.log("exito")
+                      let modalNumber = 'modal' + 15
+                      this.setState({
+                        [modalNumber]: !this.state[modalNumber]
+                      });
+                      DialogUtility.alert({
+                        animationSettings: { effect: 'Fade' },        
+                        title:"AVISO!",   
+                        content: 'Departamento Actualizado',
+                        position: "fixed",
+                      
+                      }
+                      )
+
+                      window.location.reload();
+                    })
+                   
+                } 
+              }
+
+
+              evaluarPuestos  = (values,id) =>{
+            
+                const nombrePuesto = values.nombrePuesto         
+                const correo = localStorage.getItem('correo')
+        
+                if(values.nombrePuesto){
+                    const url = 'http://localhost:8000/graphql'
+                    axios({
+                      url:  url,
+                      method:'post',
+                      data:{
+                      query:`
+                       mutation{
+                        updatePuestos(data:"${[nombrePuesto,id,correo]}"){
+                            message
+                              }
+                            }
+                          `
+                      }
+                    })
+                    .then(datos => {	
+                      console.log("exito")
+                      let modalNumber = 'modal' + 16
+                      this.setState({
+                        [modalNumber]: !this.state[modalNumber]
+                      });
+                      DialogUtility.alert({
+                        animationSettings: { effect: 'Fade' },        
+                        title:"AVISO!",   
+                        content: 'Puesto Actualizado',
+                        position: "fixed",
+                      
+                      }
+                      )
+
+                      window.location.reload();
                     })
                    
                 } 
@@ -615,6 +744,8 @@ class AdminGral extends React.Component {
 
       let modal 
       let modalSucursales
+      let modalDeptos
+      let modalPuestos
       if(this.state.modal13){
         console.log("update rows" , this.state.updateRows)
        modal  =  <MDBContainer>
@@ -1086,8 +1217,6 @@ class AdminGral extends React.Component {
                           label={this.state.updateRowsSucursales.correo}
                         />
                       </Grid>
-
-
 	                      <Grid item >
                         <Button
                          variant="outlined"
@@ -1098,7 +1227,7 @@ class AdminGral extends React.Component {
                         >
                           Actualizar Sucursal
                         </Button>
-                        <MDBBtn outlined color="danger" onClick={this.toggleSucursales(14)} style={{margin:60}} >
+                        <MDBBtn outlined color="success" onClick={this.toggleSucursales(14)} style={{margin:60}} >
                           Cerrar
                         </MDBBtn>
                       </Grid>
@@ -1113,6 +1242,120 @@ class AdminGral extends React.Component {
       </MDBContainer>
 
       }
+
+
+      if(this.state.modal15){
+       
+       modalDeptos  =  <MDBContainer>
+        <MDBModal isOpen={this.state.modal15} toggle={this.toggleDeptos(15)}>
+          <MDBModalHeader toggle={this.toggleDeptos(15)}>
+            Actualizar Departamentos
+          </MDBModalHeader>
+          <MDBModalBody>
+         
+          <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
+            <Form
+              onSubmit={this.onSubmit}
+              
+              validate={this.validate3}
+              render={({ handleSubmit, submitting,values }) => (
+                <form onSubmit={handleSubmit}>
+                 <Alert color="warning">Nota : Una vez Modificado el Departamento no podrá retroceder.</Alert>
+                  <Paper style={{ padding: 16} }>
+                    <Grid container alignItems="flex-start" spacing={2} >
+                      <Grid item xs={6}>
+                        <Field
+                          fullWidth
+                          required
+                          name="nombreDepto"
+                          component={TextField}
+                          type="text"
+                          label={this.state.updateRowsDeptos.nombre}
+                        />
+                      </Grid>
+                       <MDBRow>
+	                      <Grid item >
+                        <Button
+                         variant="outlined"
+                          color="default"
+                          type="submit"
+                          disabled={submitting}
+                          onClick={(e) =>this.evaluarDeptos(values,this.state.updateRowsDeptos.id)}
+                        >
+                          Actualizar Departamento
+                        </Button>
+                        <MDBBtn outlined color="primary" onClick={this.toggleDeptos(15)} style={{margin:60}} >
+                          Cerrar
+                        </MDBBtn>
+                      </Grid>
+                      </MDBRow>
+                    </Grid>
+                  </Paper>
+                </form>
+              )}
+            />    
+          </div>
+          </MDBModalBody>   
+        </MDBModal>
+      </MDBContainer>
+      }
+
+      if(this.state.modal16){
+       
+        modalPuestos  =  <MDBContainer>
+         <MDBModal isOpen={this.state.modal16} toggle={this.toggleDeptos(16)}>
+           <MDBModalHeader toggle={this.toggleDeptos(16)}>
+             Actualizar Puestos
+           </MDBModalHeader>
+           <MDBModalBody>
+          
+           <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
+             <Form
+               onSubmit={this.onSubmit}
+               
+               validate={this.validate4}
+               render={({ handleSubmit, submitting,values }) => (
+                 <form onSubmit={handleSubmit}>
+                  <Alert color="info">Nota : Una vez Modificado el Puesto no podrá retroceder.</Alert>
+                   <Paper style={{ padding: 16} }>
+                     <Grid container alignItems="flex-start" spacing={2} >
+                       <Grid item xs={6}>
+                         <Field
+                           fullWidth
+                           required
+                           name="nombrePuesto"
+                           component={TextField}
+                           type="text"
+                           label={this.state.updateRowsPuestos.nombre}
+                         />
+                       </Grid>
+                        <MDBRow>
+                         <Grid item >
+                         <Button
+                          variant="outlined"
+                           color="secondary"
+                           type="submit"
+                           disabled={submitting}
+                           onClick={(e) =>this.evaluarPuestos(values,this.state.updateRowsPuestos.id)}
+                         >
+                           Actualizar Puestos
+                         </Button>
+                         <MDBBtn outlined color="info" onClick={this.togglePuestos(16)} style={{margin:60}} >
+                           Cerrar
+                         </MDBBtn>
+                       </Grid>
+                       </MDBRow>
+                     </Grid>
+                   </Paper>
+                 </form>
+               )}
+             />    
+           </div>
+           </MDBModalBody>   
+         </MDBModal>
+       </MDBContainer>
+       }
+ 
    
       // const { children} = this.props;
       const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
@@ -1143,7 +1386,7 @@ class AdminGral extends React.Component {
                 <MDBCollapse isOpen={this.state.collapse} navbar>
                 </MDBCollapse>
               </MDBNavbar>
-            </header>
+              </header>
                 <MDBContainer style={container} >
                     <MDBRow style={{ marginTop:60}}>
 
@@ -1155,10 +1398,7 @@ class AdminGral extends React.Component {
                     <MDBCard  >
                         <MDBCardBody>
                         <MDBCardTitle>Empleados totales</MDBCardTitle>
-      
-                              
                                 <Table bordered>
-                           
                                   <TableBody>
                                     {this.state.datos.map((rows,i )=> {
                                       return (
@@ -1182,10 +1422,7 @@ class AdminGral extends React.Component {
                                               <CreateOutlinedIcon />
                                             </IconButton>
                                             </TableCell>
-
-                                            
-                                        </TableRow>
-                                        
+                                        </TableRow> 
                                       );
                                     })}
                                   </TableBody>
@@ -1200,7 +1437,6 @@ class AdminGral extends React.Component {
                     <MDBCard >
                         <MDBCardBody>
                         <MDBCardTitle>Centros de Trabajo</MDBCardTitle>
-                   
                         </MDBCardBody>
                          
                         <Table bordered>
@@ -1250,16 +1486,14 @@ class AdminGral extends React.Component {
                                  <TableCell ><strong> {rows.nombre}</strong> </TableCell>
                                  <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Departamento ?.Los datos se perderán')) this.deleteDepartamentos(i,rows.id)} } >
                                    <DeleteIcon /></IconButton></TableCell>
-                                   <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } >
+                                   <TableCell  > <IconButton onClick={ this.toggleDeptos(15,rows)}  >
                                    <CreateOutlinedIcon /></IconButton></TableCell>
                                  </TableRow>                                
                                );
                              })}
                            </TableBody>
                           </Table>
-                        </MDBCardBody>
-                         
-                       
+                        </MDBCardBody>       
                     </MDBCard>
                     </Paper>
                     </MDBCol>
@@ -1269,7 +1503,6 @@ class AdminGral extends React.Component {
                         <MDBCardBody>
                         <MDBCardTitle>Puestos Actuales</MDBCardTitle>
                         <Table bordered>
-                           
                            <TableBody>
                              {this.state.datosPuestos.map((rows,i) => {
                                return (
@@ -1280,31 +1513,26 @@ class AdminGral extends React.Component {
                                  <TableCell ><strong> {rows.nombre}</strong> </TableCell>
                                  <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Puesto ?.Los datos se perderán')) this.deletePuestos(i,rows.id)} } >
                                    <DeleteIcon /></IconButton></TableCell>
-                                   <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } >
-                                   <CreateOutlinedIcon /></IconButton></TableCell>
-                           
+                                   <TableCell  > <IconButton onClick={ this.togglePuestos(16,rows)}  >
+                                   <CreateOutlinedIcon /></IconButton></TableCell>                           
                                  </TableRow>                                
                                );
                              })}
                            </TableBody>
                    </Table>
-                        </MDBCardBody>
-                         
-                        
+                        </MDBCardBody>                     
                     </MDBCard>
                     </Paper>
                     </MDBCol>
                     </MDBRow>
                     </MDBCol>
                     <MDBCol>
-
                       {modal}
                       {modalSucursales}
+                      {modalDeptos}
+                      {modalPuestos}
                     </MDBCol>
-                    </MDBRow>
-
-
-                 
+                    </MDBRow>  
                  </MDBContainer>
         </div>
         </React.Fragment>

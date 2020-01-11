@@ -57,7 +57,7 @@ class Home extends React.Component {
             `
         }
             }).then((datos) => {
-              localStorage.removeItem('correoATS')
+              
             });  
           
             DialogUtility.alert({
@@ -66,6 +66,7 @@ class Home extends React.Component {
               title: 'Aviso!',
               position: "fixed",
           })
+          localStorage.removeItem('correoATS')
           this.props.history.push("/inicio")
       }
 

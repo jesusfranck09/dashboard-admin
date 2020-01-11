@@ -103,6 +103,8 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
               
               }
               )
+
+              window.location.reload();
             });    
            
         } else{
