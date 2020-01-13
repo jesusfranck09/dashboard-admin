@@ -13,7 +13,7 @@ import {
 import { Alert } from 'reactstrap';
 import axios from 'axios';
 import { MDBRow, MDBCol, MDBBadge } from 'mdbreact';
-
+import Navbar from '../NavbarDatos'
 import { MDBContainer,MDBTableBody,MDBTable,MDBTableHead,MDBCollapse} from 'mdbreact';
 
 class Home extends React.Component {
@@ -75,6 +75,9 @@ class Home extends React.Component {
     const container = { width: 2500, height: 1300 }
     return (
       <React.Fragment>
+        <MDBContainer>
+          <Navbar/>
+        </MDBContainer>
       <div>
         <MDBContainer style={container} className="text-center mt-2 pt-5">
     

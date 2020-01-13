@@ -35,6 +35,7 @@ const LOGIN = gql`
         login(email: $email, password: $password){
           message 
           token 
+          id
           nombre 
           Apellidos 
           RFC
@@ -91,6 +92,7 @@ handleInput = (e) => {
 
 
       if(data.login.Activo=='true'){
+      localStorage.setItem('idAdmin', data.login.id) 
 
       localStorage.setItem('elToken', data.login.token) 
       localStorage.setItem('nombre', data.login.nombre)

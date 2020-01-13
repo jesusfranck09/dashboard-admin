@@ -16,6 +16,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import { DialogUtility } from '@syncfusion/ej2-popups';
+
 
 import axios from 'axios';
 
@@ -148,6 +150,7 @@ if(values.stooge=="acepto" && values.correo){
 
   
   localStorage.setItem('correoRP', correo) 
+  const idAdmin= localStorage.getItem("idAdmin")
 
   const url = 'http://localhost:8000/graphql'
   axios({
@@ -156,16 +159,51 @@ if(values.stooge=="acepto" && values.correo){
     data:{
     query:`
      mutation{
-      rpPoliticaPrivacidad(data:"${[correo,acepto]}"){
-          message
+      rpPoliticaPrivacidad(data:"${[correo,acepto,idAdmin]}"){
+            message
+            nombre
+            ApellidoP
+            ApellidoM
+            correo
             }
           }
         `
     }
         }).then((datos) => {
-          console.log("los datos son ",datos)
-        }); 
-  this.props.history.push("./RPpage1")
+          
+          if(datos.data.data.rpPoliticaPrivacidad.message=="usuario incorrecto"){
+            DialogUtility.alert({
+              animationSettings: { effect: 'Zoom' },           
+              title: 'Aviso! , Usuario no Encontrado',
+              content: `Por favor verifique su Correo Electrónico e intentelo Nuevamente`, 
+             
+              position: "fixed",
+          })
+          }else{
+
+            console.log("datos", datos)
+            const nombre = datos.data.data.rpPoliticaPrivacidad.nombre
+            const apellidoP = datos.data.data.rpPoliticaPrivacidad.ApellidoP
+            const apellidoM =  datos.data.data.rpPoliticaPrivacidad.ApellidoM
+            
+            localStorage.setItem("nombreUsuario", nombre)
+            localStorage.setItem("ApellidoPUsuario", apellidoP)
+            localStorage.setItem("ApellidoMUsuario", apellidoM)
+
+            DialogUtility.alert({
+              animationSettings: { effect: 'Zoom' },           
+              title: 'Notificación!',
+              content: `Bienvenido a su Encuesta  ${nombre}  ${apellidoP}  ${apellidoM}`, 
+             
+              position: "fixed",
+          })
+          this.props.history.push("./RPpage1")
+          }
+          }).catch((err)=>{
+            console.log(err)
+          })
+      
+
 }
 
   }
@@ -201,7 +239,7 @@ if(values.stooge=="acepto" && values.correo){
           <form onSubmit={handleSubmit}>
            <Alert color="primary"> Política de Privacidad</Alert>
             <Paper style={{ padding: 10 }}><Alert color="secondary">Los datos recolectados por la encuesta no serán difundidos dentro y fuera de la organización,los comentarios que usted anexe serán tomados en cuenta con el fin de mejorar el entorno laboral.</Alert>
-            <Grid spacing={2} style={{ marginLeft: 280 }}>
+            <Grid spacing={2} style={{ marginLeft:"27%" }}>
          
                     <MDBCard spacing={5} style={{marginTop:50,  width: "27rem", marginBottom:50}} >
                         <MDBCardHeader><Alert>Sección RP</Alert></MDBCardHeader>

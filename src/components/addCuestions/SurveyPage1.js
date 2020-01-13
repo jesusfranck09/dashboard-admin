@@ -13,9 +13,10 @@ import {
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
 import axios from 'axios';
+import Navbar from './NavbarDatos'
  
 
-import { MDBRow, MDBCol, MDBBadge } from 'mdbreact';
+import {  MDBBadge } from 'mdbreact';
 
 import { MDBContainer,MDBTableBody,MDBTable,MDBTableHead,MDBCollapse} from 'mdbreact';
 
@@ -81,7 +82,11 @@ if( (values.pregunta1 == "Siempre" || values.pregunta1=="CasiSiempre"|| values.p
 
 
       <React.Fragment>
-      <div>
+      <MDBContainer>
+        <Navbar></Navbar>
+        </MDBContainer>  
+
+      <div style={{marginTop:60}}>
         
         <MDBContainer style={container} className="text-center mt-2 pt-5">
     

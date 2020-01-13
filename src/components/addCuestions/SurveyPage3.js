@@ -18,7 +18,7 @@ import axios from 'axios';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 
 import {MDBBadge } from 'mdbreact';
-
+import Navbar from './NavbarDatos'
 import { MDBContainer,MDBTableBody,MDBTable,MDBTableHead,MDBCollapse} from 'mdbreact';
  
  
@@ -57,17 +57,24 @@ class Home extends React.Component {
             `
         }
             }).then((datos) => {
-              
-            });  
+
+              DialogUtility.alert({
+                animationSettings: { effect: 'Zoom' },           
+                content: "Su Encuesta ATS, ha finalizado gracias por su colaboracion!",
+                title: 'Aviso!',
+                position: "fixed",
+            })
+            localStorage.removeItem('correoATS')
+            localStorage.removeItem('nombreUsuario')
+            localStorage.removeItem('ApellidoPUsuario')
+            localStorage.removeItem('ApellidoMUsuario')
+            this.props.history.push("/inicio")
+            })
+            .catch(err=>{
+              console.log("err" , err)
+            })
           
-            DialogUtility.alert({
-              animationSettings: { effect: 'Zoom' },           
-              content: "Su Encuesta ATS, ha finalizado gracias por su colaboracion!",
-              title: 'Aviso!',
-              position: "fixed",
-          })
-          localStorage.removeItem('correoATS')
-          this.props.history.push("/inicio")
+           
       }
 
 
@@ -110,7 +117,11 @@ console.log("data" ,this.state.data)
 
 
       <React.Fragment>
-      <div>
+        <MDBContainer>
+          <Navbar></Navbar>
+        </MDBContainer>
+        
+      <div style={{marginTop:30}}>
         <MDBContainer style={container} className="text-center mt-2 pt-5">
     
         <div style={{ padding: 16, margin: 'auto', maxWidth: 1050 }}>

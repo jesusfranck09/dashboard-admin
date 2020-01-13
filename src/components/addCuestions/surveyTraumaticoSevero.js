@@ -21,6 +21,8 @@ import { MDBRow, MDBCol} from 'mdbreact';
 import { MDBContainer} from 'mdbreact';
 
 import Modal from 'react-modal';
+import Navbar from './NavbarDatos'
+
 
 class Home extends React.Component {
   constructor(props) {
@@ -52,15 +54,18 @@ class Home extends React.Component {
             `
         }
             }).then((datos) => {
-              console.log("los datos son ",datos)
-            });     
-         this.props.history.push("./page1")
+              this.props.history.push("./page1")
+            }).catch(err=>{
+              console.log("error" , err)
+            })     
+        
 
       }
     
      if (values.rotacion === 'no') {
       const correo = localStorage.getItem('correoATS')
       const respuesta = values.rotacion
+     
     
       const url = 'http://localhost:8000/graphql'
       axios({
@@ -77,12 +82,15 @@ class Home extends React.Component {
         }
             }).then((datos) => {
               console.log("los datos son ",datos)
+              localStorage.removeItem('correoATS')
+              localStorage.removeItem('nombreUsuario')
+              localStorage.removeItem('ApellidoPUsuario')
+              localStorage.removeItem('ApellidoMUsuario')
             });    
            
       this.setState({
       showModal2:true
-}) 
-
+      }) 
        }
   }
   componentWillMount(){
@@ -120,7 +128,10 @@ console.log("data" ,this.state.data)
 
 
       <React.Fragment>
-      <div>
+      <MDBContainer>
+       <Navbar></Navbar>
+        </MDBContainer>  
+      <div style ={{marginTop:60}}>
      
         <MDBContainer style={container} className="text-center mt-2 pt-5">
     

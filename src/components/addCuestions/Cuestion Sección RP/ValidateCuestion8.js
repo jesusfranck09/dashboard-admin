@@ -15,6 +15,7 @@ import { Alert } from 'reactstrap';
 // import Ok from '../../images/ok.png'
 import axios from 'axios';
 import { DialogUtility } from '@syncfusion/ej2-popups';
+import Navbar from '../NavbarDatos'
 
 import { MDBRow, MDBCol} from 'mdbreact';
 
@@ -126,6 +127,9 @@ console.log("data" ,this.state.data)
 
 
       <React.Fragment>
+          <MDBContainer>
+          <Navbar/>
+        </MDBContainer>
       <div>
      
         <MDBContainer style={container} className="text-center mt-2 pt-5">

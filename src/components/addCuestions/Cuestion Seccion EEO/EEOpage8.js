@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
 import axios from 'axios';
- 
+import Navbar from '../NavbarDatos'
 
 import { MDBRow, MDBCol, MDBBadge } from 'mdbreact';
 
@@ -108,7 +108,10 @@ console.log("data" ,this.state.data)
 
 
       <React.Fragment>
-      <div>
+          <MDBContainer>
+        <Navbar></Navbar>
+        </MDBContainer> 
+      <div style={{marginTop:50}}>
       <MDBContainer style={container} className="text-center  ">
     
         <div style={{ padding: 16, margin: 'auto', maxWidth: 1050 }}>

@@ -149,7 +149,8 @@ handleError = (error) => {
                           <MDBIcon icon="building" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input id="razon_social" onChange={this.handleInput} type="text"  placeholder="Razón Social" />
+                        <Input id="razon_social" onChange={this.handleInput} type="text"  placeholder="Razón Social" 
+                        />
                       </InputGroup>
 
                       <InputGroup className="mb-3">

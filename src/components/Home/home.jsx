@@ -147,6 +147,8 @@ localStorage.removeItem("razonsocial")
 localStorage.removeItem("usuario")
 localStorage.removeItem("correo")
 localStorage.removeItem("max")
+localStorage.removeItem("idAdmin")
+
 this.props.history.push("/login")
 DialogUtility.alert({
   animationSettings: { effect: 'Fade' },           

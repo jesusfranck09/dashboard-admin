@@ -17,7 +17,7 @@ import axios from 'axios';
 import { MDBRow, MDBCol, MDBBadge } from 'mdbreact';
 
 import { MDBContainer,MDBTableBody,MDBTable,MDBTableHead,MDBCollapse} from 'mdbreact';
-
+import Navbar from '../NavbarDatos'
  
 
 class Home extends React.Component {
@@ -107,6 +107,9 @@ console.log("data" ,this.state.data)
 
 
       <React.Fragment>
+        <MDBContainer>
+          <Navbar/>
+        </MDBContainer>
       <div>
         <MDBContainer style={container} className="text-center mt-2 pt-5">
     

@@ -15,6 +15,7 @@ import axios from 'axios';
 // import Modal from 'react-modal';
 // import Ok from '../../images/ok.png'
 import { DialogUtility } from '@syncfusion/ej2-popups';
+import Navbar from '../NavbarDatos'
 
 import {  MDBBadge } from 'mdbreact';
 
@@ -66,6 +67,9 @@ class Home extends React.Component {
         }
             }).then((datos) => {
               localStorage.removeItem('correoRP')
+              localStorage.removeItem('nombreUsuario')
+              localStorage.removeItem('ApellidoPUsuario')
+              localStorage.removeItem('ApellidoMUsuario')
             }); 
 
             localStorage.removeItem('correoRP')
@@ -101,6 +105,9 @@ console.log("data" ,this.state.data)
 
 
       <React.Fragment>
+         <MDBContainer>
+          <Navbar/>
+        </MDBContainer>
       <div>
         <MDBContainer style={container} className="text-center mt-2 pt-5">
     

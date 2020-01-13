@@ -20,7 +20,7 @@ import { MDBContainer,MDBTableBody,MDBTable,MDBTableHead,MDBCollapse} from 'mdbr
 // import Modal from 'react-modal';
 // import Ok from '../../images/ok.png'
 import { DialogUtility } from '@syncfusion/ej2-popups';
- 
+import Navbar from '../NavbarDatos'
 
 class Home extends React.Component {
   constructor(props) {
@@ -67,6 +67,10 @@ class Home extends React.Component {
         }
             }).then((datos) => {
               localStorage.removeItem('correoEEO')
+              localStorage.removeItem('nombreUsuario')
+              localStorage.removeItem('ApellidoPUsuario')
+              localStorage.removeItem('ApellidoMUsuario')
+              this.props.history.push("./inicio")
             }); 
 
             localStorage.removeItem('correoEEO')
@@ -77,8 +81,6 @@ class Home extends React.Component {
               position: "fixed",
            
           })
-          this.props.history.push("./inicio")
-
       }
 
   }
@@ -116,10 +118,11 @@ console.log("data" ,this.state.data)
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
     return (
-
-
       <React.Fragment>
-      <div>
+       <MDBContainer>
+        <Navbar></Navbar>
+        </MDBContainer> 
+      <div style = {{marginTop:50}}>
       <MDBContainer style={container} className="text-center  ">
     
         <div style={{ padding: 16, margin: 'auto', maxWidth: 1050 }}>
