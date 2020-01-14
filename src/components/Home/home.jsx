@@ -346,7 +346,7 @@ getRemainingTime = deadline => {
                                 <br/>
                                 Conoce más sobre nosotros en 
                                 <br></br>
-                                  <a href="www.ads.com.mx">www.ads.com.mx</a>
+                                  <a href="http://www.ads.com.mx">www.ads.com.mx</a>
                                 </font>
 
                                 <br/>
