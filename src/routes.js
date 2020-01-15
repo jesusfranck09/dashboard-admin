@@ -68,6 +68,7 @@ import ResultEEO from './components/resultsCuestionsEEO/resultEEO';
 import Apartments from './components/adminGeneral/Apartments';
 
 import Res from './components/resultsCuestions/resultados';
+import Ponderacion from './components/ponderaciones/ponderacionATS.jsx';
 // import Prueba from './components/adminGeneral/prueba';
 
 
@@ -145,7 +146,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/apartments' component={Apartments}/>
                   <PrivateRoute exact path='/adminEmployees' component={adminEmployees}/>
                   <PrivateRoute exact path='/puestos' component={Puestos}/>
-                  {/* <PrivateRoute exact path='/prueba' component={Prueba}/> */}
+                  <PrivateRoute exact path='/ponderacion' component={Ponderacion}/>
 
 
                   {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}

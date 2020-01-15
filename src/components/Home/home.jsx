@@ -11,7 +11,6 @@ import Modal from 'react-modal';
 import {
   Grid,
   Button,
-
 } from '@material-ui/core';
 import axios from 'axios'
 import {Alert} from 'reactstrap';
@@ -90,13 +89,11 @@ class Home extends React.Component {
           ]
         }
       }
-    
     };
     this.onClick = this.onClick.bind(this);
     this.handleclick = this.handleclick.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.ads = this.ads.bind(this);
-    
   }
 
   componentWillMount(){
@@ -120,8 +117,7 @@ class Home extends React.Component {
 
   }
 //osdjofsdklfjsldfjlskdfjksdjflksdjfklsjdfklsdjfklsjdfklsdklfjsdlkfjslkjkj
-//wepiwefweñkfnweñfknlknkln
-
+      
   onClick() {
     this.setState({
       collapse: !this.state.collapse,

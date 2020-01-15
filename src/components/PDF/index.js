@@ -11,7 +11,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
-
+import { DialogUtility } from '@syncfusion/ej2-popups';
 
 
 import {Alert} from 'reactstrap'
@@ -119,9 +119,19 @@ class App extends Component {
                             `
                         }
                             }).then(datos => {   
-                              console.log("los resultados son " , datos.data.data.resultSingleSurvey)
-                           this.setState({resultados :datos.data.data.resultSingleSurvey })                
-                          console.log(this.state.resultados[0].nombre)
+                           if(datos.data.data.resultSingleSurvey.length > 0 ){
+                            this.setState({resultados :datos.data.data.resultSingleSurvey })                
+
+                          } if(datos.data.data.resultSingleSurvey.length <= 0){
+                           DialogUtility.alert({
+                              animationSettings: { effect: 'Zoom' },           
+                              title: "Su colaborador aun no responde la Encuesta",
+                              // title: 'Aviso!',
+                              position: "fixed"
+                              });
+                          }
+
+
                           })
                             .catch(err => {
                               console.log("el error es  ",err)

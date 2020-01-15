@@ -11,8 +11,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
-
-
+import { DialogUtility } from '@syncfusion/ej2-popups';
 
 import {Alert} from 'reactstrap'
 class App extends Component {
@@ -22,7 +21,6 @@ class App extends Component {
       datos:[],
       resultados:[],
     };
-   
   }
 
   onChange = (event) => {
@@ -118,10 +116,19 @@ class App extends Component {
                               }
                             `
                         }
-                            }).then(datos => {   
-                              console.log("los resultados son " , datos.data.data.resultSingleSurveyEEO)
-                            this.setState({resultados :datos.data.data.resultSingleSurveyEEO })                
-                          console.log(this.state.resultados[0].nombre)
+                            }).then(datos => {               
+                            
+                            if(datos.data.data.resultSingleSurveyEEO.length > 0 ){
+                              this.setState({resultados :datos.data.data.resultSingleSurveyEEO })                
+  
+                            } if(datos.data.data.resultSingleSurveyEEO.length <= 0){
+                             DialogUtility.alert({
+                                animationSettings: { effect: 'Zoom' },           
+                                title: "Su colaborador aun no responde la Encuesta",
+                                // title: 'Aviso!',
+                                position: "fixed"
+                                });
+                            }
                           })
                             .catch(err => {
                               console.log("el error es  ",err)
@@ -141,10 +148,7 @@ class App extends Component {
       pdfView1 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la Aplicación de la encuesta EEO </Alert>
 
       <PdfContainer createPdf={this.createPdf}>
-    
         <React.Fragment>
-
-
           <section className="flex-column  bg-white  pa4 "  >
           <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>
           <font face="arial " className = "mt-4 " > {localStorage.getItem("razonsocial")}</font>
@@ -727,19 +731,12 @@ class App extends Component {
         </React.Fragment>
       </PdfContainer>
       </MDBContainer>
-    }
-
-
-
-    
+    } 
     // console.log(this.state);
     return (
-      <React.Fragment>
-
-       
+      <React.Fragment>     
       <Paper >
       <Table bordered>
- 
         <TableBody>
           {this.state.datos.map(rows => {
             return (
@@ -760,8 +757,6 @@ class App extends Component {
             );
           })}
         </TableBody>
-
-
           </Table>
           </Paper>
 

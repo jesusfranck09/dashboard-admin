@@ -12,8 +12,7 @@ import TableBody from '@material-ui/core/TableBody';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import { DialogUtility } from '@syncfusion/ej2-popups';
-
-
+import Button from '@material-ui/core/Button';
 
 
 import {Alert} from 'reactstrap'
@@ -23,6 +22,7 @@ class App extends Component {
     this.state = {
       datos:[],
       resultados:[],
+      resultadosEvaluacion:[]
     };
    
   }
@@ -79,9 +79,7 @@ class App extends Component {
           })     
   }
 
-              click(id){
-              
-                  
+              click(id){ 
                       const url = 'http://localhost:8000/graphql'
                       axios({
                         url:  url,
@@ -127,7 +125,7 @@ class App extends Component {
                               this.setState({resultados :datos.data.data.resultSingleSurveyRP })                
 
                             } if(datos.data.data.resultSingleSurveyRP.length <= 0){
-                              DialogUtility.alert({
+                             DialogUtility.alert({
                                 animationSettings: { effect: 'Zoom' },           
                                 title: "Su colaborador aun no responde la Encuesta",
                                 // title: 'Aviso!',
@@ -138,13 +136,93 @@ class App extends Component {
                             .catch(err => {
                               console.log("el error es  ",err)
                             });  
-                           
-         
                     }
+                    
+              getEvaluacion(id){
+                const url = 'http://localhost:8000/graphql'
+                axios({
+                  url:  url,
+                  method:'post',
+                  data:{
+                  query:`
+                    query{
+                    resultSingleSurveyRP(data:"${[id]}"){
+                      id 
+                      Respuestas 
+                      fk_preguntasRP
+                      fk_EmpleadosRP 
+                      nombre 
+                      ApellidoP 
+                      ApellidoM 
+                      Curp 
+                      RFC 
+                      FechaNacimiento 
+                      Sexo 
+                      CP 
+                      EstadoCivil 
+                      correo 
+                      AreaTrabajo 
+                      Puesto 
+                      Ciudad 
+                      NivelEstudios 
+                      TipoPersonal 
+                      JornadaTrabajo 
+                      TipoContratacion 
+                      TiempoPuesto 
+                      ExperienciaLaboral 
+                      RotacionTurnos 
+                      fk_administrador 
+                      fk_correos 
+                          }
+                        }
+                      `
+                  }
+                      }).then(datos => {   
+                        if(datos.data.data.resultSingleSurveyRP.length > 0 ){
+                        this.setState({resultadosEvaluacion :datos.data.data.resultSingleSurveyRP })                
+                          console.log("el estado en getEvalucaiocnes" , this.state.resultadosEvaluacion)
+                      } if(datos.data.data.resultSingleSurveyRP.length <= 0){
+                       DialogUtility.alert({
+                          animationSettings: { effect: 'Zoom' },           
+                          title: "Su colaborador aun no responde la Encuesta",
+                          // title: 'Aviso!',
+                          position: "fixed"
+                          });
+                      }
+                    })
+                      .catch(err => {
+                        console.log("el error es  ",err)
+                      });  
+
+
+                      axios({
+                        url:  url,
+                        method:'post',
+                        data:{
+                        query:`
+                          query{
+                          getPonderacion(data:"${[id]}"){
+                            id
+                            siempre
+                            casisiempre
+                            algunasveces
+                            casinunca
+                            nunca
+
+                                }
+                              }
+                            `
+                        }
+                            }).then(datos => {   
+                              console.log("hay resultados" , datos)
+                          })
+                            .catch(err => {
+                              console.log("el error es  ",err.response)
+                            }); 
+                         }
 
     
-  render() {
- 
+  render(){
     const container = { marginLeft:20}
     let pdfView1;
     let pdfView2;
@@ -528,8 +606,8 @@ class App extends Component {
       <React.Fragment>
 
        
-      <Paper >
-      <Table bordered>
+      <Paper responsive={true}>
+      <Table responsive bordered>
  
         <TableBody>
           {this.state.datos.map(rows => {
@@ -545,7 +623,8 @@ class App extends Component {
                 <TableCell  >{rows.Ciudad}</TableCell>
                 <TableCell  >{rows.Sexo}</TableCell>
                 <TableCell  >{rows.rfc} </TableCell>
-                <TableCell  ><MDBBtn color="danger"  onClick={(e) => this.click(rows.id)}>Ver Resultado</MDBBtn></TableCell>
+                <TableCell  ><MDBBtn color="danger"  onClick={(e) => this.click(rows.id)}>Ver Respuestas</MDBBtn></TableCell>
+                <TableCell  ><Button  color="secondary" onClick={(e) => this.getEvaluacion(rows.id)}>Ver resultados</Button></TableCell>
               </TableRow>
               
             );
