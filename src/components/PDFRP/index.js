@@ -186,7 +186,8 @@ class App extends Component {
                         if(datos.data.data.resultSingleSurveyRP.length > 0 ){
                         this.setState({resultadosEvaluacion :datos.data.data.resultSingleSurveyRP })                
                         this.setState({resultados:[]}) 
-                        // console.log("el estado en resultadosEvaluacion" , this.state.resultadosEvaluacion)
+                      
+                    console.log("el estado en resultadosEvaluacion" , this.state.resultadosEvaluacion)
                       } if(datos.data.data.resultSingleSurveyRP.length <= 0){
                        DialogUtility.alert({
                           animationSettings: { effect: 'Zoom' },           
@@ -2792,7 +2793,7 @@ ponderacion =  <React.Fragment>
     return (
       <React.Fragment>
       <TableContainer component={Paper}>
-      <Table  aria-label="a dense table">
+      <Table >
  
         <TableBody>
           {this.state.datos.map(rows => {
@@ -2806,7 +2807,6 @@ ponderacion =  <React.Fragment>
                 <TableCell  >{rows.ApellidoM}</TableCell>
                 <TableCell  >{rows.Curp}</TableCell>
                 <TableCell  >{rows.Ciudad}</TableCell>
-                <TableCell  >{rows.Sexo}</TableCell>
                 <TableCell  >{rows.rfc} </TableCell>
                 <TableCell  ><MDBBtn color="danger"  onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></TableCell>
                 <TableCell  ><Button  color="secondary" onClick={(e) => this.getEvaluacion(rows.id)}>Resultados</Button></TableCell>

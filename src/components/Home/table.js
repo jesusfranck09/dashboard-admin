@@ -480,7 +480,6 @@
                             <TableCell width="9%" >{rows.ApellidoM}</TableCell>
                             <TableCell  width="9%">{rows.Curp}</TableCell>
                             <TableCell  width="9%">{rows.Ciudad}</TableCell>
-                            <TableCell  width="9%">{rows.Sexo}</TableCell>
                             <TableCell width="9%" >{rows.rfc} </TableCell>
                             <TableCell width="9%" ><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,rows.id,1)}>ATS</MDBBtn></TableCell>
                             <TableCell width="9%" ><MDBBtn outline color="primary"  onClick={(e) => sendMailRP(e,rows.id,2)}>RP</MDBBtn></TableCell>
