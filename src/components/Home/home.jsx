@@ -14,9 +14,20 @@ import {
 } from '@material-ui/core';
 import axios from 'axios'
 import {Alert} from 'reactstrap';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import IconButton from "@material-ui/core/IconButton";
+import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+import RemoveRedEyeOutlinedIcon from '@material-ui/icons/RemoveRedEyeOutlined';
+
 
 // import ProgressBar from '../ProgressBar/index'
-import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
+import { MDBModal, MDBModalBody, MDBModalHeader, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 
 import { MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
 
@@ -32,6 +43,10 @@ class Home extends React.Component {
       showModal2: false,
       nombre:'',
       apellidos:'',
+      empleadosAts:[],
+      modal16: false,
+      empleadosRP:[],
+      empleadosEEO:[],
       dias:'',
       horas:'',
       minutos:'',
@@ -114,7 +129,7 @@ class Home extends React.Component {
     this.setState({nombre:Nombre}) 
     this.setState({apellidos:Apellidos}) 
     this.countdown('Jan 30 2020 11:20:58 GMT-0600 ')
-
+    this.getMaxEmployees();
   }
    
   onClick() {
@@ -161,6 +176,70 @@ ads(){
   
 }
 
+getMaxEmployees(){
+
+  const idAdmin   = localStorage.getItem('idAdmin')
+  const url = 'http://localhost:8000/graphql'
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+     query{
+      getEmployeesResolvesSurveyATS(data:"${[idAdmin]}"){
+            nombre
+            ApellidoP
+            ApellidoM
+            correo
+            ATSContestado
+            }
+          }
+        `
+    }
+        }).then((datos) => {
+          console.log("los datos son ",datos)
+          this.setState({empleadosAts:datos.data.data.getEmployeesResolvesSurveyATS})
+
+        }).catch(err=>{
+          console.log("este es el error " , err.response)
+        })
+
+        
+  // axios({
+  //   url:  url,
+  //   method:'post',
+  //   data:{
+  //   query:`
+  //    mutation{
+  //     getEmployeesResolvesSurveyRP(data:"${[idAdmin]}"){
+  //         message
+  //           }
+  //         }
+  //       `
+  //   }
+  //       }).then((datos) => {
+  //         console.log("los datos son ",datos)
+  //       }); 
+ 
+  // axios({
+  //   url:  url,
+  //   method:'post',
+  //   data:{
+  //   query:`
+  //    mutation{
+  //     getEmployeesResolvesSurveyEEO(data:"${[idAdmin]}"){
+  //         message
+  //           }
+  //         }
+  //       `
+  //   }
+  //       }).then((datos) => {
+  //         console.log("los datos son ",datos)
+  //       }); 
+
+
+}
+
 countdown = (deadline) => {
 
 
@@ -190,7 +269,7 @@ countdown = (deadline) => {
             `
         }
             }).then((datos) => {
-              console.log("los datos son ",datos)
+           
             }); 
 
 
@@ -219,6 +298,13 @@ getRemainingTime = deadline => {
   }
 };
 
+toggle = (nr) => () => {  
+  let modalNumber = 'modal' + nr
+  this.setState({
+    [modalNumber]: !this.state[modalNumber]
+  });
+}
+
 
   render() {
     let expiro;
@@ -227,7 +313,54 @@ getRemainingTime = deadline => {
       expiro = <Alert color="danger" className="text-center ">{this.state.licencia}</Alert>
 
     }
-    // const { children} = this.props;
+
+
+
+   
+     let modal;
+     if(this.state.modal16){
+
+      if(this.state.empleadosAts[0]){
+
+        modal  =  <MDBContainer >
+        <MDBModal isOpen={this.state.modal16} toggle={this.toggle(16)} style={{ width:800 }}>
+          <MDBModalHeader toggle={this.toggle(16)}>
+            Empleados Evaluacion ATS Contestado
+          </MDBModalHeader>
+          <MDBModalBody>
+          <TableContainer component={Paper}>
+       <Table  aria-label="simple table" >
+         <TableHead>
+           <TableRow>
+             <TableCell></TableCell>
+             <TableCell align="right">Nombre</TableCell>
+             <TableCell align="right">Apellido Paterno</TableCell>
+             <TableCell align="right">Apellido Materno</TableCell>
+             <TableCell align="right">Correo</TableCell>
+           </TableRow>
+         </TableHead>
+         <TableBody>
+          {this.state.empleadosAts.map(row => (
+             <TableRow key={row.id}>
+               <TableCell component="th" scope="row">
+                 {row.nombre}
+               </TableCell>
+               <TableCell align="right">{row.ApellidoP}</TableCell>
+               <TableCell align="right">{row.ApellidoM}</TableCell>
+               <TableCell align="right">{row.correo}</TableCell>
+             
+             </TableRow>
+             ))}
+         </TableBody>
+       </Table>
+     </TableContainer>
+          </MDBModalBody>   
+        </MDBModal>
+      </MDBContainer>
+      }
+    
+     
+     }
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
     const container2 = { width: 500, height: 300 }
@@ -306,13 +439,24 @@ getRemainingTime = deadline => {
           <MDBCardTitle>Su Licencia caduca en :</MDBCardTitle>
          <MDBCardHeader>{this.state.dias} Dias  {this.state.horas} horas {this.state.minutos} minutos {this.state.segundos} segundos</MDBCardHeader>                 
         {expiro}
+
        </MDBCardBody>
       </MDBCard>
+
+      <MDBCard style={{ width: "22rem" ,marginTop:10,marginLeft:100}}>
+          <MDBCardBody>        
+          <strong>Empleados Evaluación ATS</strong>
+         <MDBCardHeader><strong>Realizada </strong>  <IconButton onClick={this.toggle(16)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada </strong><IconButton onClick={this.toggle(16)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                 
+        {expiro}
+
+       </MDBCardBody>
+      </MDBCard>
+     
 
       </MDBCol>
       </MDBRow>
     
-        {/* <MDBDataTable /> */}
+        {modal}
         </MDBContainer>
       </div>
 
