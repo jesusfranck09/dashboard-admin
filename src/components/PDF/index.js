@@ -121,7 +121,7 @@ class App extends Component {
                             }).then(datos => {   
                            if(datos.data.data.resultSingleSurvey.length > 0 ){
                             this.setState({resultados :datos.data.data.resultSingleSurvey })                
-
+                            console.log("resultados de la encuesta" , this.state.resultados[1])
                           } if(datos.data.data.resultSingleSurvey.length <= 0){
                            DialogUtility.alert({
                               animationSettings: { effect: 'Zoom' },           
@@ -145,7 +145,15 @@ class App extends Component {
  
     const container = { marginLeft:20}
     let pdfView1;
-    let pdfView2;
+    let ATS;
+    if(this.state.resultados.length!=0){
+      if(this.state.resultados[1].Respuestas=="si"){
+        ATS = <Alert className ="mt-4" color ="danger ">INFORMACIÓN: LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
+       }else if(this.state.resultados[1].Respuestas=="no"){
+         ATS = <Alert className ="mt-4" color ="primary ">INFORMACIÓN: LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
+        }
+    }
+
     if(this.state.resultados[2]){ 
       console.log("este es lo que contiene el estado ")
       pdfView1 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la Aplicación de la encuesta ATS </Alert>
@@ -305,7 +313,7 @@ class App extends Component {
                     </tr>
                   </MDBTableBody>
                 </MDBTable> 
-                <Alert className ="mt-4" color ="primary ">INFORMACIÓN: LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
+                {ATS}
                 </MDBContainer>  
 
             {/* <textarea rows="20"
@@ -317,180 +325,7 @@ class App extends Component {
         </React.Fragment>
       </PdfContainer>
       </MDBContainer>
-    }else if(this.state.resultados[0]){
-      console.log("preview " , this.state.resultados.length)
-      pdfView2 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la Aplicación de la encuesta ATS </Alert>
-
-      <PdfContainer createPdf={this.createPdf}>
-    
-        <React.Fragment>
-
-
-          <section className="flex-column  bg-white  pa4 "  >
-          <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font>
-          <font face="arial " className = "mt-4 " > {localStorage.getItem("razonsocial")}</font>
-                <MDBContainer style={container}>
-                <MDBTable responsive small borderless className="text-left mt-4 ">
-       
-                <MDBTableBody>                  
-                  <tr>
-                  <td width="6%" >Nombre : {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} </td>
-                  <td width="6%" >Puesto : {this.state.resultados[0].Puesto}</td>
-                                </tr>
-                                <tr>
-                  <td width="6%" >Departamento : {this.state.resultados[0].AreaTrabajo}</td>
-                  <td width="6%" >Genero : {this.state.resultados[0].Sexo}</td> 
-                                </tr>
-                                <tr>
-                  <td width="6%" >Correo : {this.state.resultados[0].correo}</td>
-                  <td width="6%" >RFC : {this.state.resultados[0].RFC}</td>   
-                 
-                  </tr>
-                </MDBTableBody>
-            
-  
-                </MDBTable>
-                </MDBContainer>
-                
-                <MDBContainer>
-                <MDBTable bordered responsive className="mt-4 text-left">
-                  <MDBTableHead>
-                    <tr>
-                      <th></th>
-                      <th>I.- Acontecimiento traumático severo</th>    
-                      <td></td>   
-                    </tr>
-                  </MDBTableHead>
-                  <MDBTableBody>
-                    <tr>
-                      <td>1</td>
-                      <td>¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los
-                          siguientes: Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
-                          grave? Asaltos? Actos violentos que derivaron en lesiones graves? Secuestro? Amenazas?, o Cualquier otro
-                          que ponga en riesgo su vida o salud, y/o la de otras personas?</td>
-                      <td width="10%">No</td>
-                       
-                    </tr>
- 
-                  </MDBTableBody>
-                </MDBTable> 
-                <MDBTable bordered responsive className="mt-4 text-left">
-                  <MDBTableHead>
-                    <tr>
-                      <th></th>
-                      <th>II.- Recuerdos persistentes sobre el acontecimiento (durante el último mes):</th>       
-                      <td></td> 
-                    </tr>
-                  </MDBTableHead>
-                  <MDBTableBody>
-                    <tr>
-                      <td>2</td>
-                      <td>¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                  </MDBTableBody>
-                </MDBTable> 
-
-                <MDBTable bordered responsive className="mt-4 text-left">
-                  <MDBTableHead>
-                    <tr>
-                      <th></th>
-                      <th>III.- Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento (durante el último mes):</th>       
-                      <td></td> 
-                    </tr>
-                  </MDBTableHead>
-                  <MDBTableBody>
-                    <tr>
-                      <td>4</td>
-                      <td>¿Se ha esforzado por evitar todo tipo de sentimientos, conversaciones o situaciones que le puedan recordar el acontecimiento?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>¿Se ha esforzado por evitar todo tipo de actividades, lugares o personas que motivan recuerdos del acontecimiento?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>¿Ha tenido dificultad para recordar alguna parte importante del evento?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                    <tr>
-                      <td>7</td>
-                      <td>¿Ha disminuido su interés en sus actividades cotidianas?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                    <tr>
-                      <td>8</td>
-                      <td>¿Se ha sentido usted alejado o distante de los demás?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                    <tr>
-                      <td>9</td>
-                      <td>¿Ha tenido la impresión de que su vida se va a acortar, que va a morir antes que otras personas o que tiene un futuro limitado?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                   
-                  </MDBTableBody>
-                </MDBTable> 
-
-
-                <MDBTable bordered responsive className="mt-4 text-left">
-                  <MDBTableHead>
-                    <tr>
-                      <th></th>
-                      <th>IV.- Afectación (durante el último mes):</th>       
-                      <td></td> 
-                    </tr>
-                  </MDBTableHead>
-                  <MDBTableBody>
-                    <tr>
-                      <td>10</td>
-                      <td>¿Ha tenido usted dificultades para dormir?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                    <tr>
-                      <td>11</td>
-                      <td>¿Ha estado particularmente irritable o le han dado arranques de coraje?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                    <tr>
-                      <td>12</td>
-                      <td>¿Ha tenido dificultad para concentrarse?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                    <tr>
-                      <td>13</td>
-                      <td>¿Ha estado nervioso o constantemente en alerta?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                    <tr>
-                      <td>14</td>
-                      <td>¿Se ha sobresaltado fácilmente por cualquier cosa?</td>   
-                      <td width="10%">No</td> 
-                    </tr>
-                  </MDBTableBody>
-                </MDBTable> 
-                <Alert className ="mt-4" color ="primary ">INFORMACIÓN: LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
-                </MDBContainer>  
-
-            {/* <textarea rows="20"
-              placeholder="Description"
-              name="description"
-              value={this.state.description}
-              onChange={this.onChange} /> */}
-          </section>
-        </React.Fragment>
-      </PdfContainer>
-      </MDBContainer>
-
     }
-
 
 
     
@@ -516,7 +351,7 @@ class App extends Component {
                 <TableCell  >{rows.Ciudad}</TableCell>
                 <TableCell  >{rows.Sexo}</TableCell>
                 <TableCell  >{rows.rfc} </TableCell>
-                <TableCell  ><MDBBtn color ="danger" onClick={(e) => this.click(rows.id)}>Ver Resultado</MDBBtn></TableCell>
+                <TableCell  ><MDBBtn color ="danger" onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></TableCell>
               </TableRow>
               
             );
@@ -528,7 +363,7 @@ class App extends Component {
 </Paper>
 
 {pdfView1}
-{pdfView2}
+
     
       </React.Fragment>
     );

@@ -100,20 +100,7 @@ class Home extends React.Component {
 
   handleClick(){
 
-    
 
-// var val =  JSON.parse(values)
-// console.log(val.rotacion)
-// if(val.rotacion=="si"){
-
-// return(
-// console.log("jlkjl")
-// )
-// }else if(val.rotacion=="no"){ 
-
-  
-// }
- 
 
 console.log("data" ,this.state.data)
 

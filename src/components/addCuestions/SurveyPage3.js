@@ -36,11 +36,8 @@ class Home extends React.Component {
 
   evaluar= (values) => {
     console.log("entro a evaluar")
-    if( (values.pregunta10 == "Siempre" || values.pregunta10=="CasiSiempre"|| values.pregunta10=="AlgunasVeces"|| values.pregunta10=="CasiNunca"|| values.pregunta10=="Nunca") 
-    && (values.pregunta11 == "Siempre" || values.pregunta11=="CasiSiempre"|| values.pregunta11=="AlgunasVeces"|| values.pregunta11=="CasiNunca"|| values.pregunta11=="Nunca") 
-    && (values.pregunta12 == "Siempre" || values.pregunta12=="CasiSiempre"|| values.pregunta12=="AlgunasVeces"|| values.pregunta12=="CasiNunca"|| values.pregunta12=="Nunca") 
-    && (values.pregunta13 == "Siempre" || values.pregunta13=="CasiSiempre"|| values.pregunta13=="AlgunasVeces"|| values.pregunta13=="CasiNunca"|| values.pregunta13=="Nunca") 
-    && (values.pregunta14 == "Siempre" || values.pregunta14=="CasiSiempre"|| values.pregunta14=="AlgunasVeces"|| values.pregunta14=="CasiNunca"|| values.pregunta14=="Nunca")){
+    if( (values.pregunta10 == "si" || values.pregunta10=="no")&& (values.pregunta11 == "si" || values.pregunta11=="no")&& (values.pregunta12 == "si" || values.pregunta12=="no") 
+    && (values.pregunta13 == "si" || values.pregunta13=="no")&& (values.pregunta14 == "si" || values.pregunta14=="no")){
         
       const correo = localStorage.getItem('correoATS')
       const url = 'http://localhost:8000/graphql'
@@ -143,11 +140,8 @@ console.log("data" ,this.state.data)
                  
                   <MDBTableHead>
                   <td><FormLabel component="legend"style={{ marginRight:200}}></FormLabel></td>
-                  <td><MDBBadge color="ligth">Siempre</MDBBadge></td>
-                  <td><MDBBadge color="ligth">Casi Siempre</MDBBadge></td>
-                  <td><MDBBadge color="ligth">Algunas Veces</MDBBadge></td>
-                  <td><MDBBadge color="ligth">Casi Nunca</MDBBadge></td>
-                  <td><MDBBadge color="ligth">Nunca</MDBBadge></td>
+                  <td><MDBBadge color="ligth"style={{ fontSize:14 }}><strong>SI</strong></MDBBadge></td>
+                  <td><MDBBadge color="ligth"style={{ fontSize:14 }}><strong>NO</strong></MDBBadge></td>
 
                   </MDBTableHead>
                   <MDBTableBody>
@@ -155,45 +149,29 @@ console.log("data" ,this.state.data)
                     <tr>
                     
                       <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left" style={{ marginRight:200}}>10.- ¿Ha tenido usted dificultades para dormir?</FormLabel></td> 
-                      <td> <FormControlLabel  control={<Field required name="pregunta10" component={Radio} type="radio" value="Siempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta10" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta10" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta10" component={Radio} type="radio" value="CasiNunca"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta10" component={Radio} type="radio" value="Nunca"/>} /></td>
-                 
+                      <td> <FormControlLabel  control={<Field required name="pregunta10" component={Radio} type="radio" value="si"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta10" component={Radio} type="radio" value="no"/>} /></td>
                     </tr>
                    
                     <tr>
                       <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left" style={{ marginRight:200}}>11.-¿Ha estado particularmente irritable o le han dado arranques de coraje?</FormLabel></td> 
-                      <td> <FormControlLabel  control={<Field required name="pregunta11" component={Radio} type="radio" value="Siempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta11" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta11" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta11" component={Radio} type="radio" value="CasiNunca"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta11" component={Radio} type="radio" value="Nunca"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta11" component={Radio} type="radio" value="si"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta11" component={Radio} type="radio" value="no"/>} /></td>
                     </tr> 
                     <tr>
                       <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left" style={{ marginRight:200}}>12.-¿Ha tenido dificultad para concentrarse?</FormLabel></td> 
-                      <td> <FormControlLabel  control={<Field required name="pregunta12" component={Radio} type="radio" value="Siempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta12" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta12" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta12" component={Radio} type="radio" value="CasiNunca"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta12" component={Radio} type="radio" value="Nunca"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta12" component={Radio} type="radio" value="si"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta12" component={Radio} type="radio" value="no"/>} /></td>
                     </tr> 
                     <tr>
                       <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left" style={{ marginRight:200}}>13.-¿Ha estado nervioso o constantemente en alerta?</FormLabel></td> 
-                      <td> <FormControlLabel  control={<Field required name="pregunta13" component={Radio} type="radio" value="Siempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta13" component={Radio} type="radio" value="CasiSiempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta13" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta13" component={Radio} type="radio" value="CasiNunca"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta13" component={Radio} type="radio" value="Nunca"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta13" component={Radio} type="radio" value="si"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta13" component={Radio} type="radio" value="no"/>} /></td>
                     </tr> 
                     <tr>
                       <td> <FormLabel  style={{ fontSize:2 }} component="legend" className="text-left" style={{ marginRight:200}}>14.-¿Se ha sobresaltado fácilmente por cualquier cosa?</FormLabel></td> 
-                      <td> <FormControlLabel  control={<Field required name="pregunta14" component={Radio} type="radio" value="Siempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta14" component={Radio} type="radio" value="Casisiempre"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta14" component={Radio} type="radio" value="AlgunasVeces"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta14" component={Radio} type="radio" value="CasiNunca"/>} /></td>
-                      <td> <FormControlLabel  control={<Field required name="pregunta14" component={Radio} type="radio" value="Nunca"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta14" component={Radio} type="radio" value="si"/>} /></td>
+                      <td> <FormControlLabel  control={<Field required name="pregunta14" component={Radio} type="radio" value="no"/>} /></td>
                     </tr> 
                     
                   </MDBTableBody>

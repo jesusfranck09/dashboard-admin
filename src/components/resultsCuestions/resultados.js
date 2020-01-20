@@ -14,8 +14,8 @@ import Button from '@material-ui/core/Button';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
- import PDF from '../PDF/index'
-
+import PDF from '../PDF/index'
+import { Bar } from "react-chartjs-2";
 
 import {
   Grid,
@@ -29,6 +29,58 @@ class Home extends React.Component {
       collapse: false,
       isOpen: false,
       showModal2: false,  
+      barChartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [
+            {
+              barPercentage: 1,
+              gridLines: {
+                display: true,
+                color: "rgba(0, 0, 0, 0.1)"
+              }
+            }
+          ],
+          yAxes: [
+            {
+              gridLines: {
+                display: true,
+                color: "rgba(0, 0, 0, 0.1)"
+              },
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        }
+      },
+      dataBar: {
+        labels: ["Siempre", "Casi Siempre", "Algunas Veces", "Casi nunca", "Nunca"],
+        datasets: [
+          {
+            label: "% Resultados",
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+              "rgba(255, 134,159,0.4)",
+              "rgba(98,  182, 239,0.4)",
+              "rgba(255, 218, 128,0.4)",
+              "rgba(113, 205, 205,0.4)",
+              "rgba(170, 128, 252,0.4)",
+              "rgba(255, 177, 101,0.4)"
+            ],
+            borderWidth: 2,
+            borderColor: [
+              "rgba(255, 134, 159, 1)",
+              "rgba(98,  182, 239, 1)",
+              "rgba(255, 218, 128, 1)",
+              "rgba(113, 205, 205, 1)",
+              "rgba(170, 128, 252, 1)",
+              "rgba(255, 177, 101, 1)"
+            ]
+          }
+        ]
+      } 
       // componentepdf:'0'
     };
     this.onClick = this.onClick.bind(this);
@@ -103,6 +155,8 @@ ads(){
     // const { children} = this.props;
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
+    const container2 = { width: 500, height: 300 }
+
     return (
       <React.Fragment>
       <div>
@@ -148,47 +202,15 @@ ads(){
             </MDBNavbar>
             
           </header>
-        <MDBContainer style={container} className="text-center mt-5 pt-5">
-    {/* <h6><strong><Alert color="primary">Elija el tipo de resultados que desea Visualizar</Alert></strong></h6> */}
-      <MDBRow>
-          <MDBCol md="9">
-      <Result/>
+          <MDBContainer style={container} className="pt-5">
+          <MDBRow>
+              <MDBCol md="9">
+              <MDBContainer style={container2} className="  pt-5" >
+            <h5 >Ejemplo de Ponderación</h5>
+            <Bar  data={this.state.dataBar} options={this.state.barChartOptions} />
+            {/* <span>{this.state.dias} {this.state.horas} {this.state.minutos} {this.state.segundos}</span> */}
+          </MDBContainer>
       </MDBCol>
-      {/* <MDBCol>
-      <Alert  color="light"><Button
-                   
-                    type="submit"
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                    size="large"
- 
-                  >
-                  <strong>Resultados Encuesta ATS</strong> 
-                  </Button> </Alert>
-                  <Alert  color="light"><Button
-                   type="submit"
-                   fullWidth
-                   variant="outlined"
-                   color="primary"
-                   size="large"
-                 >
-                 <strong>Resultados Encuesta RP</strong> 
-                 </Button> </Alert>
-                 <Alert  color="light"><Button                  
-                    type="submit"
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                    size="large"
-                    onClick={this.viewEmmployee}
-                  >
-                  <strong>Resultados Encuesta EEO</strong> 
-                  </Button> </Alert>
-                  
-
-
-                  </MDBCol> */}
                   </MDBRow>
 
 
