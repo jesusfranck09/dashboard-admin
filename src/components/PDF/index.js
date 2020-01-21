@@ -13,7 +13,6 @@ import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 
-
 import {Alert} from 'reactstrap'
 class App extends Component {
   constructor(props) {
@@ -359,10 +358,10 @@ class App extends Component {
         </TableBody>
 
 
-</Table>
-</Paper>
+      </Table>
+      </Paper>
 
-{pdfView1}
+      {pdfView1}
 
     
       </React.Fragment>

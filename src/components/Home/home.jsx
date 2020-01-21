@@ -49,6 +49,7 @@ class Home extends React.Component {
       modal16: false,
       modal15:false,
       modal14:false,
+      modal10:false,
       totalEmpleados:'',
       empleadosRP:[],
       empleadosRPFalse:[],
@@ -87,6 +88,7 @@ class Home extends React.Component {
     this.countdown('Jan 30 2020 11:20:58 GMT-0600 ')
     this.getMaxEmployees();
     this.countEmployees();
+  
   }
    
   onClick() {
@@ -403,46 +405,48 @@ toggle = (nr) => () => {
 
     let empleadoATSDetectado;
     if(this.state.empleadosAtsDetectado.length != 0){ 
-      empleadoATSDetectado=<Paper style={{width:400,marginLeft:100}}>
-      <MDBCard>
-      <Grid container wrap="nowrap" spacing={2}>
-        <Grid item>
-          <Avatar>ATS</Avatar>
-        </Grid>
-        <Grid item xs>
-       <Typography>   
-      <MDBContainer >
-       <TableContainer align="left">
-       <span style={{backgroundColor:"red"}}>Aviso! Empleado con ATS Detectado</span>
-
-       <Table  >
-         
-         <TableBody>
-          {this.state.empleadosAtsDetectado.map(row => (
-             
-             <TableRow key={row.id}>
-               <TableCell component="th" scope="row">
-                 {row.nombre}
-               </TableCell>
-               <TableCell align="left">{row.ApellidoP}</TableCell>
-               <TableCell align="left">{row.ApellidoM}</TableCell>              
-             </TableRow>
-             ))}
-         </TableBody>
-       </Table>
-     </TableContainer>
-    </MDBContainer>
-    </Typography>
-        </Grid>
-      </Grid>
-      </MDBCard>
-    </Paper>
+      empleadoATSDetectado=<MDBContainer >
+        <MDBModal isOpen={this.state.modal10} toggle={this.toggle(10)} size="md">
+          <MDBModalHeader toggle={this.toggle(10)}>
+          <Alert color="danger"> Empleado con ATS Detectado</Alert>
+          </MDBModalHeader>
+          <MDBModalBody>
       
-      
-      
-      
-      
-   
+          <Paper >
+          <MDBCard>
+          <Grid container wrap="nowrap" spacing={2}>
+            <Grid item>
+              <Avatar>ATS</Avatar>
+            </Grid>
+            <Grid item xs>
+          <Typography>   
+          <MDBContainer >
+          <TableContainer align="left">
+          <Table  >
+            
+            <TableBody>
+              {this.state.empleadosAtsDetectado.map(row => (
+                
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.nombre}
+                  </TableCell>
+                  <TableCell align="left">{row.ApellidoP}</TableCell>
+                  <TableCell align="left">{row.ApellidoM}</TableCell>              
+                </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        </MDBContainer>
+        </Typography>
+            </Grid>
+          </Grid>
+          </MDBCard>
+        </Paper>
+    </MDBModalBody>   
+        </MDBModal>
+      </MDBContainer>      
     }
 
      let modal;
@@ -820,10 +824,9 @@ toggle = (nr) => () => {
         {expiro}
        </MDBCardBody>
       </MDBCard>
-      <MDBCard style={{ width: "25rem" ,marginTop:20}}>
+      <MDBCard style={{ width: "22rem" ,marginTop:20,marginLeft:100}}>
           <MDBCardBody>        
-          <strong>Empleados Evaluación EEO</strong>
-         <MDBCardHeader><strong>Empleado con ATS Detectado </strong> <IconButton onClick={this.toggle(10)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
+         <MDBCardHeader><strong>Acciones a Realizar </strong> <IconButton onClick={this.toggle(10)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
        </MDBCardBody>
       </MDBCard>
       
@@ -835,6 +838,7 @@ toggle = (nr) => () => {
         {modalRPFalse}
         {modalEEO}
         {modalEEOFalse}
+        {empleadoATSDetectado}
         </MDBContainer>
       </div>
 

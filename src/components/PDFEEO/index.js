@@ -835,7 +835,7 @@ class App extends Component {
  let valor52,valor53,valor54,valor55,valor56,valor57,valor58,valor59,valor60,valor61;
  let valor62,valor63,valor64,valor65,valor66,valor67,valor68,valor69,valor70,valor71,valor72;
  
- if(this.state.getPonderacion[3]){
+ if(this.state.getPonderacion[3]  && this.state.resultadosEvaluacion.length > 0){
   let respuesta1;
   let respuesta2;
   let respuesta3;
@@ -879,7 +879,7 @@ class App extends Component {
     } 
     else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
       respuesta9="Casi Nunca"
-      valor2= this.state.getPonderacion[2].casinunca
+      valor2= this.state.getPonderacion[1].casinunca
     } 
     else if(this.state.resultadosEvaluacion[2].Respuestas=="Nunca"){
       respuesta10="Nunca"
@@ -1344,7 +1344,7 @@ class App extends Component {
   }
   else if(this.state.resultadosEvaluacion[21].Respuestas=="AlgunasVeces"){
     respuesta103="Algunas Veces"
-    valor21= this.state.getPonderacion[21].algunasveces
+    valor21= this.state.getPonderacion[20].algunasveces
   } 
   else if(this.state.resultadosEvaluacion[21].Respuestas=="CasiNunca"){
     respuesta104="Casi Nunca"
@@ -2773,7 +2773,7 @@ let Dominio2Bajo;
 let Dominio2Medio;
 let Dominio2Alto;
 let Dominio2MuyAlto;
-let DominioDos = (entero6+entero12+entero7+entero8+entero9+entero10+entero11+entero42+entero65+entero66+entero67+entero68+entero13,entero14+entero15+entero16);
+let DominioDos = (entero6+entero12+entero7+entero8+entero9+entero10+entero11+entero65+entero66+entero67+entero68+entero13+entero14+entero15+entero16);
 if(DominioDos < 15){
   Dominio2Nulo= <MDBBadge color="info">{DominioDos}</MDBBadge>
 }else if(DominioDos >= 15 && DominioDos < 21){

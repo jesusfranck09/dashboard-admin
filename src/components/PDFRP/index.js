@@ -616,7 +616,7 @@ let valor21,valor22,valor23,valor24,valor25,valor26,valor27, valor28,valor29,val
 let valor31,valor32,valor33,valor34,valor35,valor36,valor37, valor38,valor39,valor40;
 let valor41,valor42,valor43,valor44,valor45,valor46;
 
-if(this.state.getPonderacion[3]){
+if(this.state.getPonderacion[3] && this.state.resultadosEvaluacion.length > 0){
 
 let respuesta1;
 let respuesta2;
