@@ -5,7 +5,7 @@ class DocService {
     savePDF(html, { 
       paperSize: 'Letter',
       fileName: 'ResultadoATS.pdf',
-      margin: 1
+      margin: 3
     })
   }
 }
