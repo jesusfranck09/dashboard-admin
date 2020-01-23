@@ -42,13 +42,13 @@ class Home extends React.Component {
   evaluar= (values) => {
 
     if( (values.pregunta57 == "Siempre" || values.pregunta57=="CasiSiempre"|| values.pregunta57=="AlgunasVeces"|| values.pregunta57=="CasiNunca"|| values.pregunta57=="Nunca") 
-    && (values.pregunta58 == "Siempre" || values.pregunta58=="CasiSiempre"|| values.pregunta58=="AlgunasVeces"|| values.pregunta58=="CasiNunca"|| values.pregunta58=="Nunca") 
-    && (values.pregunta59 == "Siempre" || values.pregunta59=="CasiSiempre"|| values.pregunta59=="AlgunasVeces"|| values.pregunta59=="CasiNunca"|| values.pregunta59=="Nunca")
-    && (values.pregunta60 == "Siempre" || values.pregunta60=="CasiSiempre"|| values.pregunta60=="AlgunasVeces"|| values.pregunta60=="CasiNunca"|| values.pregunta60=="Nunca")
-    && (values.pregunta61 == "Siempre" || values.pregunta61=="CasiSiempre"|| values.pregunta61=="AlgunasVeces"|| values.pregunta61=="CasiNunca"|| values.pregunta61=="Nunca")
-    && (values.pregunta62 == "Siempre" || values.pregunta62=="CasiSiempre"|| values.pregunta62=="AlgunasVeces"|| values.pregunta62=="CasiNunca"|| values.pregunta62=="Nunca")
-    && (values.pregunta63 == "Siempre" || values.pregunta63=="CasiSiempre"|| values.pregunta63=="AlgunasVeces"|| values.pregunta63=="CasiNunca"|| values.pregunta63=="Nunca")
-    && (values.pregunta64 == "Siempre" || values.pregunta64=="CasiSiempre"|| values.pregunta64=="AlgunasVeces"|| values.pregunta64=="CasiNunca"|| values.pregunta64=="Nunca")
+    || (values.pregunta58 == "Siempre" || values.pregunta58=="CasiSiempre"|| values.pregunta58=="AlgunasVeces"|| values.pregunta58=="CasiNunca"|| values.pregunta58=="Nunca") 
+    || (values.pregunta59 == "Siempre" || values.pregunta59=="CasiSiempre"|| values.pregunta59=="AlgunasVeces"|| values.pregunta59=="CasiNunca"|| values.pregunta59=="Nunca")
+    || (values.pregunta60 == "Siempre" || values.pregunta60=="CasiSiempre"|| values.pregunta60=="AlgunasVeces"|| values.pregunta60=="CasiNunca"|| values.pregunta60=="Nunca")
+    || (values.pregunta61 == "Siempre" || values.pregunta61=="CasiSiempre"|| values.pregunta61=="AlgunasVeces"|| values.pregunta61=="CasiNunca"|| values.pregunta61=="Nunca")
+    || (values.pregunta62 == "Siempre" || values.pregunta62=="CasiSiempre"|| values.pregunta62=="AlgunasVeces"|| values.pregunta62=="CasiNunca"|| values.pregunta62=="Nunca")
+    || (values.pregunta63 == "Siempre" || values.pregunta63=="CasiSiempre"|| values.pregunta63=="AlgunasVeces"|| values.pregunta63=="CasiNunca"|| values.pregunta63=="Nunca")
+    || (values.pregunta64 == "Siempre" || values.pregunta64=="CasiSiempre"|| values.pregunta64=="AlgunasVeces"|| values.pregunta64=="CasiNunca"|| values.pregunta64=="Nunca")
   
     ){
 

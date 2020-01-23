@@ -28,7 +28,8 @@ class App extends Component {
       datos:[],
       resultados:[],
       resultadosEvaluacion:[],
-      getPonderacion:[]
+      getPonderacion:[],
+      resultadosQuery:[],
     };
   }
 
@@ -227,7 +228,52 @@ class App extends Component {
                                           })
                                           .catch(err => {
                                             console.log("el error es  ",err.response)
-                                          });                                        
+                                          });
+                                          
+                                          axios({
+                                            url:  url,
+                                            method:'post',
+                                            data:{
+                                            query:`
+                                              query{
+                                              resultSingleSurveyEEO(data:"${[id]}"){
+                                                id 
+                                                Respuestas 
+                                                fk_preguntasEEO
+                                                fk_Empleados
+                                                nombre 
+                                                ApellidoP 
+                                                ApellidoM 
+                                                Curp 
+                                                RFC 
+                                                FechaNacimiento 
+                                                Sexo 
+                                                CP 
+                                                EstadoCivil 
+                                                correo 
+                                                AreaTrabajo 
+                                                Puesto 
+                                                Ciudad 
+                                                NivelEstudios 
+                                                TipoPersonal 
+                                                JornadaTrabajo 
+                                                TipoContratacion 
+                                                TiempoPuesto 
+                                                ExperienciaLaboral 
+                                                RotacionTurnos 
+                                                fk_administrador 
+                                                fk_correos 
+                                                    }
+                                                  }
+                                                `
+                                            }
+                                                }).then(datos => {                  
+                                                  this.setState({resultadosQuery :datos.data.data.resultSingleSurveyEEO })                
+                                                  console.log("los resultadosQuery",this.state.resultadosQuery )
+                                                })
+                                                .catch(err => {
+                                                  console.log("el error es  ",err)
+                                                });  
                                 }
 
   render() {
@@ -244,7 +290,7 @@ class App extends Component {
           <section className="flex-column  bg-white  pa4 "  >
           <div>
                     <MDBBtn  color="primary" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-                        Descargar Resultados 
+                        Descargar Respuestas 
                     </MDBBtn>
            </div>
            <br/>
@@ -823,7 +869,7 @@ class App extends Component {
  let valor52,valor53,valor54,valor55,valor56,valor57,valor58,valor59,valor60,valor61;
  let valor62,valor63,valor64,valor65,valor66,valor67,valor68,valor69,valor70,valor71,valor72;
  
- if(this.state.getPonderacion[3]  && this.state.resultadosEvaluacion.length > 0){
+ if(this.state.getPonderacion[3]  && this.state.resultadosEvaluacion.length > 0 && this.state.resultadosQuery.length>0){
   let respuesta1;
   let respuesta2;
   let respuesta3;
@@ -2920,12 +2966,49 @@ if(DominioDiez < 4){
 
   
     ponderacion =  <React.Fragment>
+             <div>
+                    <MDBBtn  color="primary" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                        Descargar Resultados
+                    </MDBBtn>
+           </div>
+           <br/>
+           <PDFExport
+                    scale={0.6}
+                    paperSize="A4"
+                    margin="2cm"
+                    ref={(component) => this.pdfExportComponent = component}
+                    allPages= "true"
+              
+                >
+                    <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>
+          <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
+          <font face="arial" className = "mt-4 " >  <img ref={(image) => this.image = image} src="http://www.ads.com.mx/_Media/logotipo_ads_png_med.png" width="100px"
+                /></font>
+                <MDBContainer style={container}>
+                <MDBTable responsive small borderless className="text-left mt-4 ">
+       
+                <MDBTableBody>                  
+                  <tr>
+                  <td  >Nombre : {this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM} </td>
+                  <td >Puesto : {this.state.resultadosQuery[0].Puesto}</td>
+                                </tr>
+                                <tr>
+                  <td >Departamento : {this.state.resultadosQuery[0].AreaTrabajo}</td>
+                  <td >Genero : {this.state.resultadosQuery[0].Sexo}</td> 
+                                </tr>
+                                <tr>
+                  <td >Correo : {this.state.resultadosQuery[0].correo}</td>
+                  <td >RFC : {this.state.resultadosQuery[0].RFC}</td>   
+                  </tr>
+                </MDBTableBody>
+                </MDBTable>
+                </MDBContainer>
 
-    <TableContainer component={Paper} style={{marginBottom:30}}>
-          <Table  size="small" aria-label="a dense table" >
+    <TableContainer  component={Paper} style={{marginBottom:30}}>
+          <Table  borderless  size="small" aria-label="a dense table" >
             <TableHead>
               <TableRow>
-                <TableCell style={{backgroundColor: "#E6E7E8"}}>Pregunta</TableCell>
+                <TableCell width ="10%" style={{backgroundColor: "#E6E7E8"}}>Pregunta</TableCell>
                 <TableCell align="right" style={{backgroundColor: "#51EAFF"}}>Nulo</TableCell>
                 <TableCell align="right" style={{backgroundColor: "#76FEC5"}}>Bajo&nbsp;</TableCell>
                 <TableCell align="right" style={{backgroundColor: "#F4EDB2"}}>Medio&nbsp;</TableCell>
@@ -2935,731 +3018,743 @@ if(DominioDiez < 4){
             </TableHead>
             <TableBody  style={{marginTop:20}}>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell width ="15%" style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                   1
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta1}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta2}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta3}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta4}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta5}</TableCell>
+                  <TableCell  align="right">{respuesta1}</TableCell>
+                  <TableCell align="right">{respuesta2}</TableCell>              
+                  <TableCell align="right">{respuesta3}</TableCell>              
+                  <TableCell  align="right">{respuesta4}</TableCell>
+                  <TableCell  align="right">{respuesta5}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell  style={{backgroundColor: "#E6E7E8"}}component="th" scope="row">
                  2
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta6}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta7}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta8}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta9}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta10}</TableCell>
+                  <TableCell  align="right">{respuesta6}</TableCell>
+                  <TableCell  align="right">{respuesta7}</TableCell>              
+                  <TableCell align="right">{respuesta8}</TableCell>              
+                  <TableCell  align="right">{respuesta9}</TableCell>
+                  <TableCell  align="right">{respuesta10}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                  3
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta11}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta12}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta13}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta14}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta15}</TableCell>
+                  <TableCell  align="right">{respuesta11}</TableCell>
+                  <TableCell  align="right">{respuesta12}</TableCell>              
+                  <TableCell  align="right">{respuesta13}</TableCell>              
+                  <TableCell  align="right">{respuesta14}</TableCell>
+                  <TableCell  align="right">{respuesta15}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell  style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 4
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta16}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta17}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta18}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta19}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta20}</TableCell>
+                  <TableCell align="right">{respuesta16}</TableCell>
+                  <TableCell align="right">{respuesta17}</TableCell>              
+                  <TableCell align="right">{respuesta18}</TableCell>              
+                  <TableCell  align="right">{respuesta19}</TableCell>
+                  <TableCell  align="right">{respuesta20}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 5
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta21}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta22}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta23}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta24}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta25}</TableCell>
+                  <TableCell  align="right">{respuesta21}</TableCell>
+                  <TableCell  align="right">{respuesta22}</TableCell>              
+                  <TableCell  align="right">{respuesta23}</TableCell>              
+                  <TableCell align="right">{respuesta24}</TableCell>
+                  <TableCell  align="right">{respuesta25}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 6
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta26}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta27}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta28}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta29}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta30}</TableCell>
+                  <TableCell  align="right">{respuesta26}</TableCell>
+                  <TableCell  align="right">{respuesta27}</TableCell>              
+                  <TableCell align="right">{respuesta28}</TableCell>              
+                  <TableCell  align="right">{respuesta29}</TableCell>
+                  <TableCell  align="right">{respuesta30}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 7
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta31}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta32}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta33}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta34}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta35}</TableCell>
+                  <TableCell  align="right">{respuesta31}</TableCell>
+                  <TableCell  align="right">{respuesta32}</TableCell>              
+                  <TableCell  align="right">{respuesta33}</TableCell>              
+                  <TableCell  align="right">{respuesta34}</TableCell>
+                  <TableCell align="right">{respuesta35}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 8
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta36}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta37}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta38}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta39}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta40}</TableCell>
+                  <TableCell   align="right">{respuesta36}</TableCell>
+                  <TableCell   align="right">{respuesta37}</TableCell>              
+                  <TableCell   align="right">{respuesta38}</TableCell>              
+                  <TableCell   align="right">{respuesta39}</TableCell>
+                  <TableCell   align="right">{respuesta40}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 9
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta41}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta42}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta43}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta44}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta45}</TableCell>
+                  <TableCell   align="right">{respuesta41}</TableCell>
+                  <TableCell   align="right">{respuesta42}</TableCell>              
+                  <TableCell   align="right">{respuesta43}</TableCell>              
+                  <TableCell   align="right">{respuesta44}</TableCell>
+                  <TableCell   align="right">{respuesta45}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 10
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta46}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta47}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta48}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta49}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta50}</TableCell>
+                  <TableCell   align="right">{respuesta46}</TableCell>
+                  <TableCell  align="right">{respuesta47}</TableCell>              
+                  <TableCell   align="right">{respuesta48}</TableCell>              
+                  <TableCell  align="right">{respuesta49}</TableCell>
+                  <TableCell   align="right">{respuesta50}</TableCell>
                 </TableRow>
     
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell  style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                  11
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta51}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta52}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta53}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta54}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta55}</TableCell>
+                  <TableCell  align="right">{respuesta51}</TableCell>
+                  <TableCell  align="right">{respuesta52}</TableCell>              
+                  <TableCell  align="right">{respuesta53}</TableCell>              
+                  <TableCell  align="right">{respuesta54}</TableCell>
+                  <TableCell  align="right">{respuesta55}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                  12
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta56}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta57}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta58}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta59}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta60}</TableCell>
+                  <TableCell  align="right">{respuesta56}</TableCell>
+                  <TableCell  align="right">{respuesta57}</TableCell>              
+                  <TableCell  align="right">{respuesta58}</TableCell>              
+                  <TableCell  align="right">{respuesta59}</TableCell>
+                  <TableCell  align="right">{respuesta60}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                  13
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta61}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta62}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta63}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta64}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta65}</TableCell>
+                  <TableCell  align="right">{respuesta61}</TableCell>
+                  <TableCell  align="right">{respuesta62}</TableCell>              
+                  <TableCell  align="right">{respuesta63}</TableCell>              
+                  <TableCell  align="right">{respuesta64}</TableCell>
+                  <TableCell  align="right">{respuesta65}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 14
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta66}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta67}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta68}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta69}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta70}</TableCell>
+                  <TableCell align="right">{respuesta66}</TableCell>
+                  <TableCell  align="right">{respuesta67}</TableCell>              
+                  <TableCell align="right">{respuesta68}</TableCell>              
+                  <TableCell  align="right">{respuesta69}</TableCell>
+                  <TableCell  align="right">{respuesta70}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 15
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta71}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta72}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta73}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta74}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta75}</TableCell>
+                  <TableCell  align="right">{respuesta71}</TableCell>
+                  <TableCell  align="right">{respuesta72}</TableCell>              
+                  <TableCell  align="right">{respuesta73}</TableCell>              
+                  <TableCell  align="right">{respuesta74}</TableCell>
+                  <TableCell  align="right">{respuesta75}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 16
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta76}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta77}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta78}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta79}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta80}</TableCell>
+                  <TableCell  align="right">{respuesta76}</TableCell>
+                  <TableCell  align="right">{respuesta77}</TableCell>              
+                  <TableCell  align="right">{respuesta78}</TableCell>              
+                  <TableCell  align="right">{respuesta79}</TableCell>
+                  <TableCell  align="right">{respuesta80}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 17
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta81}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta82}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta83}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta84}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta85}</TableCell>
+                  <TableCell  align="right">{respuesta81}</TableCell>
+                  <TableCell  align="right">{respuesta82}</TableCell>              
+                  <TableCell  align="right">{respuesta83}</TableCell>              
+                  <TableCell  align="right">{respuesta84}</TableCell>
+                  <TableCell  align="right">{respuesta85}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell  style={{backgroundColor: "#E6E7E8"}}component="th" scope="row">
                 18
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta86}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta87}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta88}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta89}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta90}</TableCell>
+                  <TableCell  align="right">{respuesta86}</TableCell>
+                  <TableCell  align="right">{respuesta87}</TableCell>              
+                  <TableCell  align="right">{respuesta88}</TableCell>              
+                  <TableCell  align="right">{respuesta89}</TableCell>
+                  <TableCell  align="right">{respuesta90}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 19
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta91}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta92}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta93}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta94}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta95}</TableCell>
+                  <TableCell  align="right">{respuesta91}</TableCell>
+                  <TableCell align="right">{respuesta92}</TableCell>              
+                  <TableCell  align="right">{respuesta93}</TableCell>              
+                  <TableCell  align="right">{respuesta94}</TableCell>
+                  <TableCell  align="right">{respuesta95}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell  style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 20
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta96}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta97}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta98}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta99}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta100}</TableCell>
+                  <TableCell  align="right">{respuesta96}</TableCell>
+                  <TableCell  align="right">{respuesta97}</TableCell>              
+                  <TableCell  align="right">{respuesta98}</TableCell>              
+                  <TableCell  align="right">{respuesta99}</TableCell>
+                  <TableCell  align="right">{respuesta100}</TableCell>
                 </TableRow>
     
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                   21
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta101}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta102}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta103}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta104}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta105}</TableCell>
+                  <TableCell  align="right">{respuesta101}</TableCell>
+                  <TableCell  align="right">{respuesta102}</TableCell>              
+                  <TableCell  align="right">{respuesta103}</TableCell>              
+                  <TableCell  align="right">{respuesta104}</TableCell>
+                  <TableCell  align="right">{respuesta105}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                  22
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta106}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta107}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta108}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta109}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta110}</TableCell>
+                  <TableCell  align="right">{respuesta106}</TableCell>
+                  <TableCell  align="right">{respuesta107}</TableCell>              
+                  <TableCell  align="right">{respuesta108}</TableCell>              
+                  <TableCell  align="right">{respuesta109}</TableCell>
+                  <TableCell  align="right">{respuesta110}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                  23
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta111}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta112}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta113}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta114}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta115}</TableCell>
+                  <TableCell  align="right">{respuesta111}</TableCell>
+                  <TableCell  align="right">{respuesta112}</TableCell>              
+                  <TableCell  align="right">{respuesta113}</TableCell>              
+                  <TableCell  align="right">{respuesta114}</TableCell>
+                  <TableCell  align="right">{respuesta115}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 24
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta116}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta117}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta118}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta119}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta120}</TableCell>
+                  <TableCell  align="right">{respuesta116}</TableCell>
+                  <TableCell align="right">{respuesta117}</TableCell>              
+                  <TableCell  align="right">{respuesta118}</TableCell>              
+                  <TableCell align="right">{respuesta119}</TableCell>
+                  <TableCell  align="right">{respuesta120}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                25
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta121}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta122}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta123}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta124}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta125}</TableCell>
+                  <TableCell  align="right">{respuesta121}</TableCell>
+                  <TableCell  align="right">{respuesta122}</TableCell>              
+                  <TableCell  align="right">{respuesta123}</TableCell>              
+                  <TableCell  align="right">{respuesta124}</TableCell>
+                  <TableCell align="right">{respuesta125}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 26
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta126}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta127}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta128}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta129}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta130}</TableCell>
+                  <TableCell  align="right">{respuesta126}</TableCell>
+                  <TableCell  align="right">{respuesta127}</TableCell>              
+                  <TableCell  align="right">{respuesta128}</TableCell>              
+                  <TableCell  align="right">{respuesta129}</TableCell>
+                  <TableCell  align="right">{respuesta130}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 27
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta131}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta132}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta133}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta134}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta135}</TableCell>
+                  <TableCell  align="right">{respuesta131}</TableCell>
+                  <TableCell  align="right">{respuesta132}</TableCell>              
+                  <TableCell  align="right">{respuesta133}</TableCell>              
+                  <TableCell  align="right">{respuesta134}</TableCell>
+                  <TableCell  align="right">{respuesta135}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 28
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta136}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta137}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta138}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta139}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta140}</TableCell>
+                  <TableCell  align="right">{respuesta136}</TableCell>
+                  <TableCell  align="right">{respuesta137}</TableCell>              
+                  <TableCell  align="right">{respuesta138}</TableCell>              
+                  <TableCell  align="right">{respuesta139}</TableCell>
+                  <TableCell  align="right">{respuesta140}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  
+                  <TableCell  style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 29
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta141}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta142}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta143}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta144}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta145}</TableCell>
+                  <TableCell  align="right">{respuesta141}</TableCell>
+                  <TableCell  align="right">{respuesta142}</TableCell>              
+                  <TableCell  align="right">{respuesta143}</TableCell>              
+                  <TableCell  align="right">{respuesta144}</TableCell>
+                  <TableCell  align="right">{respuesta145}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
+                  </TableCell>
+                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">Nulo</TableCell>
+                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">Bajo</TableCell>              
+                  <TableCell align="right" style={{backgroundColor: "#F4EDB2"}} align="right">Medio</TableCell>              
+                  <TableCell  align="right" style={{backgroundColor: "#F5E027"}}align="right">Alto</TableCell>
+                  <TableCell align="right" align="right" style={{backgroundColor: "#FF756B"}} >Muy Alto</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell  style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 30
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta146}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta147}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta148}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta149}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta150}</TableCell>
+                  <TableCell  align="right">{respuesta146}</TableCell>
+                  <TableCell align="right">{respuesta147}</TableCell>              
+                  <TableCell align="right">{respuesta148}</TableCell>              
+                  <TableCell  align="right">{respuesta149}</TableCell>
+                  <TableCell align="right">{respuesta150}</TableCell>
                 </TableRow>
                 
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 31
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta151}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta152}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta153}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta154}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta155}</TableCell>
+                  <TableCell align="right">{respuesta151}</TableCell>
+                  <TableCell  align="right">{respuesta152}</TableCell>              
+                  <TableCell  align="right">{respuesta153}</TableCell>              
+                  <TableCell  align="right">{respuesta154}</TableCell>
+                  <TableCell  align="right">{respuesta155}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                  32
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta156}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta157}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta158}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta159}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta160}</TableCell>
+                  <TableCell  align="right">{respuesta156}</TableCell>
+                  <TableCell  align="right">{respuesta157}</TableCell>              
+                  <TableCell  align="right">{respuesta158}</TableCell>              
+                  <TableCell  align="right">{respuesta159}</TableCell>
+                  <TableCell  align="right">{respuesta160}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                  33
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta161}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta162}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta163}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta164}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta165}</TableCell>
+                  <TableCell  align="right">{respuesta161}</TableCell>
+                  <TableCell align="right">{respuesta162}</TableCell>              
+                  <TableCell  align="right">{respuesta163}</TableCell>              
+                  <TableCell align="right">{respuesta164}</TableCell>
+                  <TableCell  align="right">{respuesta165}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 34
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta166}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta167}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta168}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta169}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta170}</TableCell>
+                  <TableCell align="right">{respuesta166}</TableCell>
+                  <TableCell  align="right">{respuesta167}</TableCell>              
+                  <TableCell  align="right">{respuesta168}</TableCell>              
+                  <TableCell align="right">{respuesta169}</TableCell>
+                  <TableCell align="right">{respuesta170}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                35
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta171}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta172}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta173}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta174}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta175}</TableCell>
+                  <TableCell  align="right">{respuesta171}</TableCell>
+                  <TableCell  align="right">{respuesta172}</TableCell>              
+                  <TableCell  align="right">{respuesta173}</TableCell>              
+                  <TableCell  align="right">{respuesta174}</TableCell>
+                  <TableCell  align="right">{respuesta175}</TableCell>
                 </TableRow>
+               
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 36
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta176}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta177}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta178}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta179}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta180}</TableCell>
+                  <TableCell  align="right">{respuesta176}</TableCell>
+                  <TableCell  align="right">{respuesta177}</TableCell>              
+                  <TableCell align="right">{respuesta178}</TableCell>              
+                  <TableCell  align="right">{respuesta179}</TableCell>
+                  <TableCell align="right">{respuesta180}</TableCell>
                 </TableRow>
+
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 37
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta181}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta182}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta183}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta184}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta185}</TableCell>
+                  <TableCell align="right">{respuesta181}</TableCell>
+                  <TableCell  align="right">{respuesta182}</TableCell>              
+                  <TableCell align="right">{respuesta183}</TableCell>              
+                  <TableCell  align="right">{respuesta184}</TableCell>
+                  <TableCell  align="right">{respuesta185}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 38
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta186}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta187}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta188}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta189}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta190}</TableCell>
+                  <TableCell  align="right">{respuesta186}</TableCell>
+                  <TableCell  align="right">{respuesta187}</TableCell>              
+                  <TableCell  align="right">{respuesta188}</TableCell>              
+                  <TableCell  align="right">{respuesta189}</TableCell>
+                  <TableCell  align="right">{respuesta190}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 39
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta191}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta192}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta193}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta194}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta195}</TableCell>
+                  <TableCell  align="right">{respuesta191}</TableCell>
+                  <TableCell  align="right">{respuesta192}</TableCell>              
+                  <TableCell  align="right">{respuesta193}</TableCell>              
+                  <TableCell  align="right">{respuesta194}</TableCell>
+                  <TableCell  align="right">{respuesta195}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 40
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta196}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta197}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta198}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta199}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta200}</TableCell>
+                  <TableCell  align="right">{respuesta196}</TableCell>
+                  <TableCell  align="right">{respuesta197}</TableCell>              
+                  <TableCell  align="right">{respuesta198}</TableCell>              
+                  <TableCell  align="right">{respuesta199}</TableCell>
+                  <TableCell  align="right">{respuesta200}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 41
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta201}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta202}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta203}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta204}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta205}</TableCell>
+                  <TableCell  align="right">{respuesta201}</TableCell>
+                  <TableCell  align="right">{respuesta202}</TableCell>              
+                  <TableCell  align="right">{respuesta203}</TableCell>              
+                  <TableCell  align="right">{respuesta204}</TableCell>
+                  <TableCell  align="right">{respuesta205}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 42
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta206}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta207}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta208}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta209}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta210}</TableCell>
+                  <TableCell  align="right">{respuesta206}</TableCell>
+                  <TableCell  align="right">{respuesta207}</TableCell>              
+                  <TableCell  align="right">{respuesta208}</TableCell>              
+                  <TableCell  align="right">{respuesta209}</TableCell>
+                  <TableCell  align="right">{respuesta210}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 43
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta211}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta212}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta213}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta214}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta215}</TableCell>
+                  <TableCell  align="right">{respuesta211}</TableCell>
+                  <TableCell  align="right">{respuesta212}</TableCell>              
+                  <TableCell align="right">{respuesta213}</TableCell>              
+                  <TableCell  align="right">{respuesta214}</TableCell>
+                  <TableCell  align="right">{respuesta215}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 44
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta216}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta217}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta218}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta219}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta220}</TableCell>
+                  <TableCell  align="right">{respuesta216}</TableCell>
+                  <TableCell  align="right">{respuesta217}</TableCell>              
+                  <TableCell  align="right">{respuesta218}</TableCell>              
+                  <TableCell  align="right">{respuesta219}</TableCell>
+                  <TableCell  align="right">{respuesta220}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 45
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta221}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta222}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta223}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta224}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta225}</TableCell>
+                  <TableCell  align="right">{respuesta221}</TableCell>
+                  <TableCell  align="right">{respuesta222}</TableCell>              
+                  <TableCell  align="right">{respuesta223}</TableCell>              
+                  <TableCell  align="right">{respuesta224}</TableCell>
+                  <TableCell  align="right">{respuesta225}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 46
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta226}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta227}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta228}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta229}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta230}</TableCell>
+                  <TableCell  align="right">{respuesta226}</TableCell>
+                  <TableCell  align="right">{respuesta227}</TableCell>              
+                  <TableCell align="right">{respuesta228}</TableCell>              
+                  <TableCell  align="right">{respuesta229}</TableCell>
+                  <TableCell  align="right">{respuesta230}</TableCell>
                 </TableRow>
 
 
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 47
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta231}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta232}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta233}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta234}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta235}</TableCell>
+                  <TableCell  align="right">{respuesta231}</TableCell>
+                  <TableCell  align="right">{respuesta232}</TableCell>              
+                  <TableCell  align="right">{respuesta233}</TableCell>              
+                  <TableCell  align="right">{respuesta234}</TableCell>
+                  <TableCell  align="right">{respuesta235}</TableCell>
                 </TableRow>
                 
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 48
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta236}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta237}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta238}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta239}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta240}</TableCell>
+                  <TableCell  align="right">{respuesta236}</TableCell>
+                  <TableCell  align="right">{respuesta237}</TableCell>              
+                  <TableCell  align="right">{respuesta238}</TableCell>              
+                  <TableCell  align="right">{respuesta239}</TableCell>
+                  <TableCell  align="right">{respuesta240}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                  49
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta241}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta242}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta243}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta244}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta245}</TableCell>
+                  <TableCell  align="right">{respuesta241}</TableCell>
+                  <TableCell  align="right">{respuesta242}</TableCell>              
+                  <TableCell  align="right">{respuesta243}</TableCell>              
+                  <TableCell  align="right">{respuesta244}</TableCell>
+                  <TableCell  align="right">{respuesta245}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                  50
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta246}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta247}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta248}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta249}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta250}</TableCell>
+                  <TableCell  align="right">{respuesta246}</TableCell>
+                  <TableCell  align="right">{respuesta247}</TableCell>              
+                  <TableCell  align="right">{respuesta248}</TableCell>              
+                  <TableCell  align="right">{respuesta249}</TableCell>
+                  <TableCell  align="right">{respuesta250}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 51
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta251}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta252}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta253}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta254}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta255}</TableCell>
+                  <TableCell  align="right">{respuesta251}</TableCell>
+                  <TableCell  align="right">{respuesta252}</TableCell>              
+                  <TableCell  align="right">{respuesta253}</TableCell>              
+                  <TableCell  align="right">{respuesta254}</TableCell>
+                  <TableCell  align="right">{respuesta255}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                52
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta256}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta257}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta258}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta259}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta260}</TableCell>
+                  <TableCell align="right">{respuesta256}</TableCell>
+                  <TableCell  align="right">{respuesta257}</TableCell>              
+                  <TableCell  align="right">{respuesta258}</TableCell>              
+                  <TableCell  align="right">{respuesta259}</TableCell>
+                  <TableCell  align="right">{respuesta260}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 53
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta261}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta262}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta263}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta264}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta265}</TableCell>
+                  <TableCell align="right">{respuesta261}</TableCell>
+                  <TableCell  align="right">{respuesta262}</TableCell>              
+                  <TableCell align="right">{respuesta263}</TableCell>              
+                  <TableCell  align="right">{respuesta264}</TableCell>
+                  <TableCell  align="right">{respuesta265}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 54
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta266}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta267}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta268}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta269}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta270}</TableCell>
+                  <TableCell  align="right">{respuesta266}</TableCell>
+                  <TableCell  align="right">{respuesta267}</TableCell>              
+                  <TableCell  align="right">{respuesta268}</TableCell>              
+                  <TableCell  align="right">{respuesta269}</TableCell>
+                  <TableCell  align="right">{respuesta270}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 55
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta271}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta272}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta273}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta274}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta275}</TableCell>
+                  <TableCell  align="right">{respuesta271}</TableCell>
+                  <TableCell  align="right">{respuesta272}</TableCell>              
+                  <TableCell  align="right">{respuesta273}</TableCell>              
+                  <TableCell  align="right">{respuesta274}</TableCell>
+                  <TableCell  align="right">{respuesta275}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 56
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta276}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta277}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta278}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta279}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta280}</TableCell>
+                  <TableCell  align="right">{respuesta276}</TableCell>
+                  <TableCell  align="right">{respuesta277}</TableCell>              
+                  <TableCell  align="right">{respuesta278}</TableCell>              
+                  <TableCell  align="right">{respuesta279}</TableCell>
+                  <TableCell  align="right">{respuesta280}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 57
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta281}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta282}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta283}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta284}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta285}</TableCell>
+                  <TableCell  align="right">{respuesta281}</TableCell>
+                  <TableCell align="right">{respuesta282}</TableCell>              
+                  <TableCell  align="right">{respuesta283}</TableCell>              
+                  <TableCell  align="right">{respuesta284}</TableCell>
+                  <TableCell  align="right">{respuesta285}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 58
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta286}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta287}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta288}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta289}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta290}</TableCell>
+                  <TableCell  align="right">{respuesta286}</TableCell>
+                  <TableCell  align="right">{respuesta287}</TableCell>              
+                  <TableCell  align="right">{respuesta288}</TableCell>              
+                  <TableCell  align="right">{respuesta289}</TableCell>
+                  <TableCell  align="right">{respuesta290}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 59
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta291}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta292}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta293}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta294}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta295}</TableCell>
+                  <TableCell  align="right">{respuesta291}</TableCell>
+                  <TableCell  align="right">{respuesta292}</TableCell>              
+                  <TableCell  align="right">{respuesta293}</TableCell>              
+                  <TableCell  align="right">{respuesta294}</TableCell>
+                  <TableCell  align="right">{respuesta295}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 60
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta296}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta297}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta298}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta299}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta300}</TableCell>
+                  <TableCell  align="right">{respuesta296}</TableCell>
+                  <TableCell  align="right">{respuesta297}</TableCell>              
+                  <TableCell  align="right">{respuesta298}</TableCell>              
+                  <TableCell  align="right">{respuesta299}</TableCell>
+                  <TableCell align="right">{respuesta300}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 61
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta301}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta302}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta303}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta304}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta305}</TableCell>
+                  <TableCell  align="right">{respuesta301}</TableCell>
+                  <TableCell  align="right">{respuesta302}</TableCell>              
+                  <TableCell  align="right">{respuesta303}</TableCell>              
+                  <TableCell align="right">{respuesta304}</TableCell>
+                  <TableCell  align="right">{respuesta305}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 62
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta306}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta307}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta308}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta309}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta310}</TableCell>
+                  <TableCell align="right">{respuesta306}</TableCell>
+                  <TableCell  align="right">{respuesta307}</TableCell>              
+                  <TableCell  align="right">{respuesta308}</TableCell>              
+                  <TableCell  align="right">{respuesta309}</TableCell>
+                  <TableCell  align="right">{respuesta310}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 63
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta311}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta312}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta313}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta314}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta315}</TableCell>
+                  <TableCell  align="right">{respuesta311}</TableCell>
+                  <TableCell  align="right">{respuesta312}</TableCell>              
+                  <TableCell  align="right">{respuesta313}</TableCell>              
+                  <TableCell  align="right">{respuesta314}</TableCell>
+                  <TableCell  align="right">{respuesta315}</TableCell>
                 </TableRow>
 
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 64
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta316}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta317}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta318}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta319}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta320}</TableCell>
+                  <TableCell  align="right">{respuesta316}</TableCell>
+                  <TableCell align="right">{respuesta317}</TableCell>              
+                  <TableCell  align="right">{respuesta318}</TableCell>              
+                  <TableCell  align="right">{respuesta319}</TableCell>
+                  <TableCell  align="right">{respuesta320}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 65
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta321}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta322}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta323}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta324}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta325}</TableCell>
+                  <TableCell  align="right">{respuesta321}</TableCell>
+                  <TableCell  align="right">{respuesta322}</TableCell>              
+                  <TableCell  align="right">{respuesta323}</TableCell>              
+                  <TableCell  align="right">{respuesta324}</TableCell>
+                  <TableCell  align="right">{respuesta325}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 66
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta326}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta327}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta328}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta329}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta330}</TableCell>
+                  <TableCell  align="right">{respuesta326}</TableCell>
+                  <TableCell  align="right">{respuesta327}</TableCell>              
+                  <TableCell  align="right">{respuesta328}</TableCell>              
+                  <TableCell align="right">{respuesta329}</TableCell>
+                  <TableCell  align="right">{respuesta330}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 67
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta331}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta332}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta333}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta334}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta335}</TableCell>
+                  <TableCell  align="right">{respuesta331}</TableCell>
+                  <TableCell  align="right">{respuesta332}</TableCell>              
+                  <TableCell  align="right">{respuesta333}</TableCell>              
+                  <TableCell  align="right">{respuesta334}</TableCell>
+                  <TableCell align="right">{respuesta335}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 68
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta336}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta337}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta338}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta339}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta340}</TableCell>
+                  <TableCell  align="right">{respuesta336}</TableCell>
+                  <TableCell  align="right">{respuesta337}</TableCell>              
+                  <TableCell  align="right">{respuesta338}</TableCell>              
+                  <TableCell  align="right">{respuesta339}</TableCell>
+                  <TableCell  align="right">{respuesta340}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 69
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta341}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta342}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta343}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta344}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta345}</TableCell>
+                  <TableCell  align="right">{respuesta341}</TableCell>
+                  <TableCell  align="right">{respuesta342}</TableCell>              
+                  <TableCell  align="right">{respuesta343}</TableCell>              
+                  <TableCell  align="right">{respuesta344}</TableCell>
+                  <TableCell  align="right">{respuesta345}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 70
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta346}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta347}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta348}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta349}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta350}</TableCell>
+                  <TableCell  align="right">{respuesta346}</TableCell>
+                  <TableCell  align="right">{respuesta347}</TableCell>              
+                  <TableCell  align="right">{respuesta348}</TableCell>              
+                  <TableCell  align="right">{respuesta349}</TableCell>
+                  <TableCell align="right">{respuesta350}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 71
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta351}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta352}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta353}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta354}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta355}</TableCell>
+                  <TableCell  align="right">{respuesta351}</TableCell>
+                  <TableCell  align="right">{respuesta352}</TableCell>              
+                  <TableCell  align="right">{respuesta353}</TableCell>              
+                  <TableCell  align="right">{respuesta354}</TableCell>
+                  <TableCell  align="right">{respuesta355}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell component="th" scope="row">
+                  <TableCell style={{backgroundColor: "#E6E7E8"}} component="th" scope="row">
                 72
                   </TableCell>
-                  <TableCell style={{backgroundColor: "#51EAFF"}} align="right">{respuesta356}</TableCell>
-                  <TableCell style={{backgroundColor: "#76FEC5"}} align="right">{respuesta357}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F4EDB2"}} align="right">{respuesta358}</TableCell>              
-                  <TableCell style={{backgroundColor: "#F5E027"}} align="right">{respuesta359}</TableCell>
-                  <TableCell style={{backgroundColor: "#FF756B"}} align="right">{respuesta360}</TableCell>
+                  <TableCell  align="right">{respuesta356}</TableCell>
+                  <TableCell  align="right">{respuesta357}</TableCell>              
+                  <TableCell  align="right">{respuesta358}</TableCell>              
+                  <TableCell  align="right">{respuesta359}</TableCell>
+                  <TableCell  align="right">{respuesta360}</TableCell>
                 </TableRow>
               
     
@@ -3667,7 +3762,7 @@ if(DominioDiez < 4){
                   <TableCell component="th" scope="row">
                 Puntuación total
                   </TableCell>
-                 {celda},{total}
+                 {celda}{total}
                 </TableRow>
             </TableBody>
           </Table>
@@ -3679,7 +3774,7 @@ if(DominioDiez < 4){
           <Table  size="small" aria-label="a dense table" >
             <TableHead>
               <TableRow>
-                <TableCell ></TableCell>
+                <TableCell width="50%" ></TableCell>
                 <TableCell align="right" style={{backgroundColor: "#51EAFF"}}>Nulo</TableCell>
                 <TableCell align="right" style={{backgroundColor: "#76FEC5"}}>Bajo&nbsp;</TableCell>
                 <TableCell align="right" style={{backgroundColor: "#F4EDB2"}}>Medio&nbsp;</TableCell>
@@ -3847,7 +3942,7 @@ if(DominioDiez < 4){
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >2.- Condiciones deficientes e insalubres</TableCell> 
+            <TableCell component="th" scope="row" width="50%" >2.- Condiciones deficientes e insalubres</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
             <TableCell component="th" scope="row" > <MDBBadge  color="primary">{entero2+entero4}</MDBBadge ></TableCell>
@@ -3864,7 +3959,7 @@ if(DominioDiez < 4){
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >4.- Cargas cuantitativas</TableCell> 
+            <TableCell component="th" scope="row" width="50%">4.- Cargas cuantitativas</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
             <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero6+entero12)}</MDBBadge ></TableCell>
@@ -3912,7 +4007,7 @@ if(DominioDiez < 4){
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >10.- Falta de control y autonomía sobre el trabajo</TableCell> 
+            <TableCell component="th" scope="row" width="50%" >10.- Falta de control y autonomía sobre el trabajo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
             <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero25+entero26+entero27+entero28)}</MDBBadge ></TableCell>
@@ -4049,7 +4144,7 @@ if(DominioDiez < 4){
           </TableBody>
           </Table>        
           </TableContainer>
-      
+          </PDFExport>
     </React.Fragment>
 
  }

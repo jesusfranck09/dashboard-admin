@@ -44,9 +44,9 @@ class Home extends React.Component {
   evaluar= (values) => {
 
     if( (values.pregunta69 == "Siempre" || values.pregunta69=="CasiSiempre"|| values.pregunta69=="AlgunasVeces"|| values.pregunta69=="CasiNunca"|| values.pregunta69=="Nunca") 
-    && (values.pregunta70 == "Siempre" || values.pregunta70=="CasiSiempre"|| values.pregunta70=="AlgunasVeces"|| values.pregunta70=="CasiNunca"|| values.pregunta70=="Nunca") 
-    && (values.pregunta71 == "Siempre" || values.pregunta71=="CasiSiempre"|| values.pregunta71=="AlgunasVeces"|| values.pregunta71=="CasiNunca"|| values.pregunta71=="Nunca")
-    && (values.pregunta72 == "Siempre" || values.pregunta72=="CasiSiempre"|| values.pregunta72=="AlgunasVeces"|| values.pregunta72=="CasiNunca"|| values.pregunta72=="Nunca")
+    || (values.pregunta70 == "Siempre" || values.pregunta70=="CasiSiempre"|| values.pregunta70=="AlgunasVeces"|| values.pregunta70=="CasiNunca"|| values.pregunta70=="Nunca") 
+    || (values.pregunta71 == "Siempre" || values.pregunta71=="CasiSiempre"|| values.pregunta71=="AlgunasVeces"|| values.pregunta71=="CasiNunca"|| values.pregunta71=="Nunca")
+    || (values.pregunta72 == "Siempre" || values.pregunta72=="CasiSiempre"|| values.pregunta72=="AlgunasVeces"|| values.pregunta72=="CasiNunca"|| values.pregunta72=="Nunca")
 
     ){
 

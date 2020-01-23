@@ -32,10 +32,10 @@ class Home extends React.Component {
   }
   evaluar= (values) => {
     if( (values.pregunta23 == "Siempre" || values.pregunta23=="CasiSiempre"|| values.pregunta23=="AlgunasVeces"|| values.pregunta23=="CasiNunca"|| values.pregunta23=="Nunca") 
-    && (values.pregunta24 == "Siempre" || values.pregunta24=="CasiSiempre"|| values.pregunta24=="AlgunasVeces"|| values.pregunta24=="CasiNunca"|| values.pregunta24=="Nunca") 
-    && (values.pregunta25 == "Siempre" || values.pregunta25=="CasiSiempre"|| values.pregunta25=="AlgunasVeces"|| values.pregunta25=="CasiNunca"|| values.pregunta25=="Nunca")
-    && (values.pregunta26 == "Siempre" || values.pregunta26=="CasiSiempre"|| values.pregunta26=="AlgunasVeces"|| values.pregunta26=="CasiNunca"|| values.pregunta26=="Nunca")
-    && (values.pregunta27 == "Siempre" || values.pregunta27=="CasiSiempre"|| values.pregunta27=="AlgunasVeces"|| values.pregunta27=="CasiNunca"|| values.pregunta27=="Nunca")
+    || (values.pregunta24 == "Siempre" || values.pregunta24=="CasiSiempre"|| values.pregunta24=="AlgunasVeces"|| values.pregunta24=="CasiNunca"|| values.pregunta24=="Nunca") 
+    || (values.pregunta25 == "Siempre" || values.pregunta25=="CasiSiempre"|| values.pregunta25=="AlgunasVeces"|| values.pregunta25=="CasiNunca"|| values.pregunta25=="Nunca")
+    || (values.pregunta26 == "Siempre" || values.pregunta26=="CasiSiempre"|| values.pregunta26=="AlgunasVeces"|| values.pregunta26=="CasiNunca"|| values.pregunta26=="Nunca")
+    || (values.pregunta27 == "Siempre" || values.pregunta27=="CasiSiempre"|| values.pregunta27=="AlgunasVeces"|| values.pregunta27=="CasiNunca"|| values.pregunta27=="Nunca")
     ) {
 
       const correo = localStorage.getItem('correoRP')

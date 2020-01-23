@@ -22,6 +22,7 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SettingsIcon from '@material-ui/icons/Settings';
+import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 
 const drawerWidth = 240;
 
@@ -194,6 +195,17 @@ export default function MiniDrawer() {
         </List>    
         </Link>
 
+        <Link to="/resultGral" style={{ textDecoration: 'none' }}>
+        <List >
+          {['Res. Globales'].map((text) => (
+            <ListItem button key={text} >
+              <ListItemIcon> <TrendingUpRoundedIcon /> </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>    
+        </Link>
+
         
 
         <Divider />
@@ -202,21 +214,12 @@ export default function MiniDrawer() {
         <List >
           {['Gestionar mi Empresa'].map((text) => (
             <ListItem button key={text} >
-              <ListItemIcon> <SettingsIcon /> </ListItemIcon>
+              <ListItemIcon> <SettingsIcon  /> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>    
         </Link>
-        {/* <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List> */}
-        
       </Drawer>
       <IconButton
             color="inherit"

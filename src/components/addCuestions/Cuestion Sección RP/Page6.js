@@ -40,22 +40,23 @@ class Home extends React.Component {
 
 
   evaluar= (values) => {
-
+    console.log("vslues" , values)
     if( (values.pregunta28 == "Siempre" || values.pregunta28=="CasiSiempre"|| values.pregunta28=="AlgunasVeces"|| values.pregunt28=="CasiNunca"|| values.pregunta28=="Nunca") 
-    && (values.pregunta29 == "Siempre" || values.pregunta29=="CasiSiempre"|| values.pregunta29=="AlgunasVeces"|| values.pregunta29=="CasiNunca"|| values.pregunta29=="Nunca") 
-    && (values.pregunta30 == "Siempre" || values.pregunta30=="CasiSiempre"|| values.pregunta30=="AlgunasVeces"|| values.pregunta30=="CasiNunca"|| values.pregunta30=="Nunca")
-    && (values.pregunta31 == "Siempre" || values.pregunta31=="CasiSiempre"|| values.pregunta31=="AlgunasVeces"|| values.pregunta31=="CasiNunca"|| values.pregunta31=="Nunca")
-    && (values.pregunta32 == "Siempre" || values.pregunta32=="CasiSiempre"|| values.pregunta32=="AlgunasVeces"|| values.pregunta32=="CasiNunca"|| values.pregunta32=="Nunca")
-    && (values.pregunta33 == "Siempre" || values.pregunta33=="CasiSiempre"|| values.pregunta33=="AlgunasVeces"|| values.pregunta33=="CasiNunca"|| values.pregunta33=="Nunca")
-    && (values.pregunta34 == "Siempre" || values.pregunta34=="CasiSiempre"|| values.pregunta34=="AlgunasVeces"|| values.pregunta34=="CasiNunca"|| values.pregunta34=="Nunca")
-    && (values.pregunta35 == "Siempre" || values.pregunta35=="CasiSiempre"|| values.pregunta35=="AlgunasVeces"|| values.pregunta35=="CasiNunca"|| values.pregunta35=="Nunca")
-    && (values.pregunta36 == "Siempre" || values.pregunta36=="CasiSiempre"|| values.pregunta36=="AlgunasVeces"|| values.pregunta36=="CasiNunca"|| values.pregunta36=="Nunca")
-    && (values.pregunta37 == "Siempre" || values.pregunta37=="CasiSiempre"|| values.pregunta37=="AlgunasVeces"|| values.pregunta37=="CasiNunca"|| values.pregunta37=="Nunca")
-    && (values.pregunta38 == "Siempre" || values.pregunta38=="CasiSiempre"|| values.pregunta38=="AlgunasVeces"|| values.pregunta38=="CasiNunca"|| values.pregunta38=="Nunca")
-    && (values.pregunta39 == "Siempre" || values.pregunta39=="CasiSiempre"|| values.pregunta39=="AlgunasVeces"|| values.pregunta39=="CasiNunca"|| values.pregunta39=="Nunca")
-    && (values.pregunta40 == "Siempre" || values.pregunta40=="CasiSiempre"|| values.pregunta40=="AlgunasVeces"|| values.pregunta40=="CasiNunca"|| values.pregunta40=="Nunca")
+    || (values.pregunta29 == "Siempre" || values.pregunta29=="CasiSiempre"|| values.pregunta29=="AlgunasVeces"|| values.pregunta29=="CasiNunca"|| values.pregunta29=="Nunca") 
+    || (values.pregunta30 == "Siempre" || values.pregunta30=="CasiSiempre"|| values.pregunta30=="AlgunasVeces"|| values.pregunta30=="CasiNunca"|| values.pregunta30=="Nunca")
+    || (values.pregunta31 == "Siempre" || values.pregunta31=="CasiSiempre"|| values.pregunta31=="AlgunasVeces"|| values.pregunta31=="CasiNunca"|| values.pregunta31=="Nunca")
+    || (values.pregunta32 == "Siempre" || values.pregunta32=="CasiSiempre"|| values.pregunta32=="AlgunasVeces"|| values.pregunta32=="CasiNunca"|| values.pregunta32=="Nunca")
+    || (values.pregunta33 == "Siempre" || values.pregunta33=="CasiSiempre"|| values.pregunta33=="AlgunasVeces"|| values.pregunta33=="CasiNunca"|| values.pregunta33=="Nunca")
+    || (values.pregunta34 == "Siempre" || values.pregunta34=="CasiSiempre"|| values.pregunta34=="AlgunasVeces"|| values.pregunta34=="CasiNunca"|| values.pregunta34=="Nunca")
+    || (values.pregunta35 == "Siempre" || values.pregunta35=="CasiSiempre"|| values.pregunta35=="AlgunasVeces"|| values.pregunta35=="CasiNunca"|| values.pregunta35=="Nunca")
+    || (values.pregunta36 == "Siempre" || values.pregunta36=="CasiSiempre"|| values.pregunta36=="AlgunasVeces"|| values.pregunta36=="CasiNunca"|| values.pregunta36=="Nunca")
+    || (values.pregunta37 == "Siempre" || values.pregunta37=="CasiSiempre"|| values.pregunta37=="AlgunasVeces"|| values.pregunta37=="CasiNunca"|| values.pregunta37=="Nunca")
+    || (values.pregunta38 == "Siempre" || values.pregunta38=="CasiSiempre"|| values.pregunta38=="AlgunasVeces"|| values.pregunta38=="CasiNunca"|| values.pregunta38=="Nunca")
+    || (values.pregunta39 == "Siempre" || values.pregunta39=="CasiSiempre"|| values.pregunta39=="AlgunasVeces"|| values.pregunta39=="CasiNunca"|| values.pregunta39=="Nunca")
+    || (values.pregunta40 == "Siempre" || values.pregunta40=="CasiSiempre"|| values.pregunta40=="AlgunasVeces"|| values.pregunta40=="CasiNunca"|| values.pregunta40=="Nunca")
 
     ){
+      console.log("vslues" , values)
 
       const correo = localStorage.getItem('correoRP')
 
@@ -74,10 +75,11 @@ class Home extends React.Component {
         }
             }).then((datos) => {
               console.log("los datos son ",datos)
+              this.props.history.push("./RPValidate7")
             }); 
 
 
-        this.props.history.push("./RPValidate7")
+       
       }
 
   }

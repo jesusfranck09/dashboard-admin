@@ -50,6 +50,8 @@ class Home extends React.Component {
       modal15:false,
       modal14:false,
       modal10:false,
+      modal11:false,
+      modal12:false,
       totalEmpleados:'',
       empleadosRP:[],
       empleadosRPFalse:[],
@@ -636,7 +638,7 @@ toggle = (nr) => () => {
 
    if(this.state.modal11){
   
-    if(this.state.empleadosRPFalse[0]){
+    if(this.state.empleadosEEOFalse[0]){
 
       modalEEO  =  <MDBContainer >
       <MDBModal isOpen={this.state.modal11} toggle={this.toggle(11)} size="lg">
@@ -679,7 +681,7 @@ toggle = (nr) => () => {
 
    if(this.state.modal12){
   
-    if(this.state.empleadosRPFalse[0]){
+    if(this.state.empleadosEEOFalse[0]){
 
       modalEEOFalse  =  <MDBContainer >
       <MDBModal isOpen={this.state.modal12} toggle={this.toggle(12)} size="lg">
