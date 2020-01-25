@@ -289,7 +289,7 @@
                   <tr><td width="5%" ></td><td width="9%" >Nombre</td><td width="10%">Apellido P.</td><td width="10%" >Apellido M. </td><td width="13%">Curp</td><td width="10%">Ciudad</td><td width="10%">Sexo</td><td width="8%">RFC</td></tr>
                   </Alert>
                   </table>
-                  <Table>
+                  <Table  >
                   {this.state.datos.map(rows =>{
                   
                           const sendMailATS =  async  (event,valor,idSurvey) =>{
@@ -470,20 +470,19 @@
       
 
                            return (
-                            <TableBody>
-                            <TableRow >
-                            <TableCell >
+                           <TableBody>
+                            <TableRow>
+                            <TableCell width="1%">
                               {rows.id}
                             </TableCell>
-                            <TableCell width="9%">{rows.nombre}</TableCell>
-                            <TableCell width="9%" >{rows.ApellidoP}</TableCell>
-                            <TableCell width="9%" >{rows.ApellidoM}</TableCell>
-                            <TableCell  width="9%">{rows.Curp}</TableCell>
-                            <TableCell  width="9%">{rows.Ciudad}</TableCell>
-                            <TableCell width="9%" >{rows.rfc} </TableCell>
-                            <TableCell width="9%" ><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,rows.id,1)}>ATS</MDBBtn></TableCell>
-                            <TableCell width="9%" ><MDBBtn outline color="primary"  onClick={(e) => sendMailRP(e,rows.id,2)}>RP</MDBBtn></TableCell>
-                            <TableCell  width="9%"><MDBBtn outline color="info" onClick={(e) => sendMailEEO(e,rows.id,3)}>EEO </MDBBtn></TableCell>
+                            <TableCell width="10%">{rows.nombre}</TableCell>
+                            <TableCell width="10%" >{rows.ApellidoP}</TableCell>
+                            <TableCell width="10%" >{rows.ApellidoM}</TableCell>
+                            <TableCell  width="10%">{rows.Curp}</TableCell>
+                            <TableCell width="10%" >{rows.rfc} </TableCell>
+                            <TableCell width="10%" ><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,rows.id,1)}>ATS</MDBBtn></TableCell>
+                            <TableCell width="10%" ><MDBBtn outline color="primary"  onClick={(e) => sendMailRP(e,rows.id,2)}>RP</MDBBtn></TableCell>
+                            <TableCell  width="10%"><MDBBtn outline color="info" onClick={(e) => sendMailEEO(e,rows.id,3)}>EEO </MDBBtn></TableCell>
                           </TableRow>     
                           </TableBody>                 
                         )       

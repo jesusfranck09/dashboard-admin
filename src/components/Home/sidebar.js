@@ -197,7 +197,7 @@ export default function MiniDrawer() {
 
         <Link to="/resultGral" style={{ textDecoration: 'none' }}>
         <List >
-          {['Res. Globales'].map((text) => (
+          {['Res. Globales RP'].map((text) => (
             <ListItem button key={text} >
               <ListItemIcon> <TrendingUpRoundedIcon /> </ListItemIcon>
               <ListItemText primary={text} />

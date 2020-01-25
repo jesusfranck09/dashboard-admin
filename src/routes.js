@@ -69,7 +69,7 @@ import Apartments from './components/adminGeneral/Apartments';
 
 import Res from './components/resultsCuestions/resultados';
 
-import ResGral from './components/Res generales/ResultadosGenerales';
+import ResGral from './components/Res generales/index';
 
 // import Prueba from './components/adminGeneral/prueba';
 
@@ -150,7 +150,8 @@ class Routes extends Component{
                   <PrivateRoute exact path='/puestos' component={Puestos}/>
                 
                   <PrivateRoute exact path='/resultGral' component={ResGral}/>
-                  
+         
+
 
                   {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}
     
