@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import { Bar } from "react-chartjs-2";
 
-import Result from './resultsRP'
+
 class Home extends React.Component {
   constructor(props) {
     super(props);

@@ -21,7 +21,6 @@ import {
   Grid,
 } from '@material-ui/core';
 
-import Result from './results'
 class Home extends React.Component {
   constructor(props) {
     super(props);

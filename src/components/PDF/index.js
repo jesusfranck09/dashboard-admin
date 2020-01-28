@@ -357,7 +357,6 @@ class App extends Component {
                 <TableCell  >{rows.ApellidoP}</TableCell>
                 <TableCell  >{rows.ApellidoM}</TableCell>
                 <TableCell  >{rows.Curp}</TableCell>
-                <TableCell  >{rows.Ciudad}</TableCell>
                 <TableCell  >{rows.Sexo}</TableCell>
                 <TableCell  >{rows.rfc} </TableCell>
                 <TableCell  ><MDBBtn color ="danger" onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></TableCell>

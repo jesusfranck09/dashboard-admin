@@ -4168,7 +4168,6 @@ if(DominioDiez < 4){
                 <TableCell  >{rows.ApellidoP}</TableCell>
                 <TableCell  >{rows.ApellidoM}</TableCell>
                 <TableCell  >{rows.Curp}</TableCell>
-                <TableCell  >{rows.Ciudad}</TableCell>
                 <TableCell  >{rows.rfc} </TableCell>
                 <TableCell  ><MDBBtn color="danger"  onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></TableCell>
                 <TableCell  ><Button  color="secondary" onClick={(e) => this.getEvaluacion(rows.id)}>Resultados</Button></TableCell>
