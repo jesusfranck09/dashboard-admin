@@ -23,7 +23,7 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SettingsIcon from '@material-ui/icons/Settings';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
-
+import TimelineIcon from '@material-ui/icons/Timeline';
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -205,8 +205,16 @@ export default function MiniDrawer() {
           ))}
         </List>    
         </Link>
-
-        
+        <Link to="/resultGralEEO" style={{ textDecoration: 'none' }}>
+        <List >
+          {['Res. Globales EEO'].map((text) => (
+            <ListItem button key={text} >
+              <ListItemIcon> <TimelineIcon /> </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>    
+        </Link>
 
         <Divider />
 

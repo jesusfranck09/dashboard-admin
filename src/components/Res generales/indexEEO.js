@@ -180,7 +180,7 @@ class App extends React.Component {
       data:{
       query:`
       query{
-        getEmployeesResolvesRP(data:"${id}"){
+        getEmployeesResolvesEEO(data:"${id}"){
           id
           nombre
           ApellidoP
@@ -194,7 +194,7 @@ class App extends React.Component {
       }
           }).then((datos) => {
     
-          this.setState({empleados:datos.data.data.getEmployeesResolvesRP})       
+          this.setState({empleados:datos.data.data.getEmployeesResolvesEEO})       
           console.log("state",this.state.empleados)
           }).catch(err=>{
             console.log("error" ,err.response)
