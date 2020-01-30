@@ -22867,7 +22867,7 @@ pet1ent53=parseInt(valor53); pet1ent54=parseInt(valor54); pet1ent55=parseInt(val
 pet1ent57=parseInt(valor57); pet1ent58=parseInt(valor58); pet1ent59=parseInt(valor59); pet1ent60=parseInt(valor60);
 pet1ent61=parseInt(valor61); pet1ent62=parseInt(valor62); pet1ent63=parseInt(valor63); pet1ent64=parseInt(valor64);
 pet1ent65=parseInt(valor65); pet1ent66=parseInt(valor66); pet1ent67=parseInt(valor67); pet1ent68=parseInt(valor68);
-pet1ent69=parseInt(valor69); pet1ent70=parseInt(valor71); pet1ent72=parseInt(valor72);
+pet1ent69=parseInt(valor69); pet1ent70=parseInt(valor70);pet1ent71=parseInt(valor71); pet1ent72=parseInt(valor72);
 
 totalpet1 = (pet1ent1+pet1ent2+pet1ent3+pet1ent4+pet1ent5+pet1ent6+pet1ent7+pet1ent8+pet1ent9+pet1ent10+pet1ent11+pet1ent12+pet1ent13+pet1ent14+pet1ent15+pet1ent16+pet1ent17+pet1ent18+pet1ent19+pet1ent20+pet1ent21+pet1ent22+pet1ent23+pet1ent24+pet1ent25+pet1ent26+pet1ent27+pet1ent28+pet1ent29+pet1ent30+pet1ent31+pet1ent32+pet1ent33+pet1ent34+pet1ent35+pet1ent36+pet1ent37+pet1ent38+pet1ent39+pet1ent40+pet1ent41+pet1ent42+pet1ent43+pet1ent44+pet1ent45+pet1ent46+pet1ent47+pet1ent48+pet1ent49+pet1ent50+pet1ent51+pet1ent52+pet1ent53+pet1ent54+pet1ent55+pet1ent56+pet1ent57+pet1ent58+pet1ent59+pet1ent60+pet1ent61+pet1ent62+pet1ent63+pet1ent64+pet1ent65+pet1ent66+pet1ent67+pet1ent68+pet1ent69+pet1ent70+pet1ent71+pet1ent72);        
 
@@ -22888,7 +22888,7 @@ pet2ent53=parseInt(pet2val53); pet2ent54=parseInt(pet2val54); pet2ent55=parseInt
 pet2ent57=parseInt(pet2val57); pet2ent58=parseInt(pet2val58); pet2ent59=parseInt(pet2val59); pet2ent60=parseInt(pet2val60);
 pet2ent61=parseInt(pet2val61); pet2ent62=parseInt(pet2val62); pet2ent63=parseInt(pet2val63); pet2ent64=parseInt(pet2val64);
 pet2ent65=parseInt(pet2val65); pet2ent66=parseInt(pet2val66); pet2ent67=parseInt(pet2val67); pet2ent68=parseInt(pet2val68);
-pet2ent69=parseInt(pet2val69); pet2ent70=parseInt(pet2val71); pet2ent72=parseInt(pet2val72);
+pet2ent69=parseInt(pet2val69); pet2ent70=parseInt(pet2val70);pet2ent71=parseInt(pet2val71); pet2ent72=parseInt(pet2val72);
 
 totalpet2 = (pet2ent1+pet2ent2+pet2ent3+pet2ent4+pet2ent5+pet2ent6+pet2ent7+pet2ent8+pet2ent9+pet2ent10+pet2ent11+pet2ent12+pet2ent13+pet2ent14+pet2ent15+pet2ent16+pet2ent17+pet2ent18+pet2ent19+pet2ent20+pet2ent21+pet2ent22+pet2ent23+pet2ent24+pet2ent25+pet2ent26+pet2ent27+pet2ent28+pet2ent29+pet2ent30+pet2ent31+pet2ent32+pet2ent33+pet2ent34+pet2ent35+pet2ent36+pet2ent37+pet2ent38+pet2ent39+pet2ent40+pet2ent41+pet2ent42+pet2ent43+pet2ent44+pet2ent45+pet2ent46+pet2ent47+pet2ent48+pet2ent49+pet2ent50+pet2ent51+pet2ent52+pet2ent53+pet2ent54+pet2ent55+pet2ent56+pet2ent57+pet2ent58+pet2ent59+pet2ent60+pet2ent61+pet2ent62+pet2ent63+pet2ent64+pet2ent65+pet2ent66+pet2ent67+pet2ent68+pet2ent69+pet2ent70+pet2ent71+pet2ent72);  
 
@@ -22909,7 +22909,7 @@ pet3ent53=parseInt(pet3val53); pet3ent54=parseInt(pet3val54); pet3ent55=parseInt
 pet3ent57=parseInt(pet3val57); pet3ent58=parseInt(pet3val58); pet3ent59=parseInt(pet3val59); pet3ent60=parseInt(pet3val60);
 pet3ent61=parseInt(pet3val61); pet3ent62=parseInt(pet3val62); pet3ent63=parseInt(pet3val63); pet3ent64=parseInt(pet3val64);
 pet3ent65=parseInt(pet3val65); pet3ent66=parseInt(pet3val66); pet3ent67=parseInt(pet3val67); pet3ent68=parseInt(pet3val68);
-pet3ent69=parseInt(pet3val69); pet3ent70=parseInt(pet3val71); pet3ent72=parseInt(pet3val72);
+pet3ent69=parseInt(pet3val69); pet3ent70=parseInt(pet3val70);pet3ent71=parseInt(pet3val71); pet3ent72=parseInt(pet3val72);
 
 totalpet3 = (pet3ent1+pet3ent2+pet3ent3+pet3ent4+pet3ent5+pet3ent6+pet3ent7+pet3ent8+pet3ent9+pet3ent10+pet3ent11+pet3ent12+pet3ent13+pet3ent14+pet3ent15+pet3ent16+pet3ent17+pet3ent18+pet3ent19+pet3ent20+pet3ent21+pet3ent22+pet3ent23+pet3ent24+pet3ent25+pet3ent26+pet3ent27+pet3ent28+pet3ent29+pet3ent30+pet3ent31+pet3ent32+pet3ent33+pet3ent34+pet3ent35+pet3ent36+pet3ent37+pet3ent38+pet3ent39+pet3ent40+pet3ent41+pet3ent42+pet3ent43+pet3ent44+pet3ent45+pet3ent46+pet3ent47+pet3ent48+pet3ent49+pet3ent50+pet3ent51+pet3ent52+pet3ent53+pet3ent54+pet3ent55+pet3ent56+pet3ent57+pet3ent58+pet3ent59+pet3ent60+pet3ent61+pet3ent62+pet3ent63+pet3ent64+pet3ent65+pet3ent66+pet3ent67+pet3ent68+pet3ent69+pet3ent70+pet3ent71+pet3ent72);        
 
@@ -22931,7 +22931,7 @@ pet4ent53=parseInt(pet4val53); pet4ent54=parseInt(pet4val54); pet4ent55=parseInt
 pet4ent57=parseInt(pet4val57); pet4ent58=parseInt(pet4val58); pet4ent59=parseInt(pet4val59); pet4ent60=parseInt(pet4val60);
 pet4ent61=parseInt(pet4val61); pet4ent62=parseInt(pet4val62); pet4ent63=parseInt(pet4val63); pet4ent64=parseInt(pet4val64);
 pet4ent65=parseInt(pet4val65); pet4ent66=parseInt(pet4val66); pet4ent67=parseInt(pet4val67); pet4ent68=parseInt(pet4val68);
-pet4ent69=parseInt(pet4val69); pet4ent70=parseInt(pet4val71); pet4ent72=parseInt(pet4val72);
+pet4ent69=parseInt(pet4val69); pet4ent70=parseInt(pet4val70);  pet4ent71=parseInt(pet4val71);pet4ent72=parseInt(pet4val72);
 
 totalpet4 = (pet4ent1+pet4ent2+pet4ent3+pet4ent4+pet4ent5+pet4ent6+pet4ent7+pet4ent8+pet4ent9+pet4ent10+pet4ent11+pet4ent12+pet4ent13+pet4ent14+pet4ent15+pet4ent16+pet4ent17+pet4ent18+pet4ent19+pet4ent20+pet4ent21+pet4ent22+pet4ent23+pet4ent24+pet4ent25+pet4ent26+pet4ent27+pet4ent28+pet4ent29+pet4ent30+pet4ent31+pet4ent32+pet4ent33+pet4ent34+pet4ent35+pet4ent36+pet4ent37+pet4ent38+pet4ent39+pet4ent40+pet4ent41+pet4ent42+pet4ent43+pet4ent44+pet4ent45+pet4ent46+pet4ent47+pet4ent48+pet4ent49+pet4ent50+pet4ent51+pet4ent52+pet4ent53+pet4ent54+pet4ent55+pet4ent56+pet4ent57+pet4ent58+pet4ent59+pet4ent60+pet4ent61+pet4ent62+pet4ent63+pet4ent64+pet4ent65+pet4ent66+pet4ent67+pet4ent68+pet4ent69+pet4ent70+pet4ent71+pet4ent72);        
      
@@ -22952,7 +22952,7 @@ pet5ent53=parseInt(pet5val53); pet5ent54=parseInt(pet5val54); pet5ent55=parseInt
 pet5ent57=parseInt(pet5val57); pet5ent58=parseInt(pet5val58); pet5ent59=parseInt(pet5val59); pet5ent60=parseInt(pet5val60);
 pet5ent61=parseInt(pet5val61); pet5ent62=parseInt(pet5val62); pet5ent63=parseInt(pet5val63); pet5ent64=parseInt(pet5val64);
 pet5ent65=parseInt(pet5val65); pet5ent66=parseInt(pet5val66); pet5ent67=parseInt(pet5val67); pet5ent68=parseInt(pet5val68);
-pet5ent69=parseInt(pet5val69); pet5ent70=parseInt(pet5val71); pet5ent72=parseInt(pet5val72);
+pet5ent69=parseInt(pet5val69); pet5ent70=parseInt(pet5val70);pet5ent71=parseInt(pet5val71); pet5ent72=parseInt(pet5val72);
 
 totalpet5 = (pet5ent1+pet5ent2+pet5ent3+pet5ent4+pet5ent5+pet5ent6+pet5ent7+pet5ent8+pet5ent9+pet5ent10+pet5ent11+pet5ent12+pet5ent13+pet5ent14+pet5ent15+pet5ent16+pet5ent17+pet5ent18+pet5ent19+pet5ent20+pet5ent21+pet5ent22+pet5ent23+pet5ent24+pet5ent25+pet5ent26+pet5ent27+pet5ent28+pet5ent29+pet5ent30+pet5ent31+pet5ent32+pet5ent33+pet5ent34+pet5ent35+pet5ent36+pet5ent37+pet5ent38+pet5ent39+pet5ent40+pet5ent41+pet5ent42+pet5ent43+pet5ent44+pet5ent45+pet5ent46+pet5ent47+pet5ent48+pet5ent49+pet5ent50+pet5ent51+pet5ent52+pet5ent53+pet5ent54+pet5ent55+pet5ent56+pet5ent57+pet5ent58+pet5ent59+pet5ent60+pet5ent61+pet5ent62+pet5ent63+pet5ent64+pet5ent65+pet5ent66+pet5ent67+pet5ent68+pet5ent69+pet5ent70+pet5ent71+pet5ent72);          
      
@@ -22973,7 +22973,7 @@ pet6ent53=parseInt(pet6val53); pet6ent54=parseInt(pet6val54); pet6ent55=parseInt
 pet6ent57=parseInt(pet6val57); pet6ent58=parseInt(pet6val58); pet6ent59=parseInt(pet6val59); pet6ent60=parseInt(pet6val60);
 pet6ent61=parseInt(pet6val61); pet6ent62=parseInt(pet6val62); pet6ent63=parseInt(pet6val63); pet6ent64=parseInt(pet6val64);
 pet6ent65=parseInt(pet6val65); pet6ent66=parseInt(pet6val66); pet6ent67=parseInt(pet6val67); pet6ent68=parseInt(pet6val68);
-pet6ent69=parseInt(pet6val69); pet6ent70=parseInt(pet6val71); pet6ent72=parseInt(pet6val72);
+pet6ent69=parseInt(pet6val69); pet6ent70=parseInt(pet6val70);pet6ent71=parseInt(pet6val71); pet6ent72=parseInt(pet6val72);
 
 totalpet6 = (pet6ent1+pet6ent2+pet6ent3+pet6ent4+pet6ent5+pet6ent6+pet6ent7+pet6ent8+pet6ent9+pet6ent10+pet6ent11+pet6ent12+pet6ent13+pet6ent14+pet6ent15+pet6ent16+pet6ent17+pet6ent18+pet6ent19+pet6ent20+pet6ent21+pet6ent22+pet6ent23+pet6ent24+pet6ent25+pet6ent26+pet6ent27+pet6ent28+pet6ent29+pet6ent30+pet6ent31+pet6ent32+pet6ent33+pet6ent34+pet6ent35+pet6ent36+pet6ent37+pet6ent38+pet6ent39+pet6ent40+pet6ent41+pet6ent42+pet6ent43+pet6ent44+pet6ent45+pet6ent46+pet6ent47+pet6ent48+pet6ent49+pet6ent50+pet6ent51+pet6ent52+pet6ent53+pet6ent54+pet6ent55+pet6ent56+pet6ent57+pet6ent58+pet6ent59+pet6ent60+pet6ent61+pet6ent62+pet6ent63+pet6ent64+pet6ent65+pet6ent66+pet6ent67+pet6ent68+pet6ent69+pet6ent70+pet6ent71+pet6ent72);        
   
@@ -22994,7 +22994,7 @@ pet7ent53=parseInt(pet7val53); pet7ent54=parseInt(pet7val54); pet7ent55=parseInt
 pet7ent57=parseInt(pet7val57); pet7ent58=parseInt(pet7val58); pet7ent59=parseInt(pet7val59); pet7ent60=parseInt(pet7val60);
 pet7ent61=parseInt(pet7val61); pet7ent62=parseInt(pet7val62); pet7ent63=parseInt(pet7val63); pet7ent64=parseInt(pet7val64);
 pet7ent65=parseInt(pet7val65); pet7ent66=parseInt(pet7val66); pet7ent67=parseInt(pet7val67); pet7ent68=parseInt(pet7val68);
-pet7ent69=parseInt(pet7val69); pet7ent70=parseInt(pet7val71); pet7ent72=parseInt(pet7val72);
+pet7ent69=parseInt(pet7val69); pet7ent70=parseInt(pet7val70); pet7ent71=parseInt(pet7val71); pet7ent72=parseInt(pet7val72);
 
 totalpet7 = (pet7ent1+pet7ent2+pet7ent3+pet7ent4+pet7ent5+pet7ent6+pet7ent7+pet7ent8+pet7ent9+pet7ent10+pet7ent11+pet7ent12+pet7ent13+pet7ent14+pet7ent15+pet7ent16+pet7ent17+pet7ent18+pet7ent19+pet7ent20+pet7ent21+pet7ent22+pet7ent23+pet7ent24+pet7ent25+pet7ent26+pet7ent27+pet7ent28+pet7ent29+pet7ent30+pet7ent31+pet7ent32+pet7ent33+pet7ent34+pet7ent35+pet7ent36+pet7ent37+pet7ent38+pet7ent39+pet7ent40+pet7ent41+pet7ent42+pet7ent43+pet7ent44+pet7ent45+pet7ent46+pet7ent47+pet7ent48+pet7ent49+pet7ent50+pet7ent51+pet7ent52+pet7ent53+pet7ent54+pet7ent55+pet7ent56+pet7ent57+pet7ent58+pet7ent59+pet7ent60+pet7ent61+pet7ent62+pet7ent63+pet7ent64+pet7ent65+pet7ent66+pet7ent67+pet7ent68+pet7ent69+pet7ent70+pet7ent71+pet7ent72);        
 
@@ -23016,7 +23016,7 @@ pet8ent53=parseInt(pet8val53); pet8ent54=parseInt(pet8val54); pet8ent55=parseInt
 pet8ent57=parseInt(pet8val57); pet8ent58=parseInt(pet8val58); pet8ent59=parseInt(pet8val59); pet8ent60=parseInt(pet8val60);
 pet8ent61=parseInt(pet8val61); pet8ent62=parseInt(pet8val62); pet8ent63=parseInt(pet8val63); pet8ent64=parseInt(pet8val64);
 pet8ent65=parseInt(pet8val65); pet8ent66=parseInt(pet8val66); pet8ent67=parseInt(pet8val67); pet8ent68=parseInt(pet8val68);
-pet8ent69=parseInt(pet8val69); pet8ent70=parseInt(pet8val71); pet8ent72=parseInt(pet8val72);
+pet8ent69=parseInt(pet8val69); pet8ent70=parseInt(pet8val70); pet8ent71=parseInt(pet8val71); pet8ent72=parseInt(pet8val72);
 
 totalpet8 = (pet8ent1+pet8ent2+pet8ent3+pet8ent4+pet8ent5+pet8ent6+pet8ent7+pet8ent8+pet8ent9+pet8ent10+pet8ent11+pet8ent12+pet8ent13+pet8ent14+pet8ent15+pet8ent16+pet8ent17+pet8ent18+pet8ent19+pet8ent20+pet8ent21+pet8ent22+pet8ent23+pet8ent24+pet8ent25+pet8ent26+pet8ent27+pet8ent28+pet8ent29+pet8ent30+pet8ent31+pet8ent32+pet8ent33+pet8ent34+pet8ent35+pet8ent36+pet8ent37+pet8ent38+pet8ent39+pet8ent40+pet8ent41+pet8ent42+pet8ent43+pet8ent44+pet8ent45+pet8ent46+pet8ent47+pet8ent48+pet8ent49+pet8ent50+pet8ent51+pet8ent52+pet8ent53+pet8ent54+pet8ent55+pet8ent56+pet8ent57+pet8ent58+pet8ent59+pet8ent60+pet8ent61+pet8ent62+pet8ent63+pet8ent64+pet8ent65+pet8ent66+pet8ent67+pet8ent68+pet8ent69+pet8ent70+pet8ent71+pet8ent72);        
 
@@ -23037,7 +23037,7 @@ pet9ent53=parseInt(pet9val53); pet9ent54=parseInt(pet9val54); pet9ent55=parseInt
 pet9ent57=parseInt(pet9val57); pet9ent58=parseInt(pet9val58); pet9ent59=parseInt(pet9val59); pet9ent60=parseInt(pet9val60);
 pet9ent61=parseInt(pet9val61); pet9ent62=parseInt(pet9val62); pet9ent63=parseInt(pet9val63); pet9ent64=parseInt(pet9val64);
 pet9ent65=parseInt(pet9val65); pet9ent66=parseInt(pet9val66); pet9ent67=parseInt(pet9val67); pet9ent68=parseInt(pet9val68);
-pet9ent69=parseInt(pet9val69); pet9ent70=parseInt(pet9val71); pet9ent72=parseInt(pet9val72);
+pet9ent69=parseInt(pet9val69); pet9ent70=parseInt(pet9val70); pet9ent71=parseInt(pet9val71); pet9ent72=parseInt(pet9val72);
 
 totalpet9 = (pet9ent1+pet9ent2+pet9ent3+pet9ent4+pet9ent5+pet9ent6+pet9ent7+pet9ent8+pet9ent9+pet9ent10+pet9ent11+pet9ent12+pet9ent13+pet9ent14+pet9ent15+pet9ent16+pet9ent17+pet9ent18+pet9ent19+pet9ent20+pet9ent21+pet9ent22+pet9ent23+pet9ent24+pet9ent25+pet9ent26+pet9ent27+pet9ent28+pet9ent29+pet9ent30+pet9ent31+pet9ent32+pet9ent33+pet9ent34+pet9ent35+pet9ent36+pet9ent37+pet9ent38+pet9ent39+pet9ent40+pet9ent41+pet9ent42+pet9ent43+pet9ent44+pet9ent45+pet9ent46+pet9ent47+pet9ent48+pet9ent49+pet9ent50+pet9ent51+pet9ent52+pet9ent53+pet9ent54+pet9ent55+pet9ent56+pet9ent57+pet9ent58+pet9ent59+pet9ent60+pet9ent61+pet9ent62+pet9ent63+pet9ent64+pet9ent65+pet9ent66+pet9ent67+pet9ent68+pet9ent69+pet9ent70+pet9ent71+pet9ent72);        
    
@@ -23058,7 +23058,7 @@ pet10ent53=parseInt(pet10val53); pet10ent54=parseInt(pet10val54); pet10ent55=par
 pet10ent57=parseInt(pet10val57); pet10ent58=parseInt(pet10val58); pet10ent59=parseInt(pet10val59); pet10ent60=parseInt(pet10val60);
 pet10ent61=parseInt(pet10val61); pet10ent62=parseInt(pet10val62); pet10ent63=parseInt(pet10val63); pet10ent64=parseInt(pet10val64);
 pet10ent65=parseInt(pet10val65); pet10ent66=parseInt(pet10val66); pet10ent67=parseInt(pet10val67); pet10ent68=parseInt(pet10val68);
-pet10ent69=parseInt(pet10val69); pet10ent70=parseInt(pet10val71); pet10ent72=parseInt(pet10val72);
+pet10ent69=parseInt(pet10val69); pet10ent70=parseInt(pet10val70); pet10ent71=parseInt(pet10val71); pet10ent72=parseInt(pet10val72);
 
 totalpet10 = (pet10ent1+pet10ent2+pet10ent3+pet10ent4+pet10ent5+pet10ent6+pet10ent7+pet10ent8+pet10ent9+pet10ent10+pet10ent11+pet10ent12+pet10ent13+pet10ent14+pet10ent15+pet10ent16+pet10ent17+pet10ent18+pet10ent19+pet10ent20+pet10ent21+pet10ent22+pet10ent23+pet10ent24+pet10ent25+pet10ent26+pet10ent27+pet10ent28+pet10ent29+pet10ent30+pet10ent31+pet10ent32+pet10ent33+pet10ent34+pet10ent35+pet10ent36+pet10ent37+pet10ent38+pet10ent39+pet10ent40+pet10ent41+pet10ent42+pet10ent43+pet10ent44+pet10ent45+pet10ent46+pet10ent47+pet10ent48+pet10ent49+pet10ent50+pet10ent51+pet10ent52+pet10ent53+pet10ent54+pet10ent55+pet10ent56+pet10ent57+pet10ent58+pet10ent59+pet10ent60+pet10ent61+pet10ent62+pet10ent63+pet10ent64+pet10ent65+pet10ent66+pet10ent67+pet10ent68+pet10ent69+pet10ent70+pet10ent71+pet10ent72);        
       
@@ -23079,7 +23079,7 @@ pet11ent53=parseInt(pet11val53); pet11ent54=parseInt(pet11val54); pet11ent55=par
 pet11ent57=parseInt(pet11val57); pet11ent58=parseInt(pet11val58); pet11ent59=parseInt(pet11val59); pet11ent60=parseInt(pet11val60);
 pet11ent61=parseInt(pet11val61); pet11ent62=parseInt(pet11val62); pet11ent63=parseInt(pet11val63); pet11ent64=parseInt(pet11val64);
 pet11ent65=parseInt(pet11val65); pet11ent66=parseInt(pet11val66); pet11ent67=parseInt(pet11val67); pet11ent68=parseInt(pet11val68);
-pet11ent69=parseInt(pet11val69); pet11ent70=parseInt(pet11val71); pet11ent72=parseInt(pet11val72);
+pet11ent69=parseInt(pet11val69); pet11ent70=parseInt(pet11val70); pet11ent71=parseInt(pet11val71); pet11ent72=parseInt(pet11val72);
 
 totalpet11 = (pet11ent1+pet11ent2+pet11ent3+pet11ent4+pet11ent5+pet11ent6+pet11ent7+pet11ent8+pet11ent9+pet11ent10+pet11ent11+pet11ent12+pet11ent13+pet11ent14+pet11ent15+pet11ent16+pet11ent17+pet11ent18+pet11ent19+pet11ent20+pet11ent21+pet11ent22+pet11ent23+pet11ent24+pet11ent25+pet11ent26+pet11ent27+pet11ent28+pet11ent29+pet11ent30+pet11ent31+pet11ent32+pet11ent33+pet11ent34+pet11ent35+pet11ent36+pet11ent37+pet11ent38+pet11ent39+pet11ent40+pet11ent41+pet11ent42+pet11ent43+pet11ent44+pet11ent45+pet11ent46+pet11ent47+pet11ent48+pet11ent49+pet11ent50+pet11ent51+pet11ent52+pet11ent53+pet11ent54+pet11ent55+pet11ent56+pet11ent57+pet11ent58+pet11ent59+pet11ent60+pet11ent61+pet11ent62+pet11ent63+pet11ent64+pet11ent65+pet11ent66+pet11ent67+pet11ent68+pet11ent69+pet11ent70+pet11ent71+pet11ent72);        
 
@@ -23100,7 +23100,7 @@ pet12ent53=parseInt(pet12val53); pet12ent54=parseInt(pet12val54); pet12ent55=par
 pet12ent57=parseInt(pet12val57); pet12ent58=parseInt(pet12val58); pet12ent59=parseInt(pet12val59); pet12ent60=parseInt(pet12val60);
 pet12ent61=parseInt(pet12val61); pet12ent62=parseInt(pet12val62); pet12ent63=parseInt(pet12val63); pet12ent64=parseInt(pet12val64);
 pet12ent65=parseInt(pet12val65); pet12ent66=parseInt(pet12val66); pet12ent67=parseInt(pet12val67); pet12ent68=parseInt(pet12val68);
-pet12ent69=parseInt(pet12val69); pet12ent70=parseInt(pet12val71); pet12ent72=parseInt(pet12val72);
+pet12ent69=parseInt(pet12val69); pet12ent70=parseInt(pet12val70); pet12ent71=parseInt(pet12val71); pet12ent72=parseInt(pet12val72);
 
 totalpet12 = (pet12ent1+pet12ent2+pet12ent3+pet12ent4+pet12ent5+pet12ent6+pet12ent7+pet12ent8+pet12ent9+pet12ent10+pet12ent11+pet12ent12+pet12ent13+pet12ent14+pet12ent15+pet12ent16+pet12ent17+pet12ent18+pet12ent19+pet12ent20+pet12ent21+pet12ent22+pet12ent23+pet12ent24+pet12ent25+pet12ent26+pet12ent27+pet12ent28+pet12ent29+pet12ent30+pet12ent31+pet12ent32+pet12ent33+pet12ent34+pet12ent35+pet12ent36+pet12ent37+pet12ent38+pet12ent39+pet12ent40+pet12ent41+pet12ent42+pet12ent43+pet12ent44+pet12ent45+pet12ent46+pet12ent47+pet12ent48+pet12ent49+pet12ent50+pet12ent51+pet12ent52+pet12ent53+pet12ent54+pet12ent55+pet12ent56+pet12ent57+pet12ent58+pet12ent59+pet12ent60+pet12ent61+pet12ent62+pet12ent63+pet12ent64+pet12ent65+pet12ent66+pet12ent67+pet12ent68+pet12ent69+pet12ent70+pet12ent71+pet12ent72);        
    
@@ -23121,7 +23121,7 @@ pet13ent53=parseInt(pet13val53); pet13ent54=parseInt(pet13val54); pet13ent55=par
 pet13ent57=parseInt(pet13val57); pet13ent58=parseInt(pet13val58); pet13ent59=parseInt(pet13val59); pet13ent60=parseInt(pet13val60);
 pet13ent61=parseInt(pet13val61); pet13ent62=parseInt(pet13val62); pet13ent63=parseInt(pet13val63); pet13ent64=parseInt(pet13val64);
 pet13ent65=parseInt(pet13val65); pet13ent66=parseInt(pet13val66); pet13ent67=parseInt(pet13val67); pet13ent68=parseInt(pet13val68);
-pet13ent69=parseInt(pet13val69); pet13ent70=parseInt(pet13val71); pet13ent72=parseInt(pet13val72);
+pet13ent69=parseInt(pet13val69); pet13ent70=parseInt(pet13val70); pet13ent71=parseInt(pet13val71); pet13ent72=parseInt(pet13val72);
 
 totalpet13 = (pet13ent1+pet13ent2+pet13ent3+pet13ent4+pet13ent5+pet13ent6+pet13ent7+pet13ent8+pet13ent9+pet13ent10+pet13ent11+pet13ent12+pet13ent13+pet13ent14+pet13ent15+pet13ent16+pet13ent17+pet13ent18+pet13ent19+pet13ent20+pet13ent21+pet13ent22+pet13ent23+pet13ent24+pet13ent25+pet13ent26+pet13ent27+pet13ent28+pet13ent29+pet13ent30+pet13ent31+pet13ent32+pet13ent33+pet13ent34+pet13ent35+pet13ent36+pet13ent37+pet13ent38+pet13ent39+pet13ent40+pet13ent41+pet13ent42+pet13ent43+pet13ent44+pet13ent45+pet13ent46+pet13ent47+pet13ent48+pet13ent49+pet13ent50+pet13ent51+pet13ent52+pet13ent53+pet13ent54+pet13ent55+pet13ent56+pet13ent57+pet13ent58+pet13ent59+pet13ent60+pet13ent61+pet13ent62+pet13ent63+pet13ent64+pet13ent65+pet13ent66+pet13ent67+pet13ent68+pet13ent69+pet13ent70+pet13ent71+pet13ent72);        
      
@@ -23142,7 +23142,7 @@ pet14ent53=parseInt(pet14val53); pet14ent54=parseInt(pet14val54); pet14ent55=par
 pet14ent57=parseInt(pet14val57); pet14ent58=parseInt(pet14val58); pet14ent59=parseInt(pet14val59); pet14ent60=parseInt(pet14val60);
 pet14ent61=parseInt(pet14val61); pet14ent62=parseInt(pet14val62); pet14ent63=parseInt(pet14val63); pet14ent64=parseInt(pet14val64);
 pet14ent65=parseInt(pet14val65); pet14ent66=parseInt(pet14val66); pet14ent67=parseInt(pet14val67); pet14ent68=parseInt(pet14val68);
-pet14ent69=parseInt(pet14val69); pet14ent70=parseInt(pet14val71); pet14ent72=parseInt(pet14val72);
+pet14ent69=parseInt(pet14val69); pet14ent70=parseInt(pet14val70); pet14ent71=parseInt(pet14val71); pet14ent72=parseInt(pet14val72);
 
 totalpet14 = (pet14ent1+pet14ent2+pet14ent3+pet14ent4+pet14ent5+pet14ent6+pet14ent7+pet14ent8+pet14ent9+pet14ent10+pet14ent11+pet14ent12+pet14ent13+pet14ent14+pet14ent15+pet14ent16+pet14ent17+pet14ent18+pet14ent19+pet14ent20+pet14ent21+pet14ent22+pet14ent23+pet14ent24+pet14ent25+pet14ent26+pet14ent27+pet14ent28+pet14ent29+pet14ent30+pet14ent31+pet14ent32+pet14ent33+pet14ent34+pet14ent35+pet14ent36+pet14ent37+pet14ent38+pet14ent39+pet14ent40+pet14ent41+pet14ent42+pet14ent43+pet14ent44+pet14ent45+pet14ent46+pet14ent47+pet14ent48+pet14ent49+pet14ent50+pet14ent51+pet14ent52+pet14ent53+pet14ent54+pet14ent55+pet14ent56+pet14ent57+pet14ent58+pet14ent59+pet14ent60+pet14ent61+pet14ent62+pet14ent63+pet14ent64+pet14ent65+pet14ent66+pet14ent67+pet14ent68+pet14ent69+pet14ent70+pet14ent71+pet14ent72);        
    
@@ -23163,7 +23163,7 @@ pet15ent53=parseInt(pet15val53); pet15ent54=parseInt(pet15val54); pet15ent55=par
 pet15ent57=parseInt(pet15val57); pet15ent58=parseInt(pet15val58); pet15ent59=parseInt(pet15val59); pet15ent60=parseInt(pet15val60);
 pet15ent61=parseInt(pet15val61); pet15ent62=parseInt(pet15val62); pet15ent63=parseInt(pet15val63); pet15ent64=parseInt(pet15val64);
 pet15ent65=parseInt(pet15val65); pet15ent66=parseInt(pet15val66); pet15ent67=parseInt(pet15val67); pet15ent68=parseInt(pet15val68);
-pet15ent69=parseInt(pet15val69); pet15ent70=parseInt(pet15val71); pet15ent72=parseInt(pet15val72);
+pet15ent69=parseInt(pet15val69); pet15ent70=parseInt(pet15val70); pet15ent71=parseInt(pet15val71); pet15ent72=parseInt(pet15val72);
 
 totalpet15 = (pet15ent1+pet15ent2+pet15ent3+pet15ent4+pet15ent5+pet15ent6+pet15ent7+pet15ent8+pet15ent9+pet15ent10+pet15ent11+pet15ent12+pet15ent13+pet15ent14+pet15ent15+pet15ent16+pet15ent17+pet15ent18+pet15ent19+pet15ent20+pet15ent21+pet15ent22+pet15ent23+pet15ent24+pet15ent25+pet15ent26+pet15ent27+pet15ent28+pet15ent29+pet15ent30+pet15ent31+pet15ent32+pet15ent33+pet15ent34+pet15ent35+pet15ent36+pet15ent37+pet15ent38+pet15ent39+pet15ent40+pet15ent41+pet15ent42+pet15ent43+pet15ent44+pet15ent45+pet15ent46+pet15ent47+pet15ent48+pet15ent49+pet15ent50+pet15ent51+pet15ent52+pet15ent53+pet15ent54+pet15ent55+pet15ent56+pet15ent57+pet15ent58+pet15ent59+pet15ent60+pet15ent61+pet15ent62+pet15ent63+pet15ent64+pet15ent65+pet15ent66+pet15ent67+pet15ent68+pet15ent69+pet15ent70+pet15ent71+pet15ent72);        
 
@@ -23416,8 +23416,11 @@ let entero44=pet1ent44+pet2ent44+pet3ent44+pet4ent44+pet5ent44+pet6ent44+pet7ent
 let entero45=pet1ent45+pet2ent45+pet3ent45+pet4ent45+pet5ent45+pet6ent45+pet7ent45+pet8ent45+pet9ent45+pet10ent45+pet11ent45+pet12ent45+pet13ent45+pet14ent45+pet15ent45;
 let entero46=pet1ent46+pet2ent46+pet3ent46+pet4ent46+pet5ent46+pet6ent46+pet7ent46+pet8ent46+pet9ent46+pet10ent46+pet11ent46+pet12ent46+pet13ent46+pet14ent46+pet15ent46;
 let entero69=pet1ent69+pet2ent69+pet3ent69+pet4ent69+pet5ent69+pet6ent69+pet7ent69+pet8ent69+pet9ent69+pet10ent69+pet11ent69+pet12ent69+pet13ent69+pet14ent69+pet15ent69;
+
+
 let entero70=pet1ent70+pet2ent70+pet3ent70+pet4ent70+pet5ent70+pet6ent70+pet7ent70+pet8ent70+pet9ent70+pet10ent70+pet11ent70+pet12ent70+pet13ent70+pet14ent70+pet15ent70;
 let entero71=pet1ent71+pet2ent71+pet3ent71+pet4ent71+pet5ent71+pet6ent71+pet7ent71+pet8ent71+pet9ent71+pet10ent71+pet11ent71+pet12ent71+pet13ent71+pet14ent71+pet15ent71;
+console.log("PETS", pet1ent71,pet2ent71,pet3ent71,pet4ent71,pet5ent71,pet6ent71,pet7ent71,pet8ent71,pet9ent71,pet10ent71,pet11ent71,pet12ent71,pet13ent71,pet14ent71,pet15ent71)
 let entero72=pet1ent72+pet2ent72+pet3ent72+pet4ent72+pet5ent72+pet6ent72+pet7ent72+pet8ent72+pet9ent72+pet10ent72+pet11ent72+pet12ent72+pet13ent72+pet14ent72+pet15ent72;
 let entero57=pet1ent57+pet2ent57+pet3ent57+pet4ent57+pet5ent57+pet6ent57+pet7ent57+pet8ent57+pet9ent57+pet10ent57+pet11ent57+pet12ent57+pet13ent57+pet14ent57+pet15ent57;
 let entero58=pet1ent58+pet2ent58+pet3ent58+pet4ent58+pet5ent58+pet6ent58+pet7ent58+pet8ent58+pet9ent58+pet10ent58+pet11ent58+pet12ent58+pet13ent58+pet14ent58+pet15ent58;

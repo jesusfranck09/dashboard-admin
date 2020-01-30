@@ -7,7 +7,8 @@
       import '../Home/index.css'
       import TableCell from '@material-ui/core/TableCell';
       import TableRow from '@material-ui/core/TableCell';
-      
+      import TableContainer from '@material-ui/core/TableContainer';
+      import TableHead from '@material-ui/core/TableHead';
       import {Table } from 'semantic-ui-react'
       // import Paper from '@material-ui/core/Paper';
       import { MDBRow,MDBCol} from 'mdbreact'
@@ -224,75 +225,28 @@
                   <ul>
                   <MDBRow>
                   <MDBCol> 
-                  {/* <Alert  color="light"><Button
-                   onClick = {this.getEmployees}
-                    type="submit"
-                    fullWidth
-                    variant="outlined"
-                    color="secondary"
-                    size="large"
- 
-                  >
-                  <strong>Consultar Empleados</strong> 
-                  </Button> </Alert>  */}
-                  
-                  <Alert  color="light"><Button
-                   
-                    type="submit"
-                    fullWidth
-                    variant="outlined"
-                    color="secondary"
-                    size="large"
- 
-                  >
-                  <strong>Opcion</strong> 
-                  </Button> </Alert>
-
-                  
-                  </MDBCol>
-                  <MDBCol>
-                  <Alert  color="light"><Button
-                   
-                    type="submit"
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                    size="large"
- 
-                  >
-                  <strong>Estadísticas</strong> 
-                  </Button> </Alert>
-
-                  <Alert  color="light"><Button
-                   
-                    type="submit"
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                    size="large"
- 
-                  >
-                  <strong>Reportes</strong> 
-                  </Button> </Alert>
-
-                  {/* <MDBBtn className="boton mt-10 " color="info" onClick = {this.getEmployees}>consulta </MDBBtn> */}
-                  </MDBCol>
+                 </MDBCol>
                   </MDBRow>
                   <Alert style={{marginTop:'55', width:'1075px'}}  color="secondary" isOpen={this.state.datos.length}>
                   <tr><td width="5%" ></td><td width="9%" ></td>Si desea puede enviar su encuesta a los colaboradores </tr>
-                  </Alert>
-                  <Paper >
-                
-                  <table>
-                  
-                  <Alert style={{marginTop:'55', width:'1075px'}}  color="primary" isOpen={this.state.datos.length}>
-                  <tr><td width="5%" ></td><td width="9%" >Nombre</td><td width="10%">Apellido P.</td><td width="10%" >Apellido M. </td><td width="13%">Curp</td><td width="10%">Ciudad</td><td width="10%">Sexo</td><td width="8%">RFC</td></tr>
-                  </Alert>
-                  </table>
+                  </Alert>  
+                  <TableContainer component={Paper}>   
+                <TableCell width="1%">Id</TableCell>
+                    <TableCell width="10%" >Nombre</TableCell>
+                    <TableCell width="13%">Apellido P.</TableCell>
+                    <TableCell width="13%">Apellido M.</TableCell>
+                    <TableCell width="13%"> CURP</TableCell>
+                    <TableCell width="13%">RFC</TableCell>
+                    <TableCell>EncuesATS</TableCell>
+                    <TableCell>EncuestaRP</TableCell>
+                    <TableCell>EncuestaEEO</TableCell>
+                    </TableContainer>
+              
+                 <Paper className="mt-2">
                   <Table  >
                   {this.state.datos.map(rows =>{
                   
-                          const sendMailATS =  async  (event,valor,idSurvey) =>{
+                          const sendMailATS =  async  (event,valor,idSurvey,correo) =>{
                             
                             const url = 'http://localhost:8000/graphql'
                             axios({
@@ -301,7 +255,7 @@
                             data:{
                             query:`
                             query{
-                              verifiEmailSurveyATS(data:"${[valor]}"){
+                              verifiEmailSurveyATS(data:"${[valor,correo]}"){
                                   ATSContestado
                                     }
                                   }
@@ -354,8 +308,7 @@
                          })             
 
                         }    
-                        
-                              ///////////////////////////////////////////////////////////////////////////////////////
+                            ///////////////////////////////////////////////////////////////////////////////////////
                               const sendMailRP =  async  (event,valor,idSurvey) =>{
                             
                                 const url = 'http://localhost:8000/graphql'
@@ -467,11 +420,10 @@
                              console.log(err.response)
                            })          
                           }
-      
-
+console.log("estas son las rows que existen" , rows.correo)
                            return (
                            <TableBody>
-                            <TableRow>
+                          
                             <TableCell width="1%">
                               {rows.id}
                             </TableCell>
@@ -480,10 +432,10 @@
                             <TableCell width="10%" >{rows.ApellidoM}</TableCell>
                             <TableCell  width="10%">{rows.Curp}</TableCell>
                             <TableCell width="10%" >{rows.rfc} </TableCell>
-                            <TableCell width="10%" ><MDBBtn outline color="primary"  onClick={(e) => sendMailATS(e,rows.id,1)}>ATS</MDBBtn></TableCell>
-                            <TableCell width="10%" ><MDBBtn outline color="primary"  onClick={(e) => sendMailRP(e,rows.id,2)}>RP</MDBBtn></TableCell>
-                            <TableCell  width="10%"><MDBBtn outline color="info" onClick={(e) => sendMailEEO(e,rows.id,3)}>EEO </MDBBtn></TableCell>
-                          </TableRow>     
+                            <TableCell width="10%" ><MDBBtn  color="danger"  onClick={(e) => sendMailATS(e,rows.id,1,rows.correo)}>ATS</MDBBtn></TableCell>
+                            <TableCell width="10%" ><MDBBtn  color="danger"  onClick={(e) => sendMailRP(e,rows.id,2)}>RP</MDBBtn></TableCell>
+                            <TableCell  width="10%"><MDBBtn  color="danger" onClick={(e) => sendMailEEO(e,rows.id,3)}>EEO </MDBBtn></TableCell>
+                         
                           </TableBody>                 
                         )       
                   })}

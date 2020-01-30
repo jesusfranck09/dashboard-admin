@@ -85,27 +85,8 @@ class Home extends React.Component {
 
 
   handleClick(){
-
-    
-
-// var val =  JSON.parse(values)
-// console.log(val.rotacion)
-// if(val.rotacion=="si"){
-
-// return(
-// console.log("jlkjl")
-// )
-// }else if(val.rotacion=="no"){ 
-
-  
-// }
- 
-
 console.log("data" ,this.state.data)
-
   }
-
-
   render() {
     // const { children} = this.props;
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }

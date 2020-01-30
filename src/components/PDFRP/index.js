@@ -644,11 +644,11 @@ class App extends Component {
 
 
 let ponderacion 
-let valor1,valor2,valor3,valor4,valor5,valor6,valor7, valor8,valor9,valor10;
-let valor11,valor12,valor13,valor14,valor15,valor16,valor17, valor18,valor19,valor20;
-let valor21,valor22,valor23,valor24,valor25,valor26,valor27, valor28,valor29,valor30;
-let valor31,valor32,valor33,valor34,valor35,valor36,valor37, valor38,valor39,valor40;
-let valor41,valor42,valor43,valor44,valor45,valor46;
+let valor1=0,valor2=0,valor3=0,valor4=0,valor5=0,valor6=0,valor7=0, valor8=0,valor9=0,valor10;
+let valor11=0,valor12=0,valor13=0,valor14=0,valor15=0,valor16=0,valor17=0, valor18=0,valor19=0,valor20;
+let valor21=0,valor22=0,valor23=0,valor24=0,valor25=0,valor26=0,valor27=0, valor28=0,valor29=0,valor30;
+let valor31=0,valor32=0,valor33=0,valor34=0,valor35=0,valor36=0,valor37=0, valor38=0,valor39=0,valor40;
+let valor41=0,valor42=0,valor43=0,valor44=0,valor45=0,valor46=0;
 
 if(this.state.getPonderacion[3] && this.state.resultadosEvaluacion.length > 0 && this.state.resultadosQuery.length>0){
 
@@ -1793,6 +1793,7 @@ let entero45=parseInt(valor45);let entero46=parseInt(valor46)
 
 
 let total = (entero1+entero2+entero3+entero4+entero5+entero6+entero7+entero8+entero9+entero10+entero11+entero12+entero13+entero14+entero15+entero16+entero17+entero18+entero19+entero20+entero21+entero22+entero23+entero24+entero25+entero26+entero27+entero28+entero29+entero30+entero31+entero32+entero33+entero34+entero35+entero36+entero37+entero38+entero39+entero40+entero41+entero42+entero43+entero44+entero45+entero46);
+console.log("total" , entero1,entero2,entero3,entero4,entero5,entero6,entero7,entero8,entero9,entero10,entero11,entero12,entero13,entero14,entero15,entero16,entero17,entero18,entero19,entero20,entero21,entero22,entero23,entero24,entero25,entero26,entero27,entero28,entero29,entero30,entero31,entero32,entero33,entero34,entero35,entero36,entero37,entero38,entero39,entero40,entero41,entero42,entero43,entero44,entero45,entero46)
 let celda;
 if(total<20){
 celda = <TableCell style={{backgroundColor: "#51EAFF"}} align="right">Nulo o Despreciable</TableCell>
@@ -1813,6 +1814,7 @@ let categoria1Medio;
 let categoria1Alto;
 let categoria1MuyAlto;
 let categoriaUno = (entero2+entero1+entero3);
+console.log("categoria1" , categoriaUno)
 if(categoriaUno < 3){
   categoria1Nulo= <MDBBadge color="info">{categoriaUno}</MDBBadge>
 }else if(categoriaUno >= 3 && categoriaUno < 5){
@@ -2546,7 +2548,7 @@ ponderacion =  <React.Fragment>
               <TableCell component="th" scope="row">
             Puntuación total
               </TableCell>
-             {celda}
+             {celda} <strong>{total}</strong> 
             </TableRow>
         </TableBody>
       </Table>

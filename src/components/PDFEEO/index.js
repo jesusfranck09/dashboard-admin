@@ -4139,8 +4139,6 @@ if(DominioDiez < 4){
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
-             
-
           </TableBody>
           </Table>        
           </TableContainer>
@@ -4149,12 +4147,8 @@ if(DominioDiez < 4){
 
  }
 
- 
-
-
     return (
       <React.Fragment>    
-
       <TableContainer component={Paper}>
       <Table bordered>
         <TableBody>
