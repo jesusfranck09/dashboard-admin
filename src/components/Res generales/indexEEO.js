@@ -206,7 +206,7 @@ class App extends React.Component {
             data:{
             query:`
               query{
-              getPonderacion(data:"${[id]}"){
+              getPonderacionEEO(data:"${[id]}"){
                 id
                 siempre
                 casisiempre
@@ -219,7 +219,7 @@ class App extends React.Component {
                 `
             }
                 }).then(datos => { 
-                 this.setState({getPonderacion: datos.data.data.getPonderacion})
+                 this.setState({getPonderacion: datos.data.data.getPonderacionEEO})
                   // console.log("ponderaciones",datos.data.data.getPonderacion)
                 })
                 .catch(err => {
@@ -268,6 +268,8 @@ class App extends React.Component {
     }
       this.setState({filtro:filtro})
       this.setState({datosLength:datos.length})
+
+     console.log("datos enviados",[datos[0].data[0][0]])
       if(datos[0]){
         
         const url = 'http://localhost:8000/graphql'
@@ -277,11 +279,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[0].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[0].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados 
               nombre 
               ApellidoP 
               ApellidoM 
@@ -310,8 +312,8 @@ class App extends React.Component {
           }
               }).then(datos => {    
                
-                console.log("datos[0] " , datos.data.data.getresultGlobalSurveyRP)
-                 this.setState({peticion1:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[0] " , datos.data.data.getresultGlobalSurveyEEO)
+                 this.setState({peticion1:datos.data.data.getresultGlobalSurveyEEO})
               })
               .catch(err => {
                 console.log("el error es  ",err)
@@ -324,11 +326,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[1].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[1].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados
               nombre 
               ApellidoP 
               ApellidoM 
@@ -356,8 +358,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[1]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion2:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[1]" , datos.data.data.getresultGlobalSurveyEEO)
+                 this.setState({peticion2:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -371,11 +373,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[2].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[2].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados
               nombre 
               ApellidoP 
               ApellidoM 
@@ -403,12 +405,12 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                 console.log("datos[2]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion3:datos.data.data.getresultGlobalSurveyRP})
+                 console.log("datos[2]" , datos.data.data.getresultGlobalSurveyEEO)
+                this.setState({peticion3:datos.data.data.getresultGlobalSurveyEEO})
               // console.log("this.state" , this.state.peticion3)
               })
               .catch(err => {
-                console.log("el error es  ",err)
+                console.log("el error es  ",err.response)
               });  
       } if(datos[3]){
         const url = 'http://localhost:8000/graphql'
@@ -418,11 +420,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[3].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[3].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados 
               nombre 
               ApellidoP 
               ApellidoM 
@@ -450,8 +452,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[3]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion4:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[3]" , datos.data.data.getresultGlobalSurveyEEO)
+                 this.setState({peticion4:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -465,11 +467,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[4].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[4].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados
               nombre 
               ApellidoP 
               ApellidoM 
@@ -497,8 +499,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[4]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion5:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[4]" , datos.data.data.getresultGlobalSurveyEEO)
+                 this.setState({peticion5:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -512,11 +514,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[5].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[5].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados 
               nombre 
               ApellidoP 
               ApellidoM 
@@ -544,8 +546,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[5]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion6:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[5]" , datos.data.data.getresultGlobalSurveyEEO)
+                this.setState({peticion6:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -559,11 +561,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[6].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[6].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados 
               nombre 
               ApellidoP 
               ApellidoM 
@@ -591,8 +593,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[6]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion7:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[6]" , datos.data.data.getresultGlobalSurveyEEO)
+                 this.setState({peticion7:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -606,11 +608,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[7].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[7].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados
               nombre 
               ApellidoP 
               ApellidoM 
@@ -638,8 +640,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[7]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion8:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[7]" , datos.data.data.getresultGlobalSurveyEEO)
+               this.setState({peticion8:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -653,11 +655,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[8].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[8].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados 
               nombre 
               ApellidoP 
               ApellidoM 
@@ -685,8 +687,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[8]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion9:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[8]" , datos.data.data.getresultGlobalSurveyEEO)
+                this.setState({peticion9:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -700,11 +702,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[9].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[9].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados 
               nombre 
               ApellidoP 
               ApellidoM 
@@ -732,8 +734,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[9]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion10:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[9]" , datos.data.data.getresultGlobalSurveyEEO)
+                 this.setState({peticion10:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -747,11 +749,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[10].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[10].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados
               nombre 
               ApellidoP 
               ApellidoM 
@@ -779,8 +781,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[10]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion11:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[10]" , datos.data.data.getresultGlobalSurveyEEO)
+                this.setState({peticion11:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -794,11 +796,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[11].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[11].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados
               nombre 
               ApellidoP 
               ApellidoM 
@@ -826,8 +828,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[11]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion12:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[11]" , datos.data.data.getresultGlobalSurveyEEO)
+                this.setState({peticion12:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -841,11 +843,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[12].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[12].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados 
               nombre 
               ApellidoP 
               ApellidoM 
@@ -873,8 +875,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[12]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion13:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[12]" , datos.data.data.getresultGlobalSurveyEEO)
+                this.setState({peticion13:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -888,11 +890,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[13].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[13].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados
               nombre 
               ApellidoP 
               ApellidoM 
@@ -920,8 +922,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[13]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion14:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[13]" , datos.data.data.getresultGlobalSurveyEEO)
+                 this.setState({peticion14:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -935,11 +937,11 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[14].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[14].data[0]]}"){
               id 
               Respuestas 
-              fk_preguntasRP
-              fk_EmpleadosRP 
+              fk_preguntasEEO
+              fk_Empleados
               nombre 
               ApellidoP 
               ApellidoM 
@@ -967,8 +969,8 @@ class App extends React.Component {
               `
           }
               }).then(datos => {    
-                console.log("datos[14]" , datos.data.data.getresultGlobalSurveyRP)
-                this.setState({peticion15:datos.data.data.getresultGlobalSurveyRP})
+                console.log("datos[14]" , datos.data.data.getresultGlobalSurveyEEO)
+                 this.setState({peticion15:datos.data.data.getresultGlobalSurveyEEO})
 
               })
               .catch(err => {
@@ -1022,12 +1024,26 @@ class App extends React.Component {
   let respuesta200,respuesta201,respuesta202,respuesta203,respuesta204,respuesta205,respuesta206,respuesta207,respuesta208,respuesta209,respuesta210,respuesta211;
   let respuesta212,respuesta213,respuesta214,respuesta215,respuesta216,respuesta217,respuesta218,respuesta219,respuesta220,respuesta221,respuesta222,respuesta223;
   let respuesta224,respuesta225,respuesta226,respuesta227,respuesta228,respuesta229,respuesta230;  
+  let respuesta231,respuesta232,respuesta233,respuesta234,respuesta235,respuesta236,respuesta237;
+  let respuesta238,respuesta239,respuesta240,respuesta241,respuesta242,respuesta243,respuesta244,respuesta245,respuesta246,respuesta247,respuesta248,respuesta249;
+  let respuesta250,respuesta251,respuesta252,respuesta253,respuesta254,respuesta255,respuesta256,respuesta257,respuesta258,respuesta259,respuesta260, respuesta261;
+  let respuesta262,respuesta263,respuesta264,respuesta265,respuesta266,respuesta267,respuesta268,respuesta269,respuesta270,respuesta271,respuesta272,respuesta273;
+  let respuesta274,respuesta275,respuesta276,respuesta277,respuesta278,respuesta279,respuesta280,respuesta281,respuesta282,respuesta283,respuesta284,respuesta285;
+  let respuesta286,respuesta287,respuesta288,respuesta289,respuesta290, respuesta291,respuesta292,respuesta293,respuesta294,respuesta295,respuesta296,respuesta297;
+  let respuesta298,respuesta299,respuesta300,respuesta301,respuesta302,respuesta303,respuesta304,respuesta305,respuesta306,respuesta307,respuesta308,respuesta309;
+  let respuesta310,respuesta311,respuesta312,respuesta313,respuesta314,respuesta315,respuesta316,respuesta317,respuesta318,respuesta319,respuesta320,respuesta321;
+  let respuesta322,respuesta323,respuesta324,respuesta325,respuesta326,respuesta327,respuesta328,respuesta329,respuesta330,respuesta331,respuesta332,respuesta333;
+  let respuesta334,respuesta335,respuesta336,respuesta337,respuesta338,respuesta339,respuesta340,respuesta341,respuesta342,respuesta343,respuesta344,respuesta345;
+  let respuesta346,respuesta347,respuesta348,respuesta349,respuesta350,respuesta351,respuesta352;
+  let respuesta353,respuesta354,respuesta355,respuesta356,respuesta357,respuesta358,respuesta359,respuesta360; 
   
   let valor1=0,valor2=0,valor3=0,valor4=0,valor5=0,valor6=0,valor7=0, valor8=0,valor9=0,valor10=0;
   let valor11=0,valor12=0,valor13=0,valor14=0,valor15=0,valor16=0,valor17=0, valor18=0,valor19=0,valor20=0;
   let valor21=0,valor22=0,valor23=0,valor24=0,valor25=0,valor26=0,valor27=0, valor28=0,valor29=0,valor30=0;
   let valor31=0,valor32=0,valor33=0,valor34=0,valor35=0,valor36=0,valor37=0, valor38=0,valor39=0,valor40=0;
-  let valor41=0,valor42=0,valor43=0,valor44=0,valor45=0,valor46=0;
+  let valor41=0,valor42=0,valor43=0,valor44=0,valor45=0,valor46=0,valor47=0,valor48=0,valor49=0,valor50=0,valor51=0;
+  let valor52=0,valor53=0,valor54=0,valor55=0,valor56=0,valor57=0,valor58=0,valor59=0,valor60=0,valor61=0;
+  let valor62=0,valor63=0,valor64=0,valor65=0,valor66=0,valor67=0,valor68=0,valor69=0,valor70=0,valor71=0,valor72=0;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
   let pet2res1,pet2res2,pet2res3,pet2res4,pet2res5,pet2res6,pet2res7,pet2res8,pet2res9,pet2res10,pet2res11,pet2res12;
   let pet2res13,pet2res14, pet2res15,pet2res16,pet2res17,pet2res18,pet2res19,pet2res20,pet2res21,pet2res22,pet2res23;
@@ -1048,13 +1064,27 @@ class App extends React.Component {
   let pet2res189,pet2res190,pet2res191,pet2res192,pet2res193,pet2res194,pet2res195,pet2res196,pet2res197,pet2res198,pet2res199;
   let pet2res200,pet2res201,pet2res202,pet2res203,pet2res204,pet2res205,pet2res206,pet2res207,pet2res208,pet2res209,pet2res210,pet2res211;
   let pet2res212,pet2res213,pet2res214,pet2res215,pet2res216,pet2res217,pet2res218,pet2res219,pet2res220,pet2res221,pet2res222,pet2res223;
-  let pet2res224,pet2res225,pet2res226,pet2res227,pet2res228,pet2res229,pet2res230;  
-  
+  let pet2res224,pet2res225,pet2res226,pet2res227,pet2res228,pet2res229,pet2res230;   
+  let pet2res231,pet2res232,pet2res233,pet2res234,pet2res235,pet2res236,pet2res237;
+  let pet2res238,pet2res239,pet2res240,pet2res241,pet2res242,pet2res243,pet2res244,pet2res245,pet2res246,pet2res247,pet2res248,pet2res249;
+  let pet2res250,pet2res251,pet2res252,pet2res253,pet2res254,pet2res255,pet2res256,pet2res257,pet2res258,pet2res259,pet2res260, pet2res261;
+  let pet2res262,pet2res263,pet2res264,pet2res265,pet2res266,pet2res267,pet2res268,pet2res269,pet2res270,pet2res271,pet2res272,pet2res273;
+  let pet2res274,pet2res275,pet2res276,pet2res277,pet2res278,pet2res279,pet2res280,pet2res281,pet2res282,pet2res283,pet2res284,pet2res285;
+  let pet2res286,pet2res287,pet2res288,pet2res289,pet2res290, pet2res291,pet2res292,pet2res293,pet2res294,pet2res295,pet2res296,pet2res297;
+  let pet2res298,pet2res299,pet2res300,pet2res301,pet2res302,pet2res303,pet2res304,pet2res305,pet2res306,pet2res307,pet2res308,pet2res309;
+  let pet2res310,pet2res311,pet2res312,pet2res313,pet2res314,pet2res315,pet2res316,pet2res317,pet2res318,pet2res319,pet2res320,pet2res321;
+  let pet2res322,pet2res323,pet2res324,pet2res325,pet2res326,pet2res327,pet2res328,pet2res329,pet2res330,pet2res331,pet2res332,pet2res333;
+  let pet2res334,pet2res335,pet2res336,pet2res337,pet2res338,pet2res339,pet2res340,pet2res341,pet2res342,pet2res343,pet2res344,pet2res345;
+  let pet2res346,pet2res347,pet2res348,pet2res349,pet2res350,pet2res351,pet2res352;
+  let pet2res353,pet2res354,pet2res355,pet2res356,pet2res357,pet2res358,pet2res359,pet2res360; 
+
   let pet2val1=0,pet2val2=0,pet2val3=0,pet2val4=0,pet2val5=0,pet2val6=0,pet2val7=0, pet2val8=0,pet2val9=0,pet2val10=0;
   let pet2val11=0,pet2val12=0,pet2val13=0,pet2val14=0,pet2val15=0,pet2val16=0,pet2val17=0, pet2val18=0,pet2val19=0,pet2val20=0;
   let pet2val21=0,pet2val22=0,pet2val23=0,pet2val24=0,pet2val25=0,pet2val26=0,pet2val27=0, pet2val28=0,pet2val29=0,pet2val30=0;
   let pet2val31=0,pet2val32=0,pet2val33=0,pet2val34=0,pet2val35=0,pet2val36=0,pet2val37=0, pet2val38=0,pet2val39=0,pet2val40=0;
-  let pet2val41=0,pet2val42=0,pet2val43=0,pet2val44=0,pet2val45=0,pet2val46=0;
+  let pet2val41=0,pet2val42=0,pet2val43=0,pet2val44=0,pet2val45=0,pet2val46=0,pet2val47=0,pet2val48=0,pet2val49=0,pet2val50=0,pet2val51=0;
+  let pet2val52=0,pet2val53=0,pet2val54=0,pet2val55=0,pet2val56=0,pet2val57=0,pet2val58=0,pet2val59=0,pet2val60=0,pet2val61=0;
+  let pet2val62=0,pet2val63=0,pet2val64=0,pet2val65=0,pet2val66=0,pet2val67=0,pet2val68=0,pet2val69=0,pet2val70=0,pet2val71=0,pet2val72=0;
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   let pet3res1,pet3res2,pet3res3,pet3res4,pet3res5,pet3res6,pet3res7,pet3res8,pet3res9,pet3res10,pet3res11,pet3res12;
   let pet3res13,pet3res14, pet3res15,pet3res16,pet3res17,pet3res18,pet3res19,pet3res20,pet3res21,pet3res22,pet3res23;
@@ -1076,12 +1106,26 @@ class App extends React.Component {
   let pet3res200,pet3res201,pet3res202,pet3res203,pet3res204,pet3res205,pet3res206,pet3res207,pet3res208,pet3res209,pet3res210,pet3res211;
   let pet3res212,pet3res213,pet3res214,pet3res215,pet3res216,pet3res217,pet3res218,pet3res219,pet3res220,pet3res221,pet3res222,pet3res223;
   let pet3res224,pet3res225,pet3res226,pet3res227,pet3res228,pet3res229,pet3res230;  
-  
+  let pet3res231,pet3res232,pet3res233,pet3res234,pet3res235,pet3res236,pet3res237;
+  let pet3res238,pet3res239,pet3res240,pet3res241,pet3res242,pet3res243,pet3res244,pet3res245,pet3res246,pet3res247,pet3res248,pet3res249;
+  let pet3res250,pet3res251,pet3res252,pet3res253,pet3res254,pet3res255,pet3res256,pet3res257,pet3res258,pet3res259,pet3res260, pet3res261;
+  let pet3res262,pet3res263,pet3res264,pet3res265,pet3res266,pet3res267,pet3res268,pet3res269,pet3res270,pet3res271,pet3res272,pet3res273;
+  let pet3res274,pet3res275,pet3res276,pet3res277,pet3res278,pet3res279,pet3res280,pet3res281,pet3res282,pet3res283,pet3res284,pet3res285;
+  let pet3res286,pet3res287,pet3res288,pet3res289,pet3res290, pet3res291,pet3res292,pet3res293,pet3res294,pet3res295,pet3res296,pet3res297;
+  let pet3res298,pet3res299,pet3res300,pet3res301,pet3res302,pet3res303,pet3res304,pet3res305,pet3res306,pet3res307,pet3res308,pet3res309;
+  let pet3res310,pet3res311,pet3res312,pet3res313,pet3res314,pet3res315,pet3res316,pet3res317,pet3res318,pet3res319,pet3res320,pet3res321;
+  let pet3res322,pet3res323,pet3res324,pet3res325,pet3res326,pet3res327,pet3res328,pet3res329,pet3res330,pet3res331,pet3res332,pet3res333;
+  let pet3res334,pet3res335,pet3res336,pet3res337,pet3res338,pet3res339,pet3res340,pet3res341,pet3res342,pet3res343,pet3res344,pet3res345;
+  let pet3res346,pet3res347,pet3res348,pet3res349,pet3res350,pet3res351,pet3res352;
+  let pet3res353,pet3res354,pet3res355,pet3res356,pet3res357,pet3res358,pet3res359,pet3res360; 
+
   let pet3val1=0,pet3val2=0,pet3val3=0,pet3val4=0,pet3val5=0,pet3val6=0,pet3val7=0, pet3val8=0,pet3val9=0,pet3val10=0;
   let pet3val11=0,pet3val12=0,pet3val13=0,pet3val14=0,pet3val15=0,pet3val16=0,pet3val17=0, pet3val18=0,pet3val19=0,pet3val20=0;
   let pet3val21=0,pet3val22=0,pet3val23=0,pet3val24=0,pet3val25=0,pet3val26=0,pet3val27=0, pet3val28=0,pet3val29=0,pet3val30=0;
   let pet3val31=0,pet3val32=0,pet3val33=0,pet3val34=0,pet3val35=0,pet3val36=0,pet3val37=0, pet3val38=0,pet3val39=0,pet3val40=0;
-  let pet3val41=0,pet3val42=0,pet3val43=0,pet3val44=0,pet3val45=0,pet3val46=0;
+  let pet3val41=0,pet3val42=0,pet3val43=0,pet3val44=0,pet3val45=0,pet3val46=0,pet3val47=0,pet3val48=0,pet3val49=0,pet3val50=0,pet3val51=0;
+  let pet3val52=0,pet3val53=0,pet3val54=0,pet3val55=0,pet3val56=0,pet3val57=0,pet3val58=0,pet3val59=0,pet3val60=0,pet3val61=0;
+  let pet3val62=0,pet3val63=0,pet3val64=0,pet3val65=0,pet3val66=0,pet3val67=0,pet3val68=0,pet3val69=0,pet3val70=0,pet3val71=0,pet3val72=0;
   /////////////////////////////////////////////////////////////////////////////////////////////////77777777
 
   let pet4res1,pet4res2,pet4res3,pet4res4,pet4res5,pet4res6,pet4res7,pet4res8,pet4res9,pet4res10,pet4res11,pet4res12;
@@ -1104,14 +1148,26 @@ class App extends React.Component {
   let pet4res200,pet4res201,pet4res202,pet4res203,pet4res204,pet4res205,pet4res206,pet4res207,pet4res208,pet4res209,pet4res210,pet4res211;
   let pet4res212,pet4res213,pet4res214,pet4res215,pet4res216,pet4res217,pet4res218,pet4res219,pet4res220,pet4res221,pet4res222,pet4res223;
   let pet4res224,pet4res225,pet4res226,pet4res227,pet4res228,pet4res229,pet4res230;  
-  
+  let pet4res231,pet4res232,pet4res233,pet4res234,pet4res235,pet4res236,pet4res237;
+  let pet4res238,pet4res239,pet4res240,pet4res241,pet4res242,pet4res243,pet4res244,pet4res245,pet4res246,pet4res247,pet4res248,pet4res249;
+  let pet4res250,pet4res251,pet4res252,pet4res253,pet4res254,pet4res255,pet4res256,pet4res257,pet4res258,pet4res259,pet4res260, pet4res261;
+  let pet4res262,pet4res263,pet4res264,pet4res265,pet4res266,pet4res267,pet4res268,pet4res269,pet4res270,pet4res271,pet4res272,pet4res273;
+  let pet4res274,pet4res275,pet4res276,pet4res277,pet4res278,pet4res279,pet4res280,pet4res281,pet4res282,pet4res283,pet4res284,pet4res285;
+  let pet4res286,pet4res287,pet4res288,pet4res289,pet4res290, pet4res291,pet4res292,pet4res293,pet4res294,pet4res295,pet4res296,pet4res297;
+  let pet4res298,pet4res299,pet4res300,pet4res301,pet4res302,pet4res303,pet4res304,pet4res305,pet4res306,pet4res307,pet4res308,pet4res309;
+  let pet4res310,pet4res311,pet4res312,pet4res313,pet4res314,pet4res315,pet4res316,pet4res317,pet4res318,pet4res319,pet4res320,pet4res321;
+  let pet4res322,pet4res323,pet4res324,pet4res325,pet4res326,pet4res327,pet4res328,pet4res329,pet4res330,pet4res331,pet4res332,pet4res333;
+  let pet4res334,pet4res335,pet4res336,pet4res337,pet4res338,pet4res339,pet4res340,pet4res341,pet4res342,pet4res343,pet4res344,pet4res345;
+  let pet4res346,pet4res347,pet4res348,pet4res349,pet4res350,pet4res351,pet4res352;
+  let pet4res353,pet4res354,pet4res355,pet4res356,pet4res357,pet4res358,pet4res359,pet4res360; 
+
   let pet4val1=0,pet4val2=0,pet4val3=0,pet4val4=0,pet4val5=0,pet4val6=0,pet4val7=0, pet4val8=0,pet4val9=0,pet4val10 =0;
   let pet4val11=0,pet4val12=0,pet4val13=0,pet4val14=0,pet4val15=0,pet4val16=0,pet4val17=0, pet4val18=0,pet4val19=0,pet4val20=0;
   let pet4val21=0,pet4val22=0,pet4val23=0,pet4val24=0,pet4val25=0,pet4val26=0,pet4val27=0, pet4val28=0,pet4val29=0,pet4val30=0;
   let pet4val31=0,pet4val32=0,pet4val33=0,pet4val34=0,pet4val35=0,pet4val36=0,pet4val37=0, pet4val38=0,pet4val39=0,pet4val40=0;
-  let pet4val41=0,pet4val42=0,pet4val43=0,pet4val44=0,pet4val45=0,pet4val46=0;
-
-
+  let pet4val41=0,pet4val42=0,pet4val43=0,pet4val44=0,pet4val45=0,pet4val46=0,pet4val47=0,pet4val48=0,pet4val49=0,pet4val50=0,pet4val51=0;
+  let pet4val52=0,pet4val53=0,pet4val54=0,pet4val55=0,pet4val56=0,pet4val57=0,pet4val58=0,pet4val59=0,pet4val60=0,pet4val61=0;
+  let pet4val62=0,pet4val63=0,pet4val64=0,pet4val65=0,pet4val66=0,pet4val67=0,pet4val68=0,pet4val69=0,pet4val70=0,pet4val71=0,pet4val72=0;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 let pet5res1,pet5res2,pet5res3,pet5res4,pet5res5,pet5res6,pet5res7,pet5res8,pet5res9,pet5res10,pet5res11,pet5res12;
   let pet5res13,pet5res14, pet5res15,pet5res16,pet5res17,pet5res18,pet5res19,pet5res20,pet5res21,pet5res22,pet5res23;
@@ -1133,12 +1189,26 @@ let pet5res1,pet5res2,pet5res3,pet5res4,pet5res5,pet5res6,pet5res7,pet5res8,pet5
   let pet5res200,pet5res201,pet5res202,pet5res203,pet5res204,pet5res205,pet5res206,pet5res207,pet5res208,pet5res209,pet5res210,pet5res211;
   let pet5res212,pet5res213,pet5res214,pet5res215,pet5res216,pet5res217,pet5res218,pet5res219,pet5res220,pet5res221,pet5res222,pet5res223;
   let pet5res224,pet5res225,pet5res226,pet5res227,pet5res228,pet5res229,pet5res230;  
-  
+  let pet5res231,pet5res232,pet5res233,pet5res234,pet5res235,pet5res236,pet5res237;
+  let pet5res238,pet5res239,pet5res240,pet5res241,pet5res242,pet5res243,pet5res244,pet5res245,pet5res246,pet5res247,pet5res248,pet5res249;
+  let pet5res250,pet5res251,pet5res252,pet5res253,pet5res254,pet5res255,pet5res256,pet5res257,pet5res258,pet5res259,pet5res260, pet5res261;
+  let pet5res262,pet5res263,pet5res264,pet5res265,pet5res266,pet5res267,pet5res268,pet5res269,pet5res270,pet5res271,pet5res272,pet5res273;
+  let pet5res274,pet5res275,pet5res276,pet5res277,pet5res278,pet5res279,pet5res280,pet5res281,pet5res282,pet5res283,pet5res284,pet5res285;
+  let pet5res286,pet5res287,pet5res288,pet5res289,pet5res290, pet5res291,pet5res292,pet5res293,pet5res294,pet5res295,pet5res296,pet5res297;
+  let pet5res298,pet5res299,pet5res300,pet5res301,pet5res302,pet5res303,pet5res304,pet5res305,pet5res306,pet5res307,pet5res308,pet5res309;
+  let pet5res310,pet5res311,pet5res312,pet5res313,pet5res314,pet5res315,pet5res316,pet5res317,pet5res318,pet5res319,pet5res320,pet5res321;
+  let pet5res322,pet5res323,pet5res324,pet5res325,pet5res326,pet5res327,pet5res328,pet5res329,pet5res330,pet5res331,pet5res332,pet5res333;
+  let pet5res334,pet5res335,pet5res336,pet5res337,pet5res338,pet5res339,pet5res340,pet5res341,pet5res342,pet5res343,pet5res344,pet5res345;
+  let pet5res346,pet5res347,pet5res348,pet5res349,pet5res350,pet5res351,pet5res352;
+  let pet5res353,pet5res354,pet5res355,pet5res356,pet5res357,pet5res358,pet5res359,pet5res360; 
+
   let pet5val1=0,pet5val2=0,pet5val3=0,pet5val4=0,pet5val5=0,pet5val6=0,pet5val7=0, pet5val8=0,pet5val9=0,pet5val10=0;
   let pet5val11=0,pet5val12=0,pet5val13=0,pet5val14=0,pet5val15=0,pet5val16=0,pet5val17=0, pet5val18=0,pet5val19=0,pet5val20=0;
   let pet5val21=0,pet5val22=0,pet5val23=0,pet5val24=0,pet5val25=0,pet5val26=0,pet5val27=0, pet5val28=0,pet5val29=0,pet5val30=0;
   let pet5val31=0,pet5val32=0,pet5val33=0,pet5val34=0,pet5val35=0,pet5val36=0,pet5val37=0, pet5val38=0,pet5val39=0,pet5val40=0;
-  let pet5val41=0,pet5val42=0,pet5val43=0,pet5val44=0,pet5val45=0,pet5val46=0;
+  let pet5val41=0,pet5val42=0,pet5val43=0,pet5val44=0,pet5val45=0,pet5val46=0,pet5val47=0,pet5val48=0,pet5val49=0,pet5val50=0,pet5val51=0;
+  let pet5val52=0,pet5val53=0,pet5val54=0,pet5val55=0,pet5val56=0,pet5val57=0,pet5val58=0,pet5val59=0,pet5val60=0,pet5val61=0;
+  let pet5val62=0,pet5val63=0,pet5val64=0,pet5val65=0,pet5val66=0,pet5val67=0,pet5val68=0,pet5val69=0,pet5val70=0,pet5val71=0,pet5val72=0;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////777
 let pet6res1,pet6res2,pet6res3,pet6res4,pet6res5,pet6res6,pet6res7,pet6res8,pet6res9,pet6res10,pet6res11,pet6res12;
 let pet6res13,pet6res14, pet6res15,pet6res16,pet6res17,pet6res18,pet6res19,pet6res20,pet6res21,pet6res22,pet6res23;
@@ -1160,12 +1230,26 @@ let pet6res189,pet6res190,pet6res191,pet6res192,pet6res193,pet6res194,pet6res195
 let pet6res200,pet6res201,pet6res202,pet6res203,pet6res204,pet6res205,pet6res206,pet6res207,pet6res208,pet6res209,pet6res210,pet6res211;
 let pet6res212,pet6res213,pet6res214,pet6res215,pet6res216,pet6res217,pet6res218,pet6res219,pet6res220,pet6res221,pet6res222,pet6res223;
 let pet6res224,pet6res225,pet6res226,pet6res227,pet6res228,pet6res229,pet6res230;  
+let pet6res231,pet6res232,pet6res233,pet6res234,pet6res235,pet6res236,pet6res237;
+let pet6res238,pet6res239,pet6res240,pet6res241,pet6res242,pet6res243,pet6res244,pet6res245,pet6res246,pet6res247,pet6res248,pet6res249;
+let pet6res250,pet6res251,pet6res252,pet6res253,pet6res254,pet6res255,pet6res256,pet6res257,pet6res258,pet6res259,pet6res260, pet6res261;
+let pet6res262,pet6res263,pet6res264,pet6res265,pet6res266,pet6res267,pet6res268,pet6res269,pet6res270,pet6res271,pet6res272,pet6res273;
+let pet6res274,pet6res275,pet6res276,pet6res277,pet6res278,pet6res279,pet6res280,pet6res281,pet6res282,pet6res283,pet6res284,pet6res285;
+let pet6res286,pet6res287,pet6res288,pet6res289,pet6res290, pet6res291,pet6res292,pet6res293,pet6res294,pet6res295,pet6res296,pet6res297;
+let pet6res298,pet6res299,pet6res300,pet6res301,pet6res302,pet6res303,pet6res304,pet6res305,pet6res306,pet6res307,pet6res308,pet6res309;
+let pet6res310,pet6res311,pet6res312,pet6res313,pet6res314,pet6res315,pet6res316,pet6res317,pet6res318,pet6res319,pet6res320,pet6res321;
+let pet6res322,pet6res323,pet6res324,pet6res325,pet6res326,pet6res327,pet6res328,pet6res329,pet6res330,pet6res331,pet6res332,pet6res333;
+let pet6res334,pet6res335,pet6res336,pet6res337,pet6res338,pet6res339,pet6res340,pet6res341,pet6res342,pet6res343,pet6res344,pet6res345;
+let pet6res346,pet6res347,pet6res348,pet6res349,pet6res350,pet6res351,pet6res352;
+let pet6res353,pet6res354,pet6res355,pet6res356,pet6res357,pet6res358,pet6res359,pet6res360; 
 
 let pet6val1=0,pet6val2=0,pet6val3=0,pet6val4=0,pet6val5=0,pet6val6=0,pet6val7=0, pet6val8=0,pet6val9=0,pet6val10=0;
 let pet6val11=0,pet6val12=0,pet6val13=0,pet6val14=0,pet6val15=0,pet6val16=0,pet6val17=0, pet6val18=0,pet6val19=0,pet6val20=0;
 let pet6val21=0,pet6val22=0,pet6val23=0,pet6val24=0,pet6val25=0,pet6val26=0,pet6val27=0, pet6val28=0,pet6val29=0,pet6val30=0;
 let pet6val31=0,pet6val32=0,pet6val33=0,pet6val34=0,pet6val35=0,pet6val36=0,pet6val37=0, pet6val38=0,pet6val39=0,pet6val40=0;
-let pet6val41=0,pet6val42=0,pet6val43=0,pet6val44=0,pet6val45=0,pet6val46=0;
+let pet6val41=0,pet6val42=0,pet6val43=0,pet6val44=0,pet6val45=0,pet6val46=0,pet6val47=0,pet6val48=0,pet6val49=0,pet6val50=0,pet6val51=0;
+let pet6val52=0,pet6val53=0,pet6val54=0,pet6val55=0,pet6val56=0,pet6val57=0,pet6val58=0,pet6val59=0,pet6val60=0,pet6val61=0;
+let pet6val62=0,pet6val63=0,pet6val64=0,pet6val65=0,pet6val66=0,pet6val67=0,pet6val68=0,pet6val69=0,pet6val70=0,pet6val71=0,pet6val72=0;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let pet7res1,pet7res2,pet7res3,pet7res4,pet7res5,pet7res6,pet7res7,pet7res8,pet7res9,pet7res10,pet7res11,pet7res12;
 let pet7res13,pet7res14, pet7res15,pet7res16,pet7res17,pet7res18,pet7res19,pet7res20,pet7res21,pet7res22,pet7res23;
@@ -1187,12 +1271,27 @@ let pet7res189,pet7res190,pet7res191,pet7res192,pet7res193,pet7res194,pet7res195
 let pet7res200,pet7res201,pet7res202,pet7res203,pet7res204,pet7res205,pet7res206,pet7res207,pet7res208,pet7res209,pet7res210,pet7res211;
 let pet7res212,pet7res213,pet7res214,pet7res215,pet7res216,pet7res217,pet7res218,pet7res219,pet7res220,pet7res221,pet7res222,pet7res223;
 let pet7res224,pet7res225,pet7res226,pet7res227,pet7res228,pet7res229,pet7res230;  
+let pet7res231,pet7res232,pet7res233,pet7res234,pet7res235,pet7res236,pet7res237;
+let pet7res238,pet7res239,pet7res240,pet7res241,pet7res242,pet7res243,pet7res244,pet7res245,pet7res246,pet7res247,pet7res248,pet7res249;
+let pet7res250,pet7res251,pet7res252,pet7res253,pet7res254,pet7res255,pet7res256,pet7res257,pet7res258,pet7res259,pet7res260, pet7res261;
+let pet7res262,pet7res263,pet7res264,pet7res265,pet7res266,pet7res267,pet7res268,pet7res269,pet7res270,pet7res271,pet7res272,pet7res273;
+let pet7res274,pet7res275,pet7res276,pet7res277,pet7res278,pet7res279,pet7res280,pet7res281,pet7res282,pet7res283,pet7res284,pet7res285;
+let pet7res286,pet7res287,pet7res288,pet7res289,pet7res290, pet7res291,pet7res292,pet7res293,pet7res294,pet7res295,pet7res296,pet7res297;
+let pet7res298,pet7res299,pet7res300,pet7res301,pet7res302,pet7res303,pet7res304,pet7res305,pet7res306,pet7res307,pet7res308,pet7res309;
+let pet7res310,pet7res311,pet7res312,pet7res313,pet7res314,pet7res315,pet7res316,pet7res317,pet7res318,pet7res319,pet7res320,pet7res321;
+let pet7res322,pet7res323,pet7res324,pet7res325,pet7res326,pet7res327,pet7res328,pet7res329,pet7res330,pet7res331,pet7res332,pet7res333;
+let pet7res334,pet7res335,pet7res336,pet7res337,pet7res338,pet7res339,pet7res340,pet7res341,pet7res342,pet7res343,pet7res344,pet7res345;
+let pet7res346,pet7res347,pet7res348,pet7res349,pet7res350,pet7res351,pet7res352;
+let pet7res353,pet7res354,pet7res355,pet7res356,pet7res357,pet7res358,pet7res359,pet7res360; 
 
 let pet7val1=0,pet7val2=0,pet7val3=0,pet7val4=0,pet7val5=0,pet7val6=0,pet7val7=0, pet7val8=0,pet7val9=0,pet7val10=0;
 let pet7val11=0,pet7val12=0,pet7val13=0,pet7val14=0,pet7val15=0,pet7val16=0,pet7val17=0, pet7val18=0,pet7val19=0,pet7val20=0;
 let pet7val21=0,pet7val22=0,pet7val23=0,pet7val24=0,pet7val25=0,pet7val26=0,pet7val27=0, pet7val28=0,pet7val29=0,pet7val30=0;
 let pet7val31=0,pet7val32=0,pet7val33=0,pet7val34=0,pet7val35=0,pet7val36=0,pet7val37=0, pet7val38=0,pet7val39=0,pet7val40=0;
-let pet7val41=0,pet7val42=0,pet7val43=0,pet7val44=0,pet7val45=0,pet7val46=0;
+let pet7val41=0,pet7val42=0,pet7val43=0,pet7val44=0,pet7val45=0,pet7val46=0,pet7val47=0,pet7val48=0,pet7val49=0,pet7val50=0,pet7val51=0;
+let pet7val52=0,pet7val53=0,pet7val54=0,pet7val55=0,pet7val56=0,pet7val57=0,pet7val58=0,pet7val59=0,pet7val60=0,pet7val61=0;
+let pet7val62=0,pet7val63=0,pet7val64=0,pet7val65=0,pet7val66=0,pet7val67=0,pet7val68=0,pet7val69=0,pet7val70=0,pet7val71=0,pet7val72=0;
+
 //////////////////////////////////////////////////////////////////////////////////////
 let pet8res1,pet8res2,pet8res3,pet8res4,pet8res5,pet8res6,pet8res7,pet8res8,pet8res9,pet8res10,pet8res11,pet8res12;
 let pet8res13,pet8res14, pet8res15,pet8res16,pet8res17,pet8res18,pet8res19,pet8res20,pet8res21,pet8res22,pet8res23;
@@ -1214,13 +1313,27 @@ let pet8res189,pet8res190,pet8res191,pet8res192,pet8res193,pet8res194,pet8res195
 let pet8res200,pet8res201,pet8res202,pet8res203,pet8res204,pet8res205,pet8res206,pet8res207,pet8res208,pet8res209,pet8res210,pet8res211;
 let pet8res212,pet8res213,pet8res214,pet8res215,pet8res216,pet8res217,pet8res218,pet8res219,pet8res220,pet8res221,pet8res222,pet8res223;
 let pet8res224,pet8res225,pet8res226,pet8res227,pet8res228,pet8res229,pet8res230;  
+let pet8res231,pet8res232,pet8res233,pet8res234,pet8res235,pet8res236,pet8res237;
+let pet8res238,pet8res239,pet8res240,pet8res241,pet8res242,pet8res243,pet8res244,pet8res245,pet8res246,pet8res247,pet8res248,pet8res249;
+let pet8res250,pet8res251,pet8res252,pet8res253,pet8res254,pet8res255,pet8res256,pet8res257,pet8res258,pet8res259,pet8res260, pet8res261;
+let pet8res262,pet8res263,pet8res264,pet8res265,pet8res266,pet8res267,pet8res268,pet8res269,pet8res270,pet8res271,pet8res272,pet8res273;
+let pet8res274,pet8res275,pet8res276,pet8res277,pet8res278,pet8res279,pet8res280,pet8res281,pet8res282,pet8res283,pet8res284,pet8res285;
+let pet8res286,pet8res287,pet8res288,pet8res289,pet8res290, pet8res291,pet8res292,pet8res293,pet8res294,pet8res295,pet8res296,pet8res297;
+let pet8res298,pet8res299,pet8res300,pet8res301,pet8res302,pet8res303,pet8res304,pet8res305,pet8res306,pet8res307,pet8res308,pet8res309;
+let pet8res310,pet8res311,pet8res312,pet8res313,pet8res314,pet8res315,pet8res316,pet8res317,pet8res318,pet8res319,pet8res320,pet8res321;
+let pet8res322,pet8res323,pet8res324,pet8res325,pet8res326,pet8res327,pet8res328,pet8res329,pet8res330,pet8res331,pet8res332,pet8res333;
+let pet8res334,pet8res335,pet8res336,pet8res337,pet8res338,pet8res339,pet8res340,pet8res341,pet8res342,pet8res343,pet8res344,pet8res345;
+let pet8res346,pet8res347,pet8res348,pet8res349,pet8res350,pet8res351,pet8res352;
+let pet8res353,pet8res354,pet8res355,pet8res356,pet8res357,pet8res358,pet8res359,pet8res360; 
 
 let pet8val1=0,pet8val2=0,pet8val3=0,pet8val4=0,pet8val5=0,pet8val6=0,pet8val7=0, pet8val8=0,pet8val9=0,pet8val10=0;
 let pet8val11=0,pet8val12=0,pet8val13=0,pet8val14=0,pet8val15=0,pet8val16=0,pet8val17=0, pet8val18=0,pet8val19=0,pet8val20=0;
 let pet8val21=0,pet8val22=0,pet8val23=0,pet8val24=0,pet8val25=0,pet8val26=0,pet8val27=0, pet8val28=0,pet8val29=0,pet8val30=0;
 let pet8val31=0,pet8val32=0,pet8val33=0,pet8val34=0,pet8val35=0,pet8val36=0,pet8val37=0, pet8val38=0,pet8val39=0,pet8val40=0;
-let pet8val41=0,pet8val42=0,pet8val43=0,pet8val44=0,pet8val45=0,pet8val46=0;
-  let totalpet1,totalpet2,totalpet3,totalpet4,totalpet5,totalpet6,totalpet7,totalpet8,totalpet9,totalpet10,totalpet11,totalpet12,totalpet13,totalpet14,totalpet15;
+let pet8val41=0,pet8val42=0,pet8val43=0,pet8val44=0,pet8val45=0,pet8val46=0,pet8val47=0,pet8val48=0,pet8val49=0,pet8val50=0,pet8val51=0;
+let pet8val52=0,pet8val53=0,pet8val54=0,pet8val55=0,pet8val56=0,pet8val57=0,pet8val58=0,pet8val59=0,pet8val60=0,pet8val61=0;
+let pet8val62=0,pet8val63=0,pet8val64=0,pet8val65=0,pet8val66=0,pet8val67=0,pet8val68=0,pet8val69=0,pet8val70=0,pet8val71=0,pet8val72=0;
+let totalpet1,totalpet2,totalpet3,totalpet4,totalpet5,totalpet6,totalpet7,totalpet8,totalpet9,totalpet10,totalpet11,totalpet12,totalpet13,totalpet14,totalpet15;
 //////////////////////////////////////////////////////////////////////////////////////////7777
 let pet9res1,pet9res2,pet9res3,pet9res4,pet9res5,pet9res6,pet9res7,pet9res8,pet9res9,pet9res10,pet9res11,pet9res12;
 let pet9res13,pet9res14, pet9res15,pet9res16,pet9res17,pet9res18,pet9res19,pet9res20,pet9res21,pet9res22,pet9res23;
@@ -1242,12 +1355,26 @@ let pet9res189,pet9res190,pet9res191,pet9res192,pet9res193,pet9res194,pet9res195
 let pet9res200,pet9res201,pet9res202,pet9res203,pet9res204,pet9res205,pet9res206,pet9res207,pet9res208,pet9res209,pet9res210,pet9res211;
 let pet9res212,pet9res213,pet9res214,pet9res215,pet9res216,pet9res217,pet9res218,pet9res219,pet9res220,pet9res221,pet9res222,pet9res223;
 let pet9res224,pet9res225,pet9res226,pet9res227,pet9res228,pet9res229,pet9res230;  
+let pet9res231,pet9res232,pet9res233,pet9res234,pet9res235,pet9res236,pet9res237;
+let pet9res238,pet9res239,pet9res240,pet9res241,pet9res242,pet9res243,pet9res244,pet9res245,pet9res246,pet9res247,pet9res248,pet9res249;
+let pet9res250,pet9res251,pet9res252,pet9res253,pet9res254,pet9res255,pet9res256,pet9res257,pet9res258,pet9res259,pet9res260, pet9res261;
+let pet9res262,pet9res263,pet9res264,pet9res265,pet9res266,pet9res267,pet9res268,pet9res269,pet9res270,pet9res271,pet9res272,pet9res273;
+let pet9res274,pet9res275,pet9res276,pet9res277,pet9res278,pet9res279,pet9res280,pet9res281,pet9res282,pet9res283,pet9res284,pet9res285;
+let pet9res286,pet9res287,pet9res288,pet9res289,pet9res290, pet9res291,pet9res292,pet9res293,pet9res294,pet9res295,pet9res296,pet9res297;
+let pet9res298,pet9res299,pet9res300,pet9res301,pet9res302,pet9res303,pet9res304,pet9res305,pet9res306,pet9res307,pet9res308,pet9res309;
+let pet9res310,pet9res311,pet9res312,pet9res313,pet9res314,pet9res315,pet9res316,pet9res317,pet9res318,pet9res319,pet9res320,pet9res321;
+let pet9res322,pet9res323,pet9res324,pet9res325,pet9res326,pet9res327,pet9res328,pet9res329,pet9res330,pet9res331,pet9res332,pet9res333;
+let pet9res334,pet9res335,pet9res336,pet9res337,pet9res338,pet9res339,pet9res340,pet9res341,pet9res342,pet9res343,pet9res344,pet9res345;
+let pet9res346,pet9res347,pet9res348,pet9res349,pet9res350,pet9res351,pet9res352;
+let pet9res353,pet9res354,pet9res355,pet9res356,pet9res357,pet9res358,pet9res359,pet9res360; 
 
 let pet9val1=0,pet9val2=0,pet9val3=0,pet9val4=0,pet9val5=0,pet9val6=0,pet9val7=0, pet9val8=0,pet9val9=0,pet9val10=0;
 let pet9val11=0,pet9val12=0,pet9val13=0,pet9val14=0,pet9val15=0,pet9val16=0,pet9val17=0, pet9val18=0,pet9val19=0,pet9val20=0;
 let pet9val21=0,pet9val22=0,pet9val23=0,pet9val24=0,pet9val25=0,pet9val26=0,pet9val27=0, pet9val28=0,pet9val29=0,pet9val30=0;
 let pet9val31=0,pet9val32=0,pet9val33=0,pet9val34=0,pet9val35=0,pet9val36=0,pet9val37=0, pet9val38=0,pet9val39=0,pet9val40=0;
-let pet9val41=0,pet9val42=0,pet9val43=0,pet9val44=0,pet9val45=0,pet9val46=0;
+let pet9val41=0,pet9val42=0,pet9val43=0,pet9val44=0,pet9val45=0,pet9val46=0,pet9val47=0,pet9val48=0,pet9val49=0,pet9val50=0,pet9val51=0;
+let pet9val52=0,pet9val53=0,pet9val54=0,pet9val55=0,pet9val56=0,pet9val57=0,pet9val58=0,pet9val59=0,pet9val60=0,pet9val61=0;
+let pet9val62=0,pet9val63=0,pet9val64=0,pet9val65=0,pet9val66=0,pet9val67=0,pet9val68=0,pet9val69=0,pet9val70=0,pet9val71=0,pet9val72=0;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let pet10res1,pet10res2,pet10res3,pet10res4,pet10res5,pet10res6,pet10res7,pet10res8,pet10res9,pet10res10,pet10res11,pet10res12;
 let pet10res13,pet10res14, pet10res15,pet10res16,pet10res17,pet10res18,pet10res19,pet10res20,pet10res21,pet10res22,pet10res23;
@@ -1269,12 +1396,26 @@ let pet10res189,pet10res190,pet10res191,pet10res192,pet10res193,pet10res194,pet1
 let pet10res200,pet10res201,pet10res202,pet10res203,pet10res204,pet10res205,pet10res206,pet10res207,pet10res208,pet10res209,pet10res210,pet10res211;
 let pet10res212,pet10res213,pet10res214,pet10res215,pet10res216,pet10res217,pet10res218,pet10res219,pet10res220,pet10res221,pet10res222,pet10res223;
 let pet10res224,pet10res225,pet10res226,pet10res227,pet10res228,pet10res229,pet10res230;  
+let pet10res231,pet10res232,pet10res233,pet10res234,pet10res235,pet10res236,pet10res237;
+let pet10res238,pet10res239,pet10res240,pet10res241,pet10res242,pet10res243,pet10res244,pet10res245,pet10res246,pet10res247,pet10res248,pet10res249;
+let pet10res250,pet10res251,pet10res252,pet10res253,pet10res254,pet10res255,pet10res256,pet10res257,pet10res258,pet10res259,pet10res260, pet10res261;
+let pet10res262,pet10res263,pet10res264,pet10res265,pet10res266,pet10res267,pet10res268,pet10res269,pet10res270,pet10res271,pet10res272,pet10res273;
+let pet10res274,pet10res275,pet10res276,pet10res277,pet10res278,pet10res279,pet10res280,pet10res281,pet10res282,pet10res283,pet10res284,pet10res285;
+let pet10res286,pet10res287,pet10res288,pet10res289,pet10res290, pet10res291,pet10res292,pet10res293,pet10res294,pet10res295,pet10res296,pet10res297;
+let pet10res298,pet10res299,pet10res300,pet10res301,pet10res302,pet10res303,pet10res304,pet10res305,pet10res306,pet10res307,pet10res308,pet10res309;
+let pet10res310,pet10res311,pet10res312,pet10res313,pet10res314,pet10res315,pet10res316,pet10res317,pet10res318,pet10res319,pet10res320,pet10res321;
+let pet10res322,pet10res323,pet10res324,pet10res325,pet10res326,pet10res327,pet10res328,pet10res329,pet10res330,pet10res331,pet10res332,pet10res333;
+let pet10res334,pet10res335,pet10res336,pet10res337,pet10res338,pet10res339,pet10res340,pet10res341,pet10res342,pet10res343,pet10res344,pet10res345;
+let pet10res346,pet10res347,pet10res348,pet10res349,pet10res350,pet10res351,pet10res352;
+let pet10res353,pet10res354,pet10res355,pet10res356,pet10res357,pet10res358,pet10res359,pet10res360; 
 
 let pet10val1=0,pet10val2=0,pet10val3=0,pet10val4=0,pet10val5=0,pet10val6=0,pet10val7=0, pet10val8=0,pet10val9=0,pet10val10=0;
 let pet10val11=0,pet10val12=0,pet10val13=0,pet10val14=0,pet10val15=0,pet10val16=0,pet10val17=0, pet10val18=0,pet10val19=0,pet10val20=0;
 let pet10val21=0,pet10val22=0,pet10val23=0,pet10val24=0,pet10val25=0,pet10val26=0,pet10val27=0, pet10val28=0,pet10val29=0,pet10val30=0;
 let pet10val31=0,pet10val32=0,pet10val33=0,pet10val34=0,pet10val35=0,pet10val36=0,pet10val37=0, pet10val38=0,pet10val39=0,pet10val40=0;
-let pet10val41=0,pet10val42=0,pet10val43=0,pet10val44=0,pet10val45=0,pet10val46=0;
+let pet10val41=0,pet10val42=0,pet10val43=0,pet10val44=0,pet10val45=0,pet10val46=0,pet10val47=0,pet10val48=0,pet10val49=0,pet10val50=0,pet10val51=0;
+let pet10val52=0,pet10val53=0,pet10val54=0,pet10val55=0,pet10val56=0,pet10val57=0,pet10val58=0,pet10val59=0,pet10val60=0,pet10val61=0;
+let pet10val62=0,pet10val63=0,pet10val64=0,pet10val65=0,pet10val66=0,pet10val67=0,pet10val68=0,pet10val69=0,pet10val70=0,pet10val71=0,pet10val72=0;
 ///////////////////////////////////////////////////////////////////////////////
 let pet11res1,pet11res2,pet11res3,pet11res4,pet11res5,pet11res6,pet11res7,pet11res8,pet11res9,pet11res10,pet11res11,pet11res12;
 let pet11res13,pet11res14, pet11res15,pet11res16,pet11res17,pet11res18,pet11res19,pet11res20,pet11res21,pet11res22,pet11res23;
@@ -1296,12 +1437,26 @@ let pet11res189,pet11res190,pet11res191,pet11res192,pet11res193,pet11res194,pet1
 let pet11res200,pet11res201,pet11res202,pet11res203,pet11res204,pet11res205,pet11res206,pet11res207,pet11res208,pet11res209,pet11res210,pet11res211;
 let pet11res212,pet11res213,pet11res214,pet11res215,pet11res216,pet11res217,pet11res218,pet11res219,pet11res220,pet11res221,pet11res222,pet11res223;
 let pet11res224,pet11res225,pet11res226,pet11res227,pet11res228,pet11res229,pet11res230;  
+let pet11res231,pet11res232,pet11res233,pet11res234,pet11res235,pet11res236,pet11res237;
+let pet11res238,pet11res239,pet11res240,pet11res241,pet11res242,pet11res243,pet11res244,pet11res245,pet11res246,pet11res247,pet11res248,pet11res249;
+let pet11res250,pet11res251,pet11res252,pet11res253,pet11res254,pet11res255,pet11res256,pet11res257,pet11res258,pet11res259,pet11res260, pet11res261;
+let pet11res262,pet11res263,pet11res264,pet11res265,pet11res266,pet11res267,pet11res268,pet11res269,pet11res270,pet11res271,pet11res272,pet11res273;
+let pet11res274,pet11res275,pet11res276,pet11res277,pet11res278,pet11res279,pet11res280,pet11res281,pet11res282,pet11res283,pet11res284,pet11res285;
+let pet11res286,pet11res287,pet11res288,pet11res289,pet11res290, pet11res291,pet11res292,pet11res293,pet11res294,pet11res295,pet11res296,pet11res297;
+let pet11res298,pet11res299,pet11res300,pet11res301,pet11res302,pet11res303,pet11res304,pet11res305,pet11res306,pet11res307,pet11res308,pet11res309;
+let pet11res310,pet11res311,pet11res312,pet11res313,pet11res314,pet11res315,pet11res316,pet11res317,pet11res318,pet11res319,pet11res320,pet11res321;
+let pet11res322,pet11res323,pet11res324,pet11res325,pet11res326,pet11res327,pet11res328,pet11res329,pet11res330,pet11res331,pet11res332,pet11res333;
+let pet11res334,pet11res335,pet11res336,pet11res337,pet11res338,pet11res339,pet11res340,pet11res341,pet11res342,pet11res343,pet11res344,pet11res345;
+let pet11res346,pet11res347,pet11res348,pet11res349,pet11res350,pet11res351,pet11res352;
+let pet11res353,pet11res354,pet11res355,pet11res356,pet11res357,pet11res358,pet11res359,pet11res360; 
 
 let pet11val1=0,pet11val2=0,pet11val3=0,pet11val4=0,pet11val5=0,pet11val6=0,pet11val7=0, pet11val8=0,pet11val9=0,pet11val10=0;
 let pet11val11=0,pet11val12=0,pet11val13=0,pet11val14=0,pet11val15=0,pet11val16=0,pet11val17=0, pet11val18=0,pet11val19=0,pet11val20=0;
 let pet11val21=0,pet11val22=0,pet11val23=0,pet11val24=0,pet11val25=0,pet11val26=0,pet11val27=0, pet11val28=0,pet11val29=0,pet11val30=0;
 let pet11val31=0,pet11val32=0,pet11val33=0,pet11val34=0,pet11val35=0,pet11val36=0,pet11val37=0, pet11val38=0,pet11val39=0,pet11val40=0;
-let pet11val41=0,pet11val42=0,pet11val43=0,pet11val44=0,pet11val45=0,pet11val46=0;
+let pet11val41=0,pet11val42=0,pet11val43=0,pet11val44=0,pet11val45=0,pet11val46=0,pet11val47=0,pet11val48=0,pet11val49=0,pet11val50=0,pet11val51=0;
+let pet11val52=0,pet11val53=0,pet11val54=0,pet11val55=0,pet11val56=0,pet11val57=0,pet11val58=0,pet11val59=0,pet11val60=0,pet11val61=0;
+let pet11val62=0,pet11val63=0,pet11val64=0,pet11val65=0,pet11val66=0,pet11val67=0,pet11val68=0,pet11val69=0,pet11val70=0,pet11val71=0,pet11val72=0;
 ///////////////////////////////////////////////////////////////////////
 let pet12res1,pet12res2,pet12res3,pet12res4,pet12res5,pet12res6,pet12res7,pet12res8,pet12res9,pet12res10,pet12res11,pet12res12;
 let pet12res13,pet12res14, pet12res15,pet12res16,pet12res17,pet12res18,pet12res19,pet12res20,pet12res21,pet12res22,pet12res23;
@@ -1323,12 +1478,27 @@ let pet12res189,pet12res190,pet12res191,pet12res192,pet12res193,pet12res194,pet1
 let pet12res200,pet12res201,pet12res202,pet12res203,pet12res204,pet12res205,pet12res206,pet12res207,pet12res208,pet12res209,pet12res210,pet12res211;
 let pet12res212,pet12res213,pet12res214,pet12res215,pet12res216,pet12res217,pet12res218,pet12res219,pet12res220,pet12res221,pet12res222,pet12res223;
 let pet12res224,pet12res225,pet12res226,pet12res227,pet12res228,pet12res229,pet12res230;  
+let pet12res231,pet12res232,pet12res233,pet12res234,pet12res235,pet12res236,pet12res237;
+let pet12res238,pet12res239,pet12res240,pet12res241,pet12res242,pet12res243,pet12res244,pet12res245,pet12res246,pet12res247,pet12res248,pet12res249;
+let pet12res250,pet12res251,pet12res252,pet12res253,pet12res254,pet12res255,pet12res256,pet12res257,pet12res258,pet12res259,pet12res260, pet12res261;
+let pet12res262,pet12res263,pet12res264,pet12res265,pet12res266,pet12res267,pet12res268,pet12res269,pet12res270,pet12res271,pet12res272,pet12res273;
+let pet12res274,pet12res275,pet12res276,pet12res277,pet12res278,pet12res279,pet12res280,pet12res281,pet12res282,pet12res283,pet12res284,pet12res285;
+let pet12res286,pet12res287,pet12res288,pet12res289,pet12res290, pet12res291,pet12res292,pet12res293,pet12res294,pet12res295,pet12res296,pet12res297;
+let pet12res298,pet12res299,pet12res300,pet12res301,pet12res302,pet12res303,pet12res304,pet12res305,pet12res306,pet12res307,pet12res308,pet12res309;
+let pet12res310,pet12res311,pet12res312,pet12res313,pet12res314,pet12res315,pet12res316,pet12res317,pet12res318,pet12res319,pet12res320,pet12res321;
+let pet12res322,pet12res323,pet12res324,pet12res325,pet12res326,pet12res327,pet12res328,pet12res329,pet12res330,pet12res331,pet12res332,pet12res333;
+let pet12res334,pet12res335,pet12res336,pet12res337,pet12res338,pet12res339,pet12res340,pet12res341,pet12res342,pet12res343,pet12res344,pet12res345;
+let pet12res346,pet12res347,pet12res348,pet12res349,pet12res350,pet12res351,pet12res352;
+let pet12res353,pet12res354,pet12res355,pet12res356,pet12res357,pet12res358,pet12res359,pet12res360; 
+
 
 let pet12val1=0,pet12val2=0,pet12val3=0,pet12val4=0,pet12val5=0,pet12val6=0,pet12val7=0, pet12val8=0,pet12val9=0,pet12val10=0;
 let pet12val11=0,pet12val12=0,pet12val13=0,pet12val14=0,pet12val15=0,pet12val16=0,pet12val17=0, pet12val18=0,pet12val19=0,pet12val20=0;
 let pet12val21=0,pet12val22=0,pet12val23=0,pet12val24=0,pet12val25=0,pet12val26=0,pet12val27=0, pet12val28=0,pet12val29=0,pet12val30=0;
 let pet12val31=0,pet12val32=0,pet12val33=0,pet12val34=0,pet12val35=0,pet12val36=0,pet12val37=0, pet12val38=0,pet12val39=0,pet12val40=0;
-let pet12val41=0,pet12val42=0,pet12val43=0,pet12val44=0,pet12val45=0,pet12val46=0;
+let pet12val41=0,pet12val42=0,pet12val43=0,pet12val44=0,pet12val45=0,pet12val46=0,pet12val47=0,pet12val48=0,pet12val49=0,pet12val50=0,pet12val51=0;
+let pet12val52=0,pet12val53=0,pet12val54=0,pet12val55=0,pet12val56=0,pet12val57=0,pet12val58=0,pet12val59=0,pet12val60=0,pet12val61=0;
+let pet12val62=0,pet12val63=0,pet12val64=0,pet12val65=0,pet12val66=0,pet12val67=0,pet12val68=0,pet12val69=0,pet12val70=0,pet12val71=0,pet12val72=0;
 /////////////////////////////////////////////////////////////////////////////////
 let pet13res1,pet13res2,pet13res3,pet13res4,pet13res5,pet13res6,pet13res7,pet13res8,pet13res9,pet13res10,pet13res11,pet13res12;
 let pet13res13,pet13res14, pet13res15,pet13res16,pet13res17,pet13res18,pet13res19,pet13res20,pet13res21,pet13res22,pet13res23;
@@ -1350,12 +1520,26 @@ let pet13res189,pet13res190,pet13res191,pet13res192,pet13res193,pet13res194,pet1
 let pet13res200,pet13res201,pet13res202,pet13res203,pet13res204,pet13res205,pet13res206,pet13res207,pet13res208,pet13res209,pet13res210,pet13res211;
 let pet13res212,pet13res213,pet13res214,pet13res215,pet13res216,pet13res217,pet13res218,pet13res219,pet13res220,pet13res221,pet13res222,pet13res223;
 let pet13res224,pet13res225,pet13res226,pet13res227,pet13res228,pet13res229,pet13res230;  
+let pet13res231,pet13res232,pet13res233,pet13res234,pet13res235,pet13res236,pet13res237;
+let pet13res238,pet13res239,pet13res240,pet13res241,pet13res242,pet13res243,pet13res244,pet13res245,pet13res246,pet13res247,pet13res248,pet13res249;
+let pet13res250,pet13res251,pet13res252,pet13res253,pet13res254,pet13res255,pet13res256,pet13res257,pet13res258,pet13res259,pet13res260, pet13res261;
+let pet13res262,pet13res263,pet13res264,pet13res265,pet13res266,pet13res267,pet13res268,pet13res269,pet13res270,pet13res271,pet13res272,pet13res273;
+let pet13res274,pet13res275,pet13res276,pet13res277,pet13res278,pet13res279,pet13res280,pet13res281,pet13res282,pet13res283,pet13res284,pet13res285;
+let pet13res286,pet13res287,pet13res288,pet13res289,pet13res290, pet13res291,pet13res292,pet13res293,pet13res294,pet13res295,pet13res296,pet13res297;
+let pet13res298,pet13res299,pet13res300,pet13res301,pet13res302,pet13res303,pet13res304,pet13res305,pet13res306,pet13res307,pet13res308,pet13res309;
+let pet13res310,pet13res311,pet13res312,pet13res313,pet13res314,pet13res315,pet13res316,pet13res317,pet13res318,pet13res319,pet13res320,pet13res321;
+let pet13res322,pet13res323,pet13res324,pet13res325,pet13res326,pet13res327,pet13res328,pet13res329,pet13res330,pet13res331,pet13res332,pet13res333;
+let pet13res334,pet13res335,pet13res336,pet13res337,pet13res338,pet13res339,pet13res340,pet13res341,pet13res342,pet13res343,pet13res344,pet13res345;
+let pet13res346,pet13res347,pet13res348,pet13res349,pet13res350,pet13res351,pet13res352;
+let pet13res353,pet13res354,pet13res355,pet13res356,pet13res357,pet13res358,pet13res359,pet13res360; 
 
 let pet13val1=0,pet13val2=0,pet13val3=0,pet13val4=0,pet13val5=0,pet13val6=0,pet13val7=0, pet13val8=0,pet13val9=0,pet13val10=0;
 let pet13val11=0,pet13val12=0,pet13val13=0,pet13val14=0,pet13val15=0,pet13val16=0,pet13val17=0, pet13val18=0,pet13val19=0,pet13val20=0;
 let pet13val21=0,pet13val22=0,pet13val23=0,pet13val24=0,pet13val25=0,pet13val26=0,pet13val27=0, pet13val28=0,pet13val29=0,pet13val30=0;
 let pet13val31=0,pet13val32=0,pet13val33=0,pet13val34=0,pet13val35=0,pet13val36=0,pet13val37=0, pet13val38=0,pet13val39=0,pet13val40=0;
-let pet13val41=0,pet13val42=0,pet13val43=0,pet13val44=0,pet13val45=0,pet13val46=0;
+let pet13val41=0,pet13val42=0,pet13val43=0,pet13val44=0,pet13val45=0,pet13val46=0,pet13val47=0,pet13val48=0,pet13val49=0,pet13val50=0,pet13val51=0;
+let pet13val52=0,pet13val53=0,pet13val54=0,pet13val55=0,pet13val56=0,pet13val57=0,pet13val58=0,pet13val59=0,pet13val60=0,pet13val61=0;
+let pet13val62=0,pet13val63=0,pet13val64=0,pet13val65=0,pet13val66=0,pet13val67=0,pet13val68=0,pet13val69=0,pet13val70=0,pet13val71=0,pet13val72=0;
 //////////////////////////////////////////////////////////////////////////////////
 let pet14res1,pet14res2,pet14res3,pet14res4,pet14res5,pet14res6,pet14res7,pet14res8,pet14res9,pet14res10,pet14res11,pet14res12;
 let pet14res13,pet14res14, pet14res15,pet14res16,pet14res17,pet14res18,pet14res19,pet14res20,pet14res21,pet14res22,pet14res23;
@@ -1377,12 +1561,26 @@ let pet14res189,pet14res190,pet14res191,pet14res192,pet14res193,pet14res194,pet1
 let pet14res200,pet14res201,pet14res202,pet14res203,pet14res204,pet14res205,pet14res206,pet14res207,pet14res208,pet14res209,pet14res210,pet14res211;
 let pet14res212,pet14res213,pet14res214,pet14res215,pet14res216,pet14res217,pet14res218,pet14res219,pet14res220,pet14res221,pet14res222,pet14res223;
 let pet14res224,pet14res225,pet14res226,pet14res227,pet14res228,pet14res229,pet14res230;  
+let pet14res231,pet14res232,pet14res233,pet14res234,pet14res235,pet14res236,pet14res237;
+let pet14res238,pet14res239,pet14res240,pet14res241,pet14res242,pet14res243,pet14res244,pet14res245,pet14res246,pet14res247,pet14res248,pet14res249;
+let pet14res250,pet14res251,pet14res252,pet14res253,pet14res254,pet14res255,pet14res256,pet14res257,pet14res258,pet14res259,pet14res260, pet14res261;
+let pet14res262,pet14res263,pet14res264,pet14res265,pet14res266,pet14res267,pet14res268,pet14res269,pet14res270,pet14res271,pet14res272,pet14res273;
+let pet14res274,pet14res275,pet14res276,pet14res277,pet14res278,pet14res279,pet14res280,pet14res281,pet14res282,pet14res283,pet14res284,pet14res285;
+let pet14res286,pet14res287,pet14res288,pet14res289,pet14res290, pet14res291,pet14res292,pet14res293,pet14res294,pet14res295,pet14res296,pet14res297;
+let pet14res298,pet14res299,pet14res300,pet14res301,pet14res302,pet14res303,pet14res304,pet14res305,pet14res306,pet14res307,pet14res308,pet14res309;
+let pet14res310,pet14res311,pet14res312,pet14res313,pet14res314,pet14res315,pet14res316,pet14res317,pet14res318,pet14res319,pet14res320,pet14res321;
+let pet14res322,pet14res323,pet14res324,pet14res325,pet14res326,pet14res327,pet14res328,pet14res329,pet14res330,pet14res331,pet14res332,pet14res333;
+let pet14res334,pet14res335,pet14res336,pet14res337,pet14res338,pet14res339,pet14res340,pet14res341,pet14res342,pet14res343,pet14res344,pet14res345;
+let pet14res346,pet14res347,pet14res348,pet14res349,pet14res350,pet14res351,pet14res352;
+let pet14res353,pet14res354,pet14res355,pet14res356,pet14res357,pet14res358,pet14res359,pet14res360; 
 
 let pet14val1=0,pet14val2=0,pet14val3=0,pet14val4=0,pet14val5=0,pet14val6=0,pet14val7=0, pet14val8=0,pet14val9=0,pet14val10 = 0;
 let pet14val11=0,pet14val12=0,pet14val13=0,pet14val14=0,pet14val15=0,pet14val16=0,pet14val17=0, pet14val18=0,pet14val19=0,pet14val20 = 0;
 let pet14val21=0,pet14val22=0,pet14val23=0,pet14val24=0,pet14val25=0,pet14val26=0,pet14val27=0, pet14val28=0,pet14val29=0,pet14val30 = 0;
 let pet14val31=0,pet14val32=0,pet14val33=0,pet14val34=0,pet14val35=0,pet14val36=0,pet14val37=0, pet14val38=0,pet14val39=0,pet14val40 = 0;
-let pet14val41=0,pet14val42=0,pet14val43=0,pet14val44=0,pet14val45=0,pet14val46 = 0;
+let pet14val41=0,pet14val42=0,pet14val43=0,pet14val44=0,pet14val45=0,pet14val46 = 0,pet14val47=0,pet14val48=0,pet14val49=0,pet14val50=0,pet14val51=0;
+let pet14val52=0,pet14val53=0,pet14val54=0,pet14val55=0,pet14val56=0,pet14val57=0,pet14val58=0,pet14val59=0,pet14val60=0,pet14val61=0;
+let pet14val62=0,pet14val63=0,pet14val64=0,pet14val65=0,pet14val66=0,pet14val67=0,pet14val68=0,pet14val69=0,pet14val70=0,pet14val71=0,pet14val72=0;
 //////////////////////////////////////////////////////////////////////////////
 let pet15res1,pet15res2,pet15res3,pet15res4,pet15res5,pet15res6,pet15res7,pet15res8,pet15res9,pet15res10,pet15res11,pet15res12;
 let pet15res13,pet15res14, pet15res15,pet15res16,pet15res17,pet15res18,pet15res19,pet15res20,pet15res21,pet15res22,pet15res23;
@@ -1404,98 +1602,134 @@ let pet15res189,pet15res190,pet15res191,pet15res192,pet15res193,pet15res194,pet1
 let pet15res200,pet15res201,pet15res202,pet15res203,pet15res204,pet15res205,pet15res206,pet15res207,pet15res208,pet15res209,pet15res210,pet15res211;
 let pet15res212,pet15res213,pet15res214,pet15res215,pet15res216,pet15res217,pet15res218,pet15res219,pet15res220,pet15res221,pet15res222,pet15res223;
 let pet15res224,pet15res225,pet15res226,pet15res227,pet15res228,pet15res229,pet15res230;  
+let pet15res231,pet15res232,pet15res233,pet15res234,pet15res235,pet15res236,pet15res237;
+let pet15res238,pet15res239,pet15res240,pet15res241,pet15res242,pet15res243,pet15res244,pet15res245,pet15res246,pet15res247,pet15res248,pet15res249;
+let pet15res250,pet15res251,pet15res252,pet15res253,pet15res254,pet15res255,pet15res256,pet15res257,pet15res258,pet15res259,pet15res260, pet15res261;
+let pet15res262,pet15res263,pet15res264,pet15res265,pet15res266,pet15res267,pet15res268,pet15res269,pet15res270,pet15res271,pet15res272,pet15res273;
+let pet15res274,pet15res275,pet15res276,pet15res277,pet15res278,pet15res279,pet15res280,pet15res281,pet15res282,pet15res283,pet15res284,pet15res285;
+let pet15res286,pet15res287,pet15res288,pet15res289,pet15res290, pet15res291,pet15res292,pet15res293,pet15res294,pet15res295,pet15res296,pet15res297;
+let pet15res298,pet15res299,pet15res300,pet15res301,pet15res302,pet15res303,pet15res304,pet15res305,pet15res306,pet15res307,pet15res308,pet15res309;
+let pet15res310,pet15res311,pet15res312,pet15res313,pet15res314,pet15res315,pet15res316,pet15res317,pet15res318,pet15res319,pet15res320,pet15res321;
+let pet15res322,pet15res323,pet15res324,pet15res325,pet15res326,pet15res327,pet15res328,pet15res329,pet15res330,pet15res331,pet15res332,pet15res333;
+let pet15res334,pet15res335,pet15res336,pet15res337,pet15res338,pet15res339,pet15res340,pet15res341,pet15res342,pet15res343,pet15res344,pet15res345;
+let pet15res346,pet15res347,pet15res348,pet15res349,pet15res350,pet15res351,pet15res352;
+let pet15res353,pet15res354,pet15res355,pet15res356,pet15res357,pet15res358,pet15res359,pet15res360; 
 
 let pet15val1=0,pet15val2=0,pet15val3=0,pet15val4=0,pet15val5=0,pet15val6=0,pet15val7=0, pet15val8=0,pet15val9=0,pet15val10=0;
 let pet15val11=0,pet15val12=0,pet15val13=0,pet15val14=0,pet15val15=0,pet15val16=0,pet15val17=0, pet15val18=0,pet15val19=0,pet15val20=0;
 let pet15val21=0,pet15val22=0,pet15val23=0,pet15val24=0,pet15val25=0,pet15val26=0,pet15val27=0, pet15val28=0,pet15val29=0,pet15val30=0;
 let pet15val31=0,pet15val32=0,pet15val33=0,pet15val34=0,pet15val35=0,pet15val36=0,pet15val37=0, pet15val38=0,pet15val39=0,pet15val40=0;
-let pet15val41=0,pet15val42=0,pet15val43=0,pet15val44=0,pet15val45=0,pet15val46 = 0 ;
-
+let pet15val41=0,pet15val42=0,pet15val43=0,pet15val44=0,pet15val45=0,pet15val46 = 0,pet15val47=0,pet15val48=0,pet15val49=0,pet15val50=0,pet15val51=0;
+let pet15val52=0,pet15val53=0,pet15val54=0,pet15val55=0,pet15val56=0,pet15val57=0,pet15val58=0,pet15val59=0,pet15val60=0,pet15val61=0;
+let pet15val62=0,pet15val63=0,pet15val64=0,pet15val65=0,pet15val66=0,pet15val67=0,pet15val68=0,pet15val69=0,pet15val70=0,pet15val71=0,pet15val72=0;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 let pet1ent1,pet1ent2,pet1ent3,pet1ent4,pet1ent5,pet1ent6,pet1ent7,pet1ent8,pet1ent9,pet1ent10,pet1ent11;
 let pet1ent12,pet1ent13,pet1ent14,pet1ent15,pet1ent16,pet1ent17,pet1ent18,pet1ent19,pet1ent20,pet1ent21,pet1ent22;
 let pet1ent23,pet1ent24,pet1ent25,pet1ent26,pet1ent27,pet1ent28,pet1ent29,pet1ent30,pet1ent31,pet1ent32,pet1ent33;
 let pet1ent34,pet1ent35,pet1ent36,pet1ent37,pet1ent38,pet1ent39,pet1ent40,pet1ent41,pet1ent42,pet1ent43,pet1ent44,pet1ent45,pet1ent46;
+let pet1ent47,pet1ent48,pet1ent49,pet1ent50,pet1ent51,pet1ent52,pet1ent53,pet1ent54,pet1ent55,pet1ent56,pet1ent57,pet1ent58,pet1ent59;
+let pet1ent60,pet1ent61,pet1ent62,pet1ent63,pet1ent64,pet1ent65,pet1ent66,pet1ent67,pet1ent68,pet1ent69,pet1ent70,pet1ent71,pet1ent72;
 
 let pet2ent1,pet2ent2,pet2ent3,pet2ent4,pet2ent5,pet2ent6,pet2ent7,pet2ent8,pet2ent9,pet2ent10,pet2ent11;
 let pet2ent12,pet2ent13,pet2ent14,pet2ent15,pet2ent16,pet2ent17,pet2ent18,pet2ent19,pet2ent20,pet2ent21,pet2ent22;
 let pet2ent23,pet2ent24,pet2ent25,pet2ent26,pet2ent27,pet2ent28,pet2ent29,pet2ent30,pet2ent31,pet2ent32,pet2ent33;
 let pet2ent34,pet2ent35,pet2ent36,pet2ent37,pet2ent38,pet2ent39,pet2ent40,pet2ent41,pet2ent42,pet2ent43,pet2ent44,pet2ent45,pet2ent46;
+let pet2ent47,pet2ent48,pet2ent49,pet2ent50,pet2ent51,pet2ent52,pet2ent53,pet2ent54,pet2ent55,pet2ent56,pet2ent57,pet2ent58,pet2ent59;
+let pet2ent60,pet2ent61,pet2ent62,pet2ent63,pet2ent64,pet2ent65,pet2ent66,pet2ent67,pet2ent68,pet2ent69,pet2ent70,pet2ent71,pet2ent72;
 
 let pet3ent1,pet3ent2,pet3ent3,pet3ent4,pet3ent5,pet3ent6,pet3ent7,pet3ent8,pet3ent9,pet3ent10,pet3ent11;
 let pet3ent12,pet3ent13,pet3ent14,pet3ent15,pet3ent16,pet3ent17,pet3ent18,pet3ent19,pet3ent20,pet3ent21,pet3ent22;
 let pet3ent23,pet3ent24,pet3ent25,pet3ent26,pet3ent27,pet3ent28,pet3ent29,pet3ent30,pet3ent31,pet3ent32,pet3ent33;
 let pet3ent34,pet3ent35,pet3ent36,pet3ent37,pet3ent38,pet3ent39,pet3ent40,pet3ent41,pet3ent42,pet3ent43,pet3ent44,pet3ent45,pet3ent46;
+let pet3ent47,pet3ent48,pet3ent49,pet3ent50,pet3ent51,pet3ent52,pet3ent53,pet3ent54,pet3ent55,pet3ent56,pet3ent57,pet3ent58,pet3ent59;
+let pet3ent60,pet3ent61,pet3ent62,pet3ent63,pet3ent64,pet3ent65,pet3ent66,pet3ent67,pet3ent68,pet3ent69,pet3ent70,pet3ent71,pet3ent72;
 
 let pet4ent1,pet4ent2,pet4ent3,pet4ent4,pet4ent5,pet4ent6,pet4ent7,pet4ent8,pet4ent9,pet4ent10,pet4ent11;
 let pet4ent12,pet4ent13,pet4ent14,pet4ent15,pet4ent16,pet4ent17,pet4ent18,pet4ent19,pet4ent20,pet4ent21,pet4ent22;
 let pet4ent23,pet4ent24,pet4ent25,pet4ent26,pet4ent27,pet4ent28,pet4ent29,pet4ent30,pet4ent31,pet4ent32,pet4ent33;
 let pet4ent34,pet4ent35,pet4ent36,pet4ent37,pet4ent38,pet4ent39,pet4ent40,pet4ent41,pet4ent42,pet4ent43,pet4ent44,pet4ent45,pet4ent46;
+let pet4ent47,pet4ent48,pet4ent49,pet4ent50,pet4ent51,pet4ent52,pet4ent53,pet4ent54,pet4ent55,pet4ent56,pet4ent57,pet4ent58,pet4ent59;
+let pet4ent60,pet4ent61,pet4ent62,pet4ent63,pet4ent64,pet4ent65,pet4ent66,pet4ent67,pet4ent68,pet4ent69,pet4ent70,pet4ent71,pet4ent72;
 
 let pet5ent1,pet5ent2,pet5ent3,pet5ent4,pet5ent5,pet5ent6,pet5ent7,pet5ent8,pet5ent9,pet5ent10,pet5ent11;
 let pet5ent12,pet5ent13,pet5ent14,pet5ent15,pet5ent16,pet5ent17,pet5ent18,pet5ent19,pet5ent20,pet5ent21,pet5ent22;
 let pet5ent23,pet5ent24,pet5ent25,pet5ent26,pet5ent27,pet5ent28,pet5ent29,pet5ent30,pet5ent31,pet5ent32,pet5ent33;
 let pet5ent34,pet5ent35,pet5ent36,pet5ent37,pet5ent38,pet5ent39,pet5ent40,pet5ent41,pet5ent42,pet5ent43,pet5ent44,pet5ent45,pet5ent46;
 let ponderacion;
+let pet5ent47,pet5ent48,pet5ent49,pet5ent50,pet5ent51,pet5ent52,pet5ent53,pet5ent54,pet5ent55,pet5ent56,pet5ent57,pet5ent58,pet5ent59;
+let pet5ent60,pet5ent61,pet5ent62,pet5ent63,pet5ent64,pet5ent65,pet5ent66,pet5ent67,pet5ent68,pet5ent69,pet5ent70,pet5ent71,pet5ent72;
 
 let pet6ent1,pet6ent2,pet6ent3,pet6ent4,pet6ent5,pet6ent6,pet6ent7,pet6ent8,pet6ent9,pet6ent10,pet6ent11;
 let pet6ent12,pet6ent13,pet6ent14,pet6ent15,pet6ent16,pet6ent17,pet6ent18,pet6ent19,pet6ent20,pet6ent21,pet6ent22;
 let pet6ent23,pet6ent24,pet6ent25,pet6ent26,pet6ent27,pet6ent28,pet6ent29,pet6ent30,pet6ent31,pet6ent32,pet6ent33;
 let pet6ent34,pet6ent35,pet6ent36,pet6ent37,pet6ent38,pet6ent39,pet6ent40,pet6ent41,pet6ent42,pet6ent43,pet6ent44,pet6ent45,pet6ent46;
+let pet6ent47,pet6ent48,pet6ent49,pet6ent50,pet6ent51,pet6ent52,pet6ent53,pet6ent54,pet6ent55,pet6ent56,pet6ent57,pet6ent58,pet6ent59;
+let pet6ent60,pet6ent61,pet6ent62,pet6ent63,pet6ent64,pet6ent65,pet6ent66,pet6ent67,pet6ent68,pet6ent69,pet6ent70,pet6ent71,pet6ent72;
 
 let pet7ent1,pet7ent2,pet7ent3,pet7ent4,pet7ent5,pet7ent6,pet7ent7,pet7ent8,pet7ent9,pet7ent10,pet7ent11;
 let pet7ent12,pet7ent13,pet7ent14,pet7ent15,pet7ent16,pet7ent17,pet7ent18,pet7ent19,pet7ent20,pet7ent21,pet7ent22;
 let pet7ent23,pet7ent24,pet7ent25,pet7ent26,pet7ent27,pet7ent28,pet7ent29,pet7ent30,pet7ent31,pet7ent32,pet7ent33;
 let pet7ent34,pet7ent35,pet7ent36,pet7ent37,pet7ent38,pet7ent39,pet7ent40,pet7ent41,pet7ent42,pet7ent43,pet7ent44,pet7ent45,pet7ent46;
+let pet7ent47,pet7ent48,pet7ent49,pet7ent50,pet7ent51,pet7ent52,pet7ent53,pet7ent54,pet7ent55,pet7ent56,pet7ent57,pet7ent58,pet7ent59;
+let pet7ent60,pet7ent61,pet7ent62,pet7ent63,pet7ent64,pet7ent65,pet7ent66,pet7ent67,pet7ent68,pet7ent69,pet7ent70,pet7ent71,pet7ent72;
 
 let pet8ent1,pet8ent2,pet8ent3,pet8ent4,pet8ent5,pet8ent6,pet8ent7,pet8ent8,pet8ent9,pet8ent10,pet8ent11;
 let pet8ent12,pet8ent13,pet8ent14,pet8ent15,pet8ent16,pet8ent17,pet8ent18,pet8ent19,pet8ent20,pet8ent21,pet8ent22;
 let pet8ent23,pet8ent24,pet8ent25,pet8ent26,pet8ent27,pet8ent28,pet8ent29,pet8ent30,pet8ent31,pet8ent32,pet8ent33;
 let pet8ent34,pet8ent35,pet8ent36,pet8ent37,pet8ent38,pet8ent39,pet8ent40,pet8ent41,pet8ent42,pet8ent43,pet8ent44,pet8ent45,pet8ent46;
+let pet8ent47,pet8ent48,pet8ent49,pet8ent50,pet8ent51,pet8ent52,pet8ent53,pet8ent54,pet8ent55,pet8ent56,pet8ent57,pet8ent58,pet8ent59;
+let pet8ent60,pet8ent61,pet8ent62,pet8ent63,pet8ent64,pet8ent65,pet8ent66,pet8ent67,pet8ent68,pet8ent69,pet8ent70,pet8ent71,pet8ent72;
 
 let pet9ent1,pet9ent2,pet9ent3,pet9ent4,pet9ent5,pet9ent6,pet9ent7,pet9ent8,pet9ent9,pet9ent10,pet9ent11;
 let pet9ent12,pet9ent13,pet9ent14,pet9ent15,pet9ent16,pet9ent17,pet9ent18,pet9ent19,pet9ent20,pet9ent21,pet9ent22;
 let pet9ent23,pet9ent24,pet9ent25,pet9ent26,pet9ent27,pet9ent28,pet9ent29,pet9ent30,pet9ent31,pet9ent32,pet9ent33;
 let pet9ent34,pet9ent35,pet9ent36,pet9ent37,pet9ent38,pet9ent39,pet9ent40,pet9ent41,pet9ent42,pet9ent43,pet9ent44,pet9ent45,pet9ent46;
+let pet9ent47,pet9ent48,pet9ent49,pet9ent50,pet9ent51,pet9ent52,pet9ent53,pet9ent54,pet9ent55,pet9ent56,pet9ent57,pet9ent58,pet9ent59;
+let pet9ent60,pet9ent61,pet9ent62,pet9ent63,pet9ent64,pet9ent65,pet9ent66,pet9ent67,pet9ent68,pet9ent69,pet9ent70,pet9ent71,pet9ent72;
 
 let pet10ent1,pet10ent2,pet10ent3,pet10ent4,pet10ent5,pet10ent6,pet10ent7,pet10ent8,pet10ent9,pet10ent10,pet10ent11;
 let pet10ent12,pet10ent13,pet10ent14,pet10ent15,pet10ent16,pet10ent17,pet10ent18,pet10ent19,pet10ent20,pet10ent21,pet10ent22;
 let pet10ent23,pet10ent24,pet10ent25,pet10ent26,pet10ent27,pet10ent28,pet10ent29,pet10ent30,pet10ent31,pet10ent32,pet10ent33;
 let pet10ent34,pet10ent35,pet10ent36,pet10ent37,pet10ent38,pet10ent39,pet10ent40,pet10ent41,pet10ent42,pet10ent43,pet10ent44,pet10ent45,pet10ent46;
+let pet10ent47,pet10ent48,pet10ent49,pet10ent50,pet10ent51,pet10ent52,pet10ent53,pet10ent54,pet10ent55,pet10ent56,pet10ent57,pet10ent58,pet10ent59;
+let pet10ent60,pet10ent61,pet10ent62,pet10ent63,pet10ent64,pet10ent65,pet10ent66,pet10ent67,pet10ent68,pet10ent69,pet10ent70,pet10ent71,pet10ent72;
 
 let pet11ent1,pet11ent2,pet11ent3,pet11ent4,pet11ent5,pet11ent6,pet11ent7,pet11ent8,pet11ent9,pet11ent10,pet11ent11;
 let pet11ent12,pet11ent13,pet11ent14,pet11ent15,pet11ent16,pet11ent17,pet11ent18,pet11ent19,pet11ent20,pet11ent21,pet11ent22;
 let pet11ent23,pet11ent24,pet11ent25,pet11ent26,pet11ent27,pet11ent28,pet11ent29,pet11ent30,pet11ent31,pet11ent32,pet11ent33;
 let pet11ent34,pet11ent35,pet11ent36,pet11ent37,pet11ent38,pet11ent39,pet11ent40,pet11ent41,pet11ent42,pet11ent43,pet11ent44,pet11ent45,pet11ent46;
+let pet11ent47,pet11ent48,pet11ent49,pet11ent50,pet11ent51,pet11ent52,pet11ent53,pet11ent54,pet11ent55,pet11ent56,pet11ent57,pet11ent58,pet11ent59;
+let pet11ent60,pet11ent61,pet11ent62,pet11ent63,pet11ent64,pet11ent65,pet11ent66,pet11ent67,pet11ent68,pet11ent69,pet11ent70,pet11ent71,pet11ent72;
 
 let pet12ent1,pet12ent2,pet12ent3,pet12ent4,pet12ent5,pet12ent6,pet12ent7,pet12ent8,pet12ent9,pet12ent10,pet12ent11;
 let pet12ent12,pet12ent13,pet12ent14,pet12ent15,pet12ent16,pet12ent17,pet12ent18,pet12ent19,pet12ent20,pet12ent21,pet12ent22;
 let pet12ent23,pet12ent24,pet12ent25,pet12ent26,pet12ent27,pet12ent28,pet12ent29,pet12ent30,pet12ent31,pet12ent32,pet12ent33;
 let pet12ent34,pet12ent35,pet12ent36,pet12ent37,pet12ent38,pet12ent39,pet12ent40,pet12ent41,pet12ent42,pet12ent43,pet12ent44,pet12ent45,pet12ent46;
+let pet12ent47,pet12ent48,pet12ent49,pet12ent50,pet12ent51,pet12ent52,pet12ent53,pet12ent54,pet12ent55,pet12ent56,pet12ent57,pet12ent58,pet12ent59;
+let pet12ent60,pet12ent61,pet12ent62,pet12ent63,pet12ent64,pet12ent65,pet12ent66,pet12ent67,pet12ent68,pet12ent69,pet12ent70,pet12ent71,pet12ent72;
 
 let pet13ent1,pet13ent2,pet13ent3,pet13ent4,pet13ent5,pet13ent6,pet13ent7,pet13ent8,pet13ent9,pet13ent10,pet13ent11;
 let pet13ent12,pet13ent13,pet13ent14,pet13ent15,pet13ent16,pet13ent17,pet13ent18,pet13ent19,pet13ent20,pet13ent21,pet13ent22;
 let pet13ent23,pet13ent24,pet13ent25,pet13ent26,pet13ent27,pet13ent28,pet13ent29,pet13ent30,pet13ent31,pet13ent32,pet13ent33;
 let pet13ent34,pet13ent35,pet13ent36,pet13ent37,pet13ent38,pet13ent39,pet13ent40,pet13ent41,pet13ent42,pet13ent43,pet13ent44,pet13ent45,pet13ent46;
+let pet13ent47,pet13ent48,pet13ent49,pet13ent50,pet13ent51,pet13ent52,pet13ent53,pet13ent54,pet13ent55,pet13ent56,pet13ent57,pet13ent58,pet13ent59;
+let pet13ent60,pet13ent61,pet13ent62,pet13ent63,pet13ent64,pet13ent65,pet13ent66,pet13ent67,pet13ent68,pet13ent69,pet13ent70,pet13ent71,pet13ent72;
 
 let pet14ent1,pet14ent2,pet14ent3,pet14ent4,pet14ent5,pet14ent6,pet14ent7,pet14ent8,pet14ent9,pet14ent10,pet14ent11;
 let pet14ent12,pet14ent13,pet14ent14,pet14ent15,pet14ent16,pet14ent17,pet14ent18,pet14ent19,pet14ent20,pet14ent21,pet14ent22;
 let pet14ent23,pet14ent24,pet14ent25,pet14ent26,pet14ent27,pet14ent28,pet14ent29,pet14ent30,pet14ent31,pet14ent32,pet14ent33;
 let pet14ent34,pet14ent35,pet14ent36,pet14ent37,pet14ent38,pet14ent39,pet14ent40,pet14ent41,pet14ent42,pet14ent43,pet14ent44,pet14ent45,pet14ent46;
+let pet14ent47,pet14ent48,pet14ent49,pet14ent50,pet14ent51,pet14ent52,pet14ent53,pet14ent54,pet14ent55,pet14ent56,pet14ent57,pet14ent58,pet14ent59;
+let pet14ent60,pet14ent61,pet14ent62,pet14ent63,pet14ent64,pet14ent65,pet14ent66,pet14ent67,pet14ent68,pet14ent69,pet14ent70,pet14ent71,pet14ent72;
 
 let pet15ent1,pet15ent2,pet15ent3,pet15ent4,pet15ent5,pet15ent6,pet15ent7,pet15ent8,pet15ent9,pet15ent10,pet15ent11;
 let pet15ent12,pet15ent13,pet15ent14,pet15ent15,pet15ent16,pet15ent17,pet15ent18,pet15ent19,pet15ent20,pet15ent21,pet15ent22;
 let pet15ent23,pet15ent24,pet15ent25,pet15ent26,pet15ent27,pet15ent28,pet15ent29,pet15ent30,pet15ent31,pet15ent32,pet15ent33;
 let pet15ent34,pet15ent35,pet15ent36,pet15ent37,pet15ent38,pet15ent39,pet15ent40,pet15ent41,pet15ent42,pet15ent43,pet15ent44,pet15ent45,pet15ent46;
+let pet15ent47,pet15ent48,pet15ent49,pet15ent50,pet15ent51,pet15ent52,pet15ent53,pet15ent54,pet15ent55,pet15ent56,pet15ent57,pet15ent58,pet15ent59;
+let pet15ent60,pet15ent61,pet15ent62,pet15ent63,pet15ent64,pet15ent65,pet15ent66,pet15ent67,pet15ent68,pet15ent69,pet15ent70,pet15ent71,pet15ent72;
 
-
-
-// console.log("peticion1",this.state.peticion1)
-// console.log("peticion2",this.state.peticion2)
-// console.log("peticion3",this.state.peticion3)
-// console.log("peticion4",this.state.peticion4)
- console.log("peticion5",this.state.peticion5)
 if(this.state.peticion1.length>0){
 
   
@@ -1523,25 +1757,25 @@ if(this.state.peticion1.length>0){
     } 
 
 
-  if(this.state.peticion1[2].Respuestas=="Siempre"){
-    respuesta6="Siempre"
-    valor2= this.state.getPonderacion[1].siempre
-    }else if(this.state.peticion1[2].Respuestas=="CasiSiempre"){
-      respuesta7="Casi Siempre"
-      valor2= this.state.getPonderacion[1].casisiempre
-    }
-    else if(this.state.peticion1[2].Respuestas=="AlgunasVeces"){
-      respuesta8="Algunas Veces"
-      valor2= this.state.getPonderacion[1].algunasveces
-    } 
-    else if(this.state.peticion1[2].Respuestas=="CasiNunca"){
-      respuesta9="Casi Nunca"
-      valor2= this.state.getPonderacion[2].casinunca
-    } 
-    else if(this.state.peticion1[2].Respuestas=="Nunca"){
-      respuesta10="Nunca"
-      valor2= this.state.getPonderacion[1].nunca
-    } 
+    if(this.state.peticion1[2].Respuestas=="Siempre"){
+      respuesta6="Siempre"
+      valor2= this.state.getPonderacion[1].siempre
+      }else if(this.state.peticion1[2].Respuestas=="CasiSiempre"){
+        respuesta7="Casi Siempre"
+        valor2= this.state.getPonderacion[1].casisiempre
+      }
+      else if(this.state.peticion1[2].Respuestas=="AlgunasVeces"){
+        respuesta8="Algunas Veces"
+        valor2= this.state.getPonderacion[1].algunasveces
+      } 
+      else if(this.state.peticion1[2].Respuestas=="CasiNunca"){
+        respuesta9="Casi Nunca"
+        valor2= this.state.getPonderacion[1].casinunca
+      } 
+      else if(this.state.peticion1[2].Respuestas=="Nunca"){
+        respuesta10="Nunca"
+        valor2= this.state.getPonderacion[1].nunca
+      } 
 
     if(this.state.peticion1[3].Respuestas=="Siempre"){
       respuesta11="Siempre"
@@ -2186,7 +2420,7 @@ if(this.state.peticion1.length>0){
             respuesta174="Casi Nunca"
             valor35= this.state.getPonderacion[34].casinunca
           } 
-          else if(this.state.peticion1[15].Respuestas=="Nunca"){
+          else if(this.state.peticion1[35].Respuestas=="Nunca"){
             respuesta175="Nunca"
             valor35= this.state.getPonderacion[34].nunca
           } 
@@ -2291,1042 +2525,2034 @@ if(this.state.peticion1.length>0){
                 valor40= this.state.getPonderacion[39].nunca
               }
 
-            if(this.state.peticion1[42].Respuestas=="Siempre"){
-              respuesta201="Siempre"
-              valor41= this.state.getPonderacion[40].siempre
-            }else if(this.state.peticion1[42].Respuestas=="CasiSiempre"){
-              respuesta202="Casi Siempre"
-              valor41= this.state.getPonderacion[40].casisiempre
-            }
-            else if(this.state.peticion1[42].Respuestas=="AlgunasVeces"){
-              respuesta203="Algunas Veces"
-              valor41= this.state.getPonderacion[40].algunasveces
-            } 
-            else if(this.state.peticion1[42].Respuestas=="CasiNunca"){
-              respuesta204="Casi Nunca"
-              valor41= this.state.getPonderacion[40].casinunca
-            } 
-            else if(this.state.peticion1[42].Respuestas=="Nunca"){
-              respuesta205="Nunca"
-              valor41= this.state.getPonderacion[40].nunca
-            }
-          if(this.state.peticion1[43].Respuestas=="Siempre"){
-            respuesta206="Siempre"
-            valor42= this.state.getPonderacion[41].siempre
-          }else if(this.state.peticion1[43].Respuestas=="CasiSiempre"){
-            respuesta207="Casi Siempre"
-            valor42= this.state.getPonderacion[41].casisiempre
-          }
-          else if(this.state.peticion1[43].Respuestas=="AlgunasVeces"){
-            respuesta208="Algunas Veces"
-            valor42= this.state.getPonderacion[41].algunasveces
-          } 
-          else if(this.state.peticion1[43].Respuestas=="CasiNunca"){
-            respuesta209="Casi Nunca"
-            valor42= this.state.getPonderacion[41].casinunca
-          } 
-          else if(this.state.peticion1[43].Respuestas=="Nunca"){
-            respuesta210="Nunca"
-            valor42= this.state.getPonderacion[41].nunca
-          }
-        if(this.state.peticion1[44].Respuestas=="Siempre"){
-          respuesta211="Siempre"
-          valor43= this.state.getPonderacion[42].siempre
-        }else if(this.state.peticion1[44].Respuestas=="CasiSiempre"){
-          respuesta212="Casi Siempre"
-          valor43= this.state.getPonderacion[42].casisiempre
-        }
-        else if(this.state.peticion1[44].Respuestas=="AlgunasVeces"){
-          respuesta213="Algunas Veces"
-          valor43= this.state.getPonderacion[42].algunasveces
-        } 
-        else if(this.state.peticion1[44].Respuestas=="CasiNunca"){
-          respuesta214="Casi Nunca"
-          valor43= this.state.getPonderacion[42].casinunca
-        } 
-        else if(this.state.peticion1[44].Respuestas=="Nunca"){
-          respuesta215="Nunca"
-          valor43= this.state.getPonderacion[42].nunca
-        }
+              if(this.state.peticion1[41].Respuestas=="Siempre"){
+                respuesta201="Siempre"
+                valor41= this.state.getPonderacion[40].siempre
+              }else if(this.state.peticion1[41].Respuestas=="CasiSiempre"){
+                respuesta202="Casi Siempre"
+                valor41= this.state.getPonderacion[40].casisiempre
+              }
+              else if(this.state.peticion1[41].Respuestas=="AlgunasVeces"){
+                respuesta203="Algunas Veces"
+                valor41= this.state.getPonderacion[40].algunasveces
+              } 
+              else if(this.state.peticion1[41].Respuestas=="CasiNunca"){
+                respuesta204="Casi Nunca"
+                valor41= this.state.getPonderacion[40].casinunca
+              } 
+              else if(this.state.peticion1[41].Respuestas=="Nunca"){
+                respuesta205="Nunca"
+                valor41= this.state.getPonderacion[40].nunca
+              }
+              
+              if(this.state.peticion1[42].Respuestas=="Siempre"){
+                respuesta206="Siempre"
+                valor42= this.state.getPonderacion[41].siempre
+              }else if(this.state.peticion1[42].Respuestas=="CasiSiempre"){
+                respuesta207="Casi Siempre"
+                valor42= this.state.getPonderacion[41].casisiempre
+              }
+              else if(this.state.peticion1[42].Respuestas=="AlgunasVeces"){
+                respuesta208="Algunas Veces"
+                valor42= this.state.getPonderacion[41].algunasveces
+              } 
+              else if(this.state.peticion1[42].Respuestas=="CasiNunca"){
+                respuesta209="Casi Nunca"
+                valor42= this.state.getPonderacion[41].casinunca
+              } 
+              else if(this.state.peticion1[42].Respuestas=="Nunca"){
+                respuesta210="Nunca"
+                valor42= this.state.getPonderacion[41].nunca
+              }
 
-      if(this.state.peticion1[46].Respuestas=="Siempre"){
-        respuesta216="Siempre"
-        valor44= this.state.getPonderacion[43].siempre
-      }else if(this.state.peticion1[46].Respuestas=="CasiSiempre"){
-        respuesta217="Casi Siempre"
-        valor44= this.state.getPonderacion[43].casisiempre
-      }
-      else if(this.state.peticion1[46].Respuestas=="AlgunasVeces"){
-        respuesta218="Algunas Veces"
-        valor44= this.state.getPonderacion[43].algunasveces
-      } 
-      else if(this.state.peticion1[46].Respuestas=="CasiNunca"){
-        respuesta219="Casi Nunca"
-        valor44= this.state.getPonderacion[43].casinunca
-      } 
-      else if(this.state.peticion1[46].Respuestas=="Nunca"){
-        respuesta220="Nunca"
-        valor44= this.state.getPonderacion[43].nunca
-      }
+              if(this.state.peticion1[43].Respuestas=="Siempre"){
+                respuesta211="Siempre"
+                valor43= this.state.getPonderacion[42].siempre
+              }else if(this.state.peticion1[43].Respuestas=="CasiSiempre"){
+                respuesta212="Casi Siempre"
+                valor43= this.state.getPonderacion[42].casisiempre
+              }
+              else if(this.state.peticion1[43].Respuestas=="AlgunasVeces"){
+                respuesta213="Algunas Veces"
+                valor43= this.state.getPonderacion[42].algunasveces
+              } 
+              else if(this.state.peticion1[43].Respuestas=="CasiNunca"){
+                respuesta214="Casi Nunca"
+                valor43= this.state.getPonderacion[42].casinunca
+              } 
+              else if(this.state.peticion1[43].Respuestas=="Nunca"){
+                respuesta215="Nunca"
+                valor43= this.state.getPonderacion[42].nunca
+              }
+              if(this.state.peticion1[44].Respuestas=="Siempre"){
+                respuesta216="Siempre"
+                valor44= this.state.getPonderacion[43].siempre
+              }else if(this.state.peticion1[44].Respuestas=="CasiSiempre"){
+                respuesta217="Casi Siempre"
+                valor44= this.state.getPonderacion[43].casisiempre
+              }
+              else if(this.state.peticion1[44].Respuestas=="AlgunasVeces"){
+                respuesta218="Algunas Veces"
+                valor44= this.state.getPonderacion[43].algunasveces
+              } 
+              else if(this.state.peticion1[44].Respuestas=="CasiNunca"){
+                respuesta219="Casi Nunca"
+                valor44= this.state.getPonderacion[43].casinunca
+              } 
+              else if(this.state.peticion1[44].Respuestas=="Nunca"){
+                respuesta220="Nunca"
+                valor44= this.state.getPonderacion[43].nunca
+              }
 
-    if(this.state.peticion1[47].Respuestas=="Siempre"){
-      respuesta221="Siempre"
-      valor45= this.state.getPonderacion[44].siempre
-    }else if(this.state.peticion1[47].Respuestas=="CasiSiempre"){
-      respuesta222="Casi Siempre"
-      valor45= this.state.getPonderacion[44].casisiempre
-    }
-    else if(this.state.peticion1[47].Respuestas=="AlgunasVeces"){
-      respuesta223="Algunas Veces"
-      valor45= this.state.getPonderacion[44].algunasveces
-    } 
-    else if(this.state.peticion1[47].Respuestas=="CasiNunca"){
-      respuesta224="Casi Nunca"
-      valor45= this.state.getPonderacion[44].casinunca
-    } 
-    else if(this.state.peticion1[47].Respuestas=="Nunca"){
-      respuesta225="Nunca"
-      valor45= this.state.getPonderacion[44].nunca
-    }
-    if(this.state.peticion1[48].Respuestas=="Siempre"){
-      respuesta226="Siempre"
-      valor46= this.state.getPonderacion[45].siempre
-    }else if(this.state.peticion1[48].Respuestas=="CasiSiempre"){
-      respuesta227="Casi Siempre"
-      valor46= this.state.getPonderacion[45].casisiempre
-    }
-    else if(this.state.peticion1[48].Respuestas=="AlgunasVeces"){
-      respuesta228="Algunas Veces"
-      valor46= this.state.getPonderacion[45].algunasveces
-    } 
-    else if(this.state.peticion1[48].Respuestas=="CasiNunca"){
-      respuesta229="Casi Nunca"
-      valor46= this.state.getPonderacion[45].casinunca
-    } 
-    else if(this.state.peticion1[48].Respuestas=="Nunca"){
-      respuesta230="Nunca"
-      valor46= this.state.getPonderacion[45].nunca
-    }
+              if(this.state.peticion1[45].Respuestas=="Siempre"){
+                respuesta221="Siempre"
+                valor45= this.state.getPonderacion[44].siempre
+              }else if(this.state.peticion1[45].Respuestas=="CasiSiempre"){
+                respuesta222="Casi Siempre"
+                valor45= this.state.getPonderacion[44].casisiempre
+              }
+              else if(this.state.peticion1[45].Respuestas=="AlgunasVeces"){
+                respuesta223="Algunas Veces"
+                valor45= this.state.getPonderacion[44].algunasveces
+              } 
+              else if(this.state.peticion1[45].Respuestas=="CasiNunca"){
+                respuesta224="Casi Nunca"
+                valor45= this.state.getPonderacion[44].casinunca
+              } 
+              else if(this.state.peticion1[45].Respuestas=="Nunca"){
+                respuesta225="Nunca"
+                valor45= this.state.getPonderacion[44].nunca
+              }
+
+              if(this.state.peticion1[46].Respuestas=="Siempre"){
+                respuesta226="Siempre"
+                valor46= this.state.getPonderacion[45].siempre
+              }else if(this.state.peticion1[46].Respuestas=="CasiSiempre"){
+                respuesta227="Casi Siempre"
+                valor46= this.state.getPonderacion[45].casisiempre
+              }
+              else if(this.state.peticion1[46].Respuestas=="AlgunasVeces"){
+                respuesta228="Algunas Veces"
+                valor46= this.state.getPonderacion[45].algunasveces
+              } 
+              else if(this.state.peticion1[46].Respuestas=="CasiNunca"){
+                respuesta229="Casi Nunca"
+                valor46= this.state.getPonderacion[45].casinunca
+              } 
+              else if(this.state.peticion1[46].Respuestas=="Nunca"){
+                respuesta230="Nunca"
+                valor46= this.state.getPonderacion[45].nunca
+              }
+              if(this.state.peticion1[47].Respuestas=="Siempre"){
+                respuesta231="Siempre"
+                valor47= this.state.getPonderacion[46].siempre
+              }else if(this.state.peticion1[47].Respuestas=="CasiSiempre"){
+                respuesta232="Casi Siempre"
+                valor47= this.state.getPonderacion[46].casisiempre
+              }
+              else if(this.state.peticion1[47].Respuestas=="AlgunasVeces"){
+                respuesta233="Algunas Veces"
+                valor47= this.state.getPonderacion[46].algunasveces
+              } 
+              else if(this.state.peticion1[47].Respuestas=="CasiNunca"){
+                respuesta234="Casi Nunca"
+                valor47= this.state.getPonderacion[46].casinunca
+              } 
+              else if(this.state.peticion1[47].Respuestas=="Nunca"){
+                respuesta235="Nunca"
+                valor47= this.state.getPonderacion[46].nunca
+              }
+              if(this.state.peticion1[48].Respuestas=="Siempre"){
+                respuesta236="Siempre"
+                valor48= this.state.getPonderacion[47].siempre
+              }else if(this.state.peticion1[48].Respuestas=="CasiSiempre"){
+                respuesta237="Casi Siempre"
+                valor48= this.state.getPonderacion[47].casisiempre
+              }
+              else if(this.state.peticion1[48].Respuestas=="AlgunasVeces"){
+                respuesta238="Algunas Veces"
+                valor48= this.state.getPonderacion[47].algunasveces
+              } 
+              else if(this.state.peticion1[48].Respuestas=="CasiNunca"){
+                respuesta239="Casi Nunca"
+                valor48= this.state.getPonderacion[47].casinunca
+              } 
+              else if(this.state.peticion1[48].Respuestas=="Nunca"){
+                respuesta240="Nunca"
+                valor48= this.state.getPonderacion[47].nunca
+              }
+              if(this.state.peticion1[49].Respuestas=="Siempre"){
+                respuesta241="Siempre"
+                valor49= this.state.getPonderacion[48].siempre
+              }else if(this.state.peticion1[49].Respuestas=="CasiSiempre"){
+                respuesta242="Casi Siempre"
+                valor49= this.state.getPonderacion[48].casisiempre
+              }
+              else if(this.state.peticion1[49].Respuestas=="AlgunasVeces"){
+                respuesta243="Algunas Veces"
+                valor49= this.state.getPonderacion[48].algunasveces
+              } 
+              else if(this.state.peticion1[49].Respuestas=="CasiNunca"){
+                respuesta244="Casi Nunca"
+                valor49= this.state.getPonderacion[48].casinunca
+              } 
+              else if(this.state.peticion1[49].Respuestas=="Nunca"){
+                respuesta245="Nunca"
+                valor49= this.state.getPonderacion[48].nunca
+              }
+              if(this.state.peticion1[50].Respuestas=="Siempre"){
+                respuesta246="Siempre"
+                valor50= this.state.getPonderacion[49].siempre
+              }else if(this.state.peticion1[50].Respuestas=="CasiSiempre"){
+                respuesta247="Casi Siempre"
+                valor50= this.state.getPonderacion[49].casisiempre
+              }
+              else if(this.state.peticion1[50].Respuestas=="AlgunasVeces"){
+                respuesta248="Algunas Veces"
+                valor50= this.state.getPonderacion[49].algunasveces
+              } 
+              else if(this.state.peticion1[50].Respuestas=="CasiNunca"){
+                respuesta249="Casi Nunca"
+                valor50= this.state.getPonderacion[49].casinunca
+              } 
+              else if(this.state.peticion1[50].Respuestas=="Nunca"){
+                respuesta250="Nunca"
+                valor50= this.state.getPonderacion[49].nunca
+              }
+              if(this.state.peticion1[51].Respuestas=="Siempre"){
+                respuesta251="Siempre"
+                valor51= this.state.getPonderacion[50].siempre
+              }else if(this.state.peticion1[51].Respuestas=="CasiSiempre"){
+                respuesta252="Casi Siempre"
+                valor51= this.state.getPonderacion[50].casisiempre
+              }
+              else if(this.state.peticion1[51].Respuestas=="AlgunasVeces"){
+                respuesta253="Algunas Veces"
+                valor51= this.state.getPonderacion[50].algunasveces
+              } 
+              else if(this.state.peticion1[51].Respuestas=="CasiNunca"){
+                respuesta254="Casi Nunca"
+                valor51= this.state.getPonderacion[50].casinunca
+              } 
+              else if(this.state.peticion1[51].Respuestas=="Nunca"){
+                respuesta255="Nunca"
+                valor51= this.state.getPonderacion[50].nunca
+              }
+              if(this.state.peticion1[52].Respuestas=="Siempre"){
+                respuesta256="Siempre"
+                valor52= this.state.getPonderacion[51].siempre
+              }else if(this.state.peticion1[52].Respuestas=="CasiSiempre"){
+                respuesta257="Casi Siempre"
+                valor52= this.state.getPonderacion[51].casisiempre
+              }
+              else if(this.state.peticion1[52].Respuestas=="AlgunasVeces"){
+                respuesta258="Algunas Veces"
+                valor52= this.state.getPonderacion[51].algunasveces
+              } 
+              else if(this.state.peticion1[52].Respuestas=="CasiNunca"){
+                respuesta259="Casi Nunca"
+                valor52= this.state.getPonderacion[51].casinunca
+              } 
+              else if(this.state.peticion1[52].Respuestas=="Nunca"){
+                respuesta260="Nunca"
+                valor52= this.state.getPonderacion[51].nunca
+              }
+              if(this.state.peticion1[53].Respuestas=="Siempre"){
+                respuesta261="Siempre"
+                valor53= this.state.getPonderacion[52].siempre
+              }else if(this.state.peticion1[53].Respuestas=="CasiSiempre"){
+                respuesta262="Casi Siempre"
+                valor53= this.state.getPonderacion[52].casisiempre
+              }
+              else if(this.state.peticion1[53].Respuestas=="AlgunasVeces"){
+                respuesta263="Algunas Veces"
+                valor53= this.state.getPonderacion[52].algunasveces
+              } 
+              else if(this.state.peticion1[53].Respuestas=="CasiNunca"){
+                respuesta264="Casi Nunca"
+                valor53= this.state.getPonderacion[52].casinunca
+              } 
+              else if(this.state.peticion1[53].Respuestas=="Nunca"){
+                respuesta265="Nunca"
+                valor53= this.state.getPonderacion[52].nunca
+              }
+              if(this.state.peticion1[54].Respuestas=="Siempre"){
+                respuesta266="Siempre"
+                valor54= this.state.getPonderacion[53].siempre
+              }else if(this.state.peticion1[54].Respuestas=="CasiSiempre"){
+                respuesta267="Casi Siempre"
+                valor54= this.state.getPonderacion[53].casisiempre
+              }
+              else if(this.state.peticion1[54].Respuestas=="AlgunasVeces"){
+                respuesta268="Algunas Veces"
+                valor54= this.state.getPonderacion[53].algunasveces
+              } 
+              else if(this.state.peticion1[54].Respuestas=="CasiNunca"){
+                respuesta269="Casi Nunca"
+                valor54= this.state.getPonderacion[53].casinunca
+              } 
+              else if(this.state.peticion1[54].Respuestas=="Nunca"){
+                respuesta270="Nunca"
+                valor54= this.state.getPonderacion[53].nunca
+              }
+              if(this.state.peticion1[55].Respuestas=="Siempre"){
+                respuesta271="Siempre"
+                valor55= this.state.getPonderacion[54].siempre
+              }else if(this.state.peticion1[55].Respuestas=="CasiSiempre"){
+                respuesta272="Casi Siempre"
+                valor55= this.state.getPonderacion[54].casisiempre
+              }
+              else if(this.state.peticion1[55].Respuestas=="AlgunasVeces"){
+                respuesta273="Algunas Veces"
+                valor55= this.state.getPonderacion[54].algunasveces
+              } 
+              else if(this.state.peticion1[55].Respuestas=="CasiNunca"){
+                respuesta274="Casi Nunca"
+                valor55= this.state.getPonderacion[54].casinunca
+              } 
+              else if(this.state.peticion1[55].Respuestas=="Nunca"){
+                respuesta275="Nunca"
+                valor55= this.state.getPonderacion[54].nunca
+              }
+              if(this.state.peticion1[56].Respuestas=="Siempre"){
+                respuesta276="Siempre"
+                valor56= this.state.getPonderacion[55].siempre
+              }else if(this.state.peticion1[56].Respuestas=="CasiSiempre"){
+                respuesta277="Casi Siempre"
+                valor56= this.state.getPonderacion[55].casisiempre
+              }
+              else if(this.state.peticion1[56].Respuestas=="AlgunasVeces"){
+                respuesta278="Algunas Veces"
+                valor56= this.state.getPonderacion[55].algunasveces
+              } 
+              else if(this.state.peticion1[56].Respuestas=="CasiNunca"){
+                respuesta279="Casi Nunca"
+                valor56= this.state.getPonderacion[55].casinunca
+              } 
+              else if(this.state.peticion1[56].Respuestas=="Nunca"){
+                respuesta280="Nunca"
+                valor56= this.state.getPonderacion[55].nunca
+              }
+              if(this.state.peticion1[57].Respuestas=="Siempre"){
+                respuesta281="Siempre"
+                valor57= this.state.getPonderacion[56].siempre
+              }else if(this.state.peticion1[57].Respuestas=="CasiSiempre"){
+                respuesta282="Casi Siempre"
+                valor57= this.state.getPonderacion[56].casisiempre
+              }
+              else if(this.state.peticion1[57].Respuestas=="AlgunasVeces"){
+                respuesta283="Algunas Veces"
+                valor57= this.state.getPonderacion[56].algunasveces
+              } 
+              else if(this.state.peticion1[57].Respuestas=="CasiNunca"){
+                respuesta284="Casi Nunca"
+                valor57= this.state.getPonderacion[56].casinunca
+              } 
+              else if(this.state.peticion1[57].Respuestas=="Nunca"){
+                respuesta285="Nunca"
+                valor57= this.state.getPonderacion[56].nunca
+              }
+              if(this.state.peticion1[58].Respuestas=="Siempre"){
+                respuesta286="Siempre"
+                valor58= this.state.getPonderacion[57].siempre
+              }else if(this.state.peticion1[58].Respuestas=="CasiSiempre"){
+                respuesta287="Casi Siempre"
+                valor58= this.state.getPonderacion[57].casisiempre
+              }
+              else if(this.state.peticion1[58].Respuestas=="AlgunasVeces"){
+                respuesta288="Algunas Veces"
+                valor58= this.state.getPonderacion[57].algunasveces
+              } 
+              else if(this.state.peticion1[58].Respuestas=="CasiNunca"){
+                respuesta289="Casi Nunca"
+                valor58= this.state.getPonderacion[57].casinunca
+              } 
+              else if(this.state.peticion1[58].Respuestas=="Nunca"){
+                respuesta290="Nunca"
+                valor58= this.state.getPonderacion[57].nunca
+              }
+              if(this.state.peticion1[59].Respuestas=="Siempre"){
+                respuesta291="Siempre"
+                valor59= this.state.getPonderacion[58].siempre
+              }else if(this.state.peticion1[59].Respuestas=="CasiSiempre"){
+                respuesta292="Casi Siempre"
+                valor59= this.state.getPonderacion[58].casisiempre
+              }
+              else if(this.state.peticion1[59].Respuestas=="AlgunasVeces"){
+                respuesta293="Algunas Veces"
+                valor59= this.state.getPonderacion[58].algunasveces
+              } 
+              else if(this.state.peticion1[59].Respuestas=="CasiNunca"){
+                respuesta294="Casi Nunca"
+                valor59= this.state.getPonderacion[58].casinunca
+              } 
+              else if(this.state.peticion1[59].Respuestas=="Nunca"){
+                respuesta295="Nunca"
+                valor59= this.state.getPonderacion[58].nunca
+              }
+              if(this.state.peticion1[60].Respuestas=="Siempre"){
+                respuesta296="Siempre"
+                valor60= this.state.getPonderacion[59].siempre
+              }else if(this.state.peticion1[60].Respuestas=="CasiSiempre"){
+                respuesta297="Casi Siempre"
+                valor60= this.state.getPonderacion[59].casisiempre
+              }
+              else if(this.state.peticion1[60].Respuestas=="AlgunasVeces"){
+                respuesta298="Algunas Veces"
+                valor60= this.state.getPonderacion[59].algunasveces
+              } 
+              else if(this.state.peticion1[60].Respuestas=="CasiNunca"){
+                respuesta299="Casi Nunca"
+                valor60= this.state.getPonderacion[59].casinunca
+              } 
+              else if(this.state.peticion1[60].Respuestas=="Nunca"){
+                respuesta300="Nunca"
+                valor60= this.state.getPonderacion[59].nunca
+              }
+              if(this.state.peticion1[61].Respuestas=="Siempre"){
+                respuesta301="Siempre"
+                valor61= this.state.getPonderacion[60].siempre
+              }else if(this.state.peticion1[61].Respuestas=="CasiSiempre"){
+                respuesta302="Casi Siempre"
+                valor61= this.state.getPonderacion[60].casisiempre
+              }
+              else if(this.state.peticion1[61].Respuestas=="AlgunasVeces"){
+                respuesta303="Algunas Veces"
+                valor61= this.state.getPonderacion[60].algunasveces
+              } 
+              else if(this.state.peticion1[61].Respuestas=="CasiNunca"){
+                respuesta304="Casi Nunca"
+                valor61= this.state.getPonderacion[60].casinunca
+              } 
+              else if(this.state.peticion1[61].Respuestas=="Nunca"){
+                respuesta305="Nunca"
+                valor61= this.state.getPonderacion[60].nunca
+              }
+              if(this.state.peticion1[62].Respuestas=="Siempre"){
+                respuesta306="Siempre"
+                valor62= this.state.getPonderacion[61].siempre
+              }else if(this.state.peticion1[62].Respuestas=="CasiSiempre"){
+                respuesta307="Casi Siempre"
+                valor62= this.state.getPonderacion[61].casisiempre
+              }
+              else if(this.state.peticion1[62].Respuestas=="AlgunasVeces"){
+                respuesta308="Algunas Veces"
+                valor62= this.state.getPonderacion[61].algunasveces
+              } 
+              else if(this.state.peticion1[62].Respuestas=="CasiNunca"){
+                respuesta309="Casi Nunca"
+                valor62= this.state.getPonderacion[61].casinunca
+              } 
+              else if(this.state.peticion1[62].Respuestas=="Nunca"){
+                respuesta310="Nunca"
+                valor62= this.state.getPonderacion[61].nunca
+              }
+              if(this.state.peticion1[63].Respuestas=="Siempre"){
+                respuesta311="Siempre"
+                valor63= this.state.getPonderacion[62].siempre
+              }else if(this.state.peticion1[63].Respuestas=="CasiSiempre"){
+                respuesta312="Casi Siempre"
+                valor63= this.state.getPonderacion[62].casisiempre
+              }
+              else if(this.state.peticion1[63].Respuestas=="AlgunasVeces"){
+                respuesta313="Algunas Veces"
+                valor63= this.state.getPonderacion[62].algunasveces
+              } 
+              else if(this.state.peticion1[63].Respuestas=="CasiNunca"){
+                respuesta314="Casi Nunca"
+                valor63= this.state.getPonderacion[62].casinunca
+              } 
+              else if(this.state.peticion1[63].Respuestas=="Nunca"){
+                respuesta315="Nunca"
+                valor63= this.state.getPonderacion[62].nunca
+              }
+              if(this.state.peticion1[64].Respuestas=="Siempre"){
+                respuesta316="Siempre"
+                valor64= this.state.getPonderacion[63].siempre
+              }else if(this.state.peticion1[64].Respuestas=="CasiSiempre"){
+                respuesta317="Casi Siempre"
+                valor64= this.state.getPonderacion[63].casisiempre
+              }
+              else if(this.state.peticion1[64].Respuestas=="AlgunasVeces"){
+                respuesta318="Algunas Veces"
+                valor64= this.state.getPonderacion[63].algunasveces
+              } 
+              else if(this.state.peticion1[64].Respuestas=="CasiNunca"){
+                respuesta319="Casi Nunca"
+                valor64= this.state.getPonderacion[63].casinunca
+              } 
+              else if(this.state.peticion1[64].Respuestas=="Nunca"){
+                respuesta320="Nunca"
+                valor64= this.state.getPonderacion[63].nunca
+              }
+              if(this.state.peticion1[65].Respuestas=="Siempre"){
+                respuesta321="Siempre"
+                valor65= this.state.getPonderacion[64].siempre
+              }else if(this.state.peticion1[65].Respuestas=="CasiSiempre"){
+                respuesta322="Casi Siempre"
+                valor65= this.state.getPonderacion[64].casisiempre
+              }
+              else if(this.state.peticion1[65].Respuestas=="AlgunasVeces"){
+                respuesta323="Algunas Veces"
+                valor65= this.state.getPonderacion[64].algunasveces
+              } 
+              else if(this.state.peticion1[65].Respuestas=="CasiNunca"){
+                respuesta324="Casi Nunca"
+                valor65= this.state.getPonderacion[64].casinunca
+              } 
+              else if(this.state.peticion1[65].Respuestas=="Nunca"){
+                respuesta325="Nunca"
+                valor65= this.state.getPonderacion[64].nunca
+              }
+              if(this.state.peticion1[66].Respuestas=="Siempre"){
+                respuesta326="Siempre"
+                valor66= this.state.getPonderacion[65].siempre
+              }else if(this.state.peticion1[66].Respuestas=="CasiSiempre"){
+                respuesta327="Casi Siempre"
+                valor66= this.state.getPonderacion[65].casisiempre
+              }
+              else if(this.state.peticion1[66].Respuestas=="AlgunasVeces"){
+                respuesta328="Algunas Veces"
+                valor66= this.state.getPonderacion[65].algunasveces
+              } 
+              else if(this.state.peticion1[66].Respuestas=="CasiNunca"){
+                respuesta329="Casi Nunca"
+                valor66= this.state.getPonderacion[65].casinunca
+              } 
+              else if(this.state.peticion1[66].Respuestas=="Nunca"){
+                respuesta330="Nunca"
+                valor66= this.state.getPonderacion[65].nunca
+              }
+              if(this.state.peticion1[67].Respuestas=="Siempre"){
+                respuesta331="Siempre"
+                valor67= this.state.getPonderacion[66].siempre
+              }else if(this.state.peticion1[67].Respuestas=="CasiSiempre"){
+                respuesta332="Casi Siempre"
+                valor67= this.state.getPonderacion[66].casisiempre
+              }
+              else if(this.state.peticion1[67].Respuestas=="AlgunasVeces"){
+                respuesta333="Algunas Veces"
+                valor67= this.state.getPonderacion[66].algunasveces
+              } 
+              else if(this.state.peticion1[67].Respuestas=="CasiNunca"){
+                respuesta334="Casi Nunca"
+                valor67= this.state.getPonderacion[66].casinunca
+              } 
+              else if(this.state.peticion1[67].Respuestas=="Nunca"){
+                respuesta335="Nunca"
+                valor67= this.state.getPonderacion[66].nunca
+              }
+              if(this.state.peticion1[68].Respuestas=="Siempre"){
+                respuesta336="Siempre"
+                valor68= this.state.getPonderacion[67].siempre
+              }else if(this.state.peticion1[68].Respuestas=="CasiSiempre"){
+                respuesta337="Casi Siempre"
+                valor68= this.state.getPonderacion[67].casisiempre
+              }
+              else if(this.state.peticion1[68].Respuestas=="AlgunasVeces"){
+                respuesta338="Algunas Veces"
+                valor68= this.state.getPonderacion[67].algunasveces
+              } 
+              else if(this.state.peticion1[68].Respuestas=="CasiNunca"){
+                respuesta339="Casi Nunca"
+                valor68= this.state.getPonderacion[67].casinunca
+              } 
+              else if(this.state.peticion1[68].Respuestas=="Nunca"){
+                respuesta340="Nunca"
+                valor68= this.state.getPonderacion[67].nunca
+              }
+              if(this.state.peticion1[69].Respuestas=="Siempre"){
+                respuesta341="Siempre"
+                valor69= this.state.getPonderacion[68].siempre
+              }else if(this.state.peticion1[69].Respuestas=="CasiSiempre"){
+                respuesta342="Casi Siempre"
+                valor69= this.state.getPonderacion[68].casisiempre
+              }
+              else if(this.state.peticion1[69].Respuestas=="AlgunasVeces"){
+                respuesta343="Algunas Veces"
+                valor69= this.state.getPonderacion[68].algunasveces
+              } 
+              else if(this.state.peticion1[69].Respuestas=="CasiNunca"){
+                respuesta344="Casi Nunca"
+                valor69= this.state.getPonderacion[68].casinunca
+              } 
+              else if(this.state.peticion1[69].Respuestas=="Nunca"){
+                respuesta345="Nunca"
+                valor69= this.state.getPonderacion[68].nunca
+              }
+              if(this.state.peticion1[70].Respuestas=="Siempre"){
+                respuesta346="Siempre"
+                valor70= this.state.getPonderacion[69].siempre
+              }else if(this.state.peticion1[70].Respuestas=="CasiSiempre"){
+                respuesta347="Casi Siempre"
+                valor70= this.state.getPonderacion[69].casisiempre
+              }
+              else if(this.state.peticion1[70].Respuestas=="AlgunasVeces"){
+                respuesta348="Algunas Veces"
+                valor70= this.state.getPonderacion[69].algunasveces
+              } 
+              else if(this.state.peticion1[70].Respuestas=="CasiNunca"){
+                respuesta349="Casi Nunca"
+                valor70= this.state.getPonderacion[69].casinunca
+              } 
+              else if(this.state.peticion1[70].Respuestas=="Nunca"){
+                respuesta350="Nunca"
+                valor70= this.state.getPonderacion[69].nunca
+              }
+
+              if(this.state.peticion1[71].Respuestas=="Siempre"){
+                respuesta351="Siempre"
+                valor71= this.state.getPonderacion[70].siempre
+              }else if(this.state.peticion1[71].Respuestas=="CasiSiempre"){
+                respuesta352="Casi Siempre"
+                valor71= this.state.getPonderacion[70].casisiempre
+              }
+              else if(this.state.peticion1[71].Respuestas=="AlgunasVeces"){
+                respuesta353="Algunas Veces"
+                valor71= this.state.getPonderacion[70].algunasveces
+              } 
+              else if(this.state.peticion1[71].Respuestas=="CasiNunca"){
+                respuesta354="Casi Nunca"
+                valor71= this.state.getPonderacion[70].casinunca
+              } 
+              else if(this.state.peticion1[71].Respuestas=="Nunca"){
+                respuesta355="Nunca"
+                valor71= this.state.getPonderacion[70].nunca
+              }
+              if(this.state.peticion1[72].Respuestas=="Siempre"){
+                respuesta356="Siempre"
+                valor72= this.state.getPonderacion[71].siempre
+              }else if(this.state.peticion1[72].Respuestas=="CasiSiempre"){
+                respuesta357="Casi Siempre"
+                valor72= this.state.getPonderacion[71].casisiempre
+              }
+              else if(this.state.peticion1[72].Respuestas=="AlgunasVeces"){
+                respuesta358="Algunas Veces"
+                valor72= this.state.getPonderacion[71].algunasveces
+              } 
+              else if(this.state.peticion1[72].Respuestas=="CasiNunca"){
+                respuesta359="Casi Nunca"
+                valor72= this.state.getPonderacion[71].casinunca
+              } 
+              else if(this.state.peticion1[72].Respuestas=="Nunca"){
+                respuesta360="Nunca"
+                valor72= this.state.getPonderacion[71].nunca
+              }
+          
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////7
   if(this.state.peticion2.length>0){
     
-  if(this.state.peticion2[1].Respuestas=="Siempre"){
-    pet2res1="Siempre"
-    pet2val1= this.state.getPonderacion[0].siempre
-    }else if(this.state.peticion2[1].Respuestas=="CasiSiempre"){
-      pet2res2="Casi Siempre"
-      pet2val1= this.state.getPonderacion[0].casisiempre
-    }
-    else if(this.state.peticion2[1].Respuestas=="AlgunasVeces"){
-      pet2res3="Algunas Veces"
-      pet2val1= this.state.getPonderacion[0].algunasveces
-    } 
-    else if(this.state.peticion2[1].Respuestas=="CasiNunca"){
-      pet2res4="Casi Nunca"
-      pet2val1= this.state.getPonderacion[0].casinunca
-    } 
-    else if(this.state.peticion2[1].Respuestas=="Nunca"){
-      pet2res5="Nunca"
-      pet2val1= this.state.getPonderacion[0].nunca
-    } 
-
-
-  if(this.state.peticion2[2].Respuestas=="Siempre"){
-    pet2res6="Siempre"
-    pet2val2= this.state.getPonderacion[1].siempre
-    }else if(this.state.peticion2[2].Respuestas=="CasiSiempre"){
-      pet2res7="Casi Siempre"
-      pet2val2= this.state.getPonderacion[1].casisiempre
-    }
-    else if(this.state.peticion2[2].Respuestas=="AlgunasVeces"){
-      pet2res8="Algunas Veces"
-      pet2val2= this.state.getPonderacion[1].algunasveces
-    } 
-    else if(this.state.peticion2[2].Respuestas=="CasiNunca"){
-      pet2res9="Casi Nunca"
-      pet2val2= this.state.getPonderacion[2].casinunca
-    } 
-    else if(this.state.peticion2[2].Respuestas=="Nunca"){
-      pet2res10="Nunca"
-      pet2val2= this.state.getPonderacion[1].nunca
-    } 
-
-    if(this.state.peticion2[3].Respuestas=="Siempre"){
-      pet2res11="Siempre"
-      pet2val3= this.state.getPonderacion[2].siempre
-      }else if(this.state.peticion2[3].Respuestas=="CasiSiempre"){
-        pet2res12="Casi Siempre"
-        pet2val3= this.state.getPonderacion[2].casisiempre
+    if(this.state.peticion2[1].Respuestas=="Siempre"){
+      pet2res1="Siempre"
+      pet2val1= this.state.getPonderacion[0].siempre
+      }else if(this.state.peticion2[1].Respuestas=="CasiSiempre"){
+        pet2res2="Casi Siempre"
+        pet2val1= this.state.getPonderacion[0].casisiempre
       }
-      else if(this.state.peticion2[3].Respuestas=="AlgunasVeces"){
-        pet2res13="Algunas Veces"
-        pet2val3= this.state.getPonderacion[2].algunasveces
+      else if(this.state.peticion2[1].Respuestas=="AlgunasVeces"){
+        pet2res3="Algunas Veces"
+        pet2val1= this.state.getPonderacion[0].algunasveces
       } 
-      else if(this.state.peticion2[3].Respuestas=="CasiNunca"){
-        pet2res14="Casi Nunca"
-        pet2val3= this.state.getPonderacion[2].casinunca
+      else if(this.state.peticion2[1].Respuestas=="CasiNunca"){
+        pet2res4="Casi Nunca"
+        pet2val1= this.state.getPonderacion[0].casinunca
       } 
-      else if(this.state.peticion2[3].Respuestas=="Nunca"){
-        pet2res15="Nunca"
-        pet2val3= this.state.getPonderacion[2].nunca
+      else if(this.state.peticion2[1].Respuestas=="Nunca"){
+        pet2res5="Nunca"
+        pet2val1= this.state.getPonderacion[0].nunca
       } 
-
-
-    if(this.state.peticion2[4].Respuestas=="Siempre"){
-      pet2res16="Siempre"
-      pet2val4= this.state.getPonderacion[3].siempre
-      }else if(this.state.peticion2[4].Respuestas=="CasiSiempre"){
-        pet2res17="Casi Siempre"
-        pet2val4= this.state.getPonderacion[3].casisiempre
-      }
-      else if(this.state.peticion2[4].Respuestas=="AlgunasVeces"){
-        pet2res18="Algunas Veces"
-        pet2val4= this.state.getPonderacion[3].algunasveces
-      } 
-      else if(this.state.peticion2[4].Respuestas=="CasiNunca"){
-        pet2res19="Casi Nunca"
-        pet2val4= this.state.getPonderacion[3].casinunca
-      } 
-      else if(this.state.peticion2[4].Respuestas=="Nunca"){
-        pet2res20="Nunca"
-        pet2val4= this.state.getPonderacion[3].nunca
-      } 
-
-    if(this.state.peticion2[5].Respuestas=="Siempre"){
-      pet2res21="Siempre"
-      pet2val5= this.state.getPonderacion[4].siempre
-      }else if(this.state.peticion2[5].Respuestas=="CasiSiempre"){
-        pet2res22="Casi Siempre"
-        pet2val5= this.state.getPonderacion[4].casisiempre
-      }
-      else if(this.state.peticion2[5].Respuestas=="AlgunasVeces"){
-        pet2res23="Algunas Veces"
-        pet2val5= this.state.getPonderacion[4].algunasveces
-      } 
-      else if(this.state.peticion2[5].Respuestas=="CasiNunca"){
-        pet2res24="Casi Nunca"
-        pet2val5= this.state.getPonderacion[4].casinunca
-      } 
-      else if(this.state.peticion2[5].Respuestas=="Nunca"){
-        pet2res25="Nunca"
-        pet2val5= this.state.getPonderacion[4].nunca
-      } 
-
-
-      if(this.state.peticion2[6].Respuestas=="Siempre"){
-        pet2res26="Siempre"
-        pet2val6= this.state.getPonderacion[5].siempre
-        }else if(this.state.peticion2[6].Respuestas=="CasiSiempre"){
-          pet2res27="Casi Siempre"
-          pet2val6= this.state.getPonderacion[5].casisiempre
+  
+  
+      if(this.state.peticion2[2].Respuestas=="Siempre"){
+        pet2res6="Siempre"
+        pet2val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion2[2].Respuestas=="CasiSiempre"){
+          pet2res7="Casi Siempre"
+          pet2val2= this.state.getPonderacion[1].casisiempre
         }
-        else if(this.state.peticion2[6].Respuestas=="AlgunasVeces"){
-          pet2res28="Algunas Veces"
-          pet2val6= this.state.getPonderacion[5].algunasveces
-        } 
-        else if(this.state.peticion2[6].Respuestas=="CasiNunca"){
-          pet2res29="Casi Nunca"
-          pet2val6= this.state.getPonderacion[5].casinunca
-        } 
-        else if(this.state.peticion2[6].Respuestas=="Nunca"){
-          pet2res30="Nunca"
-          pet2val6= this.state.getPonderacion[5].nunca
-        }
-
-      if(this.state.peticion2[7].Respuestas=="Siempre"){
-        pet2res31="Siempre"
-        pet2val7= this.state.getPonderacion[6].siempre
-        }else if(this.state.peticion2[7].Respuestas=="CasiSiempre"){
-          pet2res32="Casi Siempre"
-          pet2val7= this.state.getPonderacion[6].casisiempre
-        }
-        else if(this.state.peticion2[7].Respuestas=="AlgunasVeces"){
-          pet2res33="Algunas Veces"
-          pet2val7= this.state.getPonderacion[6].algunasveces
-        } 
-        else if(this.state.peticion2[7].Respuestas=="CasiNunca"){
-          pet2res34="Casi Nunca"
-          pet2val7= this.state.getPonderacion[6].casinunca
-        } 
-        else if(this.state.peticion2[7].Respuestas=="Nunca"){
-          pet2res35="Nunca"
-          pet2val7= this.state.getPonderacion[6].nunca
-        }
-
-        if(this.state.peticion2[8].Respuestas=="Siempre"){
-          pet2res36="Siempre"
-          pet2val8= this.state.getPonderacion[7].siempre
-          }else if(this.state.peticion2[8].Respuestas=="CasiSiempre"){
-            pet2res37="Casi Siempre"
-            pet2val8= this.state.getPonderacion[7].casisiempre
-          }
-          else if(this.state.peticion2[8].Respuestas=="AlgunasVeces"){
-            pet2res38="Algunas Veces"
-            pet2val8= this.state.getPonderacion[7].algunasveces
-          } 
-          else if(this.state.peticion2[8].Respuestas=="CasiNunca"){
-            pet2res39="Casi Nunca"
-            pet2val8= this.state.getPonderacion[7].casinunca
-          } 
-          else if(this.state.peticion2[8].Respuestas=="Nunca"){
-            pet2res40="Nunca"
-            pet2val8= this.state.getPonderacion[7].nunca
-          }
-        if(this.state.peticion2[9].Respuestas=="Siempre"){
-          pet2res41="Siempre"
-          pet2val9= this.state.getPonderacion[8].siempre
-          }else if(this.state.peticion2[9].Respuestas=="CasiSiempre"){
-            pet2res42="Casi Siempre"
-            pet2val9= this.state.getPonderacion[8].casisiempre
-          }
-          else if(this.state.peticion2[9].Respuestas=="AlgunasVeces"){
-            pet2res43="Algunas Veces"
-            pet2val9= this.state.getPonderacion[8].algunasveces
-          } 
-          else if(this.state.peticion2[9].Respuestas=="CasiNunca"){
-            pet2res44="Casi Nunca"
-            pet2val9= this.state.getPonderacion[8].casinunca
-          } 
-          else if(this.state.peticion2[9].Respuestas=="Nunca"){
-            pet2res45="Nunca"
-            pet2val9= this.state.getPonderacion[8].nunca
-          }
-
-      if(this.state.peticion2[10].Respuestas=="Siempre"){
-        pet2res46="Siempre"
-        pet2val10= this.state.getPonderacion[9].siempre
-        }else if(this.state.peticion2[10].Respuestas=="CasiSiempre"){
-          pet2res47="Casi Siempre"
-          pet2val10= this.state.getPonderacion[9].casisiempre
-        }
-        else if(this.state.peticion2[10].Respuestas=="AlgunasVeces"){
-          pet2res48="Algunas Veces"
-          pet2val10= this.state.getPonderacion[9].algunasveces
-        } 
-        else if(this.state.peticion2[10].Respuestas=="CasiNunca"){
-          pet2res49="Casi Nunca"
-          pet2val10= this.state.getPonderacion[9].casinunca
-        } 
-        else if(this.state.peticion2[10].Respuestas=="Nunca"){
-          pet2res50="Nunca"
-          pet2val10= this.state.getPonderacion[9].nunca
-        }
-
-      if(this.state.peticion2[11].Respuestas=="Siempre"){
-        pet2res51="Siempre"
-        pet2val11= this.state.getPonderacion[10].siempre
-        }else if(this.state.peticion2[11].Respuestas=="CasiSiempre"){
-          pet2res52="Casi Siempre"
-          pet2val11= this.state.getPonderacion[10].casisiempre
-        }
-        else if(this.state.peticion2[11].Respuestas=="AlgunasVeces"){
-          pet2res53="Algunas Veces"
-          pet2val11= this.state.getPonderacion[10].algunasveces
-        } 
-        else if(this.state.peticion2[11].Respuestas=="CasiNunca"){
-          pet2res54="Casi Nunca"
-          pet2val11= this.state.getPonderacion[10].casinunca
-        } 
-        else if(this.state.peticion2[11].Respuestas=="Nunca"){
-          pet2res55="Nunca"
-          pet2val11= this.state.getPonderacion[10].nunca
-        }
-      if(this.state.peticion2[12].Respuestas=="Siempre"){
-        pet2res56="Siempre"
-        pet2val12= this.state.getPonderacion[11].siempre
-        }else if(this.state.peticion2[12].Respuestas=="CasiSiempre"){
-          pet2res57="Casi Siempre"
-          pet2val12= this.state.getPonderacion[11].casisiempre
-        }
-        else if(this.state.peticion2[12].Respuestas=="AlgunasVeces"){
-          pet2res58="Algunas Veces"
-          pet2val12= this.state.getPonderacion[11].algunasveces
-        } 
-        else if(this.state.peticion2[12].Respuestas=="CasiNunca"){
-          pet2res59="Casi Nunca"
-          pet2val12= this.state.getPonderacion[11].casinunca
-        } 
-        else if(this.state.peticion2[12].Respuestas=="Nunca"){
-          pet2res60="Nunca"
-          pet2val12= this.state.getPonderacion[11].nunca
-        }
-
-      if(this.state.peticion2[13].Respuestas=="Siempre"){
-        pet2res61="Siempre"
-        pet2val13= this.state.getPonderacion[12].siempre
-        }else if(this.state.peticion2[13].Respuestas=="CasiSiempre"){
-          pet2res62="Casi Siempre"
-          pet2val13= this.state.getPonderacion[12].casisiempre
-        }
-        else if(this.state.peticion2[13].Respuestas=="AlgunasVeces"){
-          pet2res63="Algunas Veces"
-          pet2val13= this.state.getPonderacion[12].algunasveces
-        } 
-        else if(this.state.peticion2[13].Respuestas=="CasiNunca"){
-          pet2res64="Casi Nunca"
-          pet2val13= this.state.getPonderacion[12].casinunca
-        } 
-        else if(this.state.peticion2[13].Respuestas=="Nunca"){
-          pet2res65="Nunca"
-          pet2val13= this.state.getPonderacion[12].nunca
-        }
-      if(this.state.peticion2[14].Respuestas=="Siempre"){
-        pet2res66="Siempre"
-        pet2val14= this.state.getPonderacion[13].siempre
-        }else if(this.state.peticion2[14].Respuestas=="CasiSiempre"){
-          pet2res67="Casi Siempre"
-          pet2val14= this.state.getPonderacion[13].casisiempre
-        }
-        else if(this.state.peticion2[14].Respuestas=="AlgunasVeces"){
-          pet2res68="Algunas Veces"
-          pet2val14= this.state.getPonderacion[13].algunasveces
-        } 
-        else if(this.state.peticion2[14].Respuestas=="CasiNunca"){
-          pet2res69="Casi Nunca"
-          pet2val14= this.state.getPonderacion[13].casinunca
-        } 
-        else if(this.state.peticion2[14].Respuestas=="Nunca"){
-          pet2res70="Nunca"
-          pet2val14= this.state.getPonderacion[13].nunca
-        } 
-
-      if(this.state.peticion2[15].Respuestas=="Siempre"){
-        pet2res71="Siempre"
-        pet2val15= this.state.getPonderacion[14].siempre
-        }else if(this.state.peticion2[15].Respuestas=="CasiSiempre"){
-          pet2res72="Casi Siempre"
-          pet2val15= this.state.getPonderacion[14].casisiempre
-        }
-        else if(this.state.peticion2[15].Respuestas=="AlgunasVeces"){
-          pet2res73="Algunas Veces"
-          pet2val15= this.state.getPonderacion[14].algunasveces
-        } 
-        else if(this.state.peticion2[15].Respuestas=="CasiNunca"){
-          pet2res74="Casi Nunca"
-          pet2val15= this.state.getPonderacion[14].casinunca
-        } 
-        else if(this.state.peticion2[15].Respuestas=="Nunca"){
-          pet2res75="Nunca"
-          pet2val15= this.state.getPonderacion[14].nunca
-        } 
-      if(this.state.peticion2[16].Respuestas=="Siempre"){
-        pet2res76="Siempre"
-        pet2val16= this.state.getPonderacion[15].siempre
-        }else if(this.state.peticion2[16].Respuestas=="CasiSiempre"){
-          pet2res77="Casi Siempre"
-          pet2val16= this.state.getPonderacion[15].casisiempre
-        }
-        else if(this.state.peticion2[16].Respuestas=="AlgunasVeces"){
-          pet2res78="Algunas Veces"
-          pet2val16= this.state.getPonderacion[15].algunasveces
-        } 
-        else if(this.state.peticion2[16].Respuestas=="CasiNunca"){
-          pet2res79="Casi Nunca"
-          pet2val16= this.state.getPonderacion[15].casinunca
-        } 
-        else if(this.state.peticion2[16].Respuestas=="Nunca"){
-          pet2res80="Nunca"
-          pet2val16= this.state.getPonderacion[15].nunca
-        }
-      if(this.state.peticion2[17].Respuestas=="Siempre"){
-        pet2res81="Siempre"
-        pet2val17= this.state.getPonderacion[16].siempre
-        }else if(this.state.peticion2[17].Respuestas=="CasiSiempre"){
-          pet2res82="Casi Siempre"
-          pet2val17= this.state.getPonderacion[16].casisiempre
-        }
-        else if(this.state.peticion2[17].Respuestas=="AlgunasVeces"){
-          pet2res83="Algunas Veces"
-          pet2val17= this.state.getPonderacion[16].algunasveces
-        } 
-        else if(this.state.peticion2[17].Respuestas=="CasiNunca"){
-          pet2res84="Casi Nunca"
-          pet2val17= this.state.getPonderacion[16].casinunca
-        } 
-        else if(this.state.peticion2[17].Respuestas=="Nunca"){
-          pet2res85="Nunca"
-          pet2val17= this.state.getPonderacion[16].nunca
-        }
-      if(this.state.peticion2[18].Respuestas=="Siempre"){
-        pet2res86="Siempre"
-        pet2val18= this.state.getPonderacion[17].siempre
-        }else if(this.state.peticion2[18].Respuestas=="CasiSiempre"){
-          pet2res87="Casi Siempre"
-          pet2val18= this.state.getPonderacion[17].casisiempre
-        }
-        else if(this.state.peticion2[18].Respuestas=="AlgunasVeces"){
-          pet2res88="Algunas Veces"
-          pet2val18= this.state.getPonderacion[17].algunasveces
-        } 
-        else if(this.state.peticion2[18].Respuestas=="CasiNunca"){
-          pet2res89="Casi Nunca"
-          pet2val18= this.state.getPonderacion[17].casinunca
-        } 
-        else if(this.state.peticion2[18].Respuestas=="Nunca"){
-          pet2res90="Nunca"
-          pet2val18= this.state.getPonderacion[17].nunca
-        }
-
-      if(this.state.peticion2[19].Respuestas=="Siempre"){
-        pet2res91="Siempre"
-        pet2val19= this.state.getPonderacion[18].siempre
-        }else if(this.state.peticion2[19].Respuestas=="CasiSiempre"){
-          pet2res92="Casi Siempre"
-          pet2val19= this.state.getPonderacion[18].casisiempre
-        }
-        else if(this.state.peticion2[19].Respuestas=="AlgunasVeces"){
-          pet2res93="Algunas Veces"
-          pet2val19= this.state.getPonderacion[18].algunasveces
-        } 
-        else if(this.state.peticion2[19].Respuestas=="CasiNunca"){
-          pet2res94="Casi Nunca"
-          pet2val19= this.state.getPonderacion[18].casinunca
-        } 
-        else if(this.state.peticion2[19].Respuestas=="Nunca"){
-          pet2res95="Nunca"
-          pet2val19= this.state.getPonderacion[18].nunca
-        }
-      if(this.state.peticion2[20].Respuestas=="Siempre"){
-        pet2res96="Siempre"
-        pet2val20= this.state.getPonderacion[19].siempre
-        }else if(this.state.peticion2[20].Respuestas=="CasiSiempre"){
-          pet2res97="Casi Siempre"
-          pet2val20= this.state.getPonderacion[19].casisiempre
-        }
-        else if(this.state.peticion2[20].Respuestas=="AlgunasVeces"){
-          pet2res98="Algunas Veces"
-          pet2val20= this.state.getPonderacion[19].algunasveces
-        } 
-        else if(this.state.peticion2[20].Respuestas=="CasiNunca"){
-          pet2res99="Casi Nunca"
-          pet2val20= this.state.getPonderacion[19].casinunca
-        } 
-        else if(this.state.peticion2[20].Respuestas=="Nunca"){
-          pet2res100="Nunca"
-          pet2val20= this.state.getPonderacion[19].nunca
-        }
-
-      if(this.state.peticion2[21].Respuestas=="Siempre"){
-        pet2res101="Siempre"
-        pet2val21= this.state.getPonderacion[20].siempre
-        }else if(this.state.peticion2[21].Respuestas=="CasiSiempre"){
-          pet2res102="Casi Siempre"
-          pet2val21= this.state.getPonderacion[20].casisiempre
-        }
-        else if(this.state.peticion2[21].Respuestas=="AlgunasVeces"){
-          pet2res103="Algunas Veces"
-          pet2val21= this.state.getPonderacion[21].algunasveces
-        } 
-        else if(this.state.peticion2[21].Respuestas=="CasiNunca"){
-          pet2res104="Casi Nunca"
-          pet2val21= this.state.getPonderacion[20].casinunca
-        } 
-        else if(this.state.peticion2[21].Respuestas=="Nunca"){
-          pet2res105="Nunca"
-          pet2val21= this.state.getPonderacion[20].nunca
-        } 
-
-      if(this.state.peticion2[22].Respuestas=="Siempre"){
-        pet2res106="Siempre"
-        pet2val22= this.state.getPonderacion[21].siempre
-        }else if(this.state.peticion2[22].Respuestas=="CasiSiempre"){
-          pet2res107="Casi Siempre"
-          pet2val22= this.state.getPonderacion[21].casisiempre
-        }
-        else if(this.state.peticion2[22].Respuestas=="AlgunasVeces"){
-          pet2res108="Algunas Veces"
-          pet2val22= this.state.getPonderacion[21].algunasveces
+        else if(this.state.peticion2[2].Respuestas=="AlgunasVeces"){
+          pet2res8="Algunas Veces"
+          pet2val2= this.state.getPonderacion[1].algunasveces
         } 
         else if(this.state.peticion2[2].Respuestas=="CasiNunca"){
-          pet2res109="Casi Nunca"
-          pet2val22= this.state.getPonderacion[21].casinunca
+          pet2res9="Casi Nunca"
+          pet2val2= this.state.getPonderacion[1].casinunca
         } 
-        else if(this.state.peticion2[22].Respuestas=="Nunca"){
-          pet2res110="Nunca"
-          pet2val22= this.state.getPonderacion[21].nunca
+        else if(this.state.peticion2[2].Respuestas=="Nunca"){
+          pet2res10="Nunca"
+          pet2val2= this.state.getPonderacion[1].nunca
         } 
-
-      if(this.state.peticion2[23].Respuestas=="Siempre"){
-        pet2res111="Siempre"
-        pet2val23= this.state.getPonderacion[22].siempre
-        }else if(this.state.peticion2[23].Respuestas=="CasiSiempre"){
-          pet2res112="Casi Siempre"
-          pet2val23= this.state.getPonderacion[22].casisiempre
+  
+      if(this.state.peticion2[3].Respuestas=="Siempre"){
+        pet2res11="Siempre"
+        pet2val3= this.state.getPonderacion[2].siempre
+        }else if(this.state.peticion2[3].Respuestas=="CasiSiempre"){
+          pet2res12="Casi Siempre"
+          pet2val3= this.state.getPonderacion[2].casisiempre
         }
-        else if(this.state.peticion2[23].Respuestas=="AlgunasVeces"){
-          pet2res113="Algunas Veces"
-          pet2val23= this.state.getPonderacion[22].algunasveces
+        else if(this.state.peticion2[3].Respuestas=="AlgunasVeces"){
+          pet2res13="Algunas Veces"
+          pet2val3= this.state.getPonderacion[2].algunasveces
         } 
-        else if(this.state.peticion2[23].Respuestas=="CasiNunca"){
-          pet2res114="Casi Nunca"
-          pet2val23= this.state.getPonderacion[22].casinunca
+        else if(this.state.peticion2[3].Respuestas=="CasiNunca"){
+          pet2res14="Casi Nunca"
+          pet2val3= this.state.getPonderacion[2].casinunca
         } 
-        else if(this.state.peticion2[23].Respuestas=="Nunca"){
-          pet2res115="Nunca"
-          pet2val23= this.state.getPonderacion[22].nunca
+        else if(this.state.peticion2[3].Respuestas=="Nunca"){
+          pet2res15="Nunca"
+          pet2val3= this.state.getPonderacion[2].nunca
         } 
-      if(this.state.peticion2[24].Respuestas=="Siempre"){
-        pet2res116="Siempre"
-        pet2val24= this.state.getPonderacion[23].siempre
-        }else if(this.state.peticion2[24].Respuestas=="CasiSiempre"){
-          pet2res117="Casi Siempre"
-          pet2val24= this.state.getPonderacion[23].casisiempre
+  
+  
+      if(this.state.peticion2[4].Respuestas=="Siempre"){
+        pet2res16="Siempre"
+        pet2val4= this.state.getPonderacion[3].siempre
+        }else if(this.state.peticion2[4].Respuestas=="CasiSiempre"){
+          pet2res17="Casi Siempre"
+          pet2val4= this.state.getPonderacion[3].casisiempre
         }
-        else if(this.state.peticion2[24].Respuestas=="AlgunasVeces"){
-          pet2res118="Algunas Veces"
-          pet2val24= this.state.getPonderacion[23].algunasveces
+        else if(this.state.peticion2[4].Respuestas=="AlgunasVeces"){
+          pet2res18="Algunas Veces"
+          pet2val4= this.state.getPonderacion[3].algunasveces
         } 
-        else if(this.state.peticion2[24].Respuestas=="CasiNunca"){
-          pet2res119="Casi Nunca"
-          pet2val24= this.state.getPonderacion[23].casinunca
+        else if(this.state.peticion2[4].Respuestas=="CasiNunca"){
+          pet2res19="Casi Nunca"
+          pet2val4= this.state.getPonderacion[3].casinunca
         } 
-        else if(this.state.peticion2[24].Respuestas=="Nunca"){
-          pet2res120="Nunca"
-          pet2val24= this.state.getPonderacion[23].nunca
+        else if(this.state.peticion2[4].Respuestas=="Nunca"){
+          pet2res20="Nunca"
+          pet2val4= this.state.getPonderacion[3].nunca
+        } 
+  
+      if(this.state.peticion2[5].Respuestas=="Siempre"){
+        pet2res21="Siempre"
+        pet2val5= this.state.getPonderacion[4].siempre
+        }else if(this.state.peticion2[5].Respuestas=="CasiSiempre"){
+          pet2res22="Casi Siempre"
+          pet2val5= this.state.getPonderacion[4].casisiempre
         }
-        
-      if(this.state.peticion2[25].Respuestas=="Siempre"){
-        pet2res121="Siempre"
-        pet2val25= this.state.getPonderacion[24].siempre
-        }else if(this.state.peticion2[25].Respuestas=="CasiSiempre"){
-          pet2res122="Casi Siempre"
-          pet2val25= this.state.getPonderacion[24].casisiempre
-        }
-        else if(this.state.peticion2[25].Respuestas=="AlgunasVeces"){
-          pet2res123="Algunas Veces"
-          pet2val25= this.state.getPonderacion[24].algunasveces
+        else if(this.state.peticion2[5].Respuestas=="AlgunasVeces"){
+          pet2res23="Algunas Veces"
+          pet2val5= this.state.getPonderacion[4].algunasveces
         } 
-        else if(this.state.peticion2[25].Respuestas=="CasiNunca"){
-          pet2res124="Casi Nunca"
-          pet2val25= this.state.getPonderacion[24].casinunca
+        else if(this.state.peticion2[5].Respuestas=="CasiNunca"){
+          pet2res24="Casi Nunca"
+          pet2val5= this.state.getPonderacion[4].casinunca
         } 
-        else if(this.state.peticion2[25].Respuestas=="Nunca"){
-          pet2res125="Nunca"
-          pet2val25= this.state.getPonderacion[24].nunca
-        }
-      if(this.state.peticion2[26].Respuestas=="Siempre"){
-        pet2res126="Siempre"
-        pet2val26= this.state.getPonderacion[25].siempre
-        }else if(this.state.peticion2[26].Respuestas=="CasiSiempre"){
-          pet2res127="Casi Siempre"
-          pet2val26= this.state.getPonderacion[25].casisiempre
-        }
-        else if(this.state.peticion2[26].Respuestas=="AlgunasVeces"){
-          pet2res128="Algunas Veces"
-          pet2val26= this.state.getPonderacion[25].algunasveces
+        else if(this.state.peticion2[5].Respuestas=="Nunca"){
+          pet2res25="Nunca"
+          pet2val5= this.state.getPonderacion[4].nunca
         } 
-        else if(this.state.peticion2[26].Respuestas=="CasiNunca"){
-          pet2res129="Casi Nunca"
-          pet2val26= this.state.getPonderacion[25].casinunca
-        } 
-        else if(this.state.peticion2[26].Respuestas=="Nunca"){
-          pet2res130="Nunca"
-          pet2val26= this.state.getPonderacion[25].nunca
-        }
-      if(this.state.peticion2[27].Respuestas=="Siempre"){
-        pet2res131="Siempre"
-        pet2val27= this.state.getPonderacion[26].siempre
-        }else if(this.state.peticion2[27].Respuestas=="CasiSiempre"){
-          pet2res132="Casi Siempre"
-          pet2val27= this.state.getPonderacion[26].casisiempre
-        }
-        else if(this.state.peticion2[27].Respuestas=="AlgunasVeces"){
-          pet2res133="Algunas Veces"
-          pet2val27= this.state.getPonderacion[26].algunasveces
-        } 
-        else if(this.state.peticion2[27].Respuestas=="CasiNunca"){
-          pet2res134="Casi Nunca"
-          pet2val27= this.state.getPonderacion[26].casinunca
-        } 
-        else if(this.state.peticion2[27].Respuestas=="Nunca"){
-          pet2res135="Nunca"
-          pet2val27= this.state.getPonderacion[26].nunca
-      }
-    if(this.state.peticion2[28].Respuestas=="Siempre"){
-      pet2res136="Siempre"
-      pet2val28= this.state.getPonderacion[27].siempre
-      }else if(this.state.peticion2[28].Respuestas=="CasiSiempre"){
-        pet2res137="Casi Siempre"
-        pet2val28= this.state.getPonderacion[27].casisiempre
-      }
-      else if(this.state.peticion2[28].Respuestas=="AlgunasVeces"){
-        pet2res138="Algunas Veces"
-        pet2val28= this.state.getPonderacion[27].algunasveces
-      } 
-      else if(this.state.peticion2[28].Respuestas=="CasiNunca"){
-        pet2res139="Casi Nunca"
-        pet2val28= this.state.getPonderacion[27].casinunca
-      } 
-      else if(this.state.peticion2[28].Respuestas=="Nunca"){
-        pet2res140="Nunca"
-        pet2val28= this.state.getPonderacion[27].nunca
-      }
-    if(this.state.peticion2[29].Respuestas=="Siempre"){
-      pet2res141="Siempre"
-      pet2val29= this.state.getPonderacion[28].siempre
-      }else if(this.state.peticion2[29].Respuestas=="CasiSiempre"){
-        pet2res142="Casi Siempre"
-        pet2val29= this.state.getPonderacion[28].casisiempre
-      }
-      else if(this.state.peticion2[29].Respuestas=="AlgunasVeces"){
-        pet2res143="Algunas Veces"
-        pet2val29= this.state.getPonderacion[28].algunasveces
-      } 
-      else if(this.state.peticion2[29].Respuestas=="CasiNunca"){
-        pet2res144="Casi Nunca"
-        pet2val29= this.state.getPonderacion[28].casinunca
-      } 
-      else if(this.state.peticion2[29].Respuestas=="Nunca"){
-        pet2res145="Nunca"
-        pet2val29= this.state.getPonderacion[28].nunca
-      }
-
-    if(this.state.peticion2[30].Respuestas=="Siempre"){
-      pet2res146="Siempre"
-      pet2val30= this.state.getPonderacion[29].siempre
-      }else if(this.state.peticion2[30].Respuestas=="CasiSiempre"){
-        pet2res147="Casi Siempre"
-        pet2val30= this.state.getPonderacion[29].casisiempre
-      }
-      else if(this.state.peticion2[30].Respuestas=="AlgunasVeces"){
-        pet2res148="Algunas Veces"
-        pet2val30= this.state.getPonderacion[29].algunasveces
-      } 
-      else if(this.state.peticion2[30].Respuestas=="CasiNunca"){
-        pet2res149="Casi Nunca"
-        pet2val30= this.state.getPonderacion[29].casinunca
-      } 
-      else if(this.state.peticion2[30].Respuestas=="Nunca"){
-        pet2res150="Nunca"
-        pet2val30= this.state.getPonderacion[29].nunca
-      }
-
-    if(this.state.peticion2[31].Respuestas=="Siempre"){
-      pet2res151="Siempre"
-      pet2val31= this.state.getPonderacion[30].siempre
-      }else if(this.state.peticion2[31].Respuestas=="CasiSiempre"){
-        pet2res152="Casi Siempre"
-        pet2val31= this.state.getPonderacion[30].casisiempre
-      }
-      else if(this.state.peticion2[31].Respuestas=="AlgunasVeces"){
-        pet2res153="Algunas Veces"
-        pet2val31= this.state.getPonderacion[30].algunasveces
-      } 
-      else if(this.state.peticion2[31].Respuestas=="CasiNunca"){
-        pet2res154="Casi Nunca"
-        pet2val31= this.state.getPonderacion[30].casinunca
-      } 
-      else if(this.state.peticion2[31].Respuestas=="Nunca"){
-        pet2res155="Nunca"
-        pet2val31= this.state.getPonderacion[30].nunca
-      } 
-    if(this.state.peticion2[32].Respuestas=="Siempre"){
-      pet2res156="Siempre"
-      pet2val32= this.state.getPonderacion[31].siempre
-      }else if(this.state.peticion2[32].Respuestas=="CasiSiempre"){
-        pet2res157="Casi Siempre"
-        pet2val32= this.state.getPonderacion[31].casisiempre
-      }
-      else if(this.state.peticion2[32].Respuestas=="AlgunasVeces"){
-        pet2res158="Algunas Veces"
-        pet2val32= this.state.getPonderacion[31].algunasveces
-      } 
-      else if(this.state.peticion2[32].Respuestas=="CasiNunca"){
-        pet2res159="Casi Nunca"
-        pet2val32= this.state.getPonderacion[31].casinunca
-      } 
-      else if(this.state.peticion2[32].Respuestas=="Nunca"){
-        pet2res160="Nunca"
-        pet2val32= this.state.getPonderacion[31].nunca
-      } 
-
-      if(this.state.peticion2[33].Respuestas=="Siempre"){
-        pet2res161="Siempre"
-        pet2val33= this.state.getPonderacion[32].siempre
-        }else if(this.state.peticion2[33].Respuestas=="CasiSiempre"){
-          pet2res162="Casi Siempre"
-          pet2val33= this.state.getPonderacion[32].casisiempre
-        }
-        else if(this.state.peticion2[33].Respuestas=="AlgunasVeces"){
-          pet2res163="Algunas Veces"
-          pet2val33= this.state.getPonderacion[32].algunasveces
-        } 
-        else if(this.state.peticion2[33].Respuestas=="CasiNunca"){
-          pet2res164="Casi Nunca"
-          pet2val33= this.state.getPonderacion[32].casinunca
-        } 
-        else if(this.state.peticion2[33].Respuestas=="Nunca"){
-          pet2res165="Nunca"
-          pet2val33= this.state.getPonderacion[32].nunca
-        } 
-
-      if(this.state.peticion2[34].Respuestas=="Siempre"){
-        pet2res166="Siempre"
-        pet2val34= this.state.getPonderacion[33].siempre
-        }else if(this.state.peticion2[34].Respuestas=="CasiSiempre"){
-          pet2res167="Casi Siempre"
-          pet2val34= this.state.getPonderacion[33].casisiempre
-        }
-        else if(this.state.peticion2[34].Respuestas=="AlgunasVeces"){
-          pet2res168="Algunas Veces"
-          pet2val34= this.state.getPonderacion[33].algunasveces
-        } 
-        else if(this.state.peticion2[34].Respuestas=="CasiNunca"){
-          pet2res169="Casi Nunca"
-          pet2val34= this.state.getPonderacion[33].casinunca
-        } 
-        else if(this.state.peticion2[34].Respuestas=="Nunca"){
-          pet2res170="Nunca"
-          pet2val34= this.state.getPonderacion[33].nunca
-        } 
-        if(this.state.peticion2[35].Respuestas=="Siempre"){
-          pet2res171="Siempre"
-          pet2val35= this.state.getPonderacion[34].siempre
-          }else if(this.state.peticion2[35].Respuestas=="CasiSiempre"){
-            pet2res172="Casi Siempre"
-            pet2val35= this.state.getPonderacion[34].casisiempre
+  
+  
+        if(this.state.peticion2[6].Respuestas=="Siempre"){
+          pet2res26="Siempre"
+          pet2val6= this.state.getPonderacion[5].siempre
+          }else if(this.state.peticion2[6].Respuestas=="CasiSiempre"){
+            pet2res27="Casi Siempre"
+            pet2val6= this.state.getPonderacion[5].casisiempre
           }
-          else if(this.state.peticion2[35].Respuestas=="AlgunasVeces"){
-            pet2res173="Algunas Veces"
-            pet2val35= this.state.getPonderacion[34].algunasveces
+          else if(this.state.peticion2[6].Respuestas=="AlgunasVeces"){
+            pet2res28="Algunas Veces"
+            pet2val6= this.state.getPonderacion[5].algunasveces
           } 
-          else if(this.state.peticion2[35].Respuestas=="CasiNunca"){
-            pet2res174="Casi Nunca"
-            pet2val35= this.state.getPonderacion[34].casinunca
+          else if(this.state.peticion2[6].Respuestas=="CasiNunca"){
+            pet2res29="Casi Nunca"
+            pet2val6= this.state.getPonderacion[5].casinunca
+          } 
+          else if(this.state.peticion2[6].Respuestas=="Nunca"){
+            pet2res30="Nunca"
+            pet2val6= this.state.getPonderacion[5].nunca
+          }
+  
+        if(this.state.peticion2[7].Respuestas=="Siempre"){
+          pet2res31="Siempre"
+          pet2val7= this.state.getPonderacion[6].siempre
+          }else if(this.state.peticion2[7].Respuestas=="CasiSiempre"){
+            pet2res32="Casi Siempre"
+            pet2val7= this.state.getPonderacion[6].casisiempre
+          }
+          else if(this.state.peticion2[7].Respuestas=="AlgunasVeces"){
+            pet2res33="Algunas Veces"
+            pet2val7= this.state.getPonderacion[6].algunasveces
+          } 
+          else if(this.state.peticion2[7].Respuestas=="CasiNunca"){
+            pet2res34="Casi Nunca"
+            pet2val7= this.state.getPonderacion[6].casinunca
+          } 
+          else if(this.state.peticion2[7].Respuestas=="Nunca"){
+            pet2res35="Nunca"
+            pet2val7= this.state.getPonderacion[6].nunca
+          }
+  
+          if(this.state.peticion2[8].Respuestas=="Siempre"){
+            pet2res36="Siempre"
+            pet2val8= this.state.getPonderacion[7].siempre
+            }else if(this.state.peticion2[8].Respuestas=="CasiSiempre"){
+              pet2res37="Casi Siempre"
+              pet2val8= this.state.getPonderacion[7].casisiempre
+            }
+            else if(this.state.peticion2[8].Respuestas=="AlgunasVeces"){
+              pet2res38="Algunas Veces"
+              pet2val8= this.state.getPonderacion[7].algunasveces
+            } 
+            else if(this.state.peticion2[8].Respuestas=="CasiNunca"){
+              pet2res39="Casi Nunca"
+              pet2val8= this.state.getPonderacion[7].casinunca
+            } 
+            else if(this.state.peticion2[8].Respuestas=="Nunca"){
+              pet2res40="Nunca"
+              pet2val8= this.state.getPonderacion[7].nunca
+            }
+          if(this.state.peticion2[9].Respuestas=="Siempre"){
+            pet2res41="Siempre"
+            pet2val9= this.state.getPonderacion[8].siempre
+            }else if(this.state.peticion2[9].Respuestas=="CasiSiempre"){
+              pet2res42="Casi Siempre"
+              pet2val9= this.state.getPonderacion[8].casisiempre
+            }
+            else if(this.state.peticion2[9].Respuestas=="AlgunasVeces"){
+              pet2res43="Algunas Veces"
+              pet2val9= this.state.getPonderacion[8].algunasveces
+            } 
+            else if(this.state.peticion2[9].Respuestas=="CasiNunca"){
+              pet2res44="Casi Nunca"
+              pet2val9= this.state.getPonderacion[8].casinunca
+            } 
+            else if(this.state.peticion2[9].Respuestas=="Nunca"){
+              pet2res45="Nunca"
+              pet2val9= this.state.getPonderacion[8].nunca
+            }
+  
+        if(this.state.peticion2[10].Respuestas=="Siempre"){
+          pet2res46="Siempre"
+          pet2val10= this.state.getPonderacion[9].siempre
+          }else if(this.state.peticion2[10].Respuestas=="CasiSiempre"){
+            pet2res47="Casi Siempre"
+            pet2val10= this.state.getPonderacion[9].casisiempre
+          }
+          else if(this.state.peticion2[10].Respuestas=="AlgunasVeces"){
+            pet2res48="Algunas Veces"
+            pet2val10= this.state.getPonderacion[9].algunasveces
+          } 
+          else if(this.state.peticion2[10].Respuestas=="CasiNunca"){
+            pet2res49="Casi Nunca"
+            pet2val10= this.state.getPonderacion[9].casinunca
+          } 
+          else if(this.state.peticion2[10].Respuestas=="Nunca"){
+            pet2res50="Nunca"
+            pet2val10= this.state.getPonderacion[9].nunca
+          }
+  
+        if(this.state.peticion2[11].Respuestas=="Siempre"){
+          pet2res51="Siempre"
+          pet2val11= this.state.getPonderacion[10].siempre
+          }else if(this.state.peticion2[11].Respuestas=="CasiSiempre"){
+            pet2res52="Casi Siempre"
+            pet2val11= this.state.getPonderacion[10].casisiempre
+          }
+          else if(this.state.peticion2[11].Respuestas=="AlgunasVeces"){
+            pet2res53="Algunas Veces"
+            pet2val11= this.state.getPonderacion[10].algunasveces
+          } 
+          else if(this.state.peticion2[11].Respuestas=="CasiNunca"){
+            pet2res54="Casi Nunca"
+            pet2val11= this.state.getPonderacion[10].casinunca
+          } 
+          else if(this.state.peticion2[11].Respuestas=="Nunca"){
+            pet2res55="Nunca"
+            pet2val11= this.state.getPonderacion[10].nunca
+          }
+        if(this.state.peticion2[12].Respuestas=="Siempre"){
+          pet2res56="Siempre"
+          pet2val12= this.state.getPonderacion[11].siempre
+          }else if(this.state.peticion2[12].Respuestas=="CasiSiempre"){
+            pet2res57="Casi Siempre"
+            pet2val12= this.state.getPonderacion[11].casisiempre
+          }
+          else if(this.state.peticion2[12].Respuestas=="AlgunasVeces"){
+            pet2res58="Algunas Veces"
+            pet2val12= this.state.getPonderacion[11].algunasveces
+          } 
+          else if(this.state.peticion2[12].Respuestas=="CasiNunca"){
+            pet2res59="Casi Nunca"
+            pet2val12= this.state.getPonderacion[11].casinunca
+          } 
+          else if(this.state.peticion2[12].Respuestas=="Nunca"){
+            pet2res60="Nunca"
+            pet2val12= this.state.getPonderacion[11].nunca
+          }
+  
+        if(this.state.peticion2[13].Respuestas=="Siempre"){
+          pet2res61="Siempre"
+          pet2val13= this.state.getPonderacion[12].siempre
+          }else if(this.state.peticion2[13].Respuestas=="CasiSiempre"){
+            pet2res62="Casi Siempre"
+            pet2val13= this.state.getPonderacion[12].casisiempre
+          }
+          else if(this.state.peticion2[13].Respuestas=="AlgunasVeces"){
+            pet2res63="Algunas Veces"
+            pet2val13= this.state.getPonderacion[12].algunasveces
+          } 
+          else if(this.state.peticion2[13].Respuestas=="CasiNunca"){
+            pet2res64="Casi Nunca"
+            pet2val13= this.state.getPonderacion[12].casinunca
+          } 
+          else if(this.state.peticion2[13].Respuestas=="Nunca"){
+            pet2res65="Nunca"
+            pet2val13= this.state.getPonderacion[12].nunca
+          }
+        if(this.state.peticion2[14].Respuestas=="Siempre"){
+          pet2res66="Siempre"
+          pet2val14= this.state.getPonderacion[13].siempre
+          }else if(this.state.peticion2[14].Respuestas=="CasiSiempre"){
+            pet2res67="Casi Siempre"
+            pet2val14= this.state.getPonderacion[13].casisiempre
+          }
+          else if(this.state.peticion2[14].Respuestas=="AlgunasVeces"){
+            pet2res68="Algunas Veces"
+            pet2val14= this.state.getPonderacion[13].algunasveces
+          } 
+          else if(this.state.peticion2[14].Respuestas=="CasiNunca"){
+            pet2res69="Casi Nunca"
+            pet2val14= this.state.getPonderacion[13].casinunca
+          } 
+          else if(this.state.peticion2[14].Respuestas=="Nunca"){
+            pet2res70="Nunca"
+            pet2val14= this.state.getPonderacion[13].nunca
+          } 
+  
+        if(this.state.peticion2[15].Respuestas=="Siempre"){
+          pet2res71="Siempre"
+          pet2val15= this.state.getPonderacion[14].siempre
+          }else if(this.state.peticion2[15].Respuestas=="CasiSiempre"){
+            pet2res72="Casi Siempre"
+            pet2val15= this.state.getPonderacion[14].casisiempre
+          }
+          else if(this.state.peticion2[15].Respuestas=="AlgunasVeces"){
+            pet2res73="Algunas Veces"
+            pet2val15= this.state.getPonderacion[14].algunasveces
+          } 
+          else if(this.state.peticion2[15].Respuestas=="CasiNunca"){
+            pet2res74="Casi Nunca"
+            pet2val15= this.state.getPonderacion[14].casinunca
           } 
           else if(this.state.peticion2[15].Respuestas=="Nunca"){
-            pet2res175="Nunca"
-            pet2val35= this.state.getPonderacion[34].nunca
+            pet2res75="Nunca"
+            pet2val15= this.state.getPonderacion[14].nunca
           } 
-
-        if(this.state.peticion2[36].Respuestas=="Siempre"){
-          pet2res176="Siempre"
-          pet2val36= this.state.getPonderacion[35].siempre
-          }else if(this.state.peticion2[36].Respuestas=="CasiSiempre"){
-            pet2res177="Casi Siempre"
-            pet2val36= this.state.getPonderacion[35].casisiempre
+        if(this.state.peticion2[16].Respuestas=="Siempre"){
+          pet2res76="Siempre"
+          pet2val16= this.state.getPonderacion[15].siempre
+          }else if(this.state.peticion2[16].Respuestas=="CasiSiempre"){
+            pet2res77="Casi Siempre"
+            pet2val16= this.state.getPonderacion[15].casisiempre
           }
-          else if(this.state.peticion2[36].Respuestas=="AlgunasVeces"){
-            pet2res178="Algunas Veces"
-            pet2val36= this.state.getPonderacion[35].algunasveces
+          else if(this.state.peticion2[16].Respuestas=="AlgunasVeces"){
+            pet2res78="Algunas Veces"
+            pet2val16= this.state.getPonderacion[15].algunasveces
           } 
-          else if(this.state.peticion2[36].Respuestas=="CasiNunca"){
-            pet2res179="Casi Nunca"
-            pet2val36= this.state.getPonderacion[35].casinunca
+          else if(this.state.peticion2[16].Respuestas=="CasiNunca"){
+            pet2res79="Casi Nunca"
+            pet2val16= this.state.getPonderacion[15].casinunca
           } 
-          else if(this.state.peticion2[36].Respuestas=="Nunca"){
-            pet2res180="Nunca"
-            pet2val36= this.state.getPonderacion[35].nunca
+          else if(this.state.peticion2[16].Respuestas=="Nunca"){
+            pet2res80="Nunca"
+            pet2val16= this.state.getPonderacion[15].nunca
           }
-
-        if(this.state.peticion2[37].Respuestas=="Siempre"){
-          pet2res181="Siempre"
-          pet2val37= this.state.getPonderacion[36].siempre
+        if(this.state.peticion2[17].Respuestas=="Siempre"){
+          pet2res81="Siempre"
+          pet2val17= this.state.getPonderacion[16].siempre
+          }else if(this.state.peticion2[17].Respuestas=="CasiSiempre"){
+            pet2res82="Casi Siempre"
+            pet2val17= this.state.getPonderacion[16].casisiempre
+          }
+          else if(this.state.peticion2[17].Respuestas=="AlgunasVeces"){
+            pet2res83="Algunas Veces"
+            pet2val17= this.state.getPonderacion[16].algunasveces
+          } 
+          else if(this.state.peticion2[17].Respuestas=="CasiNunca"){
+            pet2res84="Casi Nunca"
+            pet2val17= this.state.getPonderacion[16].casinunca
+          } 
+          else if(this.state.peticion2[17].Respuestas=="Nunca"){
+            pet2res85="Nunca"
+            pet2val17= this.state.getPonderacion[16].nunca
+          }
+        if(this.state.peticion2[18].Respuestas=="Siempre"){
+          pet2res86="Siempre"
+          pet2val18= this.state.getPonderacion[17].siempre
+          }else if(this.state.peticion2[18].Respuestas=="CasiSiempre"){
+            pet2res87="Casi Siempre"
+            pet2val18= this.state.getPonderacion[17].casisiempre
+          }
+          else if(this.state.peticion2[18].Respuestas=="AlgunasVeces"){
+            pet2res88="Algunas Veces"
+            pet2val18= this.state.getPonderacion[17].algunasveces
+          } 
+          else if(this.state.peticion2[18].Respuestas=="CasiNunca"){
+            pet2res89="Casi Nunca"
+            pet2val18= this.state.getPonderacion[17].casinunca
+          } 
+          else if(this.state.peticion2[18].Respuestas=="Nunca"){
+            pet2res90="Nunca"
+            pet2val18= this.state.getPonderacion[17].nunca
+          }
+  
+        if(this.state.peticion2[19].Respuestas=="Siempre"){
+          pet2res91="Siempre"
+          pet2val19= this.state.getPonderacion[18].siempre
+          }else if(this.state.peticion2[19].Respuestas=="CasiSiempre"){
+            pet2res92="Casi Siempre"
+            pet2val19= this.state.getPonderacion[18].casisiempre
+          }
+          else if(this.state.peticion2[19].Respuestas=="AlgunasVeces"){
+            pet2res93="Algunas Veces"
+            pet2val19= this.state.getPonderacion[18].algunasveces
+          } 
+          else if(this.state.peticion2[19].Respuestas=="CasiNunca"){
+            pet2res94="Casi Nunca"
+            pet2val19= this.state.getPonderacion[18].casinunca
+          } 
+          else if(this.state.peticion2[19].Respuestas=="Nunca"){
+            pet2res95="Nunca"
+            pet2val19= this.state.getPonderacion[18].nunca
+          }
+        if(this.state.peticion2[20].Respuestas=="Siempre"){
+          pet2res96="Siempre"
+          pet2val20= this.state.getPonderacion[19].siempre
+          }else if(this.state.peticion2[20].Respuestas=="CasiSiempre"){
+            pet2res97="Casi Siempre"
+            pet2val20= this.state.getPonderacion[19].casisiempre
+          }
+          else if(this.state.peticion2[20].Respuestas=="AlgunasVeces"){
+            pet2res98="Algunas Veces"
+            pet2val20= this.state.getPonderacion[19].algunasveces
+          } 
+          else if(this.state.peticion2[20].Respuestas=="CasiNunca"){
+            pet2res99="Casi Nunca"
+            pet2val20= this.state.getPonderacion[19].casinunca
+          } 
+          else if(this.state.peticion2[20].Respuestas=="Nunca"){
+            pet2res100="Nunca"
+            pet2val20= this.state.getPonderacion[19].nunca
+          }
+  
+        if(this.state.peticion2[21].Respuestas=="Siempre"){
+          pet2res101="Siempre"
+          pet2val21= this.state.getPonderacion[20].siempre
+          }else if(this.state.peticion2[21].Respuestas=="CasiSiempre"){
+            pet2res102="Casi Siempre"
+            pet2val21= this.state.getPonderacion[20].casisiempre
+          }
+          else if(this.state.peticion2[21].Respuestas=="AlgunasVeces"){
+            pet2res103="Algunas Veces"
+            pet2val21= this.state.getPonderacion[21].algunasveces
+          } 
+          else if(this.state.peticion2[21].Respuestas=="CasiNunca"){
+            pet2res104="Casi Nunca"
+            pet2val21= this.state.getPonderacion[20].casinunca
+          } 
+          else if(this.state.peticion2[21].Respuestas=="Nunca"){
+            pet2res105="Nunca"
+            pet2val21= this.state.getPonderacion[20].nunca
+          } 
+  
+        if(this.state.peticion2[22].Respuestas=="Siempre"){
+          pet2res106="Siempre"
+          pet2val22= this.state.getPonderacion[21].siempre
+          }else if(this.state.peticion2[22].Respuestas=="CasiSiempre"){
+            pet2res107="Casi Siempre"
+            pet2val22= this.state.getPonderacion[21].casisiempre
+          }
+          else if(this.state.peticion2[22].Respuestas=="AlgunasVeces"){
+            pet2res108="Algunas Veces"
+            pet2val22= this.state.getPonderacion[21].algunasveces
+          } 
+          else if(this.state.peticion2[2].Respuestas=="CasiNunca"){
+            pet2res109="Casi Nunca"
+            pet2val22= this.state.getPonderacion[21].casinunca
+          } 
+          else if(this.state.peticion2[22].Respuestas=="Nunca"){
+            pet2res110="Nunca"
+            pet2val22= this.state.getPonderacion[21].nunca
+          } 
+  
+        if(this.state.peticion2[23].Respuestas=="Siempre"){
+          pet2res111="Siempre"
+          pet2val23= this.state.getPonderacion[22].siempre
+          }else if(this.state.peticion2[23].Respuestas=="CasiSiempre"){
+            pet2res112="Casi Siempre"
+            pet2val23= this.state.getPonderacion[22].casisiempre
+          }
+          else if(this.state.peticion2[23].Respuestas=="AlgunasVeces"){
+            pet2res113="Algunas Veces"
+            pet2val23= this.state.getPonderacion[22].algunasveces
+          } 
+          else if(this.state.peticion2[23].Respuestas=="CasiNunca"){
+            pet2res114="Casi Nunca"
+            pet2val23= this.state.getPonderacion[22].casinunca
+          } 
+          else if(this.state.peticion2[23].Respuestas=="Nunca"){
+            pet2res115="Nunca"
+            pet2val23= this.state.getPonderacion[22].nunca
+          } 
+        if(this.state.peticion2[24].Respuestas=="Siempre"){
+          pet2res116="Siempre"
+          pet2val24= this.state.getPonderacion[23].siempre
+          }else if(this.state.peticion2[24].Respuestas=="CasiSiempre"){
+            pet2res117="Casi Siempre"
+            pet2val24= this.state.getPonderacion[23].casisiempre
+          }
+          else if(this.state.peticion2[24].Respuestas=="AlgunasVeces"){
+            pet2res118="Algunas Veces"
+            pet2val24= this.state.getPonderacion[23].algunasveces
+          } 
+          else if(this.state.peticion2[24].Respuestas=="CasiNunca"){
+            pet2res119="Casi Nunca"
+            pet2val24= this.state.getPonderacion[23].casinunca
+          } 
+          else if(this.state.peticion2[24].Respuestas=="Nunca"){
+            pet2res120="Nunca"
+            pet2val24= this.state.getPonderacion[23].nunca
+          }
           
-          }else if(this.state.peticion2[37].Respuestas=="CasiSiempre"){
-            pet2res182="Casi Siempre"
-            pet2val37= this.state.getPonderacion[36].casisiempre
+        if(this.state.peticion2[25].Respuestas=="Siempre"){
+          pet2res121="Siempre"
+          pet2val25= this.state.getPonderacion[24].siempre
+          }else if(this.state.peticion2[25].Respuestas=="CasiSiempre"){
+            pet2res122="Casi Siempre"
+            pet2val25= this.state.getPonderacion[24].casisiempre
           }
-          else if(this.state.peticion2[37].Respuestas=="AlgunasVeces"){
-            pet2res183="Algunas Veces"
-            pet2val37= this.state.getPonderacion[36].algunasveces
+          else if(this.state.peticion2[25].Respuestas=="AlgunasVeces"){
+            pet2res123="Algunas Veces"
+            pet2val25= this.state.getPonderacion[24].algunasveces
           } 
-          else if(this.state.peticion2[37].Respuestas=="CasiNunca"){
-            pet2res184="Casi Nunca"
-            pet2val37= this.state.getPonderacion[36].casinunca
+          else if(this.state.peticion2[25].Respuestas=="CasiNunca"){
+            pet2res124="Casi Nunca"
+            pet2val25= this.state.getPonderacion[24].casinunca
           } 
-          else if(this.state.peticion2[37].Respuestas=="Nunca"){
-            pet2res185="Nunca"
-            pet2val37= this.state.getPonderacion[36].nunca
+          else if(this.state.peticion2[25].Respuestas=="Nunca"){
+            pet2res125="Nunca"
+            pet2val25= this.state.getPonderacion[24].nunca
           }
-        if(this.state.peticion2[38].Respuestas=="Siempre"){
-          pet2res186="Siempre"
-          pet2val38= this.state.getPonderacion[37].siempre
-          }else if(this.state.peticion2[38].Respuestas=="CasiSiempre"){
-            pet2res187="Casi Siempre"
-            pet2val38= this.state.getPonderacion[37].casisiempre
+        if(this.state.peticion2[26].Respuestas=="Siempre"){
+          pet2res126="Siempre"
+          pet2val26= this.state.getPonderacion[25].siempre
+          }else if(this.state.peticion2[26].Respuestas=="CasiSiempre"){
+            pet2res127="Casi Siempre"
+            pet2val26= this.state.getPonderacion[25].casisiempre
           }
-          else if(this.state.peticion2[38].Respuestas=="AlgunasVeces"){
-            pet2res188="Algunas Veces"
-            pet2val38= this.state.getPonderacion[37].algunasveces
+          else if(this.state.peticion2[26].Respuestas=="AlgunasVeces"){
+            pet2res128="Algunas Veces"
+            pet2val26= this.state.getPonderacion[25].algunasveces
           } 
-          else if(this.state.peticion2[38].Respuestas=="CasiNunca"){
-            pet2res189="Casi Nunca"
-            pet2val38= this.state.getPonderacion[37].casinunca
+          else if(this.state.peticion2[26].Respuestas=="CasiNunca"){
+            pet2res129="Casi Nunca"
+            pet2val26= this.state.getPonderacion[25].casinunca
           } 
-          else if(this.state.peticion2[38].Respuestas=="Nunca"){
-            pet2res190="Nunca"
-            pet2val38= this.state.getPonderacion[37].nunca
+          else if(this.state.peticion2[26].Respuestas=="Nunca"){
+            pet2res130="Nunca"
+            pet2val26= this.state.getPonderacion[25].nunca
           }
-
-          if(this.state.peticion2[39].Respuestas=="Siempre"){
-            pet2res191="Siempre"
-            pet2val39= this.state.getPonderacion[38].siempre
-            }else if(this.state.peticion2[39].Respuestas=="CasiSiempre"){
-              pet2res192="Casi Siempre"
-              pet2val39= this.state.getPonderacion[38].casisiempre
-            }
-            else if(this.state.peticion2[39].Respuestas=="AlgunasVeces"){
-              pet2res193="Algunas Veces"
-              pet2val39= this.state.getPonderacion[38].algunasveces
-            } 
-            else if(this.state.peticion2[39].Respuestas=="CasiNunca"){
-              pet2res194="Casi Nunca"
-              pet2val39= this.state.getPonderacion[38].casinunca
-            } 
-            else if(this.state.peticion2[39].Respuestas=="Nunca"){
-              pet2res195="Nunca"
-              pet2val39= this.state.getPonderacion[38].nunca
-            }
-
-            if(this.state.peticion2[40].Respuestas=="Siempre"){
-              pet2res196="Siempre"
-              pet2val40= this.state.getPonderacion[39].siempre
-              }else if(this.state.peticion2[40].Respuestas=="CasiSiempre"){
-                pet2res197="Casi Siempre"
-                pet2val40= this.state.getPonderacion[39].casisiempre
-              }
-              else if(this.state.peticion2[40].Respuestas=="AlgunasVeces"){
-                pet2res198="Algunas Veces"
-                pet2val40= this.state.getPonderacion[39].algunasveces
-              } 
-              else if(this.state.peticion2[40].Respuestas=="CasiNunca"){
-                pet2res199="Casi Nunca"
-                pet2val40= this.state.getPonderacion[39].casinunca
-              } 
-              else if(this.state.peticion2[40].Respuestas=="Nunca"){
-                pet2res200="Nunca"
-                pet2val40= this.state.getPonderacion[39].nunca
-              }
-
-            if(this.state.peticion2[42].Respuestas=="Siempre"){
-              pet2res201="Siempre"
-              pet2val41= this.state.getPonderacion[40].siempre
-            }else if(this.state.peticion2[42].Respuestas=="CasiSiempre"){
-              pet2res202="Casi Siempre"
-              pet2val41= this.state.getPonderacion[40].casisiempre
-            }
-            else if(this.state.peticion2[42].Respuestas=="AlgunasVeces"){
-              pet2res203="Algunas Veces"
-              pet2val41= this.state.getPonderacion[40].algunasveces
-            } 
-            else if(this.state.peticion2[42].Respuestas=="CasiNunca"){
-              pet2res204="Casi Nunca"
-              pet2val41= this.state.getPonderacion[40].casinunca
-            } 
-            else if(this.state.peticion2[42].Respuestas=="Nunca"){
-              pet2res205="Nunca"
-              pet2val41= this.state.getPonderacion[40].nunca
-            }
-          if(this.state.peticion2[43].Respuestas=="Siempre"){
-            pet2res206="Siempre"
-            pet2val42= this.state.getPonderacion[41].siempre
-          }else if(this.state.peticion2[43].Respuestas=="CasiSiempre"){
-            pet2res207="Casi Siempre"
-            pet2val42= this.state.getPonderacion[41].casisiempre
+        if(this.state.peticion2[27].Respuestas=="Siempre"){
+          pet2res131="Siempre"
+          pet2val27= this.state.getPonderacion[26].siempre
+          }else if(this.state.peticion2[27].Respuestas=="CasiSiempre"){
+            pet2res132="Casi Siempre"
+            pet2val27= this.state.getPonderacion[26].casisiempre
           }
-          else if(this.state.peticion2[43].Respuestas=="AlgunasVeces"){
-            pet2res208="Algunas Veces"
-            pet2val42= this.state.getPonderacion[41].algunasveces
+          else if(this.state.peticion2[27].Respuestas=="AlgunasVeces"){
+            pet2res133="Algunas Veces"
+            pet2val27= this.state.getPonderacion[26].algunasveces
           } 
-          else if(this.state.peticion2[43].Respuestas=="CasiNunca"){
-            pet2res209="Casi Nunca"
-            pet2val42= this.state.getPonderacion[41].casinunca
+          else if(this.state.peticion2[27].Respuestas=="CasiNunca"){
+            pet2res134="Casi Nunca"
+            pet2val27= this.state.getPonderacion[26].casinunca
           } 
-          else if(this.state.peticion2[43].Respuestas=="Nunca"){
-            pet2res210="Nunca"
-            pet2val42= this.state.getPonderacion[41].nunca
-          }
-        if(this.state.peticion2[44].Respuestas=="Siempre"){
-          pet2res211="Siempre"
-          pet2val43= this.state.getPonderacion[42].siempre
-        }else if(this.state.peticion2[44].Respuestas=="CasiSiempre"){
-          pet2res212="Casi Siempre"
-          pet2val43= this.state.getPonderacion[42].casisiempre
+          else if(this.state.peticion2[27].Respuestas=="Nunca"){
+            pet2res135="Nunca"
+            pet2val27= this.state.getPonderacion[26].nunca
         }
-        else if(this.state.peticion2[44].Respuestas=="AlgunasVeces"){
-          pet2res213="Algunas Veces"
-          pet2val43= this.state.getPonderacion[42].algunasveces
-        } 
-        else if(this.state.peticion2[44].Respuestas=="CasiNunca"){
-          pet2res214="Casi Nunca"
-          pet2val43= this.state.getPonderacion[42].casinunca
-        } 
-        else if(this.state.peticion2[44].Respuestas=="Nunca"){
-          pet2res215="Nunca"
-          pet2val43= this.state.getPonderacion[42].nunca
+      if(this.state.peticion2[28].Respuestas=="Siempre"){
+        pet2res136="Siempre"
+        pet2val28= this.state.getPonderacion[27].siempre
+        }else if(this.state.peticion2[28].Respuestas=="CasiSiempre"){
+          pet2res137="Casi Siempre"
+          pet2val28= this.state.getPonderacion[27].casisiempre
         }
-
-      if(this.state.peticion2[46].Respuestas=="Siempre"){
-        pet2res216="Siempre"
-        pet2val44= this.state.getPonderacion[43].siempre
-      }else if(this.state.peticion2[46].Respuestas=="CasiSiempre"){
-        pet2res217="Casi Siempre"
-        pet2val44= this.state.getPonderacion[43].casisiempre
-      }
-      else if(this.state.peticion2[46].Respuestas=="AlgunasVeces"){
-        pet2res218="Algunas Veces"
-        pet2val44= this.state.getPonderacion[43].algunasveces
-      } 
-      else if(this.state.peticion2[46].Respuestas=="CasiNunca"){
-        pet2res219="Casi Nunca"
-        pet2val44= this.state.getPonderacion[43].casinunca
-      } 
-      else if(this.state.peticion2[46].Respuestas=="Nunca"){
-        pet2res220="Nunca"
-        pet2val44= this.state.getPonderacion[43].nunca
-      }
-
-    if(this.state.peticion2[47].Respuestas=="Siempre"){
-      pet2res221="Siempre"
-      pet2val45= this.state.getPonderacion[44].siempre
-    }else if(this.state.peticion2[47].Respuestas=="CasiSiempre"){
-      pet2res222="Casi Siempre"
-      pet2val45= this.state.getPonderacion[44].casisiempre
-    }
-    else if(this.state.peticion2[47].Respuestas=="AlgunasVeces"){
-      pet2res223="Algunas Veces"
-      pet2val45= this.state.getPonderacion[44].algunasveces
-    } 
-    else if(this.state.peticion2[47].Respuestas=="CasiNunca"){
-      pet2res224="Casi Nunca"
-      pet2val45= this.state.getPonderacion[44].casinunca
-    } 
-    else if(this.state.peticion2[47].Respuestas=="Nunca"){
-      pet2res225="Nunca"
-      pet2val45= this.state.getPonderacion[44].nunca
-    }
-    if(this.state.peticion2[48].Respuestas=="Siempre"){
-      pet2res226="Siempre"
-      pet2val46= this.state.getPonderacion[45].siempre
-    }else if(this.state.peticion2[48].Respuestas=="CasiSiempre"){
-      pet2res227="Casi Siempre"
-      pet2val46= this.state.getPonderacion[45].casisiempre
-    }
-    else if(this.state.peticion2[48].Respuestas=="AlgunasVeces"){
-      pet2res228="Algunas Veces"
-      pet2val46= this.state.getPonderacion[45].algunasveces
-    } 
-    else if(this.state.peticion2[48].Respuestas=="CasiNunca"){
-      pet2res229="Casi Nunca"
-      pet2val46= this.state.getPonderacion[45].casinunca
-    } 
-    else if(this.state.peticion2[48].Respuestas=="Nunca"){
-      pet2res230="Nunca"
-      pet2val46= this.state.getPonderacion[45].nunca
-    }
-    
+        else if(this.state.peticion2[28].Respuestas=="AlgunasVeces"){
+          pet2res138="Algunas Veces"
+          pet2val28= this.state.getPonderacion[27].algunasveces
+        } 
+        else if(this.state.peticion2[28].Respuestas=="CasiNunca"){
+          pet2res139="Casi Nunca"
+          pet2val28= this.state.getPonderacion[27].casinunca
+        } 
+        else if(this.state.peticion2[28].Respuestas=="Nunca"){
+          pet2res140="Nunca"
+          pet2val28= this.state.getPonderacion[27].nunca
+        }
+      if(this.state.peticion2[29].Respuestas=="Siempre"){
+        pet2res141="Siempre"
+        pet2val29= this.state.getPonderacion[28].siempre
+        }else if(this.state.peticion2[29].Respuestas=="CasiSiempre"){
+          pet2res142="Casi Siempre"
+          pet2val29= this.state.getPonderacion[28].casisiempre
+        }
+        else if(this.state.peticion2[29].Respuestas=="AlgunasVeces"){
+          pet2res143="Algunas Veces"
+          pet2val29= this.state.getPonderacion[28].algunasveces
+        } 
+        else if(this.state.peticion2[29].Respuestas=="CasiNunca"){
+          pet2res144="Casi Nunca"
+          pet2val29= this.state.getPonderacion[28].casinunca
+        } 
+        else if(this.state.peticion2[29].Respuestas=="Nunca"){
+          pet2res145="Nunca"
+          pet2val29= this.state.getPonderacion[28].nunca
+        }
+  
+      if(this.state.peticion2[30].Respuestas=="Siempre"){
+        pet2res146="Siempre"
+        pet2val30= this.state.getPonderacion[29].siempre
+        }else if(this.state.peticion2[30].Respuestas=="CasiSiempre"){
+          pet2res147="Casi Siempre"
+          pet2val30= this.state.getPonderacion[29].casisiempre
+        }
+        else if(this.state.peticion2[30].Respuestas=="AlgunasVeces"){
+          pet2res148="Algunas Veces"
+          pet2val30= this.state.getPonderacion[29].algunasveces
+        } 
+        else if(this.state.peticion2[30].Respuestas=="CasiNunca"){
+          pet2res149="Casi Nunca"
+          pet2val30= this.state.getPonderacion[29].casinunca
+        } 
+        else if(this.state.peticion2[30].Respuestas=="Nunca"){
+          pet2res150="Nunca"
+          pet2val30= this.state.getPonderacion[29].nunca
+        }
+  
+      if(this.state.peticion2[31].Respuestas=="Siempre"){
+        pet2res151="Siempre"
+        pet2val31= this.state.getPonderacion[30].siempre
+        }else if(this.state.peticion2[31].Respuestas=="CasiSiempre"){
+          pet2res152="Casi Siempre"
+          pet2val31= this.state.getPonderacion[30].casisiempre
+        }
+        else if(this.state.peticion2[31].Respuestas=="AlgunasVeces"){
+          pet2res153="Algunas Veces"
+          pet2val31= this.state.getPonderacion[30].algunasveces
+        } 
+        else if(this.state.peticion2[31].Respuestas=="CasiNunca"){
+          pet2res154="Casi Nunca"
+          pet2val31= this.state.getPonderacion[30].casinunca
+        } 
+        else if(this.state.peticion2[31].Respuestas=="Nunca"){
+          pet2res155="Nunca"
+          pet2val31= this.state.getPonderacion[30].nunca
+        } 
+      if(this.state.peticion2[32].Respuestas=="Siempre"){
+        pet2res156="Siempre"
+        pet2val32= this.state.getPonderacion[31].siempre
+        }else if(this.state.peticion2[32].Respuestas=="CasiSiempre"){
+          pet2res157="Casi Siempre"
+          pet2val32= this.state.getPonderacion[31].casisiempre
+        }
+        else if(this.state.peticion2[32].Respuestas=="AlgunasVeces"){
+          pet2res158="Algunas Veces"
+          pet2val32= this.state.getPonderacion[31].algunasveces
+        } 
+        else if(this.state.peticion2[32].Respuestas=="CasiNunca"){
+          pet2res159="Casi Nunca"
+          pet2val32= this.state.getPonderacion[31].casinunca
+        } 
+        else if(this.state.peticion2[32].Respuestas=="Nunca"){
+          pet2res160="Nunca"
+          pet2val32= this.state.getPonderacion[31].nunca
+        } 
+  
+        if(this.state.peticion2[33].Respuestas=="Siempre"){
+          pet2res161="Siempre"
+          pet2val33= this.state.getPonderacion[32].siempre
+          }else if(this.state.peticion2[33].Respuestas=="CasiSiempre"){
+            pet2res162="Casi Siempre"
+            pet2val33= this.state.getPonderacion[32].casisiempre
+          }
+          else if(this.state.peticion2[33].Respuestas=="AlgunasVeces"){
+            pet2res163="Algunas Veces"
+            pet2val33= this.state.getPonderacion[32].algunasveces
+          } 
+          else if(this.state.peticion2[33].Respuestas=="CasiNunca"){
+            pet2res164="Casi Nunca"
+            pet2val33= this.state.getPonderacion[32].casinunca
+          } 
+          else if(this.state.peticion2[33].Respuestas=="Nunca"){
+            pet2res165="Nunca"
+            pet2val33= this.state.getPonderacion[32].nunca
+          } 
+  
+        if(this.state.peticion2[34].Respuestas=="Siempre"){
+          pet2res166="Siempre"
+          pet2val34= this.state.getPonderacion[33].siempre
+          }else if(this.state.peticion2[34].Respuestas=="CasiSiempre"){
+            pet2res167="Casi Siempre"
+            pet2val34= this.state.getPonderacion[33].casisiempre
+          }
+          else if(this.state.peticion2[34].Respuestas=="AlgunasVeces"){
+            pet2res168="Algunas Veces"
+            pet2val34= this.state.getPonderacion[33].algunasveces
+          } 
+          else if(this.state.peticion2[34].Respuestas=="CasiNunca"){
+            pet2res169="Casi Nunca"
+            pet2val34= this.state.getPonderacion[33].casinunca
+          } 
+          else if(this.state.peticion2[34].Respuestas=="Nunca"){
+            pet2res170="Nunca"
+            pet2val34= this.state.getPonderacion[33].nunca
+          } 
+          if(this.state.peticion2[35].Respuestas=="Siempre"){
+            pet2res171="Siempre"
+            pet2val35= this.state.getPonderacion[34].siempre
+            }else if(this.state.peticion2[35].Respuestas=="CasiSiempre"){
+              pet2res172="Casi Siempre"
+              pet2val35= this.state.getPonderacion[34].casisiempre
+            }
+            else if(this.state.peticion2[35].Respuestas=="AlgunasVeces"){
+              pet2res173="Algunas Veces"
+              pet2val35= this.state.getPonderacion[34].algunasveces
+            } 
+            else if(this.state.peticion2[35].Respuestas=="CasiNunca"){
+              pet2res174="Casi Nunca"
+              pet2val35= this.state.getPonderacion[34].casinunca
+            } 
+            else if(this.state.peticion2[35].Respuestas=="Nunca"){
+              pet2res175="Nunca"
+              pet2val35= this.state.getPonderacion[34].nunca
+            } 
+  
+          if(this.state.peticion2[36].Respuestas=="Siempre"){
+            pet2res176="Siempre"
+            pet2val36= this.state.getPonderacion[35].siempre
+            }else if(this.state.peticion2[36].Respuestas=="CasiSiempre"){
+              pet2res177="Casi Siempre"
+              pet2val36= this.state.getPonderacion[35].casisiempre
+            }
+            else if(this.state.peticion2[36].Respuestas=="AlgunasVeces"){
+              pet2res178="Algunas Veces"
+              pet2val36= this.state.getPonderacion[35].algunasveces
+            } 
+            else if(this.state.peticion2[36].Respuestas=="CasiNunca"){
+              pet2res179="Casi Nunca"
+              pet2val36= this.state.getPonderacion[35].casinunca
+            } 
+            else if(this.state.peticion2[36].Respuestas=="Nunca"){
+              pet2res180="Nunca"
+              pet2val36= this.state.getPonderacion[35].nunca
+            }
+  
+          if(this.state.peticion2[37].Respuestas=="Siempre"){
+            pet2res181="Siempre"
+            pet2val37= this.state.getPonderacion[36].siempre
+            
+            }else if(this.state.peticion2[37].Respuestas=="CasiSiempre"){
+              pet2res182="Casi Siempre"
+              pet2val37= this.state.getPonderacion[36].casisiempre
+            }
+            else if(this.state.peticion2[37].Respuestas=="AlgunasVeces"){
+              pet2res183="Algunas Veces"
+              pet2val37= this.state.getPonderacion[36].algunasveces
+            } 
+            else if(this.state.peticion2[37].Respuestas=="CasiNunca"){
+              pet2res184="Casi Nunca"
+              pet2val37= this.state.getPonderacion[36].casinunca
+            } 
+            else if(this.state.peticion2[37].Respuestas=="Nunca"){
+              pet2res185="Nunca"
+              pet2val37= this.state.getPonderacion[36].nunca
+            }
+          if(this.state.peticion2[38].Respuestas=="Siempre"){
+            pet2res186="Siempre"
+            pet2val38= this.state.getPonderacion[37].siempre
+            }else if(this.state.peticion2[38].Respuestas=="CasiSiempre"){
+              pet2res187="Casi Siempre"
+              pet2val38= this.state.getPonderacion[37].casisiempre
+            }
+            else if(this.state.peticion2[38].Respuestas=="AlgunasVeces"){
+              pet2res188="Algunas Veces"
+              pet2val38= this.state.getPonderacion[37].algunasveces
+            } 
+            else if(this.state.peticion2[38].Respuestas=="CasiNunca"){
+              pet2res189="Casi Nunca"
+              pet2val38= this.state.getPonderacion[37].casinunca
+            } 
+            else if(this.state.peticion2[38].Respuestas=="Nunca"){
+              pet2res190="Nunca"
+              pet2val38= this.state.getPonderacion[37].nunca
+            }
+  
+            if(this.state.peticion2[39].Respuestas=="Siempre"){
+              pet2res191="Siempre"
+              pet2val39= this.state.getPonderacion[38].siempre
+              }else if(this.state.peticion2[39].Respuestas=="CasiSiempre"){
+                pet2res192="Casi Siempre"
+                pet2val39= this.state.getPonderacion[38].casisiempre
+              }
+              else if(this.state.peticion2[39].Respuestas=="AlgunasVeces"){
+                pet2res193="Algunas Veces"
+                pet2val39= this.state.getPonderacion[38].algunasveces
+              } 
+              else if(this.state.peticion2[39].Respuestas=="CasiNunca"){
+                pet2res194="Casi Nunca"
+                pet2val39= this.state.getPonderacion[38].casinunca
+              } 
+              else if(this.state.peticion2[39].Respuestas=="Nunca"){
+                pet2res195="Nunca"
+                pet2val39= this.state.getPonderacion[38].nunca
+              }
+  
+              if(this.state.peticion2[40].Respuestas=="Siempre"){
+                pet2res196="Siempre"
+                pet2val40= this.state.getPonderacion[39].siempre
+                }else if(this.state.peticion2[40].Respuestas=="CasiSiempre"){
+                  pet2res197="Casi Siempre"
+                  pet2val40= this.state.getPonderacion[39].casisiempre
+                }
+                else if(this.state.peticion2[40].Respuestas=="AlgunasVeces"){
+                  pet2res198="Algunas Veces"
+                  pet2val40= this.state.getPonderacion[39].algunasveces
+                } 
+                else if(this.state.peticion2[40].Respuestas=="CasiNunca"){
+                  pet2res199="Casi Nunca"
+                  pet2val40= this.state.getPonderacion[39].casinunca
+                } 
+                else if(this.state.peticion2[40].Respuestas=="Nunca"){
+                  pet2res200="Nunca"
+                  pet2val40= this.state.getPonderacion[39].nunca
+                }
+  
+                if(this.state.peticion2[41].Respuestas=="Siempre"){
+                  pet2res201="Siempre"
+                  pet2val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion2[41].Respuestas=="CasiSiempre"){
+                  pet2res202="Casi Siempre"
+                  pet2val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion2[41].Respuestas=="AlgunasVeces"){
+                  pet2res203="Algunas Veces"
+                  pet2val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion2[41].Respuestas=="CasiNunca"){
+                  pet2res204="Casi Nunca"
+                  pet2val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion2[41].Respuestas=="Nunca"){
+                  pet2res205="Nunca"
+                  pet2val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion2[42].Respuestas=="Siempre"){
+                  pet2res206="Siempre"
+                  pet2val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion2[42].Respuestas=="CasiSiempre"){
+                  pet2res207="Casi Siempre"
+                  pet2val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion2[42].Respuestas=="AlgunasVeces"){
+                  pet2res208="Algunas Veces"
+                  pet2val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion2[42].Respuestas=="CasiNunca"){
+                  pet2res209="Casi Nunca"
+                  pet2val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion2[42].Respuestas=="Nunca"){
+                  pet2res210="Nunca"
+                  pet2val42= this.state.getPonderacion[41].nunca
+                }
+  
+                if(this.state.peticion2[43].Respuestas=="Siempre"){
+                  pet2res211="Siempre"
+                  pet2val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion2[43].Respuestas=="CasiSiempre"){
+                  pet2res212="Casi Siempre"
+                  pet2val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion2[43].Respuestas=="AlgunasVeces"){
+                  pet2res213="Algunas Veces"
+                  pet2val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion2[43].Respuestas=="CasiNunca"){
+                  pet2res214="Casi Nunca"
+                  pet2val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion2[43].Respuestas=="Nunca"){
+                  pet2res215="Nunca"
+                  pet2val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion2[44].Respuestas=="Siempre"){
+                  pet2res216="Siempre"
+                  pet2val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion2[44].Respuestas=="CasiSiempre"){
+                  pet2res217="Casi Siempre"
+                  pet2val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion2[44].Respuestas=="AlgunasVeces"){
+                  pet2res218="Algunas Veces"
+                  pet2val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion2[44].Respuestas=="CasiNunca"){
+                  pet2res219="Casi Nunca"
+                  pet2val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion2[44].Respuestas=="Nunca"){
+                  pet2res220="Nunca"
+                  pet2val44= this.state.getPonderacion[43].nunca
+                }
+  
+                if(this.state.peticion2[45].Respuestas=="Siempre"){
+                  pet2res221="Siempre"
+                  pet2val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion2[45].Respuestas=="CasiSiempre"){
+                  pet2res222="Casi Siempre"
+                  pet2val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion2[45].Respuestas=="AlgunasVeces"){
+                  pet2res223="Algunas Veces"
+                  pet2val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion2[45].Respuestas=="CasiNunca"){
+                  pet2res224="Casi Nunca"
+                  pet2val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion2[45].Respuestas=="Nunca"){
+                  pet2res225="Nunca"
+                  pet2val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion2[46].Respuestas=="Siempre"){
+                  pet2res226="Siempre"
+                  pet2val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion2[46].Respuestas=="CasiSiempre"){
+                  pet2res227="Casi Siempre"
+                  pet2val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion2[46].Respuestas=="AlgunasVeces"){
+                  pet2res228="Algunas Veces"
+                  pet2val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion2[46].Respuestas=="CasiNunca"){
+                  pet2res229="Casi Nunca"
+                  pet2val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion2[46].Respuestas=="Nunca"){
+                  pet2res230="Nunca"
+                  pet2val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion2[47].Respuestas=="Siempre"){
+                  pet2res231="Siempre"
+                  pet2val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion2[47].Respuestas=="CasiSiempre"){
+                  pet2res232="Casi Siempre"
+                  pet2val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion2[47].Respuestas=="AlgunasVeces"){
+                  pet2res233="Algunas Veces"
+                  pet2val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion2[47].Respuestas=="CasiNunca"){
+                  pet2res234="Casi Nunca"
+                  pet2val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion2[47].Respuestas=="Nunca"){
+                  pet2res235="Nunca"
+                  pet2val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion2[48].Respuestas=="Siempre"){
+                  pet2res236="Siempre"
+                  pet2val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion2[48].Respuestas=="CasiSiempre"){
+                  pet2res237="Casi Siempre"
+                  pet2val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion2[48].Respuestas=="AlgunasVeces"){
+                  pet2res238="Algunas Veces"
+                  pet2val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion2[48].Respuestas=="CasiNunca"){
+                  pet2res239="Casi Nunca"
+                  pet2val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion2[48].Respuestas=="Nunca"){
+                  pet2res240="Nunca"
+                  pet2val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion2[49].Respuestas=="Siempre"){
+                  pet2res241="Siempre"
+                  pet2val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion2[49].Respuestas=="CasiSiempre"){
+                  pet2res242="Casi Siempre"
+                  pet2val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion2[49].Respuestas=="AlgunasVeces"){
+                  pet2res243="Algunas Veces"
+                  pet2val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion2[49].Respuestas=="CasiNunca"){
+                  pet2res244="Casi Nunca"
+                  pet2val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion2[49].Respuestas=="Nunca"){
+                  pet2res245="Nunca"
+                  pet2val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion2[50].Respuestas=="Siempre"){
+                  pet2res246="Siempre"
+                  pet2val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion2[50].Respuestas=="CasiSiempre"){
+                  pet2res247="Casi Siempre"
+                  pet2val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion2[50].Respuestas=="AlgunasVeces"){
+                  pet2res248="Algunas Veces"
+                  pet2val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion2[50].Respuestas=="CasiNunca"){
+                  pet2res249="Casi Nunca"
+                  pet2val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion2[50].Respuestas=="Nunca"){
+                  pet2res250="Nunca"
+                  pet2val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion2[51].Respuestas=="Siempre"){
+                  pet2res251="Siempre"
+                  pet2val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion2[51].Respuestas=="CasiSiempre"){
+                  pet2res252="Casi Siempre"
+                  pet2val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion2[51].Respuestas=="AlgunasVeces"){
+                  pet2res253="Algunas Veces"
+                  pet2val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion2[51].Respuestas=="CasiNunca"){
+                  pet2res254="Casi Nunca"
+                  pet2val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion2[51].Respuestas=="Nunca"){
+                  pet2res255="Nunca"
+                  pet2val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion2[52].Respuestas=="Siempre"){
+                  pet2res256="Siempre"
+                  pet2val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion2[52].Respuestas=="CasiSiempre"){
+                  pet2res257="Casi Siempre"
+                  pet2val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion2[52].Respuestas=="AlgunasVeces"){
+                  pet2res258="Algunas Veces"
+                  pet2val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion2[52].Respuestas=="CasiNunca"){
+                  pet2res259="Casi Nunca"
+                  pet2val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion2[52].Respuestas=="Nunca"){
+                  pet2res260="Nunca"
+                  pet2val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion2[53].Respuestas=="Siempre"){
+                  pet2res261="Siempre"
+                  pet2val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion2[53].Respuestas=="CasiSiempre"){
+                  pet2res262="Casi Siempre"
+                  pet2val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion2[53].Respuestas=="AlgunasVeces"){
+                  pet2res263="Algunas Veces"
+                  pet2val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion2[53].Respuestas=="CasiNunca"){
+                  pet2res264="Casi Nunca"
+                  pet2val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion2[53].Respuestas=="Nunca"){
+                  pet2res265="Nunca"
+                  pet2val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion2[54].Respuestas=="Siempre"){
+                  pet2res266="Siempre"
+                  pet2val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion2[54].Respuestas=="CasiSiempre"){
+                  pet2res267="Casi Siempre"
+                  pet2val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion2[54].Respuestas=="AlgunasVeces"){
+                  pet2res268="Algunas Veces"
+                  pet2val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion2[54].Respuestas=="CasiNunca"){
+                  pet2res269="Casi Nunca"
+                  pet2val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion2[54].Respuestas=="Nunca"){
+                  pet2res270="Nunca"
+                  pet2val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion2[55].Respuestas=="Siempre"){
+                  pet2res271="Siempre"
+                  pet2val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion2[55].Respuestas=="CasiSiempre"){
+                  pet2res272="Casi Siempre"
+                  pet2val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion2[55].Respuestas=="AlgunasVeces"){
+                  pet2res273="Algunas Veces"
+                  pet2val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion2[55].Respuestas=="CasiNunca"){
+                  pet2res274="Casi Nunca"
+                  pet2val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion2[55].Respuestas=="Nunca"){
+                  pet2res275="Nunca"
+                  pet2val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion2[56].Respuestas=="Siempre"){
+                  pet2res276="Siempre"
+                  pet2val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion2[56].Respuestas=="CasiSiempre"){
+                  pet2res277="Casi Siempre"
+                  pet2val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion2[56].Respuestas=="AlgunasVeces"){
+                  pet2res278="Algunas Veces"
+                  pet2val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion2[56].Respuestas=="CasiNunca"){
+                  pet2res279="Casi Nunca"
+                  pet2val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion2[56].Respuestas=="Nunca"){
+                  pet2res280="Nunca"
+                  pet2val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion2[57].Respuestas=="Siempre"){
+                  pet2res281="Siempre"
+                  pet2val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion2[57].Respuestas=="CasiSiempre"){
+                  pet2res282="Casi Siempre"
+                  pet2val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion2[57].Respuestas=="AlgunasVeces"){
+                  pet2res283="Algunas Veces"
+                  pet2val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion2[57].Respuestas=="CasiNunca"){
+                  pet2res284="Casi Nunca"
+                  pet2val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion2[57].Respuestas=="Nunca"){
+                  pet2res285="Nunca"
+                  pet2val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion2[58].Respuestas=="Siempre"){
+                  pet2res286="Siempre"
+                  pet2val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion2[58].Respuestas=="CasiSiempre"){
+                  pet2res287="Casi Siempre"
+                  pet2val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion2[58].Respuestas=="AlgunasVeces"){
+                  pet2res288="Algunas Veces"
+                  pet2val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion2[58].Respuestas=="CasiNunca"){
+                  pet2res289="Casi Nunca"
+                  pet2val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion2[58].Respuestas=="Nunca"){
+                  pet2res290="Nunca"
+                  pet2val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion2[59].Respuestas=="Siempre"){
+                  pet2res291="Siempre"
+                  pet2val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion2[59].Respuestas=="CasiSiempre"){
+                  pet2res292="Casi Siempre"
+                  pet2val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion2[59].Respuestas=="AlgunasVeces"){
+                  pet2res293="Algunas Veces"
+                  pet2val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion2[59].Respuestas=="CasiNunca"){
+                  pet2res294="Casi Nunca"
+                  pet2val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion2[59].Respuestas=="Nunca"){
+                  pet2res295="Nunca"
+                  pet2val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion2[60].Respuestas=="Siempre"){
+                  pet2res296="Siempre"
+                  pet2val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion2[60].Respuestas=="CasiSiempre"){
+                  pet2res297="Casi Siempre"
+                  pet2val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion2[60].Respuestas=="AlgunasVeces"){
+                  pet2res298="Algunas Veces"
+                  pet2val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion2[60].Respuestas=="CasiNunca"){
+                  pet2res299="Casi Nunca"
+                  pet2val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion2[60].Respuestas=="Nunca"){
+                  pet2res300="Nunca"
+                  pet2val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion2[61].Respuestas=="Siempre"){
+                  pet2res301="Siempre"
+                  pet2val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion2[61].Respuestas=="CasiSiempre"){
+                  pet2res302="Casi Siempre"
+                  pet2val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion2[61].Respuestas=="AlgunasVeces"){
+                  pet2res303="Algunas Veces"
+                  pet2val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion2[61].Respuestas=="CasiNunca"){
+                  pet2res304="Casi Nunca"
+                  pet2val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion2[61].Respuestas=="Nunca"){
+                  pet2res305="Nunca"
+                  pet2val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion2[62].Respuestas=="Siempre"){
+                  pet2res306="Siempre"
+                  pet2val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion2[62].Respuestas=="CasiSiempre"){
+                  pet2res307="Casi Siempre"
+                  pet2val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion2[62].Respuestas=="AlgunasVeces"){
+                  pet2res308="Algunas Veces"
+                  pet2val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion2[62].Respuestas=="CasiNunca"){
+                  pet2res309="Casi Nunca"
+                  pet2val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion2[62].Respuestas=="Nunca"){
+                  pet2res310="Nunca"
+                  pet2val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion2[63].Respuestas=="Siempre"){
+                  pet2res311="Siempre"
+                  pet2val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion2[63].Respuestas=="CasiSiempre"){
+                  pet2res312="Casi Siempre"
+                  pet2val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion2[63].Respuestas=="AlgunasVeces"){
+                  pet2res313="Algunas Veces"
+                  pet2val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion2[63].Respuestas=="CasiNunca"){
+                  pet2res314="Casi Nunca"
+                  pet2val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion2[63].Respuestas=="Nunca"){
+                  pet2res315="Nunca"
+                  pet2val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion2[64].Respuestas=="Siempre"){
+                  pet2res316="Siempre"
+                  pet2val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion2[64].Respuestas=="CasiSiempre"){
+                  pet2res317="Casi Siempre"
+                  pet2val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion2[64].Respuestas=="AlgunasVeces"){
+                  pet2res318="Algunas Veces"
+                  pet2val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion2[64].Respuestas=="CasiNunca"){
+                  pet2res319="Casi Nunca"
+                  pet2val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion2[64].Respuestas=="Nunca"){
+                  pet2res320="Nunca"
+                  pet2val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion2[65].Respuestas=="Siempre"){
+                  pet2res321="Siempre"
+                  pet2val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion2[65].Respuestas=="CasiSiempre"){
+                  pet2res322="Casi Siempre"
+                  pet2val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion2[65].Respuestas=="AlgunasVeces"){
+                  pet2res323="Algunas Veces"
+                  pet2val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion2[65].Respuestas=="CasiNunca"){
+                  pet2res324="Casi Nunca"
+                  pet2val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion2[65].Respuestas=="Nunca"){
+                  pet2res325="Nunca"
+                  pet2val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion2[66].Respuestas=="Siempre"){
+                  pet2res326="Siempre"
+                  pet2val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion2[66].Respuestas=="CasiSiempre"){
+                  pet2res327="Casi Siempre"
+                  pet2val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion2[66].Respuestas=="AlgunasVeces"){
+                  pet2res328="Algunas Veces"
+                  pet2val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion2[66].Respuestas=="CasiNunca"){
+                  pet2res329="Casi Nunca"
+                  pet2val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion2[66].Respuestas=="Nunca"){
+                  pet2res330="Nunca"
+                  pet2val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion2[67].Respuestas=="Siempre"){
+                  pet2res331="Siempre"
+                  pet2val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion2[67].Respuestas=="CasiSiempre"){
+                  pet2res332="Casi Siempre"
+                  pet2val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion2[67].Respuestas=="AlgunasVeces"){
+                  pet2res333="Algunas Veces"
+                  pet2val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion2[67].Respuestas=="CasiNunca"){
+                  pet2res334="Casi Nunca"
+                  pet2val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion2[67].Respuestas=="Nunca"){
+                  pet2res335="Nunca"
+                  pet2val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion2[68].Respuestas=="Siempre"){
+                  pet2res336="Siempre"
+                  pet2val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion2[68].Respuestas=="CasiSiempre"){
+                  pet2res337="Casi Siempre"
+                  pet2val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion2[68].Respuestas=="AlgunasVeces"){
+                  pet2res338="Algunas Veces"
+                  pet2val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion2[68].Respuestas=="CasiNunca"){
+                  pet2res339="Casi Nunca"
+                  pet2val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion2[68].Respuestas=="Nunca"){
+                  pet2res340="Nunca"
+                  pet2val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion2[69].Respuestas=="Siempre"){
+                  pet2res341="Siempre"
+                  pet2val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion2[69].Respuestas=="CasiSiempre"){
+                  pet2res342="Casi Siempre"
+                  pet2val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion2[69].Respuestas=="AlgunasVeces"){
+                  pet2res343="Algunas Veces"
+                  pet2val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion2[69].Respuestas=="CasiNunca"){
+                  pet2res344="Casi Nunca"
+                  pet2val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion2[69].Respuestas=="Nunca"){
+                  pet2res345="Nunca"
+                  pet2val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion2[70].Respuestas=="Siempre"){
+                  pet2res346="Siempre"
+                  pet2val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion2[70].Respuestas=="CasiSiempre"){
+                  pet2res347="Casi Siempre"
+                  pet2val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion2[70].Respuestas=="AlgunasVeces"){
+                  pet2res348="Algunas Veces"
+                  pet2val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion2[70].Respuestas=="CasiNunca"){
+                  pet2res349="Casi Nunca"
+                  pet2val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion2[70].Respuestas=="Nunca"){
+                  pet2res350="Nunca"
+                  pet2val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion2[71].Respuestas=="Siempre"){
+                  pet2res351="Siempre"
+                  pet2val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion2[71].Respuestas=="CasiSiempre"){
+                  pet2res352="Casi Siempre"
+                  pet2val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion2[71].Respuestas=="AlgunasVeces"){
+                  pet2res353="Algunas Veces"
+                  pet2val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion2[71].Respuestas=="CasiNunca"){
+                  pet2res354="Casi Nunca"
+                  pet2val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion2[71].Respuestas=="Nunca"){
+                  pet2res355="Nunca"
+                  pet2val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion2[72].Respuestas=="Siempre"){
+                  pet2res356="Siempre"
+                  pet2val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion2[72].Respuestas=="CasiSiempre"){
+                  pet2res357="Casi Siempre"
+                  pet2val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion2[72].Respuestas=="AlgunasVeces"){
+                  pet2res358="Algunas Veces"
+                  pet2val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion2[72].Respuestas=="CasiNunca"){
+                  pet2res359="Casi Nunca"
+                  pet2val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion2[72].Respuestas=="Nunca"){
+                  pet2res360="Nunca"
+                  pet2val72= this.state.getPonderacion[71].nunca
+                }
     } 
   
  ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
  if(this.state.peticion3.length>0){
-console.log("entro a la peticion 3" )
   if(this.state.peticion3[1].Respuestas=="Siempre"){
     pet3res1="Siempre"
     pet3val1= this.state.getPonderacion[0].siempre
-    
     }else if(this.state.peticion3[1].Respuestas=="CasiSiempre"){
       pet3res2="Casi Siempre"
       pet3val1= this.state.getPonderacion[0].casisiempre
@@ -3345,25 +4571,25 @@ console.log("entro a la peticion 3" )
     } 
 
 
-  if(this.state.peticion3[2].Respuestas=="Siempre"){
-    pet3res6="Siempre"
-    pet3val2= this.state.getPonderacion[1].siempre
-    }else if(this.state.peticion3[2].Respuestas=="CasiSiempre"){
-      pet3res7="Casi Siempre"
-      pet3val2= this.state.getPonderacion[1].casisiempre
-    }
-    else if(this.state.peticion3[2].Respuestas=="AlgunasVeces"){
-      pet3res8="Algunas Veces"
-      pet3val2= this.state.getPonderacion[1].algunasveces
-    } 
-    else if(this.state.peticion3[2].Respuestas=="CasiNunca"){
-      pet3res9="Casi Nunca"
-      pet3val2= this.state.getPonderacion[1].casinunca
-    } 
-    else if(this.state.peticion3[2].Respuestas=="Nunca"){
-      pet3res10="Nunca"
-      pet3val2= this.state.getPonderacion[1].nunca
-    } 
+    if(this.state.peticion3[2].Respuestas=="Siempre"){
+      pet3res6="Siempre"
+      pet3val2= this.state.getPonderacion[1].siempre
+      }else if(this.state.peticion3[2].Respuestas=="CasiSiempre"){
+        pet3res7="Casi Siempre"
+        pet3val2= this.state.getPonderacion[1].casisiempre
+      }
+      else if(this.state.peticion3[2].Respuestas=="AlgunasVeces"){
+        pet3res8="Algunas Veces"
+        pet3val2= this.state.getPonderacion[1].algunasveces
+      } 
+      else if(this.state.peticion3[2].Respuestas=="CasiNunca"){
+        pet3res9="Casi Nunca"
+        pet3val2= this.state.getPonderacion[1].casinunca
+      } 
+      else if(this.state.peticion3[2].Respuestas=="Nunca"){
+        pet3res10="Nunca"
+        pet3val2= this.state.getPonderacion[1].nunca
+      } 
 
     if(this.state.peticion3[3].Respuestas=="Siempre"){
       pet3res11="Siempre"
@@ -4008,7 +5234,7 @@ console.log("entro a la peticion 3" )
             pet3res174="Casi Nunca"
             pet3val35= this.state.getPonderacion[34].casinunca
           } 
-          else if(this.state.peticion3[15].Respuestas=="Nunca"){
+          else if(this.state.peticion3[35].Respuestas=="Nunca"){
             pet3res175="Nunca"
             pet3val35= this.state.getPonderacion[34].nunca
           } 
@@ -4113,122 +5339,619 @@ console.log("entro a la peticion 3" )
                 pet3val40= this.state.getPonderacion[39].nunca
               }
 
-            if(this.state.peticion3[42].Respuestas=="Siempre"){
-              pet3res201="Siempre"
-              pet3val41= this.state.getPonderacion[40].siempre
-            }else if(this.state.peticion3[42].Respuestas=="CasiSiempre"){
-              pet3res202="Casi Siempre"
-              pet3val41= this.state.getPonderacion[40].casisiempre
-            }
-            else if(this.state.peticion3[42].Respuestas=="AlgunasVeces"){
-              pet3res203="Algunas Veces"
-              pet3val41= this.state.getPonderacion[40].algunasveces
-            } 
-            else if(this.state.peticion3[42].Respuestas=="CasiNunca"){
-              pet3res204="Casi Nunca"
-              pet3val41= this.state.getPonderacion[40].casinunca
-            } 
-            else if(this.state.peticion3[42].Respuestas=="Nunca"){
-              pet3res205="Nunca"
-              pet3val41= this.state.getPonderacion[40].nunca
-            }
-          if(this.state.peticion3[43].Respuestas=="Siempre"){
-            pet3res206="Siempre"
-            pet3val42= this.state.getPonderacion[41].siempre
-          }else if(this.state.peticion3[43].Respuestas=="CasiSiempre"){
-            pet3res207="Casi Siempre"
-            pet3val42= this.state.getPonderacion[41].casisiempre
-          }
-          else if(this.state.peticion3[43].Respuestas=="AlgunasVeces"){
-            pet3res208="Algunas Veces"
-            pet3val42= this.state.getPonderacion[41].algunasveces
-          } 
-          else if(this.state.peticion3[43].Respuestas=="CasiNunca"){
-            pet3res209="Casi Nunca"
-            pet3val42= this.state.getPonderacion[41].casinunca
-          } 
-          else if(this.state.peticion3[43].Respuestas=="Nunca"){
-            pet3res210="Nunca"
-            pet3val42= this.state.getPonderacion[41].nunca
-          }
-        if(this.state.peticion3[44].Respuestas=="Siempre"){
-          pet3res211="Siempre"
-          pet3val43= this.state.getPonderacion[42].siempre
-        }else if(this.state.peticion3[44].Respuestas=="CasiSiempre"){
-          pet3res212="Casi Siempre"
-          pet3val43= this.state.getPonderacion[42].casisiempre
-        }
-        else if(this.state.peticion3[44].Respuestas=="AlgunasVeces"){
-          pet3res213="Algunas Veces"
-          pet3val43= this.state.getPonderacion[42].algunasveces
-        } 
-        else if(this.state.peticion3[44].Respuestas=="CasiNunca"){
-          pet3res214="Casi Nunca"
-          pet3val43= this.state.getPonderacion[42].casinunca
-        } 
-        else if(this.state.peticion3[44].Respuestas=="Nunca"){
-          pet3res215="Nunca"
-          pet3val43= this.state.getPonderacion[42].nunca
-        }
+              if(this.state.peticion3[41].Respuestas=="Siempre"){
+                pet3res201="Siempre"
+                pet3val41= this.state.getPonderacion[40].siempre
+              }else if(this.state.peticion3[41].Respuestas=="CasiSiempre"){
+                pet3res202="Casi Siempre"
+                pet3val41= this.state.getPonderacion[40].casisiempre
+              }
+              else if(this.state.peticion3[41].Respuestas=="AlgunasVeces"){
+                pet3res203="Algunas Veces"
+                pet3val41= this.state.getPonderacion[40].algunasveces
+              } 
+              else if(this.state.peticion3[41].Respuestas=="CasiNunca"){
+                pet3res204="Casi Nunca"
+                pet3val41= this.state.getPonderacion[40].casinunca
+              } 
+              else if(this.state.peticion3[41].Respuestas=="Nunca"){
+                pet3res205="Nunca"
+                pet3val41= this.state.getPonderacion[40].nunca
+              }
+              
+              if(this.state.peticion3[42].Respuestas=="Siempre"){
+                pet3res206="Siempre"
+                pet3val42= this.state.getPonderacion[41].siempre
+              }else if(this.state.peticion3[42].Respuestas=="CasiSiempre"){
+                pet3res207="Casi Siempre"
+                pet3val42= this.state.getPonderacion[41].casisiempre
+              }
+              else if(this.state.peticion3[42].Respuestas=="AlgunasVeces"){
+                pet3res208="Algunas Veces"
+                pet3val42= this.state.getPonderacion[41].algunasveces
+              } 
+              else if(this.state.peticion3[42].Respuestas=="CasiNunca"){
+                pet3res209="Casi Nunca"
+                pet3val42= this.state.getPonderacion[41].casinunca
+              } 
+              else if(this.state.peticion3[42].Respuestas=="Nunca"){
+                pet3res210="Nunca"
+                pet3val42= this.state.getPonderacion[41].nunca
+              }
 
-      if(this.state.peticion3[46].Respuestas=="Siempre"){
-        pet3res216="Siempre"
-        pet3val44= this.state.getPonderacion[43].siempre
-      }else if(this.state.peticion3[46].Respuestas=="CasiSiempre"){
-        pet3res217="Casi Siempre"
-        pet3val44= this.state.getPonderacion[43].casisiempre
-      }
-      else if(this.state.peticion3[46].Respuestas=="AlgunasVeces"){
-        pet3res218="Algunas Veces"
-        pet3val44= this.state.getPonderacion[43].algunasveces
-      } 
-      else if(this.state.peticion3[46].Respuestas=="CasiNunca"){
-        pet3res219="Casi Nunca"
-        pet3val44= this.state.getPonderacion[43].casinunca
-      } 
-      else if(this.state.peticion3[46].Respuestas=="Nunca"){
-        pet3res220="Nunca"
-        pet3val44= this.state.getPonderacion[43].nunca
-      }
+              if(this.state.peticion3[43].Respuestas=="Siempre"){
+                pet3res211="Siempre"
+                pet3val43= this.state.getPonderacion[42].siempre
+              }else if(this.state.peticion3[43].Respuestas=="CasiSiempre"){
+                pet3res212="Casi Siempre"
+                pet3val43= this.state.getPonderacion[42].casisiempre
+              }
+              else if(this.state.peticion3[43].Respuestas=="AlgunasVeces"){
+                pet3res213="Algunas Veces"
+                pet3val43= this.state.getPonderacion[42].algunasveces
+              } 
+              else if(this.state.peticion3[43].Respuestas=="CasiNunca"){
+                pet3res214="Casi Nunca"
+                pet3val43= this.state.getPonderacion[42].casinunca
+              } 
+              else if(this.state.peticion3[43].Respuestas=="Nunca"){
+                pet3res215="Nunca"
+                pet3val43= this.state.getPonderacion[42].nunca
+              }
+              if(this.state.peticion3[44].Respuestas=="Siempre"){
+                pet3res216="Siempre"
+                pet3val44= this.state.getPonderacion[43].siempre
+              }else if(this.state.peticion3[44].Respuestas=="CasiSiempre"){
+                pet3res217="Casi Siempre"
+                pet3val44= this.state.getPonderacion[43].casisiempre
+              }
+              else if(this.state.peticion3[44].Respuestas=="AlgunasVeces"){
+                pet3res218="Algunas Veces"
+                pet3val44= this.state.getPonderacion[43].algunasveces
+              } 
+              else if(this.state.peticion3[44].Respuestas=="CasiNunca"){
+                pet3res219="Casi Nunca"
+                pet3val44= this.state.getPonderacion[43].casinunca
+              } 
+              else if(this.state.peticion3[44].Respuestas=="Nunca"){
+                pet3res220="Nunca"
+                pet3val44= this.state.getPonderacion[43].nunca
+              }
 
-    if(this.state.peticion3[47].Respuestas=="Siempre"){
-      pet3res221="Siempre"
-      pet3val45= this.state.getPonderacion[44].siempre
-    }else if(this.state.peticion3[47].Respuestas=="CasiSiempre"){
-      pet3res222="Casi Siempre"
-      pet3val45= this.state.getPonderacion[44].casisiempre
-    }
-    else if(this.state.peticion3[47].Respuestas=="AlgunasVeces"){
-      pet3res223="Algunas Veces"
-      pet3val45= this.state.getPonderacion[44].algunasveces
-    } 
-    else if(this.state.peticion3[47].Respuestas=="CasiNunca"){
-      pet3res224="Casi Nunca"
-      pet3val45= this.state.getPonderacion[44].casinunca
-    } 
-    else if(this.state.peticion3[47].Respuestas=="Nunca"){
-      pet3res225="Nunca"
-      pet3val45= this.state.getPonderacion[44].nunca
-    }
-    if(this.state.peticion3[48].Respuestas=="Siempre"){
-      pet3res226="Siempre"
-      pet3val46= this.state.getPonderacion[45].siempre
-    }else if(this.state.peticion3[48].Respuestas=="CasiSiempre"){
-      pet3res227="Casi Siempre"
-      pet3val46= this.state.getPonderacion[45].casisiempre
-    }
-    else if(this.state.peticion3[48].Respuestas=="AlgunasVeces"){
-      pet3res228="Algunas Veces"
-      pet3val46= this.state.getPonderacion[45].algunasveces
-    } 
-    else if(this.state.peticion3[48].Respuestas=="CasiNunca"){
-      pet3res229="Casi Nunca"
-      pet3val46= this.state.getPonderacion[45].casinunca
-    } 
-    else if(this.state.peticion3[48].Respuestas=="Nunca"){
-      pet3res230="Nunca"
-      pet3val46= this.state.getPonderacion[45].nunca
-    }
+              if(this.state.peticion3[45].Respuestas=="Siempre"){
+                pet3res221="Siempre"
+                pet3val45= this.state.getPonderacion[44].siempre
+              }else if(this.state.peticion3[45].Respuestas=="CasiSiempre"){
+                pet3res222="Casi Siempre"
+                pet3val45= this.state.getPonderacion[44].casisiempre
+              }
+              else if(this.state.peticion3[45].Respuestas=="AlgunasVeces"){
+                pet3res223="Algunas Veces"
+                pet3val45= this.state.getPonderacion[44].algunasveces
+              } 
+              else if(this.state.peticion3[45].Respuestas=="CasiNunca"){
+                pet3res224="Casi Nunca"
+                pet3val45= this.state.getPonderacion[44].casinunca
+              } 
+              else if(this.state.peticion3[45].Respuestas=="Nunca"){
+                pet3res225="Nunca"
+                pet3val45= this.state.getPonderacion[44].nunca
+              }
+
+              if(this.state.peticion3[46].Respuestas=="Siempre"){
+                pet3res226="Siempre"
+                pet3val46= this.state.getPonderacion[45].siempre
+              }else if(this.state.peticion3[46].Respuestas=="CasiSiempre"){
+                pet3res227="Casi Siempre"
+                pet3val46= this.state.getPonderacion[45].casisiempre
+              }
+              else if(this.state.peticion3[46].Respuestas=="AlgunasVeces"){
+                pet3res228="Algunas Veces"
+                pet3val46= this.state.getPonderacion[45].algunasveces
+              } 
+              else if(this.state.peticion3[46].Respuestas=="CasiNunca"){
+                pet3res229="Casi Nunca"
+                pet3val46= this.state.getPonderacion[45].casinunca
+              } 
+              else if(this.state.peticion3[46].Respuestas=="Nunca"){
+                pet3res230="Nunca"
+                pet3val46= this.state.getPonderacion[45].nunca
+              }
+              if(this.state.peticion3[47].Respuestas=="Siempre"){
+                pet3res231="Siempre"
+                pet3val47= this.state.getPonderacion[46].siempre
+              }else if(this.state.peticion3[47].Respuestas=="CasiSiempre"){
+                pet3res232="Casi Siempre"
+                pet3val47= this.state.getPonderacion[46].casisiempre
+              }
+              else if(this.state.peticion3[47].Respuestas=="AlgunasVeces"){
+                pet3res233="Algunas Veces"
+                pet3val47= this.state.getPonderacion[46].algunasveces
+              } 
+              else if(this.state.peticion3[47].Respuestas=="CasiNunca"){
+                pet3res234="Casi Nunca"
+                pet3val47= this.state.getPonderacion[46].casinunca
+              } 
+              else if(this.state.peticion3[47].Respuestas=="Nunca"){
+                pet3res235="Nunca"
+                pet3val47= this.state.getPonderacion[46].nunca
+              }
+              if(this.state.peticion3[48].Respuestas=="Siempre"){
+                pet3res236="Siempre"
+                pet3val48= this.state.getPonderacion[47].siempre
+              }else if(this.state.peticion3[48].Respuestas=="CasiSiempre"){
+                pet3res237="Casi Siempre"
+                pet3val48= this.state.getPonderacion[47].casisiempre
+              }
+              else if(this.state.peticion3[48].Respuestas=="AlgunasVeces"){
+                pet3res238="Algunas Veces"
+                pet3val48= this.state.getPonderacion[47].algunasveces
+              } 
+              else if(this.state.peticion3[48].Respuestas=="CasiNunca"){
+                pet3res239="Casi Nunca"
+                pet3val48= this.state.getPonderacion[47].casinunca
+              } 
+              else if(this.state.peticion3[48].Respuestas=="Nunca"){
+                pet3res240="Nunca"
+                pet3val48= this.state.getPonderacion[47].nunca
+              }
+              if(this.state.peticion3[49].Respuestas=="Siempre"){
+                pet3res241="Siempre"
+                pet3val49= this.state.getPonderacion[48].siempre
+              }else if(this.state.peticion3[49].Respuestas=="CasiSiempre"){
+                pet3res242="Casi Siempre"
+                pet3val49= this.state.getPonderacion[48].casisiempre
+              }
+              else if(this.state.peticion3[49].Respuestas=="AlgunasVeces"){
+                pet3res243="Algunas Veces"
+                pet3val49= this.state.getPonderacion[48].algunasveces
+              } 
+              else if(this.state.peticion3[49].Respuestas=="CasiNunca"){
+                pet3res244="Casi Nunca"
+                pet3val49= this.state.getPonderacion[48].casinunca
+              } 
+              else if(this.state.peticion3[49].Respuestas=="Nunca"){
+                pet3res245="Nunca"
+                pet3val49= this.state.getPonderacion[48].nunca
+              }
+              if(this.state.peticion3[50].Respuestas=="Siempre"){
+                pet3res246="Siempre"
+                pet3val50= this.state.getPonderacion[49].siempre
+              }else if(this.state.peticion3[50].Respuestas=="CasiSiempre"){
+                pet3res247="Casi Siempre"
+                pet3val50= this.state.getPonderacion[49].casisiempre
+              }
+              else if(this.state.peticion3[50].Respuestas=="AlgunasVeces"){
+                pet3res248="Algunas Veces"
+                pet3val50= this.state.getPonderacion[49].algunasveces
+              } 
+              else if(this.state.peticion3[50].Respuestas=="CasiNunca"){
+                pet3res249="Casi Nunca"
+                pet3val50= this.state.getPonderacion[49].casinunca
+              } 
+              else if(this.state.peticion3[50].Respuestas=="Nunca"){
+                pet3res250="Nunca"
+                pet3val50= this.state.getPonderacion[49].nunca
+              }
+              if(this.state.peticion3[51].Respuestas=="Siempre"){
+                pet3res251="Siempre"
+                pet3val51= this.state.getPonderacion[50].siempre
+              }else if(this.state.peticion3[51].Respuestas=="CasiSiempre"){
+                pet3res252="Casi Siempre"
+                pet3val51= this.state.getPonderacion[50].casisiempre
+              }
+              else if(this.state.peticion3[51].Respuestas=="AlgunasVeces"){
+                pet3res253="Algunas Veces"
+                pet3val51= this.state.getPonderacion[50].algunasveces
+              } 
+              else if(this.state.peticion3[51].Respuestas=="CasiNunca"){
+                pet3res254="Casi Nunca"
+                pet3val51= this.state.getPonderacion[50].casinunca
+              } 
+              else if(this.state.peticion3[51].Respuestas=="Nunca"){
+                pet3res255="Nunca"
+                pet3val51= this.state.getPonderacion[50].nunca
+              }
+              if(this.state.peticion3[52].Respuestas=="Siempre"){
+                pet3res256="Siempre"
+                pet3val52= this.state.getPonderacion[51].siempre
+              }else if(this.state.peticion3[52].Respuestas=="CasiSiempre"){
+                pet3res257="Casi Siempre"
+                pet3val52= this.state.getPonderacion[51].casisiempre
+              }
+              else if(this.state.peticion3[52].Respuestas=="AlgunasVeces"){
+                pet3res258="Algunas Veces"
+                pet3val52= this.state.getPonderacion[51].algunasveces
+              } 
+              else if(this.state.peticion3[52].Respuestas=="CasiNunca"){
+                pet3res259="Casi Nunca"
+                pet3val52= this.state.getPonderacion[51].casinunca
+              } 
+              else if(this.state.peticion3[52].Respuestas=="Nunca"){
+                pet3res260="Nunca"
+                pet3val52= this.state.getPonderacion[51].nunca
+              }
+              if(this.state.peticion3[53].Respuestas=="Siempre"){
+                pet3res261="Siempre"
+                pet3val53= this.state.getPonderacion[52].siempre
+              }else if(this.state.peticion3[53].Respuestas=="CasiSiempre"){
+                pet3res262="Casi Siempre"
+                pet3val53= this.state.getPonderacion[52].casisiempre
+              }
+              else if(this.state.peticion3[53].Respuestas=="AlgunasVeces"){
+                pet3res263="Algunas Veces"
+                pet3val53= this.state.getPonderacion[52].algunasveces
+              } 
+              else if(this.state.peticion3[53].Respuestas=="CasiNunca"){
+                pet3res264="Casi Nunca"
+                pet3val53= this.state.getPonderacion[52].casinunca
+              } 
+              else if(this.state.peticion3[53].Respuestas=="Nunca"){
+                pet3res265="Nunca"
+                pet3val53= this.state.getPonderacion[52].nunca
+              }
+              if(this.state.peticion3[54].Respuestas=="Siempre"){
+                pet3res266="Siempre"
+                pet3val54= this.state.getPonderacion[53].siempre
+              }else if(this.state.peticion3[54].Respuestas=="CasiSiempre"){
+                pet3res267="Casi Siempre"
+                pet3val54= this.state.getPonderacion[53].casisiempre
+              }
+              else if(this.state.peticion3[54].Respuestas=="AlgunasVeces"){
+                pet3res268="Algunas Veces"
+                pet3val54= this.state.getPonderacion[53].algunasveces
+              } 
+              else if(this.state.peticion3[54].Respuestas=="CasiNunca"){
+                pet3res269="Casi Nunca"
+                pet3val54= this.state.getPonderacion[53].casinunca
+              } 
+              else if(this.state.peticion3[54].Respuestas=="Nunca"){
+                pet3res270="Nunca"
+                pet3val54= this.state.getPonderacion[53].nunca
+              }
+              if(this.state.peticion3[55].Respuestas=="Siempre"){
+                pet3res271="Siempre"
+                pet3val55= this.state.getPonderacion[54].siempre
+              }else if(this.state.peticion3[55].Respuestas=="CasiSiempre"){
+                pet3res272="Casi Siempre"
+                pet3val55= this.state.getPonderacion[54].casisiempre
+              }
+              else if(this.state.peticion3[55].Respuestas=="AlgunasVeces"){
+                pet3res273="Algunas Veces"
+                pet3val55= this.state.getPonderacion[54].algunasveces
+              } 
+              else if(this.state.peticion3[55].Respuestas=="CasiNunca"){
+                pet3res274="Casi Nunca"
+                pet3val55= this.state.getPonderacion[54].casinunca
+              } 
+              else if(this.state.peticion3[55].Respuestas=="Nunca"){
+                pet3res275="Nunca"
+                pet3val55= this.state.getPonderacion[54].nunca
+              }
+              if(this.state.peticion3[56].Respuestas=="Siempre"){
+                pet3res276="Siempre"
+                pet3val56= this.state.getPonderacion[55].siempre
+              }else if(this.state.peticion3[56].Respuestas=="CasiSiempre"){
+                pet3res277="Casi Siempre"
+                pet3val56= this.state.getPonderacion[55].casisiempre
+              }
+              else if(this.state.peticion3[56].Respuestas=="AlgunasVeces"){
+                pet3res278="Algunas Veces"
+                pet3val56= this.state.getPonderacion[55].algunasveces
+              } 
+              else if(this.state.peticion3[56].Respuestas=="CasiNunca"){
+                pet3res279="Casi Nunca"
+                pet3val56= this.state.getPonderacion[55].casinunca
+              } 
+              else if(this.state.peticion3[56].Respuestas=="Nunca"){
+                pet3res280="Nunca"
+                pet3val56= this.state.getPonderacion[55].nunca
+              }
+              if(this.state.peticion3[57].Respuestas=="Siempre"){
+                pet3res281="Siempre"
+                pet3val57= this.state.getPonderacion[56].siempre
+              }else if(this.state.peticion3[57].Respuestas=="CasiSiempre"){
+                pet3res282="Casi Siempre"
+                pet3val57= this.state.getPonderacion[56].casisiempre
+              }
+              else if(this.state.peticion3[57].Respuestas=="AlgunasVeces"){
+                pet3res283="Algunas Veces"
+                pet3val57= this.state.getPonderacion[56].algunasveces
+              } 
+              else if(this.state.peticion3[57].Respuestas=="CasiNunca"){
+                pet3res284="Casi Nunca"
+                pet3val57= this.state.getPonderacion[56].casinunca
+              } 
+              else if(this.state.peticion3[57].Respuestas=="Nunca"){
+                pet3res285="Nunca"
+                pet3val57= this.state.getPonderacion[56].nunca
+              }
+              if(this.state.peticion3[58].Respuestas=="Siempre"){
+                pet3res286="Siempre"
+                pet3val58= this.state.getPonderacion[57].siempre
+              }else if(this.state.peticion3[58].Respuestas=="CasiSiempre"){
+                pet3res287="Casi Siempre"
+                pet3val58= this.state.getPonderacion[57].casisiempre
+              }
+              else if(this.state.peticion3[58].Respuestas=="AlgunasVeces"){
+                pet3res288="Algunas Veces"
+                pet3val58= this.state.getPonderacion[57].algunasveces
+              } 
+              else if(this.state.peticion3[58].Respuestas=="CasiNunca"){
+                pet3res289="Casi Nunca"
+                pet3val58= this.state.getPonderacion[57].casinunca
+              } 
+              else if(this.state.peticion3[58].Respuestas=="Nunca"){
+                pet3res290="Nunca"
+                pet3val58= this.state.getPonderacion[57].nunca
+              }
+              if(this.state.peticion3[59].Respuestas=="Siempre"){
+                pet3res291="Siempre"
+                pet3val59= this.state.getPonderacion[58].siempre
+              }else if(this.state.peticion3[59].Respuestas=="CasiSiempre"){
+                pet3res292="Casi Siempre"
+                pet3val59= this.state.getPonderacion[58].casisiempre
+              }
+              else if(this.state.peticion3[59].Respuestas=="AlgunasVeces"){
+                pet3res293="Algunas Veces"
+                pet3val59= this.state.getPonderacion[58].algunasveces
+              } 
+              else if(this.state.peticion3[59].Respuestas=="CasiNunca"){
+                pet3res294="Casi Nunca"
+                pet3val59= this.state.getPonderacion[58].casinunca
+              } 
+              else if(this.state.peticion3[59].Respuestas=="Nunca"){
+                pet3res295="Nunca"
+                pet3val59= this.state.getPonderacion[58].nunca
+              }
+              if(this.state.peticion3[60].Respuestas=="Siempre"){
+                pet3res296="Siempre"
+                pet3val60= this.state.getPonderacion[59].siempre
+              }else if(this.state.peticion3[60].Respuestas=="CasiSiempre"){
+                pet3res297="Casi Siempre"
+                pet3val60= this.state.getPonderacion[59].casisiempre
+              }
+              else if(this.state.peticion3[60].Respuestas=="AlgunasVeces"){
+                pet3res298="Algunas Veces"
+                pet3val60= this.state.getPonderacion[59].algunasveces
+              } 
+              else if(this.state.peticion3[60].Respuestas=="CasiNunca"){
+                pet3res299="Casi Nunca"
+                pet3val60= this.state.getPonderacion[59].casinunca
+              } 
+              else if(this.state.peticion3[60].Respuestas=="Nunca"){
+                pet3res300="Nunca"
+                pet3val60= this.state.getPonderacion[59].nunca
+              }
+              if(this.state.peticion3[61].Respuestas=="Siempre"){
+                pet3res301="Siempre"
+                pet3val61= this.state.getPonderacion[60].siempre
+              }else if(this.state.peticion3[61].Respuestas=="CasiSiempre"){
+                pet3res302="Casi Siempre"
+                pet3val61= this.state.getPonderacion[60].casisiempre
+              }
+              else if(this.state.peticion3[61].Respuestas=="AlgunasVeces"){
+                pet3res303="Algunas Veces"
+                pet3val61= this.state.getPonderacion[60].algunasveces
+              } 
+              else if(this.state.peticion3[61].Respuestas=="CasiNunca"){
+                pet3res304="Casi Nunca"
+                pet3val61= this.state.getPonderacion[60].casinunca
+              } 
+              else if(this.state.peticion3[61].Respuestas=="Nunca"){
+                pet3res305="Nunca"
+                pet3val61= this.state.getPonderacion[60].nunca
+              }
+              if(this.state.peticion3[62].Respuestas=="Siempre"){
+                pet3res306="Siempre"
+                pet3val62= this.state.getPonderacion[61].siempre
+              }else if(this.state.peticion3[62].Respuestas=="CasiSiempre"){
+                pet3res307="Casi Siempre"
+                pet3val62= this.state.getPonderacion[61].casisiempre
+              }
+              else if(this.state.peticion3[62].Respuestas=="AlgunasVeces"){
+                pet3res308="Algunas Veces"
+                pet3val62= this.state.getPonderacion[61].algunasveces
+              } 
+              else if(this.state.peticion3[62].Respuestas=="CasiNunca"){
+                pet3res309="Casi Nunca"
+                pet3val62= this.state.getPonderacion[61].casinunca
+              } 
+              else if(this.state.peticion3[62].Respuestas=="Nunca"){
+                pet3res310="Nunca"
+                pet3val62= this.state.getPonderacion[61].nunca
+              }
+              if(this.state.peticion3[63].Respuestas=="Siempre"){
+                pet3res311="Siempre"
+                pet3val63= this.state.getPonderacion[62].siempre
+              }else if(this.state.peticion3[63].Respuestas=="CasiSiempre"){
+                pet3res312="Casi Siempre"
+                pet3val63= this.state.getPonderacion[62].casisiempre
+              }
+              else if(this.state.peticion3[63].Respuestas=="AlgunasVeces"){
+                pet3res313="Algunas Veces"
+                pet3val63= this.state.getPonderacion[62].algunasveces
+              } 
+              else if(this.state.peticion3[63].Respuestas=="CasiNunca"){
+                pet3res314="Casi Nunca"
+                pet3val63= this.state.getPonderacion[62].casinunca
+              } 
+              else if(this.state.peticion3[63].Respuestas=="Nunca"){
+                pet3res315="Nunca"
+                pet3val63= this.state.getPonderacion[62].nunca
+              }
+              if(this.state.peticion3[64].Respuestas=="Siempre"){
+                pet3res316="Siempre"
+                pet3val64= this.state.getPonderacion[63].siempre
+              }else if(this.state.peticion3[64].Respuestas=="CasiSiempre"){
+                pet3res317="Casi Siempre"
+                pet3val64= this.state.getPonderacion[63].casisiempre
+              }
+              else if(this.state.peticion3[64].Respuestas=="AlgunasVeces"){
+                pet3res318="Algunas Veces"
+                pet3val64= this.state.getPonderacion[63].algunasveces
+              } 
+              else if(this.state.peticion3[64].Respuestas=="CasiNunca"){
+                pet3res319="Casi Nunca"
+                pet3val64= this.state.getPonderacion[63].casinunca
+              } 
+              else if(this.state.peticion3[64].Respuestas=="Nunca"){
+                pet3res320="Nunca"
+                pet3val64= this.state.getPonderacion[63].nunca
+              }
+              if(this.state.peticion3[65].Respuestas=="Siempre"){
+                pet3res321="Siempre"
+                pet3val65= this.state.getPonderacion[64].siempre
+              }else if(this.state.peticion3[65].Respuestas=="CasiSiempre"){
+                pet3res322="Casi Siempre"
+                pet3val65= this.state.getPonderacion[64].casisiempre
+              }
+              else if(this.state.peticion3[65].Respuestas=="AlgunasVeces"){
+                pet3res323="Algunas Veces"
+                pet3val65= this.state.getPonderacion[64].algunasveces
+              } 
+              else if(this.state.peticion3[65].Respuestas=="CasiNunca"){
+                pet3res324="Casi Nunca"
+                pet3val65= this.state.getPonderacion[64].casinunca
+              } 
+              else if(this.state.peticion3[65].Respuestas=="Nunca"){
+                pet3res325="Nunca"
+                pet3val65= this.state.getPonderacion[64].nunca
+              }
+              if(this.state.peticion3[66].Respuestas=="Siempre"){
+                pet3res326="Siempre"
+                pet3val66= this.state.getPonderacion[65].siempre
+              }else if(this.state.peticion3[66].Respuestas=="CasiSiempre"){
+                pet3res327="Casi Siempre"
+                pet3val66= this.state.getPonderacion[65].casisiempre
+              }
+              else if(this.state.peticion3[66].Respuestas=="AlgunasVeces"){
+                pet3res328="Algunas Veces"
+                pet3val66= this.state.getPonderacion[65].algunasveces
+              } 
+              else if(this.state.peticion3[66].Respuestas=="CasiNunca"){
+                pet3res329="Casi Nunca"
+                pet3val66= this.state.getPonderacion[65].casinunca
+              } 
+              else if(this.state.peticion3[66].Respuestas=="Nunca"){
+                pet3res330="Nunca"
+                pet3val66= this.state.getPonderacion[65].nunca
+              }
+              if(this.state.peticion3[67].Respuestas=="Siempre"){
+                pet3res331="Siempre"
+                pet3val67= this.state.getPonderacion[66].siempre
+              }else if(this.state.peticion3[67].Respuestas=="CasiSiempre"){
+                pet3res332="Casi Siempre"
+                pet3val67= this.state.getPonderacion[66].casisiempre
+              }
+              else if(this.state.peticion3[67].Respuestas=="AlgunasVeces"){
+                pet3res333="Algunas Veces"
+                pet3val67= this.state.getPonderacion[66].algunasveces
+              } 
+              else if(this.state.peticion3[67].Respuestas=="CasiNunca"){
+                pet3res334="Casi Nunca"
+                pet3val67= this.state.getPonderacion[66].casinunca
+              } 
+              else if(this.state.peticion3[67].Respuestas=="Nunca"){
+                pet3res335="Nunca"
+                pet3val67= this.state.getPonderacion[66].nunca
+              }
+              if(this.state.peticion3[68].Respuestas=="Siempre"){
+                pet3res336="Siempre"
+                pet3val68= this.state.getPonderacion[67].siempre
+              }else if(this.state.peticion3[68].Respuestas=="CasiSiempre"){
+                pet3res337="Casi Siempre"
+                pet3val68= this.state.getPonderacion[67].casisiempre
+              }
+              else if(this.state.peticion3[68].Respuestas=="AlgunasVeces"){
+                pet3res338="Algunas Veces"
+                pet3val68= this.state.getPonderacion[67].algunasveces
+              } 
+              else if(this.state.peticion3[68].Respuestas=="CasiNunca"){
+                pet3res339="Casi Nunca"
+                pet3val68= this.state.getPonderacion[67].casinunca
+              } 
+              else if(this.state.peticion3[68].Respuestas=="Nunca"){
+                pet3res340="Nunca"
+                pet3val68= this.state.getPonderacion[67].nunca
+              }
+              if(this.state.peticion3[69].Respuestas=="Siempre"){
+                pet3res341="Siempre"
+                pet3val69= this.state.getPonderacion[68].siempre
+              }else if(this.state.peticion3[69].Respuestas=="CasiSiempre"){
+                pet3res342="Casi Siempre"
+                pet3val69= this.state.getPonderacion[68].casisiempre
+              }
+              else if(this.state.peticion3[69].Respuestas=="AlgunasVeces"){
+                pet3res343="Algunas Veces"
+                pet3val69= this.state.getPonderacion[68].algunasveces
+              } 
+              else if(this.state.peticion3[69].Respuestas=="CasiNunca"){
+                pet3res344="Casi Nunca"
+                pet3val69= this.state.getPonderacion[68].casinunca
+              } 
+              else if(this.state.peticion3[69].Respuestas=="Nunca"){
+                pet3res345="Nunca"
+                pet3val69= this.state.getPonderacion[68].nunca
+              }
+              if(this.state.peticion3[70].Respuestas=="Siempre"){
+                pet3res346="Siempre"
+                pet3val70= this.state.getPonderacion[69].siempre
+              }else if(this.state.peticion3[70].Respuestas=="CasiSiempre"){
+                pet3res347="Casi Siempre"
+                pet3val70= this.state.getPonderacion[69].casisiempre
+              }
+              else if(this.state.peticion3[70].Respuestas=="AlgunasVeces"){
+                pet3res348="Algunas Veces"
+                pet3val70= this.state.getPonderacion[69].algunasveces
+              } 
+              else if(this.state.peticion3[70].Respuestas=="CasiNunca"){
+                pet3res349="Casi Nunca"
+                pet3val70= this.state.getPonderacion[69].casinunca
+              } 
+              else if(this.state.peticion3[70].Respuestas=="Nunca"){
+                pet3res350="Nunca"
+                pet3val70= this.state.getPonderacion[69].nunca
+              }
+
+              if(this.state.peticion3[71].Respuestas=="Siempre"){
+                pet3res351="Siempre"
+                pet3val71= this.state.getPonderacion[70].siempre
+              }else if(this.state.peticion3[71].Respuestas=="CasiSiempre"){
+                pet3res352="Casi Siempre"
+                pet3val71= this.state.getPonderacion[70].casisiempre
+              }
+              else if(this.state.peticion3[71].Respuestas=="AlgunasVeces"){
+                pet3res353="Algunas Veces"
+                pet3val71= this.state.getPonderacion[70].algunasveces
+              } 
+              else if(this.state.peticion3[71].Respuestas=="CasiNunca"){
+                pet3res354="Casi Nunca"
+                pet3val71= this.state.getPonderacion[70].casinunca
+              } 
+              else if(this.state.peticion3[71].Respuestas=="Nunca"){
+                pet3res355="Nunca"
+                pet3val71= this.state.getPonderacion[70].nunca
+              }
+              if(this.state.peticion3[72].Respuestas=="Siempre"){
+                pet3res356="Siempre"
+                pet3val72= this.state.getPonderacion[71].siempre
+              }else if(this.state.peticion3[72].Respuestas=="CasiSiempre"){
+                pet3res357="Casi Siempre"
+                pet3val72= this.state.getPonderacion[71].casisiempre
+              }
+              else if(this.state.peticion3[72].Respuestas=="AlgunasVeces"){
+                pet3res358="Algunas Veces"
+                pet3val72= this.state.getPonderacion[71].algunasveces
+              } 
+              else if(this.state.peticion3[72].Respuestas=="CasiNunca"){
+                pet3res359="Casi Nunca"
+                pet3val72= this.state.getPonderacion[71].casinunca
+              } 
+              else if(this.state.peticion3[72].Respuestas=="Nunca"){
+                pet3res360="Nunca"
+                pet3val72= this.state.getPonderacion[71].nunca
+              }
  } 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4255,25 +5978,25 @@ console.log("entro a la peticion 3" )
       } 
   
   
-    if(this.state.peticion4[2].Respuestas=="Siempre"){
-      pet4res6="Siempre"
-      pet4val2= this.state.peticion4[1].siempre
-      }else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiSiempre"){
-        pet4res7="Casi Siempre"
-        pet4val2= this.state.peticion4[1].casisiempre
-      }
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="AlgunasVeces"){
-        pet4res8="Algunas Veces"
-        pet4val2= this.state.peticion4[1].algunasveces
-      } 
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
-        pet4res9="Casi Nunca"
-        pet4val2= this.state.peticion4[2].casinunca
-      } 
-      else if(this.state.peticion4[2].Respuestas=="Nunca"){
-        pet4res10="Nunca"
-        pet4val2= this.state.peticion4[1].nunca
-      } 
+      if(this.state.peticion4[2].Respuestas=="Siempre"){
+        pet4res6="Siempre"
+        pet4val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion4[2].Respuestas=="CasiSiempre"){
+          pet4res7="Casi Siempre"
+          pet4val2= this.state.getPonderacion[1].casisiempre
+        }
+        else if(this.state.peticion4[2].Respuestas=="AlgunasVeces"){
+          pet4res8="Algunas Veces"
+          pet4val2= this.state.getPonderacion[1].algunasveces
+        } 
+        else if(this.state.peticion4[2].Respuestas=="CasiNunca"){
+          pet4res9="Casi Nunca"
+          pet4val2= this.state.getPonderacion[1].casinunca
+        } 
+        else if(this.state.peticion4[2].Respuestas=="Nunca"){
+          pet4res10="Nunca"
+          pet4val2= this.state.getPonderacion[1].nunca
+        } 
   
       if(this.state.peticion4[3].Respuestas=="Siempre"){
         pet4res11="Siempre"
@@ -4918,7 +6641,7 @@ console.log("entro a la peticion 3" )
               pet4res174="Casi Nunca"
               pet4val35= this.state.getPonderacion[34].casinunca
             } 
-            else if(this.state.peticion4[15].Respuestas=="Nunca"){
+            else if(this.state.peticion4[35].Respuestas=="Nunca"){
               pet4res175="Nunca"
               pet4val35= this.state.getPonderacion[34].nunca
             } 
@@ -5023,122 +6746,619 @@ console.log("entro a la peticion 3" )
                   pet4val40= this.state.getPonderacion[39].nunca
                 }
   
-              if(this.state.peticion4[42].Respuestas=="Siempre"){
-                pet4res201="Siempre"
-                pet4val41= this.state.getPonderacion[40].siempre
-              }else if(this.state.peticion4[42].Respuestas=="CasiSiempre"){
-                pet4res202="Casi Siempre"
-                pet4val41= this.state.getPonderacion[40].casisiempre
-              }
-              else if(this.state.peticion4[42].Respuestas=="AlgunasVeces"){
-                pet4res203="Algunas Veces"
-                pet4val41= this.state.getPonderacion[40].algunasveces
-              } 
-              else if(this.state.peticion4[42].Respuestas=="CasiNunca"){
-                pet4res204="Casi Nunca"
-                pet4val41= this.state.getPonderacion[40].casinunca
-              } 
-              else if(this.state.peticion4[42].Respuestas=="Nunca"){
-                pet4res205="Nunca"
-                pet4val41= this.state.getPonderacion[40].nunca
-              }
-            if(this.state.peticion4[43].Respuestas=="Siempre"){
-              pet4res206="Siempre"
-              pet4val42= this.state.getPonderacion[41].siempre
-            }else if(this.state.peticion4[43].Respuestas=="CasiSiempre"){
-              pet4res207="Casi Siempre"
-              pet4val42= this.state.getPonderacion[41].casisiempre
-            }
-            else if(this.state.peticion4[43].Respuestas=="AlgunasVeces"){
-              pet4res208="Algunas Veces"
-              pet4val42= this.state.getPonderacion[41].algunasveces
-            } 
-            else if(this.state.peticion4[43].Respuestas=="CasiNunca"){
-              pet4res209="Casi Nunca"
-              pet4val42= this.state.getPonderacion[41].casinunca
-            } 
-            else if(this.state.peticion4[43].Respuestas=="Nunca"){
-              pet4res210="Nunca"
-              pet4val42= this.state.getPonderacion[41].nunca
-            }
-          if(this.state.peticion4[44].Respuestas=="Siempre"){
-            pet4res211="Siempre"
-            pet4val43= this.state.getPonderacion[42].siempre
-          }else if(this.state.peticion4[44].Respuestas=="CasiSiempre"){
-            pet4res212="Casi Siempre"
-            pet4val43= this.state.getPonderacion[42].casisiempre
-          }
-          else if(this.state.peticion4[44].Respuestas=="AlgunasVeces"){
-            pet4res213="Algunas Veces"
-            pet4val43= this.state.getPonderacion[42].algunasveces
-          } 
-          else if(this.state.peticion4[44].Respuestas=="CasiNunca"){
-            pet4res214="Casi Nunca"
-            pet4val43= this.state.getPonderacion[42].casinunca
-          } 
-          else if(this.state.peticion4[44].Respuestas=="Nunca"){
-            pet4res215="Nunca"
-            pet4val43= this.state.getPonderacion[42].nunca
-          }
+                if(this.state.peticion4[41].Respuestas=="Siempre"){
+                  pet4res201="Siempre"
+                  pet4val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion4[41].Respuestas=="CasiSiempre"){
+                  pet4res202="Casi Siempre"
+                  pet4val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion4[41].Respuestas=="AlgunasVeces"){
+                  pet4res203="Algunas Veces"
+                  pet4val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion4[41].Respuestas=="CasiNunca"){
+                  pet4res204="Casi Nunca"
+                  pet4val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion4[41].Respuestas=="Nunca"){
+                  pet4res205="Nunca"
+                  pet4val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion4[42].Respuestas=="Siempre"){
+                  pet4res206="Siempre"
+                  pet4val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion4[42].Respuestas=="CasiSiempre"){
+                  pet4res207="Casi Siempre"
+                  pet4val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion4[42].Respuestas=="AlgunasVeces"){
+                  pet4res208="Algunas Veces"
+                  pet4val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion4[42].Respuestas=="CasiNunca"){
+                  pet4res209="Casi Nunca"
+                  pet4val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion4[42].Respuestas=="Nunca"){
+                  pet4res210="Nunca"
+                  pet4val42= this.state.getPonderacion[41].nunca
+                }
   
-        if(this.state.peticion4[46].Respuestas=="Siempre"){
-          pet4res216="Siempre"
-          pet4val44= this.state.getPonderacion[43].siempre
-        }else if(this.state.peticion4[46].Respuestas=="CasiSiempre"){
-          pet4res217="Casi Siempre"
-          pet4val44= this.state.getPonderacion[43].casisiempre
-        }
-        else if(this.state.peticion4[46].Respuestas=="AlgunasVeces"){
-          pet4res218="Algunas Veces"
-          pet4val44= this.state.getPonderacion[43].algunasveces
-        } 
-        else if(this.state.peticion4[46].Respuestas=="CasiNunca"){
-          pet4res219="Casi Nunca"
-          pet4val44= this.state.getPonderacion[43].casinunca
-        } 
-        else if(this.state.peticion4[46].Respuestas=="Nunca"){
-          pet4res220="Nunca"
-          pet4val44= this.state.getPonderacion[43].nunca
-        }
+                if(this.state.peticion4[43].Respuestas=="Siempre"){
+                  pet4res211="Siempre"
+                  pet4val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion4[43].Respuestas=="CasiSiempre"){
+                  pet4res212="Casi Siempre"
+                  pet4val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion4[43].Respuestas=="AlgunasVeces"){
+                  pet4res213="Algunas Veces"
+                  pet4val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion4[43].Respuestas=="CasiNunca"){
+                  pet4res214="Casi Nunca"
+                  pet4val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion4[43].Respuestas=="Nunca"){
+                  pet4res215="Nunca"
+                  pet4val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion4[44].Respuestas=="Siempre"){
+                  pet4res216="Siempre"
+                  pet4val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion4[44].Respuestas=="CasiSiempre"){
+                  pet4res217="Casi Siempre"
+                  pet4val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion4[44].Respuestas=="AlgunasVeces"){
+                  pet4res218="Algunas Veces"
+                  pet4val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion4[44].Respuestas=="CasiNunca"){
+                  pet4res219="Casi Nunca"
+                  pet4val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion4[44].Respuestas=="Nunca"){
+                  pet4res220="Nunca"
+                  pet4val44= this.state.getPonderacion[43].nunca
+                }
   
-      if(this.state.peticion4[47].Respuestas=="Siempre"){
-        pet4res221="Siempre"
-        pet4val45= this.state.getPonderacion[44].siempre
-      }else if(this.state.peticion4[47].Respuestas=="CasiSiempre"){
-        pet4res222="Casi Siempre"
-        pet4val45= this.state.getPonderacion[44].casisiempre
-      }
-      else if(this.state.peticion4[47].Respuestas=="AlgunasVeces"){
-        pet4res223="Algunas Veces"
-        pet4val45= this.state.getPonderacion[44].algunasveces
-      } 
-      else if(this.state.peticion4[47].Respuestas=="CasiNunca"){
-        pet4res224="Casi Nunca"
-        pet4val45= this.state.getPonderacion[44].casinunca
-      } 
-      else if(this.state.peticion4[47].Respuestas=="Nunca"){
-        pet4res225="Nunca"
-        pet4val45= this.state.getPonderacion[44].nunca
-      }
-      if(this.state.peticion4[48].Respuestas=="Siempre"){
-        pet4res226="Siempre"
-        pet4val46= this.state.getPonderacion[45].siempre
-      }else if(this.state.peticion4[48].Respuestas=="CasiSiempre"){
-        pet4res227="Casi Siempre"
-        pet4val46= this.state.getPonderacion[45].casisiempre
-      }
-      else if(this.state.peticion4[48].Respuestas=="AlgunasVeces"){
-        pet4res228="Algunas Veces"
-        pet4val46= this.state.getPonderacion[45].algunasveces
-      } 
-      else if(this.state.peticion4[48].Respuestas=="CasiNunca"){
-        pet4res229="Casi Nunca"
-        pet4val46= this.state.getPonderacion[45].casinunca
-      } 
-      else if(this.state.peticion4[48].Respuestas=="Nunca"){
-        pet4res230="Nunca"
-        pet4val46= this.state.getPonderacion[45].nunca
-      }
+                if(this.state.peticion4[45].Respuestas=="Siempre"){
+                  pet4res221="Siempre"
+                  pet4val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion4[45].Respuestas=="CasiSiempre"){
+                  pet4res222="Casi Siempre"
+                  pet4val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion4[45].Respuestas=="AlgunasVeces"){
+                  pet4res223="Algunas Veces"
+                  pet4val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion4[45].Respuestas=="CasiNunca"){
+                  pet4res224="Casi Nunca"
+                  pet4val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion4[45].Respuestas=="Nunca"){
+                  pet4res225="Nunca"
+                  pet4val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion4[46].Respuestas=="Siempre"){
+                  pet4res226="Siempre"
+                  pet4val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion4[46].Respuestas=="CasiSiempre"){
+                  pet4res227="Casi Siempre"
+                  pet4val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion4[46].Respuestas=="AlgunasVeces"){
+                  pet4res228="Algunas Veces"
+                  pet4val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion4[46].Respuestas=="CasiNunca"){
+                  pet4res229="Casi Nunca"
+                  pet4val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion4[46].Respuestas=="Nunca"){
+                  pet4res230="Nunca"
+                  pet4val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion4[47].Respuestas=="Siempre"){
+                  pet4res231="Siempre"
+                  pet4val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion4[47].Respuestas=="CasiSiempre"){
+                  pet4res232="Casi Siempre"
+                  pet4val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion4[47].Respuestas=="AlgunasVeces"){
+                  pet4res233="Algunas Veces"
+                  pet4val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion4[47].Respuestas=="CasiNunca"){
+                  pet4res234="Casi Nunca"
+                  pet4val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion4[47].Respuestas=="Nunca"){
+                  pet4res235="Nunca"
+                  pet4val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion4[48].Respuestas=="Siempre"){
+                  pet4res236="Siempre"
+                  pet4val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion4[48].Respuestas=="CasiSiempre"){
+                  pet4res237="Casi Siempre"
+                  pet4val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion4[48].Respuestas=="AlgunasVeces"){
+                  pet4res238="Algunas Veces"
+                  pet4val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion4[48].Respuestas=="CasiNunca"){
+                  pet4res239="Casi Nunca"
+                  pet4val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion4[48].Respuestas=="Nunca"){
+                  pet4res240="Nunca"
+                  pet4val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion4[49].Respuestas=="Siempre"){
+                  pet4res241="Siempre"
+                  pet4val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion4[49].Respuestas=="CasiSiempre"){
+                  pet4res242="Casi Siempre"
+                  pet4val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion4[49].Respuestas=="AlgunasVeces"){
+                  pet4res243="Algunas Veces"
+                  pet4val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion4[49].Respuestas=="CasiNunca"){
+                  pet4res244="Casi Nunca"
+                  pet4val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion4[49].Respuestas=="Nunca"){
+                  pet4res245="Nunca"
+                  pet4val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion4[50].Respuestas=="Siempre"){
+                  pet4res246="Siempre"
+                  pet4val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion4[50].Respuestas=="CasiSiempre"){
+                  pet4res247="Casi Siempre"
+                  pet4val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion4[50].Respuestas=="AlgunasVeces"){
+                  pet4res248="Algunas Veces"
+                  pet4val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion4[50].Respuestas=="CasiNunca"){
+                  pet4res249="Casi Nunca"
+                  pet4val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion4[50].Respuestas=="Nunca"){
+                  pet4res250="Nunca"
+                  pet4val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion4[51].Respuestas=="Siempre"){
+                  pet4res251="Siempre"
+                  pet4val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion4[51].Respuestas=="CasiSiempre"){
+                  pet4res252="Casi Siempre"
+                  pet4val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion4[51].Respuestas=="AlgunasVeces"){
+                  pet4res253="Algunas Veces"
+                  pet4val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion4[51].Respuestas=="CasiNunca"){
+                  pet4res254="Casi Nunca"
+                  pet4val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion4[51].Respuestas=="Nunca"){
+                  pet4res255="Nunca"
+                  pet4val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion4[52].Respuestas=="Siempre"){
+                  pet4res256="Siempre"
+                  pet4val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion4[52].Respuestas=="CasiSiempre"){
+                  pet4res257="Casi Siempre"
+                  pet4val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion4[52].Respuestas=="AlgunasVeces"){
+                  pet4res258="Algunas Veces"
+                  pet4val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion4[52].Respuestas=="CasiNunca"){
+                  pet4res259="Casi Nunca"
+                  pet4val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion4[52].Respuestas=="Nunca"){
+                  pet4res260="Nunca"
+                  pet4val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion4[53].Respuestas=="Siempre"){
+                  pet4res261="Siempre"
+                  pet4val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion4[53].Respuestas=="CasiSiempre"){
+                  pet4res262="Casi Siempre"
+                  pet4val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion4[53].Respuestas=="AlgunasVeces"){
+                  pet4res263="Algunas Veces"
+                  pet4val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion4[53].Respuestas=="CasiNunca"){
+                  pet4res264="Casi Nunca"
+                  pet4val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion4[53].Respuestas=="Nunca"){
+                  pet4res265="Nunca"
+                  pet4val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion4[54].Respuestas=="Siempre"){
+                  pet4res266="Siempre"
+                  pet4val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion4[54].Respuestas=="CasiSiempre"){
+                  pet4res267="Casi Siempre"
+                  pet4val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion4[54].Respuestas=="AlgunasVeces"){
+                  pet4res268="Algunas Veces"
+                  pet4val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion4[54].Respuestas=="CasiNunca"){
+                  pet4res269="Casi Nunca"
+                  pet4val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion4[54].Respuestas=="Nunca"){
+                  pet4res270="Nunca"
+                  pet4val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion4[55].Respuestas=="Siempre"){
+                  pet4res271="Siempre"
+                  pet4val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion4[55].Respuestas=="CasiSiempre"){
+                  pet4res272="Casi Siempre"
+                  pet4val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion4[55].Respuestas=="AlgunasVeces"){
+                  pet4res273="Algunas Veces"
+                  pet4val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion4[55].Respuestas=="CasiNunca"){
+                  pet4res274="Casi Nunca"
+                  pet4val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion4[55].Respuestas=="Nunca"){
+                  pet4res275="Nunca"
+                  pet4val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion4[56].Respuestas=="Siempre"){
+                  pet4res276="Siempre"
+                  pet4val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion4[56].Respuestas=="CasiSiempre"){
+                  pet4res277="Casi Siempre"
+                  pet4val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion4[56].Respuestas=="AlgunasVeces"){
+                  pet4res278="Algunas Veces"
+                  pet4val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion4[56].Respuestas=="CasiNunca"){
+                  pet4res279="Casi Nunca"
+                  pet4val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion4[56].Respuestas=="Nunca"){
+                  pet4res280="Nunca"
+                  pet4val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion4[57].Respuestas=="Siempre"){
+                  pet4res281="Siempre"
+                  pet4val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion4[57].Respuestas=="CasiSiempre"){
+                  pet4res282="Casi Siempre"
+                  pet4val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion4[57].Respuestas=="AlgunasVeces"){
+                  pet4res283="Algunas Veces"
+                  pet4val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion4[57].Respuestas=="CasiNunca"){
+                  pet4res284="Casi Nunca"
+                  pet4val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion4[57].Respuestas=="Nunca"){
+                  pet4res285="Nunca"
+                  pet4val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion4[58].Respuestas=="Siempre"){
+                  pet4res286="Siempre"
+                  pet4val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion4[58].Respuestas=="CasiSiempre"){
+                  pet4res287="Casi Siempre"
+                  pet4val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion4[58].Respuestas=="AlgunasVeces"){
+                  pet4res288="Algunas Veces"
+                  pet4val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion4[58].Respuestas=="CasiNunca"){
+                  pet4res289="Casi Nunca"
+                  pet4val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion4[58].Respuestas=="Nunca"){
+                  pet4res290="Nunca"
+                  pet4val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion4[59].Respuestas=="Siempre"){
+                  pet4res291="Siempre"
+                  pet4val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion4[59].Respuestas=="CasiSiempre"){
+                  pet4res292="Casi Siempre"
+                  pet4val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion4[59].Respuestas=="AlgunasVeces"){
+                  pet4res293="Algunas Veces"
+                  pet4val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion4[59].Respuestas=="CasiNunca"){
+                  pet4res294="Casi Nunca"
+                  pet4val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion4[59].Respuestas=="Nunca"){
+                  pet4res295="Nunca"
+                  pet4val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion4[60].Respuestas=="Siempre"){
+                  pet4res296="Siempre"
+                  pet4val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion4[60].Respuestas=="CasiSiempre"){
+                  pet4res297="Casi Siempre"
+                  pet4val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion4[60].Respuestas=="AlgunasVeces"){
+                  pet4res298="Algunas Veces"
+                  pet4val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion4[60].Respuestas=="CasiNunca"){
+                  pet4res299="Casi Nunca"
+                  pet4val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion4[60].Respuestas=="Nunca"){
+                  pet4res300="Nunca"
+                  pet4val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion4[61].Respuestas=="Siempre"){
+                  pet4res301="Siempre"
+                  pet4val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion4[61].Respuestas=="CasiSiempre"){
+                  pet4res302="Casi Siempre"
+                  pet4val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion4[61].Respuestas=="AlgunasVeces"){
+                  pet4res303="Algunas Veces"
+                  pet4val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion4[61].Respuestas=="CasiNunca"){
+                  pet4res304="Casi Nunca"
+                  pet4val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion4[61].Respuestas=="Nunca"){
+                  pet4res305="Nunca"
+                  pet4val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion4[62].Respuestas=="Siempre"){
+                  pet4res306="Siempre"
+                  pet4val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion4[62].Respuestas=="CasiSiempre"){
+                  pet4res307="Casi Siempre"
+                  pet4val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion4[62].Respuestas=="AlgunasVeces"){
+                  pet4res308="Algunas Veces"
+                  pet4val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion4[62].Respuestas=="CasiNunca"){
+                  pet4res309="Casi Nunca"
+                  pet4val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion4[62].Respuestas=="Nunca"){
+                  pet4res310="Nunca"
+                  pet4val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion4[63].Respuestas=="Siempre"){
+                  pet4res311="Siempre"
+                  pet4val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion4[63].Respuestas=="CasiSiempre"){
+                  pet4res312="Casi Siempre"
+                  pet4val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion4[63].Respuestas=="AlgunasVeces"){
+                  pet4res313="Algunas Veces"
+                  pet4val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion4[63].Respuestas=="CasiNunca"){
+                  pet4res314="Casi Nunca"
+                  pet4val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion4[63].Respuestas=="Nunca"){
+                  pet4res315="Nunca"
+                  pet4val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion4[64].Respuestas=="Siempre"){
+                  pet4res316="Siempre"
+                  pet4val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion4[64].Respuestas=="CasiSiempre"){
+                  pet4res317="Casi Siempre"
+                  pet4val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion4[64].Respuestas=="AlgunasVeces"){
+                  pet4res318="Algunas Veces"
+                  pet4val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion4[64].Respuestas=="CasiNunca"){
+                  pet4res319="Casi Nunca"
+                  pet4val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion4[64].Respuestas=="Nunca"){
+                  pet4res320="Nunca"
+                  pet4val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion4[65].Respuestas=="Siempre"){
+                  pet4res321="Siempre"
+                  pet4val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion4[65].Respuestas=="CasiSiempre"){
+                  pet4res322="Casi Siempre"
+                  pet4val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion4[65].Respuestas=="AlgunasVeces"){
+                  pet4res323="Algunas Veces"
+                  pet4val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion4[65].Respuestas=="CasiNunca"){
+                  pet4res324="Casi Nunca"
+                  pet4val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion4[65].Respuestas=="Nunca"){
+                  pet4res325="Nunca"
+                  pet4val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion4[66].Respuestas=="Siempre"){
+                  pet4res326="Siempre"
+                  pet4val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion4[66].Respuestas=="CasiSiempre"){
+                  pet4res327="Casi Siempre"
+                  pet4val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion4[66].Respuestas=="AlgunasVeces"){
+                  pet4res328="Algunas Veces"
+                  pet4val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion4[66].Respuestas=="CasiNunca"){
+                  pet4res329="Casi Nunca"
+                  pet4val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion4[66].Respuestas=="Nunca"){
+                  pet4res330="Nunca"
+                  pet4val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion4[67].Respuestas=="Siempre"){
+                  pet4res331="Siempre"
+                  pet4val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion4[67].Respuestas=="CasiSiempre"){
+                  pet4res332="Casi Siempre"
+                  pet4val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion4[67].Respuestas=="AlgunasVeces"){
+                  pet4res333="Algunas Veces"
+                  pet4val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion4[67].Respuestas=="CasiNunca"){
+                  pet4res334="Casi Nunca"
+                  pet4val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion4[67].Respuestas=="Nunca"){
+                  pet4res335="Nunca"
+                  pet4val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion4[68].Respuestas=="Siempre"){
+                  pet4res336="Siempre"
+                  pet4val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion4[68].Respuestas=="CasiSiempre"){
+                  pet4res337="Casi Siempre"
+                  pet4val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion4[68].Respuestas=="AlgunasVeces"){
+                  pet4res338="Algunas Veces"
+                  pet4val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion4[68].Respuestas=="CasiNunca"){
+                  pet4res339="Casi Nunca"
+                  pet4val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion4[68].Respuestas=="Nunca"){
+                  pet4res340="Nunca"
+                  pet4val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion4[69].Respuestas=="Siempre"){
+                  pet4res341="Siempre"
+                  pet4val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion4[69].Respuestas=="CasiSiempre"){
+                  pet4res342="Casi Siempre"
+                  pet4val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion4[69].Respuestas=="AlgunasVeces"){
+                  pet4res343="Algunas Veces"
+                  pet4val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion4[69].Respuestas=="CasiNunca"){
+                  pet4res344="Casi Nunca"
+                  pet4val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion4[69].Respuestas=="Nunca"){
+                  pet4res345="Nunca"
+                  pet4val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion4[70].Respuestas=="Siempre"){
+                  pet4res346="Siempre"
+                  pet4val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion4[70].Respuestas=="CasiSiempre"){
+                  pet4res347="Casi Siempre"
+                  pet4val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion4[70].Respuestas=="AlgunasVeces"){
+                  pet4res348="Algunas Veces"
+                  pet4val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion4[70].Respuestas=="CasiNunca"){
+                  pet4res349="Casi Nunca"
+                  pet4val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion4[70].Respuestas=="Nunca"){
+                  pet4res350="Nunca"
+                  pet4val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion4[71].Respuestas=="Siempre"){
+                  pet4res351="Siempre"
+                  pet4val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion4[71].Respuestas=="CasiSiempre"){
+                  pet4res352="Casi Siempre"
+                  pet4val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion4[71].Respuestas=="AlgunasVeces"){
+                  pet4res353="Algunas Veces"
+                  pet4val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion4[71].Respuestas=="CasiNunca"){
+                  pet4res354="Casi Nunca"
+                  pet4val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion4[71].Respuestas=="Nunca"){
+                  pet4res355="Nunca"
+                  pet4val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion4[72].Respuestas=="Siempre"){
+                  pet4res356="Siempre"
+                  pet4val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion4[72].Respuestas=="CasiSiempre"){
+                  pet4res357="Casi Siempre"
+                  pet4val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion4[72].Respuestas=="AlgunasVeces"){
+                  pet4res358="Algunas Veces"
+                  pet4val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion4[72].Respuestas=="CasiNunca"){
+                  pet4res359="Casi Nunca"
+                  pet4val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion4[72].Respuestas=="Nunca"){
+                  pet4res360="Nunca"
+                  pet4val72= this.state.getPonderacion[71].nunca
+                }
    } 
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5167,25 +7387,25 @@ console.log("entro a la peticion 3" )
       } 
   
   
-    if(this.state.peticion5[2].Respuestas=="Siempre"){
-      pet5res6="Siempre"
-      pet5val2= this.state.peticion5[1].siempre
-      }else if(this.state.peticion5[2].Respuestas=="CasiSiempre"){
-        pet5res7="Casi Siempre"
-        pet5val2= this.state.peticion5[1].casisiempre
-      }
-      else if(this.state.peticion5[2].Respuestas=="AlgunasVeces"){
-        pet5res8="Algunas Veces"
-        pet5val2= this.state.peticion5[1].algunasveces
-      } 
-      else if(this.state.peticion5[2].Respuestas=="CasiNunca"){
-        pet5res9="Casi Nunca"
-        pet5val2= this.state.peticion5[2].casinunca
-      } 
-      else if(this.state.peticion5[2].Respuestas=="Nunca"){
-        pet5res10="Nunca"
-        pet5val2= this.state.peticion5[1].nunca
-      } 
+      if(this.state.peticion5[2].Respuestas=="Siempre"){
+        pet5res6="Siempre"
+        pet5val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion5[2].Respuestas=="CasiSiempre"){
+          pet5res7="Casi Siempre"
+          pet5val2= this.state.getPonderacion[1].casisiempre
+        }
+        else if(this.state.peticion5[2].Respuestas=="AlgunasVeces"){
+          pet5res8="Algunas Veces"
+          pet5val2= this.state.getPonderacion[1].algunasveces
+        } 
+        else if(this.state.peticion5[2].Respuestas=="CasiNunca"){
+          pet5res9="Casi Nunca"
+          pet5val2= this.state.getPonderacion[1].casinunca
+        } 
+        else if(this.state.peticion5[2].Respuestas=="Nunca"){
+          pet5res10="Nunca"
+          pet5val2= this.state.getPonderacion[1].nunca
+        } 
   
       if(this.state.peticion5[3].Respuestas=="Siempre"){
         pet5res11="Siempre"
@@ -5830,7 +8050,7 @@ console.log("entro a la peticion 3" )
               pet5res174="Casi Nunca"
               pet5val35= this.state.getPonderacion[34].casinunca
             } 
-            else if(this.state.peticion5[15].Respuestas=="Nunca"){
+            else if(this.state.peticion5[35].Respuestas=="Nunca"){
               pet5res175="Nunca"
               pet5val35= this.state.getPonderacion[34].nunca
             } 
@@ -5935,122 +8155,619 @@ console.log("entro a la peticion 3" )
                   pet5val40= this.state.getPonderacion[39].nunca
                 }
   
-              if(this.state.peticion5[42].Respuestas=="Siempre"){
-                pet5res201="Siempre"
-                pet5val41= this.state.getPonderacion[40].siempre
-              }else if(this.state.peticion5[42].Respuestas=="CasiSiempre"){
-                pet5res202="Casi Siempre"
-                pet5val41= this.state.getPonderacion[40].casisiempre
-              }
-              else if(this.state.peticion5[42].Respuestas=="AlgunasVeces"){
-                pet5res203="Algunas Veces"
-                pet5val41= this.state.getPonderacion[40].algunasveces
-              } 
-              else if(this.state.peticion5[42].Respuestas=="CasiNunca"){
-                pet5res204="Casi Nunca"
-                pet5val41= this.state.getPonderacion[40].casinunca
-              } 
-              else if(this.state.peticion5[42].Respuestas=="Nunca"){
-                pet5res205="Nunca"
-                pet5val41= this.state.getPonderacion[40].nunca
-              }
-            if(this.state.peticion5[43].Respuestas=="Siempre"){
-              pet5res206="Siempre"
-              pet5val42= this.state.getPonderacion[41].siempre
-            }else if(this.state.peticion5[43].Respuestas=="CasiSiempre"){
-              pet5res207="Casi Siempre"
-              pet5val42= this.state.getPonderacion[41].casisiempre
-            }
-            else if(this.state.peticion5[43].Respuestas=="AlgunasVeces"){
-              pet5res208="Algunas Veces"
-              pet5val42= this.state.getPonderacion[41].algunasveces
-            } 
-            else if(this.state.peticion5[43].Respuestas=="CasiNunca"){
-              pet5res209="Casi Nunca"
-              pet5val42= this.state.getPonderacion[41].casinunca
-            } 
-            else if(this.state.peticion5[43].Respuestas=="Nunca"){
-              pet5res210="Nunca"
-              pet5val42= this.state.getPonderacion[41].nunca
-            }
-          if(this.state.peticion5[44].Respuestas=="Siempre"){
-            pet5res211="Siempre"
-            pet5val43= this.state.getPonderacion[42].siempre
-          }else if(this.state.peticion5[44].Respuestas=="CasiSiempre"){
-            pet5res212="Casi Siempre"
-            pet5val43= this.state.getPonderacion[42].casisiempre
-          }
-          else if(this.state.peticion5[44].Respuestas=="AlgunasVeces"){
-            pet5res213="Algunas Veces"
-            pet5val43= this.state.getPonderacion[42].algunasveces
-          } 
-          else if(this.state.peticion5[44].Respuestas=="CasiNunca"){
-            pet5res214="Casi Nunca"
-            pet5val43= this.state.getPonderacion[42].casinunca
-          } 
-          else if(this.state.peticion5[44].Respuestas=="Nunca"){
-            pet5res215="Nunca"
-            pet5val43= this.state.getPonderacion[42].nunca
-          }
+                if(this.state.peticion5[41].Respuestas=="Siempre"){
+                  pet5res201="Siempre"
+                  pet5val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion5[41].Respuestas=="CasiSiempre"){
+                  pet5res202="Casi Siempre"
+                  pet5val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion5[41].Respuestas=="AlgunasVeces"){
+                  pet5res203="Algunas Veces"
+                  pet5val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion5[41].Respuestas=="CasiNunca"){
+                  pet5res204="Casi Nunca"
+                  pet5val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion5[41].Respuestas=="Nunca"){
+                  pet5res205="Nunca"
+                  pet5val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion5[42].Respuestas=="Siempre"){
+                  pet5res206="Siempre"
+                  pet5val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion5[42].Respuestas=="CasiSiempre"){
+                  pet5res207="Casi Siempre"
+                  pet5val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion5[42].Respuestas=="AlgunasVeces"){
+                  pet5res208="Algunas Veces"
+                  pet5val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion5[42].Respuestas=="CasiNunca"){
+                  pet5res209="Casi Nunca"
+                  pet5val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion5[42].Respuestas=="Nunca"){
+                  pet5res210="Nunca"
+                  pet5val42= this.state.getPonderacion[41].nunca
+                }
   
-        if(this.state.peticion5[46].Respuestas=="Siempre"){
-          pet5res216="Siempre"
-          pet5val44= this.state.getPonderacion[43].siempre
-        }else if(this.state.peticion5[46].Respuestas=="CasiSiempre"){
-          pet5res217="Casi Siempre"
-          pet5val44= this.state.getPonderacion[43].casisiempre
-        }
-        else if(this.state.peticion5[46].Respuestas=="AlgunasVeces"){
-          pet5res218="Algunas Veces"
-          pet5val44= this.state.getPonderacion[43].algunasveces
-        } 
-        else if(this.state.peticion5[46].Respuestas=="CasiNunca"){
-          pet5res219="Casi Nunca"
-          pet5val44= this.state.getPonderacion[43].casinunca
-        } 
-        else if(this.state.peticion5[46].Respuestas=="Nunca"){
-          pet5res220="Nunca"
-          pet5val44= this.state.getPonderacion[43].nunca
-        }
+                if(this.state.peticion5[43].Respuestas=="Siempre"){
+                  pet5res211="Siempre"
+                  pet5val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion5[43].Respuestas=="CasiSiempre"){
+                  pet5res212="Casi Siempre"
+                  pet5val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion5[43].Respuestas=="AlgunasVeces"){
+                  pet5res213="Algunas Veces"
+                  pet5val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion5[43].Respuestas=="CasiNunca"){
+                  pet5res214="Casi Nunca"
+                  pet5val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion5[43].Respuestas=="Nunca"){
+                  pet5res215="Nunca"
+                  pet5val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion5[44].Respuestas=="Siempre"){
+                  pet5res216="Siempre"
+                  pet5val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion5[44].Respuestas=="CasiSiempre"){
+                  pet5res217="Casi Siempre"
+                  pet5val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion5[44].Respuestas=="AlgunasVeces"){
+                  pet5res218="Algunas Veces"
+                  pet5val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion5[44].Respuestas=="CasiNunca"){
+                  pet5res219="Casi Nunca"
+                  pet5val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion5[44].Respuestas=="Nunca"){
+                  pet5res220="Nunca"
+                  pet5val44= this.state.getPonderacion[43].nunca
+                }
   
-      if(this.state.peticion5[47].Respuestas=="Siempre"){
-        pet5res221="Siempre"
-        pet5val45= this.state.getPonderacion[44].siempre
-      }else if(this.state.peticion5[47].Respuestas=="CasiSiempre"){
-        pet5res222="Casi Siempre"
-        pet5val45= this.state.getPonderacion[44].casisiempre
-      }
-      else if(this.state.peticion5[47].Respuestas=="AlgunasVeces"){
-        pet5res223="Algunas Veces"
-        pet5val45= this.state.getPonderacion[44].algunasveces
-      } 
-      else if(this.state.peticion5[47].Respuestas=="CasiNunca"){
-        pet5res224="Casi Nunca"
-        pet5val45= this.state.getPonderacion[44].casinunca
-      } 
-      else if(this.state.peticion5[47].Respuestas=="Nunca"){
-        pet5res225="Nunca"
-        pet5val45= this.state.getPonderacion[44].nunca
-      }
-      if(this.state.peticion5[48].Respuestas=="Siempre"){
-        pet5res226="Siempre"
-        pet5val46= this.state.getPonderacion[45].siempre
-      }else if(this.state.peticion5[48].Respuestas=="CasiSiempre"){
-        pet5res227="Casi Siempre"
-        pet5val46= this.state.getPonderacion[45].casisiempre
-      }
-      else if(this.state.peticion5[48].Respuestas=="AlgunasVeces"){
-        pet5res228="Algunas Veces"
-        pet5val46= this.state.getPonderacion[45].algunasveces
-      } 
-      else if(this.state.peticion5[48].Respuestas=="CasiNunca"){
-        pet5res229="Casi Nunca"
-        pet5val46= this.state.getPonderacion[45].casinunca
-      } 
-      else if(this.state.peticion5[48].Respuestas=="Nunca"){
-        pet5res230="Nunca"
-        pet5val46= this.state.getPonderacion[45].nunca
-      }
+                if(this.state.peticion5[45].Respuestas=="Siempre"){
+                  pet5res221="Siempre"
+                  pet5val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion5[45].Respuestas=="CasiSiempre"){
+                  pet5res222="Casi Siempre"
+                  pet5val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion5[45].Respuestas=="AlgunasVeces"){
+                  pet5res223="Algunas Veces"
+                  pet5val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion5[45].Respuestas=="CasiNunca"){
+                  pet5res224="Casi Nunca"
+                  pet5val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion5[45].Respuestas=="Nunca"){
+                  pet5res225="Nunca"
+                  pet5val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion5[46].Respuestas=="Siempre"){
+                  pet5res226="Siempre"
+                  pet5val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion5[46].Respuestas=="CasiSiempre"){
+                  pet5res227="Casi Siempre"
+                  pet5val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion5[46].Respuestas=="AlgunasVeces"){
+                  pet5res228="Algunas Veces"
+                  pet5val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion5[46].Respuestas=="CasiNunca"){
+                  pet5res229="Casi Nunca"
+                  pet5val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion5[46].Respuestas=="Nunca"){
+                  pet5res230="Nunca"
+                  pet5val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion5[47].Respuestas=="Siempre"){
+                  pet5res231="Siempre"
+                  pet5val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion5[47].Respuestas=="CasiSiempre"){
+                  pet5res232="Casi Siempre"
+                  pet5val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion5[47].Respuestas=="AlgunasVeces"){
+                  pet5res233="Algunas Veces"
+                  pet5val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion5[47].Respuestas=="CasiNunca"){
+                  pet5res234="Casi Nunca"
+                  pet5val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion5[47].Respuestas=="Nunca"){
+                  pet5res235="Nunca"
+                  pet5val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion5[48].Respuestas=="Siempre"){
+                  pet5res236="Siempre"
+                  pet5val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion5[48].Respuestas=="CasiSiempre"){
+                  pet5res237="Casi Siempre"
+                  pet5val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion5[48].Respuestas=="AlgunasVeces"){
+                  pet5res238="Algunas Veces"
+                  pet5val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion5[48].Respuestas=="CasiNunca"){
+                  pet5res239="Casi Nunca"
+                  pet5val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion5[48].Respuestas=="Nunca"){
+                  pet5res240="Nunca"
+                  pet5val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion5[49].Respuestas=="Siempre"){
+                  pet5res241="Siempre"
+                  pet5val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion5[49].Respuestas=="CasiSiempre"){
+                  pet5res242="Casi Siempre"
+                  pet5val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion5[49].Respuestas=="AlgunasVeces"){
+                  pet5res243="Algunas Veces"
+                  pet5val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion5[49].Respuestas=="CasiNunca"){
+                  pet5res244="Casi Nunca"
+                  pet5val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion5[49].Respuestas=="Nunca"){
+                  pet5res245="Nunca"
+                  pet5val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion5[50].Respuestas=="Siempre"){
+                  pet5res246="Siempre"
+                  pet5val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion5[50].Respuestas=="CasiSiempre"){
+                  pet5res247="Casi Siempre"
+                  pet5val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion5[50].Respuestas=="AlgunasVeces"){
+                  pet5res248="Algunas Veces"
+                  pet5val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion5[50].Respuestas=="CasiNunca"){
+                  pet5res249="Casi Nunca"
+                  pet5val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion5[50].Respuestas=="Nunca"){
+                  pet5res250="Nunca"
+                  pet5val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion5[51].Respuestas=="Siempre"){
+                  pet5res251="Siempre"
+                  pet5val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion5[51].Respuestas=="CasiSiempre"){
+                  pet5res252="Casi Siempre"
+                  pet5val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion5[51].Respuestas=="AlgunasVeces"){
+                  pet5res253="Algunas Veces"
+                  pet5val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion5[51].Respuestas=="CasiNunca"){
+                  pet5res254="Casi Nunca"
+                  pet5val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion5[51].Respuestas=="Nunca"){
+                  pet5res255="Nunca"
+                  pet5val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion5[52].Respuestas=="Siempre"){
+                  pet5res256="Siempre"
+                  pet5val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion5[52].Respuestas=="CasiSiempre"){
+                  pet5res257="Casi Siempre"
+                  pet5val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion5[52].Respuestas=="AlgunasVeces"){
+                  pet5res258="Algunas Veces"
+                  pet5val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion5[52].Respuestas=="CasiNunca"){
+                  pet5res259="Casi Nunca"
+                  pet5val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion5[52].Respuestas=="Nunca"){
+                  pet5res260="Nunca"
+                  pet5val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion5[53].Respuestas=="Siempre"){
+                  pet5res261="Siempre"
+                  pet5val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion5[53].Respuestas=="CasiSiempre"){
+                  pet5res262="Casi Siempre"
+                  pet5val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion5[53].Respuestas=="AlgunasVeces"){
+                  pet5res263="Algunas Veces"
+                  pet5val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion5[53].Respuestas=="CasiNunca"){
+                  pet5res264="Casi Nunca"
+                  pet5val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion5[53].Respuestas=="Nunca"){
+                  pet5res265="Nunca"
+                  pet5val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion5[54].Respuestas=="Siempre"){
+                  pet5res266="Siempre"
+                  pet5val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion5[54].Respuestas=="CasiSiempre"){
+                  pet5res267="Casi Siempre"
+                  pet5val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion5[54].Respuestas=="AlgunasVeces"){
+                  pet5res268="Algunas Veces"
+                  pet5val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion5[54].Respuestas=="CasiNunca"){
+                  pet5res269="Casi Nunca"
+                  pet5val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion5[54].Respuestas=="Nunca"){
+                  pet5res270="Nunca"
+                  pet5val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion5[55].Respuestas=="Siempre"){
+                  pet5res271="Siempre"
+                  pet5val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion5[55].Respuestas=="CasiSiempre"){
+                  pet5res272="Casi Siempre"
+                  pet5val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion5[55].Respuestas=="AlgunasVeces"){
+                  pet5res273="Algunas Veces"
+                  pet5val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion5[55].Respuestas=="CasiNunca"){
+                  pet5res274="Casi Nunca"
+                  pet5val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion5[55].Respuestas=="Nunca"){
+                  pet5res275="Nunca"
+                  pet5val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion5[56].Respuestas=="Siempre"){
+                  pet5res276="Siempre"
+                  pet5val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion5[56].Respuestas=="CasiSiempre"){
+                  pet5res277="Casi Siempre"
+                  pet5val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion5[56].Respuestas=="AlgunasVeces"){
+                  pet5res278="Algunas Veces"
+                  pet5val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion5[56].Respuestas=="CasiNunca"){
+                  pet5res279="Casi Nunca"
+                  pet5val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion5[56].Respuestas=="Nunca"){
+                  pet5res280="Nunca"
+                  pet5val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion5[57].Respuestas=="Siempre"){
+                  pet5res281="Siempre"
+                  pet5val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion5[57].Respuestas=="CasiSiempre"){
+                  pet5res282="Casi Siempre"
+                  pet5val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion5[57].Respuestas=="AlgunasVeces"){
+                  pet5res283="Algunas Veces"
+                  pet5val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion5[57].Respuestas=="CasiNunca"){
+                  pet5res284="Casi Nunca"
+                  pet5val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion5[57].Respuestas=="Nunca"){
+                  pet5res285="Nunca"
+                  pet5val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion5[58].Respuestas=="Siempre"){
+                  pet5res286="Siempre"
+                  pet5val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion5[58].Respuestas=="CasiSiempre"){
+                  pet5res287="Casi Siempre"
+                  pet5val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion5[58].Respuestas=="AlgunasVeces"){
+                  pet5res288="Algunas Veces"
+                  pet5val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion5[58].Respuestas=="CasiNunca"){
+                  pet5res289="Casi Nunca"
+                  pet5val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion5[58].Respuestas=="Nunca"){
+                  pet5res290="Nunca"
+                  pet5val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion5[59].Respuestas=="Siempre"){
+                  pet5res291="Siempre"
+                  pet5val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion5[59].Respuestas=="CasiSiempre"){
+                  pet5res292="Casi Siempre"
+                  pet5val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion5[59].Respuestas=="AlgunasVeces"){
+                  pet5res293="Algunas Veces"
+                  pet5val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion5[59].Respuestas=="CasiNunca"){
+                  pet5res294="Casi Nunca"
+                  pet5val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion5[59].Respuestas=="Nunca"){
+                  pet5res295="Nunca"
+                  pet5val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion5[60].Respuestas=="Siempre"){
+                  pet5res296="Siempre"
+                  pet5val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion5[60].Respuestas=="CasiSiempre"){
+                  pet5res297="Casi Siempre"
+                  pet5val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion5[60].Respuestas=="AlgunasVeces"){
+                  pet5res298="Algunas Veces"
+                  pet5val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion5[60].Respuestas=="CasiNunca"){
+                  pet5res299="Casi Nunca"
+                  pet5val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion5[60].Respuestas=="Nunca"){
+                  pet5res300="Nunca"
+                  pet5val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion5[61].Respuestas=="Siempre"){
+                  pet5res301="Siempre"
+                  pet5val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion5[61].Respuestas=="CasiSiempre"){
+                  pet5res302="Casi Siempre"
+                  pet5val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion5[61].Respuestas=="AlgunasVeces"){
+                  pet5res303="Algunas Veces"
+                  pet5val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion5[61].Respuestas=="CasiNunca"){
+                  pet5res304="Casi Nunca"
+                  pet5val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion5[61].Respuestas=="Nunca"){
+                  pet5res305="Nunca"
+                  pet5val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion5[62].Respuestas=="Siempre"){
+                  pet5res306="Siempre"
+                  pet5val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion5[62].Respuestas=="CasiSiempre"){
+                  pet5res307="Casi Siempre"
+                  pet5val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion5[62].Respuestas=="AlgunasVeces"){
+                  pet5res308="Algunas Veces"
+                  pet5val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion5[62].Respuestas=="CasiNunca"){
+                  pet5res309="Casi Nunca"
+                  pet5val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion5[62].Respuestas=="Nunca"){
+                  pet5res310="Nunca"
+                  pet5val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion5[63].Respuestas=="Siempre"){
+                  pet5res311="Siempre"
+                  pet5val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion5[63].Respuestas=="CasiSiempre"){
+                  pet5res312="Casi Siempre"
+                  pet5val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion5[63].Respuestas=="AlgunasVeces"){
+                  pet5res313="Algunas Veces"
+                  pet5val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion5[63].Respuestas=="CasiNunca"){
+                  pet5res314="Casi Nunca"
+                  pet5val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion5[63].Respuestas=="Nunca"){
+                  pet5res315="Nunca"
+                  pet5val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion5[64].Respuestas=="Siempre"){
+                  pet5res316="Siempre"
+                  pet5val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion5[64].Respuestas=="CasiSiempre"){
+                  pet5res317="Casi Siempre"
+                  pet5val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion5[64].Respuestas=="AlgunasVeces"){
+                  pet5res318="Algunas Veces"
+                  pet5val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion5[64].Respuestas=="CasiNunca"){
+                  pet5res319="Casi Nunca"
+                  pet5val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion5[64].Respuestas=="Nunca"){
+                  pet5res320="Nunca"
+                  pet5val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion5[65].Respuestas=="Siempre"){
+                  pet5res321="Siempre"
+                  pet5val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion5[65].Respuestas=="CasiSiempre"){
+                  pet5res322="Casi Siempre"
+                  pet5val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion5[65].Respuestas=="AlgunasVeces"){
+                  pet5res323="Algunas Veces"
+                  pet5val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion5[65].Respuestas=="CasiNunca"){
+                  pet5res324="Casi Nunca"
+                  pet5val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion5[65].Respuestas=="Nunca"){
+                  pet5res325="Nunca"
+                  pet5val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion5[66].Respuestas=="Siempre"){
+                  pet5res326="Siempre"
+                  pet5val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion5[66].Respuestas=="CasiSiempre"){
+                  pet5res327="Casi Siempre"
+                  pet5val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion5[66].Respuestas=="AlgunasVeces"){
+                  pet5res328="Algunas Veces"
+                  pet5val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion5[66].Respuestas=="CasiNunca"){
+                  pet5res329="Casi Nunca"
+                  pet5val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion5[66].Respuestas=="Nunca"){
+                  pet5res330="Nunca"
+                  pet5val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion5[67].Respuestas=="Siempre"){
+                  pet5res331="Siempre"
+                  pet5val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion5[67].Respuestas=="CasiSiempre"){
+                  pet5res332="Casi Siempre"
+                  pet5val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion5[67].Respuestas=="AlgunasVeces"){
+                  pet5res333="Algunas Veces"
+                  pet5val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion5[67].Respuestas=="CasiNunca"){
+                  pet5res334="Casi Nunca"
+                  pet5val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion5[67].Respuestas=="Nunca"){
+                  pet5res335="Nunca"
+                  pet5val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion5[68].Respuestas=="Siempre"){
+                  pet5res336="Siempre"
+                  pet5val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion5[68].Respuestas=="CasiSiempre"){
+                  pet5res337="Casi Siempre"
+                  pet5val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion5[68].Respuestas=="AlgunasVeces"){
+                  pet5res338="Algunas Veces"
+                  pet5val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion5[68].Respuestas=="CasiNunca"){
+                  pet5res339="Casi Nunca"
+                  pet5val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion5[68].Respuestas=="Nunca"){
+                  pet5res340="Nunca"
+                  pet5val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion5[69].Respuestas=="Siempre"){
+                  pet5res341="Siempre"
+                  pet5val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion5[69].Respuestas=="CasiSiempre"){
+                  pet5res342="Casi Siempre"
+                  pet5val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion5[69].Respuestas=="AlgunasVeces"){
+                  pet5res343="Algunas Veces"
+                  pet5val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion5[69].Respuestas=="CasiNunca"){
+                  pet5res344="Casi Nunca"
+                  pet5val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion5[69].Respuestas=="Nunca"){
+                  pet5res345="Nunca"
+                  pet5val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion5[70].Respuestas=="Siempre"){
+                  pet5res346="Siempre"
+                  pet5val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion5[70].Respuestas=="CasiSiempre"){
+                  pet5res347="Casi Siempre"
+                  pet5val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion5[70].Respuestas=="AlgunasVeces"){
+                  pet5res348="Algunas Veces"
+                  pet5val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion5[70].Respuestas=="CasiNunca"){
+                  pet5res349="Casi Nunca"
+                  pet5val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion5[70].Respuestas=="Nunca"){
+                  pet5res350="Nunca"
+                  pet5val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion5[71].Respuestas=="Siempre"){
+                  pet5res351="Siempre"
+                  pet5val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion5[71].Respuestas=="CasiSiempre"){
+                  pet5res352="Casi Siempre"
+                  pet5val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion5[71].Respuestas=="AlgunasVeces"){
+                  pet5res353="Algunas Veces"
+                  pet5val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion5[71].Respuestas=="CasiNunca"){
+                  pet5res354="Casi Nunca"
+                  pet5val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion5[71].Respuestas=="Nunca"){
+                  pet5res355="Nunca"
+                  pet5val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion5[72].Respuestas=="Siempre"){
+                  pet5res356="Siempre"
+                  pet5val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion5[72].Respuestas=="CasiSiempre"){
+                  pet5res357="Casi Siempre"
+                  pet5val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion5[72].Respuestas=="AlgunasVeces"){
+                  pet5res358="Algunas Veces"
+                  pet5val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion5[72].Respuestas=="CasiNunca"){
+                  pet5res359="Casi Nunca"
+                  pet5val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion5[72].Respuestas=="Nunca"){
+                  pet5res360="Nunca"
+                  pet5val72= this.state.getPonderacion[71].nunca
+                }
  } 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
   ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -6078,25 +8795,25 @@ console.log("entro a la peticion 3" )
       } 
   
   
-    if(this.state.peticion6[2].Respuestas=="Siempre"){
-      pet6res6="Siempre"
-      pet6val2= this.state.peticion6[1].siempre
-      }else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiSiempre"){
-        pet6res7="Casi Siempre"
-        pet6val2= this.state.peticion6[1].casisiempre
-      }
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="AlgunasVeces"){
-        pet6res8="Algunas Veces"
-        pet6val2= this.state.peticion6[1].algunasveces
-      } 
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
-        pet6res9="Casi Nunca"
-        pet6val2= this.state.peticion6[2].casinunca
-      } 
-      else if(this.state.peticion6[2].Respuestas=="Nunca"){
-        pet6res10="Nunca"
-        pet6val2= this.state.peticion6[1].nunca
-      } 
+      if(this.state.peticion6[2].Respuestas=="Siempre"){
+        pet6res6="Siempre"
+        pet6val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion6[2].Respuestas=="CasiSiempre"){
+          pet6res7="Casi Siempre"
+          pet6val2= this.state.getPonderacion[1].casisiempre
+        }
+        else if(this.state.peticion6[2].Respuestas=="AlgunasVeces"){
+          pet6res8="Algunas Veces"
+          pet6val2= this.state.getPonderacion[1].algunasveces
+        } 
+        else if(this.state.peticion6[2].Respuestas=="CasiNunca"){
+          pet6res9="Casi Nunca"
+          pet6val2= this.state.getPonderacion[1].casinunca
+        } 
+        else if(this.state.peticion6[2].Respuestas=="Nunca"){
+          pet6res10="Nunca"
+          pet6val2= this.state.getPonderacion[1].nunca
+        } 
   
       if(this.state.peticion6[3].Respuestas=="Siempre"){
         pet6res11="Siempre"
@@ -6741,7 +9458,7 @@ console.log("entro a la peticion 3" )
               pet6res174="Casi Nunca"
               pet6val35= this.state.getPonderacion[34].casinunca
             } 
-            else if(this.state.peticion6[15].Respuestas=="Nunca"){
+            else if(this.state.peticion6[35].Respuestas=="Nunca"){
               pet6res175="Nunca"
               pet6val35= this.state.getPonderacion[34].nunca
             } 
@@ -6846,122 +9563,619 @@ console.log("entro a la peticion 3" )
                   pet6val40= this.state.getPonderacion[39].nunca
                 }
   
-              if(this.state.peticion6[42].Respuestas=="Siempre"){
-                pet6res201="Siempre"
-                pet6val41= this.state.getPonderacion[40].siempre
-              }else if(this.state.peticion6[42].Respuestas=="CasiSiempre"){
-                pet6res202="Casi Siempre"
-                pet6val41= this.state.getPonderacion[40].casisiempre
-              }
-              else if(this.state.peticion6[42].Respuestas=="AlgunasVeces"){
-                pet6res203="Algunas Veces"
-                pet6val41= this.state.getPonderacion[40].algunasveces
-              } 
-              else if(this.state.peticion6[42].Respuestas=="CasiNunca"){
-                pet6res204="Casi Nunca"
-                pet6val41= this.state.getPonderacion[40].casinunca
-              } 
-              else if(this.state.peticion6[42].Respuestas=="Nunca"){
-                pet6res205="Nunca"
-                pet6val41= this.state.getPonderacion[40].nunca
-              }
-            if(this.state.peticion6[43].Respuestas=="Siempre"){
-              pet6res206="Siempre"
-              pet6val42= this.state.getPonderacion[41].siempre
-            }else if(this.state.peticion6[43].Respuestas=="CasiSiempre"){
-              pet6res207="Casi Siempre"
-              pet6val42= this.state.getPonderacion[41].casisiempre
-            }
-            else if(this.state.peticion6[43].Respuestas=="AlgunasVeces"){
-              pet6res208="Algunas Veces"
-              pet6val42= this.state.getPonderacion[41].algunasveces
-            } 
-            else if(this.state.peticion6[43].Respuestas=="CasiNunca"){
-              pet6res209="Casi Nunca"
-              pet6val42= this.state.getPonderacion[41].casinunca
-            } 
-            else if(this.state.peticion6[43].Respuestas=="Nunca"){
-              pet6res210="Nunca"
-              pet6val42= this.state.getPonderacion[41].nunca
-            }
-          if(this.state.peticion6[44].Respuestas=="Siempre"){
-            pet6res211="Siempre"
-            pet6val43= this.state.getPonderacion[42].siempre
-          }else if(this.state.peticion6[44].Respuestas=="CasiSiempre"){
-            pet6res212="Casi Siempre"
-            pet6val43= this.state.getPonderacion[42].casisiempre
-          }
-          else if(this.state.peticion6[44].Respuestas=="AlgunasVeces"){
-            pet6res213="Algunas Veces"
-            pet6val43= this.state.getPonderacion[42].algunasveces
-          } 
-          else if(this.state.peticion6[44].Respuestas=="CasiNunca"){
-            pet6res214="Casi Nunca"
-            pet6val43= this.state.getPonderacion[42].casinunca
-          } 
-          else if(this.state.peticion6[44].Respuestas=="Nunca"){
-            pet6res215="Nunca"
-            pet6val43= this.state.getPonderacion[42].nunca
-          }
+                if(this.state.peticion6[41].Respuestas=="Siempre"){
+                  pet6res201="Siempre"
+                  pet6val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion6[41].Respuestas=="CasiSiempre"){
+                  pet6res202="Casi Siempre"
+                  pet6val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion6[41].Respuestas=="AlgunasVeces"){
+                  pet6res203="Algunas Veces"
+                  pet6val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion6[41].Respuestas=="CasiNunca"){
+                  pet6res204="Casi Nunca"
+                  pet6val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion6[41].Respuestas=="Nunca"){
+                  pet6res205="Nunca"
+                  pet6val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion6[42].Respuestas=="Siempre"){
+                  pet6res206="Siempre"
+                  pet6val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion6[42].Respuestas=="CasiSiempre"){
+                  pet6res207="Casi Siempre"
+                  pet6val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion6[42].Respuestas=="AlgunasVeces"){
+                  pet6res208="Algunas Veces"
+                  pet6val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion6[42].Respuestas=="CasiNunca"){
+                  pet6res209="Casi Nunca"
+                  pet6val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion6[42].Respuestas=="Nunca"){
+                  pet6res210="Nunca"
+                  pet6val42= this.state.getPonderacion[41].nunca
+                }
   
-        if(this.state.peticion6[46].Respuestas=="Siempre"){
-          pet6res216="Siempre"
-          pet6val44= this.state.getPonderacion[43].siempre
-        }else if(this.state.peticion6[46].Respuestas=="CasiSiempre"){
-          pet6res217="Casi Siempre"
-          pet6val44= this.state.getPonderacion[43].casisiempre
-        }
-        else if(this.state.peticion6[46].Respuestas=="AlgunasVeces"){
-          pet6res218="Algunas Veces"
-          pet6val44= this.state.getPonderacion[43].algunasveces
-        } 
-        else if(this.state.peticion6[46].Respuestas=="CasiNunca"){
-          pet6res219="Casi Nunca"
-          pet6val44= this.state.getPonderacion[43].casinunca
-        } 
-        else if(this.state.peticion6[46].Respuestas=="Nunca"){
-          pet6res220="Nunca"
-          pet6val44= this.state.getPonderacion[43].nunca
-        }
+                if(this.state.peticion6[43].Respuestas=="Siempre"){
+                  pet6res211="Siempre"
+                  pet6val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion6[43].Respuestas=="CasiSiempre"){
+                  pet6res212="Casi Siempre"
+                  pet6val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion6[43].Respuestas=="AlgunasVeces"){
+                  pet6res213="Algunas Veces"
+                  pet6val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion6[43].Respuestas=="CasiNunca"){
+                  pet6res214="Casi Nunca"
+                  pet6val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion6[43].Respuestas=="Nunca"){
+                  pet6res215="Nunca"
+                  pet6val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion6[44].Respuestas=="Siempre"){
+                  pet6res216="Siempre"
+                  pet6val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion6[44].Respuestas=="CasiSiempre"){
+                  pet6res217="Casi Siempre"
+                  pet6val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion6[44].Respuestas=="AlgunasVeces"){
+                  pet6res218="Algunas Veces"
+                  pet6val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion6[44].Respuestas=="CasiNunca"){
+                  pet6res219="Casi Nunca"
+                  pet6val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion6[44].Respuestas=="Nunca"){
+                  pet6res220="Nunca"
+                  pet6val44= this.state.getPonderacion[43].nunca
+                }
   
-      if(this.state.peticion6[47].Respuestas=="Siempre"){
-        pet6res221="Siempre"
-        pet6val45= this.state.getPonderacion[44].siempre
-      }else if(this.state.peticion6[47].Respuestas=="CasiSiempre"){
-        pet6res222="Casi Siempre"
-        pet6val45= this.state.getPonderacion[44].casisiempre
-      }
-      else if(this.state.peticion6[47].Respuestas=="AlgunasVeces"){
-        pet6res223="Algunas Veces"
-        pet6val45= this.state.getPonderacion[44].algunasveces
-      } 
-      else if(this.state.peticion6[47].Respuestas=="CasiNunca"){
-        pet6res224="Casi Nunca"
-        pet6val45= this.state.getPonderacion[44].casinunca
-      } 
-      else if(this.state.peticion6[47].Respuestas=="Nunca"){
-        pet6res225="Nunca"
-        pet6val45= this.state.getPonderacion[44].nunca
-      }
-      if(this.state.peticion6[48].Respuestas=="Siempre"){
-        pet6res226="Siempre"
-        pet6val46= this.state.getPonderacion[45].siempre
-      }else if(this.state.peticion6[48].Respuestas=="CasiSiempre"){
-        pet6res227="Casi Siempre"
-        pet6val46= this.state.getPonderacion[45].casisiempre
-      }
-      else if(this.state.peticion6[48].Respuestas=="AlgunasVeces"){
-        pet6res228="Algunas Veces"
-        pet6val46= this.state.getPonderacion[45].algunasveces
-      } 
-      else if(this.state.peticion6[48].Respuestas=="CasiNunca"){
-        pet6res229="Casi Nunca"
-        pet6val46= this.state.getPonderacion[45].casinunca
-      } 
-      else if(this.state.peticion6[48].Respuestas=="Nunca"){
-        pet6res230="Nunca"
-        pet6val46= this.state.getPonderacion[45].nunca
-      }
+                if(this.state.peticion6[45].Respuestas=="Siempre"){
+                  pet6res221="Siempre"
+                  pet6val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion6[45].Respuestas=="CasiSiempre"){
+                  pet6res222="Casi Siempre"
+                  pet6val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion6[45].Respuestas=="AlgunasVeces"){
+                  pet6res223="Algunas Veces"
+                  pet6val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion6[45].Respuestas=="CasiNunca"){
+                  pet6res224="Casi Nunca"
+                  pet6val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion6[45].Respuestas=="Nunca"){
+                  pet6res225="Nunca"
+                  pet6val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion6[46].Respuestas=="Siempre"){
+                  pet6res226="Siempre"
+                  pet6val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion6[46].Respuestas=="CasiSiempre"){
+                  pet6res227="Casi Siempre"
+                  pet6val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion6[46].Respuestas=="AlgunasVeces"){
+                  pet6res228="Algunas Veces"
+                  pet6val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion6[46].Respuestas=="CasiNunca"){
+                  pet6res229="Casi Nunca"
+                  pet6val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion6[46].Respuestas=="Nunca"){
+                  pet6res230="Nunca"
+                  pet6val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion6[47].Respuestas=="Siempre"){
+                  pet6res231="Siempre"
+                  pet6val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion6[47].Respuestas=="CasiSiempre"){
+                  pet6res232="Casi Siempre"
+                  pet6val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion6[47].Respuestas=="AlgunasVeces"){
+                  pet6res233="Algunas Veces"
+                  pet6val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion6[47].Respuestas=="CasiNunca"){
+                  pet6res234="Casi Nunca"
+                  pet6val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion6[47].Respuestas=="Nunca"){
+                  pet6res235="Nunca"
+                  pet6val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion6[48].Respuestas=="Siempre"){
+                  pet6res236="Siempre"
+                  pet6val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion6[48].Respuestas=="CasiSiempre"){
+                  pet6res237="Casi Siempre"
+                  pet6val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion6[48].Respuestas=="AlgunasVeces"){
+                  pet6res238="Algunas Veces"
+                  pet6val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion6[48].Respuestas=="CasiNunca"){
+                  pet6res239="Casi Nunca"
+                  pet6val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion6[48].Respuestas=="Nunca"){
+                  pet6res240="Nunca"
+                  pet6val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion6[49].Respuestas=="Siempre"){
+                  pet6res241="Siempre"
+                  pet6val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion6[49].Respuestas=="CasiSiempre"){
+                  pet6res242="Casi Siempre"
+                  pet6val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion6[49].Respuestas=="AlgunasVeces"){
+                  pet6res243="Algunas Veces"
+                  pet6val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion6[49].Respuestas=="CasiNunca"){
+                  pet6res244="Casi Nunca"
+                  pet6val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion6[49].Respuestas=="Nunca"){
+                  pet6res245="Nunca"
+                  pet6val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion6[50].Respuestas=="Siempre"){
+                  pet6res246="Siempre"
+                  pet6val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion6[50].Respuestas=="CasiSiempre"){
+                  pet6res247="Casi Siempre"
+                  pet6val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion6[50].Respuestas=="AlgunasVeces"){
+                  pet6res248="Algunas Veces"
+                  pet6val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion6[50].Respuestas=="CasiNunca"){
+                  pet6res249="Casi Nunca"
+                  pet6val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion6[50].Respuestas=="Nunca"){
+                  pet6res250="Nunca"
+                  pet6val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion6[51].Respuestas=="Siempre"){
+                  pet6res251="Siempre"
+                  pet6val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion6[51].Respuestas=="CasiSiempre"){
+                  pet6res252="Casi Siempre"
+                  pet6val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion6[51].Respuestas=="AlgunasVeces"){
+                  pet6res253="Algunas Veces"
+                  pet6val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion6[51].Respuestas=="CasiNunca"){
+                  pet6res254="Casi Nunca"
+                  pet6val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion6[51].Respuestas=="Nunca"){
+                  pet6res255="Nunca"
+                  pet6val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion6[52].Respuestas=="Siempre"){
+                  pet6res256="Siempre"
+                  pet6val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion6[52].Respuestas=="CasiSiempre"){
+                  pet6res257="Casi Siempre"
+                  pet6val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion6[52].Respuestas=="AlgunasVeces"){
+                  pet6res258="Algunas Veces"
+                  pet6val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion6[52].Respuestas=="CasiNunca"){
+                  pet6res259="Casi Nunca"
+                  pet6val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion6[52].Respuestas=="Nunca"){
+                  pet6res260="Nunca"
+                  pet6val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion6[53].Respuestas=="Siempre"){
+                  pet6res261="Siempre"
+                  pet6val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion6[53].Respuestas=="CasiSiempre"){
+                  pet6res262="Casi Siempre"
+                  pet6val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion6[53].Respuestas=="AlgunasVeces"){
+                  pet6res263="Algunas Veces"
+                  pet6val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion6[53].Respuestas=="CasiNunca"){
+                  pet6res264="Casi Nunca"
+                  pet6val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion6[53].Respuestas=="Nunca"){
+                  pet6res265="Nunca"
+                  pet6val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion6[54].Respuestas=="Siempre"){
+                  pet6res266="Siempre"
+                  pet6val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion6[54].Respuestas=="CasiSiempre"){
+                  pet6res267="Casi Siempre"
+                  pet6val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion6[54].Respuestas=="AlgunasVeces"){
+                  pet6res268="Algunas Veces"
+                  pet6val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion6[54].Respuestas=="CasiNunca"){
+                  pet6res269="Casi Nunca"
+                  pet6val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion6[54].Respuestas=="Nunca"){
+                  pet6res270="Nunca"
+                  pet6val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion6[55].Respuestas=="Siempre"){
+                  pet6res271="Siempre"
+                  pet6val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion6[55].Respuestas=="CasiSiempre"){
+                  pet6res272="Casi Siempre"
+                  pet6val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion6[55].Respuestas=="AlgunasVeces"){
+                  pet6res273="Algunas Veces"
+                  pet6val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion6[55].Respuestas=="CasiNunca"){
+                  pet6res274="Casi Nunca"
+                  pet6val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion6[55].Respuestas=="Nunca"){
+                  pet6res275="Nunca"
+                  pet6val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion6[56].Respuestas=="Siempre"){
+                  pet6res276="Siempre"
+                  pet6val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion6[56].Respuestas=="CasiSiempre"){
+                  pet6res277="Casi Siempre"
+                  pet6val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion6[56].Respuestas=="AlgunasVeces"){
+                  pet6res278="Algunas Veces"
+                  pet6val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion6[56].Respuestas=="CasiNunca"){
+                  pet6res279="Casi Nunca"
+                  pet6val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion6[56].Respuestas=="Nunca"){
+                  pet6res280="Nunca"
+                  pet6val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion6[57].Respuestas=="Siempre"){
+                  pet6res281="Siempre"
+                  pet6val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion6[57].Respuestas=="CasiSiempre"){
+                  pet6res282="Casi Siempre"
+                  pet6val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion6[57].Respuestas=="AlgunasVeces"){
+                  pet6res283="Algunas Veces"
+                  pet6val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion6[57].Respuestas=="CasiNunca"){
+                  pet6res284="Casi Nunca"
+                  pet6val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion6[57].Respuestas=="Nunca"){
+                  pet6res285="Nunca"
+                  pet6val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion6[58].Respuestas=="Siempre"){
+                  pet6res286="Siempre"
+                  pet6val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion6[58].Respuestas=="CasiSiempre"){
+                  pet6res287="Casi Siempre"
+                  pet6val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion6[58].Respuestas=="AlgunasVeces"){
+                  pet6res288="Algunas Veces"
+                  pet6val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion6[58].Respuestas=="CasiNunca"){
+                  pet6res289="Casi Nunca"
+                  pet6val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion6[58].Respuestas=="Nunca"){
+                  pet6res290="Nunca"
+                  pet6val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion6[59].Respuestas=="Siempre"){
+                  pet6res291="Siempre"
+                  pet6val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion6[59].Respuestas=="CasiSiempre"){
+                  pet6res292="Casi Siempre"
+                  pet6val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion6[59].Respuestas=="AlgunasVeces"){
+                  pet6res293="Algunas Veces"
+                  pet6val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion6[59].Respuestas=="CasiNunca"){
+                  pet6res294="Casi Nunca"
+                  pet6val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion6[59].Respuestas=="Nunca"){
+                  pet6res295="Nunca"
+                  pet6val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion6[60].Respuestas=="Siempre"){
+                  pet6res296="Siempre"
+                  pet6val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion6[60].Respuestas=="CasiSiempre"){
+                  pet6res297="Casi Siempre"
+                  pet6val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion6[60].Respuestas=="AlgunasVeces"){
+                  pet6res298="Algunas Veces"
+                  pet6val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion6[60].Respuestas=="CasiNunca"){
+                  pet6res299="Casi Nunca"
+                  pet6val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion6[60].Respuestas=="Nunca"){
+                  pet6res300="Nunca"
+                  pet6val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion6[61].Respuestas=="Siempre"){
+                  pet6res301="Siempre"
+                  pet6val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion6[61].Respuestas=="CasiSiempre"){
+                  pet6res302="Casi Siempre"
+                  pet6val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion6[61].Respuestas=="AlgunasVeces"){
+                  pet6res303="Algunas Veces"
+                  pet6val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion6[61].Respuestas=="CasiNunca"){
+                  pet6res304="Casi Nunca"
+                  pet6val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion6[61].Respuestas=="Nunca"){
+                  pet6res305="Nunca"
+                  pet6val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion6[62].Respuestas=="Siempre"){
+                  pet6res306="Siempre"
+                  pet6val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion6[62].Respuestas=="CasiSiempre"){
+                  pet6res307="Casi Siempre"
+                  pet6val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion6[62].Respuestas=="AlgunasVeces"){
+                  pet6res308="Algunas Veces"
+                  pet6val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion6[62].Respuestas=="CasiNunca"){
+                  pet6res309="Casi Nunca"
+                  pet6val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion6[62].Respuestas=="Nunca"){
+                  pet6res310="Nunca"
+                  pet6val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion6[63].Respuestas=="Siempre"){
+                  pet6res311="Siempre"
+                  pet6val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion6[63].Respuestas=="CasiSiempre"){
+                  pet6res312="Casi Siempre"
+                  pet6val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion6[63].Respuestas=="AlgunasVeces"){
+                  pet6res313="Algunas Veces"
+                  pet6val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion6[63].Respuestas=="CasiNunca"){
+                  pet6res314="Casi Nunca"
+                  pet6val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion6[63].Respuestas=="Nunca"){
+                  pet6res315="Nunca"
+                  pet6val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion6[64].Respuestas=="Siempre"){
+                  pet6res316="Siempre"
+                  pet6val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion6[64].Respuestas=="CasiSiempre"){
+                  pet6res317="Casi Siempre"
+                  pet6val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion6[64].Respuestas=="AlgunasVeces"){
+                  pet6res318="Algunas Veces"
+                  pet6val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion6[64].Respuestas=="CasiNunca"){
+                  pet6res319="Casi Nunca"
+                  pet6val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion6[64].Respuestas=="Nunca"){
+                  pet6res320="Nunca"
+                  pet6val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion6[65].Respuestas=="Siempre"){
+                  pet6res321="Siempre"
+                  pet6val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion6[65].Respuestas=="CasiSiempre"){
+                  pet6res322="Casi Siempre"
+                  pet6val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion6[65].Respuestas=="AlgunasVeces"){
+                  pet6res323="Algunas Veces"
+                  pet6val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion6[65].Respuestas=="CasiNunca"){
+                  pet6res324="Casi Nunca"
+                  pet6val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion6[65].Respuestas=="Nunca"){
+                  pet6res325="Nunca"
+                  pet6val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion6[66].Respuestas=="Siempre"){
+                  pet6res326="Siempre"
+                  pet6val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion6[66].Respuestas=="CasiSiempre"){
+                  pet6res327="Casi Siempre"
+                  pet6val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion6[66].Respuestas=="AlgunasVeces"){
+                  pet6res328="Algunas Veces"
+                  pet6val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion6[66].Respuestas=="CasiNunca"){
+                  pet6res329="Casi Nunca"
+                  pet6val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion6[66].Respuestas=="Nunca"){
+                  pet6res330="Nunca"
+                  pet6val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion6[67].Respuestas=="Siempre"){
+                  pet6res331="Siempre"
+                  pet6val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion6[67].Respuestas=="CasiSiempre"){
+                  pet6res332="Casi Siempre"
+                  pet6val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion6[67].Respuestas=="AlgunasVeces"){
+                  pet6res333="Algunas Veces"
+                  pet6val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion6[67].Respuestas=="CasiNunca"){
+                  pet6res334="Casi Nunca"
+                  pet6val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion6[67].Respuestas=="Nunca"){
+                  pet6res335="Nunca"
+                  pet6val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion6[68].Respuestas=="Siempre"){
+                  pet6res336="Siempre"
+                  pet6val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion6[68].Respuestas=="CasiSiempre"){
+                  pet6res337="Casi Siempre"
+                  pet6val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion6[68].Respuestas=="AlgunasVeces"){
+                  pet6res338="Algunas Veces"
+                  pet6val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion6[68].Respuestas=="CasiNunca"){
+                  pet6res339="Casi Nunca"
+                  pet6val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion6[68].Respuestas=="Nunca"){
+                  pet6res340="Nunca"
+                  pet6val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion6[69].Respuestas=="Siempre"){
+                  pet6res341="Siempre"
+                  pet6val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion6[69].Respuestas=="CasiSiempre"){
+                  pet6res342="Casi Siempre"
+                  pet6val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion6[69].Respuestas=="AlgunasVeces"){
+                  pet6res343="Algunas Veces"
+                  pet6val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion6[69].Respuestas=="CasiNunca"){
+                  pet6res344="Casi Nunca"
+                  pet6val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion6[69].Respuestas=="Nunca"){
+                  pet6res345="Nunca"
+                  pet6val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion6[70].Respuestas=="Siempre"){
+                  pet6res346="Siempre"
+                  pet6val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion6[70].Respuestas=="CasiSiempre"){
+                  pet6res347="Casi Siempre"
+                  pet6val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion6[70].Respuestas=="AlgunasVeces"){
+                  pet6res348="Algunas Veces"
+                  pet6val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion6[70].Respuestas=="CasiNunca"){
+                  pet6res349="Casi Nunca"
+                  pet6val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion6[70].Respuestas=="Nunca"){
+                  pet6res350="Nunca"
+                  pet6val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion6[71].Respuestas=="Siempre"){
+                  pet6res351="Siempre"
+                  pet6val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion6[71].Respuestas=="CasiSiempre"){
+                  pet6res352="Casi Siempre"
+                  pet6val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion6[71].Respuestas=="AlgunasVeces"){
+                  pet6res353="Algunas Veces"
+                  pet6val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion6[71].Respuestas=="CasiNunca"){
+                  pet6res354="Casi Nunca"
+                  pet6val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion6[71].Respuestas=="Nunca"){
+                  pet6res355="Nunca"
+                  pet6val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion6[72].Respuestas=="Siempre"){
+                  pet6res356="Siempre"
+                  pet6val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion6[72].Respuestas=="CasiSiempre"){
+                  pet6res357="Casi Siempre"
+                  pet6val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion6[72].Respuestas=="AlgunasVeces"){
+                  pet6res358="Algunas Veces"
+                  pet6val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion6[72].Respuestas=="CasiNunca"){
+                  pet6res359="Casi Nunca"
+                  pet6val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion6[72].Respuestas=="Nunca"){
+                  pet6res360="Nunca"
+                  pet6val72= this.state.getPonderacion[71].nunca
+                }
    } 
    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////77777777
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -6989,25 +10203,25 @@ console.log("entro a la peticion 3" )
       } 
   
   
-    if(this.state.peticion7[2].Respuestas=="Siempre"){
-      pet7res6="Siempre"
-      pet7val2= this.state.peticion7[1].siempre
-      }else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiSiempre"){
-        pet7res7="Casi Siempre"
-        pet7val2= this.state.peticion7[1].casisiempre
-      }
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="AlgunasVeces"){
-        pet7res8="Algunas Veces"
-        pet7val2= this.state.peticion7[1].algunasveces
-      } 
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
-        pet7res9="Casi Nunca"
-        pet7val2= this.state.peticion7[2].casinunca
-      } 
-      else if(this.state.peticion7[2].Respuestas=="Nunca"){
-        pet7res10="Nunca"
-        pet7val2= this.state.peticion7[1].nunca
-      } 
+      if(this.state.peticion7[2].Respuestas=="Siempre"){
+        pet7res6="Siempre"
+        pet7val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion7[2].Respuestas=="CasiSiempre"){
+          pet7res7="Casi Siempre"
+          pet7val2= this.state.getPonderacion[1].casisiempre
+        }
+        else if(this.state.peticion7[2].Respuestas=="AlgunasVeces"){
+          pet7res8="Algunas Veces"
+          pet7val2= this.state.getPonderacion[1].algunasveces
+        } 
+        else if(this.state.peticion7[2].Respuestas=="CasiNunca"){
+          pet7res9="Casi Nunca"
+          pet7val2= this.state.getPonderacion[1].casinunca
+        } 
+        else if(this.state.peticion7[2].Respuestas=="Nunca"){
+          pet7res10="Nunca"
+          pet7val2= this.state.getPonderacion[1].nunca
+        } 
   
       if(this.state.peticion7[3].Respuestas=="Siempre"){
         pet7res11="Siempre"
@@ -7652,7 +10866,7 @@ console.log("entro a la peticion 3" )
               pet7res174="Casi Nunca"
               pet7val35= this.state.getPonderacion[34].casinunca
             } 
-            else if(this.state.peticion7[15].Respuestas=="Nunca"){
+            else if(this.state.peticion7[35].Respuestas=="Nunca"){
               pet7res175="Nunca"
               pet7val35= this.state.getPonderacion[34].nunca
             } 
@@ -7757,121 +10971,619 @@ console.log("entro a la peticion 3" )
                   pet7val40= this.state.getPonderacion[39].nunca
                 }
   
-              if(this.state.peticion7[42].Respuestas=="Siempre"){
-                pet7res201="Siempre"
-                pet7val41= this.state.getPonderacion[40].siempre
-              }else if(this.state.peticion7[42].Respuestas=="CasiSiempre"){
-                pet7res202="Casi Siempre"
-                pet7val41= this.state.getPonderacion[40].casisiempre
-              }
-              else if(this.state.peticion7[42].Respuestas=="AlgunasVeces"){
-                pet7res203="Algunas Veces"
-                pet7val41= this.state.getPonderacion[40].algunasveces
-              } 
-              else if(this.state.peticion7[42].Respuestas=="CasiNunca"){
-                pet7res204="Casi Nunca"
-                pet7val41= this.state.getPonderacion[40].casinunca
-              } 
-              else if(this.state.peticion7[42].Respuestas=="Nunca"){
-                pet7res205="Nunca"
-                pet7val41= this.state.getPonderacion[40].nunca
-              }
-            if(this.state.peticion7[43].Respuestas=="Siempre"){
-              pet7res206="Siempre"
-              pet7val42= this.state.getPonderacion[41].siempre
-            }else if(this.state.peticion7[43].Respuestas=="CasiSiempre"){
-              pet7res207="Casi Siempre"
-              pet7val42= this.state.getPonderacion[41].casisiempre
-            }
-            else if(this.state.peticion7[43].Respuestas=="AlgunasVeces"){
-              pet7res208="Algunas Veces"
-              pet7val42= this.state.getPonderacion[41].algunasveces
-            } 
-            else if(this.state.peticion7[43].Respuestas=="CasiNunca"){
-              pet7res209="Casi Nunca"
-              pet7val42= this.state.getPonderacion[41].casinunca
-            } 
-            else if(this.state.peticion7[43].Respuestas=="Nunca"){
-              pet7res210="Nunca"
-              pet7val42= this.state.getPonderacion[41].nunca
-            }
-          if(this.state.peticion7[44].Respuestas=="Siempre"){
-            pet7res211="Siempre"
-            pet7val43= this.state.getPonderacion[42].siempre
-          }else if(this.state.peticion7[44].Respuestas=="CasiSiempre"){
-            pet7res212="Casi Siempre"
-            pet7val43= this.state.getPonderacion[42].casisiempre
-          }
-          else if(this.state.peticion7[44].Respuestas=="AlgunasVeces"){
-            pet7res213="Algunas Veces"
-            pet7val43= this.state.getPonderacion[42].algunasveces
-          } 
-          else if(this.state.peticion7[44].Respuestas=="CasiNunca"){
-            pet7res214="Casi Nunca"
-            pet7val43= this.state.getPonderacion[42].casinunca
-          } 
-          else if(this.state.peticion7[44].Respuestas=="Nunca"){
-            pet7res215="Nunca"
-            pet7val43= this.state.getPonderacion[42].nunca
-          }
+                if(this.state.peticion7[41].Respuestas=="Siempre"){
+                  pet7res201="Siempre"
+                  pet7val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion7[41].Respuestas=="CasiSiempre"){
+                  pet7res202="Casi Siempre"
+                  pet7val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion7[41].Respuestas=="AlgunasVeces"){
+                  pet7res203="Algunas Veces"
+                  pet7val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion7[41].Respuestas=="CasiNunca"){
+                  pet7res204="Casi Nunca"
+                  pet7val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion7[41].Respuestas=="Nunca"){
+                  pet7res205="Nunca"
+                  pet7val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion7[42].Respuestas=="Siempre"){
+                  pet7res206="Siempre"
+                  pet7val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion7[42].Respuestas=="CasiSiempre"){
+                  pet7res207="Casi Siempre"
+                  pet7val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion7[42].Respuestas=="AlgunasVeces"){
+                  pet7res208="Algunas Veces"
+                  pet7val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion7[42].Respuestas=="CasiNunca"){
+                  pet7res209="Casi Nunca"
+                  pet7val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion7[42].Respuestas=="Nunca"){
+                  pet7res210="Nunca"
+                  pet7val42= this.state.getPonderacion[41].nunca
+                }
   
-        if(this.state.peticion7[46].Respuestas=="Siempre"){
-          pet7res216="Siempre"
-          pet7val44= this.state.getPonderacion[43].siempre
-        }else if(this.state.peticion7[46].Respuestas=="CasiSiempre"){
-          pet7res217="Casi Siempre"
-          pet7val44= this.state.getPonderacion[43].casisiempre
-        }
-        else if(this.state.peticion7[46].Respuestas=="AlgunasVeces"){
-          pet7res218="Algunas Veces"
-          pet7val44= this.state.getPonderacion[43].algunasveces
-        } 
-        else if(this.state.peticion7[46].Respuestas=="CasiNunca"){
-          pet7res219="Casi Nunca"
-          pet7val44= this.state.getPonderacion[43].casinunca
-        } 
-        else if(this.state.peticion7[46].Respuestas=="Nunca"){
-          pet7res220="Nunca"
-          pet7val44= this.state.getPonderacion[43].nunca
-        }
-      if(this.state.peticion7[47].Respuestas=="Siempre"){
-        pet7res221="Siempre"
-        pet7val45= this.state.getPonderacion[44].siempre
-      }else if(this.state.peticion7[47].Respuestas=="CasiSiempre"){
-        pet7res222="Casi Siempre"
-        pet7val45= this.state.getPonderacion[44].casisiempre
-      }
-      else if(this.state.peticion7[47].Respuestas=="AlgunasVeces"){
-        pet7res223="Algunas Veces"
-        pet7val45= this.state.getPonderacion[44].algunasveces
-      } 
-      else if(this.state.peticion7[47].Respuestas=="CasiNunca"){
-        pet7res224="Casi Nunca"
-        pet7val45= this.state.getPonderacion[44].casinunca
-      } 
-      else if(this.state.peticion7[47].Respuestas=="Nunca"){
-        pet7res225="Nunca"
-        pet7val45= this.state.getPonderacion[44].nunca
-      }
-      if(this.state.peticion7[48].Respuestas=="Siempre"){
-        pet7res226="Siempre"
-        pet7val46= this.state.getPonderacion[45].siempre
-      }else if(this.state.peticion7[48].Respuestas=="CasiSiempre"){
-        pet7res227="Casi Siempre"
-        pet7val46= this.state.getPonderacion[45].casisiempre
-      }
-      else if(this.state.peticion7[48].Respuestas=="AlgunasVeces"){
-        pet7res228="Algunas Veces"
-        pet7val46= this.state.getPonderacion[45].algunasveces
-      } 
-      else if(this.state.peticion7[48].Respuestas=="CasiNunca"){
-        pet7res229="Casi Nunca"
-        pet7val46= this.state.getPonderacion[45].casinunca
-      } 
-      else if(this.state.peticion7[48].Respuestas=="Nunca"){
-        pet7res230="Nunca"
-        pet7val46= this.state.getPonderacion[45].nunca
-      }
+                if(this.state.peticion7[43].Respuestas=="Siempre"){
+                  pet7res211="Siempre"
+                  pet7val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion7[43].Respuestas=="CasiSiempre"){
+                  pet7res212="Casi Siempre"
+                  pet7val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion7[43].Respuestas=="AlgunasVeces"){
+                  pet7res213="Algunas Veces"
+                  pet7val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion7[43].Respuestas=="CasiNunca"){
+                  pet7res214="Casi Nunca"
+                  pet7val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion7[43].Respuestas=="Nunca"){
+                  pet7res215="Nunca"
+                  pet7val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion7[44].Respuestas=="Siempre"){
+                  pet7res216="Siempre"
+                  pet7val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion7[44].Respuestas=="CasiSiempre"){
+                  pet7res217="Casi Siempre"
+                  pet7val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion7[44].Respuestas=="AlgunasVeces"){
+                  pet7res218="Algunas Veces"
+                  pet7val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion7[44].Respuestas=="CasiNunca"){
+                  pet7res219="Casi Nunca"
+                  pet7val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion7[44].Respuestas=="Nunca"){
+                  pet7res220="Nunca"
+                  pet7val44= this.state.getPonderacion[43].nunca
+                }
+  
+                if(this.state.peticion7[45].Respuestas=="Siempre"){
+                  pet7res221="Siempre"
+                  pet7val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion7[45].Respuestas=="CasiSiempre"){
+                  pet7res222="Casi Siempre"
+                  pet7val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion7[45].Respuestas=="AlgunasVeces"){
+                  pet7res223="Algunas Veces"
+                  pet7val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion7[45].Respuestas=="CasiNunca"){
+                  pet7res224="Casi Nunca"
+                  pet7val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion7[45].Respuestas=="Nunca"){
+                  pet7res225="Nunca"
+                  pet7val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion7[46].Respuestas=="Siempre"){
+                  pet7res226="Siempre"
+                  pet7val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion7[46].Respuestas=="CasiSiempre"){
+                  pet7res227="Casi Siempre"
+                  pet7val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion7[46].Respuestas=="AlgunasVeces"){
+                  pet7res228="Algunas Veces"
+                  pet7val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion7[46].Respuestas=="CasiNunca"){
+                  pet7res229="Casi Nunca"
+                  pet7val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion7[46].Respuestas=="Nunca"){
+                  pet7res230="Nunca"
+                  pet7val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion7[47].Respuestas=="Siempre"){
+                  pet7res231="Siempre"
+                  pet7val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion7[47].Respuestas=="CasiSiempre"){
+                  pet7res232="Casi Siempre"
+                  pet7val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion7[47].Respuestas=="AlgunasVeces"){
+                  pet7res233="Algunas Veces"
+                  pet7val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion7[47].Respuestas=="CasiNunca"){
+                  pet7res234="Casi Nunca"
+                  pet7val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion7[47].Respuestas=="Nunca"){
+                  pet7res235="Nunca"
+                  pet7val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion7[48].Respuestas=="Siempre"){
+                  pet7res236="Siempre"
+                  pet7val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion7[48].Respuestas=="CasiSiempre"){
+                  pet7res237="Casi Siempre"
+                  pet7val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion7[48].Respuestas=="AlgunasVeces"){
+                  pet7res238="Algunas Veces"
+                  pet7val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion7[48].Respuestas=="CasiNunca"){
+                  pet7res239="Casi Nunca"
+                  pet7val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion7[48].Respuestas=="Nunca"){
+                  pet7res240="Nunca"
+                  pet7val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion7[49].Respuestas=="Siempre"){
+                  pet7res241="Siempre"
+                  pet7val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion7[49].Respuestas=="CasiSiempre"){
+                  pet7res242="Casi Siempre"
+                  pet7val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion7[49].Respuestas=="AlgunasVeces"){
+                  pet7res243="Algunas Veces"
+                  pet7val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion7[49].Respuestas=="CasiNunca"){
+                  pet7res244="Casi Nunca"
+                  pet7val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion7[49].Respuestas=="Nunca"){
+                  pet7res245="Nunca"
+                  pet7val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion7[50].Respuestas=="Siempre"){
+                  pet7res246="Siempre"
+                  pet7val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion7[50].Respuestas=="CasiSiempre"){
+                  pet7res247="Casi Siempre"
+                  pet7val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion7[50].Respuestas=="AlgunasVeces"){
+                  pet7res248="Algunas Veces"
+                  pet7val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion7[50].Respuestas=="CasiNunca"){
+                  pet7res249="Casi Nunca"
+                  pet7val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion7[50].Respuestas=="Nunca"){
+                  pet7res250="Nunca"
+                  pet7val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion7[51].Respuestas=="Siempre"){
+                  pet7res251="Siempre"
+                  pet7val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion7[51].Respuestas=="CasiSiempre"){
+                  pet7res252="Casi Siempre"
+                  pet7val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion7[51].Respuestas=="AlgunasVeces"){
+                  pet7res253="Algunas Veces"
+                  pet7val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion7[51].Respuestas=="CasiNunca"){
+                  pet7res254="Casi Nunca"
+                  pet7val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion7[51].Respuestas=="Nunca"){
+                  pet7res255="Nunca"
+                  pet7val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion7[52].Respuestas=="Siempre"){
+                  pet7res256="Siempre"
+                  pet7val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion7[52].Respuestas=="CasiSiempre"){
+                  pet7res257="Casi Siempre"
+                  pet7val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion7[52].Respuestas=="AlgunasVeces"){
+                  pet7res258="Algunas Veces"
+                  pet7val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion7[52].Respuestas=="CasiNunca"){
+                  pet7res259="Casi Nunca"
+                  pet7val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion7[52].Respuestas=="Nunca"){
+                  pet7res260="Nunca"
+                  pet7val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion7[53].Respuestas=="Siempre"){
+                  pet7res261="Siempre"
+                  pet7val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion7[53].Respuestas=="CasiSiempre"){
+                  pet7res262="Casi Siempre"
+                  pet7val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion7[53].Respuestas=="AlgunasVeces"){
+                  pet7res263="Algunas Veces"
+                  pet7val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion7[53].Respuestas=="CasiNunca"){
+                  pet7res264="Casi Nunca"
+                  pet7val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion7[53].Respuestas=="Nunca"){
+                  pet7res265="Nunca"
+                  pet7val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion7[54].Respuestas=="Siempre"){
+                  pet7res266="Siempre"
+                  pet7val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion7[54].Respuestas=="CasiSiempre"){
+                  pet7res267="Casi Siempre"
+                  pet7val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion7[54].Respuestas=="AlgunasVeces"){
+                  pet7res268="Algunas Veces"
+                  pet7val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion7[54].Respuestas=="CasiNunca"){
+                  pet7res269="Casi Nunca"
+                  pet7val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion7[54].Respuestas=="Nunca"){
+                  pet7res270="Nunca"
+                  pet7val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion7[55].Respuestas=="Siempre"){
+                  pet7res271="Siempre"
+                  pet7val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion7[55].Respuestas=="CasiSiempre"){
+                  pet7res272="Casi Siempre"
+                  pet7val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion7[55].Respuestas=="AlgunasVeces"){
+                  pet7res273="Algunas Veces"
+                  pet7val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion7[55].Respuestas=="CasiNunca"){
+                  pet7res274="Casi Nunca"
+                  pet7val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion7[55].Respuestas=="Nunca"){
+                  pet7res275="Nunca"
+                  pet7val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion7[56].Respuestas=="Siempre"){
+                  pet7res276="Siempre"
+                  pet7val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion7[56].Respuestas=="CasiSiempre"){
+                  pet7res277="Casi Siempre"
+                  pet7val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion7[56].Respuestas=="AlgunasVeces"){
+                  pet7res278="Algunas Veces"
+                  pet7val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion7[56].Respuestas=="CasiNunca"){
+                  pet7res279="Casi Nunca"
+                  pet7val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion7[56].Respuestas=="Nunca"){
+                  pet7res280="Nunca"
+                  pet7val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion7[57].Respuestas=="Siempre"){
+                  pet7res281="Siempre"
+                  pet7val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion7[57].Respuestas=="CasiSiempre"){
+                  pet7res282="Casi Siempre"
+                  pet7val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion7[57].Respuestas=="AlgunasVeces"){
+                  pet7res283="Algunas Veces"
+                  pet7val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion7[57].Respuestas=="CasiNunca"){
+                  pet7res284="Casi Nunca"
+                  pet7val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion7[57].Respuestas=="Nunca"){
+                  pet7res285="Nunca"
+                  pet7val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion7[58].Respuestas=="Siempre"){
+                  pet7res286="Siempre"
+                  pet7val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion7[58].Respuestas=="CasiSiempre"){
+                  pet7res287="Casi Siempre"
+                  pet7val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion7[58].Respuestas=="AlgunasVeces"){
+                  pet7res288="Algunas Veces"
+                  pet7val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion7[58].Respuestas=="CasiNunca"){
+                  pet7res289="Casi Nunca"
+                  pet7val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion7[58].Respuestas=="Nunca"){
+                  pet7res290="Nunca"
+                  pet7val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion7[59].Respuestas=="Siempre"){
+                  pet7res291="Siempre"
+                  pet7val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion7[59].Respuestas=="CasiSiempre"){
+                  pet7res292="Casi Siempre"
+                  pet7val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion7[59].Respuestas=="AlgunasVeces"){
+                  pet7res293="Algunas Veces"
+                  pet7val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion7[59].Respuestas=="CasiNunca"){
+                  pet7res294="Casi Nunca"
+                  pet7val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion7[59].Respuestas=="Nunca"){
+                  pet7res295="Nunca"
+                  pet7val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion7[60].Respuestas=="Siempre"){
+                  pet7res296="Siempre"
+                  pet7val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion7[60].Respuestas=="CasiSiempre"){
+                  pet7res297="Casi Siempre"
+                  pet7val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion7[60].Respuestas=="AlgunasVeces"){
+                  pet7res298="Algunas Veces"
+                  pet7val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion7[60].Respuestas=="CasiNunca"){
+                  pet7res299="Casi Nunca"
+                  pet7val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion7[60].Respuestas=="Nunca"){
+                  pet7res300="Nunca"
+                  pet7val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion7[61].Respuestas=="Siempre"){
+                  pet7res301="Siempre"
+                  pet7val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion7[61].Respuestas=="CasiSiempre"){
+                  pet7res302="Casi Siempre"
+                  pet7val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion7[61].Respuestas=="AlgunasVeces"){
+                  pet7res303="Algunas Veces"
+                  pet7val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion7[61].Respuestas=="CasiNunca"){
+                  pet7res304="Casi Nunca"
+                  pet7val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion7[61].Respuestas=="Nunca"){
+                  pet7res305="Nunca"
+                  pet7val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion7[62].Respuestas=="Siempre"){
+                  pet7res306="Siempre"
+                  pet7val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion7[62].Respuestas=="CasiSiempre"){
+                  pet7res307="Casi Siempre"
+                  pet7val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion7[62].Respuestas=="AlgunasVeces"){
+                  pet7res308="Algunas Veces"
+                  pet7val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion7[62].Respuestas=="CasiNunca"){
+                  pet7res309="Casi Nunca"
+                  pet7val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion7[62].Respuestas=="Nunca"){
+                  pet7res310="Nunca"
+                  pet7val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion7[63].Respuestas=="Siempre"){
+                  pet7res311="Siempre"
+                  pet7val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion7[63].Respuestas=="CasiSiempre"){
+                  pet7res312="Casi Siempre"
+                  pet7val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion7[63].Respuestas=="AlgunasVeces"){
+                  pet7res313="Algunas Veces"
+                  pet7val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion7[63].Respuestas=="CasiNunca"){
+                  pet7res314="Casi Nunca"
+                  pet7val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion7[63].Respuestas=="Nunca"){
+                  pet7res315="Nunca"
+                  pet7val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion7[64].Respuestas=="Siempre"){
+                  pet7res316="Siempre"
+                  pet7val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion7[64].Respuestas=="CasiSiempre"){
+                  pet7res317="Casi Siempre"
+                  pet7val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion7[64].Respuestas=="AlgunasVeces"){
+                  pet7res318="Algunas Veces"
+                  pet7val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion7[64].Respuestas=="CasiNunca"){
+                  pet7res319="Casi Nunca"
+                  pet7val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion7[64].Respuestas=="Nunca"){
+                  pet7res320="Nunca"
+                  pet7val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion7[65].Respuestas=="Siempre"){
+                  pet7res321="Siempre"
+                  pet7val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion7[65].Respuestas=="CasiSiempre"){
+                  pet7res322="Casi Siempre"
+                  pet7val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion7[65].Respuestas=="AlgunasVeces"){
+                  pet7res323="Algunas Veces"
+                  pet7val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion7[65].Respuestas=="CasiNunca"){
+                  pet7res324="Casi Nunca"
+                  pet7val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion7[65].Respuestas=="Nunca"){
+                  pet7res325="Nunca"
+                  pet7val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion7[66].Respuestas=="Siempre"){
+                  pet7res326="Siempre"
+                  pet7val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion7[66].Respuestas=="CasiSiempre"){
+                  pet7res327="Casi Siempre"
+                  pet7val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion7[66].Respuestas=="AlgunasVeces"){
+                  pet7res328="Algunas Veces"
+                  pet7val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion7[66].Respuestas=="CasiNunca"){
+                  pet7res329="Casi Nunca"
+                  pet7val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion7[66].Respuestas=="Nunca"){
+                  pet7res330="Nunca"
+                  pet7val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion7[67].Respuestas=="Siempre"){
+                  pet7res331="Siempre"
+                  pet7val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion7[67].Respuestas=="CasiSiempre"){
+                  pet7res332="Casi Siempre"
+                  pet7val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion7[67].Respuestas=="AlgunasVeces"){
+                  pet7res333="Algunas Veces"
+                  pet7val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion7[67].Respuestas=="CasiNunca"){
+                  pet7res334="Casi Nunca"
+                  pet7val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion7[67].Respuestas=="Nunca"){
+                  pet7res335="Nunca"
+                  pet7val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion7[68].Respuestas=="Siempre"){
+                  pet7res336="Siempre"
+                  pet7val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion7[68].Respuestas=="CasiSiempre"){
+                  pet7res337="Casi Siempre"
+                  pet7val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion7[68].Respuestas=="AlgunasVeces"){
+                  pet7res338="Algunas Veces"
+                  pet7val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion7[68].Respuestas=="CasiNunca"){
+                  pet7res339="Casi Nunca"
+                  pet7val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion7[68].Respuestas=="Nunca"){
+                  pet7res340="Nunca"
+                  pet7val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion7[69].Respuestas=="Siempre"){
+                  pet7res341="Siempre"
+                  pet7val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion7[69].Respuestas=="CasiSiempre"){
+                  pet7res342="Casi Siempre"
+                  pet7val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion7[69].Respuestas=="AlgunasVeces"){
+                  pet7res343="Algunas Veces"
+                  pet7val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion7[69].Respuestas=="CasiNunca"){
+                  pet7res344="Casi Nunca"
+                  pet7val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion7[69].Respuestas=="Nunca"){
+                  pet7res345="Nunca"
+                  pet7val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion7[70].Respuestas=="Siempre"){
+                  pet7res346="Siempre"
+                  pet7val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion7[70].Respuestas=="CasiSiempre"){
+                  pet7res347="Casi Siempre"
+                  pet7val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion7[70].Respuestas=="AlgunasVeces"){
+                  pet7res348="Algunas Veces"
+                  pet7val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion7[70].Respuestas=="CasiNunca"){
+                  pet7res349="Casi Nunca"
+                  pet7val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion7[70].Respuestas=="Nunca"){
+                  pet7res350="Nunca"
+                  pet7val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion7[71].Respuestas=="Siempre"){
+                  pet7res351="Siempre"
+                  pet7val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion7[71].Respuestas=="CasiSiempre"){
+                  pet7res352="Casi Siempre"
+                  pet7val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion7[71].Respuestas=="AlgunasVeces"){
+                  pet7res353="Algunas Veces"
+                  pet7val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion7[71].Respuestas=="CasiNunca"){
+                  pet7res354="Casi Nunca"
+                  pet7val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion7[71].Respuestas=="Nunca"){
+                  pet7res355="Nunca"
+                  pet7val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion7[72].Respuestas=="Siempre"){
+                  pet7res356="Siempre"
+                  pet7val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion7[72].Respuestas=="CasiSiempre"){
+                  pet7res357="Casi Siempre"
+                  pet7val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion7[72].Respuestas=="AlgunasVeces"){
+                  pet7res358="Algunas Veces"
+                  pet7val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion7[72].Respuestas=="CasiNunca"){
+                  pet7res359="Casi Nunca"
+                  pet7val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion7[72].Respuestas=="Nunca"){
+                  pet7res360="Nunca"
+                  pet7val72= this.state.getPonderacion[71].nunca
+                }
  } 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -7899,25 +11611,25 @@ console.log("entro a la peticion 3" )
       } 
   
   
-    if(this.state.peticion8[2].Respuestas=="Siempre"){
-      pet8res6="Siempre"
-      pet8val2= this.state.peticion8[1].siempre
-      }else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiSiempre"){
-        pet8res7="Casi Siempre"
-        pet8val2= this.state.peticion8[1].casisiempre
-      }
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="AlgunasVeces"){
-        pet8res8="Algunas Veces"
-        pet8val2= this.state.peticion8[1].algunasveces
-      } 
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
-        pet8res9="Casi Nunca"
-        pet8val2= this.state.peticion8[2].casinunca
-      } 
-      else if(this.state.peticion8[2].Respuestas=="Nunca"){
-        pet8res10="Nunca"
-        pet8val2= this.state.peticion8[1].nunca
-      } 
+      if(this.state.peticion8[2].Respuestas=="Siempre"){
+        pet8res6="Siempre"
+        pet8val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion8[2].Respuestas=="CasiSiempre"){
+          pet8res7="Casi Siempre"
+          pet8val2= this.state.getPonderacion[1].casisiempre
+        }
+        else if(this.state.peticion8[2].Respuestas=="AlgunasVeces"){
+          pet8res8="Algunas Veces"
+          pet8val2= this.state.getPonderacion[1].algunasveces
+        } 
+        else if(this.state.peticion8[2].Respuestas=="CasiNunca"){
+          pet8res9="Casi Nunca"
+          pet8val2= this.state.getPonderacion[1].casinunca
+        } 
+        else if(this.state.peticion8[2].Respuestas=="Nunca"){
+          pet8res10="Nunca"
+          pet8val2= this.state.getPonderacion[1].nunca
+        } 
   
       if(this.state.peticion8[3].Respuestas=="Siempre"){
         pet8res11="Siempre"
@@ -8562,7 +12274,7 @@ console.log("entro a la peticion 3" )
               pet8res174="Casi Nunca"
               pet8val35= this.state.getPonderacion[34].casinunca
             } 
-            else if(this.state.peticion8[15].Respuestas=="Nunca"){
+            else if(this.state.peticion8[35].Respuestas=="Nunca"){
               pet8res175="Nunca"
               pet8val35= this.state.getPonderacion[34].nunca
             } 
@@ -8667,122 +12379,619 @@ console.log("entro a la peticion 3" )
                   pet8val40= this.state.getPonderacion[39].nunca
                 }
   
-              if(this.state.peticion8[42].Respuestas=="Siempre"){
-                pet8res201="Siempre"
-                pet8val41= this.state.getPonderacion[40].siempre
-              }else if(this.state.peticion8[42].Respuestas=="CasiSiempre"){
-                pet8res202="Casi Siempre"
-                pet8val41= this.state.getPonderacion[40].casisiempre
-              }
-              else if(this.state.peticion8[42].Respuestas=="AlgunasVeces"){
-                pet8res203="Algunas Veces"
-                pet8val41= this.state.getPonderacion[40].algunasveces
-              } 
-              else if(this.state.peticion8[42].Respuestas=="CasiNunca"){
-                pet8res204="Casi Nunca"
-                pet8val41= this.state.getPonderacion[40].casinunca
-              } 
-              else if(this.state.peticion8[42].Respuestas=="Nunca"){
-                pet8res205="Nunca"
-                pet8val41= this.state.getPonderacion[40].nunca
-              }
-            if(this.state.peticion8[43].Respuestas=="Siempre"){
-              pet8res206="Siempre"
-              pet8val42= this.state.getPonderacion[41].siempre
-            }else if(this.state.peticion8[43].Respuestas=="CasiSiempre"){
-              pet8res207="Casi Siempre"
-              pet8val42= this.state.getPonderacion[41].casisiempre
-            }
-            else if(this.state.peticion8[43].Respuestas=="AlgunasVeces"){
-              pet8res208="Algunas Veces"
-              pet8val42= this.state.getPonderacion[41].algunasveces
-            } 
-            else if(this.state.peticion8[43].Respuestas=="CasiNunca"){
-              pet8res209="Casi Nunca"
-              pet8val42= this.state.getPonderacion[41].casinunca
-            } 
-            else if(this.state.peticion8[43].Respuestas=="Nunca"){
-              pet8res210="Nunca"
-              pet8val42= this.state.getPonderacion[41].nunca
-            }
-          if(this.state.peticion8[44].Respuestas=="Siempre"){
-            pet8res211="Siempre"
-            pet8val43= this.state.getPonderacion[42].siempre
-          }else if(this.state.peticion8[44].Respuestas=="CasiSiempre"){
-            pet8res212="Casi Siempre"
-            pet8val43= this.state.getPonderacion[42].casisiempre
-          }
-          else if(this.state.peticion8[44].Respuestas=="AlgunasVeces"){
-            pet8res213="Algunas Veces"
-            pet8val43= this.state.getPonderacion[42].algunasveces
-          } 
-          else if(this.state.peticion8[44].Respuestas=="CasiNunca"){
-            pet8res214="Casi Nunca"
-            pet8val43= this.state.getPonderacion[42].casinunca
-          } 
-          else if(this.state.peticion8[44].Respuestas=="Nunca"){
-            pet8res215="Nunca"
-            pet8val43= this.state.getPonderacion[42].nunca
-          }
+                if(this.state.peticion8[41].Respuestas=="Siempre"){
+                  pet8res201="Siempre"
+                  pet8val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion8[41].Respuestas=="CasiSiempre"){
+                  pet8res202="Casi Siempre"
+                  pet8val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion8[41].Respuestas=="AlgunasVeces"){
+                  pet8res203="Algunas Veces"
+                  pet8val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion8[41].Respuestas=="CasiNunca"){
+                  pet8res204="Casi Nunca"
+                  pet8val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion8[41].Respuestas=="Nunca"){
+                  pet8res205="Nunca"
+                  pet8val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion8[42].Respuestas=="Siempre"){
+                  pet8res206="Siempre"
+                  pet8val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion8[42].Respuestas=="CasiSiempre"){
+                  pet8res207="Casi Siempre"
+                  pet8val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion8[42].Respuestas=="AlgunasVeces"){
+                  pet8res208="Algunas Veces"
+                  pet8val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion8[42].Respuestas=="CasiNunca"){
+                  pet8res209="Casi Nunca"
+                  pet8val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion8[42].Respuestas=="Nunca"){
+                  pet8res210="Nunca"
+                  pet8val42= this.state.getPonderacion[41].nunca
+                }
   
-        if(this.state.peticion8[46].Respuestas=="Siempre"){
-          pet8res216="Siempre"
-          pet8val44= this.state.getPonderacion[43].siempre
-        }else if(this.state.peticion8[46].Respuestas=="CasiSiempre"){
-          pet8res217="Casi Siempre"
-          pet8val44= this.state.getPonderacion[43].casisiempre
-        }
-        else if(this.state.peticion8[46].Respuestas=="AlgunasVeces"){
-          pet8res218="Algunas Veces"
-          pet8val44= this.state.getPonderacion[43].algunasveces
-        } 
-        else if(this.state.peticion8[46].Respuestas=="CasiNunca"){
-          pet8res219="Casi Nunca"
-          pet8val44= this.state.getPonderacion[43].casinunca
-        } 
-        else if(this.state.peticion8[46].Respuestas=="Nunca"){
-          pet8res220="Nunca"
-          pet8val44= this.state.getPonderacion[43].nunca
-        }
+                if(this.state.peticion8[43].Respuestas=="Siempre"){
+                  pet8res211="Siempre"
+                  pet8val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion8[43].Respuestas=="CasiSiempre"){
+                  pet8res212="Casi Siempre"
+                  pet8val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion8[43].Respuestas=="AlgunasVeces"){
+                  pet8res213="Algunas Veces"
+                  pet8val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion8[43].Respuestas=="CasiNunca"){
+                  pet8res214="Casi Nunca"
+                  pet8val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion8[43].Respuestas=="Nunca"){
+                  pet8res215="Nunca"
+                  pet8val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion8[44].Respuestas=="Siempre"){
+                  pet8res216="Siempre"
+                  pet8val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion8[44].Respuestas=="CasiSiempre"){
+                  pet8res217="Casi Siempre"
+                  pet8val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion8[44].Respuestas=="AlgunasVeces"){
+                  pet8res218="Algunas Veces"
+                  pet8val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion8[44].Respuestas=="CasiNunca"){
+                  pet8res219="Casi Nunca"
+                  pet8val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion8[44].Respuestas=="Nunca"){
+                  pet8res220="Nunca"
+                  pet8val44= this.state.getPonderacion[43].nunca
+                }
   
-      if(this.state.peticion8[47].Respuestas=="Siempre"){
-        pet8res221="Siempre"
-        pet8val45= this.state.getPonderacion[44].siempre
-      }else if(this.state.peticion8[47].Respuestas=="CasiSiempre"){
-        pet8res222="Casi Siempre"
-        pet8val45= this.state.getPonderacion[44].casisiempre
-      }
-      else if(this.state.peticion8[47].Respuestas=="AlgunasVeces"){
-        pet8res223="Algunas Veces"
-        pet8val45= this.state.getPonderacion[44].algunasveces
-      } 
-      else if(this.state.peticion8[47].Respuestas=="CasiNunca"){
-        pet8res224="Casi Nunca"
-        pet8val45= this.state.getPonderacion[44].casinunca
-      } 
-      else if(this.state.peticion8[47].Respuestas=="Nunca"){
-        pet8res225="Nunca"
-        pet8val45= this.state.getPonderacion[44].nunca
-      }
-      if(this.state.peticion8[48].Respuestas=="Siempre"){
-        pet8res226="Siempre"
-        pet8val46= this.state.getPonderacion[45].siempre
-      }else if(this.state.peticion8[48].Respuestas=="CasiSiempre"){
-        pet8res227="Casi Siempre"
-        pet8val46= this.state.getPonderacion[45].casisiempre
-      }
-      else if(this.state.peticion8[48].Respuestas=="AlgunasVeces"){
-        pet8res228="Algunas Veces"
-        pet8val46= this.state.getPonderacion[45].algunasveces
-      } 
-      else if(this.state.peticion8[48].Respuestas=="CasiNunca"){
-        pet8res229="Casi Nunca"
-        pet8val46= this.state.getPonderacion[45].casinunca
-      } 
-      else if(this.state.peticion8[48].Respuestas=="Nunca"){
-        pet8res230="Nunca"
-        pet8val46= this.state.getPonderacion[45].nunca
-      }
+                if(this.state.peticion8[45].Respuestas=="Siempre"){
+                  pet8res221="Siempre"
+                  pet8val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion8[45].Respuestas=="CasiSiempre"){
+                  pet8res222="Casi Siempre"
+                  pet8val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion8[45].Respuestas=="AlgunasVeces"){
+                  pet8res223="Algunas Veces"
+                  pet8val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion8[45].Respuestas=="CasiNunca"){
+                  pet8res224="Casi Nunca"
+                  pet8val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion8[45].Respuestas=="Nunca"){
+                  pet8res225="Nunca"
+                  pet8val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion8[46].Respuestas=="Siempre"){
+                  pet8res226="Siempre"
+                  pet8val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion8[46].Respuestas=="CasiSiempre"){
+                  pet8res227="Casi Siempre"
+                  pet8val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion8[46].Respuestas=="AlgunasVeces"){
+                  pet8res228="Algunas Veces"
+                  pet8val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion8[46].Respuestas=="CasiNunca"){
+                  pet8res229="Casi Nunca"
+                  pet8val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion8[46].Respuestas=="Nunca"){
+                  pet8res230="Nunca"
+                  pet8val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion8[47].Respuestas=="Siempre"){
+                  pet8res231="Siempre"
+                  pet8val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion8[47].Respuestas=="CasiSiempre"){
+                  pet8res232="Casi Siempre"
+                  pet8val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion8[47].Respuestas=="AlgunasVeces"){
+                  pet8res233="Algunas Veces"
+                  pet8val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion8[47].Respuestas=="CasiNunca"){
+                  pet8res234="Casi Nunca"
+                  pet8val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion8[47].Respuestas=="Nunca"){
+                  pet8res235="Nunca"
+                  pet8val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion8[48].Respuestas=="Siempre"){
+                  pet8res236="Siempre"
+                  pet8val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion8[48].Respuestas=="CasiSiempre"){
+                  pet8res237="Casi Siempre"
+                  pet8val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion8[48].Respuestas=="AlgunasVeces"){
+                  pet8res238="Algunas Veces"
+                  pet8val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion8[48].Respuestas=="CasiNunca"){
+                  pet8res239="Casi Nunca"
+                  pet8val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion8[48].Respuestas=="Nunca"){
+                  pet8res240="Nunca"
+                  pet8val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion8[49].Respuestas=="Siempre"){
+                  pet8res241="Siempre"
+                  pet8val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion8[49].Respuestas=="CasiSiempre"){
+                  pet8res242="Casi Siempre"
+                  pet8val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion8[49].Respuestas=="AlgunasVeces"){
+                  pet8res243="Algunas Veces"
+                  pet8val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion8[49].Respuestas=="CasiNunca"){
+                  pet8res244="Casi Nunca"
+                  pet8val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion8[49].Respuestas=="Nunca"){
+                  pet8res245="Nunca"
+                  pet8val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion8[50].Respuestas=="Siempre"){
+                  pet8res246="Siempre"
+                  pet8val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion8[50].Respuestas=="CasiSiempre"){
+                  pet8res247="Casi Siempre"
+                  pet8val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion8[50].Respuestas=="AlgunasVeces"){
+                  pet8res248="Algunas Veces"
+                  pet8val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion8[50].Respuestas=="CasiNunca"){
+                  pet8res249="Casi Nunca"
+                  pet8val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion8[50].Respuestas=="Nunca"){
+                  pet8res250="Nunca"
+                  pet8val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion8[51].Respuestas=="Siempre"){
+                  pet8res251="Siempre"
+                  pet8val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion8[51].Respuestas=="CasiSiempre"){
+                  pet8res252="Casi Siempre"
+                  pet8val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion8[51].Respuestas=="AlgunasVeces"){
+                  pet8res253="Algunas Veces"
+                  pet8val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion8[51].Respuestas=="CasiNunca"){
+                  pet8res254="Casi Nunca"
+                  pet8val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion8[51].Respuestas=="Nunca"){
+                  pet8res255="Nunca"
+                  pet8val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion8[52].Respuestas=="Siempre"){
+                  pet8res256="Siempre"
+                  pet8val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion8[52].Respuestas=="CasiSiempre"){
+                  pet8res257="Casi Siempre"
+                  pet8val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion8[52].Respuestas=="AlgunasVeces"){
+                  pet8res258="Algunas Veces"
+                  pet8val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion8[52].Respuestas=="CasiNunca"){
+                  pet8res259="Casi Nunca"
+                  pet8val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion8[52].Respuestas=="Nunca"){
+                  pet8res260="Nunca"
+                  pet8val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion8[53].Respuestas=="Siempre"){
+                  pet8res261="Siempre"
+                  pet8val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion8[53].Respuestas=="CasiSiempre"){
+                  pet8res262="Casi Siempre"
+                  pet8val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion8[53].Respuestas=="AlgunasVeces"){
+                  pet8res263="Algunas Veces"
+                  pet8val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion8[53].Respuestas=="CasiNunca"){
+                  pet8res264="Casi Nunca"
+                  pet8val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion8[53].Respuestas=="Nunca"){
+                  pet8res265="Nunca"
+                  pet8val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion8[54].Respuestas=="Siempre"){
+                  pet8res266="Siempre"
+                  pet8val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion8[54].Respuestas=="CasiSiempre"){
+                  pet8res267="Casi Siempre"
+                  pet8val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion8[54].Respuestas=="AlgunasVeces"){
+                  pet8res268="Algunas Veces"
+                  pet8val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion8[54].Respuestas=="CasiNunca"){
+                  pet8res269="Casi Nunca"
+                  pet8val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion8[54].Respuestas=="Nunca"){
+                  pet8res270="Nunca"
+                  pet8val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion8[55].Respuestas=="Siempre"){
+                  pet8res271="Siempre"
+                  pet8val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion8[55].Respuestas=="CasiSiempre"){
+                  pet8res272="Casi Siempre"
+                  pet8val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion8[55].Respuestas=="AlgunasVeces"){
+                  pet8res273="Algunas Veces"
+                  pet8val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion8[55].Respuestas=="CasiNunca"){
+                  pet8res274="Casi Nunca"
+                  pet8val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion8[55].Respuestas=="Nunca"){
+                  pet8res275="Nunca"
+                  pet8val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion8[56].Respuestas=="Siempre"){
+                  pet8res276="Siempre"
+                  pet8val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion8[56].Respuestas=="CasiSiempre"){
+                  pet8res277="Casi Siempre"
+                  pet8val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion8[56].Respuestas=="AlgunasVeces"){
+                  pet8res278="Algunas Veces"
+                  pet8val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion8[56].Respuestas=="CasiNunca"){
+                  pet8res279="Casi Nunca"
+                  pet8val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion8[56].Respuestas=="Nunca"){
+                  pet8res280="Nunca"
+                  pet8val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion8[57].Respuestas=="Siempre"){
+                  pet8res281="Siempre"
+                  pet8val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion8[57].Respuestas=="CasiSiempre"){
+                  pet8res282="Casi Siempre"
+                  pet8val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion8[57].Respuestas=="AlgunasVeces"){
+                  pet8res283="Algunas Veces"
+                  pet8val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion8[57].Respuestas=="CasiNunca"){
+                  pet8res284="Casi Nunca"
+                  pet8val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion8[57].Respuestas=="Nunca"){
+                  pet8res285="Nunca"
+                  pet8val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion8[58].Respuestas=="Siempre"){
+                  pet8res286="Siempre"
+                  pet8val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion8[58].Respuestas=="CasiSiempre"){
+                  pet8res287="Casi Siempre"
+                  pet8val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion8[58].Respuestas=="AlgunasVeces"){
+                  pet8res288="Algunas Veces"
+                  pet8val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion8[58].Respuestas=="CasiNunca"){
+                  pet8res289="Casi Nunca"
+                  pet8val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion8[58].Respuestas=="Nunca"){
+                  pet8res290="Nunca"
+                  pet8val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion8[59].Respuestas=="Siempre"){
+                  pet8res291="Siempre"
+                  pet8val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion8[59].Respuestas=="CasiSiempre"){
+                  pet8res292="Casi Siempre"
+                  pet8val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion8[59].Respuestas=="AlgunasVeces"){
+                  pet8res293="Algunas Veces"
+                  pet8val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion8[59].Respuestas=="CasiNunca"){
+                  pet8res294="Casi Nunca"
+                  pet8val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion8[59].Respuestas=="Nunca"){
+                  pet8res295="Nunca"
+                  pet8val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion8[60].Respuestas=="Siempre"){
+                  pet8res296="Siempre"
+                  pet8val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion8[60].Respuestas=="CasiSiempre"){
+                  pet8res297="Casi Siempre"
+                  pet8val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion8[60].Respuestas=="AlgunasVeces"){
+                  pet8res298="Algunas Veces"
+                  pet8val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion8[60].Respuestas=="CasiNunca"){
+                  pet8res299="Casi Nunca"
+                  pet8val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion8[60].Respuestas=="Nunca"){
+                  pet8res300="Nunca"
+                  pet8val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion8[61].Respuestas=="Siempre"){
+                  pet8res301="Siempre"
+                  pet8val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion8[61].Respuestas=="CasiSiempre"){
+                  pet8res302="Casi Siempre"
+                  pet8val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion8[61].Respuestas=="AlgunasVeces"){
+                  pet8res303="Algunas Veces"
+                  pet8val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion8[61].Respuestas=="CasiNunca"){
+                  pet8res304="Casi Nunca"
+                  pet8val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion8[61].Respuestas=="Nunca"){
+                  pet8res305="Nunca"
+                  pet8val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion8[62].Respuestas=="Siempre"){
+                  pet8res306="Siempre"
+                  pet8val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion8[62].Respuestas=="CasiSiempre"){
+                  pet8res307="Casi Siempre"
+                  pet8val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion8[62].Respuestas=="AlgunasVeces"){
+                  pet8res308="Algunas Veces"
+                  pet8val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion8[62].Respuestas=="CasiNunca"){
+                  pet8res309="Casi Nunca"
+                  pet8val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion8[62].Respuestas=="Nunca"){
+                  pet8res310="Nunca"
+                  pet8val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion8[63].Respuestas=="Siempre"){
+                  pet8res311="Siempre"
+                  pet8val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion8[63].Respuestas=="CasiSiempre"){
+                  pet8res312="Casi Siempre"
+                  pet8val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion8[63].Respuestas=="AlgunasVeces"){
+                  pet8res313="Algunas Veces"
+                  pet8val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion8[63].Respuestas=="CasiNunca"){
+                  pet8res314="Casi Nunca"
+                  pet8val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion8[63].Respuestas=="Nunca"){
+                  pet8res315="Nunca"
+                  pet8val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion8[64].Respuestas=="Siempre"){
+                  pet8res316="Siempre"
+                  pet8val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion8[64].Respuestas=="CasiSiempre"){
+                  pet8res317="Casi Siempre"
+                  pet8val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion8[64].Respuestas=="AlgunasVeces"){
+                  pet8res318="Algunas Veces"
+                  pet8val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion8[64].Respuestas=="CasiNunca"){
+                  pet8res319="Casi Nunca"
+                  pet8val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion8[64].Respuestas=="Nunca"){
+                  pet8res320="Nunca"
+                  pet8val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion8[65].Respuestas=="Siempre"){
+                  pet8res321="Siempre"
+                  pet8val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion8[65].Respuestas=="CasiSiempre"){
+                  pet8res322="Casi Siempre"
+                  pet8val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion8[65].Respuestas=="AlgunasVeces"){
+                  pet8res323="Algunas Veces"
+                  pet8val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion8[65].Respuestas=="CasiNunca"){
+                  pet8res324="Casi Nunca"
+                  pet8val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion8[65].Respuestas=="Nunca"){
+                  pet8res325="Nunca"
+                  pet8val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion8[66].Respuestas=="Siempre"){
+                  pet8res326="Siempre"
+                  pet8val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion8[66].Respuestas=="CasiSiempre"){
+                  pet8res327="Casi Siempre"
+                  pet8val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion8[66].Respuestas=="AlgunasVeces"){
+                  pet8res328="Algunas Veces"
+                  pet8val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion8[66].Respuestas=="CasiNunca"){
+                  pet8res329="Casi Nunca"
+                  pet8val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion8[66].Respuestas=="Nunca"){
+                  pet8res330="Nunca"
+                  pet8val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion8[67].Respuestas=="Siempre"){
+                  pet8res331="Siempre"
+                  pet8val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion8[67].Respuestas=="CasiSiempre"){
+                  pet8res332="Casi Siempre"
+                  pet8val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion8[67].Respuestas=="AlgunasVeces"){
+                  pet8res333="Algunas Veces"
+                  pet8val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion8[67].Respuestas=="CasiNunca"){
+                  pet8res334="Casi Nunca"
+                  pet8val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion8[67].Respuestas=="Nunca"){
+                  pet8res335="Nunca"
+                  pet8val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion8[68].Respuestas=="Siempre"){
+                  pet8res336="Siempre"
+                  pet8val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion8[68].Respuestas=="CasiSiempre"){
+                  pet8res337="Casi Siempre"
+                  pet8val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion8[68].Respuestas=="AlgunasVeces"){
+                  pet8res338="Algunas Veces"
+                  pet8val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion8[68].Respuestas=="CasiNunca"){
+                  pet8res339="Casi Nunca"
+                  pet8val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion8[68].Respuestas=="Nunca"){
+                  pet8res340="Nunca"
+                  pet8val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion8[69].Respuestas=="Siempre"){
+                  pet8res341="Siempre"
+                  pet8val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion8[69].Respuestas=="CasiSiempre"){
+                  pet8res342="Casi Siempre"
+                  pet8val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion8[69].Respuestas=="AlgunasVeces"){
+                  pet8res343="Algunas Veces"
+                  pet8val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion8[69].Respuestas=="CasiNunca"){
+                  pet8res344="Casi Nunca"
+                  pet8val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion8[69].Respuestas=="Nunca"){
+                  pet8res345="Nunca"
+                  pet8val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion8[70].Respuestas=="Siempre"){
+                  pet8res346="Siempre"
+                  pet8val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion8[70].Respuestas=="CasiSiempre"){
+                  pet8res347="Casi Siempre"
+                  pet8val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion8[70].Respuestas=="AlgunasVeces"){
+                  pet8res348="Algunas Veces"
+                  pet8val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion8[70].Respuestas=="CasiNunca"){
+                  pet8res349="Casi Nunca"
+                  pet8val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion8[70].Respuestas=="Nunca"){
+                  pet8res350="Nunca"
+                  pet8val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion8[71].Respuestas=="Siempre"){
+                  pet8res351="Siempre"
+                  pet8val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion8[71].Respuestas=="CasiSiempre"){
+                  pet8res352="Casi Siempre"
+                  pet8val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion8[71].Respuestas=="AlgunasVeces"){
+                  pet8res353="Algunas Veces"
+                  pet8val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion8[71].Respuestas=="CasiNunca"){
+                  pet8res354="Casi Nunca"
+                  pet8val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion8[71].Respuestas=="Nunca"){
+                  pet8res355="Nunca"
+                  pet8val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion8[72].Respuestas=="Siempre"){
+                  pet8res356="Siempre"
+                  pet8val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion8[72].Respuestas=="CasiSiempre"){
+                  pet8res357="Casi Siempre"
+                  pet8val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion8[72].Respuestas=="AlgunasVeces"){
+                  pet8res358="Algunas Veces"
+                  pet8val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion8[72].Respuestas=="CasiNunca"){
+                  pet8res359="Casi Nunca"
+                  pet8val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion8[72].Respuestas=="Nunca"){
+                  pet8res360="Nunca"
+                  pet8val72= this.state.getPonderacion[71].nunca
+                }
    } 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -8810,25 +13019,25 @@ console.log("entro a la peticion 3" )
       } 
   
   
-    if(this.state.peticion9[2].Respuestas=="Siempre"){
-      pet9res6="Siempre"
-      pet9val2= this.state.peticion9[1].siempre
-      }else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiSiempre"){
-        pet9res7="Casi Siempre"
-        pet9val2= this.state.peticion9[1].casisiempre
-      }
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="AlgunasVeces"){
-        pet9res8="Algunas Veces"
-        pet9val2= this.state.peticion9[1].algunasveces
-      } 
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
-        pet9res9="Casi Nunca"
-        pet9val2= this.state.peticion9[2].casinunca
-      } 
-      else if(this.state.peticion9[2].Respuestas=="Nunca"){
-        pet9res10="Nunca"
-        pet9val2= this.state.peticion9[1].nunca
-      } 
+      if(this.state.peticion9[2].Respuestas=="Siempre"){
+        pet9res6="Siempre"
+        pet9val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion9[2].Respuestas=="CasiSiempre"){
+          pet9res7="Casi Siempre"
+          pet9val2= this.state.getPonderacion[1].casisiempre
+        }
+        else if(this.state.peticion9[2].Respuestas=="AlgunasVeces"){
+          pet9res8="Algunas Veces"
+          pet9val2= this.state.getPonderacion[1].algunasveces
+        } 
+        else if(this.state.peticion9[2].Respuestas=="CasiNunca"){
+          pet9res9="Casi Nunca"
+          pet9val2= this.state.getPonderacion[1].casinunca
+        } 
+        else if(this.state.peticion9[2].Respuestas=="Nunca"){
+          pet9res10="Nunca"
+          pet9val2= this.state.getPonderacion[1].nunca
+        } 
   
       if(this.state.peticion9[3].Respuestas=="Siempre"){
         pet9res11="Siempre"
@@ -9473,7 +13682,7 @@ console.log("entro a la peticion 3" )
               pet9res174="Casi Nunca"
               pet9val35= this.state.getPonderacion[34].casinunca
             } 
-            else if(this.state.peticion9[15].Respuestas=="Nunca"){
+            else if(this.state.peticion9[35].Respuestas=="Nunca"){
               pet9res175="Nunca"
               pet9val35= this.state.getPonderacion[34].nunca
             } 
@@ -9578,122 +13787,619 @@ console.log("entro a la peticion 3" )
                   pet9val40= this.state.getPonderacion[39].nunca
                 }
   
-              if(this.state.peticion9[42].Respuestas=="Siempre"){
-                pet9res201="Siempre"
-                pet9val41= this.state.getPonderacion[40].siempre
-              }else if(this.state.peticion9[42].Respuestas=="CasiSiempre"){
-                pet9res202="Casi Siempre"
-                pet9val41= this.state.getPonderacion[40].casisiempre
-              }
-              else if(this.state.peticion9[42].Respuestas=="AlgunasVeces"){
-                pet9res203="Algunas Veces"
-                pet9val41= this.state.getPonderacion[40].algunasveces
-              } 
-              else if(this.state.peticion9[42].Respuestas=="CasiNunca"){
-                pet9res204="Casi Nunca"
-                pet9val41= this.state.getPonderacion[40].casinunca
-              } 
-              else if(this.state.peticion9[42].Respuestas=="Nunca"){
-                pet9res205="Nunca"
-                pet9val41= this.state.getPonderacion[40].nunca
-              }
-            if(this.state.peticion9[43].Respuestas=="Siempre"){
-              pet9res206="Siempre"
-              pet9val42= this.state.getPonderacion[41].siempre
-            }else if(this.state.peticion9[43].Respuestas=="CasiSiempre"){
-              pet9res207="Casi Siempre"
-              pet9val42= this.state.getPonderacion[41].casisiempre
-            }
-            else if(this.state.peticion9[43].Respuestas=="AlgunasVeces"){
-              pet9res208="Algunas Veces"
-              pet9val42= this.state.getPonderacion[41].algunasveces
-            } 
-            else if(this.state.peticion9[43].Respuestas=="CasiNunca"){
-              pet9res209="Casi Nunca"
-              pet9val42= this.state.getPonderacion[41].casinunca
-            } 
-            else if(this.state.peticion9[43].Respuestas=="Nunca"){
-              pet9res210="Nunca"
-              pet9val42= this.state.getPonderacion[41].nunca
-            }
-          if(this.state.peticion9[44].Respuestas=="Siempre"){
-            pet9res211="Siempre"
-            pet9val43= this.state.getPonderacion[42].siempre
-          }else if(this.state.peticion9[44].Respuestas=="CasiSiempre"){
-            pet9res212="Casi Siempre"
-            pet9val43= this.state.getPonderacion[42].casisiempre
-          }
-          else if(this.state.peticion9[44].Respuestas=="AlgunasVeces"){
-            pet9res213="Algunas Veces"
-            pet9val43= this.state.getPonderacion[42].algunasveces
-          } 
-          else if(this.state.peticion9[44].Respuestas=="CasiNunca"){
-            pet9res214="Casi Nunca"
-            pet9val43= this.state.getPonderacion[42].casinunca
-          } 
-          else if(this.state.peticion9[44].Respuestas=="Nunca"){
-            pet9res215="Nunca"
-            pet9val43= this.state.getPonderacion[42].nunca
-          }
+                if(this.state.peticion9[41].Respuestas=="Siempre"){
+                  pet9res201="Siempre"
+                  pet9val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion9[41].Respuestas=="CasiSiempre"){
+                  pet9res202="Casi Siempre"
+                  pet9val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion9[41].Respuestas=="AlgunasVeces"){
+                  pet9res203="Algunas Veces"
+                  pet9val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion9[41].Respuestas=="CasiNunca"){
+                  pet9res204="Casi Nunca"
+                  pet9val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion9[41].Respuestas=="Nunca"){
+                  pet9res205="Nunca"
+                  pet9val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion9[42].Respuestas=="Siempre"){
+                  pet9res206="Siempre"
+                  pet9val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion9[42].Respuestas=="CasiSiempre"){
+                  pet9res207="Casi Siempre"
+                  pet9val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion9[42].Respuestas=="AlgunasVeces"){
+                  pet9res208="Algunas Veces"
+                  pet9val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion9[42].Respuestas=="CasiNunca"){
+                  pet9res209="Casi Nunca"
+                  pet9val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion9[42].Respuestas=="Nunca"){
+                  pet9res210="Nunca"
+                  pet9val42= this.state.getPonderacion[41].nunca
+                }
   
-        if(this.state.peticion9[46].Respuestas=="Siempre"){
-          pet9res216="Siempre"
-          pet9val44= this.state.getPonderacion[43].siempre
-        }else if(this.state.peticion9[46].Respuestas=="CasiSiempre"){
-          pet9res217="Casi Siempre"
-          pet9val44= this.state.getPonderacion[43].casisiempre
-        }
-        else if(this.state.peticion9[46].Respuestas=="AlgunasVeces"){
-          pet9res218="Algunas Veces"
-          pet9val44= this.state.getPonderacion[43].algunasveces
-        } 
-        else if(this.state.peticion9[46].Respuestas=="CasiNunca"){
-          pet9res219="Casi Nunca"
-          pet9val44= this.state.getPonderacion[43].casinunca
-        } 
-        else if(this.state.peticion9[46].Respuestas=="Nunca"){
-          pet9res220="Nunca"
-          pet9val44= this.state.getPonderacion[43].nunca
-        }
+                if(this.state.peticion9[43].Respuestas=="Siempre"){
+                  pet9res211="Siempre"
+                  pet9val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion9[43].Respuestas=="CasiSiempre"){
+                  pet9res212="Casi Siempre"
+                  pet9val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion9[43].Respuestas=="AlgunasVeces"){
+                  pet9res213="Algunas Veces"
+                  pet9val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion9[43].Respuestas=="CasiNunca"){
+                  pet9res214="Casi Nunca"
+                  pet9val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion9[43].Respuestas=="Nunca"){
+                  pet9res215="Nunca"
+                  pet9val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion9[44].Respuestas=="Siempre"){
+                  pet9res216="Siempre"
+                  pet9val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion9[44].Respuestas=="CasiSiempre"){
+                  pet9res217="Casi Siempre"
+                  pet9val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion9[44].Respuestas=="AlgunasVeces"){
+                  pet9res218="Algunas Veces"
+                  pet9val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion9[44].Respuestas=="CasiNunca"){
+                  pet9res219="Casi Nunca"
+                  pet9val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion9[44].Respuestas=="Nunca"){
+                  pet9res220="Nunca"
+                  pet9val44= this.state.getPonderacion[43].nunca
+                }
   
-      if(this.state.peticion9[47].Respuestas=="Siempre"){
-        pet9res221="Siempre"
-        pet9val45= this.state.getPonderacion[44].siempre
-      }else if(this.state.peticion9[47].Respuestas=="CasiSiempre"){
-        pet9res222="Casi Siempre"
-        pet9val45= this.state.getPonderacion[44].casisiempre
-      }
-      else if(this.state.peticion9[47].Respuestas=="AlgunasVeces"){
-        pet9res223="Algunas Veces"
-        pet9val45= this.state.getPonderacion[44].algunasveces
-      } 
-      else if(this.state.peticion9[47].Respuestas=="CasiNunca"){
-        pet9res224="Casi Nunca"
-        pet9val45= this.state.getPonderacion[44].casinunca
-      } 
-      else if(this.state.peticion9[47].Respuestas=="Nunca"){
-        pet9res225="Nunca"
-        pet9val45= this.state.getPonderacion[44].nunca
-      }
-      if(this.state.peticion9[48].Respuestas=="Siempre"){
-        pet9res226="Siempre"
-        pet9val46= this.state.getPonderacion[45].siempre
-      }else if(this.state.peticion9[48].Respuestas=="CasiSiempre"){
-        pet9res227="Casi Siempre"
-        pet9val46= this.state.getPonderacion[45].casisiempre
-      }
-      else if(this.state.peticion9[48].Respuestas=="AlgunasVeces"){
-        pet9res228="Algunas Veces"
-        pet9val46= this.state.getPonderacion[45].algunasveces
-      } 
-      else if(this.state.peticion9[48].Respuestas=="CasiNunca"){
-        pet9res229="Casi Nunca"
-        pet9val46= this.state.getPonderacion[45].casinunca
-      } 
-      else if(this.state.peticion9[48].Respuestas=="Nunca"){
-        pet9res230="Nunca"
-        pet9val46= this.state.getPonderacion[45].nunca
-      }
+                if(this.state.peticion9[45].Respuestas=="Siempre"){
+                  pet9res221="Siempre"
+                  pet9val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion9[45].Respuestas=="CasiSiempre"){
+                  pet9res222="Casi Siempre"
+                  pet9val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion9[45].Respuestas=="AlgunasVeces"){
+                  pet9res223="Algunas Veces"
+                  pet9val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion9[45].Respuestas=="CasiNunca"){
+                  pet9res224="Casi Nunca"
+                  pet9val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion9[45].Respuestas=="Nunca"){
+                  pet9res225="Nunca"
+                  pet9val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion9[46].Respuestas=="Siempre"){
+                  pet9res226="Siempre"
+                  pet9val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion9[46].Respuestas=="CasiSiempre"){
+                  pet9res227="Casi Siempre"
+                  pet9val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion9[46].Respuestas=="AlgunasVeces"){
+                  pet9res228="Algunas Veces"
+                  pet9val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion9[46].Respuestas=="CasiNunca"){
+                  pet9res229="Casi Nunca"
+                  pet9val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion9[46].Respuestas=="Nunca"){
+                  pet9res230="Nunca"
+                  pet9val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion9[47].Respuestas=="Siempre"){
+                  pet9res231="Siempre"
+                  pet9val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion9[47].Respuestas=="CasiSiempre"){
+                  pet9res232="Casi Siempre"
+                  pet9val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion9[47].Respuestas=="AlgunasVeces"){
+                  pet9res233="Algunas Veces"
+                  pet9val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion9[47].Respuestas=="CasiNunca"){
+                  pet9res234="Casi Nunca"
+                  pet9val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion9[47].Respuestas=="Nunca"){
+                  pet9res235="Nunca"
+                  pet9val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion9[48].Respuestas=="Siempre"){
+                  pet9res236="Siempre"
+                  pet9val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion9[48].Respuestas=="CasiSiempre"){
+                  pet9res237="Casi Siempre"
+                  pet9val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion9[48].Respuestas=="AlgunasVeces"){
+                  pet9res238="Algunas Veces"
+                  pet9val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion9[48].Respuestas=="CasiNunca"){
+                  pet9res239="Casi Nunca"
+                  pet9val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion9[48].Respuestas=="Nunca"){
+                  pet9res240="Nunca"
+                  pet9val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion9[49].Respuestas=="Siempre"){
+                  pet9res241="Siempre"
+                  pet9val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion9[49].Respuestas=="CasiSiempre"){
+                  pet9res242="Casi Siempre"
+                  pet9val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion9[49].Respuestas=="AlgunasVeces"){
+                  pet9res243="Algunas Veces"
+                  pet9val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion9[49].Respuestas=="CasiNunca"){
+                  pet9res244="Casi Nunca"
+                  pet9val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion9[49].Respuestas=="Nunca"){
+                  pet9res245="Nunca"
+                  pet9val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion9[50].Respuestas=="Siempre"){
+                  pet9res246="Siempre"
+                  pet9val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion9[50].Respuestas=="CasiSiempre"){
+                  pet9res247="Casi Siempre"
+                  pet9val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion9[50].Respuestas=="AlgunasVeces"){
+                  pet9res248="Algunas Veces"
+                  pet9val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion9[50].Respuestas=="CasiNunca"){
+                  pet9res249="Casi Nunca"
+                  pet9val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion9[50].Respuestas=="Nunca"){
+                  pet9res250="Nunca"
+                  pet9val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion9[51].Respuestas=="Siempre"){
+                  pet9res251="Siempre"
+                  pet9val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion9[51].Respuestas=="CasiSiempre"){
+                  pet9res252="Casi Siempre"
+                  pet9val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion9[51].Respuestas=="AlgunasVeces"){
+                  pet9res253="Algunas Veces"
+                  pet9val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion9[51].Respuestas=="CasiNunca"){
+                  pet9res254="Casi Nunca"
+                  pet9val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion9[51].Respuestas=="Nunca"){
+                  pet9res255="Nunca"
+                  pet9val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion9[52].Respuestas=="Siempre"){
+                  pet9res256="Siempre"
+                  pet9val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion9[52].Respuestas=="CasiSiempre"){
+                  pet9res257="Casi Siempre"
+                  pet9val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion9[52].Respuestas=="AlgunasVeces"){
+                  pet9res258="Algunas Veces"
+                  pet9val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion9[52].Respuestas=="CasiNunca"){
+                  pet9res259="Casi Nunca"
+                  pet9val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion9[52].Respuestas=="Nunca"){
+                  pet9res260="Nunca"
+                  pet9val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion9[53].Respuestas=="Siempre"){
+                  pet9res261="Siempre"
+                  pet9val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion9[53].Respuestas=="CasiSiempre"){
+                  pet9res262="Casi Siempre"
+                  pet9val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion9[53].Respuestas=="AlgunasVeces"){
+                  pet9res263="Algunas Veces"
+                  pet9val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion9[53].Respuestas=="CasiNunca"){
+                  pet9res264="Casi Nunca"
+                  pet9val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion9[53].Respuestas=="Nunca"){
+                  pet9res265="Nunca"
+                  pet9val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion9[54].Respuestas=="Siempre"){
+                  pet9res266="Siempre"
+                  pet9val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion9[54].Respuestas=="CasiSiempre"){
+                  pet9res267="Casi Siempre"
+                  pet9val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion9[54].Respuestas=="AlgunasVeces"){
+                  pet9res268="Algunas Veces"
+                  pet9val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion9[54].Respuestas=="CasiNunca"){
+                  pet9res269="Casi Nunca"
+                  pet9val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion9[54].Respuestas=="Nunca"){
+                  pet9res270="Nunca"
+                  pet9val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion9[55].Respuestas=="Siempre"){
+                  pet9res271="Siempre"
+                  pet9val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion9[55].Respuestas=="CasiSiempre"){
+                  pet9res272="Casi Siempre"
+                  pet9val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion9[55].Respuestas=="AlgunasVeces"){
+                  pet9res273="Algunas Veces"
+                  pet9val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion9[55].Respuestas=="CasiNunca"){
+                  pet9res274="Casi Nunca"
+                  pet9val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion9[55].Respuestas=="Nunca"){
+                  pet9res275="Nunca"
+                  pet9val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion9[56].Respuestas=="Siempre"){
+                  pet9res276="Siempre"
+                  pet9val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion9[56].Respuestas=="CasiSiempre"){
+                  pet9res277="Casi Siempre"
+                  pet9val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion9[56].Respuestas=="AlgunasVeces"){
+                  pet9res278="Algunas Veces"
+                  pet9val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion9[56].Respuestas=="CasiNunca"){
+                  pet9res279="Casi Nunca"
+                  pet9val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion9[56].Respuestas=="Nunca"){
+                  pet9res280="Nunca"
+                  pet9val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion9[57].Respuestas=="Siempre"){
+                  pet9res281="Siempre"
+                  pet9val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion9[57].Respuestas=="CasiSiempre"){
+                  pet9res282="Casi Siempre"
+                  pet9val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion9[57].Respuestas=="AlgunasVeces"){
+                  pet9res283="Algunas Veces"
+                  pet9val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion9[57].Respuestas=="CasiNunca"){
+                  pet9res284="Casi Nunca"
+                  pet9val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion9[57].Respuestas=="Nunca"){
+                  pet9res285="Nunca"
+                  pet9val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion9[58].Respuestas=="Siempre"){
+                  pet9res286="Siempre"
+                  pet9val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion9[58].Respuestas=="CasiSiempre"){
+                  pet9res287="Casi Siempre"
+                  pet9val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion9[58].Respuestas=="AlgunasVeces"){
+                  pet9res288="Algunas Veces"
+                  pet9val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion9[58].Respuestas=="CasiNunca"){
+                  pet9res289="Casi Nunca"
+                  pet9val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion9[58].Respuestas=="Nunca"){
+                  pet9res290="Nunca"
+                  pet9val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion9[59].Respuestas=="Siempre"){
+                  pet9res291="Siempre"
+                  pet9val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion9[59].Respuestas=="CasiSiempre"){
+                  pet9res292="Casi Siempre"
+                  pet9val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion9[59].Respuestas=="AlgunasVeces"){
+                  pet9res293="Algunas Veces"
+                  pet9val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion9[59].Respuestas=="CasiNunca"){
+                  pet9res294="Casi Nunca"
+                  pet9val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion9[59].Respuestas=="Nunca"){
+                  pet9res295="Nunca"
+                  pet9val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion9[60].Respuestas=="Siempre"){
+                  pet9res296="Siempre"
+                  pet9val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion9[60].Respuestas=="CasiSiempre"){
+                  pet9res297="Casi Siempre"
+                  pet9val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion9[60].Respuestas=="AlgunasVeces"){
+                  pet9res298="Algunas Veces"
+                  pet9val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion9[60].Respuestas=="CasiNunca"){
+                  pet9res299="Casi Nunca"
+                  pet9val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion9[60].Respuestas=="Nunca"){
+                  pet9res300="Nunca"
+                  pet9val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion9[61].Respuestas=="Siempre"){
+                  pet9res301="Siempre"
+                  pet9val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion9[61].Respuestas=="CasiSiempre"){
+                  pet9res302="Casi Siempre"
+                  pet9val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion9[61].Respuestas=="AlgunasVeces"){
+                  pet9res303="Algunas Veces"
+                  pet9val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion9[61].Respuestas=="CasiNunca"){
+                  pet9res304="Casi Nunca"
+                  pet9val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion9[61].Respuestas=="Nunca"){
+                  pet9res305="Nunca"
+                  pet9val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion9[62].Respuestas=="Siempre"){
+                  pet9res306="Siempre"
+                  pet9val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion9[62].Respuestas=="CasiSiempre"){
+                  pet9res307="Casi Siempre"
+                  pet9val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion9[62].Respuestas=="AlgunasVeces"){
+                  pet9res308="Algunas Veces"
+                  pet9val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion9[62].Respuestas=="CasiNunca"){
+                  pet9res309="Casi Nunca"
+                  pet9val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion9[62].Respuestas=="Nunca"){
+                  pet9res310="Nunca"
+                  pet9val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion9[63].Respuestas=="Siempre"){
+                  pet9res311="Siempre"
+                  pet9val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion9[63].Respuestas=="CasiSiempre"){
+                  pet9res312="Casi Siempre"
+                  pet9val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion9[63].Respuestas=="AlgunasVeces"){
+                  pet9res313="Algunas Veces"
+                  pet9val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion9[63].Respuestas=="CasiNunca"){
+                  pet9res314="Casi Nunca"
+                  pet9val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion9[63].Respuestas=="Nunca"){
+                  pet9res315="Nunca"
+                  pet9val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion9[64].Respuestas=="Siempre"){
+                  pet9res316="Siempre"
+                  pet9val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion9[64].Respuestas=="CasiSiempre"){
+                  pet9res317="Casi Siempre"
+                  pet9val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion9[64].Respuestas=="AlgunasVeces"){
+                  pet9res318="Algunas Veces"
+                  pet9val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion9[64].Respuestas=="CasiNunca"){
+                  pet9res319="Casi Nunca"
+                  pet9val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion9[64].Respuestas=="Nunca"){
+                  pet9res320="Nunca"
+                  pet9val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion9[65].Respuestas=="Siempre"){
+                  pet9res321="Siempre"
+                  pet9val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion9[65].Respuestas=="CasiSiempre"){
+                  pet9res322="Casi Siempre"
+                  pet9val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion9[65].Respuestas=="AlgunasVeces"){
+                  pet9res323="Algunas Veces"
+                  pet9val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion9[65].Respuestas=="CasiNunca"){
+                  pet9res324="Casi Nunca"
+                  pet9val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion9[65].Respuestas=="Nunca"){
+                  pet9res325="Nunca"
+                  pet9val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion9[66].Respuestas=="Siempre"){
+                  pet9res326="Siempre"
+                  pet9val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion9[66].Respuestas=="CasiSiempre"){
+                  pet9res327="Casi Siempre"
+                  pet9val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion9[66].Respuestas=="AlgunasVeces"){
+                  pet9res328="Algunas Veces"
+                  pet9val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion9[66].Respuestas=="CasiNunca"){
+                  pet9res329="Casi Nunca"
+                  pet9val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion9[66].Respuestas=="Nunca"){
+                  pet9res330="Nunca"
+                  pet9val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion9[67].Respuestas=="Siempre"){
+                  pet9res331="Siempre"
+                  pet9val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion9[67].Respuestas=="CasiSiempre"){
+                  pet9res332="Casi Siempre"
+                  pet9val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion9[67].Respuestas=="AlgunasVeces"){
+                  pet9res333="Algunas Veces"
+                  pet9val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion9[67].Respuestas=="CasiNunca"){
+                  pet9res334="Casi Nunca"
+                  pet9val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion9[67].Respuestas=="Nunca"){
+                  pet9res335="Nunca"
+                  pet9val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion9[68].Respuestas=="Siempre"){
+                  pet9res336="Siempre"
+                  pet9val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion9[68].Respuestas=="CasiSiempre"){
+                  pet9res337="Casi Siempre"
+                  pet9val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion9[68].Respuestas=="AlgunasVeces"){
+                  pet9res338="Algunas Veces"
+                  pet9val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion9[68].Respuestas=="CasiNunca"){
+                  pet9res339="Casi Nunca"
+                  pet9val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion9[68].Respuestas=="Nunca"){
+                  pet9res340="Nunca"
+                  pet9val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion9[69].Respuestas=="Siempre"){
+                  pet9res341="Siempre"
+                  pet9val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion9[69].Respuestas=="CasiSiempre"){
+                  pet9res342="Casi Siempre"
+                  pet9val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion9[69].Respuestas=="AlgunasVeces"){
+                  pet9res343="Algunas Veces"
+                  pet9val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion9[69].Respuestas=="CasiNunca"){
+                  pet9res344="Casi Nunca"
+                  pet9val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion9[69].Respuestas=="Nunca"){
+                  pet9res345="Nunca"
+                  pet9val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion9[70].Respuestas=="Siempre"){
+                  pet9res346="Siempre"
+                  pet9val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion9[70].Respuestas=="CasiSiempre"){
+                  pet9res347="Casi Siempre"
+                  pet9val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion9[70].Respuestas=="AlgunasVeces"){
+                  pet9res348="Algunas Veces"
+                  pet9val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion9[70].Respuestas=="CasiNunca"){
+                  pet9res349="Casi Nunca"
+                  pet9val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion9[70].Respuestas=="Nunca"){
+                  pet9res350="Nunca"
+                  pet9val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion9[71].Respuestas=="Siempre"){
+                  pet9res351="Siempre"
+                  pet9val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion9[71].Respuestas=="CasiSiempre"){
+                  pet9res352="Casi Siempre"
+                  pet9val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion9[71].Respuestas=="AlgunasVeces"){
+                  pet9res353="Algunas Veces"
+                  pet9val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion9[71].Respuestas=="CasiNunca"){
+                  pet9res354="Casi Nunca"
+                  pet9val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion9[71].Respuestas=="Nunca"){
+                  pet9res355="Nunca"
+                  pet9val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion9[72].Respuestas=="Siempre"){
+                  pet9res356="Siempre"
+                  pet9val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion9[72].Respuestas=="CasiSiempre"){
+                  pet9res357="Casi Siempre"
+                  pet9val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion9[72].Respuestas=="AlgunasVeces"){
+                  pet9res358="Algunas Veces"
+                  pet9val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion9[72].Respuestas=="CasiNunca"){
+                  pet9res359="Casi Nunca"
+                  pet9val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion9[72].Respuestas=="Nunca"){
+                  pet9res360="Nunca"
+                  pet9val72= this.state.getPonderacion[71].nunca
+                }
       } 
    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -9721,25 +14427,25 @@ console.log("entro a la peticion 3" )
       } 
   
   
-    if(this.state.peticion10[2].Respuestas=="Siempre"){
-      pet10res6="Siempre"
-      pet10val2= this.state.peticion10[1].siempre
-      }else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiSiempre"){
-        pet10res7="Casi Siempre"
-        pet10val2= this.state.peticion10[1].casisiempre
-      }
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="AlgunasVeces"){
-        pet10res8="Algunas Veces"
-        pet10val2= this.state.peticion10[1].algunasveces
-      } 
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
-        pet10res9="Casi Nunca"
-        pet10val2= this.state.peticion10[2].casinunca
-      } 
-      else if(this.state.peticion10[2].Respuestas=="Nunca"){
-        pet10res10="Nunca"
-        pet10val2= this.state.peticion10[1].nunca
-      } 
+      if(this.state.peticion10[2].Respuestas=="Siempre"){
+        pet10res6="Siempre"
+        pet10val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion10[2].Respuestas=="CasiSiempre"){
+          pet10res7="Casi Siempre"
+          pet10val2= this.state.getPonderacion[1].casisiempre
+        }
+        else if(this.state.peticion10[2].Respuestas=="AlgunasVeces"){
+          pet10res8="Algunas Veces"
+          pet10val2= this.state.getPonderacion[1].algunasveces
+        } 
+        else if(this.state.peticion10[2].Respuestas=="CasiNunca"){
+          pet10res9="Casi Nunca"
+          pet10val2= this.state.getPonderacion[1].casinunca
+        } 
+        else if(this.state.peticion10[2].Respuestas=="Nunca"){
+          pet10res10="Nunca"
+          pet10val2= this.state.getPonderacion[1].nunca
+        } 
   
       if(this.state.peticion10[3].Respuestas=="Siempre"){
         pet10res11="Siempre"
@@ -10384,7 +15090,7 @@ console.log("entro a la peticion 3" )
               pet10res174="Casi Nunca"
               pet10val35= this.state.getPonderacion[34].casinunca
             } 
-            else if(this.state.peticion10[15].Respuestas=="Nunca"){
+            else if(this.state.peticion10[35].Respuestas=="Nunca"){
               pet10res175="Nunca"
               pet10val35= this.state.getPonderacion[34].nunca
             } 
@@ -10489,122 +15195,619 @@ console.log("entro a la peticion 3" )
                   pet10val40= this.state.getPonderacion[39].nunca
                 }
   
-              if(this.state.peticion10[42].Respuestas=="Siempre"){
-                pet10res201="Siempre"
-                pet10val41= this.state.getPonderacion[40].siempre
-              }else if(this.state.peticion10[42].Respuestas=="CasiSiempre"){
-                pet10res202="Casi Siempre"
-                pet10val41= this.state.getPonderacion[40].casisiempre
-              }
-              else if(this.state.peticion10[42].Respuestas=="AlgunasVeces"){
-                pet10res203="Algunas Veces"
-                pet10val41= this.state.getPonderacion[40].algunasveces
-              } 
-              else if(this.state.peticion10[42].Respuestas=="CasiNunca"){
-                pet10res204="Casi Nunca"
-                pet10val41= this.state.getPonderacion[40].casinunca
-              } 
-              else if(this.state.peticion10[42].Respuestas=="Nunca"){
-                pet10res205="Nunca"
-                pet10val41= this.state.getPonderacion[40].nunca
-              }
-            if(this.state.peticion10[43].Respuestas=="Siempre"){
-              pet10res206="Siempre"
-              pet10val42= this.state.getPonderacion[41].siempre
-            }else if(this.state.peticion10[43].Respuestas=="CasiSiempre"){
-              pet10res207="Casi Siempre"
-              pet10val42= this.state.getPonderacion[41].casisiempre
-            }
-            else if(this.state.peticion10[43].Respuestas=="AlgunasVeces"){
-              pet10res208="Algunas Veces"
-              pet10val42= this.state.getPonderacion[41].algunasveces
-            } 
-            else if(this.state.peticion10[43].Respuestas=="CasiNunca"){
-              pet10res209="Casi Nunca"
-              pet10val42= this.state.getPonderacion[41].casinunca
-            } 
-            else if(this.state.peticion10[43].Respuestas=="Nunca"){
-              pet10res210="Nunca"
-              pet10val42= this.state.getPonderacion[41].nunca
-            }
-          if(this.state.peticion10[44].Respuestas=="Siempre"){
-            pet10res211="Siempre"
-            pet10val43= this.state.getPonderacion[42].siempre
-          }else if(this.state.peticion10[44].Respuestas=="CasiSiempre"){
-            pet10res212="Casi Siempre"
-            pet10val43= this.state.getPonderacion[42].casisiempre
-          }
-          else if(this.state.peticion10[44].Respuestas=="AlgunasVeces"){
-            pet10res213="Algunas Veces"
-            pet10val43= this.state.getPonderacion[42].algunasveces
-          } 
-          else if(this.state.peticion10[44].Respuestas=="CasiNunca"){
-            pet10res214="Casi Nunca"
-            pet10val43= this.state.getPonderacion[42].casinunca
-          } 
-          else if(this.state.peticion10[44].Respuestas=="Nunca"){
-            pet10res215="Nunca"
-            pet10val43= this.state.getPonderacion[42].nunca
-          }
+                if(this.state.peticion10[41].Respuestas=="Siempre"){
+                  pet10res201="Siempre"
+                  pet10val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion10[41].Respuestas=="CasiSiempre"){
+                  pet10res202="Casi Siempre"
+                  pet10val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion10[41].Respuestas=="AlgunasVeces"){
+                  pet10res203="Algunas Veces"
+                  pet10val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion10[41].Respuestas=="CasiNunca"){
+                  pet10res204="Casi Nunca"
+                  pet10val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion10[41].Respuestas=="Nunca"){
+                  pet10res205="Nunca"
+                  pet10val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion10[42].Respuestas=="Siempre"){
+                  pet10res206="Siempre"
+                  pet10val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion10[42].Respuestas=="CasiSiempre"){
+                  pet10res207="Casi Siempre"
+                  pet10val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion10[42].Respuestas=="AlgunasVeces"){
+                  pet10res208="Algunas Veces"
+                  pet10val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion10[42].Respuestas=="CasiNunca"){
+                  pet10res209="Casi Nunca"
+                  pet10val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion10[42].Respuestas=="Nunca"){
+                  pet10res210="Nunca"
+                  pet10val42= this.state.getPonderacion[41].nunca
+                }
   
-        if(this.state.peticion10[46].Respuestas=="Siempre"){
-          pet10res216="Siempre"
-          pet10val44= this.state.getPonderacion[43].siempre
-        }else if(this.state.peticion10[46].Respuestas=="CasiSiempre"){
-          pet10res217="Casi Siempre"
-          pet10val44= this.state.getPonderacion[43].casisiempre
-        }
-        else if(this.state.peticion10[46].Respuestas=="AlgunasVeces"){
-          pet10res218="Algunas Veces"
-          pet10val44= this.state.getPonderacion[43].algunasveces
-        } 
-        else if(this.state.peticion10[46].Respuestas=="CasiNunca"){
-          pet10res219="Casi Nunca"
-          pet10val44= this.state.getPonderacion[43].casinunca
-        } 
-        else if(this.state.peticion10[46].Respuestas=="Nunca"){
-          pet10res220="Nunca"
-          pet10val44= this.state.getPonderacion[43].nunca
-        }
+                if(this.state.peticion10[43].Respuestas=="Siempre"){
+                  pet10res211="Siempre"
+                  pet10val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion10[43].Respuestas=="CasiSiempre"){
+                  pet10res212="Casi Siempre"
+                  pet10val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion10[43].Respuestas=="AlgunasVeces"){
+                  pet10res213="Algunas Veces"
+                  pet10val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion10[43].Respuestas=="CasiNunca"){
+                  pet10res214="Casi Nunca"
+                  pet10val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion10[43].Respuestas=="Nunca"){
+                  pet10res215="Nunca"
+                  pet10val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion10[44].Respuestas=="Siempre"){
+                  pet10res216="Siempre"
+                  pet10val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion10[44].Respuestas=="CasiSiempre"){
+                  pet10res217="Casi Siempre"
+                  pet10val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion10[44].Respuestas=="AlgunasVeces"){
+                  pet10res218="Algunas Veces"
+                  pet10val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion10[44].Respuestas=="CasiNunca"){
+                  pet10res219="Casi Nunca"
+                  pet10val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion10[44].Respuestas=="Nunca"){
+                  pet10res220="Nunca"
+                  pet10val44= this.state.getPonderacion[43].nunca
+                }
   
-      if(this.state.peticion10[47].Respuestas=="Siempre"){
-        pet10res221="Siempre"
-        pet10val45= this.state.getPonderacion[44].siempre
-      }else if(this.state.peticion10[47].Respuestas=="CasiSiempre"){
-        pet10res222="Casi Siempre"
-        pet10val45= this.state.getPonderacion[44].casisiempre
-      }
-      else if(this.state.peticion10[47].Respuestas=="AlgunasVeces"){
-        pet10res223="Algunas Veces"
-        pet10val45= this.state.getPonderacion[44].algunasveces
-      } 
-      else if(this.state.peticion10[47].Respuestas=="CasiNunca"){
-        pet10res224="Casi Nunca"
-        pet10val45= this.state.getPonderacion[44].casinunca
-      } 
-      else if(this.state.peticion10[47].Respuestas=="Nunca"){
-        pet10res225="Nunca"
-        pet10val45= this.state.getPonderacion[44].nunca
-      }
-      if(this.state.peticion10[48].Respuestas=="Siempre"){
-        pet10res226="Siempre"
-        pet10val46= this.state.getPonderacion[45].siempre
-      }else if(this.state.peticion10[48].Respuestas=="CasiSiempre"){
-        pet10res227="Casi Siempre"
-        pet10val46= this.state.getPonderacion[45].casisiempre
-      }
-      else if(this.state.peticion10[48].Respuestas=="AlgunasVeces"){
-        pet10res228="Algunas Veces"
-        pet10val46= this.state.getPonderacion[45].algunasveces
-      } 
-      else if(this.state.peticion10[48].Respuestas=="CasiNunca"){
-        pet10res229="Casi Nunca"
-        pet10val46= this.state.getPonderacion[45].casinunca
-      } 
-      else if(this.state.peticion10[48].Respuestas=="Nunca"){
-        pet10res230="Nunca"
-        pet10val46= this.state.getPonderacion[45].nunca
-      }
+                if(this.state.peticion10[45].Respuestas=="Siempre"){
+                  pet10res221="Siempre"
+                  pet10val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion10[45].Respuestas=="CasiSiempre"){
+                  pet10res222="Casi Siempre"
+                  pet10val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion10[45].Respuestas=="AlgunasVeces"){
+                  pet10res223="Algunas Veces"
+                  pet10val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion10[45].Respuestas=="CasiNunca"){
+                  pet10res224="Casi Nunca"
+                  pet10val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion10[45].Respuestas=="Nunca"){
+                  pet10res225="Nunca"
+                  pet10val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion10[46].Respuestas=="Siempre"){
+                  pet10res226="Siempre"
+                  pet10val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion10[46].Respuestas=="CasiSiempre"){
+                  pet10res227="Casi Siempre"
+                  pet10val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion10[46].Respuestas=="AlgunasVeces"){
+                  pet10res228="Algunas Veces"
+                  pet10val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion10[46].Respuestas=="CasiNunca"){
+                  pet10res229="Casi Nunca"
+                  pet10val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion10[46].Respuestas=="Nunca"){
+                  pet10res230="Nunca"
+                  pet10val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion10[47].Respuestas=="Siempre"){
+                  pet10res231="Siempre"
+                  pet10val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion10[47].Respuestas=="CasiSiempre"){
+                  pet10res232="Casi Siempre"
+                  pet10val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion10[47].Respuestas=="AlgunasVeces"){
+                  pet10res233="Algunas Veces"
+                  pet10val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion10[47].Respuestas=="CasiNunca"){
+                  pet10res234="Casi Nunca"
+                  pet10val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion10[47].Respuestas=="Nunca"){
+                  pet10res235="Nunca"
+                  pet10val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion10[48].Respuestas=="Siempre"){
+                  pet10res236="Siempre"
+                  pet10val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion10[48].Respuestas=="CasiSiempre"){
+                  pet10res237="Casi Siempre"
+                  pet10val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion10[48].Respuestas=="AlgunasVeces"){
+                  pet10res238="Algunas Veces"
+                  pet10val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion10[48].Respuestas=="CasiNunca"){
+                  pet10res239="Casi Nunca"
+                  pet10val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion10[48].Respuestas=="Nunca"){
+                  pet10res240="Nunca"
+                  pet10val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion10[49].Respuestas=="Siempre"){
+                  pet10res241="Siempre"
+                  pet10val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion10[49].Respuestas=="CasiSiempre"){
+                  pet10res242="Casi Siempre"
+                  pet10val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion10[49].Respuestas=="AlgunasVeces"){
+                  pet10res243="Algunas Veces"
+                  pet10val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion10[49].Respuestas=="CasiNunca"){
+                  pet10res244="Casi Nunca"
+                  pet10val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion10[49].Respuestas=="Nunca"){
+                  pet10res245="Nunca"
+                  pet10val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion10[50].Respuestas=="Siempre"){
+                  pet10res246="Siempre"
+                  pet10val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion10[50].Respuestas=="CasiSiempre"){
+                  pet10res247="Casi Siempre"
+                  pet10val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion10[50].Respuestas=="AlgunasVeces"){
+                  pet10res248="Algunas Veces"
+                  pet10val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion10[50].Respuestas=="CasiNunca"){
+                  pet10res249="Casi Nunca"
+                  pet10val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion10[50].Respuestas=="Nunca"){
+                  pet10res250="Nunca"
+                  pet10val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion10[51].Respuestas=="Siempre"){
+                  pet10res251="Siempre"
+                  pet10val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion10[51].Respuestas=="CasiSiempre"){
+                  pet10res252="Casi Siempre"
+                  pet10val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion10[51].Respuestas=="AlgunasVeces"){
+                  pet10res253="Algunas Veces"
+                  pet10val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion10[51].Respuestas=="CasiNunca"){
+                  pet10res254="Casi Nunca"
+                  pet10val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion10[51].Respuestas=="Nunca"){
+                  pet10res255="Nunca"
+                  pet10val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion10[52].Respuestas=="Siempre"){
+                  pet10res256="Siempre"
+                  pet10val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion10[52].Respuestas=="CasiSiempre"){
+                  pet10res257="Casi Siempre"
+                  pet10val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion10[52].Respuestas=="AlgunasVeces"){
+                  pet10res258="Algunas Veces"
+                  pet10val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion10[52].Respuestas=="CasiNunca"){
+                  pet10res259="Casi Nunca"
+                  pet10val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion10[52].Respuestas=="Nunca"){
+                  pet10res260="Nunca"
+                  pet10val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion10[53].Respuestas=="Siempre"){
+                  pet10res261="Siempre"
+                  pet10val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion10[53].Respuestas=="CasiSiempre"){
+                  pet10res262="Casi Siempre"
+                  pet10val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion10[53].Respuestas=="AlgunasVeces"){
+                  pet10res263="Algunas Veces"
+                  pet10val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion10[53].Respuestas=="CasiNunca"){
+                  pet10res264="Casi Nunca"
+                  pet10val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion10[53].Respuestas=="Nunca"){
+                  pet10res265="Nunca"
+                  pet10val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion10[54].Respuestas=="Siempre"){
+                  pet10res266="Siempre"
+                  pet10val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion10[54].Respuestas=="CasiSiempre"){
+                  pet10res267="Casi Siempre"
+                  pet10val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion10[54].Respuestas=="AlgunasVeces"){
+                  pet10res268="Algunas Veces"
+                  pet10val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion10[54].Respuestas=="CasiNunca"){
+                  pet10res269="Casi Nunca"
+                  pet10val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion10[54].Respuestas=="Nunca"){
+                  pet10res270="Nunca"
+                  pet10val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion10[55].Respuestas=="Siempre"){
+                  pet10res271="Siempre"
+                  pet10val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion10[55].Respuestas=="CasiSiempre"){
+                  pet10res272="Casi Siempre"
+                  pet10val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion10[55].Respuestas=="AlgunasVeces"){
+                  pet10res273="Algunas Veces"
+                  pet10val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion10[55].Respuestas=="CasiNunca"){
+                  pet10res274="Casi Nunca"
+                  pet10val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion10[55].Respuestas=="Nunca"){
+                  pet10res275="Nunca"
+                  pet10val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion10[56].Respuestas=="Siempre"){
+                  pet10res276="Siempre"
+                  pet10val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion10[56].Respuestas=="CasiSiempre"){
+                  pet10res277="Casi Siempre"
+                  pet10val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion10[56].Respuestas=="AlgunasVeces"){
+                  pet10res278="Algunas Veces"
+                  pet10val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion10[56].Respuestas=="CasiNunca"){
+                  pet10res279="Casi Nunca"
+                  pet10val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion10[56].Respuestas=="Nunca"){
+                  pet10res280="Nunca"
+                  pet10val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion10[57].Respuestas=="Siempre"){
+                  pet10res281="Siempre"
+                  pet10val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion10[57].Respuestas=="CasiSiempre"){
+                  pet10res282="Casi Siempre"
+                  pet10val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion10[57].Respuestas=="AlgunasVeces"){
+                  pet10res283="Algunas Veces"
+                  pet10val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion10[57].Respuestas=="CasiNunca"){
+                  pet10res284="Casi Nunca"
+                  pet10val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion10[57].Respuestas=="Nunca"){
+                  pet10res285="Nunca"
+                  pet10val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion10[58].Respuestas=="Siempre"){
+                  pet10res286="Siempre"
+                  pet10val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion10[58].Respuestas=="CasiSiempre"){
+                  pet10res287="Casi Siempre"
+                  pet10val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion10[58].Respuestas=="AlgunasVeces"){
+                  pet10res288="Algunas Veces"
+                  pet10val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion10[58].Respuestas=="CasiNunca"){
+                  pet10res289="Casi Nunca"
+                  pet10val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion10[58].Respuestas=="Nunca"){
+                  pet10res290="Nunca"
+                  pet10val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion10[59].Respuestas=="Siempre"){
+                  pet10res291="Siempre"
+                  pet10val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion10[59].Respuestas=="CasiSiempre"){
+                  pet10res292="Casi Siempre"
+                  pet10val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion10[59].Respuestas=="AlgunasVeces"){
+                  pet10res293="Algunas Veces"
+                  pet10val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion10[59].Respuestas=="CasiNunca"){
+                  pet10res294="Casi Nunca"
+                  pet10val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion10[59].Respuestas=="Nunca"){
+                  pet10res295="Nunca"
+                  pet10val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion10[60].Respuestas=="Siempre"){
+                  pet10res296="Siempre"
+                  pet10val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion10[60].Respuestas=="CasiSiempre"){
+                  pet10res297="Casi Siempre"
+                  pet10val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion10[60].Respuestas=="AlgunasVeces"){
+                  pet10res298="Algunas Veces"
+                  pet10val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion10[60].Respuestas=="CasiNunca"){
+                  pet10res299="Casi Nunca"
+                  pet10val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion10[60].Respuestas=="Nunca"){
+                  pet10res300="Nunca"
+                  pet10val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion10[61].Respuestas=="Siempre"){
+                  pet10res301="Siempre"
+                  pet10val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion10[61].Respuestas=="CasiSiempre"){
+                  pet10res302="Casi Siempre"
+                  pet10val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion10[61].Respuestas=="AlgunasVeces"){
+                  pet10res303="Algunas Veces"
+                  pet10val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion10[61].Respuestas=="CasiNunca"){
+                  pet10res304="Casi Nunca"
+                  pet10val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion10[61].Respuestas=="Nunca"){
+                  pet10res305="Nunca"
+                  pet10val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion10[62].Respuestas=="Siempre"){
+                  pet10res306="Siempre"
+                  pet10val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion10[62].Respuestas=="CasiSiempre"){
+                  pet10res307="Casi Siempre"
+                  pet10val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion10[62].Respuestas=="AlgunasVeces"){
+                  pet10res308="Algunas Veces"
+                  pet10val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion10[62].Respuestas=="CasiNunca"){
+                  pet10res309="Casi Nunca"
+                  pet10val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion10[62].Respuestas=="Nunca"){
+                  pet10res310="Nunca"
+                  pet10val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion10[63].Respuestas=="Siempre"){
+                  pet10res311="Siempre"
+                  pet10val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion10[63].Respuestas=="CasiSiempre"){
+                  pet10res312="Casi Siempre"
+                  pet10val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion10[63].Respuestas=="AlgunasVeces"){
+                  pet10res313="Algunas Veces"
+                  pet10val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion10[63].Respuestas=="CasiNunca"){
+                  pet10res314="Casi Nunca"
+                  pet10val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion10[63].Respuestas=="Nunca"){
+                  pet10res315="Nunca"
+                  pet10val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion10[64].Respuestas=="Siempre"){
+                  pet10res316="Siempre"
+                  pet10val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion10[64].Respuestas=="CasiSiempre"){
+                  pet10res317="Casi Siempre"
+                  pet10val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion10[64].Respuestas=="AlgunasVeces"){
+                  pet10res318="Algunas Veces"
+                  pet10val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion10[64].Respuestas=="CasiNunca"){
+                  pet10res319="Casi Nunca"
+                  pet10val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion10[64].Respuestas=="Nunca"){
+                  pet10res320="Nunca"
+                  pet10val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion10[65].Respuestas=="Siempre"){
+                  pet10res321="Siempre"
+                  pet10val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion10[65].Respuestas=="CasiSiempre"){
+                  pet10res322="Casi Siempre"
+                  pet10val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion10[65].Respuestas=="AlgunasVeces"){
+                  pet10res323="Algunas Veces"
+                  pet10val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion10[65].Respuestas=="CasiNunca"){
+                  pet10res324="Casi Nunca"
+                  pet10val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion10[65].Respuestas=="Nunca"){
+                  pet10res325="Nunca"
+                  pet10val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion10[66].Respuestas=="Siempre"){
+                  pet10res326="Siempre"
+                  pet10val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion10[66].Respuestas=="CasiSiempre"){
+                  pet10res327="Casi Siempre"
+                  pet10val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion10[66].Respuestas=="AlgunasVeces"){
+                  pet10res328="Algunas Veces"
+                  pet10val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion10[66].Respuestas=="CasiNunca"){
+                  pet10res329="Casi Nunca"
+                  pet10val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion10[66].Respuestas=="Nunca"){
+                  pet10res330="Nunca"
+                  pet10val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion10[67].Respuestas=="Siempre"){
+                  pet10res331="Siempre"
+                  pet10val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion10[67].Respuestas=="CasiSiempre"){
+                  pet10res332="Casi Siempre"
+                  pet10val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion10[67].Respuestas=="AlgunasVeces"){
+                  pet10res333="Algunas Veces"
+                  pet10val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion10[67].Respuestas=="CasiNunca"){
+                  pet10res334="Casi Nunca"
+                  pet10val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion10[67].Respuestas=="Nunca"){
+                  pet10res335="Nunca"
+                  pet10val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion10[68].Respuestas=="Siempre"){
+                  pet10res336="Siempre"
+                  pet10val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion10[68].Respuestas=="CasiSiempre"){
+                  pet10res337="Casi Siempre"
+                  pet10val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion10[68].Respuestas=="AlgunasVeces"){
+                  pet10res338="Algunas Veces"
+                  pet10val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion10[68].Respuestas=="CasiNunca"){
+                  pet10res339="Casi Nunca"
+                  pet10val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion10[68].Respuestas=="Nunca"){
+                  pet10res340="Nunca"
+                  pet10val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion10[69].Respuestas=="Siempre"){
+                  pet10res341="Siempre"
+                  pet10val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion10[69].Respuestas=="CasiSiempre"){
+                  pet10res342="Casi Siempre"
+                  pet10val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion10[69].Respuestas=="AlgunasVeces"){
+                  pet10res343="Algunas Veces"
+                  pet10val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion10[69].Respuestas=="CasiNunca"){
+                  pet10res344="Casi Nunca"
+                  pet10val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion10[69].Respuestas=="Nunca"){
+                  pet10res345="Nunca"
+                  pet10val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion10[70].Respuestas=="Siempre"){
+                  pet10res346="Siempre"
+                  pet10val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion10[70].Respuestas=="CasiSiempre"){
+                  pet10res347="Casi Siempre"
+                  pet10val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion10[70].Respuestas=="AlgunasVeces"){
+                  pet10res348="Algunas Veces"
+                  pet10val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion10[70].Respuestas=="CasiNunca"){
+                  pet10res349="Casi Nunca"
+                  pet10val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion10[70].Respuestas=="Nunca"){
+                  pet10res350="Nunca"
+                  pet10val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion10[71].Respuestas=="Siempre"){
+                  pet10res351="Siempre"
+                  pet10val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion10[71].Respuestas=="CasiSiempre"){
+                  pet10res352="Casi Siempre"
+                  pet10val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion10[71].Respuestas=="AlgunasVeces"){
+                  pet10res353="Algunas Veces"
+                  pet10val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion10[71].Respuestas=="CasiNunca"){
+                  pet10res354="Casi Nunca"
+                  pet10val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion10[71].Respuestas=="Nunca"){
+                  pet10res355="Nunca"
+                  pet10val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion10[72].Respuestas=="Siempre"){
+                  pet10res356="Siempre"
+                  pet10val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion10[72].Respuestas=="CasiSiempre"){
+                  pet10res357="Casi Siempre"
+                  pet10val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion10[72].Respuestas=="AlgunasVeces"){
+                  pet10res358="Algunas Veces"
+                  pet10val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion10[72].Respuestas=="CasiNunca"){
+                  pet10res359="Casi Nunca"
+                  pet10val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion10[72].Respuestas=="Nunca"){
+                  pet10res360="Nunca"
+                  pet10val72= this.state.getPonderacion[71].nunca
+                }
    } 
    ////////////////////////////////////////////////////////////////////////////////////////////////77
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -10632,25 +15835,25 @@ console.log("entro a la peticion 3" )
       } 
   
   
-    if(this.state.peticion11[2].Respuestas=="Siempre"){
-      pet11res6="Siempre"
-      pet11val2= this.state.peticion11[1].siempre
-      }else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiSiempre"){
-        pet11res7="Casi Siempre"
-        pet11val2= this.state.peticion11[1].casisiempre
-      }
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="AlgunasVeces"){
-        pet11res8="Algunas Veces"
-        pet11val2= this.state.peticion11[1].algunasveces
-      } 
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
-        pet11res9="Casi Nunca"
-        pet11val2= this.state.peticion11[2].casinunca
-      } 
-      else if(this.state.peticion11[2].Respuestas=="Nunca"){
-        pet11res10="Nunca"
-        pet11val2= this.state.peticion11[1].nunca
-      } 
+      if(this.state.peticion11[2].Respuestas=="Siempre"){
+        pet11res6="Siempre"
+        pet11val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion11[2].Respuestas=="CasiSiempre"){
+          pet11res7="Casi Siempre"
+          pet11val2= this.state.getPonderacion[1].casisiempre
+        }
+        else if(this.state.peticion11[2].Respuestas=="AlgunasVeces"){
+          pet11res8="Algunas Veces"
+          pet11val2= this.state.getPonderacion[1].algunasveces
+        } 
+        else if(this.state.peticion11[2].Respuestas=="CasiNunca"){
+          pet11res9="Casi Nunca"
+          pet11val2= this.state.getPonderacion[1].casinunca
+        } 
+        else if(this.state.peticion11[2].Respuestas=="Nunca"){
+          pet11res10="Nunca"
+          pet11val2= this.state.getPonderacion[1].nunca
+        } 
   
       if(this.state.peticion11[3].Respuestas=="Siempre"){
         pet11res11="Siempre"
@@ -11295,7 +16498,7 @@ console.log("entro a la peticion 3" )
               pet11res174="Casi Nunca"
               pet11val35= this.state.getPonderacion[34].casinunca
             } 
-            else if(this.state.peticion11[15].Respuestas=="Nunca"){
+            else if(this.state.peticion11[35].Respuestas=="Nunca"){
               pet11res175="Nunca"
               pet11val35= this.state.getPonderacion[34].nunca
             } 
@@ -11400,122 +16603,619 @@ console.log("entro a la peticion 3" )
                   pet11val40= this.state.getPonderacion[39].nunca
                 }
   
-              if(this.state.peticion11[42].Respuestas=="Siempre"){
-                pet11res201="Siempre"
-                pet11val41= this.state.getPonderacion[40].siempre
-              }else if(this.state.peticion11[42].Respuestas=="CasiSiempre"){
-                pet11res202="Casi Siempre"
-                pet11val41= this.state.getPonderacion[40].casisiempre
-              }
-              else if(this.state.peticion11[42].Respuestas=="AlgunasVeces"){
-                pet11res203="Algunas Veces"
-                pet11val41= this.state.getPonderacion[40].algunasveces
-              } 
-              else if(this.state.peticion11[42].Respuestas=="CasiNunca"){
-                pet11res204="Casi Nunca"
-                pet11val41= this.state.getPonderacion[40].casinunca
-              } 
-              else if(this.state.peticion11[42].Respuestas=="Nunca"){
-                pet11res205="Nunca"
-                pet11val41= this.state.getPonderacion[40].nunca
-              }
-            if(this.state.peticion11[43].Respuestas=="Siempre"){
-              pet11res206="Siempre"
-              pet11val42= this.state.getPonderacion[41].siempre
-            }else if(this.state.peticion11[43].Respuestas=="CasiSiempre"){
-              pet11res207="Casi Siempre"
-              pet11val42= this.state.getPonderacion[41].casisiempre
-            }
-            else if(this.state.peticion11[43].Respuestas=="AlgunasVeces"){
-              pet11res208="Algunas Veces"
-              pet11val42= this.state.getPonderacion[41].algunasveces
-            } 
-            else if(this.state.peticion11[43].Respuestas=="CasiNunca"){
-              pet11res209="Casi Nunca"
-              pet11val42= this.state.getPonderacion[41].casinunca
-            } 
-            else if(this.state.peticion11[43].Respuestas=="Nunca"){
-              pet11res210="Nunca"
-              pet11val42= this.state.getPonderacion[41].nunca
-            }
-          if(this.state.peticion11[44].Respuestas=="Siempre"){
-            pet11res211="Siempre"
-            pet11val43= this.state.getPonderacion[42].siempre
-          }else if(this.state.peticion11[44].Respuestas=="CasiSiempre"){
-            pet11res212="Casi Siempre"
-            pet11val43= this.state.getPonderacion[42].casisiempre
-          }
-          else if(this.state.peticion11[44].Respuestas=="AlgunasVeces"){
-            pet11res213="Algunas Veces"
-            pet11val43= this.state.getPonderacion[42].algunasveces
-          } 
-          else if(this.state.peticion11[44].Respuestas=="CasiNunca"){
-            pet11res214="Casi Nunca"
-            pet11val43= this.state.getPonderacion[42].casinunca
-          } 
-          else if(this.state.peticion11[44].Respuestas=="Nunca"){
-            pet11res215="Nunca"
-            pet11val43= this.state.getPonderacion[42].nunca
-          }
+                if(this.state.peticion11[41].Respuestas=="Siempre"){
+                  pet11res201="Siempre"
+                  pet11val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion11[41].Respuestas=="CasiSiempre"){
+                  pet11res202="Casi Siempre"
+                  pet11val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion11[41].Respuestas=="AlgunasVeces"){
+                  pet11res203="Algunas Veces"
+                  pet11val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion11[41].Respuestas=="CasiNunca"){
+                  pet11res204="Casi Nunca"
+                  pet11val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion11[41].Respuestas=="Nunca"){
+                  pet11res205="Nunca"
+                  pet11val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion11[42].Respuestas=="Siempre"){
+                  pet11res206="Siempre"
+                  pet11val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion11[42].Respuestas=="CasiSiempre"){
+                  pet11res207="Casi Siempre"
+                  pet11val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion11[42].Respuestas=="AlgunasVeces"){
+                  pet11res208="Algunas Veces"
+                  pet11val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion11[42].Respuestas=="CasiNunca"){
+                  pet11res209="Casi Nunca"
+                  pet11val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion11[42].Respuestas=="Nunca"){
+                  pet11res210="Nunca"
+                  pet11val42= this.state.getPonderacion[41].nunca
+                }
   
-        if(this.state.peticion11[46].Respuestas=="Siempre"){
-          pet11res216="Siempre"
-          pet11val44= this.state.getPonderacion[43].siempre
-        }else if(this.state.peticion11[46].Respuestas=="CasiSiempre"){
-          pet11res217="Casi Siempre"
-          pet11val44= this.state.getPonderacion[43].casisiempre
-        }
-        else if(this.state.peticion11[46].Respuestas=="AlgunasVeces"){
-          pet11res218="Algunas Veces"
-          pet11val44= this.state.getPonderacion[43].algunasveces
-        } 
-        else if(this.state.peticion11[46].Respuestas=="CasiNunca"){
-          pet11res219="Casi Nunca"
-          pet11val44= this.state.getPonderacion[43].casinunca
-        } 
-        else if(this.state.peticion11[46].Respuestas=="Nunca"){
-          pet11res220="Nunca"
-          pet11val44= this.state.getPonderacion[43].nunca
-        }
+                if(this.state.peticion11[43].Respuestas=="Siempre"){
+                  pet11res211="Siempre"
+                  pet11val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion11[43].Respuestas=="CasiSiempre"){
+                  pet11res212="Casi Siempre"
+                  pet11val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion11[43].Respuestas=="AlgunasVeces"){
+                  pet11res213="Algunas Veces"
+                  pet11val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion11[43].Respuestas=="CasiNunca"){
+                  pet11res214="Casi Nunca"
+                  pet11val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion11[43].Respuestas=="Nunca"){
+                  pet11res215="Nunca"
+                  pet11val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion11[44].Respuestas=="Siempre"){
+                  pet11res216="Siempre"
+                  pet11val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion11[44].Respuestas=="CasiSiempre"){
+                  pet11res217="Casi Siempre"
+                  pet11val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion11[44].Respuestas=="AlgunasVeces"){
+                  pet11res218="Algunas Veces"
+                  pet11val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion11[44].Respuestas=="CasiNunca"){
+                  pet11res219="Casi Nunca"
+                  pet11val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion11[44].Respuestas=="Nunca"){
+                  pet11res220="Nunca"
+                  pet11val44= this.state.getPonderacion[43].nunca
+                }
   
-      if(this.state.peticion11[47].Respuestas=="Siempre"){
-        pet11res221="Siempre"
-        pet11val45= this.state.getPonderacion[44].siempre
-      }else if(this.state.peticion11[47].Respuestas=="CasiSiempre"){
-        pet11res222="Casi Siempre"
-        pet11val45= this.state.getPonderacion[44].casisiempre
-      }
-      else if(this.state.peticion11[47].Respuestas=="AlgunasVeces"){
-        pet11res223="Algunas Veces"
-        pet11val45= this.state.getPonderacion[44].algunasveces
-      } 
-      else if(this.state.peticion11[47].Respuestas=="CasiNunca"){
-        pet11res224="Casi Nunca"
-        pet11val45= this.state.getPonderacion[44].casinunca
-      } 
-      else if(this.state.peticion11[47].Respuestas=="Nunca"){
-        pet11res225="Nunca"
-        pet11val45= this.state.getPonderacion[44].nunca
-      }
-      if(this.state.peticion11[48].Respuestas=="Siempre"){
-        pet11res226="Siempre"
-        pet11val46= this.state.getPonderacion[45].siempre
-      }else if(this.state.peticion11[48].Respuestas=="CasiSiempre"){
-        pet11res227="Casi Siempre"
-        pet11val46= this.state.getPonderacion[45].casisiempre
-      }
-      else if(this.state.peticion11[48].Respuestas=="AlgunasVeces"){
-        pet11res228="Algunas Veces"
-        pet11val46= this.state.getPonderacion[45].algunasveces
-      } 
-      else if(this.state.peticion11[48].Respuestas=="CasiNunca"){
-        pet11res229="Casi Nunca"
-        pet11val46= this.state.getPonderacion[45].casinunca
-      } 
-      else if(this.state.peticion11[48].Respuestas=="Nunca"){
-        pet11res230="Nunca"
-        pet11val46= this.state.getPonderacion[45].nunca
-      }
+                if(this.state.peticion11[45].Respuestas=="Siempre"){
+                  pet11res221="Siempre"
+                  pet11val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion11[45].Respuestas=="CasiSiempre"){
+                  pet11res222="Casi Siempre"
+                  pet11val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion11[45].Respuestas=="AlgunasVeces"){
+                  pet11res223="Algunas Veces"
+                  pet11val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion11[45].Respuestas=="CasiNunca"){
+                  pet11res224="Casi Nunca"
+                  pet11val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion11[45].Respuestas=="Nunca"){
+                  pet11res225="Nunca"
+                  pet11val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion11[46].Respuestas=="Siempre"){
+                  pet11res226="Siempre"
+                  pet11val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion11[46].Respuestas=="CasiSiempre"){
+                  pet11res227="Casi Siempre"
+                  pet11val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion11[46].Respuestas=="AlgunasVeces"){
+                  pet11res228="Algunas Veces"
+                  pet11val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion11[46].Respuestas=="CasiNunca"){
+                  pet11res229="Casi Nunca"
+                  pet11val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion11[46].Respuestas=="Nunca"){
+                  pet11res230="Nunca"
+                  pet11val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion11[47].Respuestas=="Siempre"){
+                  pet11res231="Siempre"
+                  pet11val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion11[47].Respuestas=="CasiSiempre"){
+                  pet11res232="Casi Siempre"
+                  pet11val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion11[47].Respuestas=="AlgunasVeces"){
+                  pet11res233="Algunas Veces"
+                  pet11val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion11[47].Respuestas=="CasiNunca"){
+                  pet11res234="Casi Nunca"
+                  pet11val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion11[47].Respuestas=="Nunca"){
+                  pet11res235="Nunca"
+                  pet11val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion11[48].Respuestas=="Siempre"){
+                  pet11res236="Siempre"
+                  pet11val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion11[48].Respuestas=="CasiSiempre"){
+                  pet11res237="Casi Siempre"
+                  pet11val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion11[48].Respuestas=="AlgunasVeces"){
+                  pet11res238="Algunas Veces"
+                  pet11val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion11[48].Respuestas=="CasiNunca"){
+                  pet11res239="Casi Nunca"
+                  pet11val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion11[48].Respuestas=="Nunca"){
+                  pet11res240="Nunca"
+                  pet11val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion11[49].Respuestas=="Siempre"){
+                  pet11res241="Siempre"
+                  pet11val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion11[49].Respuestas=="CasiSiempre"){
+                  pet11res242="Casi Siempre"
+                  pet11val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion11[49].Respuestas=="AlgunasVeces"){
+                  pet11res243="Algunas Veces"
+                  pet11val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion11[49].Respuestas=="CasiNunca"){
+                  pet11res244="Casi Nunca"
+                  pet11val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion11[49].Respuestas=="Nunca"){
+                  pet11res245="Nunca"
+                  pet11val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion11[50].Respuestas=="Siempre"){
+                  pet11res246="Siempre"
+                  pet11val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion11[50].Respuestas=="CasiSiempre"){
+                  pet11res247="Casi Siempre"
+                  pet11val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion11[50].Respuestas=="AlgunasVeces"){
+                  pet11res248="Algunas Veces"
+                  pet11val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion11[50].Respuestas=="CasiNunca"){
+                  pet11res249="Casi Nunca"
+                  pet11val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion11[50].Respuestas=="Nunca"){
+                  pet11res250="Nunca"
+                  pet11val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion11[51].Respuestas=="Siempre"){
+                  pet11res251="Siempre"
+                  pet11val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion11[51].Respuestas=="CasiSiempre"){
+                  pet11res252="Casi Siempre"
+                  pet11val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion11[51].Respuestas=="AlgunasVeces"){
+                  pet11res253="Algunas Veces"
+                  pet11val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion11[51].Respuestas=="CasiNunca"){
+                  pet11res254="Casi Nunca"
+                  pet11val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion11[51].Respuestas=="Nunca"){
+                  pet11res255="Nunca"
+                  pet11val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion11[52].Respuestas=="Siempre"){
+                  pet11res256="Siempre"
+                  pet11val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion11[52].Respuestas=="CasiSiempre"){
+                  pet11res257="Casi Siempre"
+                  pet11val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion11[52].Respuestas=="AlgunasVeces"){
+                  pet11res258="Algunas Veces"
+                  pet11val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion11[52].Respuestas=="CasiNunca"){
+                  pet11res259="Casi Nunca"
+                  pet11val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion11[52].Respuestas=="Nunca"){
+                  pet11res260="Nunca"
+                  pet11val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion11[53].Respuestas=="Siempre"){
+                  pet11res261="Siempre"
+                  pet11val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion11[53].Respuestas=="CasiSiempre"){
+                  pet11res262="Casi Siempre"
+                  pet11val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion11[53].Respuestas=="AlgunasVeces"){
+                  pet11res263="Algunas Veces"
+                  pet11val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion11[53].Respuestas=="CasiNunca"){
+                  pet11res264="Casi Nunca"
+                  pet11val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion11[53].Respuestas=="Nunca"){
+                  pet11res265="Nunca"
+                  pet11val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion11[54].Respuestas=="Siempre"){
+                  pet11res266="Siempre"
+                  pet11val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion11[54].Respuestas=="CasiSiempre"){
+                  pet11res267="Casi Siempre"
+                  pet11val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion11[54].Respuestas=="AlgunasVeces"){
+                  pet11res268="Algunas Veces"
+                  pet11val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion11[54].Respuestas=="CasiNunca"){
+                  pet11res269="Casi Nunca"
+                  pet11val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion11[54].Respuestas=="Nunca"){
+                  pet11res270="Nunca"
+                  pet11val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion11[55].Respuestas=="Siempre"){
+                  pet11res271="Siempre"
+                  pet11val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion11[55].Respuestas=="CasiSiempre"){
+                  pet11res272="Casi Siempre"
+                  pet11val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion11[55].Respuestas=="AlgunasVeces"){
+                  pet11res273="Algunas Veces"
+                  pet11val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion11[55].Respuestas=="CasiNunca"){
+                  pet11res274="Casi Nunca"
+                  pet11val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion11[55].Respuestas=="Nunca"){
+                  pet11res275="Nunca"
+                  pet11val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion11[56].Respuestas=="Siempre"){
+                  pet11res276="Siempre"
+                  pet11val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion11[56].Respuestas=="CasiSiempre"){
+                  pet11res277="Casi Siempre"
+                  pet11val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion11[56].Respuestas=="AlgunasVeces"){
+                  pet11res278="Algunas Veces"
+                  pet11val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion11[56].Respuestas=="CasiNunca"){
+                  pet11res279="Casi Nunca"
+                  pet11val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion11[56].Respuestas=="Nunca"){
+                  pet11res280="Nunca"
+                  pet11val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion11[57].Respuestas=="Siempre"){
+                  pet11res281="Siempre"
+                  pet11val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion11[57].Respuestas=="CasiSiempre"){
+                  pet11res282="Casi Siempre"
+                  pet11val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion11[57].Respuestas=="AlgunasVeces"){
+                  pet11res283="Algunas Veces"
+                  pet11val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion11[57].Respuestas=="CasiNunca"){
+                  pet11res284="Casi Nunca"
+                  pet11val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion11[57].Respuestas=="Nunca"){
+                  pet11res285="Nunca"
+                  pet11val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion11[58].Respuestas=="Siempre"){
+                  pet11res286="Siempre"
+                  pet11val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion11[58].Respuestas=="CasiSiempre"){
+                  pet11res287="Casi Siempre"
+                  pet11val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion11[58].Respuestas=="AlgunasVeces"){
+                  pet11res288="Algunas Veces"
+                  pet11val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion11[58].Respuestas=="CasiNunca"){
+                  pet11res289="Casi Nunca"
+                  pet11val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion11[58].Respuestas=="Nunca"){
+                  pet11res290="Nunca"
+                  pet11val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion11[59].Respuestas=="Siempre"){
+                  pet11res291="Siempre"
+                  pet11val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion11[59].Respuestas=="CasiSiempre"){
+                  pet11res292="Casi Siempre"
+                  pet11val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion11[59].Respuestas=="AlgunasVeces"){
+                  pet11res293="Algunas Veces"
+                  pet11val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion11[59].Respuestas=="CasiNunca"){
+                  pet11res294="Casi Nunca"
+                  pet11val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion11[59].Respuestas=="Nunca"){
+                  pet11res295="Nunca"
+                  pet11val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion11[60].Respuestas=="Siempre"){
+                  pet11res296="Siempre"
+                  pet11val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion11[60].Respuestas=="CasiSiempre"){
+                  pet11res297="Casi Siempre"
+                  pet11val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion11[60].Respuestas=="AlgunasVeces"){
+                  pet11res298="Algunas Veces"
+                  pet11val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion11[60].Respuestas=="CasiNunca"){
+                  pet11res299="Casi Nunca"
+                  pet11val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion11[60].Respuestas=="Nunca"){
+                  pet11res300="Nunca"
+                  pet11val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion11[61].Respuestas=="Siempre"){
+                  pet11res301="Siempre"
+                  pet11val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion11[61].Respuestas=="CasiSiempre"){
+                  pet11res302="Casi Siempre"
+                  pet11val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion11[61].Respuestas=="AlgunasVeces"){
+                  pet11res303="Algunas Veces"
+                  pet11val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion11[61].Respuestas=="CasiNunca"){
+                  pet11res304="Casi Nunca"
+                  pet11val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion11[61].Respuestas=="Nunca"){
+                  pet11res305="Nunca"
+                  pet11val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion11[62].Respuestas=="Siempre"){
+                  pet11res306="Siempre"
+                  pet11val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion11[62].Respuestas=="CasiSiempre"){
+                  pet11res307="Casi Siempre"
+                  pet11val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion11[62].Respuestas=="AlgunasVeces"){
+                  pet11res308="Algunas Veces"
+                  pet11val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion11[62].Respuestas=="CasiNunca"){
+                  pet11res309="Casi Nunca"
+                  pet11val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion11[62].Respuestas=="Nunca"){
+                  pet11res310="Nunca"
+                  pet11val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion11[63].Respuestas=="Siempre"){
+                  pet11res311="Siempre"
+                  pet11val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion11[63].Respuestas=="CasiSiempre"){
+                  pet11res312="Casi Siempre"
+                  pet11val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion11[63].Respuestas=="AlgunasVeces"){
+                  pet11res313="Algunas Veces"
+                  pet11val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion11[63].Respuestas=="CasiNunca"){
+                  pet11res314="Casi Nunca"
+                  pet11val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion11[63].Respuestas=="Nunca"){
+                  pet11res315="Nunca"
+                  pet11val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion11[64].Respuestas=="Siempre"){
+                  pet11res316="Siempre"
+                  pet11val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion11[64].Respuestas=="CasiSiempre"){
+                  pet11res317="Casi Siempre"
+                  pet11val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion11[64].Respuestas=="AlgunasVeces"){
+                  pet11res318="Algunas Veces"
+                  pet11val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion11[64].Respuestas=="CasiNunca"){
+                  pet11res319="Casi Nunca"
+                  pet11val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion11[64].Respuestas=="Nunca"){
+                  pet11res320="Nunca"
+                  pet11val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion11[65].Respuestas=="Siempre"){
+                  pet11res321="Siempre"
+                  pet11val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion11[65].Respuestas=="CasiSiempre"){
+                  pet11res322="Casi Siempre"
+                  pet11val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion11[65].Respuestas=="AlgunasVeces"){
+                  pet11res323="Algunas Veces"
+                  pet11val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion11[65].Respuestas=="CasiNunca"){
+                  pet11res324="Casi Nunca"
+                  pet11val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion11[65].Respuestas=="Nunca"){
+                  pet11res325="Nunca"
+                  pet11val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion11[66].Respuestas=="Siempre"){
+                  pet11res326="Siempre"
+                  pet11val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion11[66].Respuestas=="CasiSiempre"){
+                  pet11res327="Casi Siempre"
+                  pet11val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion11[66].Respuestas=="AlgunasVeces"){
+                  pet11res328="Algunas Veces"
+                  pet11val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion11[66].Respuestas=="CasiNunca"){
+                  pet11res329="Casi Nunca"
+                  pet11val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion11[66].Respuestas=="Nunca"){
+                  pet11res330="Nunca"
+                  pet11val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion11[67].Respuestas=="Siempre"){
+                  pet11res331="Siempre"
+                  pet11val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion11[67].Respuestas=="CasiSiempre"){
+                  pet11res332="Casi Siempre"
+                  pet11val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion11[67].Respuestas=="AlgunasVeces"){
+                  pet11res333="Algunas Veces"
+                  pet11val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion11[67].Respuestas=="CasiNunca"){
+                  pet11res334="Casi Nunca"
+                  pet11val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion11[67].Respuestas=="Nunca"){
+                  pet11res335="Nunca"
+                  pet11val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion11[68].Respuestas=="Siempre"){
+                  pet11res336="Siempre"
+                  pet11val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion11[68].Respuestas=="CasiSiempre"){
+                  pet11res337="Casi Siempre"
+                  pet11val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion11[68].Respuestas=="AlgunasVeces"){
+                  pet11res338="Algunas Veces"
+                  pet11val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion11[68].Respuestas=="CasiNunca"){
+                  pet11res339="Casi Nunca"
+                  pet11val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion11[68].Respuestas=="Nunca"){
+                  pet11res340="Nunca"
+                  pet11val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion11[69].Respuestas=="Siempre"){
+                  pet11res341="Siempre"
+                  pet11val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion11[69].Respuestas=="CasiSiempre"){
+                  pet11res342="Casi Siempre"
+                  pet11val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion11[69].Respuestas=="AlgunasVeces"){
+                  pet11res343="Algunas Veces"
+                  pet11val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion11[69].Respuestas=="CasiNunca"){
+                  pet11res344="Casi Nunca"
+                  pet11val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion11[69].Respuestas=="Nunca"){
+                  pet11res345="Nunca"
+                  pet11val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion11[70].Respuestas=="Siempre"){
+                  pet11res346="Siempre"
+                  pet11val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion11[70].Respuestas=="CasiSiempre"){
+                  pet11res347="Casi Siempre"
+                  pet11val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion11[70].Respuestas=="AlgunasVeces"){
+                  pet11res348="Algunas Veces"
+                  pet11val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion11[70].Respuestas=="CasiNunca"){
+                  pet11res349="Casi Nunca"
+                  pet11val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion11[70].Respuestas=="Nunca"){
+                  pet11res350="Nunca"
+                  pet11val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion11[71].Respuestas=="Siempre"){
+                  pet11res351="Siempre"
+                  pet11val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion11[71].Respuestas=="CasiSiempre"){
+                  pet11res352="Casi Siempre"
+                  pet11val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion11[71].Respuestas=="AlgunasVeces"){
+                  pet11res353="Algunas Veces"
+                  pet11val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion11[71].Respuestas=="CasiNunca"){
+                  pet11res354="Casi Nunca"
+                  pet11val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion11[71].Respuestas=="Nunca"){
+                  pet11res355="Nunca"
+                  pet11val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion11[72].Respuestas=="Siempre"){
+                  pet11res356="Siempre"
+                  pet11val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion11[72].Respuestas=="CasiSiempre"){
+                  pet11res357="Casi Siempre"
+                  pet11val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion11[72].Respuestas=="AlgunasVeces"){
+                  pet11res358="Algunas Veces"
+                  pet11val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion11[72].Respuestas=="CasiNunca"){
+                  pet11res359="Casi Nunca"
+                  pet11val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion11[72].Respuestas=="Nunca"){
+                  pet11res360="Nunca"
+                  pet11val72= this.state.getPonderacion[71].nunca
+                }
    } 
    ///////////////////////////////////////////////////////////////////////////////
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -11543,25 +17243,25 @@ console.log("entro a la peticion 3" )
       } 
   
   
-    if(this.state.peticion12[2].Respuestas=="Siempre"){
-      pet12res6="Siempre"
-      pet12val2= this.state.peticion12[1].siempre
-      }else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiSiempre"){
-        pet12res7="Casi Siempre"
-        pet12val2= this.state.peticion12[1].casisiempre
-      }
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="AlgunasVeces"){
-        pet12res8="Algunas Veces"
-        pet12val2= this.state.peticion12[1].algunasveces
-      } 
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
-        pet12res9="Casi Nunca"
-        pet12val2= this.state.peticion12[2].casinunca
-      } 
-      else if(this.state.peticion12[2].Respuestas=="Nunca"){
-        pet12res10="Nunca"
-        pet12val2= this.state.peticion12[1].nunca
-      } 
+      if(this.state.peticion12[2].Respuestas=="Siempre"){
+        pet12res6="Siempre"
+        pet12val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion12[2].Respuestas=="CasiSiempre"){
+          pet12res7="Casi Siempre"
+          pet12val2= this.state.getPonderacion[1].casisiempre
+        }
+        else if(this.state.peticion12[2].Respuestas=="AlgunasVeces"){
+          pet12res8="Algunas Veces"
+          pet12val2= this.state.getPonderacion[1].algunasveces
+        } 
+        else if(this.state.peticion12[2].Respuestas=="CasiNunca"){
+          pet12res9="Casi Nunca"
+          pet12val2= this.state.getPonderacion[1].casinunca
+        } 
+        else if(this.state.peticion12[2].Respuestas=="Nunca"){
+          pet12res10="Nunca"
+          pet12val2= this.state.getPonderacion[1].nunca
+        } 
   
       if(this.state.peticion12[3].Respuestas=="Siempre"){
         pet12res11="Siempre"
@@ -12206,7 +17906,7 @@ console.log("entro a la peticion 3" )
               pet12res174="Casi Nunca"
               pet12val35= this.state.getPonderacion[34].casinunca
             } 
-            else if(this.state.peticion12[15].Respuestas=="Nunca"){
+            else if(this.state.peticion12[35].Respuestas=="Nunca"){
               pet12res175="Nunca"
               pet12val35= this.state.getPonderacion[34].nunca
             } 
@@ -12311,122 +18011,619 @@ console.log("entro a la peticion 3" )
                   pet12val40= this.state.getPonderacion[39].nunca
                 }
   
-              if(this.state.peticion12[42].Respuestas=="Siempre"){
-                pet12res201="Siempre"
-                pet12val41= this.state.getPonderacion[40].siempre
-              }else if(this.state.peticion12[42].Respuestas=="CasiSiempre"){
-                pet12res202="Casi Siempre"
-                pet12val41= this.state.getPonderacion[40].casisiempre
-              }
-              else if(this.state.peticion12[42].Respuestas=="AlgunasVeces"){
-                pet12res203="Algunas Veces"
-                pet12val41= this.state.getPonderacion[40].algunasveces
-              } 
-              else if(this.state.peticion12[42].Respuestas=="CasiNunca"){
-                pet12res204="Casi Nunca"
-                pet12val41= this.state.getPonderacion[40].casinunca
-              } 
-              else if(this.state.peticion12[42].Respuestas=="Nunca"){
-                pet12res205="Nunca"
-                pet12val41= this.state.getPonderacion[40].nunca
-              }
-            if(this.state.peticion12[43].Respuestas=="Siempre"){
-              pet12res206="Siempre"
-              pet12val42= this.state.getPonderacion[41].siempre
-            }else if(this.state.peticion12[43].Respuestas=="CasiSiempre"){
-              pet12res207="Casi Siempre"
-              pet12val42= this.state.getPonderacion[41].casisiempre
-            }
-            else if(this.state.peticion12[43].Respuestas=="AlgunasVeces"){
-              pet12res208="Algunas Veces"
-              pet12val42= this.state.getPonderacion[41].algunasveces
-            } 
-            else if(this.state.peticion12[43].Respuestas=="CasiNunca"){
-              pet12res209="Casi Nunca"
-              pet12val42= this.state.getPonderacion[41].casinunca
-            } 
-            else if(this.state.peticion12[43].Respuestas=="Nunca"){
-              pet12res210="Nunca"
-              pet12val42= this.state.getPonderacion[41].nunca
-            }
-          if(this.state.peticion12[44].Respuestas=="Siempre"){
-            pet12res211="Siempre"
-            pet12val43= this.state.getPonderacion[42].siempre
-          }else if(this.state.peticion12[44].Respuestas=="CasiSiempre"){
-            pet12res212="Casi Siempre"
-            pet12val43= this.state.getPonderacion[42].casisiempre
-          }
-          else if(this.state.peticion12[44].Respuestas=="AlgunasVeces"){
-            pet12res213="Algunas Veces"
-            pet12val43= this.state.getPonderacion[42].algunasveces
-          } 
-          else if(this.state.peticion12[44].Respuestas=="CasiNunca"){
-            pet12res214="Casi Nunca"
-            pet12val43= this.state.getPonderacion[42].casinunca
-          } 
-          else if(this.state.peticion12[44].Respuestas=="Nunca"){
-            pet12res215="Nunca"
-            pet12val43= this.state.getPonderacion[42].nunca
-          }
+                if(this.state.peticion12[41].Respuestas=="Siempre"){
+                  pet12res201="Siempre"
+                  pet12val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion12[41].Respuestas=="CasiSiempre"){
+                  pet12res202="Casi Siempre"
+                  pet12val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion12[41].Respuestas=="AlgunasVeces"){
+                  pet12res203="Algunas Veces"
+                  pet12val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion12[41].Respuestas=="CasiNunca"){
+                  pet12res204="Casi Nunca"
+                  pet12val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion12[41].Respuestas=="Nunca"){
+                  pet12res205="Nunca"
+                  pet12val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion12[42].Respuestas=="Siempre"){
+                  pet12res206="Siempre"
+                  pet12val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion12[42].Respuestas=="CasiSiempre"){
+                  pet12res207="Casi Siempre"
+                  pet12val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion12[42].Respuestas=="AlgunasVeces"){
+                  pet12res208="Algunas Veces"
+                  pet12val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion12[42].Respuestas=="CasiNunca"){
+                  pet12res209="Casi Nunca"
+                  pet12val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion12[42].Respuestas=="Nunca"){
+                  pet12res210="Nunca"
+                  pet12val42= this.state.getPonderacion[41].nunca
+                }
   
-        if(this.state.peticion12[46].Respuestas=="Siempre"){
-          pet12res216="Siempre"
-          pet12val44= this.state.getPonderacion[43].siempre
-        }else if(this.state.peticion12[46].Respuestas=="CasiSiempre"){
-          pet12res217="Casi Siempre"
-          pet12val44= this.state.getPonderacion[43].casisiempre
-        }
-        else if(this.state.peticion12[46].Respuestas=="AlgunasVeces"){
-          pet12res218="Algunas Veces"
-          pet12val44= this.state.getPonderacion[43].algunasveces
-        } 
-        else if(this.state.peticion12[46].Respuestas=="CasiNunca"){
-          pet12res219="Casi Nunca"
-          pet12val44= this.state.getPonderacion[43].casinunca
-        } 
-        else if(this.state.peticion12[46].Respuestas=="Nunca"){
-          pet12res220="Nunca"
-          pet12val44= this.state.getPonderacion[43].nunca
-        }
+                if(this.state.peticion12[43].Respuestas=="Siempre"){
+                  pet12res211="Siempre"
+                  pet12val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion12[43].Respuestas=="CasiSiempre"){
+                  pet12res212="Casi Siempre"
+                  pet12val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion12[43].Respuestas=="AlgunasVeces"){
+                  pet12res213="Algunas Veces"
+                  pet12val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion12[43].Respuestas=="CasiNunca"){
+                  pet12res214="Casi Nunca"
+                  pet12val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion12[43].Respuestas=="Nunca"){
+                  pet12res215="Nunca"
+                  pet12val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion12[44].Respuestas=="Siempre"){
+                  pet12res216="Siempre"
+                  pet12val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion12[44].Respuestas=="CasiSiempre"){
+                  pet12res217="Casi Siempre"
+                  pet12val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion12[44].Respuestas=="AlgunasVeces"){
+                  pet12res218="Algunas Veces"
+                  pet12val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion12[44].Respuestas=="CasiNunca"){
+                  pet12res219="Casi Nunca"
+                  pet12val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion12[44].Respuestas=="Nunca"){
+                  pet12res220="Nunca"
+                  pet12val44= this.state.getPonderacion[43].nunca
+                }
   
-      if(this.state.peticion12[47].Respuestas=="Siempre"){
-        pet12res221="Siempre"
-        pet12val45= this.state.getPonderacion[44].siempre
-      }else if(this.state.peticion12[47].Respuestas=="CasiSiempre"){
-        pet12res222="Casi Siempre"
-        pet12val45= this.state.getPonderacion[44].casisiempre
-      }
-      else if(this.state.peticion12[47].Respuestas=="AlgunasVeces"){
-        pet12res223="Algunas Veces"
-        pet12val45= this.state.getPonderacion[44].algunasveces
-      } 
-      else if(this.state.peticion12[47].Respuestas=="CasiNunca"){
-        pet12res224="Casi Nunca"
-        pet12val45= this.state.getPonderacion[44].casinunca
-      } 
-      else if(this.state.peticion12[47].Respuestas=="Nunca"){
-        pet12res225="Nunca"
-        pet12val45= this.state.getPonderacion[44].nunca
-      }
-      if(this.state.peticion12[48].Respuestas=="Siempre"){
-        pet12res226="Siempre"
-        pet12val46= this.state.getPonderacion[45].siempre
-      }else if(this.state.peticion12[48].Respuestas=="CasiSiempre"){
-        pet12res227="Casi Siempre"
-        pet12val46= this.state.getPonderacion[45].casisiempre
-      }
-      else if(this.state.peticion12[48].Respuestas=="AlgunasVeces"){
-        pet12res228="Algunas Veces"
-        pet12val46= this.state.getPonderacion[45].algunasveces
-      } 
-      else if(this.state.peticion12[48].Respuestas=="CasiNunca"){
-        pet12res229="Casi Nunca"
-        pet12val46= this.state.getPonderacion[45].casinunca
-      } 
-      else if(this.state.peticion12[48].Respuestas=="Nunca"){
-        pet12res230="Nunca"
-        pet12val46= this.state.getPonderacion[45].nunca
-      }
+                if(this.state.peticion12[45].Respuestas=="Siempre"){
+                  pet12res221="Siempre"
+                  pet12val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion12[45].Respuestas=="CasiSiempre"){
+                  pet12res222="Casi Siempre"
+                  pet12val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion12[45].Respuestas=="AlgunasVeces"){
+                  pet12res223="Algunas Veces"
+                  pet12val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion12[45].Respuestas=="CasiNunca"){
+                  pet12res224="Casi Nunca"
+                  pet12val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion12[45].Respuestas=="Nunca"){
+                  pet12res225="Nunca"
+                  pet12val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion12[46].Respuestas=="Siempre"){
+                  pet12res226="Siempre"
+                  pet12val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion12[46].Respuestas=="CasiSiempre"){
+                  pet12res227="Casi Siempre"
+                  pet12val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion12[46].Respuestas=="AlgunasVeces"){
+                  pet12res228="Algunas Veces"
+                  pet12val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion12[46].Respuestas=="CasiNunca"){
+                  pet12res229="Casi Nunca"
+                  pet12val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion12[46].Respuestas=="Nunca"){
+                  pet12res230="Nunca"
+                  pet12val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion12[47].Respuestas=="Siempre"){
+                  pet12res231="Siempre"
+                  pet12val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion12[47].Respuestas=="CasiSiempre"){
+                  pet12res232="Casi Siempre"
+                  pet12val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion12[47].Respuestas=="AlgunasVeces"){
+                  pet12res233="Algunas Veces"
+                  pet12val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion12[47].Respuestas=="CasiNunca"){
+                  pet12res234="Casi Nunca"
+                  pet12val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion12[47].Respuestas=="Nunca"){
+                  pet12res235="Nunca"
+                  pet12val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion12[48].Respuestas=="Siempre"){
+                  pet12res236="Siempre"
+                  pet12val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion12[48].Respuestas=="CasiSiempre"){
+                  pet12res237="Casi Siempre"
+                  pet12val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion12[48].Respuestas=="AlgunasVeces"){
+                  pet12res238="Algunas Veces"
+                  pet12val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion12[48].Respuestas=="CasiNunca"){
+                  pet12res239="Casi Nunca"
+                  pet12val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion12[48].Respuestas=="Nunca"){
+                  pet12res240="Nunca"
+                  pet12val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion12[49].Respuestas=="Siempre"){
+                  pet12res241="Siempre"
+                  pet12val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion12[49].Respuestas=="CasiSiempre"){
+                  pet12res242="Casi Siempre"
+                  pet12val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion12[49].Respuestas=="AlgunasVeces"){
+                  pet12res243="Algunas Veces"
+                  pet12val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion12[49].Respuestas=="CasiNunca"){
+                  pet12res244="Casi Nunca"
+                  pet12val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion12[49].Respuestas=="Nunca"){
+                  pet12res245="Nunca"
+                  pet12val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion12[50].Respuestas=="Siempre"){
+                  pet12res246="Siempre"
+                  pet12val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion12[50].Respuestas=="CasiSiempre"){
+                  pet12res247="Casi Siempre"
+                  pet12val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion12[50].Respuestas=="AlgunasVeces"){
+                  pet12res248="Algunas Veces"
+                  pet12val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion12[50].Respuestas=="CasiNunca"){
+                  pet12res249="Casi Nunca"
+                  pet12val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion12[50].Respuestas=="Nunca"){
+                  pet12res250="Nunca"
+                  pet12val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion12[51].Respuestas=="Siempre"){
+                  pet12res251="Siempre"
+                  pet12val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion12[51].Respuestas=="CasiSiempre"){
+                  pet12res252="Casi Siempre"
+                  pet12val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion12[51].Respuestas=="AlgunasVeces"){
+                  pet12res253="Algunas Veces"
+                  pet12val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion12[51].Respuestas=="CasiNunca"){
+                  pet12res254="Casi Nunca"
+                  pet12val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion12[51].Respuestas=="Nunca"){
+                  pet12res255="Nunca"
+                  pet12val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion12[52].Respuestas=="Siempre"){
+                  pet12res256="Siempre"
+                  pet12val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion12[52].Respuestas=="CasiSiempre"){
+                  pet12res257="Casi Siempre"
+                  pet12val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion12[52].Respuestas=="AlgunasVeces"){
+                  pet12res258="Algunas Veces"
+                  pet12val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion12[52].Respuestas=="CasiNunca"){
+                  pet12res259="Casi Nunca"
+                  pet12val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion12[52].Respuestas=="Nunca"){
+                  pet12res260="Nunca"
+                  pet12val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion12[53].Respuestas=="Siempre"){
+                  pet12res261="Siempre"
+                  pet12val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion12[53].Respuestas=="CasiSiempre"){
+                  pet12res262="Casi Siempre"
+                  pet12val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion12[53].Respuestas=="AlgunasVeces"){
+                  pet12res263="Algunas Veces"
+                  pet12val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion12[53].Respuestas=="CasiNunca"){
+                  pet12res264="Casi Nunca"
+                  pet12val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion12[53].Respuestas=="Nunca"){
+                  pet12res265="Nunca"
+                  pet12val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion12[54].Respuestas=="Siempre"){
+                  pet12res266="Siempre"
+                  pet12val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion12[54].Respuestas=="CasiSiempre"){
+                  pet12res267="Casi Siempre"
+                  pet12val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion12[54].Respuestas=="AlgunasVeces"){
+                  pet12res268="Algunas Veces"
+                  pet12val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion12[54].Respuestas=="CasiNunca"){
+                  pet12res269="Casi Nunca"
+                  pet12val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion12[54].Respuestas=="Nunca"){
+                  pet12res270="Nunca"
+                  pet12val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion12[55].Respuestas=="Siempre"){
+                  pet12res271="Siempre"
+                  pet12val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion12[55].Respuestas=="CasiSiempre"){
+                  pet12res272="Casi Siempre"
+                  pet12val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion12[55].Respuestas=="AlgunasVeces"){
+                  pet12res273="Algunas Veces"
+                  pet12val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion12[55].Respuestas=="CasiNunca"){
+                  pet12res274="Casi Nunca"
+                  pet12val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion12[55].Respuestas=="Nunca"){
+                  pet12res275="Nunca"
+                  pet12val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion12[56].Respuestas=="Siempre"){
+                  pet12res276="Siempre"
+                  pet12val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion12[56].Respuestas=="CasiSiempre"){
+                  pet12res277="Casi Siempre"
+                  pet12val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion12[56].Respuestas=="AlgunasVeces"){
+                  pet12res278="Algunas Veces"
+                  pet12val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion12[56].Respuestas=="CasiNunca"){
+                  pet12res279="Casi Nunca"
+                  pet12val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion12[56].Respuestas=="Nunca"){
+                  pet12res280="Nunca"
+                  pet12val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion12[57].Respuestas=="Siempre"){
+                  pet12res281="Siempre"
+                  pet12val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion12[57].Respuestas=="CasiSiempre"){
+                  pet12res282="Casi Siempre"
+                  pet12val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion12[57].Respuestas=="AlgunasVeces"){
+                  pet12res283="Algunas Veces"
+                  pet12val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion12[57].Respuestas=="CasiNunca"){
+                  pet12res284="Casi Nunca"
+                  pet12val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion12[57].Respuestas=="Nunca"){
+                  pet12res285="Nunca"
+                  pet12val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion12[58].Respuestas=="Siempre"){
+                  pet12res286="Siempre"
+                  pet12val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion12[58].Respuestas=="CasiSiempre"){
+                  pet12res287="Casi Siempre"
+                  pet12val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion12[58].Respuestas=="AlgunasVeces"){
+                  pet12res288="Algunas Veces"
+                  pet12val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion12[58].Respuestas=="CasiNunca"){
+                  pet12res289="Casi Nunca"
+                  pet12val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion12[58].Respuestas=="Nunca"){
+                  pet12res290="Nunca"
+                  pet12val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion12[59].Respuestas=="Siempre"){
+                  pet12res291="Siempre"
+                  pet12val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion12[59].Respuestas=="CasiSiempre"){
+                  pet12res292="Casi Siempre"
+                  pet12val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion12[59].Respuestas=="AlgunasVeces"){
+                  pet12res293="Algunas Veces"
+                  pet12val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion12[59].Respuestas=="CasiNunca"){
+                  pet12res294="Casi Nunca"
+                  pet12val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion12[59].Respuestas=="Nunca"){
+                  pet12res295="Nunca"
+                  pet12val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion12[60].Respuestas=="Siempre"){
+                  pet12res296="Siempre"
+                  pet12val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion12[60].Respuestas=="CasiSiempre"){
+                  pet12res297="Casi Siempre"
+                  pet12val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion12[60].Respuestas=="AlgunasVeces"){
+                  pet12res298="Algunas Veces"
+                  pet12val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion12[60].Respuestas=="CasiNunca"){
+                  pet12res299="Casi Nunca"
+                  pet12val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion12[60].Respuestas=="Nunca"){
+                  pet12res300="Nunca"
+                  pet12val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion12[61].Respuestas=="Siempre"){
+                  pet12res301="Siempre"
+                  pet12val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion12[61].Respuestas=="CasiSiempre"){
+                  pet12res302="Casi Siempre"
+                  pet12val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion12[61].Respuestas=="AlgunasVeces"){
+                  pet12res303="Algunas Veces"
+                  pet12val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion12[61].Respuestas=="CasiNunca"){
+                  pet12res304="Casi Nunca"
+                  pet12val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion12[61].Respuestas=="Nunca"){
+                  pet12res305="Nunca"
+                  pet12val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion12[62].Respuestas=="Siempre"){
+                  pet12res306="Siempre"
+                  pet12val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion12[62].Respuestas=="CasiSiempre"){
+                  pet12res307="Casi Siempre"
+                  pet12val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion12[62].Respuestas=="AlgunasVeces"){
+                  pet12res308="Algunas Veces"
+                  pet12val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion12[62].Respuestas=="CasiNunca"){
+                  pet12res309="Casi Nunca"
+                  pet12val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion12[62].Respuestas=="Nunca"){
+                  pet12res310="Nunca"
+                  pet12val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion12[63].Respuestas=="Siempre"){
+                  pet12res311="Siempre"
+                  pet12val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion12[63].Respuestas=="CasiSiempre"){
+                  pet12res312="Casi Siempre"
+                  pet12val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion12[63].Respuestas=="AlgunasVeces"){
+                  pet12res313="Algunas Veces"
+                  pet12val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion12[63].Respuestas=="CasiNunca"){
+                  pet12res314="Casi Nunca"
+                  pet12val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion12[63].Respuestas=="Nunca"){
+                  pet12res315="Nunca"
+                  pet12val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion12[64].Respuestas=="Siempre"){
+                  pet12res316="Siempre"
+                  pet12val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion12[64].Respuestas=="CasiSiempre"){
+                  pet12res317="Casi Siempre"
+                  pet12val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion12[64].Respuestas=="AlgunasVeces"){
+                  pet12res318="Algunas Veces"
+                  pet12val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion12[64].Respuestas=="CasiNunca"){
+                  pet12res319="Casi Nunca"
+                  pet12val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion12[64].Respuestas=="Nunca"){
+                  pet12res320="Nunca"
+                  pet12val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion12[65].Respuestas=="Siempre"){
+                  pet12res321="Siempre"
+                  pet12val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion12[65].Respuestas=="CasiSiempre"){
+                  pet12res322="Casi Siempre"
+                  pet12val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion12[65].Respuestas=="AlgunasVeces"){
+                  pet12res323="Algunas Veces"
+                  pet12val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion12[65].Respuestas=="CasiNunca"){
+                  pet12res324="Casi Nunca"
+                  pet12val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion12[65].Respuestas=="Nunca"){
+                  pet12res325="Nunca"
+                  pet12val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion12[66].Respuestas=="Siempre"){
+                  pet12res326="Siempre"
+                  pet12val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion12[66].Respuestas=="CasiSiempre"){
+                  pet12res327="Casi Siempre"
+                  pet12val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion12[66].Respuestas=="AlgunasVeces"){
+                  pet12res328="Algunas Veces"
+                  pet12val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion12[66].Respuestas=="CasiNunca"){
+                  pet12res329="Casi Nunca"
+                  pet12val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion12[66].Respuestas=="Nunca"){
+                  pet12res330="Nunca"
+                  pet12val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion12[67].Respuestas=="Siempre"){
+                  pet12res331="Siempre"
+                  pet12val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion12[67].Respuestas=="CasiSiempre"){
+                  pet12res332="Casi Siempre"
+                  pet12val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion12[67].Respuestas=="AlgunasVeces"){
+                  pet12res333="Algunas Veces"
+                  pet12val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion12[67].Respuestas=="CasiNunca"){
+                  pet12res334="Casi Nunca"
+                  pet12val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion12[67].Respuestas=="Nunca"){
+                  pet12res335="Nunca"
+                  pet12val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion12[68].Respuestas=="Siempre"){
+                  pet12res336="Siempre"
+                  pet12val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion12[68].Respuestas=="CasiSiempre"){
+                  pet12res337="Casi Siempre"
+                  pet12val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion12[68].Respuestas=="AlgunasVeces"){
+                  pet12res338="Algunas Veces"
+                  pet12val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion12[68].Respuestas=="CasiNunca"){
+                  pet12res339="Casi Nunca"
+                  pet12val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion12[68].Respuestas=="Nunca"){
+                  pet12res340="Nunca"
+                  pet12val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion12[69].Respuestas=="Siempre"){
+                  pet12res341="Siempre"
+                  pet12val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion12[69].Respuestas=="CasiSiempre"){
+                  pet12res342="Casi Siempre"
+                  pet12val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion12[69].Respuestas=="AlgunasVeces"){
+                  pet12res343="Algunas Veces"
+                  pet12val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion12[69].Respuestas=="CasiNunca"){
+                  pet12res344="Casi Nunca"
+                  pet12val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion12[69].Respuestas=="Nunca"){
+                  pet12res345="Nunca"
+                  pet12val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion12[70].Respuestas=="Siempre"){
+                  pet12res346="Siempre"
+                  pet12val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion12[70].Respuestas=="CasiSiempre"){
+                  pet12res347="Casi Siempre"
+                  pet12val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion12[70].Respuestas=="AlgunasVeces"){
+                  pet12res348="Algunas Veces"
+                  pet12val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion12[70].Respuestas=="CasiNunca"){
+                  pet12res349="Casi Nunca"
+                  pet12val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion12[70].Respuestas=="Nunca"){
+                  pet12res350="Nunca"
+                  pet12val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion12[71].Respuestas=="Siempre"){
+                  pet12res351="Siempre"
+                  pet12val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion12[71].Respuestas=="CasiSiempre"){
+                  pet12res352="Casi Siempre"
+                  pet12val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion12[71].Respuestas=="AlgunasVeces"){
+                  pet12res353="Algunas Veces"
+                  pet12val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion12[71].Respuestas=="CasiNunca"){
+                  pet12res354="Casi Nunca"
+                  pet12val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion12[71].Respuestas=="Nunca"){
+                  pet12res355="Nunca"
+                  pet12val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion12[72].Respuestas=="Siempre"){
+                  pet12res356="Siempre"
+                  pet12val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion12[72].Respuestas=="CasiSiempre"){
+                  pet12res357="Casi Siempre"
+                  pet12val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion12[72].Respuestas=="AlgunasVeces"){
+                  pet12res358="Algunas Veces"
+                  pet12val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion12[72].Respuestas=="CasiNunca"){
+                  pet12res359="Casi Nunca"
+                  pet12val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion12[72].Respuestas=="Nunca"){
+                  pet12res360="Nunca"
+                  pet12val72= this.state.getPonderacion[71].nunca
+                }
    } 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -12454,25 +18651,25 @@ console.log("entro a la peticion 3" )
       } 
   
   
-    if(this.state.peticion13[2].Respuestas=="Siempre"){
-      pet13res6="Siempre"
-      pet13val2= this.state.peticion13[1].siempre
-      }else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiSiempre"){
-        pet13res7="Casi Siempre"
-        pet13val2= this.state.peticion13[1].casisiempre
-      }
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="AlgunasVeces"){
-        pet13res8="Algunas Veces"
-        pet13val2= this.state.peticion13[1].algunasveces
-      } 
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
-        pet13res9="Casi Nunca"
-        pet13val2= this.state.peticion13[2].casinunca
-      } 
-      else if(this.state.peticion13[2].Respuestas=="Nunca"){
-        pet13res10="Nunca"
-        pet13val2= this.state.peticion13[1].nunca
-      } 
+      if(this.state.peticion13[2].Respuestas=="Siempre"){
+        pet13res6="Siempre"
+        pet13val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion13[2].Respuestas=="CasiSiempre"){
+          pet13res7="Casi Siempre"
+          pet13val2= this.state.getPonderacion[1].casisiempre
+        }
+        else if(this.state.peticion13[2].Respuestas=="AlgunasVeces"){
+          pet13res8="Algunas Veces"
+          pet13val2= this.state.getPonderacion[1].algunasveces
+        } 
+        else if(this.state.peticion13[2].Respuestas=="CasiNunca"){
+          pet13res9="Casi Nunca"
+          pet13val2= this.state.getPonderacion[1].casinunca
+        } 
+        else if(this.state.peticion13[2].Respuestas=="Nunca"){
+          pet13res10="Nunca"
+          pet13val2= this.state.getPonderacion[1].nunca
+        } 
   
       if(this.state.peticion13[3].Respuestas=="Siempre"){
         pet13res11="Siempre"
@@ -13117,7 +19314,7 @@ console.log("entro a la peticion 3" )
               pet13res174="Casi Nunca"
               pet13val35= this.state.getPonderacion[34].casinunca
             } 
-            else if(this.state.peticion13[15].Respuestas=="Nunca"){
+            else if(this.state.peticion13[35].Respuestas=="Nunca"){
               pet13res175="Nunca"
               pet13val35= this.state.getPonderacion[34].nunca
             } 
@@ -13222,122 +19419,619 @@ console.log("entro a la peticion 3" )
                   pet13val40= this.state.getPonderacion[39].nunca
                 }
   
-              if(this.state.peticion13[42].Respuestas=="Siempre"){
-                pet13res201="Siempre"
-                pet13val41= this.state.getPonderacion[40].siempre
-              }else if(this.state.peticion13[42].Respuestas=="CasiSiempre"){
-                pet13res202="Casi Siempre"
-                pet13val41= this.state.getPonderacion[40].casisiempre
-              }
-              else if(this.state.peticion13[42].Respuestas=="AlgunasVeces"){
-                pet13res203="Algunas Veces"
-                pet13val41= this.state.getPonderacion[40].algunasveces
-              } 
-              else if(this.state.peticion13[42].Respuestas=="CasiNunca"){
-                pet13res204="Casi Nunca"
-                pet13val41= this.state.getPonderacion[40].casinunca
-              } 
-              else if(this.state.peticion13[42].Respuestas=="Nunca"){
-                pet13res205="Nunca"
-                pet13val41= this.state.getPonderacion[40].nunca
-              }
-            if(this.state.peticion13[43].Respuestas=="Siempre"){
-              pet13res206="Siempre"
-              pet13val42= this.state.getPonderacion[41].siempre
-            }else if(this.state.peticion13[43].Respuestas=="CasiSiempre"){
-              pet13res207="Casi Siempre"
-              pet13val42= this.state.getPonderacion[41].casisiempre
-            }
-            else if(this.state.peticion13[43].Respuestas=="AlgunasVeces"){
-              pet13res208="Algunas Veces"
-              pet13val42= this.state.getPonderacion[41].algunasveces
-            } 
-            else if(this.state.peticion13[43].Respuestas=="CasiNunca"){
-              pet13res209="Casi Nunca"
-              pet13val42= this.state.getPonderacion[41].casinunca
-            } 
-            else if(this.state.peticion13[43].Respuestas=="Nunca"){
-              pet13res210="Nunca"
-              pet13val42= this.state.getPonderacion[41].nunca
-            }
-          if(this.state.peticion13[44].Respuestas=="Siempre"){
-            pet13res211="Siempre"
-            pet13val43= this.state.getPonderacion[42].siempre
-          }else if(this.state.peticion13[44].Respuestas=="CasiSiempre"){
-            pet13res212="Casi Siempre"
-            pet13val43= this.state.getPonderacion[42].casisiempre
-          }
-          else if(this.state.peticion13[44].Respuestas=="AlgunasVeces"){
-            pet13res213="Algunas Veces"
-            pet13val43= this.state.getPonderacion[42].algunasveces
-          } 
-          else if(this.state.peticion13[44].Respuestas=="CasiNunca"){
-            pet13res214="Casi Nunca"
-            pet13val43= this.state.getPonderacion[42].casinunca
-          } 
-          else if(this.state.peticion13[44].Respuestas=="Nunca"){
-            pet13res215="Nunca"
-            pet13val43= this.state.getPonderacion[42].nunca
-          }
+                if(this.state.peticion13[41].Respuestas=="Siempre"){
+                  pet13res201="Siempre"
+                  pet13val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion13[41].Respuestas=="CasiSiempre"){
+                  pet13res202="Casi Siempre"
+                  pet13val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion13[41].Respuestas=="AlgunasVeces"){
+                  pet13res203="Algunas Veces"
+                  pet13val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion13[41].Respuestas=="CasiNunca"){
+                  pet13res204="Casi Nunca"
+                  pet13val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion13[41].Respuestas=="Nunca"){
+                  pet13res205="Nunca"
+                  pet13val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion13[42].Respuestas=="Siempre"){
+                  pet13res206="Siempre"
+                  pet13val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion13[42].Respuestas=="CasiSiempre"){
+                  pet13res207="Casi Siempre"
+                  pet13val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion13[42].Respuestas=="AlgunasVeces"){
+                  pet13res208="Algunas Veces"
+                  pet13val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion13[42].Respuestas=="CasiNunca"){
+                  pet13res209="Casi Nunca"
+                  pet13val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion13[42].Respuestas=="Nunca"){
+                  pet13res210="Nunca"
+                  pet13val42= this.state.getPonderacion[41].nunca
+                }
   
-        if(this.state.peticion13[46].Respuestas=="Siempre"){
-          pet13res216="Siempre"
-          pet13val44= this.state.getPonderacion[43].siempre
-        }else if(this.state.peticion13[46].Respuestas=="CasiSiempre"){
-          pet13res217="Casi Siempre"
-          pet13val44= this.state.getPonderacion[43].casisiempre
-        }
-        else if(this.state.peticion13[46].Respuestas=="AlgunasVeces"){
-          pet13res218="Algunas Veces"
-          pet13val44= this.state.getPonderacion[43].algunasveces
-        } 
-        else if(this.state.peticion13[46].Respuestas=="CasiNunca"){
-          pet13res219="Casi Nunca"
-          pet13val44= this.state.getPonderacion[43].casinunca
-        } 
-        else if(this.state.peticion13[46].Respuestas=="Nunca"){
-          pet13res220="Nunca"
-          pet13val44= this.state.getPonderacion[43].nunca
-        }
+                if(this.state.peticion13[43].Respuestas=="Siempre"){
+                  pet13res211="Siempre"
+                  pet13val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion13[43].Respuestas=="CasiSiempre"){
+                  pet13res212="Casi Siempre"
+                  pet13val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion13[43].Respuestas=="AlgunasVeces"){
+                  pet13res213="Algunas Veces"
+                  pet13val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion13[43].Respuestas=="CasiNunca"){
+                  pet13res214="Casi Nunca"
+                  pet13val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion13[43].Respuestas=="Nunca"){
+                  pet13res215="Nunca"
+                  pet13val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion13[44].Respuestas=="Siempre"){
+                  pet13res216="Siempre"
+                  pet13val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion13[44].Respuestas=="CasiSiempre"){
+                  pet13res217="Casi Siempre"
+                  pet13val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion13[44].Respuestas=="AlgunasVeces"){
+                  pet13res218="Algunas Veces"
+                  pet13val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion13[44].Respuestas=="CasiNunca"){
+                  pet13res219="Casi Nunca"
+                  pet13val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion13[44].Respuestas=="Nunca"){
+                  pet13res220="Nunca"
+                  pet13val44= this.state.getPonderacion[43].nunca
+                }
   
-      if(this.state.peticion13[47].Respuestas=="Siempre"){
-        pet13res221="Siempre"
-        pet13val45= this.state.getPonderacion[44].siempre
-      }else if(this.state.peticion13[47].Respuestas=="CasiSiempre"){
-        pet13res222="Casi Siempre"
-        pet13val45= this.state.getPonderacion[44].casisiempre
-      }
-      else if(this.state.peticion13[47].Respuestas=="AlgunasVeces"){
-        pet13res223="Algunas Veces"
-        pet13val45= this.state.getPonderacion[44].algunasveces
-      } 
-      else if(this.state.peticion13[47].Respuestas=="CasiNunca"){
-        pet13res224="Casi Nunca"
-        pet13val45= this.state.getPonderacion[44].casinunca
-      } 
-      else if(this.state.peticion13[47].Respuestas=="Nunca"){
-        pet13res225="Nunca"
-        pet13val45= this.state.getPonderacion[44].nunca
-      }
-      if(this.state.peticion13[48].Respuestas=="Siempre"){
-        pet13res226="Siempre"
-        pet13val46= this.state.getPonderacion[45].siempre
-      }else if(this.state.peticion13[48].Respuestas=="CasiSiempre"){
-        pet13res227="Casi Siempre"
-        pet13val46= this.state.getPonderacion[45].casisiempre
-      }
-      else if(this.state.peticion13[48].Respuestas=="AlgunasVeces"){
-        pet13res228="Algunas Veces"
-        pet13val46= this.state.getPonderacion[45].algunasveces
-      } 
-      else if(this.state.peticion13[48].Respuestas=="CasiNunca"){
-        pet13res229="Casi Nunca"
-        pet13val46= this.state.getPonderacion[45].casinunca
-      } 
-      else if(this.state.peticion13[48].Respuestas=="Nunca"){
-        pet13res230="Nunca"
-        pet13val46= this.state.getPonderacion[45].nunca
-      }
+                if(this.state.peticion13[45].Respuestas=="Siempre"){
+                  pet13res221="Siempre"
+                  pet13val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion13[45].Respuestas=="CasiSiempre"){
+                  pet13res222="Casi Siempre"
+                  pet13val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion13[45].Respuestas=="AlgunasVeces"){
+                  pet13res223="Algunas Veces"
+                  pet13val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion13[45].Respuestas=="CasiNunca"){
+                  pet13res224="Casi Nunca"
+                  pet13val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion13[45].Respuestas=="Nunca"){
+                  pet13res225="Nunca"
+                  pet13val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion13[46].Respuestas=="Siempre"){
+                  pet13res226="Siempre"
+                  pet13val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion13[46].Respuestas=="CasiSiempre"){
+                  pet13res227="Casi Siempre"
+                  pet13val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion13[46].Respuestas=="AlgunasVeces"){
+                  pet13res228="Algunas Veces"
+                  pet13val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion13[46].Respuestas=="CasiNunca"){
+                  pet13res229="Casi Nunca"
+                  pet13val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion13[46].Respuestas=="Nunca"){
+                  pet13res230="Nunca"
+                  pet13val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion13[47].Respuestas=="Siempre"){
+                  pet13res231="Siempre"
+                  pet13val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion13[47].Respuestas=="CasiSiempre"){
+                  pet13res232="Casi Siempre"
+                  pet13val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion13[47].Respuestas=="AlgunasVeces"){
+                  pet13res233="Algunas Veces"
+                  pet13val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion13[47].Respuestas=="CasiNunca"){
+                  pet13res234="Casi Nunca"
+                  pet13val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion13[47].Respuestas=="Nunca"){
+                  pet13res235="Nunca"
+                  pet13val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion13[48].Respuestas=="Siempre"){
+                  pet13res236="Siempre"
+                  pet13val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion13[48].Respuestas=="CasiSiempre"){
+                  pet13res237="Casi Siempre"
+                  pet13val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion13[48].Respuestas=="AlgunasVeces"){
+                  pet13res238="Algunas Veces"
+                  pet13val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion13[48].Respuestas=="CasiNunca"){
+                  pet13res239="Casi Nunca"
+                  pet13val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion13[48].Respuestas=="Nunca"){
+                  pet13res240="Nunca"
+                  pet13val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion13[49].Respuestas=="Siempre"){
+                  pet13res241="Siempre"
+                  pet13val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion13[49].Respuestas=="CasiSiempre"){
+                  pet13res242="Casi Siempre"
+                  pet13val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion13[49].Respuestas=="AlgunasVeces"){
+                  pet13res243="Algunas Veces"
+                  pet13val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion13[49].Respuestas=="CasiNunca"){
+                  pet13res244="Casi Nunca"
+                  pet13val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion13[49].Respuestas=="Nunca"){
+                  pet13res245="Nunca"
+                  pet13val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion13[50].Respuestas=="Siempre"){
+                  pet13res246="Siempre"
+                  pet13val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion13[50].Respuestas=="CasiSiempre"){
+                  pet13res247="Casi Siempre"
+                  pet13val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion13[50].Respuestas=="AlgunasVeces"){
+                  pet13res248="Algunas Veces"
+                  pet13val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion13[50].Respuestas=="CasiNunca"){
+                  pet13res249="Casi Nunca"
+                  pet13val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion13[50].Respuestas=="Nunca"){
+                  pet13res250="Nunca"
+                  pet13val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion13[51].Respuestas=="Siempre"){
+                  pet13res251="Siempre"
+                  pet13val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion13[51].Respuestas=="CasiSiempre"){
+                  pet13res252="Casi Siempre"
+                  pet13val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion13[51].Respuestas=="AlgunasVeces"){
+                  pet13res253="Algunas Veces"
+                  pet13val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion13[51].Respuestas=="CasiNunca"){
+                  pet13res254="Casi Nunca"
+                  pet13val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion13[51].Respuestas=="Nunca"){
+                  pet13res255="Nunca"
+                  pet13val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion13[52].Respuestas=="Siempre"){
+                  pet13res256="Siempre"
+                  pet13val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion13[52].Respuestas=="CasiSiempre"){
+                  pet13res257="Casi Siempre"
+                  pet13val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion13[52].Respuestas=="AlgunasVeces"){
+                  pet13res258="Algunas Veces"
+                  pet13val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion13[52].Respuestas=="CasiNunca"){
+                  pet13res259="Casi Nunca"
+                  pet13val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion13[52].Respuestas=="Nunca"){
+                  pet13res260="Nunca"
+                  pet13val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion13[53].Respuestas=="Siempre"){
+                  pet13res261="Siempre"
+                  pet13val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion13[53].Respuestas=="CasiSiempre"){
+                  pet13res262="Casi Siempre"
+                  pet13val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion13[53].Respuestas=="AlgunasVeces"){
+                  pet13res263="Algunas Veces"
+                  pet13val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion13[53].Respuestas=="CasiNunca"){
+                  pet13res264="Casi Nunca"
+                  pet13val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion13[53].Respuestas=="Nunca"){
+                  pet13res265="Nunca"
+                  pet13val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion13[54].Respuestas=="Siempre"){
+                  pet13res266="Siempre"
+                  pet13val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion13[54].Respuestas=="CasiSiempre"){
+                  pet13res267="Casi Siempre"
+                  pet13val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion13[54].Respuestas=="AlgunasVeces"){
+                  pet13res268="Algunas Veces"
+                  pet13val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion13[54].Respuestas=="CasiNunca"){
+                  pet13res269="Casi Nunca"
+                  pet13val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion13[54].Respuestas=="Nunca"){
+                  pet13res270="Nunca"
+                  pet13val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion13[55].Respuestas=="Siempre"){
+                  pet13res271="Siempre"
+                  pet13val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion13[55].Respuestas=="CasiSiempre"){
+                  pet13res272="Casi Siempre"
+                  pet13val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion13[55].Respuestas=="AlgunasVeces"){
+                  pet13res273="Algunas Veces"
+                  pet13val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion13[55].Respuestas=="CasiNunca"){
+                  pet13res274="Casi Nunca"
+                  pet13val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion13[55].Respuestas=="Nunca"){
+                  pet13res275="Nunca"
+                  pet13val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion13[56].Respuestas=="Siempre"){
+                  pet13res276="Siempre"
+                  pet13val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion13[56].Respuestas=="CasiSiempre"){
+                  pet13res277="Casi Siempre"
+                  pet13val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion13[56].Respuestas=="AlgunasVeces"){
+                  pet13res278="Algunas Veces"
+                  pet13val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion13[56].Respuestas=="CasiNunca"){
+                  pet13res279="Casi Nunca"
+                  pet13val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion13[56].Respuestas=="Nunca"){
+                  pet13res280="Nunca"
+                  pet13val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion13[57].Respuestas=="Siempre"){
+                  pet13res281="Siempre"
+                  pet13val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion13[57].Respuestas=="CasiSiempre"){
+                  pet13res282="Casi Siempre"
+                  pet13val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion13[57].Respuestas=="AlgunasVeces"){
+                  pet13res283="Algunas Veces"
+                  pet13val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion13[57].Respuestas=="CasiNunca"){
+                  pet13res284="Casi Nunca"
+                  pet13val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion13[57].Respuestas=="Nunca"){
+                  pet13res285="Nunca"
+                  pet13val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion13[58].Respuestas=="Siempre"){
+                  pet13res286="Siempre"
+                  pet13val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion13[58].Respuestas=="CasiSiempre"){
+                  pet13res287="Casi Siempre"
+                  pet13val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion13[58].Respuestas=="AlgunasVeces"){
+                  pet13res288="Algunas Veces"
+                  pet13val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion13[58].Respuestas=="CasiNunca"){
+                  pet13res289="Casi Nunca"
+                  pet13val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion13[58].Respuestas=="Nunca"){
+                  pet13res290="Nunca"
+                  pet13val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion13[59].Respuestas=="Siempre"){
+                  pet13res291="Siempre"
+                  pet13val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion13[59].Respuestas=="CasiSiempre"){
+                  pet13res292="Casi Siempre"
+                  pet13val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion13[59].Respuestas=="AlgunasVeces"){
+                  pet13res293="Algunas Veces"
+                  pet13val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion13[59].Respuestas=="CasiNunca"){
+                  pet13res294="Casi Nunca"
+                  pet13val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion13[59].Respuestas=="Nunca"){
+                  pet13res295="Nunca"
+                  pet13val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion13[60].Respuestas=="Siempre"){
+                  pet13res296="Siempre"
+                  pet13val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion13[60].Respuestas=="CasiSiempre"){
+                  pet13res297="Casi Siempre"
+                  pet13val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion13[60].Respuestas=="AlgunasVeces"){
+                  pet13res298="Algunas Veces"
+                  pet13val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion13[60].Respuestas=="CasiNunca"){
+                  pet13res299="Casi Nunca"
+                  pet13val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion13[60].Respuestas=="Nunca"){
+                  pet13res300="Nunca"
+                  pet13val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion13[61].Respuestas=="Siempre"){
+                  pet13res301="Siempre"
+                  pet13val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion13[61].Respuestas=="CasiSiempre"){
+                  pet13res302="Casi Siempre"
+                  pet13val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion13[61].Respuestas=="AlgunasVeces"){
+                  pet13res303="Algunas Veces"
+                  pet13val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion13[61].Respuestas=="CasiNunca"){
+                  pet13res304="Casi Nunca"
+                  pet13val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion13[61].Respuestas=="Nunca"){
+                  pet13res305="Nunca"
+                  pet13val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion13[62].Respuestas=="Siempre"){
+                  pet13res306="Siempre"
+                  pet13val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion13[62].Respuestas=="CasiSiempre"){
+                  pet13res307="Casi Siempre"
+                  pet13val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion13[62].Respuestas=="AlgunasVeces"){
+                  pet13res308="Algunas Veces"
+                  pet13val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion13[62].Respuestas=="CasiNunca"){
+                  pet13res309="Casi Nunca"
+                  pet13val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion13[62].Respuestas=="Nunca"){
+                  pet13res310="Nunca"
+                  pet13val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion13[63].Respuestas=="Siempre"){
+                  pet13res311="Siempre"
+                  pet13val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion13[63].Respuestas=="CasiSiempre"){
+                  pet13res312="Casi Siempre"
+                  pet13val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion13[63].Respuestas=="AlgunasVeces"){
+                  pet13res313="Algunas Veces"
+                  pet13val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion13[63].Respuestas=="CasiNunca"){
+                  pet13res314="Casi Nunca"
+                  pet13val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion13[63].Respuestas=="Nunca"){
+                  pet13res315="Nunca"
+                  pet13val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion13[64].Respuestas=="Siempre"){
+                  pet13res316="Siempre"
+                  pet13val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion13[64].Respuestas=="CasiSiempre"){
+                  pet13res317="Casi Siempre"
+                  pet13val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion13[64].Respuestas=="AlgunasVeces"){
+                  pet13res318="Algunas Veces"
+                  pet13val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion13[64].Respuestas=="CasiNunca"){
+                  pet13res319="Casi Nunca"
+                  pet13val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion13[64].Respuestas=="Nunca"){
+                  pet13res320="Nunca"
+                  pet13val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion13[65].Respuestas=="Siempre"){
+                  pet13res321="Siempre"
+                  pet13val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion13[65].Respuestas=="CasiSiempre"){
+                  pet13res322="Casi Siempre"
+                  pet13val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion13[65].Respuestas=="AlgunasVeces"){
+                  pet13res323="Algunas Veces"
+                  pet13val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion13[65].Respuestas=="CasiNunca"){
+                  pet13res324="Casi Nunca"
+                  pet13val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion13[65].Respuestas=="Nunca"){
+                  pet13res325="Nunca"
+                  pet13val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion13[66].Respuestas=="Siempre"){
+                  pet13res326="Siempre"
+                  pet13val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion13[66].Respuestas=="CasiSiempre"){
+                  pet13res327="Casi Siempre"
+                  pet13val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion13[66].Respuestas=="AlgunasVeces"){
+                  pet13res328="Algunas Veces"
+                  pet13val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion13[66].Respuestas=="CasiNunca"){
+                  pet13res329="Casi Nunca"
+                  pet13val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion13[66].Respuestas=="Nunca"){
+                  pet13res330="Nunca"
+                  pet13val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion13[67].Respuestas=="Siempre"){
+                  pet13res331="Siempre"
+                  pet13val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion13[67].Respuestas=="CasiSiempre"){
+                  pet13res332="Casi Siempre"
+                  pet13val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion13[67].Respuestas=="AlgunasVeces"){
+                  pet13res333="Algunas Veces"
+                  pet13val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion13[67].Respuestas=="CasiNunca"){
+                  pet13res334="Casi Nunca"
+                  pet13val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion13[67].Respuestas=="Nunca"){
+                  pet13res335="Nunca"
+                  pet13val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion13[68].Respuestas=="Siempre"){
+                  pet13res336="Siempre"
+                  pet13val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion13[68].Respuestas=="CasiSiempre"){
+                  pet13res337="Casi Siempre"
+                  pet13val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion13[68].Respuestas=="AlgunasVeces"){
+                  pet13res338="Algunas Veces"
+                  pet13val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion13[68].Respuestas=="CasiNunca"){
+                  pet13res339="Casi Nunca"
+                  pet13val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion13[68].Respuestas=="Nunca"){
+                  pet13res340="Nunca"
+                  pet13val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion13[69].Respuestas=="Siempre"){
+                  pet13res341="Siempre"
+                  pet13val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion13[69].Respuestas=="CasiSiempre"){
+                  pet13res342="Casi Siempre"
+                  pet13val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion13[69].Respuestas=="AlgunasVeces"){
+                  pet13res343="Algunas Veces"
+                  pet13val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion13[69].Respuestas=="CasiNunca"){
+                  pet13res344="Casi Nunca"
+                  pet13val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion13[69].Respuestas=="Nunca"){
+                  pet13res345="Nunca"
+                  pet13val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion13[70].Respuestas=="Siempre"){
+                  pet13res346="Siempre"
+                  pet13val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion13[70].Respuestas=="CasiSiempre"){
+                  pet13res347="Casi Siempre"
+                  pet13val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion13[70].Respuestas=="AlgunasVeces"){
+                  pet13res348="Algunas Veces"
+                  pet13val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion13[70].Respuestas=="CasiNunca"){
+                  pet13res349="Casi Nunca"
+                  pet13val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion13[70].Respuestas=="Nunca"){
+                  pet13res350="Nunca"
+                  pet13val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion13[71].Respuestas=="Siempre"){
+                  pet13res351="Siempre"
+                  pet13val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion13[71].Respuestas=="CasiSiempre"){
+                  pet13res352="Casi Siempre"
+                  pet13val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion13[71].Respuestas=="AlgunasVeces"){
+                  pet13res353="Algunas Veces"
+                  pet13val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion13[71].Respuestas=="CasiNunca"){
+                  pet13res354="Casi Nunca"
+                  pet13val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion13[71].Respuestas=="Nunca"){
+                  pet13res355="Nunca"
+                  pet13val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion13[72].Respuestas=="Siempre"){
+                  pet13res356="Siempre"
+                  pet13val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion13[72].Respuestas=="CasiSiempre"){
+                  pet13res357="Casi Siempre"
+                  pet13val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion13[72].Respuestas=="AlgunasVeces"){
+                  pet13res358="Algunas Veces"
+                  pet13val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion13[72].Respuestas=="CasiNunca"){
+                  pet13res359="Casi Nunca"
+                  pet13val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion13[72].Respuestas=="Nunca"){
+                  pet13res360="Nunca"
+                  pet13val72= this.state.getPonderacion[71].nunca
+                }
  } 
    ///////////////////////////////////////////////////////////////////////////////////
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -13365,25 +20059,25 @@ console.log("entro a la peticion 3" )
       } 
   
   
-    if(this.state.peticion14[2].Respuestas=="Siempre"){
-      pet14res6="Siempre"
-      pet14val2= this.state.peticion14[1].siempre
-      }else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiSiempre"){
-        pet14res7="Casi Siempre"
-        pet14val2= this.state.peticion14[1].casisiempre
-      }
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="AlgunasVeces"){
-        pet14res8="Algunas Veces"
-        pet14val2= this.state.peticion14[1].algunasveces
-      } 
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
-        pet14res9="Casi Nunca"
-        pet14val2= this.state.peticion14[2].casinunca
-      } 
-      else if(this.state.peticion14[2].Respuestas=="Nunca"){
-        pet14res10="Nunca"
-        pet14val2= this.state.peticion14[1].nunca
-      } 
+      if(this.state.peticion14[2].Respuestas=="Siempre"){
+        pet14res6="Siempre"
+        pet14val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion14[2].Respuestas=="CasiSiempre"){
+          pet14res7="Casi Siempre"
+          pet14val2= this.state.getPonderacion[1].casisiempre
+        }
+        else if(this.state.peticion14[2].Respuestas=="AlgunasVeces"){
+          pet14res8="Algunas Veces"
+          pet14val2= this.state.getPonderacion[1].algunasveces
+        } 
+        else if(this.state.peticion14[2].Respuestas=="CasiNunca"){
+          pet14res9="Casi Nunca"
+          pet14val2= this.state.getPonderacion[1].casinunca
+        } 
+        else if(this.state.peticion14[2].Respuestas=="Nunca"){
+          pet14res10="Nunca"
+          pet14val2= this.state.getPonderacion[1].nunca
+        } 
   
       if(this.state.peticion14[3].Respuestas=="Siempre"){
         pet14res11="Siempre"
@@ -14028,7 +20722,7 @@ console.log("entro a la peticion 3" )
               pet14res174="Casi Nunca"
               pet14val35= this.state.getPonderacion[34].casinunca
             } 
-            else if(this.state.peticion14[15].Respuestas=="Nunca"){
+            else if(this.state.peticion14[35].Respuestas=="Nunca"){
               pet14res175="Nunca"
               pet14val35= this.state.getPonderacion[34].nunca
             } 
@@ -14133,122 +20827,619 @@ console.log("entro a la peticion 3" )
                   pet14val40= this.state.getPonderacion[39].nunca
                 }
   
-              if(this.state.peticion14[42].Respuestas=="Siempre"){
-                pet14res201="Siempre"
-                pet14val41= this.state.getPonderacion[40].siempre
-              }else if(this.state.peticion14[42].Respuestas=="CasiSiempre"){
-                pet14res202="Casi Siempre"
-                pet14val41= this.state.getPonderacion[40].casisiempre
-              }
-              else if(this.state.peticion14[42].Respuestas=="AlgunasVeces"){
-                pet14res203="Algunas Veces"
-                pet14val41= this.state.getPonderacion[40].algunasveces
-              } 
-              else if(this.state.peticion14[42].Respuestas=="CasiNunca"){
-                pet14res204="Casi Nunca"
-                pet14val41= this.state.getPonderacion[40].casinunca
-              } 
-              else if(this.state.peticion14[42].Respuestas=="Nunca"){
-                pet14res205="Nunca"
-                pet14val41= this.state.getPonderacion[40].nunca
-              }
-            if(this.state.peticion14[43].Respuestas=="Siempre"){
-              pet14res206="Siempre"
-              pet14val42= this.state.getPonderacion[41].siempre
-            }else if(this.state.peticion14[43].Respuestas=="CasiSiempre"){
-              pet14res207="Casi Siempre"
-              pet14val42= this.state.getPonderacion[41].casisiempre
-            }
-            else if(this.state.peticion14[43].Respuestas=="AlgunasVeces"){
-              pet14res208="Algunas Veces"
-              pet14val42= this.state.getPonderacion[41].algunasveces
-            } 
-            else if(this.state.peticion14[43].Respuestas=="CasiNunca"){
-              pet14res209="Casi Nunca"
-              pet14val42= this.state.getPonderacion[41].casinunca
-            } 
-            else if(this.state.peticion14[43].Respuestas=="Nunca"){
-              pet14res210="Nunca"
-              pet14val42= this.state.getPonderacion[41].nunca
-            }
-          if(this.state.peticion14[44].Respuestas=="Siempre"){
-            pet14res211="Siempre"
-            pet14val43= this.state.getPonderacion[42].siempre
-          }else if(this.state.peticion14[44].Respuestas=="CasiSiempre"){
-            pet14res212="Casi Siempre"
-            pet14val43= this.state.getPonderacion[42].casisiempre
-          }
-          else if(this.state.peticion14[44].Respuestas=="AlgunasVeces"){
-            pet14res213="Algunas Veces"
-            pet14val43= this.state.getPonderacion[42].algunasveces
-          } 
-          else if(this.state.peticion14[44].Respuestas=="CasiNunca"){
-            pet14res214="Casi Nunca"
-            pet14val43= this.state.getPonderacion[42].casinunca
-          } 
-          else if(this.state.peticion14[44].Respuestas=="Nunca"){
-            pet14res215="Nunca"
-            pet14val43= this.state.getPonderacion[42].nunca
-          }
+                if(this.state.peticion14[41].Respuestas=="Siempre"){
+                  pet14res201="Siempre"
+                  pet14val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion14[41].Respuestas=="CasiSiempre"){
+                  pet14res202="Casi Siempre"
+                  pet14val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion14[41].Respuestas=="AlgunasVeces"){
+                  pet14res203="Algunas Veces"
+                  pet14val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion14[41].Respuestas=="CasiNunca"){
+                  pet14res204="Casi Nunca"
+                  pet14val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion14[41].Respuestas=="Nunca"){
+                  pet14res205="Nunca"
+                  pet14val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion14[42].Respuestas=="Siempre"){
+                  pet14res206="Siempre"
+                  pet14val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion14[42].Respuestas=="CasiSiempre"){
+                  pet14res207="Casi Siempre"
+                  pet14val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion14[42].Respuestas=="AlgunasVeces"){
+                  pet14res208="Algunas Veces"
+                  pet14val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion14[42].Respuestas=="CasiNunca"){
+                  pet14res209="Casi Nunca"
+                  pet14val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion14[42].Respuestas=="Nunca"){
+                  pet14res210="Nunca"
+                  pet14val42= this.state.getPonderacion[41].nunca
+                }
   
-        if(this.state.peticion14[46].Respuestas=="Siempre"){
-          pet14res216="Siempre"
-          pet14val44= this.state.getPonderacion[43].siempre
-        }else if(this.state.peticion14[46].Respuestas=="CasiSiempre"){
-          pet14res217="Casi Siempre"
-          pet14val44= this.state.getPonderacion[43].casisiempre
-        }
-        else if(this.state.peticion14[46].Respuestas=="AlgunasVeces"){
-          pet14res218="Algunas Veces"
-          pet14val44= this.state.getPonderacion[43].algunasveces
-        } 
-        else if(this.state.peticion14[46].Respuestas=="CasiNunca"){
-          pet14res219="Casi Nunca"
-          pet14val44= this.state.getPonderacion[43].casinunca
-        } 
-        else if(this.state.peticion14[46].Respuestas=="Nunca"){
-          pet14res220="Nunca"
-          pet14val44= this.state.getPonderacion[43].nunca
-        }
+                if(this.state.peticion14[43].Respuestas=="Siempre"){
+                  pet14res211="Siempre"
+                  pet14val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion14[43].Respuestas=="CasiSiempre"){
+                  pet14res212="Casi Siempre"
+                  pet14val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion14[43].Respuestas=="AlgunasVeces"){
+                  pet14res213="Algunas Veces"
+                  pet14val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion14[43].Respuestas=="CasiNunca"){
+                  pet14res214="Casi Nunca"
+                  pet14val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion14[43].Respuestas=="Nunca"){
+                  pet14res215="Nunca"
+                  pet14val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion14[44].Respuestas=="Siempre"){
+                  pet14res216="Siempre"
+                  pet14val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion14[44].Respuestas=="CasiSiempre"){
+                  pet14res217="Casi Siempre"
+                  pet14val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion14[44].Respuestas=="AlgunasVeces"){
+                  pet14res218="Algunas Veces"
+                  pet14val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion14[44].Respuestas=="CasiNunca"){
+                  pet14res219="Casi Nunca"
+                  pet14val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion14[44].Respuestas=="Nunca"){
+                  pet14res220="Nunca"
+                  pet14val44= this.state.getPonderacion[43].nunca
+                }
   
-      if(this.state.peticion14[47].Respuestas=="Siempre"){
-        pet14res221="Siempre"
-        pet14val45= this.state.getPonderacion[44].siempre
-      }else if(this.state.peticion14[47].Respuestas=="CasiSiempre"){
-        pet14res222="Casi Siempre"
-        pet14val45= this.state.getPonderacion[44].casisiempre
-      }
-      else if(this.state.peticion14[47].Respuestas=="AlgunasVeces"){
-        pet14res223="Algunas Veces"
-        pet14val45= this.state.getPonderacion[44].algunasveces
-      } 
-      else if(this.state.peticion14[47].Respuestas=="CasiNunca"){
-        pet14res224="Casi Nunca"
-        pet14val45= this.state.getPonderacion[44].casinunca
-      } 
-      else if(this.state.peticion14[47].Respuestas=="Nunca"){
-        pet14res225="Nunca"
-        pet14val45= this.state.getPonderacion[44].nunca
-      }
-      if(this.state.peticion14[48].Respuestas=="Siempre"){
-        pet14res226="Siempre"
-        pet14val46= this.state.getPonderacion[45].siempre
-      }else if(this.state.peticion14[48].Respuestas=="CasiSiempre"){
-        pet14res227="Casi Siempre"
-        pet14val46= this.state.getPonderacion[45].casisiempre
-      }
-      else if(this.state.peticion14[48].Respuestas=="AlgunasVeces"){
-        pet14res228="Algunas Veces"
-        pet14val46= this.state.getPonderacion[45].algunasveces
-      } 
-      else if(this.state.peticion14[48].Respuestas=="CasiNunca"){
-        pet14res229="Casi Nunca"
-        pet14val46= this.state.getPonderacion[45].casinunca
-      } 
-      else if(this.state.peticion14[48].Respuestas=="Nunca"){
-        pet14res230="Nunca"
-        pet14val46= this.state.getPonderacion[45].nunca
-      }
+                if(this.state.peticion14[45].Respuestas=="Siempre"){
+                  pet14res221="Siempre"
+                  pet14val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion14[45].Respuestas=="CasiSiempre"){
+                  pet14res222="Casi Siempre"
+                  pet14val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion14[45].Respuestas=="AlgunasVeces"){
+                  pet14res223="Algunas Veces"
+                  pet14val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion14[45].Respuestas=="CasiNunca"){
+                  pet14res224="Casi Nunca"
+                  pet14val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion14[45].Respuestas=="Nunca"){
+                  pet14res225="Nunca"
+                  pet14val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion14[46].Respuestas=="Siempre"){
+                  pet14res226="Siempre"
+                  pet14val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion14[46].Respuestas=="CasiSiempre"){
+                  pet14res227="Casi Siempre"
+                  pet14val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion14[46].Respuestas=="AlgunasVeces"){
+                  pet14res228="Algunas Veces"
+                  pet14val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion14[46].Respuestas=="CasiNunca"){
+                  pet14res229="Casi Nunca"
+                  pet14val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion14[46].Respuestas=="Nunca"){
+                  pet14res230="Nunca"
+                  pet14val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion14[47].Respuestas=="Siempre"){
+                  pet14res231="Siempre"
+                  pet14val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion14[47].Respuestas=="CasiSiempre"){
+                  pet14res232="Casi Siempre"
+                  pet14val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion14[47].Respuestas=="AlgunasVeces"){
+                  pet14res233="Algunas Veces"
+                  pet14val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion14[47].Respuestas=="CasiNunca"){
+                  pet14res234="Casi Nunca"
+                  pet14val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion14[47].Respuestas=="Nunca"){
+                  pet14res235="Nunca"
+                  pet14val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion14[48].Respuestas=="Siempre"){
+                  pet14res236="Siempre"
+                  pet14val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion14[48].Respuestas=="CasiSiempre"){
+                  pet14res237="Casi Siempre"
+                  pet14val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion14[48].Respuestas=="AlgunasVeces"){
+                  pet14res238="Algunas Veces"
+                  pet14val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion14[48].Respuestas=="CasiNunca"){
+                  pet14res239="Casi Nunca"
+                  pet14val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion14[48].Respuestas=="Nunca"){
+                  pet14res240="Nunca"
+                  pet14val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion14[49].Respuestas=="Siempre"){
+                  pet14res241="Siempre"
+                  pet14val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion14[49].Respuestas=="CasiSiempre"){
+                  pet14res242="Casi Siempre"
+                  pet14val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion14[49].Respuestas=="AlgunasVeces"){
+                  pet14res243="Algunas Veces"
+                  pet14val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion14[49].Respuestas=="CasiNunca"){
+                  pet14res244="Casi Nunca"
+                  pet14val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion14[49].Respuestas=="Nunca"){
+                  pet14res245="Nunca"
+                  pet14val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion14[50].Respuestas=="Siempre"){
+                  pet14res246="Siempre"
+                  pet14val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion14[50].Respuestas=="CasiSiempre"){
+                  pet14res247="Casi Siempre"
+                  pet14val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion14[50].Respuestas=="AlgunasVeces"){
+                  pet14res248="Algunas Veces"
+                  pet14val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion14[50].Respuestas=="CasiNunca"){
+                  pet14res249="Casi Nunca"
+                  pet14val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion14[50].Respuestas=="Nunca"){
+                  pet14res250="Nunca"
+                  pet14val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion14[51].Respuestas=="Siempre"){
+                  pet14res251="Siempre"
+                  pet14val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion14[51].Respuestas=="CasiSiempre"){
+                  pet14res252="Casi Siempre"
+                  pet14val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion14[51].Respuestas=="AlgunasVeces"){
+                  pet14res253="Algunas Veces"
+                  pet14val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion14[51].Respuestas=="CasiNunca"){
+                  pet14res254="Casi Nunca"
+                  pet14val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion14[51].Respuestas=="Nunca"){
+                  pet14res255="Nunca"
+                  pet14val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion14[52].Respuestas=="Siempre"){
+                  pet14res256="Siempre"
+                  pet14val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion14[52].Respuestas=="CasiSiempre"){
+                  pet14res257="Casi Siempre"
+                  pet14val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion14[52].Respuestas=="AlgunasVeces"){
+                  pet14res258="Algunas Veces"
+                  pet14val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion14[52].Respuestas=="CasiNunca"){
+                  pet14res259="Casi Nunca"
+                  pet14val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion14[52].Respuestas=="Nunca"){
+                  pet14res260="Nunca"
+                  pet14val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion14[53].Respuestas=="Siempre"){
+                  pet14res261="Siempre"
+                  pet14val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion14[53].Respuestas=="CasiSiempre"){
+                  pet14res262="Casi Siempre"
+                  pet14val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion14[53].Respuestas=="AlgunasVeces"){
+                  pet14res263="Algunas Veces"
+                  pet14val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion14[53].Respuestas=="CasiNunca"){
+                  pet14res264="Casi Nunca"
+                  pet14val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion14[53].Respuestas=="Nunca"){
+                  pet14res265="Nunca"
+                  pet14val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion14[54].Respuestas=="Siempre"){
+                  pet14res266="Siempre"
+                  pet14val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion14[54].Respuestas=="CasiSiempre"){
+                  pet14res267="Casi Siempre"
+                  pet14val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion14[54].Respuestas=="AlgunasVeces"){
+                  pet14res268="Algunas Veces"
+                  pet14val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion14[54].Respuestas=="CasiNunca"){
+                  pet14res269="Casi Nunca"
+                  pet14val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion14[54].Respuestas=="Nunca"){
+                  pet14res270="Nunca"
+                  pet14val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion14[55].Respuestas=="Siempre"){
+                  pet14res271="Siempre"
+                  pet14val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion14[55].Respuestas=="CasiSiempre"){
+                  pet14res272="Casi Siempre"
+                  pet14val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion14[55].Respuestas=="AlgunasVeces"){
+                  pet14res273="Algunas Veces"
+                  pet14val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion14[55].Respuestas=="CasiNunca"){
+                  pet14res274="Casi Nunca"
+                  pet14val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion14[55].Respuestas=="Nunca"){
+                  pet14res275="Nunca"
+                  pet14val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion14[56].Respuestas=="Siempre"){
+                  pet14res276="Siempre"
+                  pet14val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion14[56].Respuestas=="CasiSiempre"){
+                  pet14res277="Casi Siempre"
+                  pet14val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion14[56].Respuestas=="AlgunasVeces"){
+                  pet14res278="Algunas Veces"
+                  pet14val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion14[56].Respuestas=="CasiNunca"){
+                  pet14res279="Casi Nunca"
+                  pet14val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion14[56].Respuestas=="Nunca"){
+                  pet14res280="Nunca"
+                  pet14val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion14[57].Respuestas=="Siempre"){
+                  pet14res281="Siempre"
+                  pet14val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion14[57].Respuestas=="CasiSiempre"){
+                  pet14res282="Casi Siempre"
+                  pet14val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion14[57].Respuestas=="AlgunasVeces"){
+                  pet14res283="Algunas Veces"
+                  pet14val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion14[57].Respuestas=="CasiNunca"){
+                  pet14res284="Casi Nunca"
+                  pet14val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion14[57].Respuestas=="Nunca"){
+                  pet14res285="Nunca"
+                  pet14val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion14[58].Respuestas=="Siempre"){
+                  pet14res286="Siempre"
+                  pet14val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion14[58].Respuestas=="CasiSiempre"){
+                  pet14res287="Casi Siempre"
+                  pet14val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion14[58].Respuestas=="AlgunasVeces"){
+                  pet14res288="Algunas Veces"
+                  pet14val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion14[58].Respuestas=="CasiNunca"){
+                  pet14res289="Casi Nunca"
+                  pet14val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion14[58].Respuestas=="Nunca"){
+                  pet14res290="Nunca"
+                  pet14val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion14[59].Respuestas=="Siempre"){
+                  pet14res291="Siempre"
+                  pet14val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion14[59].Respuestas=="CasiSiempre"){
+                  pet14res292="Casi Siempre"
+                  pet14val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion14[59].Respuestas=="AlgunasVeces"){
+                  pet14res293="Algunas Veces"
+                  pet14val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion14[59].Respuestas=="CasiNunca"){
+                  pet14res294="Casi Nunca"
+                  pet14val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion14[59].Respuestas=="Nunca"){
+                  pet14res295="Nunca"
+                  pet14val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion14[60].Respuestas=="Siempre"){
+                  pet14res296="Siempre"
+                  pet14val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion14[60].Respuestas=="CasiSiempre"){
+                  pet14res297="Casi Siempre"
+                  pet14val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion14[60].Respuestas=="AlgunasVeces"){
+                  pet14res298="Algunas Veces"
+                  pet14val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion14[60].Respuestas=="CasiNunca"){
+                  pet14res299="Casi Nunca"
+                  pet14val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion14[60].Respuestas=="Nunca"){
+                  pet14res300="Nunca"
+                  pet14val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion14[61].Respuestas=="Siempre"){
+                  pet14res301="Siempre"
+                  pet14val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion14[61].Respuestas=="CasiSiempre"){
+                  pet14res302="Casi Siempre"
+                  pet14val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion14[61].Respuestas=="AlgunasVeces"){
+                  pet14res303="Algunas Veces"
+                  pet14val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion14[61].Respuestas=="CasiNunca"){
+                  pet14res304="Casi Nunca"
+                  pet14val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion14[61].Respuestas=="Nunca"){
+                  pet14res305="Nunca"
+                  pet14val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion14[62].Respuestas=="Siempre"){
+                  pet14res306="Siempre"
+                  pet14val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion14[62].Respuestas=="CasiSiempre"){
+                  pet14res307="Casi Siempre"
+                  pet14val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion14[62].Respuestas=="AlgunasVeces"){
+                  pet14res308="Algunas Veces"
+                  pet14val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion14[62].Respuestas=="CasiNunca"){
+                  pet14res309="Casi Nunca"
+                  pet14val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion14[62].Respuestas=="Nunca"){
+                  pet14res310="Nunca"
+                  pet14val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion14[63].Respuestas=="Siempre"){
+                  pet14res311="Siempre"
+                  pet14val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion14[63].Respuestas=="CasiSiempre"){
+                  pet14res312="Casi Siempre"
+                  pet14val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion14[63].Respuestas=="AlgunasVeces"){
+                  pet14res313="Algunas Veces"
+                  pet14val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion14[63].Respuestas=="CasiNunca"){
+                  pet14res314="Casi Nunca"
+                  pet14val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion14[63].Respuestas=="Nunca"){
+                  pet14res315="Nunca"
+                  pet14val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion14[64].Respuestas=="Siempre"){
+                  pet14res316="Siempre"
+                  pet14val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion14[64].Respuestas=="CasiSiempre"){
+                  pet14res317="Casi Siempre"
+                  pet14val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion14[64].Respuestas=="AlgunasVeces"){
+                  pet14res318="Algunas Veces"
+                  pet14val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion14[64].Respuestas=="CasiNunca"){
+                  pet14res319="Casi Nunca"
+                  pet14val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion14[64].Respuestas=="Nunca"){
+                  pet14res320="Nunca"
+                  pet14val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion14[65].Respuestas=="Siempre"){
+                  pet14res321="Siempre"
+                  pet14val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion14[65].Respuestas=="CasiSiempre"){
+                  pet14res322="Casi Siempre"
+                  pet14val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion14[65].Respuestas=="AlgunasVeces"){
+                  pet14res323="Algunas Veces"
+                  pet14val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion14[65].Respuestas=="CasiNunca"){
+                  pet14res324="Casi Nunca"
+                  pet14val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion14[65].Respuestas=="Nunca"){
+                  pet14res325="Nunca"
+                  pet14val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion14[66].Respuestas=="Siempre"){
+                  pet14res326="Siempre"
+                  pet14val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion14[66].Respuestas=="CasiSiempre"){
+                  pet14res327="Casi Siempre"
+                  pet14val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion14[66].Respuestas=="AlgunasVeces"){
+                  pet14res328="Algunas Veces"
+                  pet14val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion14[66].Respuestas=="CasiNunca"){
+                  pet14res329="Casi Nunca"
+                  pet14val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion14[66].Respuestas=="Nunca"){
+                  pet14res330="Nunca"
+                  pet14val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion14[67].Respuestas=="Siempre"){
+                  pet14res331="Siempre"
+                  pet14val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion14[67].Respuestas=="CasiSiempre"){
+                  pet14res332="Casi Siempre"
+                  pet14val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion14[67].Respuestas=="AlgunasVeces"){
+                  pet14res333="Algunas Veces"
+                  pet14val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion14[67].Respuestas=="CasiNunca"){
+                  pet14res334="Casi Nunca"
+                  pet14val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion14[67].Respuestas=="Nunca"){
+                  pet14res335="Nunca"
+                  pet14val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion14[68].Respuestas=="Siempre"){
+                  pet14res336="Siempre"
+                  pet14val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion14[68].Respuestas=="CasiSiempre"){
+                  pet14res337="Casi Siempre"
+                  pet14val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion14[68].Respuestas=="AlgunasVeces"){
+                  pet14res338="Algunas Veces"
+                  pet14val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion14[68].Respuestas=="CasiNunca"){
+                  pet14res339="Casi Nunca"
+                  pet14val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion14[68].Respuestas=="Nunca"){
+                  pet14res340="Nunca"
+                  pet14val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion14[69].Respuestas=="Siempre"){
+                  pet14res341="Siempre"
+                  pet14val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion14[69].Respuestas=="CasiSiempre"){
+                  pet14res342="Casi Siempre"
+                  pet14val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion14[69].Respuestas=="AlgunasVeces"){
+                  pet14res343="Algunas Veces"
+                  pet14val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion14[69].Respuestas=="CasiNunca"){
+                  pet14res344="Casi Nunca"
+                  pet14val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion14[69].Respuestas=="Nunca"){
+                  pet14res345="Nunca"
+                  pet14val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion14[70].Respuestas=="Siempre"){
+                  pet14res346="Siempre"
+                  pet14val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion14[70].Respuestas=="CasiSiempre"){
+                  pet14res347="Casi Siempre"
+                  pet14val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion14[70].Respuestas=="AlgunasVeces"){
+                  pet14res348="Algunas Veces"
+                  pet14val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion14[70].Respuestas=="CasiNunca"){
+                  pet14res349="Casi Nunca"
+                  pet14val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion14[70].Respuestas=="Nunca"){
+                  pet14res350="Nunca"
+                  pet14val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion14[71].Respuestas=="Siempre"){
+                  pet14res351="Siempre"
+                  pet14val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion14[71].Respuestas=="CasiSiempre"){
+                  pet14res352="Casi Siempre"
+                  pet14val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion14[71].Respuestas=="AlgunasVeces"){
+                  pet14res353="Algunas Veces"
+                  pet14val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion14[71].Respuestas=="CasiNunca"){
+                  pet14res354="Casi Nunca"
+                  pet14val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion14[71].Respuestas=="Nunca"){
+                  pet14res355="Nunca"
+                  pet14val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion14[72].Respuestas=="Siempre"){
+                  pet14res356="Siempre"
+                  pet14val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion14[72].Respuestas=="CasiSiempre"){
+                  pet14res357="Casi Siempre"
+                  pet14val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion14[72].Respuestas=="AlgunasVeces"){
+                  pet14res358="Algunas Veces"
+                  pet14val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion14[72].Respuestas=="CasiNunca"){
+                  pet14res359="Casi Nunca"
+                  pet14val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion14[72].Respuestas=="Nunca"){
+                  pet14res360="Nunca"
+                  pet14val72= this.state.getPonderacion[71].nunca
+                }
 } 
  
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -14277,25 +21468,25 @@ console.log("entro a la peticion 3" )
       } 
   
   
-    if(this.state.peticion15[2].Respuestas=="Siempre"){
-      pet15res6="Siempre"
-      pet15val2= this.state.peticion15[1].siempre
-      }else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiSiempre"){
-        pet15res7="Casi Siempre"
-        pet15val2= this.state.peticion15[1].casisiempre
-      }
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="AlgunasVeces"){
-        pet15res8="Algunas Veces"
-        pet15val2= this.state.peticion15[1].algunasveces
-      } 
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
-        pet15res9="Casi Nunca"
-        pet15val2= this.state.peticion15[2].casinunca
-      } 
-      else if(this.state.peticion15[2].Respuestas=="Nunca"){
-        pet15res10="Nunca"
-        pet15val2= this.state.peticion15[1].nunca
-      } 
+      if(this.state.peticion15[2].Respuestas=="Siempre"){
+        pet15res6="Siempre"
+        pet15val2= this.state.getPonderacion[1].siempre
+        }else if(this.state.peticion15[2].Respuestas=="CasiSiempre"){
+          pet15res7="Casi Siempre"
+          pet15val2= this.state.getPonderacion[1].casisiempre
+        }
+        else if(this.state.peticion15[2].Respuestas=="AlgunasVeces"){
+          pet15res8="Algunas Veces"
+          pet15val2= this.state.getPonderacion[1].algunasveces
+        } 
+        else if(this.state.peticion15[2].Respuestas=="CasiNunca"){
+          pet15res9="Casi Nunca"
+          pet15val2= this.state.getPonderacion[1].casinunca
+        } 
+        else if(this.state.peticion15[2].Respuestas=="Nunca"){
+          pet15res10="Nunca"
+          pet15val2= this.state.getPonderacion[1].nunca
+        } 
   
       if(this.state.peticion15[3].Respuestas=="Siempre"){
         pet15res11="Siempre"
@@ -14940,7 +22131,7 @@ console.log("entro a la peticion 3" )
               pet15res174="Casi Nunca"
               pet15val35= this.state.getPonderacion[34].casinunca
             } 
-            else if(this.state.peticion15[15].Respuestas=="Nunca"){
+            else if(this.state.peticion15[35].Respuestas=="Nunca"){
               pet15res175="Nunca"
               pet15val35= this.state.getPonderacion[34].nunca
             } 
@@ -15045,122 +22236,619 @@ console.log("entro a la peticion 3" )
                   pet15val40= this.state.getPonderacion[39].nunca
                 }
   
-              if(this.state.peticion15[42].Respuestas=="Siempre"){
-                pet15res201="Siempre"
-                pet15val41= this.state.getPonderacion[40].siempre
-              }else if(this.state.peticion15[42].Respuestas=="CasiSiempre"){
-                pet15res202="Casi Siempre"
-                pet15val41= this.state.getPonderacion[40].casisiempre
-              }
-              else if(this.state.peticion15[42].Respuestas=="AlgunasVeces"){
-                pet15res203="Algunas Veces"
-                pet15val41= this.state.getPonderacion[40].algunasveces
-              } 
-              else if(this.state.peticion15[42].Respuestas=="CasiNunca"){
-                pet15res204="Casi Nunca"
-                pet15val41= this.state.getPonderacion[40].casinunca
-              } 
-              else if(this.state.peticion15[42].Respuestas=="Nunca"){
-                pet15res205="Nunca"
-                pet15val41= this.state.getPonderacion[40].nunca
-              }
-            if(this.state.peticion15[43].Respuestas=="Siempre"){
-              pet15res206="Siempre"
-              pet15val42= this.state.getPonderacion[41].siempre
-            }else if(this.state.peticion15[43].Respuestas=="CasiSiempre"){
-              pet15res207="Casi Siempre"
-              pet15val42= this.state.getPonderacion[41].casisiempre
-            }
-            else if(this.state.peticion15[43].Respuestas=="AlgunasVeces"){
-              pet15res208="Algunas Veces"
-              pet15val42= this.state.getPonderacion[41].algunasveces
-            } 
-            else if(this.state.peticion15[43].Respuestas=="CasiNunca"){
-              pet15res209="Casi Nunca"
-              pet15val42= this.state.getPonderacion[41].casinunca
-            } 
-            else if(this.state.peticion15[43].Respuestas=="Nunca"){
-              pet15res210="Nunca"
-              pet15val42= this.state.getPonderacion[41].nunca
-            }
-          if(this.state.peticion15[44].Respuestas=="Siempre"){
-            pet15res211="Siempre"
-            pet15val43= this.state.getPonderacion[42].siempre
-          }else if(this.state.peticion15[44].Respuestas=="CasiSiempre"){
-            pet15res212="Casi Siempre"
-            pet15val43= this.state.getPonderacion[42].casisiempre
-          }
-          else if(this.state.peticion15[44].Respuestas=="AlgunasVeces"){
-            pet15res213="Algunas Veces"
-            pet15val43= this.state.getPonderacion[42].algunasveces
-          } 
-          else if(this.state.peticion15[44].Respuestas=="CasiNunca"){
-            pet15res214="Casi Nunca"
-            pet15val43= this.state.getPonderacion[42].casinunca
-          } 
-          else if(this.state.peticion15[44].Respuestas=="Nunca"){
-            pet15res215="Nunca"
-            pet15val43= this.state.getPonderacion[42].nunca
-          }
+                if(this.state.peticion15[41].Respuestas=="Siempre"){
+                  pet15res201="Siempre"
+                  pet15val41= this.state.getPonderacion[40].siempre
+                }else if(this.state.peticion15[41].Respuestas=="CasiSiempre"){
+                  pet15res202="Casi Siempre"
+                  pet15val41= this.state.getPonderacion[40].casisiempre
+                }
+                else if(this.state.peticion15[41].Respuestas=="AlgunasVeces"){
+                  pet15res203="Algunas Veces"
+                  pet15val41= this.state.getPonderacion[40].algunasveces
+                } 
+                else if(this.state.peticion15[41].Respuestas=="CasiNunca"){
+                  pet15res204="Casi Nunca"
+                  pet15val41= this.state.getPonderacion[40].casinunca
+                } 
+                else if(this.state.peticion15[41].Respuestas=="Nunca"){
+                  pet15res205="Nunca"
+                  pet15val41= this.state.getPonderacion[40].nunca
+                }
+                
+                if(this.state.peticion15[42].Respuestas=="Siempre"){
+                  pet15res206="Siempre"
+                  pet15val42= this.state.getPonderacion[41].siempre
+                }else if(this.state.peticion15[42].Respuestas=="CasiSiempre"){
+                  pet15res207="Casi Siempre"
+                  pet15val42= this.state.getPonderacion[41].casisiempre
+                }
+                else if(this.state.peticion15[42].Respuestas=="AlgunasVeces"){
+                  pet15res208="Algunas Veces"
+                  pet15val42= this.state.getPonderacion[41].algunasveces
+                } 
+                else if(this.state.peticion15[42].Respuestas=="CasiNunca"){
+                  pet15res209="Casi Nunca"
+                  pet15val42= this.state.getPonderacion[41].casinunca
+                } 
+                else if(this.state.peticion15[42].Respuestas=="Nunca"){
+                  pet15res210="Nunca"
+                  pet15val42= this.state.getPonderacion[41].nunca
+                }
   
-        if(this.state.peticion15[46].Respuestas=="Siempre"){
-          pet15res216="Siempre"
-          pet15val44= this.state.getPonderacion[43].siempre
-        }else if(this.state.peticion15[46].Respuestas=="CasiSiempre"){
-          pet15res217="Casi Siempre"
-          pet15val44= this.state.getPonderacion[43].casisiempre
-        }
-        else if(this.state.peticion15[46].Respuestas=="AlgunasVeces"){
-          pet15res218="Algunas Veces"
-          pet15val44= this.state.getPonderacion[43].algunasveces
-        } 
-        else if(this.state.peticion15[46].Respuestas=="CasiNunca"){
-          pet15res219="Casi Nunca"
-          pet15val44= this.state.getPonderacion[43].casinunca
-        } 
-        else if(this.state.peticion15[46].Respuestas=="Nunca"){
-          pet15res220="Nunca"
-          pet15val44= this.state.getPonderacion[43].nunca
-        }
+                if(this.state.peticion15[43].Respuestas=="Siempre"){
+                  pet15res211="Siempre"
+                  pet15val43= this.state.getPonderacion[42].siempre
+                }else if(this.state.peticion15[43].Respuestas=="CasiSiempre"){
+                  pet15res212="Casi Siempre"
+                  pet15val43= this.state.getPonderacion[42].casisiempre
+                }
+                else if(this.state.peticion15[43].Respuestas=="AlgunasVeces"){
+                  pet15res213="Algunas Veces"
+                  pet15val43= this.state.getPonderacion[42].algunasveces
+                } 
+                else if(this.state.peticion15[43].Respuestas=="CasiNunca"){
+                  pet15res214="Casi Nunca"
+                  pet15val43= this.state.getPonderacion[42].casinunca
+                } 
+                else if(this.state.peticion15[43].Respuestas=="Nunca"){
+                  pet15res215="Nunca"
+                  pet15val43= this.state.getPonderacion[42].nunca
+                }
+                if(this.state.peticion15[44].Respuestas=="Siempre"){
+                  pet15res216="Siempre"
+                  pet15val44= this.state.getPonderacion[43].siempre
+                }else if(this.state.peticion15[44].Respuestas=="CasiSiempre"){
+                  pet15res217="Casi Siempre"
+                  pet15val44= this.state.getPonderacion[43].casisiempre
+                }
+                else if(this.state.peticion15[44].Respuestas=="AlgunasVeces"){
+                  pet15res218="Algunas Veces"
+                  pet15val44= this.state.getPonderacion[43].algunasveces
+                } 
+                else if(this.state.peticion15[44].Respuestas=="CasiNunca"){
+                  pet15res219="Casi Nunca"
+                  pet15val44= this.state.getPonderacion[43].casinunca
+                } 
+                else if(this.state.peticion15[44].Respuestas=="Nunca"){
+                  pet15res220="Nunca"
+                  pet15val44= this.state.getPonderacion[43].nunca
+                }
   
-      if(this.state.peticion15[47].Respuestas=="Siempre"){
-        pet15res221="Siempre"
-        pet15val45= this.state.getPonderacion[44].siempre
-      }else if(this.state.peticion15[47].Respuestas=="CasiSiempre"){
-        pet15res222="Casi Siempre"
-        pet15val45= this.state.getPonderacion[44].casisiempre
-      }
-      else if(this.state.peticion15[47].Respuestas=="AlgunasVeces"){
-        pet15res223="Algunas Veces"
-        pet15val45= this.state.getPonderacion[44].algunasveces
-      } 
-      else if(this.state.peticion15[47].Respuestas=="CasiNunca"){
-        pet15res224="Casi Nunca"
-        pet15val45= this.state.getPonderacion[44].casinunca
-      } 
-      else if(this.state.peticion15[47].Respuestas=="Nunca"){
-        pet15res225="Nunca"
-        pet15val45= this.state.getPonderacion[44].nunca
-      }
-      if(this.state.peticion15[48].Respuestas=="Siempre"){
-        pet15res226="Siempre"
-        pet15val46= this.state.getPonderacion[45].siempre
-      }else if(this.state.peticion15[48].Respuestas=="CasiSiempre"){
-        pet15res227="Casi Siempre"
-        pet15val46= this.state.getPonderacion[45].casisiempre
-      }
-      else if(this.state.peticion15[48].Respuestas=="AlgunasVeces"){
-        pet15res228="Algunas Veces"
-        pet15val46= this.state.getPonderacion[45].algunasveces
-      } 
-      else if(this.state.peticion15[48].Respuestas=="CasiNunca"){
-        pet15res229="Casi Nunca"
-        pet15val46= this.state.getPonderacion[45].casinunca
-      } 
-      else if(this.state.peticion15[48].Respuestas=="Nunca"){
-        pet15res230="Nunca"
-        pet15val46= this.state.getPonderacion[45].nunca
-      }
+                if(this.state.peticion15[45].Respuestas=="Siempre"){
+                  pet15res221="Siempre"
+                  pet15val45= this.state.getPonderacion[44].siempre
+                }else if(this.state.peticion15[45].Respuestas=="CasiSiempre"){
+                  pet15res222="Casi Siempre"
+                  pet15val45= this.state.getPonderacion[44].casisiempre
+                }
+                else if(this.state.peticion15[45].Respuestas=="AlgunasVeces"){
+                  pet15res223="Algunas Veces"
+                  pet15val45= this.state.getPonderacion[44].algunasveces
+                } 
+                else if(this.state.peticion15[45].Respuestas=="CasiNunca"){
+                  pet15res224="Casi Nunca"
+                  pet15val45= this.state.getPonderacion[44].casinunca
+                } 
+                else if(this.state.peticion15[45].Respuestas=="Nunca"){
+                  pet15res225="Nunca"
+                  pet15val45= this.state.getPonderacion[44].nunca
+                }
+  
+                if(this.state.peticion15[46].Respuestas=="Siempre"){
+                  pet15res226="Siempre"
+                  pet15val46= this.state.getPonderacion[45].siempre
+                }else if(this.state.peticion15[46].Respuestas=="CasiSiempre"){
+                  pet15res227="Casi Siempre"
+                  pet15val46= this.state.getPonderacion[45].casisiempre
+                }
+                else if(this.state.peticion15[46].Respuestas=="AlgunasVeces"){
+                  pet15res228="Algunas Veces"
+                  pet15val46= this.state.getPonderacion[45].algunasveces
+                } 
+                else if(this.state.peticion15[46].Respuestas=="CasiNunca"){
+                  pet15res229="Casi Nunca"
+                  pet15val46= this.state.getPonderacion[45].casinunca
+                } 
+                else if(this.state.peticion15[46].Respuestas=="Nunca"){
+                  pet15res230="Nunca"
+                  pet15val46= this.state.getPonderacion[45].nunca
+                }
+                if(this.state.peticion15[47].Respuestas=="Siempre"){
+                  pet15res231="Siempre"
+                  pet15val47= this.state.getPonderacion[46].siempre
+                }else if(this.state.peticion15[47].Respuestas=="CasiSiempre"){
+                  pet15res232="Casi Siempre"
+                  pet15val47= this.state.getPonderacion[46].casisiempre
+                }
+                else if(this.state.peticion15[47].Respuestas=="AlgunasVeces"){
+                  pet15res233="Algunas Veces"
+                  pet15val47= this.state.getPonderacion[46].algunasveces
+                } 
+                else if(this.state.peticion15[47].Respuestas=="CasiNunca"){
+                  pet15res234="Casi Nunca"
+                  pet15val47= this.state.getPonderacion[46].casinunca
+                } 
+                else if(this.state.peticion15[47].Respuestas=="Nunca"){
+                  pet15res235="Nunca"
+                  pet15val47= this.state.getPonderacion[46].nunca
+                }
+                if(this.state.peticion15[48].Respuestas=="Siempre"){
+                  pet15res236="Siempre"
+                  pet15val48= this.state.getPonderacion[47].siempre
+                }else if(this.state.peticion15[48].Respuestas=="CasiSiempre"){
+                  pet15res237="Casi Siempre"
+                  pet15val48= this.state.getPonderacion[47].casisiempre
+                }
+                else if(this.state.peticion15[48].Respuestas=="AlgunasVeces"){
+                  pet15res238="Algunas Veces"
+                  pet15val48= this.state.getPonderacion[47].algunasveces
+                } 
+                else if(this.state.peticion15[48].Respuestas=="CasiNunca"){
+                  pet15res239="Casi Nunca"
+                  pet15val48= this.state.getPonderacion[47].casinunca
+                } 
+                else if(this.state.peticion15[48].Respuestas=="Nunca"){
+                  pet15res240="Nunca"
+                  pet15val48= this.state.getPonderacion[47].nunca
+                }
+                if(this.state.peticion15[49].Respuestas=="Siempre"){
+                  pet15res241="Siempre"
+                  pet15val49= this.state.getPonderacion[48].siempre
+                }else if(this.state.peticion15[49].Respuestas=="CasiSiempre"){
+                  pet15res242="Casi Siempre"
+                  pet15val49= this.state.getPonderacion[48].casisiempre
+                }
+                else if(this.state.peticion15[49].Respuestas=="AlgunasVeces"){
+                  pet15res243="Algunas Veces"
+                  pet15val49= this.state.getPonderacion[48].algunasveces
+                } 
+                else if(this.state.peticion15[49].Respuestas=="CasiNunca"){
+                  pet15res244="Casi Nunca"
+                  pet15val49= this.state.getPonderacion[48].casinunca
+                } 
+                else if(this.state.peticion15[49].Respuestas=="Nunca"){
+                  pet15res245="Nunca"
+                  pet15val49= this.state.getPonderacion[48].nunca
+                }
+                if(this.state.peticion15[50].Respuestas=="Siempre"){
+                  pet15res246="Siempre"
+                  pet15val50= this.state.getPonderacion[49].siempre
+                }else if(this.state.peticion15[50].Respuestas=="CasiSiempre"){
+                  pet15res247="Casi Siempre"
+                  pet15val50= this.state.getPonderacion[49].casisiempre
+                }
+                else if(this.state.peticion15[50].Respuestas=="AlgunasVeces"){
+                  pet15res248="Algunas Veces"
+                  pet15val50= this.state.getPonderacion[49].algunasveces
+                } 
+                else if(this.state.peticion15[50].Respuestas=="CasiNunca"){
+                  pet15res249="Casi Nunca"
+                  pet15val50= this.state.getPonderacion[49].casinunca
+                } 
+                else if(this.state.peticion15[50].Respuestas=="Nunca"){
+                  pet15res250="Nunca"
+                  pet15val50= this.state.getPonderacion[49].nunca
+                }
+                if(this.state.peticion15[51].Respuestas=="Siempre"){
+                  pet15res251="Siempre"
+                  pet15val51= this.state.getPonderacion[50].siempre
+                }else if(this.state.peticion15[51].Respuestas=="CasiSiempre"){
+                  pet15res252="Casi Siempre"
+                  pet15val51= this.state.getPonderacion[50].casisiempre
+                }
+                else if(this.state.peticion15[51].Respuestas=="AlgunasVeces"){
+                  pet15res253="Algunas Veces"
+                  pet15val51= this.state.getPonderacion[50].algunasveces
+                } 
+                else if(this.state.peticion15[51].Respuestas=="CasiNunca"){
+                  pet15res254="Casi Nunca"
+                  pet15val51= this.state.getPonderacion[50].casinunca
+                } 
+                else if(this.state.peticion15[51].Respuestas=="Nunca"){
+                  pet15res255="Nunca"
+                  pet15val51= this.state.getPonderacion[50].nunca
+                }
+                if(this.state.peticion15[52].Respuestas=="Siempre"){
+                  pet15res256="Siempre"
+                  pet15val52= this.state.getPonderacion[51].siempre
+                }else if(this.state.peticion15[52].Respuestas=="CasiSiempre"){
+                  pet15res257="Casi Siempre"
+                  pet15val52= this.state.getPonderacion[51].casisiempre
+                }
+                else if(this.state.peticion15[52].Respuestas=="AlgunasVeces"){
+                  pet15res258="Algunas Veces"
+                  pet15val52= this.state.getPonderacion[51].algunasveces
+                } 
+                else if(this.state.peticion15[52].Respuestas=="CasiNunca"){
+                  pet15res259="Casi Nunca"
+                  pet15val52= this.state.getPonderacion[51].casinunca
+                } 
+                else if(this.state.peticion15[52].Respuestas=="Nunca"){
+                  pet15res260="Nunca"
+                  pet15val52= this.state.getPonderacion[51].nunca
+                }
+                if(this.state.peticion15[53].Respuestas=="Siempre"){
+                  pet15res261="Siempre"
+                  pet15val53= this.state.getPonderacion[52].siempre
+                }else if(this.state.peticion15[53].Respuestas=="CasiSiempre"){
+                  pet15res262="Casi Siempre"
+                  pet15val53= this.state.getPonderacion[52].casisiempre
+                }
+                else if(this.state.peticion15[53].Respuestas=="AlgunasVeces"){
+                  pet15res263="Algunas Veces"
+                  pet15val53= this.state.getPonderacion[52].algunasveces
+                } 
+                else if(this.state.peticion15[53].Respuestas=="CasiNunca"){
+                  pet15res264="Casi Nunca"
+                  pet15val53= this.state.getPonderacion[52].casinunca
+                } 
+                else if(this.state.peticion15[53].Respuestas=="Nunca"){
+                  pet15res265="Nunca"
+                  pet15val53= this.state.getPonderacion[52].nunca
+                }
+                if(this.state.peticion15[54].Respuestas=="Siempre"){
+                  pet15res266="Siempre"
+                  pet15val54= this.state.getPonderacion[53].siempre
+                }else if(this.state.peticion15[54].Respuestas=="CasiSiempre"){
+                  pet15res267="Casi Siempre"
+                  pet15val54= this.state.getPonderacion[53].casisiempre
+                }
+                else if(this.state.peticion15[54].Respuestas=="AlgunasVeces"){
+                  pet15res268="Algunas Veces"
+                  pet15val54= this.state.getPonderacion[53].algunasveces
+                } 
+                else if(this.state.peticion15[54].Respuestas=="CasiNunca"){
+                  pet15res269="Casi Nunca"
+                  pet15val54= this.state.getPonderacion[53].casinunca
+                } 
+                else if(this.state.peticion15[54].Respuestas=="Nunca"){
+                  pet15res270="Nunca"
+                  pet15val54= this.state.getPonderacion[53].nunca
+                }
+                if(this.state.peticion15[55].Respuestas=="Siempre"){
+                  pet15res271="Siempre"
+                  pet15val55= this.state.getPonderacion[54].siempre
+                }else if(this.state.peticion15[55].Respuestas=="CasiSiempre"){
+                  pet15res272="Casi Siempre"
+                  pet15val55= this.state.getPonderacion[54].casisiempre
+                }
+                else if(this.state.peticion15[55].Respuestas=="AlgunasVeces"){
+                  pet15res273="Algunas Veces"
+                  pet15val55= this.state.getPonderacion[54].algunasveces
+                } 
+                else if(this.state.peticion15[55].Respuestas=="CasiNunca"){
+                  pet15res274="Casi Nunca"
+                  pet15val55= this.state.getPonderacion[54].casinunca
+                } 
+                else if(this.state.peticion15[55].Respuestas=="Nunca"){
+                  pet15res275="Nunca"
+                  pet15val55= this.state.getPonderacion[54].nunca
+                }
+                if(this.state.peticion15[56].Respuestas=="Siempre"){
+                  pet15res276="Siempre"
+                  pet15val56= this.state.getPonderacion[55].siempre
+                }else if(this.state.peticion15[56].Respuestas=="CasiSiempre"){
+                  pet15res277="Casi Siempre"
+                  pet15val56= this.state.getPonderacion[55].casisiempre
+                }
+                else if(this.state.peticion15[56].Respuestas=="AlgunasVeces"){
+                  pet15res278="Algunas Veces"
+                  pet15val56= this.state.getPonderacion[55].algunasveces
+                } 
+                else if(this.state.peticion15[56].Respuestas=="CasiNunca"){
+                  pet15res279="Casi Nunca"
+                  pet15val56= this.state.getPonderacion[55].casinunca
+                } 
+                else if(this.state.peticion15[56].Respuestas=="Nunca"){
+                  pet15res280="Nunca"
+                  pet15val56= this.state.getPonderacion[55].nunca
+                }
+                if(this.state.peticion15[57].Respuestas=="Siempre"){
+                  pet15res281="Siempre"
+                  pet15val57= this.state.getPonderacion[56].siempre
+                }else if(this.state.peticion15[57].Respuestas=="CasiSiempre"){
+                  pet15res282="Casi Siempre"
+                  pet15val57= this.state.getPonderacion[56].casisiempre
+                }
+                else if(this.state.peticion15[57].Respuestas=="AlgunasVeces"){
+                  pet15res283="Algunas Veces"
+                  pet15val57= this.state.getPonderacion[56].algunasveces
+                } 
+                else if(this.state.peticion15[57].Respuestas=="CasiNunca"){
+                  pet15res284="Casi Nunca"
+                  pet15val57= this.state.getPonderacion[56].casinunca
+                } 
+                else if(this.state.peticion15[57].Respuestas=="Nunca"){
+                  pet15res285="Nunca"
+                  pet15val57= this.state.getPonderacion[56].nunca
+                }
+                if(this.state.peticion15[58].Respuestas=="Siempre"){
+                  pet15res286="Siempre"
+                  pet15val58= this.state.getPonderacion[57].siempre
+                }else if(this.state.peticion15[58].Respuestas=="CasiSiempre"){
+                  pet15res287="Casi Siempre"
+                  pet15val58= this.state.getPonderacion[57].casisiempre
+                }
+                else if(this.state.peticion15[58].Respuestas=="AlgunasVeces"){
+                  pet15res288="Algunas Veces"
+                  pet15val58= this.state.getPonderacion[57].algunasveces
+                } 
+                else if(this.state.peticion15[58].Respuestas=="CasiNunca"){
+                  pet15res289="Casi Nunca"
+                  pet15val58= this.state.getPonderacion[57].casinunca
+                } 
+                else if(this.state.peticion15[58].Respuestas=="Nunca"){
+                  pet15res290="Nunca"
+                  pet15val58= this.state.getPonderacion[57].nunca
+                }
+                if(this.state.peticion15[59].Respuestas=="Siempre"){
+                  pet15res291="Siempre"
+                  pet15val59= this.state.getPonderacion[58].siempre
+                }else if(this.state.peticion15[59].Respuestas=="CasiSiempre"){
+                  pet15res292="Casi Siempre"
+                  pet15val59= this.state.getPonderacion[58].casisiempre
+                }
+                else if(this.state.peticion15[59].Respuestas=="AlgunasVeces"){
+                  pet15res293="Algunas Veces"
+                  pet15val59= this.state.getPonderacion[58].algunasveces
+                } 
+                else if(this.state.peticion15[59].Respuestas=="CasiNunca"){
+                  pet15res294="Casi Nunca"
+                  pet15val59= this.state.getPonderacion[58].casinunca
+                } 
+                else if(this.state.peticion15[59].Respuestas=="Nunca"){
+                  pet15res295="Nunca"
+                  pet15val59= this.state.getPonderacion[58].nunca
+                }
+                if(this.state.peticion15[60].Respuestas=="Siempre"){
+                  pet15res296="Siempre"
+                  pet15val60= this.state.getPonderacion[59].siempre
+                }else if(this.state.peticion15[60].Respuestas=="CasiSiempre"){
+                  pet15res297="Casi Siempre"
+                  pet15val60= this.state.getPonderacion[59].casisiempre
+                }
+                else if(this.state.peticion15[60].Respuestas=="AlgunasVeces"){
+                  pet15res298="Algunas Veces"
+                  pet15val60= this.state.getPonderacion[59].algunasveces
+                } 
+                else if(this.state.peticion15[60].Respuestas=="CasiNunca"){
+                  pet15res299="Casi Nunca"
+                  pet15val60= this.state.getPonderacion[59].casinunca
+                } 
+                else if(this.state.peticion15[60].Respuestas=="Nunca"){
+                  pet15res300="Nunca"
+                  pet15val60= this.state.getPonderacion[59].nunca
+                }
+                if(this.state.peticion15[61].Respuestas=="Siempre"){
+                  pet15res301="Siempre"
+                  pet15val61= this.state.getPonderacion[60].siempre
+                }else if(this.state.peticion15[61].Respuestas=="CasiSiempre"){
+                  pet15res302="Casi Siempre"
+                  pet15val61= this.state.getPonderacion[60].casisiempre
+                }
+                else if(this.state.peticion15[61].Respuestas=="AlgunasVeces"){
+                  pet15res303="Algunas Veces"
+                  pet15val61= this.state.getPonderacion[60].algunasveces
+                } 
+                else if(this.state.peticion15[61].Respuestas=="CasiNunca"){
+                  pet15res304="Casi Nunca"
+                  pet15val61= this.state.getPonderacion[60].casinunca
+                } 
+                else if(this.state.peticion15[61].Respuestas=="Nunca"){
+                  pet15res305="Nunca"
+                  pet15val61= this.state.getPonderacion[60].nunca
+                }
+                if(this.state.peticion15[62].Respuestas=="Siempre"){
+                  pet15res306="Siempre"
+                  pet15val62= this.state.getPonderacion[61].siempre
+                }else if(this.state.peticion15[62].Respuestas=="CasiSiempre"){
+                  pet15res307="Casi Siempre"
+                  pet15val62= this.state.getPonderacion[61].casisiempre
+                }
+                else if(this.state.peticion15[62].Respuestas=="AlgunasVeces"){
+                  pet15res308="Algunas Veces"
+                  pet15val62= this.state.getPonderacion[61].algunasveces
+                } 
+                else if(this.state.peticion15[62].Respuestas=="CasiNunca"){
+                  pet15res309="Casi Nunca"
+                  pet15val62= this.state.getPonderacion[61].casinunca
+                } 
+                else if(this.state.peticion15[62].Respuestas=="Nunca"){
+                  pet15res310="Nunca"
+                  pet15val62= this.state.getPonderacion[61].nunca
+                }
+                if(this.state.peticion15[63].Respuestas=="Siempre"){
+                  pet15res311="Siempre"
+                  pet15val63= this.state.getPonderacion[62].siempre
+                }else if(this.state.peticion15[63].Respuestas=="CasiSiempre"){
+                  pet15res312="Casi Siempre"
+                  pet15val63= this.state.getPonderacion[62].casisiempre
+                }
+                else if(this.state.peticion15[63].Respuestas=="AlgunasVeces"){
+                  pet15res313="Algunas Veces"
+                  pet15val63= this.state.getPonderacion[62].algunasveces
+                } 
+                else if(this.state.peticion15[63].Respuestas=="CasiNunca"){
+                  pet15res314="Casi Nunca"
+                  pet15val63= this.state.getPonderacion[62].casinunca
+                } 
+                else if(this.state.peticion15[63].Respuestas=="Nunca"){
+                  pet15res315="Nunca"
+                  pet15val63= this.state.getPonderacion[62].nunca
+                }
+                if(this.state.peticion15[64].Respuestas=="Siempre"){
+                  pet15res316="Siempre"
+                  pet15val64= this.state.getPonderacion[63].siempre
+                }else if(this.state.peticion15[64].Respuestas=="CasiSiempre"){
+                  pet15res317="Casi Siempre"
+                  pet15val64= this.state.getPonderacion[63].casisiempre
+                }
+                else if(this.state.peticion15[64].Respuestas=="AlgunasVeces"){
+                  pet15res318="Algunas Veces"
+                  pet15val64= this.state.getPonderacion[63].algunasveces
+                } 
+                else if(this.state.peticion15[64].Respuestas=="CasiNunca"){
+                  pet15res319="Casi Nunca"
+                  pet15val64= this.state.getPonderacion[63].casinunca
+                } 
+                else if(this.state.peticion15[64].Respuestas=="Nunca"){
+                  pet15res320="Nunca"
+                  pet15val64= this.state.getPonderacion[63].nunca
+                }
+                if(this.state.peticion15[65].Respuestas=="Siempre"){
+                  pet15res321="Siempre"
+                  pet15val65= this.state.getPonderacion[64].siempre
+                }else if(this.state.peticion15[65].Respuestas=="CasiSiempre"){
+                  pet15res322="Casi Siempre"
+                  pet15val65= this.state.getPonderacion[64].casisiempre
+                }
+                else if(this.state.peticion15[65].Respuestas=="AlgunasVeces"){
+                  pet15res323="Algunas Veces"
+                  pet15val65= this.state.getPonderacion[64].algunasveces
+                } 
+                else if(this.state.peticion15[65].Respuestas=="CasiNunca"){
+                  pet15res324="Casi Nunca"
+                  pet15val65= this.state.getPonderacion[64].casinunca
+                } 
+                else if(this.state.peticion15[65].Respuestas=="Nunca"){
+                  pet15res325="Nunca"
+                  pet15val65= this.state.getPonderacion[64].nunca
+                }
+                if(this.state.peticion15[66].Respuestas=="Siempre"){
+                  pet15res326="Siempre"
+                  pet15val66= this.state.getPonderacion[65].siempre
+                }else if(this.state.peticion15[66].Respuestas=="CasiSiempre"){
+                  pet15res327="Casi Siempre"
+                  pet15val66= this.state.getPonderacion[65].casisiempre
+                }
+                else if(this.state.peticion15[66].Respuestas=="AlgunasVeces"){
+                  pet15res328="Algunas Veces"
+                  pet15val66= this.state.getPonderacion[65].algunasveces
+                } 
+                else if(this.state.peticion15[66].Respuestas=="CasiNunca"){
+                  pet15res329="Casi Nunca"
+                  pet15val66= this.state.getPonderacion[65].casinunca
+                } 
+                else if(this.state.peticion15[66].Respuestas=="Nunca"){
+                  pet15res330="Nunca"
+                  pet15val66= this.state.getPonderacion[65].nunca
+                }
+                if(this.state.peticion15[67].Respuestas=="Siempre"){
+                  pet15res331="Siempre"
+                  pet15val67= this.state.getPonderacion[66].siempre
+                }else if(this.state.peticion15[67].Respuestas=="CasiSiempre"){
+                  pet15res332="Casi Siempre"
+                  pet15val67= this.state.getPonderacion[66].casisiempre
+                }
+                else if(this.state.peticion15[67].Respuestas=="AlgunasVeces"){
+                  pet15res333="Algunas Veces"
+                  pet15val67= this.state.getPonderacion[66].algunasveces
+                } 
+                else if(this.state.peticion15[67].Respuestas=="CasiNunca"){
+                  pet15res334="Casi Nunca"
+                  pet15val67= this.state.getPonderacion[66].casinunca
+                } 
+                else if(this.state.peticion15[67].Respuestas=="Nunca"){
+                  pet15res335="Nunca"
+                  pet15val67= this.state.getPonderacion[66].nunca
+                }
+                if(this.state.peticion15[68].Respuestas=="Siempre"){
+                  pet15res336="Siempre"
+                  pet15val68= this.state.getPonderacion[67].siempre
+                }else if(this.state.peticion15[68].Respuestas=="CasiSiempre"){
+                  pet15res337="Casi Siempre"
+                  pet15val68= this.state.getPonderacion[67].casisiempre
+                }
+                else if(this.state.peticion15[68].Respuestas=="AlgunasVeces"){
+                  pet15res338="Algunas Veces"
+                  pet15val68= this.state.getPonderacion[67].algunasveces
+                } 
+                else if(this.state.peticion15[68].Respuestas=="CasiNunca"){
+                  pet15res339="Casi Nunca"
+                  pet15val68= this.state.getPonderacion[67].casinunca
+                } 
+                else if(this.state.peticion15[68].Respuestas=="Nunca"){
+                  pet15res340="Nunca"
+                  pet15val68= this.state.getPonderacion[67].nunca
+                }
+                if(this.state.peticion15[69].Respuestas=="Siempre"){
+                  pet15res341="Siempre"
+                  pet15val69= this.state.getPonderacion[68].siempre
+                }else if(this.state.peticion15[69].Respuestas=="CasiSiempre"){
+                  pet15res342="Casi Siempre"
+                  pet15val69= this.state.getPonderacion[68].casisiempre
+                }
+                else if(this.state.peticion15[69].Respuestas=="AlgunasVeces"){
+                  pet15res343="Algunas Veces"
+                  pet15val69= this.state.getPonderacion[68].algunasveces
+                } 
+                else if(this.state.peticion15[69].Respuestas=="CasiNunca"){
+                  pet15res344="Casi Nunca"
+                  pet15val69= this.state.getPonderacion[68].casinunca
+                } 
+                else if(this.state.peticion15[69].Respuestas=="Nunca"){
+                  pet15res345="Nunca"
+                  pet15val69= this.state.getPonderacion[68].nunca
+                }
+                if(this.state.peticion15[70].Respuestas=="Siempre"){
+                  pet15res346="Siempre"
+                  pet15val70= this.state.getPonderacion[69].siempre
+                }else if(this.state.peticion15[70].Respuestas=="CasiSiempre"){
+                  pet15res347="Casi Siempre"
+                  pet15val70= this.state.getPonderacion[69].casisiempre
+                }
+                else if(this.state.peticion15[70].Respuestas=="AlgunasVeces"){
+                  pet15res348="Algunas Veces"
+                  pet15val70= this.state.getPonderacion[69].algunasveces
+                } 
+                else if(this.state.peticion15[70].Respuestas=="CasiNunca"){
+                  pet15res349="Casi Nunca"
+                  pet15val70= this.state.getPonderacion[69].casinunca
+                } 
+                else if(this.state.peticion15[70].Respuestas=="Nunca"){
+                  pet15res350="Nunca"
+                  pet15val70= this.state.getPonderacion[69].nunca
+                }
+  
+                if(this.state.peticion15[71].Respuestas=="Siempre"){
+                  pet15res351="Siempre"
+                  pet15val71= this.state.getPonderacion[70].siempre
+                }else if(this.state.peticion15[71].Respuestas=="CasiSiempre"){
+                  pet15res352="Casi Siempre"
+                  pet15val71= this.state.getPonderacion[70].casisiempre
+                }
+                else if(this.state.peticion15[71].Respuestas=="AlgunasVeces"){
+                  pet15res353="Algunas Veces"
+                  pet15val71= this.state.getPonderacion[70].algunasveces
+                } 
+                else if(this.state.peticion15[71].Respuestas=="CasiNunca"){
+                  pet15res354="Casi Nunca"
+                  pet15val71= this.state.getPonderacion[70].casinunca
+                } 
+                else if(this.state.peticion15[71].Respuestas=="Nunca"){
+                  pet15res355="Nunca"
+                  pet15val71= this.state.getPonderacion[70].nunca
+                }
+                if(this.state.peticion15[72].Respuestas=="Siempre"){
+                  pet15res356="Siempre"
+                  pet15val72= this.state.getPonderacion[71].siempre
+                }else if(this.state.peticion15[72].Respuestas=="CasiSiempre"){
+                  pet15res357="Casi Siempre"
+                  pet15val72= this.state.getPonderacion[71].casisiempre
+                }
+                else if(this.state.peticion15[72].Respuestas=="AlgunasVeces"){
+                  pet15res358="Algunas Veces"
+                  pet15val72= this.state.getPonderacion[71].algunasveces
+                } 
+                else if(this.state.peticion15[72].Respuestas=="CasiNunca"){
+                  pet15res359="Casi Nunca"
+                  pet15val72= this.state.getPonderacion[71].casinunca
+                } 
+                else if(this.state.peticion15[72].Respuestas=="Nunca"){
+                  pet15res360="Nunca"
+                  pet15val72= this.state.getPonderacion[71].nunca
+                }
 }
 pet1ent1=parseInt(valor1); pet1ent2=parseInt(valor2); pet1ent3=parseInt(valor3); pet1ent4=parseInt(valor4);
 pet1ent5=parseInt(valor5); pet1ent6=parseInt(valor6); pet1ent7=parseInt(valor7); pet1ent8=parseInt(valor8);
@@ -15173,8 +22861,15 @@ pet1ent29=parseInt(valor29); pet1ent30=parseInt(valor30); pet1ent31=parseInt(val
 pet1ent33=parseInt(valor33); pet1ent34=parseInt(valor34); pet1ent35=parseInt(valor35); pet1ent36=parseInt(valor36);
 pet1ent37=parseInt(valor37); pet1ent38=parseInt(valor38); pet1ent39=parseInt(valor39); pet1ent40=parseInt(valor40);
 pet1ent41=parseInt(valor41); pet1ent42=parseInt(valor42); pet1ent43=parseInt(valor43); pet1ent44=parseInt(valor44);
-pet1ent45=parseInt(valor45); pet1ent46=parseInt(valor46)
-totalpet1 = (pet1ent1+pet1ent2+pet1ent3+pet1ent4+pet1ent5+pet1ent6+pet1ent7+pet1ent8+pet1ent9+pet1ent10+pet1ent11+pet1ent12+pet1ent13+pet1ent14+pet1ent15+pet1ent16+pet1ent17+pet1ent18+pet1ent19+pet1ent20+pet1ent21+pet1ent22+pet1ent23+pet1ent24+pet1ent25+pet1ent26+pet1ent27+pet1ent28+pet1ent29+pet1ent30+pet1ent31+pet1ent32+pet1ent33+pet1ent34+pet1ent35+pet1ent36+pet1ent37+pet1ent38+pet1ent39+pet1ent40+pet1ent41+pet1ent42+pet1ent43+pet1ent44+pet1ent45+pet1ent46);        
+pet1ent45=parseInt(valor45); pet1ent46=parseInt(valor46); pet1ent47=parseInt(valor47); pet1ent48=parseInt(valor48);
+pet1ent49=parseInt(valor49); pet1ent50=parseInt(valor50); pet1ent51=parseInt(valor51); pet1ent52=parseInt(valor52);
+pet1ent53=parseInt(valor53); pet1ent54=parseInt(valor54); pet1ent55=parseInt(valor55); pet1ent56=parseInt(valor56);
+pet1ent57=parseInt(valor57); pet1ent58=parseInt(valor58); pet1ent59=parseInt(valor59); pet1ent60=parseInt(valor60);
+pet1ent61=parseInt(valor61); pet1ent62=parseInt(valor62); pet1ent63=parseInt(valor63); pet1ent64=parseInt(valor64);
+pet1ent65=parseInt(valor65); pet1ent66=parseInt(valor66); pet1ent67=parseInt(valor67); pet1ent68=parseInt(valor68);
+pet1ent69=parseInt(valor69); pet1ent70=parseInt(valor71); pet1ent72=parseInt(valor72);
+
+totalpet1 = (pet1ent1+pet1ent2+pet1ent3+pet1ent4+pet1ent5+pet1ent6+pet1ent7+pet1ent8+pet1ent9+pet1ent10+pet1ent11+pet1ent12+pet1ent13+pet1ent14+pet1ent15+pet1ent16+pet1ent17+pet1ent18+pet1ent19+pet1ent20+pet1ent21+pet1ent22+pet1ent23+pet1ent24+pet1ent25+pet1ent26+pet1ent27+pet1ent28+pet1ent29+pet1ent30+pet1ent31+pet1ent32+pet1ent33+pet1ent34+pet1ent35+pet1ent36+pet1ent37+pet1ent38+pet1ent39+pet1ent40+pet1ent41+pet1ent42+pet1ent43+pet1ent44+pet1ent45+pet1ent46+pet1ent47+pet1ent48+pet1ent49+pet1ent50+pet1ent51+pet1ent52+pet1ent53+pet1ent54+pet1ent55+pet1ent56+pet1ent57+pet1ent58+pet1ent59+pet1ent60+pet1ent61+pet1ent62+pet1ent63+pet1ent64+pet1ent65+pet1ent66+pet1ent67+pet1ent68+pet1ent69+pet1ent70+pet1ent71+pet1ent72);        
 
 pet2ent1=parseInt(pet2val1); pet2ent2=parseInt(pet2val2); pet2ent3=parseInt(pet2val3); pet2ent4=parseInt(pet2val4);
 pet2ent5=parseInt(pet2val5); pet2ent6=parseInt(pet2val6); pet2ent7=parseInt(pet2val7); pet2ent8=parseInt(pet2val8);
@@ -15187,8 +22882,15 @@ pet2ent29=parseInt(pet2val29); pet2ent30=parseInt(pet2val30); pet2ent31=parseInt
 pet2ent33=parseInt(pet2val33); pet2ent34=parseInt(pet2val34); pet2ent35=parseInt(pet2val35); pet2ent36=parseInt(pet2val36);
 pet2ent37=parseInt(pet2val37); pet2ent38=parseInt(pet2val38); pet2ent39=parseInt(pet2val39); pet2ent40=parseInt(pet2val40);
 pet2ent41=parseInt(pet2val41); pet2ent42=parseInt(pet2val42); pet2ent43=parseInt(pet2val43); pet2ent44=parseInt(pet2val44);
-pet2ent45=parseInt(pet2val45); pet2ent46=parseInt(pet2val46)
-totalpet2 = (pet2ent1+pet2ent2+pet2ent3+pet2ent4+pet2ent5+pet2ent6+pet2ent7+pet2ent8+pet2ent9+pet2ent10+pet2ent11+pet2ent12+pet2ent13+pet2ent14+pet2ent15+pet2ent16+pet2ent17+pet2ent18+pet2ent19+pet2ent20+pet2ent21+pet2ent22+pet2ent23+pet2ent24+pet2ent25+pet2ent26+pet2ent27+pet2ent28+pet2ent29+pet2ent30+pet2ent31+pet2ent32+pet2ent33+pet2ent34+pet2ent35+pet2ent36+pet2ent37+pet2ent38+pet2ent39+pet2ent40+pet2ent41+pet2ent42+pet2ent43+pet2ent44+pet2ent45+pet2ent46);  
+pet2ent45=parseInt(pet2val45); pet2ent46=parseInt(pet2val46); pet2ent47=parseInt(pet2val47); pet2ent48=parseInt(pet2val48);
+pet2ent49=parseInt(pet2val49); pet2ent50=parseInt(pet2val50); pet2ent51=parseInt(pet2val51); pet2ent52=parseInt(pet2val52);
+pet2ent53=parseInt(pet2val53); pet2ent54=parseInt(pet2val54); pet2ent55=parseInt(pet2val55); pet2ent56=parseInt(pet2val56);
+pet2ent57=parseInt(pet2val57); pet2ent58=parseInt(pet2val58); pet2ent59=parseInt(pet2val59); pet2ent60=parseInt(pet2val60);
+pet2ent61=parseInt(pet2val61); pet2ent62=parseInt(pet2val62); pet2ent63=parseInt(pet2val63); pet2ent64=parseInt(pet2val64);
+pet2ent65=parseInt(pet2val65); pet2ent66=parseInt(pet2val66); pet2ent67=parseInt(pet2val67); pet2ent68=parseInt(pet2val68);
+pet2ent69=parseInt(pet2val69); pet2ent70=parseInt(pet2val71); pet2ent72=parseInt(pet2val72);
+
+totalpet2 = (pet2ent1+pet2ent2+pet2ent3+pet2ent4+pet2ent5+pet2ent6+pet2ent7+pet2ent8+pet2ent9+pet2ent10+pet2ent11+pet2ent12+pet2ent13+pet2ent14+pet2ent15+pet2ent16+pet2ent17+pet2ent18+pet2ent19+pet2ent20+pet2ent21+pet2ent22+pet2ent23+pet2ent24+pet2ent25+pet2ent26+pet2ent27+pet2ent28+pet2ent29+pet2ent30+pet2ent31+pet2ent32+pet2ent33+pet2ent34+pet2ent35+pet2ent36+pet2ent37+pet2ent38+pet2ent39+pet2ent40+pet2ent41+pet2ent42+pet2ent43+pet2ent44+pet2ent45+pet2ent46+pet2ent47+pet2ent48+pet2ent49+pet2ent50+pet2ent51+pet2ent52+pet2ent53+pet2ent54+pet2ent55+pet2ent56+pet2ent57+pet2ent58+pet2ent59+pet2ent60+pet2ent61+pet2ent62+pet2ent63+pet2ent64+pet2ent65+pet2ent66+pet2ent67+pet2ent68+pet2ent69+pet2ent70+pet2ent71+pet2ent72);  
 
 pet3ent1=parseInt(pet3val1); pet3ent2=parseInt(pet3val2); pet3ent3=parseInt(pet3val3); pet3ent4=parseInt(pet3val4);
 pet3ent5=parseInt(pet3val5); pet3ent6=parseInt(pet3val6); pet3ent7=parseInt(pet3val7); pet3ent8=parseInt(pet3val8);
@@ -15201,8 +22903,15 @@ pet3ent29=parseInt(pet3val29); pet3ent30=parseInt(pet3val30); pet3ent31=parseInt
 pet3ent33=parseInt(pet3val33); pet3ent34=parseInt(pet3val34); pet3ent35=parseInt(pet3val35); pet3ent36=parseInt(pet3val36);
 pet3ent37=parseInt(pet3val37); pet3ent38=parseInt(pet3val38); pet3ent39=parseInt(pet3val39); pet3ent40=parseInt(pet3val40);
 pet3ent41=parseInt(pet3val41); pet3ent42=parseInt(pet3val42); pet3ent43=parseInt(pet3val43); pet3ent44=parseInt(pet3val44);
-pet3ent45=parseInt(pet3val45); pet3ent46=parseInt(pet3val46)
-totalpet3 = (pet3ent1+pet3ent2+pet3ent3+pet3ent4+pet3ent5+pet3ent6+pet3ent7+pet3ent8+pet3ent9+pet3ent10+pet3ent11+pet3ent12+pet3ent13+pet3ent14+pet3ent15+pet3ent16+pet3ent17+pet3ent18+pet3ent19+pet3ent20+pet3ent21+pet3ent22+pet3ent23+pet3ent24+pet3ent25+pet3ent26+pet3ent27+pet3ent28+pet3ent29+pet3ent30+pet3ent31+pet3ent32+pet3ent33+pet3ent34+pet3ent35+pet3ent36+pet3ent37+pet3ent38+pet3ent39+pet3ent40+pet3ent41+pet3ent42+pet3ent43+pet3ent44+pet3ent45+pet3ent46);        
+pet3ent45=parseInt(pet3val45); pet3ent46=parseInt(pet3val46);pet3ent47=parseInt(pet3val47); pet3ent48=parseInt(pet3val48);
+pet3ent49=parseInt(pet3val49); pet3ent50=parseInt(pet3val50); pet3ent51=parseInt(pet3val51); pet3ent52=parseInt(pet3val52);
+pet3ent53=parseInt(pet3val53); pet3ent54=parseInt(pet3val54); pet3ent55=parseInt(pet3val55); pet3ent56=parseInt(pet3val56);
+pet3ent57=parseInt(pet3val57); pet3ent58=parseInt(pet3val58); pet3ent59=parseInt(pet3val59); pet3ent60=parseInt(pet3val60);
+pet3ent61=parseInt(pet3val61); pet3ent62=parseInt(pet3val62); pet3ent63=parseInt(pet3val63); pet3ent64=parseInt(pet3val64);
+pet3ent65=parseInt(pet3val65); pet3ent66=parseInt(pet3val66); pet3ent67=parseInt(pet3val67); pet3ent68=parseInt(pet3val68);
+pet3ent69=parseInt(pet3val69); pet3ent70=parseInt(pet3val71); pet3ent72=parseInt(pet3val72);
+
+totalpet3 = (pet3ent1+pet3ent2+pet3ent3+pet3ent4+pet3ent5+pet3ent6+pet3ent7+pet3ent8+pet3ent9+pet3ent10+pet3ent11+pet3ent12+pet3ent13+pet3ent14+pet3ent15+pet3ent16+pet3ent17+pet3ent18+pet3ent19+pet3ent20+pet3ent21+pet3ent22+pet3ent23+pet3ent24+pet3ent25+pet3ent26+pet3ent27+pet3ent28+pet3ent29+pet3ent30+pet3ent31+pet3ent32+pet3ent33+pet3ent34+pet3ent35+pet3ent36+pet3ent37+pet3ent38+pet3ent39+pet3ent40+pet3ent41+pet3ent42+pet3ent43+pet3ent44+pet3ent45+pet3ent46+pet3ent47+pet3ent48+pet3ent49+pet3ent50+pet3ent51+pet3ent52+pet3ent53+pet3ent54+pet3ent55+pet3ent56+pet3ent57+pet3ent58+pet3ent59+pet3ent60+pet3ent61+pet3ent62+pet3ent63+pet3ent64+pet3ent65+pet3ent66+pet3ent67+pet3ent68+pet3ent69+pet3ent70+pet3ent71+pet3ent72);        
 
 console.log("esta es la peticion3" ,pet3ent1,pet3ent2,pet3ent3,pet3ent4,pet3ent5,pet3ent6,pet3ent7,pet3ent8)
 pet4ent1=parseInt(pet4val1); pet4ent2=parseInt(pet4val2); pet4ent3=parseInt(pet4val3); pet4ent4=parseInt(pet4val4);
@@ -15216,8 +22925,15 @@ pet4ent29=parseInt(pet4val29); pet4ent30=parseInt(pet4val30); pet4ent31=parseInt
 pet4ent33=parseInt(pet4val33); pet4ent34=parseInt(pet4val34); pet4ent35=parseInt(pet4val35); pet4ent36=parseInt(pet4val36);
 pet4ent37=parseInt(pet4val37); pet4ent38=parseInt(pet4val38); pet4ent39=parseInt(pet4val39); pet4ent40=parseInt(pet4val40);
 pet4ent41=parseInt(pet4val41); pet4ent42=parseInt(pet4val42); pet4ent43=parseInt(pet4val43); pet4ent44=parseInt(pet4val44);
-pet4ent45=parseInt(pet4val45); pet4ent46=parseInt(pet4val46)
-totalpet4 = (pet4ent1+pet4ent2+pet4ent3+pet4ent4+pet4ent5+pet4ent6+pet4ent7+pet4ent8+pet4ent9+pet4ent10+pet4ent11+pet4ent12+pet4ent13+pet4ent14+pet4ent15+pet4ent16+pet4ent17+pet4ent18+pet4ent19+pet4ent20+pet4ent21+pet4ent22+pet4ent23+pet4ent24+pet4ent25+pet4ent26+pet4ent27+pet4ent28+pet4ent29+pet4ent30+pet4ent31+pet4ent32+pet4ent33+pet4ent34+pet4ent35+pet4ent36+pet4ent37+pet4ent38+pet4ent39+pet4ent40+pet4ent41+pet4ent42+pet4ent43+pet4ent44+pet4ent45+pet4ent46);        
+pet4ent45=parseInt(pet4val45); pet4ent46=parseInt(pet4val46);pet4ent47=parseInt(pet4val47); pet4ent48=parseInt(pet4val48);
+pet4ent49=parseInt(pet4val49); pet4ent50=parseInt(pet4val50); pet4ent51=parseInt(pet4val51); pet4ent52=parseInt(pet4val52);
+pet4ent53=parseInt(pet4val53); pet4ent54=parseInt(pet4val54); pet4ent55=parseInt(pet4val55); pet4ent56=parseInt(pet4val56);
+pet4ent57=parseInt(pet4val57); pet4ent58=parseInt(pet4val58); pet4ent59=parseInt(pet4val59); pet4ent60=parseInt(pet4val60);
+pet4ent61=parseInt(pet4val61); pet4ent62=parseInt(pet4val62); pet4ent63=parseInt(pet4val63); pet4ent64=parseInt(pet4val64);
+pet4ent65=parseInt(pet4val65); pet4ent66=parseInt(pet4val66); pet4ent67=parseInt(pet4val67); pet4ent68=parseInt(pet4val68);
+pet4ent69=parseInt(pet4val69); pet4ent70=parseInt(pet4val71); pet4ent72=parseInt(pet4val72);
+
+totalpet4 = (pet4ent1+pet4ent2+pet4ent3+pet4ent4+pet4ent5+pet4ent6+pet4ent7+pet4ent8+pet4ent9+pet4ent10+pet4ent11+pet4ent12+pet4ent13+pet4ent14+pet4ent15+pet4ent16+pet4ent17+pet4ent18+pet4ent19+pet4ent20+pet4ent21+pet4ent22+pet4ent23+pet4ent24+pet4ent25+pet4ent26+pet4ent27+pet4ent28+pet4ent29+pet4ent30+pet4ent31+pet4ent32+pet4ent33+pet4ent34+pet4ent35+pet4ent36+pet4ent37+pet4ent38+pet4ent39+pet4ent40+pet4ent41+pet4ent42+pet4ent43+pet4ent44+pet4ent45+pet4ent46+pet4ent47+pet4ent48+pet4ent49+pet4ent50+pet4ent51+pet4ent52+pet4ent53+pet4ent54+pet4ent55+pet4ent56+pet4ent57+pet4ent58+pet4ent59+pet4ent60+pet4ent61+pet4ent62+pet4ent63+pet4ent64+pet4ent65+pet4ent66+pet4ent67+pet4ent68+pet4ent69+pet4ent70+pet4ent71+pet4ent72);        
      
 pet5ent1=parseInt(pet5val1); pet5ent2=parseInt(pet5val2); pet5ent3=parseInt(pet5val3); pet5ent4=parseInt(pet5val4);
 pet5ent5=parseInt(pet5val5); pet5ent6=parseInt(pet5val6); pet5ent7=parseInt(pet5val7); pet5ent8=parseInt(pet5val8);
@@ -15230,8 +22946,15 @@ pet5ent29=parseInt(pet5val29); pet5ent30=parseInt(pet5val30); pet5ent31=parseInt
 pet5ent33=parseInt(pet5val33); pet5ent34=parseInt(pet5val34); pet5ent35=parseInt(pet5val35); pet5ent36=parseInt(pet5val36);
 pet5ent37=parseInt(pet5val37); pet5ent38=parseInt(pet5val38); pet5ent39=parseInt(pet5val39); pet5ent40=parseInt(pet5val40);
 pet5ent41=parseInt(pet5val41); pet5ent42=parseInt(pet5val42); pet5ent43=parseInt(pet5val43); pet5ent44=parseInt(pet5val44);
-pet5ent45=parseInt(pet5val45); pet5ent46=parseInt(pet5val46)
-totalpet5 = (pet5ent1+pet5ent2+pet5ent3+pet5ent4+pet5ent5+pet5ent6+pet5ent7+pet5ent8+pet5ent9+pet5ent10+pet5ent11+pet5ent12+pet5ent13+pet5ent14+pet5ent15+pet5ent16+pet5ent17+pet5ent18+pet5ent19+pet5ent20+pet5ent21+pet5ent22+pet5ent23+pet5ent24+pet5ent25+pet5ent26+pet5ent27+pet5ent28+pet5ent29+pet5ent30+pet5ent31+pet5ent32+pet5ent33+pet5ent34+pet5ent35+pet5ent36+pet5ent37+pet5ent38+pet5ent39+pet5ent40+pet5ent41+pet5ent42+pet5ent43+pet5ent44+pet5ent45+pet5ent46);          
+pet5ent45=parseInt(pet5val45); pet5ent46=parseInt(pet5val46);pet5ent47=parseInt(pet5val47); pet5ent48=parseInt(pet5val48);
+pet5ent49=parseInt(pet5val49); pet5ent50=parseInt(pet5val50); pet5ent51=parseInt(pet5val51); pet5ent52=parseInt(pet5val52);
+pet5ent53=parseInt(pet5val53); pet5ent54=parseInt(pet5val54); pet5ent55=parseInt(pet5val55); pet5ent56=parseInt(pet5val56);
+pet5ent57=parseInt(pet5val57); pet5ent58=parseInt(pet5val58); pet5ent59=parseInt(pet5val59); pet5ent60=parseInt(pet5val60);
+pet5ent61=parseInt(pet5val61); pet5ent62=parseInt(pet5val62); pet5ent63=parseInt(pet5val63); pet5ent64=parseInt(pet5val64);
+pet5ent65=parseInt(pet5val65); pet5ent66=parseInt(pet5val66); pet5ent67=parseInt(pet5val67); pet5ent68=parseInt(pet5val68);
+pet5ent69=parseInt(pet5val69); pet5ent70=parseInt(pet5val71); pet5ent72=parseInt(pet5val72);
+
+totalpet5 = (pet5ent1+pet5ent2+pet5ent3+pet5ent4+pet5ent5+pet5ent6+pet5ent7+pet5ent8+pet5ent9+pet5ent10+pet5ent11+pet5ent12+pet5ent13+pet5ent14+pet5ent15+pet5ent16+pet5ent17+pet5ent18+pet5ent19+pet5ent20+pet5ent21+pet5ent22+pet5ent23+pet5ent24+pet5ent25+pet5ent26+pet5ent27+pet5ent28+pet5ent29+pet5ent30+pet5ent31+pet5ent32+pet5ent33+pet5ent34+pet5ent35+pet5ent36+pet5ent37+pet5ent38+pet5ent39+pet5ent40+pet5ent41+pet5ent42+pet5ent43+pet5ent44+pet5ent45+pet5ent46+pet5ent47+pet5ent48+pet5ent49+pet5ent50+pet5ent51+pet5ent52+pet5ent53+pet5ent54+pet5ent55+pet5ent56+pet5ent57+pet5ent58+pet5ent59+pet5ent60+pet5ent61+pet5ent62+pet5ent63+pet5ent64+pet5ent65+pet5ent66+pet5ent67+pet5ent68+pet5ent69+pet5ent70+pet5ent71+pet5ent72);          
      
 pet6ent1=parseInt(pet6val1); pet6ent2=parseInt(pet6val2); pet6ent3=parseInt(pet6val3); pet6ent4=parseInt(pet6val4);
 pet6ent5=parseInt(pet6val5); pet6ent6=parseInt(pet6val6); pet6ent7=parseInt(pet6val7); pet6ent8=parseInt(pet6val8);
@@ -15244,8 +22967,15 @@ pet6ent29=parseInt(pet6val29); pet6ent30=parseInt(pet6val30); pet6ent31=parseInt
 pet6ent33=parseInt(pet6val33); pet6ent34=parseInt(pet6val34); pet6ent35=parseInt(pet6val35); pet6ent36=parseInt(pet6val36);
 pet6ent37=parseInt(pet6val37); pet6ent38=parseInt(pet6val38); pet6ent39=parseInt(pet6val39); pet6ent40=parseInt(pet6val40);
 pet6ent41=parseInt(pet6val41); pet6ent42=parseInt(pet6val42); pet6ent43=parseInt(pet6val43); pet6ent44=parseInt(pet6val44);
-pet6ent45=parseInt(pet6val45); pet6ent46=parseInt(pet6val46)
-totalpet6 = (pet6ent1+pet6ent2+pet6ent3+pet6ent4+pet6ent5+pet6ent6+pet6ent7+pet6ent8+pet6ent9+pet6ent10+pet6ent11+pet6ent12+pet6ent13+pet6ent14+pet6ent15+pet6ent16+pet6ent17+pet6ent18+pet6ent19+pet6ent20+pet6ent21+pet6ent22+pet6ent23+pet6ent24+pet6ent25+pet6ent26+pet6ent27+pet6ent28+pet6ent29+pet6ent30+pet6ent31+pet6ent32+pet6ent33+pet6ent34+pet6ent35+pet6ent36+pet6ent37+pet6ent38+pet6ent39+pet6ent40+pet6ent41+pet6ent42+pet6ent43+pet6ent44+pet6ent45+pet6ent46);        
+pet6ent45=parseInt(pet6val45); pet6ent46=parseInt(pet6val46);pet6ent47=parseInt(pet6val47); pet6ent48=parseInt(pet6val48);
+pet6ent49=parseInt(pet6val49); pet6ent50=parseInt(pet6val50); pet6ent51=parseInt(pet6val51); pet6ent52=parseInt(pet6val52);
+pet6ent53=parseInt(pet6val53); pet6ent54=parseInt(pet6val54); pet6ent55=parseInt(pet6val55); pet6ent56=parseInt(pet6val56);
+pet6ent57=parseInt(pet6val57); pet6ent58=parseInt(pet6val58); pet6ent59=parseInt(pet6val59); pet6ent60=parseInt(pet6val60);
+pet6ent61=parseInt(pet6val61); pet6ent62=parseInt(pet6val62); pet6ent63=parseInt(pet6val63); pet6ent64=parseInt(pet6val64);
+pet6ent65=parseInt(pet6val65); pet6ent66=parseInt(pet6val66); pet6ent67=parseInt(pet6val67); pet6ent68=parseInt(pet6val68);
+pet6ent69=parseInt(pet6val69); pet6ent70=parseInt(pet6val71); pet6ent72=parseInt(pet6val72);
+
+totalpet6 = (pet6ent1+pet6ent2+pet6ent3+pet6ent4+pet6ent5+pet6ent6+pet6ent7+pet6ent8+pet6ent9+pet6ent10+pet6ent11+pet6ent12+pet6ent13+pet6ent14+pet6ent15+pet6ent16+pet6ent17+pet6ent18+pet6ent19+pet6ent20+pet6ent21+pet6ent22+pet6ent23+pet6ent24+pet6ent25+pet6ent26+pet6ent27+pet6ent28+pet6ent29+pet6ent30+pet6ent31+pet6ent32+pet6ent33+pet6ent34+pet6ent35+pet6ent36+pet6ent37+pet6ent38+pet6ent39+pet6ent40+pet6ent41+pet6ent42+pet6ent43+pet6ent44+pet6ent45+pet6ent46+pet6ent47+pet6ent48+pet6ent49+pet6ent50+pet6ent51+pet6ent52+pet6ent53+pet6ent54+pet6ent55+pet6ent56+pet6ent57+pet6ent58+pet6ent59+pet6ent60+pet6ent61+pet6ent62+pet6ent63+pet6ent64+pet6ent65+pet6ent66+pet6ent67+pet6ent68+pet6ent69+pet6ent70+pet6ent71+pet6ent72);        
   
 pet7ent1=parseInt(pet7val1); pet7ent2=parseInt(pet7val2); pet7ent3=parseInt(pet7val3); pet7ent4=parseInt(pet7val4);
 pet7ent5=parseInt(pet7val5); pet7ent6=parseInt(pet7val6); pet7ent7=parseInt(pet7val7); pet7ent8=parseInt(pet7val8);
@@ -15258,8 +22988,15 @@ pet7ent29=parseInt(pet7val29); pet7ent30=parseInt(pet7val30); pet7ent31=parseInt
 pet7ent33=parseInt(pet7val33); pet7ent34=parseInt(pet7val34); pet7ent35=parseInt(pet7val35); pet7ent36=parseInt(pet7val36);
 pet7ent37=parseInt(pet7val37); pet7ent38=parseInt(pet7val38); pet7ent39=parseInt(pet7val39); pet7ent40=parseInt(pet7val40);
 pet7ent41=parseInt(pet7val41); pet7ent42=parseInt(pet7val42); pet7ent43=parseInt(pet7val43); pet7ent44=parseInt(pet7val44);
-pet7ent45=parseInt(pet7val45); pet7ent46=parseInt(pet7val46)
-totalpet7 = (pet7ent1+pet7ent2+pet7ent3+pet7ent4+pet7ent5+pet7ent6+pet7ent7+pet7ent8+pet7ent9+pet7ent10+pet7ent11+pet7ent12+pet7ent13+pet7ent14+pet7ent15+pet7ent16+pet7ent17+pet7ent18+pet7ent19+pet7ent20+pet7ent21+pet7ent22+pet7ent23+pet7ent24+pet7ent25+pet7ent26+pet7ent27+pet7ent28+pet7ent29+pet7ent30+pet7ent31+pet7ent32+pet7ent33+pet7ent34+pet7ent35+pet7ent36+pet7ent37+pet7ent38+pet7ent39+pet7ent40+pet7ent41+pet7ent42+pet7ent43+pet7ent44+pet7ent45+pet7ent46);        
+pet7ent45=parseInt(pet7val45); pet7ent46=parseInt(pet7val46);pet7ent47=parseInt(pet7val47); pet7ent48=parseInt(pet7val48);
+pet7ent49=parseInt(pet7val49); pet7ent50=parseInt(pet7val50); pet7ent51=parseInt(pet7val51); pet7ent52=parseInt(pet7val52);
+pet7ent53=parseInt(pet7val53); pet7ent54=parseInt(pet7val54); pet7ent55=parseInt(pet7val55); pet7ent56=parseInt(pet7val56);
+pet7ent57=parseInt(pet7val57); pet7ent58=parseInt(pet7val58); pet7ent59=parseInt(pet7val59); pet7ent60=parseInt(pet7val60);
+pet7ent61=parseInt(pet7val61); pet7ent62=parseInt(pet7val62); pet7ent63=parseInt(pet7val63); pet7ent64=parseInt(pet7val64);
+pet7ent65=parseInt(pet7val65); pet7ent66=parseInt(pet7val66); pet7ent67=parseInt(pet7val67); pet7ent68=parseInt(pet7val68);
+pet7ent69=parseInt(pet7val69); pet7ent70=parseInt(pet7val71); pet7ent72=parseInt(pet7val72);
+
+totalpet7 = (pet7ent1+pet7ent2+pet7ent3+pet7ent4+pet7ent5+pet7ent6+pet7ent7+pet7ent8+pet7ent9+pet7ent10+pet7ent11+pet7ent12+pet7ent13+pet7ent14+pet7ent15+pet7ent16+pet7ent17+pet7ent18+pet7ent19+pet7ent20+pet7ent21+pet7ent22+pet7ent23+pet7ent24+pet7ent25+pet7ent26+pet7ent27+pet7ent28+pet7ent29+pet7ent30+pet7ent31+pet7ent32+pet7ent33+pet7ent34+pet7ent35+pet7ent36+pet7ent37+pet7ent38+pet7ent39+pet7ent40+pet7ent41+pet7ent42+pet7ent43+pet7ent44+pet7ent45+pet7ent46+pet7ent47+pet7ent48+pet7ent49+pet7ent50+pet7ent51+pet7ent52+pet7ent53+pet7ent54+pet7ent55+pet7ent56+pet7ent57+pet7ent58+pet7ent59+pet7ent60+pet7ent61+pet7ent62+pet7ent63+pet7ent64+pet7ent65+pet7ent66+pet7ent67+pet7ent68+pet7ent69+pet7ent70+pet7ent71+pet7ent72);        
 
  
 pet8ent1=parseInt(pet8val1); pet8ent2=parseInt(pet8val2); pet8ent3=parseInt(pet8val3); pet8ent4=parseInt(pet8val4);
@@ -15273,8 +23010,15 @@ pet8ent29=parseInt(pet8val29); pet8ent30=parseInt(pet8val30); pet8ent31=parseInt
 pet8ent33=parseInt(pet8val33); pet8ent34=parseInt(pet8val34); pet8ent35=parseInt(pet8val35); pet8ent36=parseInt(pet8val36);
 pet8ent37=parseInt(pet8val37); pet8ent38=parseInt(pet8val38); pet8ent39=parseInt(pet8val39); pet8ent40=parseInt(pet8val40);
 pet8ent41=parseInt(pet8val41); pet8ent42=parseInt(pet8val42); pet8ent43=parseInt(pet8val43); pet8ent44=parseInt(pet8val44);
-pet8ent45=parseInt(pet8val45); pet8ent46=parseInt(pet8val46)
-totalpet8 = (pet8ent1+pet8ent2+pet8ent3+pet8ent4+pet8ent5+pet8ent6+pet8ent7+pet8ent8+pet8ent9+pet8ent10+pet8ent11+pet8ent12+pet8ent13+pet8ent14+pet8ent15+pet8ent16+pet8ent17+pet8ent18+pet8ent19+pet8ent20+pet8ent21+pet8ent22+pet8ent23+pet8ent24+pet8ent25+pet8ent26+pet8ent27+pet8ent28+pet8ent29+pet8ent30+pet8ent31+pet8ent32+pet8ent33+pet8ent34+pet8ent35+pet8ent36+pet8ent37+pet8ent38+pet8ent39+pet8ent40+pet8ent41+pet8ent42+pet8ent43+pet8ent44+pet8ent45+pet8ent46);        
+pet8ent45=parseInt(pet8val45); pet8ent46=parseInt(pet8val46);pet8ent47=parseInt(pet8val47); pet8ent48=parseInt(pet8val48);
+pet8ent49=parseInt(pet8val49); pet8ent50=parseInt(pet8val50); pet8ent51=parseInt(pet8val51); pet8ent52=parseInt(pet8val52);
+pet8ent53=parseInt(pet8val53); pet8ent54=parseInt(pet8val54); pet8ent55=parseInt(pet8val55); pet8ent56=parseInt(pet8val56);
+pet8ent57=parseInt(pet8val57); pet8ent58=parseInt(pet8val58); pet8ent59=parseInt(pet8val59); pet8ent60=parseInt(pet8val60);
+pet8ent61=parseInt(pet8val61); pet8ent62=parseInt(pet8val62); pet8ent63=parseInt(pet8val63); pet8ent64=parseInt(pet8val64);
+pet8ent65=parseInt(pet8val65); pet8ent66=parseInt(pet8val66); pet8ent67=parseInt(pet8val67); pet8ent68=parseInt(pet8val68);
+pet8ent69=parseInt(pet8val69); pet8ent70=parseInt(pet8val71); pet8ent72=parseInt(pet8val72);
+
+totalpet8 = (pet8ent1+pet8ent2+pet8ent3+pet8ent4+pet8ent5+pet8ent6+pet8ent7+pet8ent8+pet8ent9+pet8ent10+pet8ent11+pet8ent12+pet8ent13+pet8ent14+pet8ent15+pet8ent16+pet8ent17+pet8ent18+pet8ent19+pet8ent20+pet8ent21+pet8ent22+pet8ent23+pet8ent24+pet8ent25+pet8ent26+pet8ent27+pet8ent28+pet8ent29+pet8ent30+pet8ent31+pet8ent32+pet8ent33+pet8ent34+pet8ent35+pet8ent36+pet8ent37+pet8ent38+pet8ent39+pet8ent40+pet8ent41+pet8ent42+pet8ent43+pet8ent44+pet8ent45+pet8ent46+pet8ent47+pet8ent48+pet8ent49+pet8ent50+pet8ent51+pet8ent52+pet8ent53+pet8ent54+pet8ent55+pet8ent56+pet8ent57+pet8ent58+pet8ent59+pet8ent60+pet8ent61+pet8ent62+pet8ent63+pet8ent64+pet8ent65+pet8ent66+pet8ent67+pet8ent68+pet8ent69+pet8ent70+pet8ent71+pet8ent72);        
 
 pet9ent1=parseInt(pet9val1); pet9ent2=parseInt(pet9val2); pet9ent3=parseInt(pet9val3); pet9ent4=parseInt(pet9val4);
 pet9ent5=parseInt(pet9val5); pet9ent6=parseInt(pet9val6); pet9ent7=parseInt(pet9val7); pet9ent8=parseInt(pet9val8);
@@ -15287,8 +23031,15 @@ pet9ent29=parseInt(pet9val29); pet9ent30=parseInt(pet9val30); pet9ent31=parseInt
 pet9ent33=parseInt(pet9val33); pet9ent34=parseInt(pet9val34); pet9ent35=parseInt(pet9val35); pet9ent36=parseInt(pet9val36);
 pet9ent37=parseInt(pet9val37); pet9ent38=parseInt(pet9val38); pet9ent39=parseInt(pet9val39); pet9ent40=parseInt(pet9val40);
 pet9ent41=parseInt(pet9val41); pet9ent42=parseInt(pet9val42); pet9ent43=parseInt(pet9val43); pet9ent44=parseInt(pet9val44);
-pet9ent45=parseInt(pet9val45); pet9ent46=parseInt(pet9val46)
-totalpet9 = (pet9ent1+pet9ent2+pet9ent3+pet9ent4+pet9ent5+pet9ent6+pet9ent7+pet9ent8+pet9ent9+pet9ent10+pet9ent11+pet9ent12+pet9ent13+pet9ent14+pet9ent15+pet9ent16+pet9ent17+pet9ent18+pet9ent19+pet9ent20+pet9ent21+pet9ent22+pet9ent23+pet9ent24+pet9ent25+pet9ent26+pet9ent27+pet9ent28+pet9ent29+pet9ent30+pet9ent31+pet9ent32+pet9ent33+pet9ent34+pet9ent35+pet9ent36+pet9ent37+pet9ent38+pet9ent39+pet9ent40+pet9ent41+pet9ent42+pet9ent43+pet9ent44+pet9ent45+pet9ent46);        
+pet9ent45=parseInt(pet9val45); pet9ent46=parseInt(pet9val46);pet9ent47=parseInt(pet9val47); pet9ent48=parseInt(pet9val48);
+pet9ent49=parseInt(pet9val49); pet9ent50=parseInt(pet9val50); pet9ent51=parseInt(pet9val51); pet9ent52=parseInt(pet9val52);
+pet9ent53=parseInt(pet9val53); pet9ent54=parseInt(pet9val54); pet9ent55=parseInt(pet9val55); pet9ent56=parseInt(pet9val56);
+pet9ent57=parseInt(pet9val57); pet9ent58=parseInt(pet9val58); pet9ent59=parseInt(pet9val59); pet9ent60=parseInt(pet9val60);
+pet9ent61=parseInt(pet9val61); pet9ent62=parseInt(pet9val62); pet9ent63=parseInt(pet9val63); pet9ent64=parseInt(pet9val64);
+pet9ent65=parseInt(pet9val65); pet9ent66=parseInt(pet9val66); pet9ent67=parseInt(pet9val67); pet9ent68=parseInt(pet9val68);
+pet9ent69=parseInt(pet9val69); pet9ent70=parseInt(pet9val71); pet9ent72=parseInt(pet9val72);
+
+totalpet9 = (pet9ent1+pet9ent2+pet9ent3+pet9ent4+pet9ent5+pet9ent6+pet9ent7+pet9ent8+pet9ent9+pet9ent10+pet9ent11+pet9ent12+pet9ent13+pet9ent14+pet9ent15+pet9ent16+pet9ent17+pet9ent18+pet9ent19+pet9ent20+pet9ent21+pet9ent22+pet9ent23+pet9ent24+pet9ent25+pet9ent26+pet9ent27+pet9ent28+pet9ent29+pet9ent30+pet9ent31+pet9ent32+pet9ent33+pet9ent34+pet9ent35+pet9ent36+pet9ent37+pet9ent38+pet9ent39+pet9ent40+pet9ent41+pet9ent42+pet9ent43+pet9ent44+pet9ent45+pet9ent46+pet9ent47+pet9ent48+pet9ent49+pet9ent50+pet9ent51+pet9ent52+pet9ent53+pet9ent54+pet9ent55+pet9ent56+pet9ent57+pet9ent58+pet9ent59+pet9ent60+pet9ent61+pet9ent62+pet9ent63+pet9ent64+pet9ent65+pet9ent66+pet9ent67+pet9ent68+pet9ent69+pet9ent70+pet9ent71+pet9ent72);        
    
 pet10ent1=parseInt(pet10val1); pet10ent2=parseInt(pet10val2); pet10ent3=parseInt(pet10val3); pet10ent4=parseInt(pet10val4);
 pet10ent5=parseInt(pet10val5); pet10ent6=parseInt(pet10val6); pet10ent7=parseInt(pet10val7); pet10ent8=parseInt(pet10val8);
@@ -15301,8 +23052,15 @@ pet10ent29=parseInt(pet10val29); pet10ent30=parseInt(pet10val30); pet10ent31=par
 pet10ent33=parseInt(pet10val33); pet10ent34=parseInt(pet10val34); pet10ent35=parseInt(pet10val35); pet10ent36=parseInt(pet10val36);
 pet10ent37=parseInt(pet10val37); pet10ent38=parseInt(pet10val38); pet10ent39=parseInt(pet10val39); pet10ent40=parseInt(pet10val40);
 pet10ent41=parseInt(pet10val41); pet10ent42=parseInt(pet10val42); pet10ent43=parseInt(pet10val43); pet10ent44=parseInt(pet10val44);
-pet10ent45=parseInt(pet10val45); pet10ent46=parseInt(pet10val46)
-totalpet10 = (pet10ent1+pet10ent2+pet10ent3+pet10ent4+pet10ent5+pet10ent6+pet10ent7+pet10ent8+pet10ent9+pet10ent10+pet10ent11+pet10ent12+pet10ent13+pet10ent14+pet10ent15+pet10ent16+pet10ent17+pet10ent18+pet10ent19+pet10ent20+pet10ent21+pet10ent22+pet10ent23+pet10ent24+pet10ent25+pet10ent26+pet10ent27+pet10ent28+pet10ent29+pet10ent30+pet10ent31+pet10ent32+pet10ent33+pet10ent34+pet10ent35+pet10ent36+pet10ent37+pet10ent38+pet10ent39+pet10ent40+pet10ent41+pet10ent42+pet10ent43+pet10ent44+pet10ent45+pet10ent46);        
+pet10ent45=parseInt(pet10val45); pet10ent46=parseInt(pet10val46); pet10ent47=parseInt(pet10val47); pet10ent48=parseInt(pet10val48);
+pet10ent49=parseInt(pet10val49); pet10ent50=parseInt(pet10val50); pet10ent51=parseInt(pet10val51); pet10ent52=parseInt(pet10val52);
+pet10ent53=parseInt(pet10val53); pet10ent54=parseInt(pet10val54); pet10ent55=parseInt(pet10val55); pet10ent56=parseInt(pet10val56);
+pet10ent57=parseInt(pet10val57); pet10ent58=parseInt(pet10val58); pet10ent59=parseInt(pet10val59); pet10ent60=parseInt(pet10val60);
+pet10ent61=parseInt(pet10val61); pet10ent62=parseInt(pet10val62); pet10ent63=parseInt(pet10val63); pet10ent64=parseInt(pet10val64);
+pet10ent65=parseInt(pet10val65); pet10ent66=parseInt(pet10val66); pet10ent67=parseInt(pet10val67); pet10ent68=parseInt(pet10val68);
+pet10ent69=parseInt(pet10val69); pet10ent70=parseInt(pet10val71); pet10ent72=parseInt(pet10val72);
+
+totalpet10 = (pet10ent1+pet10ent2+pet10ent3+pet10ent4+pet10ent5+pet10ent6+pet10ent7+pet10ent8+pet10ent9+pet10ent10+pet10ent11+pet10ent12+pet10ent13+pet10ent14+pet10ent15+pet10ent16+pet10ent17+pet10ent18+pet10ent19+pet10ent20+pet10ent21+pet10ent22+pet10ent23+pet10ent24+pet10ent25+pet10ent26+pet10ent27+pet10ent28+pet10ent29+pet10ent30+pet10ent31+pet10ent32+pet10ent33+pet10ent34+pet10ent35+pet10ent36+pet10ent37+pet10ent38+pet10ent39+pet10ent40+pet10ent41+pet10ent42+pet10ent43+pet10ent44+pet10ent45+pet10ent46+pet10ent47+pet10ent48+pet10ent49+pet10ent50+pet10ent51+pet10ent52+pet10ent53+pet10ent54+pet10ent55+pet10ent56+pet10ent57+pet10ent58+pet10ent59+pet10ent60+pet10ent61+pet10ent62+pet10ent63+pet10ent64+pet10ent65+pet10ent66+pet10ent67+pet10ent68+pet10ent69+pet10ent70+pet10ent71+pet10ent72);        
       
 pet11ent1=parseInt(pet11val1); pet11ent2=parseInt(pet11val2); pet11ent3=parseInt(pet11val3); pet11ent4=parseInt(pet11val4);
 pet11ent5=parseInt(pet11val5); pet11ent6=parseInt(pet11val6); pet11ent7=parseInt(pet11val7); pet11ent8=parseInt(pet11val8);
@@ -15315,8 +23073,15 @@ pet11ent29=parseInt(pet11val29); pet11ent30=parseInt(pet11val30); pet11ent31=par
 pet11ent33=parseInt(pet11val33); pet11ent34=parseInt(pet11val34); pet11ent35=parseInt(pet11val35); pet11ent36=parseInt(pet11val36);
 pet11ent37=parseInt(pet11val37); pet11ent38=parseInt(pet11val38); pet11ent39=parseInt(pet11val39); pet11ent40=parseInt(pet11val40);
 pet11ent41=parseInt(pet11val41); pet11ent42=parseInt(pet11val42); pet11ent43=parseInt(pet11val43); pet11ent44=parseInt(pet11val44);
-pet11ent45=parseInt(pet11val45); pet11ent46=parseInt(pet11val46)
-totalpet11 = (pet11ent1+pet11ent2+pet11ent3+pet11ent4+pet11ent5+pet11ent6+pet11ent7+pet11ent8+pet11ent9+pet11ent10+pet11ent11+pet11ent12+pet11ent13+pet11ent14+pet11ent15+pet11ent16+pet11ent17+pet11ent18+pet11ent19+pet11ent20+pet11ent21+pet11ent22+pet11ent23+pet11ent24+pet11ent25+pet11ent26+pet11ent27+pet11ent28+pet11ent29+pet11ent30+pet11ent31+pet11ent32+pet11ent33+pet11ent34+pet11ent35+pet11ent36+pet11ent37+pet11ent38+pet11ent39+pet11ent40+pet11ent41+pet11ent42+pet11ent43+pet11ent44+pet11ent45+pet11ent46);        
+pet11ent45=parseInt(pet11val45); pet11ent46=parseInt(pet11val46);pet11ent47=parseInt(pet11val47); pet11ent48=parseInt(pet11val48);
+pet11ent49=parseInt(pet11val49); pet11ent50=parseInt(pet11val50); pet11ent51=parseInt(pet11val51); pet11ent52=parseInt(pet11val52);
+pet11ent53=parseInt(pet11val53); pet11ent54=parseInt(pet11val54); pet11ent55=parseInt(pet11val55); pet11ent56=parseInt(pet11val56);
+pet11ent57=parseInt(pet11val57); pet11ent58=parseInt(pet11val58); pet11ent59=parseInt(pet11val59); pet11ent60=parseInt(pet11val60);
+pet11ent61=parseInt(pet11val61); pet11ent62=parseInt(pet11val62); pet11ent63=parseInt(pet11val63); pet11ent64=parseInt(pet11val64);
+pet11ent65=parseInt(pet11val65); pet11ent66=parseInt(pet11val66); pet11ent67=parseInt(pet11val67); pet11ent68=parseInt(pet11val68);
+pet11ent69=parseInt(pet11val69); pet11ent70=parseInt(pet11val71); pet11ent72=parseInt(pet11val72);
+
+totalpet11 = (pet11ent1+pet11ent2+pet11ent3+pet11ent4+pet11ent5+pet11ent6+pet11ent7+pet11ent8+pet11ent9+pet11ent10+pet11ent11+pet11ent12+pet11ent13+pet11ent14+pet11ent15+pet11ent16+pet11ent17+pet11ent18+pet11ent19+pet11ent20+pet11ent21+pet11ent22+pet11ent23+pet11ent24+pet11ent25+pet11ent26+pet11ent27+pet11ent28+pet11ent29+pet11ent30+pet11ent31+pet11ent32+pet11ent33+pet11ent34+pet11ent35+pet11ent36+pet11ent37+pet11ent38+pet11ent39+pet11ent40+pet11ent41+pet11ent42+pet11ent43+pet11ent44+pet11ent45+pet11ent46+pet11ent47+pet11ent48+pet11ent49+pet11ent50+pet11ent51+pet11ent52+pet11ent53+pet11ent54+pet11ent55+pet11ent56+pet11ent57+pet11ent58+pet11ent59+pet11ent60+pet11ent61+pet11ent62+pet11ent63+pet11ent64+pet11ent65+pet11ent66+pet11ent67+pet11ent68+pet11ent69+pet11ent70+pet11ent71+pet11ent72);        
 
 pet12ent1=parseInt(pet12val1); pet12ent2=parseInt(pet12val2); pet12ent3=parseInt(pet12val3); pet12ent4=parseInt(pet12val4);
 pet12ent5=parseInt(pet12val5); pet12ent6=parseInt(pet12val6); pet12ent7=parseInt(pet12val7); pet12ent8=parseInt(pet12val8);
@@ -15329,8 +23094,15 @@ pet12ent29=parseInt(pet12val29); pet12ent30=parseInt(pet12val30); pet12ent31=par
 pet12ent33=parseInt(pet12val33); pet12ent34=parseInt(pet12val34); pet12ent35=parseInt(pet12val35); pet12ent36=parseInt(pet12val36);
 pet12ent37=parseInt(pet12val37); pet12ent38=parseInt(pet12val38); pet12ent39=parseInt(pet12val39); pet12ent40=parseInt(pet12val40);
 pet12ent41=parseInt(pet12val41); pet12ent42=parseInt(pet12val42); pet12ent43=parseInt(pet12val43); pet12ent44=parseInt(pet12val44);
-pet12ent45=parseInt(pet12val45); pet12ent46=parseInt(pet12val46)
-totalpet12 = (pet12ent1+pet12ent2+pet12ent3+pet12ent4+pet12ent5+pet12ent6+pet12ent7+pet12ent8+pet12ent9+pet12ent10+pet12ent11+pet12ent12+pet12ent13+pet12ent14+pet12ent15+pet12ent16+pet12ent17+pet12ent18+pet12ent19+pet12ent20+pet12ent21+pet12ent22+pet12ent23+pet12ent24+pet12ent25+pet12ent26+pet12ent27+pet12ent28+pet12ent29+pet12ent30+pet12ent31+pet12ent32+pet12ent33+pet12ent34+pet12ent35+pet12ent36+pet12ent37+pet12ent38+pet12ent39+pet12ent40+pet12ent41+pet12ent42+pet12ent43+pet12ent44+pet12ent45+pet12ent46);        
+pet12ent45=parseInt(pet12val45); pet12ent46=parseInt(pet12val46); pet12ent47=parseInt(pet12val47); pet12ent48=parseInt(pet12val48);
+pet12ent49=parseInt(pet12val49); pet12ent50=parseInt(pet12val50); pet12ent51=parseInt(pet12val51); pet12ent52=parseInt(pet12val52);
+pet12ent53=parseInt(pet12val53); pet12ent54=parseInt(pet12val54); pet12ent55=parseInt(pet12val55); pet12ent56=parseInt(pet12val56);
+pet12ent57=parseInt(pet12val57); pet12ent58=parseInt(pet12val58); pet12ent59=parseInt(pet12val59); pet12ent60=parseInt(pet12val60);
+pet12ent61=parseInt(pet12val61); pet12ent62=parseInt(pet12val62); pet12ent63=parseInt(pet12val63); pet12ent64=parseInt(pet12val64);
+pet12ent65=parseInt(pet12val65); pet12ent66=parseInt(pet12val66); pet12ent67=parseInt(pet12val67); pet12ent68=parseInt(pet12val68);
+pet12ent69=parseInt(pet12val69); pet12ent70=parseInt(pet12val71); pet12ent72=parseInt(pet12val72);
+
+totalpet12 = (pet12ent1+pet12ent2+pet12ent3+pet12ent4+pet12ent5+pet12ent6+pet12ent7+pet12ent8+pet12ent9+pet12ent10+pet12ent11+pet12ent12+pet12ent13+pet12ent14+pet12ent15+pet12ent16+pet12ent17+pet12ent18+pet12ent19+pet12ent20+pet12ent21+pet12ent22+pet12ent23+pet12ent24+pet12ent25+pet12ent26+pet12ent27+pet12ent28+pet12ent29+pet12ent30+pet12ent31+pet12ent32+pet12ent33+pet12ent34+pet12ent35+pet12ent36+pet12ent37+pet12ent38+pet12ent39+pet12ent40+pet12ent41+pet12ent42+pet12ent43+pet12ent44+pet12ent45+pet12ent46+pet12ent47+pet12ent48+pet12ent49+pet12ent50+pet12ent51+pet12ent52+pet12ent53+pet12ent54+pet12ent55+pet12ent56+pet12ent57+pet12ent58+pet12ent59+pet12ent60+pet12ent61+pet12ent62+pet12ent63+pet12ent64+pet12ent65+pet12ent66+pet12ent67+pet12ent68+pet12ent69+pet12ent70+pet12ent71+pet12ent72);        
    
 pet13ent1=parseInt(pet13val1); pet13ent2=parseInt(pet13val2); pet13ent3=parseInt(pet13val3); pet13ent4=parseInt(pet13val4);
 pet13ent5=parseInt(pet13val5); pet13ent6=parseInt(pet13val6); pet13ent7=parseInt(pet13val7); pet13ent8=parseInt(pet13val8);
@@ -15343,8 +23115,15 @@ pet13ent29=parseInt(pet13val29); pet13ent30=parseInt(pet13val30); pet13ent31=par
 pet13ent33=parseInt(pet13val33); pet13ent34=parseInt(pet13val34); pet13ent35=parseInt(pet13val35); pet13ent36=parseInt(pet13val36);
 pet13ent37=parseInt(pet13val37); pet13ent38=parseInt(pet13val38); pet13ent39=parseInt(pet13val39); pet13ent40=parseInt(pet13val40);
 pet13ent41=parseInt(pet13val41); pet13ent42=parseInt(pet13val42); pet13ent43=parseInt(pet13val43); pet13ent44=parseInt(pet13val44);
-pet13ent45=parseInt(pet13val45); pet13ent46=parseInt(pet13val46)
-totalpet13 = (pet13ent1+pet13ent2+pet13ent3+pet13ent4+pet13ent5+pet13ent6+pet13ent7+pet13ent8+pet13ent9+pet13ent10+pet13ent11+pet13ent12+pet13ent13+pet13ent14+pet13ent15+pet13ent16+pet13ent17+pet13ent18+pet13ent19+pet13ent20+pet13ent21+pet13ent22+pet13ent23+pet13ent24+pet13ent25+pet13ent26+pet13ent27+pet13ent28+pet13ent29+pet13ent30+pet13ent31+pet13ent32+pet13ent33+pet13ent34+pet13ent35+pet13ent36+pet13ent37+pet13ent38+pet13ent39+pet13ent40+pet13ent41+pet13ent42+pet13ent43+pet13ent44+pet13ent45+pet13ent46);        
+pet13ent45=parseInt(pet13val45); pet13ent46=parseInt(pet13val46);pet13ent47=parseInt(pet13val47); pet13ent48=parseInt(pet13val48);
+pet13ent49=parseInt(pet13val49); pet13ent50=parseInt(pet13val50); pet13ent51=parseInt(pet13val51); pet13ent52=parseInt(pet13val52);
+pet13ent53=parseInt(pet13val53); pet13ent54=parseInt(pet13val54); pet13ent55=parseInt(pet13val55); pet13ent56=parseInt(pet13val56);
+pet13ent57=parseInt(pet13val57); pet13ent58=parseInt(pet13val58); pet13ent59=parseInt(pet13val59); pet13ent60=parseInt(pet13val60);
+pet13ent61=parseInt(pet13val61); pet13ent62=parseInt(pet13val62); pet13ent63=parseInt(pet13val63); pet13ent64=parseInt(pet13val64);
+pet13ent65=parseInt(pet13val65); pet13ent66=parseInt(pet13val66); pet13ent67=parseInt(pet13val67); pet13ent68=parseInt(pet13val68);
+pet13ent69=parseInt(pet13val69); pet13ent70=parseInt(pet13val71); pet13ent72=parseInt(pet13val72);
+
+totalpet13 = (pet13ent1+pet13ent2+pet13ent3+pet13ent4+pet13ent5+pet13ent6+pet13ent7+pet13ent8+pet13ent9+pet13ent10+pet13ent11+pet13ent12+pet13ent13+pet13ent14+pet13ent15+pet13ent16+pet13ent17+pet13ent18+pet13ent19+pet13ent20+pet13ent21+pet13ent22+pet13ent23+pet13ent24+pet13ent25+pet13ent26+pet13ent27+pet13ent28+pet13ent29+pet13ent30+pet13ent31+pet13ent32+pet13ent33+pet13ent34+pet13ent35+pet13ent36+pet13ent37+pet13ent38+pet13ent39+pet13ent40+pet13ent41+pet13ent42+pet13ent43+pet13ent44+pet13ent45+pet13ent46+pet13ent47+pet13ent48+pet13ent49+pet13ent50+pet13ent51+pet13ent52+pet13ent53+pet13ent54+pet13ent55+pet13ent56+pet13ent57+pet13ent58+pet13ent59+pet13ent60+pet13ent61+pet13ent62+pet13ent63+pet13ent64+pet13ent65+pet13ent66+pet13ent67+pet13ent68+pet13ent69+pet13ent70+pet13ent71+pet13ent72);        
      
 pet14ent1=parseInt(pet14val1); pet14ent2=parseInt(pet14val2); pet14ent3=parseInt(pet14val3); pet14ent4=parseInt(pet14val4);
 pet14ent5=parseInt(pet14val5); pet14ent6=parseInt(pet14val6); pet14ent7=parseInt(pet14val7); pet14ent8=parseInt(pet14val8);
@@ -15357,8 +23136,15 @@ pet14ent29=parseInt(pet14val29); pet14ent30=parseInt(pet14val30); pet14ent31=par
 pet14ent33=parseInt(pet14val33); pet14ent34=parseInt(pet14val34); pet14ent35=parseInt(pet14val35); pet14ent36=parseInt(pet14val36);
 pet14ent37=parseInt(pet14val37); pet14ent38=parseInt(pet14val38); pet14ent39=parseInt(pet14val39); pet14ent40=parseInt(pet14val40);
 pet14ent41=parseInt(pet14val41); pet14ent42=parseInt(pet14val42); pet14ent43=parseInt(pet14val43); pet14ent44=parseInt(pet14val44);
-pet14ent45=parseInt(pet14val45); pet14ent46=parseInt(pet14val46)
-totalpet14 = (pet14ent1+pet14ent2+pet14ent3+pet14ent4+pet14ent5+pet14ent6+pet14ent7+pet14ent8+pet14ent9+pet14ent10+pet14ent11+pet14ent12+pet14ent13+pet14ent14+pet14ent15+pet14ent16+pet14ent17+pet14ent18+pet14ent19+pet14ent20+pet14ent21+pet14ent22+pet14ent23+pet14ent24+pet14ent25+pet14ent26+pet14ent27+pet14ent28+pet14ent29+pet14ent30+pet14ent31+pet14ent32+pet14ent33+pet14ent34+pet14ent35+pet14ent36+pet14ent37+pet14ent38+pet14ent39+pet14ent40+pet14ent41+pet14ent42+pet14ent43+pet14ent44+pet14ent45+pet14ent46);        
+pet14ent45=parseInt(pet14val45); pet14ent46=parseInt(pet14val46); pet14ent47=parseInt(pet14val47); pet14ent48=parseInt(pet14val48);
+pet14ent49=parseInt(pet14val49); pet14ent50=parseInt(pet14val50); pet14ent51=parseInt(pet14val51); pet14ent52=parseInt(pet14val52);
+pet14ent53=parseInt(pet14val53); pet14ent54=parseInt(pet14val54); pet14ent55=parseInt(pet14val55); pet14ent56=parseInt(pet14val56);
+pet14ent57=parseInt(pet14val57); pet14ent58=parseInt(pet14val58); pet14ent59=parseInt(pet14val59); pet14ent60=parseInt(pet14val60);
+pet14ent61=parseInt(pet14val61); pet14ent62=parseInt(pet14val62); pet14ent63=parseInt(pet14val63); pet14ent64=parseInt(pet14val64);
+pet14ent65=parseInt(pet14val65); pet14ent66=parseInt(pet14val66); pet14ent67=parseInt(pet14val67); pet14ent68=parseInt(pet14val68);
+pet14ent69=parseInt(pet14val69); pet14ent70=parseInt(pet14val71); pet14ent72=parseInt(pet14val72);
+
+totalpet14 = (pet14ent1+pet14ent2+pet14ent3+pet14ent4+pet14ent5+pet14ent6+pet14ent7+pet14ent8+pet14ent9+pet14ent10+pet14ent11+pet14ent12+pet14ent13+pet14ent14+pet14ent15+pet14ent16+pet14ent17+pet14ent18+pet14ent19+pet14ent20+pet14ent21+pet14ent22+pet14ent23+pet14ent24+pet14ent25+pet14ent26+pet14ent27+pet14ent28+pet14ent29+pet14ent30+pet14ent31+pet14ent32+pet14ent33+pet14ent34+pet14ent35+pet14ent36+pet14ent37+pet14ent38+pet14ent39+pet14ent40+pet14ent41+pet14ent42+pet14ent43+pet14ent44+pet14ent45+pet14ent46+pet14ent47+pet14ent48+pet14ent49+pet14ent50+pet14ent51+pet14ent52+pet14ent53+pet14ent54+pet14ent55+pet14ent56+pet14ent57+pet14ent58+pet14ent59+pet14ent60+pet14ent61+pet14ent62+pet14ent63+pet14ent64+pet14ent65+pet14ent66+pet14ent67+pet14ent68+pet14ent69+pet14ent70+pet14ent71+pet14ent72);        
    
 pet15ent1=parseInt(pet15val1); pet15ent2=parseInt(pet15val2); pet15ent3=parseInt(pet15val3); pet15ent4=parseInt(pet15val4);
 pet15ent5=parseInt(pet15val5); pet15ent6=parseInt(pet15val6); pet15ent7=parseInt(pet15val7); pet15ent8=parseInt(pet15val8);
@@ -15371,8 +23157,15 @@ pet15ent29=parseInt(pet15val29); pet15ent30=parseInt(pet15val30); pet15ent31=par
 pet15ent33=parseInt(pet15val33); pet15ent34=parseInt(pet15val34); pet15ent35=parseInt(pet15val35); pet15ent36=parseInt(pet15val36);
 pet15ent37=parseInt(pet15val37); pet15ent38=parseInt(pet15val38); pet15ent39=parseInt(pet15val39); pet15ent40=parseInt(pet15val40);
 pet15ent41=parseInt(pet15val41); pet15ent42=parseInt(pet15val42); pet15ent43=parseInt(pet15val43); pet15ent44=parseInt(pet15val44);
-pet15ent45=parseInt(pet15val45); pet15ent46=parseInt(pet15val46)
-totalpet15 = (pet15ent1+pet15ent2+pet15ent3+pet15ent4+pet15ent5+pet15ent6+pet15ent7+pet15ent8+pet15ent9+pet15ent10+pet15ent11+pet15ent12+pet15ent13+pet15ent14+pet15ent15+pet15ent16+pet15ent17+pet15ent18+pet15ent19+pet15ent20+pet15ent21+pet15ent22+pet15ent23+pet15ent24+pet15ent25+pet15ent26+pet15ent27+pet15ent28+pet15ent29+pet15ent30+pet15ent31+pet15ent32+pet15ent33+pet15ent34+pet15ent35+pet15ent36+pet15ent37+pet15ent38+pet15ent39+pet15ent40+pet15ent41+pet15ent42+pet15ent43+pet15ent44+pet15ent45+pet15ent46);        
+pet15ent45=parseInt(pet15val45); pet15ent46=parseInt(pet15val46); pet15ent47=parseInt(pet15val47); pet15ent48=parseInt(pet15val48);
+pet15ent49=parseInt(pet15val49); pet15ent50=parseInt(pet15val50); pet15ent51=parseInt(pet15val51); pet15ent52=parseInt(pet15val52);
+pet15ent53=parseInt(pet15val53); pet15ent54=parseInt(pet15val54); pet15ent55=parseInt(pet15val55); pet15ent56=parseInt(pet15val56);
+pet15ent57=parseInt(pet15val57); pet15ent58=parseInt(pet15val58); pet15ent59=parseInt(pet15val59); pet15ent60=parseInt(pet15val60);
+pet15ent61=parseInt(pet15val61); pet15ent62=parseInt(pet15val62); pet15ent63=parseInt(pet15val63); pet15ent64=parseInt(pet15val64);
+pet15ent65=parseInt(pet15val65); pet15ent66=parseInt(pet15val66); pet15ent67=parseInt(pet15val67); pet15ent68=parseInt(pet15val68);
+pet15ent69=parseInt(pet15val69); pet15ent70=parseInt(pet15val71); pet15ent72=parseInt(pet15val72);
+
+totalpet15 = (pet15ent1+pet15ent2+pet15ent3+pet15ent4+pet15ent5+pet15ent6+pet15ent7+pet15ent8+pet15ent9+pet15ent10+pet15ent11+pet15ent12+pet15ent13+pet15ent14+pet15ent15+pet15ent16+pet15ent17+pet15ent18+pet15ent19+pet15ent20+pet15ent21+pet15ent22+pet15ent23+pet15ent24+pet15ent25+pet15ent26+pet15ent27+pet15ent28+pet15ent29+pet15ent30+pet15ent31+pet15ent32+pet15ent33+pet15ent34+pet15ent35+pet15ent36+pet15ent37+pet15ent38+pet15ent39+pet15ent40+pet15ent41+pet15ent42+pet15ent43+pet15ent44+pet15ent45+pet15ent46+pet15ent47+pet15ent48+pet15ent49+pet15ent50+pet15ent51+pet15ent52+pet15ent53+pet15ent54+pet15ent55+pet15ent56+pet15ent57+pet15ent58+pet15ent59+pet15ent60+pet15ent61+pet15ent62+pet15ent63+pet15ent64+pet15ent65+pet15ent66+pet15ent67+pet15ent68+pet15ent69+pet15ent70+pet15ent71+pet15ent72);        
 
 let totpreg1=(pet1ent1+pet2ent1+pet3ent1+pet4ent1+pet5ent1+pet6ent1+pet7ent1+pet8ent1+pet9ent1+pet10ent1+pet11ent1+pet12ent1+pet13ent1+pet14ent1+pet15ent1)
 let totpreg2=(pet1ent2+pet2ent2+pet3ent2+pet4ent2+pet5ent2+pet6ent2+pet7ent2+pet8ent2+pet9ent2+pet10ent2+pet11ent2+pet12ent2+pet13ent2+pet14ent2+pet15ent2)
@@ -15420,6 +23213,32 @@ let totpreg43=(pet1ent43+pet2ent43+pet3ent43+pet4ent43+pet5ent43+pet6ent43+pet7e
 let totpreg44=(pet1ent44+pet2ent44+pet3ent44+pet4ent44+pet5ent44+pet6ent44+pet7ent44+pet8ent44+pet9ent44+pet10ent44+pet11ent44+pet12ent44+pet13ent44+pet14ent44+pet15ent44)
 let totpreg45=(pet1ent45+pet2ent45+pet3ent45+pet4ent45+pet5ent45+pet6ent45+pet7ent45+pet8ent45+pet9ent45+pet10ent45+pet11ent45+pet12ent45+pet13ent45+pet14ent45+pet15ent45)
 let totpreg46=(pet1ent46+pet2ent46+pet3ent46+pet4ent46+pet5ent46+pet6ent46+pet7ent46+pet8ent46+pet9ent46+pet10ent46+pet11ent46+pet12ent46+pet13ent46+pet14ent46+pet15ent46)
+let totpreg47=(pet1ent47+pet2ent47+pet3ent47+pet4ent47+pet5ent47+pet6ent47+pet7ent47+pet8ent47+pet9ent47+pet10ent47+pet11ent47+pet12ent47+pet13ent47+pet14ent47+pet15ent47)
+let totpreg48=(pet1ent48+pet2ent48+pet3ent48+pet4ent48+pet5ent48+pet6ent48+pet7ent48+pet8ent48+pet9ent48+pet10ent48+pet11ent48+pet12ent48+pet13ent48+pet14ent48+pet15ent48)
+let totpreg49=(pet1ent49+pet2ent49+pet3ent49+pet4ent49+pet5ent49+pet6ent49+pet7ent49+pet8ent49+pet9ent49+pet10ent49+pet11ent49+pet12ent49+pet13ent49+pet14ent49+pet15ent49)
+let totpreg50=(pet1ent50+pet2ent50+pet3ent50+pet4ent50+pet5ent50+pet6ent50+pet7ent50+pet8ent50+pet9ent50+pet10ent50+pet11ent50+pet12ent50+pet13ent50+pet14ent50+pet15ent50)
+let totpreg51=(pet1ent51+pet2ent51+pet3ent51+pet4ent51+pet5ent51+pet6ent51+pet7ent51+pet8ent51+pet9ent51+pet10ent51+pet11ent51+pet12ent51+pet13ent51+pet14ent51+pet15ent51)
+let totpreg52=(pet1ent52+pet2ent52+pet3ent52+pet4ent52+pet5ent52+pet6ent52+pet7ent52+pet8ent52+pet9ent52+pet10ent52+pet11ent52+pet12ent52+pet13ent52+pet14ent52+pet15ent52)
+let totpreg53=(pet1ent53+pet2ent53+pet3ent53+pet4ent53+pet5ent53+pet6ent53+pet7ent53+pet8ent53+pet9ent53+pet10ent53+pet11ent53+pet12ent53+pet13ent53+pet14ent53+pet15ent53)
+let totpreg54=(pet1ent54+pet2ent54+pet3ent54+pet4ent54+pet5ent54+pet6ent54+pet7ent54+pet8ent54+pet9ent54+pet10ent54+pet11ent54+pet12ent54+pet13ent54+pet14ent54+pet15ent54)
+let totpreg55=(pet1ent55+pet2ent55+pet3ent55+pet4ent55+pet5ent55+pet6ent55+pet7ent55+pet8ent55+pet9ent55+pet10ent55+pet11ent55+pet12ent55+pet13ent55+pet14ent55+pet15ent55)
+let totpreg56=(pet1ent56+pet2ent56+pet3ent56+pet4ent56+pet5ent56+pet6ent56+pet7ent56+pet8ent56+pet9ent56+pet10ent56+pet11ent56+pet12ent56+pet13ent56+pet14ent56+pet15ent56)
+let totpreg57=(pet1ent57+pet2ent57+pet3ent57+pet4ent57+pet5ent57+pet6ent57+pet7ent57+pet8ent57+pet9ent57+pet10ent57+pet11ent57+pet12ent57+pet13ent57+pet14ent57+pet15ent57)
+let totpreg58=(pet1ent58+pet2ent58+pet3ent58+pet4ent58+pet5ent58+pet6ent58+pet7ent58+pet8ent58+pet9ent58+pet10ent58+pet11ent58+pet12ent58+pet13ent58+pet14ent58+pet15ent58)
+let totpreg59=(pet1ent59+pet2ent59+pet3ent59+pet4ent59+pet5ent59+pet6ent59+pet7ent59+pet8ent59+pet9ent59+pet10ent59+pet11ent59+pet12ent59+pet13ent59+pet14ent59+pet15ent59)
+let totpreg60=(pet1ent60+pet2ent60+pet3ent60+pet4ent60+pet5ent60+pet6ent60+pet7ent60+pet8ent60+pet9ent60+pet10ent60+pet11ent60+pet12ent60+pet13ent60+pet14ent60+pet15ent60)
+let totpreg61=(pet1ent61+pet2ent61+pet3ent61+pet4ent61+pet5ent61+pet6ent61+pet7ent61+pet8ent61+pet9ent61+pet10ent61+pet11ent61+pet12ent61+pet13ent61+pet14ent61+pet15ent61)
+let totpreg62=(pet1ent62+pet2ent62+pet3ent62+pet4ent62+pet5ent62+pet6ent62+pet7ent62+pet8ent62+pet9ent62+pet10ent62+pet11ent62+pet12ent62+pet13ent62+pet14ent62+pet15ent62)
+let totpreg63=(pet1ent63+pet2ent63+pet3ent63+pet4ent63+pet5ent63+pet6ent63+pet7ent63+pet8ent63+pet9ent63+pet10ent63+pet11ent63+pet12ent63+pet13ent63+pet14ent63+pet15ent63)
+let totpreg64=(pet1ent64+pet2ent64+pet3ent64+pet4ent64+pet5ent64+pet6ent64+pet7ent64+pet8ent64+pet9ent64+pet10ent64+pet11ent64+pet12ent64+pet13ent64+pet14ent64+pet15ent64)
+let totpreg65=(pet1ent65+pet2ent65+pet3ent65+pet4ent65+pet5ent65+pet6ent65+pet7ent65+pet8ent65+pet9ent65+pet10ent65+pet11ent65+pet12ent65+pet13ent65+pet14ent65+pet15ent65)
+let totpreg66=(pet1ent66+pet2ent66+pet3ent66+pet4ent66+pet5ent66+pet6ent66+pet7ent66+pet8ent66+pet9ent66+pet10ent66+pet11ent66+pet12ent66+pet13ent66+pet14ent66+pet15ent66)
+let totpreg67=(pet1ent67+pet2ent67+pet3ent67+pet4ent67+pet5ent67+pet6ent67+pet7ent67+pet8ent67+pet9ent67+pet10ent67+pet11ent67+pet12ent67+pet13ent67+pet14ent67+pet15ent67)
+let totpreg68=(pet1ent68+pet2ent68+pet3ent68+pet4ent68+pet5ent68+pet6ent68+pet7ent68+pet8ent68+pet9ent68+pet10ent68+pet11ent68+pet12ent68+pet13ent68+pet14ent68+pet15ent68)
+let totpreg69=(pet1ent69+pet2ent69+pet3ent69+pet4ent69+pet5ent69+pet6ent69+pet7ent69+pet8ent69+pet9ent69+pet10ent69+pet11ent69+pet12ent69+pet13ent69+pet14ent69+pet15ent69)
+let totpreg70=(pet1ent70+pet2ent70+pet3ent70+pet4ent70+pet5ent70+pet6ent70+pet7ent70+pet8ent70+pet9ent70+pet10ent70+pet11ent70+pet12ent70+pet13ent70+pet14ent70+pet15ent70)
+let totpreg71=(pet1ent71+pet2ent71+pet3ent71+pet4ent71+pet5ent71+pet6ent71+pet7ent71+pet8ent71+pet9ent71+pet10ent71+pet11ent71+pet12ent71+pet13ent71+pet14ent71+pet15ent71)
+let totpreg72=(pet1ent72+pet2ent72+pet3ent72+pet4ent72+pet5ent72+pet6ent72+pet7ent72+pet8ent72+pet9ent72+pet10ent72+pet11ent72+pet12ent72+pet13ent72+pet14ent72+pet15ent72)
 
 // console.log("peticiones",totalpet1,totalpet2,totalpet3,totalpet4,totalpet5,totalpet6,totalpet7,totalpet8,totalpet9,totalpet10,totalpet11,totalpet12,totalpet13,totalpet14,totalpet15)
 let length = parseInt(this.state.datosLength)
@@ -15429,23 +23248,36 @@ let general=resultadoGeneral/length
 let celda;
 let criterios;
 
-if(general<20){
+if(general<50){
+  celda = <TableCell style={{backgroundColor: "#51EAFF"}} align="right">Nulo o Despreciable</TableCell>
+  }else if(general>=50 && general < 75){
+    celda = <TableCell style={{backgroundColor: "#45D09E"}} align="right">Bajo</TableCell>
+  }else if(general>=75 && general < 99){
+    celda = <TableCell style={{backgroundColor: "#FFD600"}} align="right">Medio</TableCell>
+  }else if(general>=99 && general < 140){
+   celda = <TableCell style={{backgroundColor: "#FF905A"}} align="right">Alto</TableCell>
+  }
+  else if( general > 140){
+    celda  = <TableCell style={{backgroundColor: "#E20338"}} align="right">Muy Alto</TableCell>
+  }
+
+if(general<50){
 celda = <TableCell width="10%"  style={{backgroundColor: "#51EAFF"}}>Nulo o Despreciable</TableCell>
 criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</TableCell>
-}else if(general>=20 && general < 45){
+}else if(general>=50 && general < 75){
   celda = <TableCell width="10%" style={{backgroundColor: "#45D09E"}} >Bajo</TableCell>
   criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}>Es necesario una mayor difusión de la política de prevención de riesgos
   psicosociales y programas para: la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
   prevención de la violencia laboral.</TableCell>
-}else if(general>=45 && general < 70){
+}else if(general>=75 && general < 99){
   celda = <TableCell width="10%"  style={{backgroundColor: "#FFD600"}} >Medio</TableCell>
   criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} >Se requiere revisar la política de prevención de riesgos psicosociales y
   programas para la prevención de los factores de riesgo psicosocial, la
   promoción de un entorno organizacional favorable y la prevención de la
   violencia laboral, así como reforzar su aplicación y difusión, mediante un
   Programa de intervención.</TableCell>
-}else if(general>=70 && general < 90){
+}else if(general>=99 && general < 140){
  celda = <TableCell  width="10%" style={{backgroundColor: "#FF905A"}} >Alto</TableCell>
  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} >Se requiere realizar un análisis de cada categoría y dominio, de manera que
  se puedan determinar las acciones de intervención apropiadas a través de un
@@ -15456,7 +23288,7 @@ criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}>El riesgo resulta de
  favorable y la prevención de la violencia laboral, así como reforzar su
  aplicación y difusión.</TableCell>
 }
-else if( general > 90){
+else if( general > 140){
   celda  = <TableCell width="10%"  style={{backgroundColor: "#E20338"}}>Muy Alto</TableCell>
   criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} >Se requiere realizar el análisis de cada categoría y dominio para establecer
   las acciones de intervención apropiadas, mediante un Programa de
@@ -15477,57 +23309,64 @@ let categoria1MuyAlto;
 let entero2 = pet1ent2+pet2ent2+pet3ent2+pet4ent2+pet5ent2+pet6ent2+pet7ent2+pet8ent2+pet9ent2+pet10ent2+pet11ent2+pet12ent2+pet13ent2+pet14ent2+pet15ent2;
 let entero1 = pet1ent1+pet2ent1+pet3ent1+pet4ent1+pet5ent1+pet6ent1+pet7ent1+pet8ent1+pet9ent1+pet10ent1+pet11ent1+pet12ent1+pet13ent1+pet14ent1+pet15ent1;
 let entero3 = pet1ent3+pet2ent3+pet3ent3+pet4ent3+pet5ent3+pet6ent3+pet7ent3+pet8ent3+pet9ent3+pet10ent3+pet11ent3+pet12ent3+pet13ent3+pet14ent3+pet15ent3;
+let entero4 = pet1ent4+pet2ent4+pet3ent4+pet4ent4+pet5ent4+pet6ent4+pet7ent4+pet8ent4+pet9ent4+pet10ent4+pet11ent4+pet12ent4+pet13ent4+pet14ent4+pet15ent4;
+let entero5 = pet1ent5+pet2ent5+pet3ent5+pet4ent5+pet5ent5+pet6ent5+pet7ent5+pet8ent5+pet9ent5+pet10ent5+pet11ent5+pet12ent5+pet13ent5+pet14ent5+pet15ent5;
 
-let categoriaUno = (entero2+entero1+entero3)/length;
-if(categoriaUno < 3){
+let categoriaUno = (entero1+entero3+entero2+entero4+entero5)/length;
+if(categoriaUno < 5){
   categoria1Nulo= <MDBBadge color="info">{categoriaUno}</MDBBadge>
-}else if(categoriaUno >= 3 && categoriaUno < 5){
+}else if(categoriaUno >= 5 && categoriaUno < 9){
   categoria1Bajo= <MDBBadge color="success">{categoriaUno}</MDBBadge>
-}else if(categoriaUno >= 5 && categoriaUno < 7){
+}else if(categoriaUno >= 9 && categoriaUno < 11){
   categoria1Medio= <MDBBadge color="warning">{categoriaUno}</MDBBadge>
-}else if(categoriaUno >= 7 && categoriaUno < 9){
+}else if(categoriaUno >= 11 && categoriaUno < 14){
   categoria1Alto= <MDBBadge color="warning">{categoriaUno}</MDBBadge>
-}else if(categoriaUno >= 9){
+}else if(categoriaUno >= 14){
   categoria1MuyAlto= <MDBBadge color="danger">{categoriaUno}</MDBBadge>
 }
-
 let categoria2Nulo;
 let categoria2Bajo;
 let categoria2Medio;
 let categoria2Alto;
 let categoria2MuyAlto;
 
-let entero4 = pet1ent4+pet2ent4+pet3ent4+pet4ent4+pet5ent4+pet6ent4+pet7ent4+pet8ent4+pet9ent4+pet10ent4+pet11ent4+pet12ent4+pet13ent4+pet14ent4+pet15ent4;
-let entero9 = pet1ent9+pet2ent9+pet3ent9+pet4ent9+pet5ent9+pet6ent9+pet7ent9+pet8ent9+pet9ent9+pet10ent9+pet11ent9+pet12ent9+pet13ent9+pet14ent9+pet15ent9;
-let entero5 = pet1ent5+pet2ent5+pet3ent5+pet4ent5+pet5ent5+pet6ent5+pet7ent5+pet8ent5+pet9ent5+pet10ent5+pet11ent5+pet12ent5+pet13ent5+pet14ent5+pet15ent5;
+
 let entero6= pet1ent6+pet2ent6+pet3ent6+pet4ent6+pet5ent6+pet6ent6+pet7ent6+pet8ent6+pet9ent6+pet10ent6+pet11ent6+pet12ent6+pet13ent6+pet14ent6+pet15ent6;
+let entero12=pet1ent12+pet2ent12+pet3ent12+pet4ent12+pet5ent12+pet6ent12+pet7ent12+pet8ent12+pet9ent12+pet10ent12+pet11ent12+pet12ent12+pet13ent12+pet14ent12+pet15ent12;
 let entero7= pet1ent7+pet2ent7+pet3ent7+pet4ent7+pet5ent7+pet6ent7+pet7ent7+pet8ent7+pet9ent7+pet10ent7+pet11ent7+pet12ent7+pet13ent7+pet14ent7+pet15ent7;
 let entero8= pet1ent8+pet2ent8+pet3ent8+pet4ent8+pet5ent8+pet6ent8+pet7ent8+pet8ent8+pet9ent8+pet10ent8+pet11ent8+pet12ent8+pet13ent8+pet14ent8+pet15ent8;
-let entero41= pet1ent41+pet2ent41+pet3ent41+pet4ent41+pet5ent41+pet6ent41+pet7ent41+pet8ent41+pet9ent41+pet10ent41+pet11ent41+pet12ent41+pet13ent41+pet14ent41+pet15ent41;
-let entero42= pet1ent42+pet2ent42+pet3ent42+pet4ent42+pet5ent42+pet6ent42+pet7ent42+pet8ent42+pet9ent42+pet10ent42+pet11ent42+pet12ent42+pet13ent42+pet14ent42+pet15ent42;
-let entero43=pet1ent43+pet2ent43+pet3ent43+pet4ent43+pet5ent43+pet6ent43+pet7ent43+pet8ent43+pet9ent43+pet10ent43+pet11ent43+pet12ent43+pet13ent43+pet14ent43+pet15ent43;
+let entero9 = pet1ent9+pet2ent9+pet3ent9+pet4ent9+pet5ent9+pet6ent9+pet7ent9+pet8ent9+pet9ent9+pet10ent9+pet11ent9+pet12ent9+pet13ent9+pet14ent9+pet15ent9;
 let entero10=pet1ent10+pet2ent10+pet3ent10+pet4ent10+pet5ent10+pet6ent10+pet7ent10+pet8ent10+pet9ent10+pet10ent10+pet11ent10+pet12ent10+pet13ent10+pet14ent10+pet15ent10;
 let entero11=pet1ent11+pet2ent11+pet3ent11+pet4ent11+pet5ent11+pet6ent11+pet7ent11+pet8ent11+pet9ent11+pet10ent11+pet11ent11+pet12ent11+pet13ent11+pet14ent11+pet15ent11;
-let entero12=pet1ent12+pet2ent12+pet3ent12+pet4ent12+pet5ent12+pet6ent12+pet7ent12+pet8ent12+pet9ent12+pet10ent12+pet11ent12+pet12ent12+pet13ent12+pet14ent12+pet15ent12;
+let entero65=pet1ent65+pet2ent65+pet3ent65+pet4ent65+pet5ent65+pet6ent65+pet7ent65+pet8ent65+pet9ent65+pet10ent65+pet11ent65+pet12ent65+pet13ent65+pet14ent65+pet15ent65;
+let entero66=pet1ent66+pet2ent66+pet3ent66+pet4ent66+pet5ent66+pet6ent66+pet7ent66+pet8ent66+pet9ent66+pet10ent66+pet11ent66+pet12ent66+pet13ent66+pet14ent66+pet15ent66;
+let entero67=pet1ent67+pet2ent67+pet3ent67+pet4ent67+pet5ent67+pet6ent67+pet7ent67+pet8ent67+pet9ent67+pet10ent67+pet11ent67+pet12ent67+pet13ent67+pet14ent67+pet15ent67;
+let entero68=pet1ent68+pet2ent68+pet3ent68+pet4ent68+pet5ent68+pet6ent68+pet7ent68+pet8ent68+pet9ent68+pet10ent68+pet11ent68+pet12ent68+pet13ent68+pet14ent68+pet15ent68;
 let entero13=pet1ent13+pet2ent13+pet3ent13+pet4ent13+pet5ent13+pet6ent13+pet7ent13+pet8ent13+pet9ent13+pet10ent13+pet11ent13+pet12ent13+pet13ent13+pet14ent13+pet15ent13;
-let entero20=pet1ent20+pet2ent20+pet3ent20+pet4ent20+pet5ent20+pet6ent20+pet7ent20+pet8ent20+pet9ent20+pet10ent20+pet11ent20+pet12ent20+pet13ent20+pet14ent20+pet15ent20;
-let entero21=pet1ent21+pet2ent21+pet3ent21+pet4ent21+pet5ent21+pet6ent21+pet7ent21+pet8ent21+pet9ent21+pet10ent21+pet11ent21+pet12ent21+pet13ent21+pet14ent21+pet15ent21;
-let entero22=pet1ent22+pet2ent22+pet3ent22+pet4ent22+pet5ent22+pet6ent22+pet7ent22+pet8ent22+pet9ent22+pet10ent22+pet11ent22+pet12ent22+pet13ent22+pet14ent22+pet15ent22;
-let entero18=pet1ent18+pet2ent18+pet3ent18+pet4ent18+pet5ent18+pet6ent18+pet7ent18+pet8ent18+pet9ent18+pet10ent18+pet11ent18+pet12ent18+pet13ent18+pet14ent18+pet15ent18;
-let entero19=pet1ent19+pet2ent19+pet3ent19+pet4ent19+pet5ent19+pet6ent19+pet7ent19+pet8ent19+pet9ent19+pet10ent19+pet11ent19+pet12ent19+pet13ent19+pet14ent19+pet15ent19;
+let entero14=pet1ent14+pet2ent14+pet3ent14+pet4ent14+pet5ent14+pet6ent14+pet7ent14+pet8ent14+pet9ent14+pet10ent14+pet11ent14+pet12ent14+pet13ent14+pet14ent14+pet15ent14;
+let entero15=pet1ent15+pet2ent15+pet3ent15+pet4ent15+pet5ent15+pet6ent15+pet7ent15+pet8ent15+pet9ent15+pet10ent15+pet11ent15+pet12ent15+pet13ent15+pet14ent15+pet15ent15;
+let entero16=pet1ent16+pet2ent16+pet3ent16+pet4ent16+pet5ent16+pet6ent16+pet7ent16+pet8ent16+pet9ent16+pet10ent16+pet11ent16+pet12ent16+pet13ent16+pet14ent16+pet15ent16;
 let entero26=pet1ent26+pet2ent26+pet3ent26+pet4ent26+pet5ent26+pet6ent26+pet7ent26+pet8ent26+pet9ent26+pet10ent26+pet11ent26+pet12ent26+pet13ent26+pet14ent26+pet15ent26;
 let entero27=pet1ent27+pet2ent27+pet3ent27+pet4ent27+pet5ent27+pet6ent27+pet7ent27+pet8ent27+pet9ent27+pet10ent27+pet11ent27+pet12ent27+pet13ent27+pet14ent27+pet15ent27;
+let entero25=pet1ent25+pet2ent25+pet3ent25+pet4ent25+pet5ent25+pet6ent25+pet7ent25+pet8ent25+pet9ent25+pet10ent25+pet11ent25+pet12ent25+pet13ent25+pet14ent25+pet15ent25;
+let entero23=pet1ent23+pet2ent23+pet3ent23+pet4ent23+pet5ent23+pet6ent23+pet7ent23+pet8ent23+pet9ent23+pet10ent23+pet11ent23+pet12ent23+pet13ent23+pet14ent23+pet15ent23;
+let entero24=pet1ent24+pet2ent24+pet3ent24+pet4ent24+pet5ent24+pet6ent24+pet7ent24+pet8ent24+pet9ent24+pet10ent24+pet11ent24+pet12ent24+pet13ent24+pet14ent24+pet15ent24;
+let entero28=pet1ent28+pet2ent28+pet3ent28+pet4ent28+pet5ent28+pet6ent28+pet7ent28+pet8ent28+pet9ent28+pet10ent28+pet11ent28+pet12ent28+pet13ent28+pet14ent28+pet15ent28;
+let entero29=pet1ent29+pet2ent29+pet3ent29+pet4ent29+pet5ent29+pet6ent29+pet7ent29+pet8ent29+pet9ent29+pet10ent29+pet11ent29+pet12ent29+pet13ent29+pet14ent29+pet15ent29;
+let entero30=pet1ent30+pet2ent30+pet3ent30+pet4ent30+pet5ent30+pet6ent30+pet7ent30+pet8ent30+pet9ent30+pet10ent30+pet11ent30+pet12ent30+pet13ent30+pet14ent30+pet15ent30;
+let entero35=pet1ent35+pet2ent35+pet3ent35+pet4ent35+pet5ent35+pet6ent35+pet7ent35+pet8ent35+pet9ent35+pet10ent35+pet11ent35+pet12ent35+pet13ent35+pet14ent35+pet15ent35;
+let entero36=pet1ent36+pet2ent36+pet3ent36+pet4ent36+pet5ent36+pet6ent36+pet7ent36+pet8ent36+pet9ent36+pet10ent36+pet11ent36+pet12ent36+pet13ent36+pet14ent36+pet15ent36;
 
-let categoriaDos = (entero4+entero9+entero5+entero6+entero7+entero8+entero41+entero42+entero43+entero10+entero11+entero12+entero13+entero20+entero21+entero22+entero18+entero19+entero26+entero27)/length;
-if(categoriaDos < 10){
+let categoriaDos = (entero6+entero12+entero7+entero8+entero9+entero10+entero11+entero65+entero66+entero67+entero68+entero13+entero14+entero15+entero16+entero25+entero26+entero27+entero28+entero23+entero24+entero29+entero30+entero35+entero36)/length;
+if(categoriaDos < 15){
   categoria2Nulo= <MDBBadge color="info">{categoriaDos}</MDBBadge>
-}else if(categoriaDos >= 10 && categoriaDos < 20){
+}else if(categoriaDos >= 15 && categoriaDos < 30){
   categoria2Bajo= <MDBBadge color="success">{categoriaDos}</MDBBadge>
-}else if(categoriaDos >=20 && categoriaDos < 30){
+}else if(categoriaDos >=30 && categoriaDos < 45){
   categoria2Medio= <MDBBadge color="warning">{categoriaDos}</MDBBadge>
-}else if(categoriaDos >=30 && categoriaDos < 40){
+}else if(categoriaDos >=45 && categoriaDos < 60){
   categoria2Alto= <MDBBadge color="warning">{categoriaDos}</MDBBadge>
-}else if(categoriaDos >= 40){
+}else if(categoriaDos >= 60){
   categoria2MuyAlto= <MDBBadge color="danger">{categoriaDos}</MDBBadge>
 }
 let categoria3Nulo;
@@ -15535,21 +23374,24 @@ let categoria3Bajo;
 let categoria3Medio;
 let categoria3Alto;
 let categoria3MuyAlto;
-let entero14=pet1ent14+pet2ent14+pet3ent14+pet4ent14+pet5ent14+pet6ent14+pet7ent14+pet8ent14+pet9ent14+pet10ent14+pet11ent14+pet12ent14+pet13ent14+pet14ent14+pet15ent14;
-let entero15=pet1ent15+pet2ent15+pet3ent15+pet4ent15+pet5ent15+pet6ent15+pet7ent15+pet8ent15+pet9ent15+pet10ent15+pet11ent15+pet12ent15+pet13ent15+pet14ent15+pet15ent15;
-let entero16=pet1ent16+pet2ent16+pet3ent16+pet4ent16+pet5ent16+pet6ent16+pet7ent16+pet8ent16+pet9ent16+pet10ent16+pet11ent16+pet12ent16+pet13ent16+pet14ent16+pet15ent16;
-let entero17=pet1ent17+pet2ent17+pet3ent17+pet4ent17+pet5ent17+pet6ent17+pet7ent17+pet8ent17+pet9ent17+pet10ent17+pet11ent17+pet12ent17+pet13ent17+pet14ent17+pet15ent17;
 
-let categoriaTre = (entero14+entero15+entero16+entero17)/length;
-if(categoriaTre < 4){
+let entero17=pet1ent17+pet2ent17+pet3ent17+pet4ent17+pet5ent17+pet6ent17+pet7ent17+pet8ent17+pet9ent17+pet10ent17+pet11ent17+pet12ent17+pet13ent17+pet14ent17+pet15ent17;
+let entero18=pet1ent18+pet2ent18+pet3ent18+pet4ent18+pet5ent18+pet6ent18+pet7ent18+pet8ent18+pet9ent18+pet10ent18+pet11ent18+pet12ent18+pet13ent18+pet14ent18+pet15ent18;
+let entero19=pet1ent19+pet2ent19+pet3ent19+pet4ent19+pet5ent19+pet6ent19+pet7ent19+pet8ent19+pet9ent19+pet10ent19+pet11ent19+pet12ent19+pet13ent19+pet14ent19+pet15ent19;
+let entero20=pet1ent20+pet2ent20+pet3ent20+pet4ent20+pet5ent20+pet6ent20+pet7ent20+pet8ent20+pet9ent20+pet10ent20+pet11ent20+pet12ent20+pet13ent20+pet14ent20+pet15ent20;
+let entero21=pet1ent21+pet2ent21+pet3ent21+pet4ent21+pet5ent21+pet6ent21+pet7ent21+pet8ent21+pet9ent21+pet10ent21+pet11ent21+pet12ent21+pet13ent21+pet14ent21+pet15ent21;
+let entero22=pet1ent22+pet2ent22+pet3ent22+pet4ent22+pet5ent22+pet6ent22+pet7ent22+pet8ent22+pet9ent22+pet10ent22+pet11ent22+pet12ent22+pet13ent22+pet14ent22+pet15ent22;
+
+let categoriaTre = (entero17+entero18+entero19+entero20+entero21+entero22)/length;
+if(categoriaTre < 5){
   categoria3Nulo= <MDBBadge color="info">{categoriaTre}</MDBBadge>
-}else if(categoriaTre >= 4 && categoriaTre < 6){
+}else if(categoriaTre >= 5 && categoriaTre < 7){
   categoria3Bajo= <MDBBadge color="success">{categoriaTre}</MDBBadge>
-}else if(categoriaTre >=6 && categoriaTre < 9){
+}else if(categoriaTre >=7 && categoriaTre < 10){
   categoria3Medio= <MDBBadge color="warning">{categoriaTre}</MDBBadge>
-}else if(categoriaTre >=9 && categoriaTre < 12){
+}else if(categoriaTre >=10 && categoriaTre < 13){
   categoria3Alto= <MDBBadge color="warning">{categoriaTre}</MDBBadge>
-}else if(categoriaTre >= 12){
+}else if(categoriaTre >= 13){
   categoria3MuyAlto= <MDBBadge color="danger">{categoriaTre}</MDBBadge>
 }
 
@@ -15558,37 +23400,75 @@ let categoria4Bajo;
 let categoria4Medio;
 let categoria4Alto;
 let categoria4MuyAlto;
-let entero23=pet1ent23+pet2ent23+pet3ent23+pet4ent23+pet5ent23+pet6ent23+pet7ent23+pet8ent23+pet9ent23+pet10ent23+pet11ent23+pet12ent23+pet13ent23+pet14ent23+pet15ent23;
-let entero24=pet1ent24+pet2ent24+pet3ent24+pet4ent24+pet5ent24+pet6ent24+pet7ent24+pet8ent24+pet9ent24+pet10ent24+pet11ent24+pet12ent24+pet13ent24+pet14ent24+pet15ent24;
-let entero25=pet1ent25+pet2ent25+pet3ent25+pet4ent25+pet5ent25+pet6ent25+pet7ent25+pet8ent25+pet9ent25+pet10ent25+pet11ent25+pet12ent25+pet13ent25+pet14ent25+pet15ent25;
-let entero28=pet1ent28+pet2ent28+pet3ent28+pet4ent28+pet5ent28+pet6ent28+pet7ent28+pet8ent28+pet9ent28+pet10ent28+pet11ent28+pet12ent28+pet13ent28+pet14ent28+pet15ent28;
-let entero29=pet1ent29+pet2ent29+pet3ent29+pet4ent29+pet5ent29+pet6ent29+pet7ent29+pet8ent29+pet9ent29+pet10ent29+pet11ent29+pet12ent29+pet13ent29+pet14ent29+pet15ent29;
-let entero30=pet1ent30+pet2ent30+pet3ent30+pet4ent30+pet5ent30+pet6ent30+pet7ent30+pet8ent30+pet9ent30+pet10ent30+pet11ent30+pet12ent30+pet13ent30+pet14ent30+pet15ent30;
+
 let entero31=pet1ent31+pet2ent31+pet3ent31+pet4ent31+pet5ent31+pet6ent31+pet7ent31+pet8ent31+pet9ent31+pet10ent31+pet11ent31+pet12ent31+pet13ent31+pet14ent31+pet15ent31;
 let entero32=pet1ent32+pet2ent32+pet3ent32+pet4ent32+pet5ent32+pet6ent32+pet7ent32+pet8ent32+pet9ent32+pet10ent32+pet11ent32+pet12ent32+pet13ent32+pet14ent32+pet15ent32;
 let entero33=pet1ent33+pet2ent33+pet3ent33+pet4ent33+pet5ent33+pet6ent33+pet7ent33+pet8ent33+pet9ent33+pet10ent33+pet11ent33+pet12ent33+pet13ent33+pet14ent33+pet15ent33;
 let entero34=pet1ent34+pet2ent34+pet3ent34+pet4ent34+pet5ent34+pet6ent34+pet7ent34+pet8ent34+pet9ent34+pet10ent34+pet11ent34+pet12ent34+pet13ent34+pet14ent34+pet15ent34;
-let entero35=pet1ent35+pet2ent35+pet3ent35+pet4ent35+pet5ent35+pet6ent35+pet7ent35+pet8ent35+pet9ent35+pet10ent35+pet11ent35+pet12ent35+pet13ent35+pet14ent35+pet15ent35;
-let entero36=pet1ent36+pet2ent36+pet3ent36+pet4ent36+pet5ent36+pet6ent36+pet7ent36+pet8ent36+pet9ent36+pet10ent36+pet11ent36+pet12ent36+pet13ent36+pet14ent36+pet15ent36;
 let entero37=pet1ent37+pet2ent37+pet3ent37+pet4ent37+pet5ent37+pet6ent37+pet7ent37+pet8ent37+pet9ent37+pet10ent37+pet11ent37+pet12ent37+pet13ent37+pet14ent37+pet15ent37;
 let entero38=pet1ent38+pet2ent38+pet3ent38+pet4ent38+pet5ent38+pet6ent38+pet7ent38+pet8ent38+pet9ent38+pet10ent38+pet11ent38+pet12ent38+pet13ent38+pet14ent38+pet15ent38;
 let entero39=pet1ent39+pet2ent39+pet3ent39+pet4ent39+pet5ent39+pet6ent39+pet7ent39+pet8ent39+pet9ent39+pet10ent39+pet11ent39+pet12ent39+pet13ent39+pet14ent39+pet15ent39;
 let entero40=pet1ent40+pet2ent40+pet3ent40+pet4ent40+pet5ent40+pet6ent40+pet7ent40+pet8ent40+pet9ent40+pet10ent40+pet11ent40+pet12ent40+pet13ent40+pet14ent40+pet15ent40;
+let entero41= pet1ent41+pet2ent41+pet3ent41+pet4ent41+pet5ent41+pet6ent41+pet7ent41+pet8ent41+pet9ent41+pet10ent41+pet11ent41+pet12ent41+pet13ent41+pet14ent41+pet15ent41;
+let entero42= pet1ent42+pet2ent42+pet3ent42+pet4ent42+pet5ent42+pet6ent42+pet7ent42+pet8ent42+pet9ent42+pet10ent42+pet11ent42+pet12ent42+pet13ent42+pet14ent42+pet15ent42;
+let entero43=pet1ent43+pet2ent43+pet3ent43+pet4ent43+pet5ent43+pet6ent43+pet7ent43+pet8ent43+pet9ent43+pet10ent43+pet11ent43+pet12ent43+pet13ent43+pet14ent43+pet15ent43;
 let entero44=pet1ent44+pet2ent44+pet3ent44+pet4ent44+pet5ent44+pet6ent44+pet7ent44+pet8ent44+pet9ent44+pet10ent44+pet11ent44+pet12ent44+pet13ent44+pet14ent44+pet15ent44;
 let entero45=pet1ent45+pet2ent45+pet3ent45+pet4ent45+pet5ent45+pet6ent45+pet7ent45+pet8ent45+pet9ent45+pet10ent45+pet11ent45+pet12ent45+pet13ent45+pet14ent45+pet15ent45;
 let entero46=pet1ent46+pet2ent46+pet3ent46+pet4ent46+pet5ent46+pet6ent46+pet7ent46+pet8ent46+pet9ent46+pet10ent46+pet11ent46+pet12ent46+pet13ent46+pet14ent46+pet15ent46;
+let entero69=pet1ent69+pet2ent69+pet3ent69+pet4ent69+pet5ent69+pet6ent69+pet7ent69+pet8ent69+pet9ent69+pet10ent69+pet11ent69+pet12ent69+pet13ent69+pet14ent69+pet15ent69;
+let entero70=pet1ent70+pet2ent70+pet3ent70+pet4ent70+pet5ent70+pet6ent70+pet7ent70+pet8ent70+pet9ent70+pet10ent70+pet11ent70+pet12ent70+pet13ent70+pet14ent70+pet15ent70;
+let entero71=pet1ent71+pet2ent71+pet3ent71+pet4ent71+pet5ent71+pet6ent71+pet7ent71+pet8ent71+pet9ent71+pet10ent71+pet11ent71+pet12ent71+pet13ent71+pet14ent71+pet15ent71;
+let entero72=pet1ent72+pet2ent72+pet3ent72+pet4ent72+pet5ent72+pet6ent72+pet7ent72+pet8ent72+pet9ent72+pet10ent72+pet11ent72+pet12ent72+pet13ent72+pet14ent72+pet15ent72;
+let entero57=pet1ent57+pet2ent57+pet3ent57+pet4ent57+pet5ent57+pet6ent57+pet7ent57+pet8ent57+pet9ent57+pet10ent57+pet11ent57+pet12ent57+pet13ent57+pet14ent57+pet15ent57;
+let entero58=pet1ent58+pet2ent58+pet3ent58+pet4ent58+pet5ent58+pet6ent58+pet7ent58+pet8ent58+pet9ent58+pet10ent58+pet11ent58+pet12ent58+pet13ent58+pet14ent58+pet15ent58;
+let entero59=pet1ent59+pet2ent59+pet3ent59+pet4ent59+pet5ent59+pet6ent59+pet7ent59+pet8ent59+pet9ent59+pet10ent59+pet11ent59+pet12ent59+pet13ent59+pet14ent59+pet15ent59;
+let entero60=pet1ent60+pet2ent60+pet3ent60+pet4ent60+pet5ent60+pet6ent60+pet7ent60+pet8ent60+pet9ent60+pet10ent60+pet11ent60+pet12ent60+pet13ent60+pet14ent60+pet15ent60;
+let entero61=pet1ent61+pet2ent61+pet3ent61+pet4ent61+pet5ent61+pet6ent61+pet7ent61+pet8ent61+pet9ent61+pet10ent61+pet11ent61+pet12ent61+pet13ent61+pet14ent61+pet15ent61;
+let entero62=pet1ent62+pet2ent62+pet3ent62+pet4ent62+pet5ent62+pet6ent62+pet7ent62+pet8ent62+pet9ent62+pet10ent62+pet11ent62+pet12ent62+pet13ent62+pet14ent62+pet15ent62;
+let entero63=pet1ent63+pet2ent63+pet3ent63+pet4ent63+pet5ent63+pet6ent63+pet7ent63+pet8ent63+pet9ent63+pet10ent63+pet11ent63+pet12ent63+pet13ent63+pet14ent63+pet15ent63;
+let entero64=pet1ent64+pet2ent64+pet3ent64+pet4ent64+pet5ent64+pet6ent64+pet7ent64+pet8ent64+pet9ent64+pet10ent64+pet11ent64+pet12ent64+pet13ent64+pet14ent64+pet15ent64;
 
-let categoriaCuatro = (entero23+entero24+entero25+entero28+entero29+entero30+entero31+entero32+entero33+entero34+entero35+entero36+entero37+entero38+entero39+entero40+entero44+entero45+entero46)/length;
-if(categoriaCuatro < 10){
+let categoriaCuatro = (entero31+entero32+entero33+entero34+entero37+entero38+entero39+entero40+entero41+entero42+entero43+entero44+entero45+entero46+entero69+entero70+entero71+entero72+entero57+entero58+entero59+entero60+entero61+entero62+entero63+entero64)/length;
+if(categoriaCuatro < 14){
   categoria4Nulo= <MDBBadge color="info">{categoriaCuatro}</MDBBadge>
-}else if(categoriaCuatro >= 10 && categoriaCuatro < 18){
+}else if(categoriaCuatro >= 14 && categoriaCuatro < 29){
   categoria4Bajo= <MDBBadge color="success">{categoriaCuatro}</MDBBadge>
-}else if(categoriaCuatro >=18 && categoriaCuatro < 28){
+}else if(categoriaCuatro >=29 && categoriaCuatro < 42){
   categoria4Medio= <MDBBadge color="warning">{categoriaCuatro}</MDBBadge>
-}else if(categoriaCuatro >=28 && categoriaCuatro < 38){
+}else if(categoriaCuatro >=42 && categoriaCuatro < 58){
   categoria4Alto= <MDBBadge color="warning">{categoriaCuatro}</MDBBadge>
-}else if(categoriaCuatro >= 38){
+}else if(categoriaCuatro >= 58){
   categoria4MuyAlto= <MDBBadge color="danger">{categoriaCuatro}</MDBBadge>
+}
+
+let categoria5Nulo;
+let categoria5Bajo;
+let categoria5Medio;
+let categoria5Alto;
+let categoria5MuyAlto;
+
+let entero47=pet1ent47+pet2ent47+pet3ent47+pet4ent47+pet5ent47+pet6ent47+pet7ent47+pet8ent47+pet9ent47+pet10ent47+pet11ent47+pet12ent47+pet13ent47+pet14ent47+pet15ent47;
+let entero48=pet1ent48+pet2ent48+pet3ent48+pet4ent48+pet5ent48+pet6ent48+pet7ent48+pet8ent48+pet9ent48+pet10ent48+pet11ent48+pet12ent48+pet13ent48+pet14ent48+pet15ent48;
+let entero49=pet1ent49+pet2ent49+pet3ent49+pet4ent49+pet5ent49+pet6ent49+pet7ent49+pet8ent49+pet9ent49+pet10ent49+pet11ent49+pet12ent49+pet13ent49+pet14ent49+pet15ent49;
+let entero50=pet1ent50+pet2ent50+pet3ent50+pet4ent50+pet5ent50+pet6ent50+pet7ent50+pet8ent50+pet9ent50+pet10ent50+pet11ent50+pet12ent50+pet13ent50+pet14ent50+pet15ent50;
+let entero51=pet1ent51+pet2ent51+pet3ent51+pet4ent51+pet5ent51+pet6ent51+pet7ent51+pet8ent51+pet9ent51+pet10ent51+pet11ent51+pet12ent51+pet13ent51+pet14ent51+pet15ent51;
+let entero52=pet1ent52+pet2ent52+pet3ent52+pet4ent52+pet5ent52+pet6ent52+pet7ent52+pet8ent52+pet9ent52+pet10ent52+pet11ent52+pet12ent52+pet13ent52+pet14ent52+pet15ent52;
+let entero53=pet1ent53+pet2ent53+pet3ent53+pet4ent53+pet5ent53+pet6ent53+pet7ent53+pet8ent53+pet9ent53+pet10ent53+pet11ent53+pet12ent53+pet13ent53+pet14ent53+pet15ent53;
+let entero54=pet1ent54+pet2ent54+pet3ent54+pet4ent54+pet5ent54+pet6ent54+pet7ent54+pet8ent54+pet9ent54+pet10ent54+pet11ent54+pet12ent54+pet13ent54+pet14ent54+pet15ent54;
+let entero55=pet1ent55+pet2ent55+pet3ent55+pet4ent55+pet5ent55+pet6ent55+pet7ent55+pet8ent55+pet9ent55+pet10ent55+pet11ent55+pet12ent55+pet13ent55+pet14ent55+pet15ent55;
+let entero56=pet1ent56+pet2ent56+pet3ent56+pet4ent56+pet5ent56+pet6ent56+pet7ent56+pet8ent56+pet9ent56+pet10ent56+pet11ent56+pet12ent56+pet13ent56+pet14ent56+pet15ent56;
+
+let categoriaCinco = (entero47+entero48+entero49+entero50+entero51+entero52+entero55+entero56+entero53+entero54)/length;
+if(categoriaCinco < 10){
+  categoria5Nulo= <MDBBadge color="info">{categoriaCinco}</MDBBadge>
+}else if(categoriaCinco >= 10 && categoriaCinco < 14){
+  categoria5Bajo= <MDBBadge color="success">{categoriaCinco}</MDBBadge>
+}else if(categoriaCinco >=14 && categoriaCinco < 18){
+  categoria5Medio= <MDBBadge color="warning">{categoriaCinco}</MDBBadge>
+}else if(categoriaCinco >=18 && categoriaCinco < 23){
+  categoria5Alto= <MDBBadge color="warning">{categoriaCinco}</MDBBadge>
+}else if(categoriaCinco >= 23){
+  categoria5MuyAlto= <MDBBadge color="danger">{categoriaCinco}</MDBBadge>
 }
 
 let Dominio1Nulo;
@@ -15596,16 +23476,16 @@ let Dominio1Bajo;
 let Dominio1Medio;
 let Dominio1Alto;
 let Dominio1MuyAlto;
-let DominioUno = (entero2+entero1+entero3)/length;
-if(DominioUno < 3){
+let DominioUno = (entero1+entero3+entero2+entero4+entero5)/length;
+if(DominioUno < 5){
   Dominio1Nulo= <MDBBadge color="info">{DominioUno}</MDBBadge>
-}else if(DominioUno >= 3 && DominioUno < 5){
+}else if(DominioUno >= 5 && DominioUno < 9){
   Dominio1Bajo= <MDBBadge color="success">{DominioUno}</MDBBadge>
-}else if(DominioUno >= 5 && DominioUno < 7){
+}else if(DominioUno >= 9 && DominioUno < 11){
   Dominio1Medio= <MDBBadge color="warning">{DominioUno}</MDBBadge>
-}else if(DominioUno >= 7 && DominioUno < 9){
+}else if(DominioUno >=11 && DominioUno < 14){
   Dominio1Alto= <MDBBadge color="warning">{DominioUno}</MDBBadge>
-}else if(DominioUno >= 9){
+}else if(DominioUno >= 14){
   Dominio1MuyAlto= <MDBBadge color="danger">{DominioUno}</MDBBadge>
 }
 
@@ -15614,16 +23494,16 @@ let Dominio2Bajo;
 let Dominio2Medio;
 let Dominio2Alto;
 let Dominio2MuyAlto;
-let DominioDos = (entero4+entero9+entero5+entero6+entero7+entero8+entero41+entero42+entero43+entero10+entero11+entero12+entero13) /length;
-if(DominioDos < 12){
+let DominioDos = (entero6+entero12+entero7+entero8+entero9+entero10+entero11+entero65+entero66+entero67+entero68+entero13+entero14+entero15+entero16)/length;
+if(DominioDos < 15){
   Dominio2Nulo= <MDBBadge color="info">{DominioDos}</MDBBadge>
-}else if(DominioDos >= 12 && DominioDos < 16){
+}else if(DominioDos >= 15 && DominioDos < 21){
   Dominio2Bajo= <MDBBadge color="success">{DominioDos}</MDBBadge>
-}else if(DominioDos >= 16 && DominioDos < 20){
+}else if(DominioDos >= 21 && DominioDos < 27){
   Dominio2Medio= <MDBBadge color="warning">{DominioDos}</MDBBadge>
-}else if(DominioDos >= 20 && DominioDos < 24){
+}else if(DominioDos >= 27 && DominioDos < 37){
   Dominio2Alto= <MDBBadge color="warning">{DominioDos}</MDBBadge>
-}else if(DominioDos >= 24){
+}else if(DominioDos >= 37){
   Dominio2MuyAlto= <MDBBadge color="danger">{DominioDos}</MDBBadge>
 }
 
@@ -15632,16 +23512,16 @@ let Dominio3Bajo;
 let Dominio3Medio;
 let Dominio3Alto;
 let Dominio3MuyAlto;
-let DominioTres = (entero20+entero21+entero22+entero18+entero19+entero26+entero27)/length;
-if(DominioTres < 5){
+let DominioTres = (entero25+entero26+entero27+entero28+entero23+entero24+entero29+entero30+entero35+entero36)/length;
+if(DominioTres < 11){
   Dominio3Nulo= <MDBBadge color="info">{DominioTres}</MDBBadge>
-}else if(DominioTres >= 5 && DominioTres < 8){
+}else if(DominioTres >= 11 && DominioTres < 16){
   Dominio3Bajo= <MDBBadge color="success">{DominioTres}</MDBBadge>
-}else if(DominioTres >= 8 && DominioTres < 11){
+}else if(DominioTres >= 16 && DominioTres < 21){
   Dominio3Medio= <MDBBadge color="warning">{DominioTres}</MDBBadge>
-}else if(DominioTres >= 11 && DominioTres < 14){
+}else if(DominioTres >= 21 && DominioTres < 25){
   Dominio3Alto= <MDBBadge color="warning">{DominioTres}</MDBBadge>
-}else if(DominioTres >= 14){
+}else if(DominioTres >= 25){
   Dominio3MuyAlto= <MDBBadge color="danger">{DominioTres}</MDBBadge>
 }
 
@@ -15650,7 +23530,7 @@ let Dominio4Bajo;
 let Dominio4Medio;
 let Dominio4Alto;
 let Dominio4MuyAlto;
-let DominioCuatro = (entero14+entero15)/length;
+let DominioCuatro = (entero17+entero18)/length;
 if(DominioCuatro < 1){
   Dominio4Nulo= <MDBBadge color="info">{DominioCuatro}</MDBBadge>
 }else if(DominioCuatro >= 1 && DominioCuatro < 2){
@@ -15668,16 +23548,16 @@ let Dominio5Bajo;
 let Dominio5Medio;
 let Dominio5Alto;
 let Dominio5MuyAlto;
-let DominioCinco = (entero16+entero17)/length;
-if(DominioCinco < 1){
+let DominioCinco = (entero19+entero20+entero21+entero22)/length;
+if(DominioCinco < 4){
   Dominio5Nulo= <MDBBadge color="info">{DominioCinco}</MDBBadge>
-}else if(DominioCinco >= 1 && DominioCinco < 2){
-  Dominio5Bajo= <MDBBadge color="success">{DominioCinco}</MDBBadge>
-}else if(DominioCinco >= 2 && DominioCinco < 4){
-  Dominio5Medio= <MDBBadge color="warning">{DominioCinco}</MDBBadge>
 }else if(DominioCinco >= 4 && DominioCinco < 6){
+  Dominio5Bajo= <MDBBadge color="success">{DominioCinco}</MDBBadge>
+}else if(DominioCinco >= 6 && DominioCinco < 8){
+  Dominio5Medio= <MDBBadge color="warning">{DominioCinco}</MDBBadge>
+}else if(DominioCinco >= 8 && DominioCinco < 10){
   Dominio5Alto= <MDBBadge color="warning">{DominioCinco}</MDBBadge>
-}else if(DominioCinco >= 6){
+}else if(DominioCinco >= 10){
   Dominio5MuyAlto= <MDBBadge color="danger">{DominioCinco}</MDBBadge>
 }
 
@@ -15686,16 +23566,16 @@ let Dominio6Bajo;
 let Dominio6Medio;
 let Dominio6Alto;
 let Dominio6MuyAlto;
-let DominioSeis = (entero23+entero24+entero25+entero28+entero29)/length;
-if(DominioSeis < 3){
+let DominioSeis = (entero31+entero32+entero33+entero34+entero37+entero38+entero39+entero40+entero41)/length;
+if(DominioSeis < 9){
   Dominio6Nulo= <MDBBadge color="info">{DominioSeis}</MDBBadge>
-}else if(DominioSeis >= 3 && DominioSeis < 5){
+}else if(DominioSeis >= 9 && DominioSeis < 12){
   Dominio6Bajo= <MDBBadge color="success">{DominioSeis}</MDBBadge>
-}else if(DominioSeis >= 5 && DominioSeis < 8){
+}else if(DominioSeis >= 12 && DominioSeis < 16){
   Dominio6Medio= <MDBBadge color="warning">{DominioSeis}</MDBBadge>
-}else if(DominioSeis >= 8 && DominioSeis < 11){
+}else if(DominioSeis >= 16 && DominioSeis < 20){
   Dominio6Alto= <MDBBadge color="warning">{DominioSeis}</MDBBadge>
-}else if(DominioSeis >= 11){
+}else if(DominioSeis >= 20){
   Dominio6MuyAlto= <MDBBadge color="danger">{DominioSeis}</MDBBadge>
 }
 
@@ -15704,16 +23584,16 @@ let Dominio7Bajo;
 let Dominio7Medio;
 let Dominio7Alto;
 let Dominio7MuyAlto;
-let DominioSiete = (entero30+entero31+entero32+entero44+entero45+entero46)/length;
-if(DominioSiete < 5){
+let DominioSiete = (entero42+entero43+entero44+entero45+entero46+entero69+entero70+entero71+entero72)/length;
+if(DominioSiete < 10){
   Dominio7Nulo= <MDBBadge color="info">{DominioSiete}</MDBBadge>
-}else if(DominioSiete >= 5 && DominioSiete < 8){
+}else if(DominioSiete >= 10 && DominioSiete < 13){
   Dominio7Bajo= <MDBBadge color="success">{DominioSiete}</MDBBadge>
-}else if(DominioSiete >= 8 && DominioSiete < 11){
+}else if(DominioSiete >= 13 && DominioSiete < 17){
   Dominio7Medio= <MDBBadge color="warning">{DominioSiete}</MDBBadge>
-}else if(DominioSiete >= 11 && DominioSiete < 14){
+}else if(DominioSiete >= 17 && DominioSiete < 21){
   Dominio7Alto= <MDBBadge color="warning">{DominioSiete}</MDBBadge>
-}else if(DominioSiete >= 14){
+}else if(DominioSiete >= 21){
   Dominio7MuyAlto= <MDBBadge color="danger">{DominioSiete}</MDBBadge>
 }
 
@@ -15722,7 +23602,7 @@ let Dominio8Bajo;
 let Dominio8Medio;
 let Dominio8Alto;
 let Dominio8MuyAlto;
-let DominioOcho = (entero30+entero31+entero32+entero44+entero45+entero46)/length;
+let DominioOcho = (entero57+entero58+entero59+entero60+entero61+entero62+entero63+entero64)/length;
 if(DominioOcho < 7){
   Dominio8Nulo= <MDBBadge color="info">{DominioOcho}</MDBBadge>
 }else if(DominioOcho >= 7 && DominioOcho < 10){
@@ -15733,6 +23613,42 @@ if(DominioOcho < 7){
   Dominio8Alto= <MDBBadge color="warning">{DominioOcho}</MDBBadge>
 }else if(DominioOcho >= 16){
   Dominio8MuyAlto= <MDBBadge color="danger">{DominioOcho}</MDBBadge>
+}
+
+let Dominio9Nulo;
+let Dominio9Bajo;
+let Dominio9Medio;
+let Dominio9Alto;
+let Dominio9MuyAlto;
+let DominioNueve = (entero47+entero48+entero49+entero50+entero51+entero52)/length;
+if(DominioNueve < 6){
+  Dominio9Nulo= <MDBBadge color="info">{DominioNueve}</MDBBadge>
+}else if(DominioNueve >= 6 && DominioNueve < 10){
+  Dominio9Bajo= <MDBBadge color="success">{DominioNueve}</MDBBadge>
+}else if(DominioNueve >= 10 && DominioNueve < 14){
+  Dominio9Medio= <MDBBadge color="warning">{DominioNueve}</MDBBadge>
+}else if(DominioNueve >= 14 && DominioNueve < 18){
+  Dominio9Alto= <MDBBadge color="warning">{DominioNueve}</MDBBadge>
+}else if(DominioNueve >= 18){
+  Dominio9MuyAlto= <MDBBadge color="danger">{DominioNueve}</MDBBadge>
+}
+
+let Dominio10Nulo;
+let Dominio10Bajo;
+let Dominio10Medio;
+let Dominio10Alto;
+let Dominio10MuyAlto;
+let DominioDiez = (entero55+entero56+entero53+entero54)/length;
+if(DominioDiez < 4){
+  Dominio10Nulo= <MDBBadge color="info">{DominioDiez}</MDBBadge>
+}else if(DominioDiez >= 4 && DominioDiez < 6){
+  Dominio10Bajo= <MDBBadge color="success">{DominioDiez}</MDBBadge>
+}else if(DominioDiez >= 6 && DominioDiez < 8){
+  Dominio10Medio= <MDBBadge color="warning">{DominioDiez}</MDBBadge>
+}else if(DominioDiez >= 8 && DominioDiez < 10){
+  Dominio10Alto= <MDBBadge color="warning">{DominioDiez}</MDBBadge>
+}else if(DominioDiez >= 10){
+  Dominio10MuyAlto= <MDBBadge color="danger">{DominioDiez}</MDBBadge>
 }
 
 
@@ -15753,7 +23669,7 @@ ponderacion=<React.Fragment>
     
       >
 <MDBContainer >
-<font face="arial" className = "mt-4" ><strong> ENCUESTA RP. </strong> <br/> <strong>FILTRADO POR  :  {this.state.filtro6} {this.state.filtro1} <br/>{this.state.filtro2} <br/> {this.state.filtro3}  <br/>{this.state.filtro4} <br/> {this.state.filtro5} <br/></strong></font><br/>
+<font face="arial" className = "mt-4" ><strong> ENCUESTA EEO. </strong> <br/> <strong>FILTRADO POR  :  {this.state.filtro6} {this.state.filtro1} <br/>{this.state.filtro2} <br/> {this.state.filtro3}  <br/>{this.state.filtro4} <br/> {this.state.filtro5} <br/></strong></font><br/>
 <font face="arial " className = "mt-4 " ><strong>{localStorage.getItem("razonsocial")}</strong> </font>
 
 <Table   responsive small borderless className="text-left mt-4 ">
@@ -15792,114 +23708,139 @@ ponderacion=<React.Fragment>
               <TableCell component="th" scope="row" ></TableCell>  
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >I. Ambiente de Trabajo</TableCell>
-            <TableCell component="th" scope="row" >{categoria1Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria1Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria1Medio}</TableCell>
-            <TableCell component="th" scope="row" >{categoria1Alto}</TableCell>
-            <TableCell component="th" scope="row" >{categoria1MuyAlto}</TableCell>           
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >II. Factores propios de la actividad</TableCell>   
-            <TableCell component="th" scope="row" >{categoria2Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria2Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria2Medio}</TableCell>
-            <TableCell component="th" scope="row" >{categoria2Alto}</TableCell>
-            <TableCell component="th" scope="row" >{categoria2MuyAlto}</TableCell>    
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >III. Organización del tiempo de trabajo</TableCell>   
-            <TableCell component="th" scope="row" >{categoria3Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria3Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria3Medio}</TableCell>
-            <TableCell component="th" scope="row" >{categoria3Alto}</TableCell>
-            <TableCell component="th" scope="row" >{categoria3MuyAlto}</TableCell>    
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >IV. Liderazgo y relaciones en el trabajo</TableCell>   
-            <TableCell component="th" scope="row" >{categoria4Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria4Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria4Medio}</TableCell>
-            <TableCell component="th" scope="row" >{categoria4Alto}</TableCell>
-            <TableCell component="th" scope="row" >{categoria4MuyAlto}</TableCell>           
-            </TableRow>
-           
-            <TableRow>
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados del Dominio</strong></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
+                <TableCell component="th" scope="row" >I. Ambiente de Trabajo</TableCell>
+                <TableCell component="th" scope="row" >{categoria1Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{categoria1Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{categoria1Medio}</TableCell>
+                <TableCell component="th" scope="row" >{categoria1Alto}</TableCell>
+                <TableCell component="th" scope="row" >{categoria1MuyAlto}</TableCell>           
+                </TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >II. Factores propios de la actividad</TableCell>   
+                <TableCell component="th" scope="row" >{categoria2Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{categoria2Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{categoria2Medio}</TableCell>
+                <TableCell component="th" scope="row" >{categoria2Alto}</TableCell>
+                <TableCell component="th" scope="row" >{categoria2MuyAlto}</TableCell>    
+                </TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >III. Organización del tiempo de trabajo</TableCell>   
+                <TableCell component="th" scope="row" >{categoria3Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{categoria3Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{categoria3Medio}</TableCell>
+                <TableCell component="th" scope="row" >{categoria3Alto}</TableCell>
+                <TableCell component="th" scope="row" >{categoria3MuyAlto}</TableCell>    
+                </TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >IV. Liderazgo y relaciones en el trabajo</TableCell>   
+                <TableCell component="th" scope="row" >{categoria4Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{categoria4Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{categoria4Medio}</TableCell>
+                <TableCell component="th" scope="row" >{categoria4Alto}</TableCell>
+                <TableCell component="th" scope="row" >{categoria4MuyAlto}</TableCell>           
+                </TableRow>
 
-            </TableRow>
-            
-            <TableRow>
-            <TableCell component="th" scope="row" >I. Condiciones en el ambiente de trabajo</TableCell> 
-            <TableCell component="th" scope="row" >{Dominio1Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio1Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio1Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio1Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio1MuyAlto}</TableCell>
-
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >II. Carga de trabajo</TableCell>    
-            <TableCell component="th" scope="row" >{Dominio2Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio2Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio2Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio2Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio2MuyAlto}</TableCell>       
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >III. Falta de control sobre el trabajo</TableCell>     
-            <TableCell component="th" scope="row" >{Dominio3Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio3Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio3Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio3Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio3MuyAlto}</TableCell>       
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >IV. Jornada de trabajo</TableCell>  
-            <TableCell component="th" scope="row" >{Dominio4Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio4Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio4Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio4Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio4MuyAlto}</TableCell>         
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" width="50%" >V. Interferencia en la relación trabajo-familia</TableCell>           
-            <TableCell component="th" scope="row" >{Dominio5Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio5Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio5Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio5Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio5MuyAlto}</TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >VI. Liderazgo</TableCell>    
-            <TableCell component="th" scope="row" >{Dominio6Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio6Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio6Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio6Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio6MuyAlto}</TableCell>       
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >VII. Relaciones en el trabajo</TableCell>    
-            <TableCell component="th" scope="row" >{Dominio7Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio7Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio7Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio7Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio7MuyAlto}</TableCell>       
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >VIII. Violencia</TableCell>    
-            <TableCell component="th" scope="row" >{Dominio8Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio8Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio8Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio8Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio8MuyAlto}</TableCell>        
-            </TableRow>       
-            <TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >V. Entorno organizacional</TableCell>   
+                <TableCell component="th" scope="row" >{categoria5Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{categoria5Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{categoria5Medio}</TableCell>
+                <TableCell component="th" scope="row" >{categoria5Alto}</TableCell>
+                <TableCell component="th" scope="row" >{categoria5MuyAlto}</TableCell>           
+                </TableRow>
+               
+                <TableRow>
+                  <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados del Dominio</strong></TableCell>              
+                  <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
+                  <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
+                  <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
+                  <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
+                  <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
+    
+                </TableRow>
+                
+                <TableRow>
+                <TableCell component="th" scope="row" >I. Condiciones en el ambiente de trabajo</TableCell> 
+                <TableCell component="th" scope="row" >{Dominio1Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio1Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio1Medio}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio1Alto}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio1MuyAlto}</TableCell>
+    
+                </TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >II. Carga de trabajo</TableCell>    
+                <TableCell component="th" scope="row" >{Dominio2Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio2Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio2Medio}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio2Alto}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio2MuyAlto}</TableCell>       
+                </TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >III. Falta de control sobre el trabajo</TableCell>     
+                <TableCell component="th" scope="row" >{Dominio3Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio3Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio3Medio}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio3Alto}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio3MuyAlto}</TableCell>       
+                </TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >IV. Jornada de trabajo</TableCell>  
+                <TableCell component="th" scope="row" >{Dominio4Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio4Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio4Medio}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio4Alto}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio4MuyAlto}</TableCell>         
+                </TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >V. Interferencia en la relación trabajo-familia</TableCell>           
+                <TableCell component="th" scope="row" >{Dominio5Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio5Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio5Medio}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio5Alto}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio5MuyAlto}</TableCell>
+                </TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >VI. Liderazgo</TableCell>    
+                <TableCell component="th" scope="row" >{Dominio6Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio6Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio6Medio}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio6Alto}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio6MuyAlto}</TableCell>       
+                </TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >VII. Relaciones en el trabajo</TableCell>    
+                <TableCell component="th" scope="row" >{Dominio7Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio7Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio7Medio}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio7Alto}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio7MuyAlto}</TableCell>       
+                </TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >VIII. Violencia</TableCell>    
+                <TableCell component="th" scope="row" >{Dominio8Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio8Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio8Medio}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio8Alto}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio8MuyAlto}</TableCell>        
+                </TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >IX. Reconocimiento del desempeño</TableCell>    
+                <TableCell component="th" scope="row" >{Dominio9Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio9Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio9Medio}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio9Alto}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio9MuyAlto}</TableCell>       
+                </TableRow>
+                <TableRow>
+                <TableCell component="th" scope="row" >XX. Insuficiente sentido de pertenencia e, inestabilidad</TableCell>    
+                <TableCell component="th" scope="row" >{Dominio10Nulo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio10Bajo}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio10Medio}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio10Alto}</TableCell>
+                <TableCell component="th" scope="row" >{Dominio10MuyAlto}</TableCell>        
+                </TableRow>
+                <TableRow>
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados Por Dimensión</strong></TableCell>              
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
@@ -15907,37 +23848,37 @@ ponderacion=<React.Fragment>
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
 
-             </TableRow>
-           <TableRow>
+            </TableRow>
+            <TableRow>
             <TableCell component="th" scope="row" >1.- Condiciones peligrosas e inseguras</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{entero1/length}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero1/length)+(entero3/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >2.- Condiciones deficientes e insalubres</TableCell> 
+            <TableCell component="th" scope="row" width="50%" >2.- Condiciones deficientes e insalubres</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{entero2/length}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero2/length)+(entero4/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
+            </TableRow> 
            
             <TableRow>
             <TableCell component="th" scope="row" >3.- Trabajos peligrosos</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{entero3/length}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{entero5/length}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >4.- Cargas cuantitativas</TableCell> 
+            <TableCell component="th" scope="row" width="50%">4.- Cargas cuantitativas</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero4+entero9)/length}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero6/length)+(entero12/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -15945,7 +23886,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >5.- Ritmos de trabajo acelerado</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero5/length)+(entero6/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero7/length)+(entero8/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -15953,7 +23894,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >6.- Carga mental</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero7/length)+(entero8/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero9/length)+(entero10/length)+(entero11/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -15961,31 +23902,31 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >7.- Cargas psicológicas emocionales</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero41/length)+(entero42/length)+(entero43/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero65/length)+(entero66/length)+(entero67/length)+(entero68/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" width="50%" >8.- Cargas de alta responsabilidad</TableCell> 
+            <TableCell component="th" scope="row" >8.- Cargas de alta responsabilidad</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero10/length)+(entero11/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero13/length)+(entero14/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row"  width="50%">9.- Cargas contradictorias o inconsistentes</TableCell> 
+            <TableCell component="th" scope="row" >9.- Cargas contradictorias o inconsistentes</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero12/length)+(entero13/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero15/length)+(entero16/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >10.- Falta de control y autonomía sobre el trabajo</TableCell> 
+            <TableCell component="th" scope="row" width="50%" >10.- Falta de control y autonomía sobre el trabajo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero20/length)+(entero21/length)+(entero22/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero25/length)+(entero26/length)+(entero27/length)+(entero28/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -15993,79 +23934,124 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >11.- Limitada o nula posibilidad de desarrollo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero18/length)+(entero19/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero23/length)+(entero24/length)}</MDBBadge ></TableCell>
+            <TableCell component="th" scope="row" ></TableCell>
+            <TableCell component="th" scope="row" ></TableCell>
+            </TableRow>
+
+            <TableRow>
+            <TableCell component="th" scope="row" >12.- Insuficiente participación y manejo del cambio</TableCell> 
+            <TableCell component="th" scope="row" ></TableCell>
+            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero29/length)+(entero30/length)}</MDBBadge ></TableCell>
+            <TableCell component="th" scope="row" ></TableCell>
+            <TableCell component="th" scope="row" ></TableCell>
+            </TableRow>
+
+
+
+            <TableRow>
+            <TableCell component="th" scope="row" >13.- Limitada o inexistente capacitación</TableCell> 
+            <TableCell component="th" scope="row" ></TableCell>
+            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero35/length)+(entero36/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >12.- Limitada o inexistente capacitación</TableCell> 
+            <TableCell component="th" scope="row" >14.- Jornadas de trabajo extensas</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero26/length)+(entero27/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero17/length)+(entero18/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >13.- Jornadas de trabajo extensas</TableCell> 
+            <TableCell component="th" scope="row" >15.- Influencia del trabajo fuera del centro laboral</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero14/length)+(entero15/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero19/length)+(entero20/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >14.- Influencia del trabajo fuera del centro laboral</TableCell> 
+            <TableCell component="th" scope="row" >16.- Influencia de las responsabilidades familiares</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero16/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero21/length)+(entero22/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >15.- Influencia de las responsabilidades familiares</TableCell> 
+            <TableCell component="th" scope="row" >17.- Escasa claridad de funciones</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero17/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero31/length)+(entero32/length)+(entero33/length)+(entero34/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >16.- Escasa claridad de funciones</TableCell> 
+            <TableCell component="th" scope="row" >18.- Características del liderazgo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero23/length)+(entero24/length)+(entero25/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero37/length)+(entero38/length)+(entero39/length)+(entero40/length)+(entero41/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >17.- Características del liderazgo</TableCell> 
+            <TableCell component="th" scope="row" >19.- Relaciones sociales en el trabajo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero28/length)+(entero29/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero42/length)+(entero43/length)+(entero44/length)+(entero45/length)+(entero46/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >18.- Relaciones sociales en el trabajo</TableCell> 
+            <TableCell component="th" scope="row" >20.- Deficiente relación con los colaboradores que supervisa</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero30/length)+(entero31/length)+(entero32/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero69/length)+(entero70/length)+(entero71/length)+(entero72/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >19.- Deficiente relación con los colaboradores que supervisa</TableCell> 
+            <TableCell component="th" scope="row" >21.- Violencia laboral</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero44/length)+(entero45/length)+(entero46/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero57/length)+(entero58/length)+(entero59/length)+(entero60/length)+(entero61/length)+(entero62/length)+(entero63/length)+(entero64/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >20.- Violencia laboral</TableCell> 
+            <TableCell component="th" scope="row" >22.- Escasa o nula retroalimentación del desempeño</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero33/length)+(entero34/length)+(entero35/length)+(entero36/length)+(entero37/length)+(entero38/length)+(entero39/length)+(entero40/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero47/length)+(entero48/length)}</MDBBadge ></TableCell>
+            <TableCell component="th" scope="row" ></TableCell>
+            <TableCell component="th" scope="row" ></TableCell>
+            </TableRow>
+
+            <TableRow>
+            <TableCell component="th" scope="row" >23.- Escaso o nulo reconocimiento y compensación</TableCell> 
+            <TableCell component="th" scope="row" ></TableCell>
+            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero49/length)+(entero50/length)+(entero51/length)+(entero52/length)}</MDBBadge ></TableCell>
+            <TableCell component="th" scope="row" ></TableCell>
+            <TableCell component="th" scope="row" ></TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell component="th" scope="row" >24.- Limitado sentido de pertenencia</TableCell> 
+            <TableCell component="th" scope="row" ></TableCell>
+            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero55/length)+(entero56/length)}</MDBBadge ></TableCell>
+            <TableCell component="th" scope="row" ></TableCell>
+            <TableCell component="th" scope="row" ></TableCell>
+            </TableRow>
+            <TableRow>
+            <TableCell component="th" scope="row" >25.- Inestabilidad laboral</TableCell> 
+            <TableCell component="th" scope="row" ></TableCell>
+            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+            <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero53)+(entero54/length)}</MDBBadge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>

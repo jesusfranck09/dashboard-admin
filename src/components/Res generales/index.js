@@ -2186,7 +2186,7 @@ if(this.state.peticion1.length>0){
             respuesta174="Casi Nunca"
             valor35= this.state.getPonderacion[34].casinunca
           } 
-          else if(this.state.peticion1[15].Respuestas=="Nunca"){
+          else if(this.state.peticion1[35].Respuestas=="Nunca"){
             respuesta175="Nunca"
             valor35= this.state.getPonderacion[34].nunca
           } 
@@ -4258,15 +4258,15 @@ console.log("entro a la peticion 3" )
     if(this.state.peticion4[2].Respuestas=="Siempre"){
       pet4res6="Siempre"
       pet4val2= this.state.peticion4[1].siempre
-      }else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiSiempre"){
+      }else if(this.state.peticion4[2].Respuestas=="CasiSiempre"){
         pet4res7="Casi Siempre"
         pet4val2= this.state.peticion4[1].casisiempre
       }
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="AlgunasVeces"){
+      else if(this.state.peticion4[2].Respuestas=="AlgunasVeces"){
         pet4res8="Algunas Veces"
         pet4val2= this.state.peticion4[1].algunasveces
       } 
-      else if(this.state.resultadosEvaluacion[2].Respuestas=="CasiNunca"){
+      else if(this.state.peticion4[2].Respuestas=="CasiNunca"){
         pet4res9="Casi Nunca"
         pet4val2= this.state.peticion4[2].casinunca
       } 
@@ -15937,7 +15937,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >4.- Cargas cuantitativas</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero4+entero9)/length}</Badge ></TableCell>
+            <TableCell component="th" scope="row" > <Badge  color="primary">{(entero4/length)+(entero9/length)}</Badge ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>

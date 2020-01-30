@@ -61,7 +61,7 @@ import ProfileUser from './components/Home/ProfileUser';
 import Sucursales from './components/adminGeneral/Sucursales';
 import adminEmployees from './components/adminGeneral/adminEmployees';
 import Puestos from './components/adminGeneral/Puestos';
-
+import IndexEEO from './components/Res generales/indexEEO';
 // import Result from './components/resultsCuestions/result';
 import ResultRP from './components/resultsCuestionsRP/resultRP';
 import ResultEEO from './components/resultsCuestionsEEO/resultEEO';
@@ -148,7 +148,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/apartments' component={Apartments}/>
                   <PrivateRoute exact path='/adminEmployees' component={adminEmployees}/>
                   <PrivateRoute exact path='/puestos' component={Puestos}/>
-                
+                  <PrivateRoute exact path='/resultGralEEO' component={IndexEEO}/>
                   <PrivateRoute exact path='/resultGral' component={ResGral}/>
          
 
