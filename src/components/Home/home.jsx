@@ -52,7 +52,7 @@ class Home extends React.Component {
       modal10:false,
       modal11:false,
       modal12:false,
-      totalEmpleados:'',
+      totalEmpleados:[],
       empleadosRP:[],
       empleadosRPFalse:[],
       empleadosAtsDetectado:[],
@@ -87,10 +87,10 @@ class Home extends React.Component {
     this.setState({date:FechaCompleta}) 
     this.setState({nombre:Nombre}) 
     this.setState({apellidos:Apellidos}) 
-    this.countdown('Jan 31 2020 11:20:58 GMT-0600 ')
+    this.countdown('Jan 31 2020 23:20:58 GMT-0600 ')
     this.getMaxEmployees();
     this.countEmployees();
-  
+    this.verifyTables()
   }
    
   onClick() {
@@ -135,6 +135,110 @@ ads(){
 
   this.setState({showModal2:true})
   
+}
+
+verifyTables(){
+  const idAdmin   = localStorage.getItem('idAdmin')
+  const url = 'http://localhost:8000/graphql'
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+     query{
+      employeeActive(data:"${[idAdmin]}"){
+        id
+        EmpleadoActivo
+            }
+          }
+        `
+    }
+        }).then((datos) => {
+          // console.log("em activo",datos.data.data.employeeActive.length)
+          if(datos.data.data.employeeActive.length>0){
+           localStorage.setItem("empleadoActivo","true")
+          }else{
+            localStorage.setItem("empleadoActivo","false")
+          }
+      
+        }).catch(err=>{
+          console.log("este es el error " , err.response)
+        })
+        
+        axios({
+          url:  url,
+          method:'post',
+          data:{
+          query:`
+           query{
+            deptoActive(data:"${[idAdmin]}"){
+              id
+              DepartamentoActivo
+                  }
+                }
+              `
+          }
+              }).then((datos) => {
+                 console.log("depto activo",datos.data.data.deptoActive)
+                if(datos.data.data.deptoActive.length>0){
+                 localStorage.setItem("DepartamentoActivo","true")
+                }else{
+                  localStorage.setItem("DepartamentoActivo","false")
+                }
+            
+              }).catch(err=>{
+                console.log("este es el error " , err.response)
+              })
+              axios({
+                url:  url,
+                method:'post',
+                data:{
+                query:`
+                 query{
+                  sucActive(data:"${[idAdmin]}"){
+                    id
+                    SucursalActiva
+                        }
+                      }
+                    `
+                }
+                    }).then((datos) => {
+                       console.log("depto activo",datos.data.data.sucActive)
+                      if(datos.data.data.sucActive.length>0){
+                       localStorage.setItem("SucursalActiva","true")
+                      }else{
+                        localStorage.setItem("SucursalActiva","false")
+                      }
+                  
+                    }).catch(err=>{
+                      console.log("este es el error " , err.response)
+                    })
+                    axios({
+                      url:  url,
+                      method:'post',
+                      data:{
+                      query:`
+                       query{
+                        puestoActive(data:"${[idAdmin]}"){
+                          id
+                          PuestoActivo
+                              }
+                            }
+                          `
+                      }
+                          }).then((datos) => {
+                             console.log("depto activo",datos.data.data.puestoActive)
+                            if(datos.data.data.puestoActive.length>0){
+                             localStorage.setItem("PuestoActivo","true")
+                            }else{
+                              localStorage.setItem("PuestoActivo","false")
+                            }
+                        
+                          }).catch(err=>{
+                            console.log("este es el error " , err.response)
+                          })
+      
+
 }
 
 countEmployees(){
@@ -398,6 +502,25 @@ toggle = (nr) => () => {
 
 
   render() {
+    let Alerta;
+    let dep;
+    let suc;
+    let pues;
+    let alertaPuesto = localStorage.getItem("PuestoActivo")
+    let alertaSucursal=localStorage.getItem("SucursalActiva")
+    let AlertaDepartamento = localStorage.getItem("DepartamentoActivo")
+   let empleadoAc=localStorage.getItem("empleadoActivo")
+    if(empleadoAc=="false"){
+     Alerta =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 usuario Registrado</Alert>
+    }if(AlertaDepartamento=="false"){
+      dep =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Departamento Registrado</Alert>
+    }if(alertaSucursal=="false"){
+      suc =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Sucursal Registrada</Alert>
+    }if(alertaPuesto=="false"){
+      pues =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Puesto Registrado</Alert>
+    }
+
+
     let expiro;
     if(this.state.licencia){
 
@@ -780,6 +903,7 @@ toggle = (nr) => () => {
           
           </header>
         <MDBContainer style={container} >
+         
         {/* {this.state.nombre.nombre} */}
         <MDBRow>
         <MDBCol>
@@ -822,7 +946,7 @@ toggle = (nr) => () => {
         
          
          </MDBCardHeader>      
-
+         
         {expiro}
        </MDBCardBody>
       </MDBCard>
@@ -831,7 +955,7 @@ toggle = (nr) => () => {
          <MDBCardHeader><strong>Acciones a Realizar </strong> <IconButton onClick={this.toggle(10)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
        </MDBCardBody>
       </MDBCard>
-      
+      {pues}
       </MDBCol>
       </MDBRow>
         {modal}
@@ -841,6 +965,10 @@ toggle = (nr) => () => {
         {modalEEO}
         {modalEEOFalse}
         {empleadoATSDetectado}
+        {Alerta}
+        {dep}
+        {suc}
+       
         </MDBContainer>
       </div>
 

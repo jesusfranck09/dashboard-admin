@@ -2012,7 +2012,7 @@ let Dominio8Bajo;
 let Dominio8Medio;
 let Dominio8Alto;
 let Dominio8MuyAlto;
-let DominioOcho = (entero30+entero31+entero32+entero44+entero45+entero46);
+let DominioOcho = (entero33+entero34+entero35+entero36+entero37+entero38+entero39+entero40);
 if(DominioOcho < 7){
   Dominio8Nulo= <MDBBadge color="info">{DominioOcho}</MDBBadge>
 }else if(DominioOcho >= 7 && DominioOcho < 10){
@@ -2025,6 +2025,7 @@ if(DominioOcho < 7){
   Dominio8MuyAlto= <MDBBadge color="danger">{DominioOcho}</MDBBadge>
 }
 
+console.log("estos son los resultados del dominio" ,entero30,entero31,entero32,entero44,entero45,entero46)
 
 ponderacion =  <React.Fragment>
             <div>

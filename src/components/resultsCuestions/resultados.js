@@ -160,16 +160,19 @@ ads(){
       <React.Fragment>
       <div>
           <header>
-            <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
+          <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
             <Sidebar/>
               <MDBNavbarBrand a href="./inicio">
               <AppNavbarBrand
                   full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
               </MDBNavbarBrand>
+
+              <MDBNavbarBrand>
+               Resultados de la Encuesta Acontecimiento Traumático Severo
+              </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
-                <MDBNavbarNav >
-                 
+                <MDBNavbarNav >   
                 </MDBNavbarNav>
                 <strong>{this.state.date}</strong> 
                 <MDBNavbarNav right>
@@ -178,20 +181,15 @@ ads(){
               {this.state.nombre}
               </MDBNavbarBrand>
               <MDBNavbarBrand>
-              
               <MDBNavItem>
-                
-              <MDBDropdown>
-                
-                <MDBDropdownToggle nav caret>
-               
+              <MDBDropdown>  
+                <MDBDropdownToggle nav caret> 
                 </MDBDropdownToggle>
                 <MDBDropdownMenu className="dropdown-default">
                   <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
                   <MDBDropdownItem href="#!">Configuración</MDBDropdownItem>
                   <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
                   <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
-
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>
@@ -199,7 +197,6 @@ ads(){
                 </MDBNavbarNav>
               </MDBCollapse>
             </MDBNavbar>
-            
           </header>
           <MDBContainer style={container} className="pt-5">
           <MDBRow>
@@ -209,9 +206,9 @@ ads(){
             <Bar  data={this.state.dataBar} options={this.state.barChartOptions} />
             {/* <span>{this.state.dias} {this.state.horas} {this.state.minutos} {this.state.segundos}</span> */}
           </MDBContainer>
-      </MDBCol>
-                  </MDBRow>
-
+          </MDBCol>
+         
+          </MDBRow>
 
                   <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
                     <div className="row">

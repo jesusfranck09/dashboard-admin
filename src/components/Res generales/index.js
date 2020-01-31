@@ -15722,7 +15722,7 @@ let Dominio8Bajo;
 let Dominio8Medio;
 let Dominio8Alto;
 let Dominio8MuyAlto;
-let DominioOcho = (entero30+entero31+entero32+entero44+entero45+entero46)/length;
+let DominioOcho = (entero33+entero34+entero35+entero36+entero37+entero38+entero39+entero40)/length;
 if(DominioOcho < 7){
   Dominio8Nulo= <MDBBadge color="info">{DominioOcho}</MDBBadge>
 }else if(DominioOcho >= 7 && DominioOcho < 10){
@@ -16084,16 +16084,19 @@ ponderacion=<React.Fragment>
       <React.Fragment>
       <div>
           <header>
-            <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
+          <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
             <Sidebar/>
               <MDBNavbarBrand a href="./inicio">
               <AppNavbarBrand
                   full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
               </MDBNavbarBrand>
+
+              <MDBNavbarBrand>
+               Resultados Globales de la Encuesta Riesgo Psicosocial
+              </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
-                <MDBNavbarNav >
-                 
+                <MDBNavbarNav >   
                 </MDBNavbarNav>
                 <strong>{this.state.date}</strong> 
                 <MDBNavbarNav right>
@@ -16102,20 +16105,15 @@ ponderacion=<React.Fragment>
               {this.state.nombre}
               </MDBNavbarBrand>
               <MDBNavbarBrand>
-              
               <MDBNavItem>
-                
-              <MDBDropdown>
-                
-                <MDBDropdownToggle nav caret>
-               
+              <MDBDropdown>  
+                <MDBDropdownToggle nav caret> 
                 </MDBDropdownToggle>
                 <MDBDropdownMenu className="dropdown-default">
                   <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
                   <MDBDropdownItem href="#!">Configuración</MDBDropdownItem>
                   <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
                   <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
-
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>
@@ -16123,7 +16121,6 @@ ponderacion=<React.Fragment>
                 </MDBNavbarNav>
               </MDBCollapse>
             </MDBNavbar>
-            
           </header>
           <MDBContainer style={container} className="pt-5">
           <MDBRow>
@@ -16133,8 +16130,9 @@ ponderacion=<React.Fragment>
             <Bar  data={this.state.dataBar} options={this.state.barChartOptions} />
             {/* <span>{this.state.dias} {this.state.horas} {this.state.minutos} {this.state.segundos}</span> */}
           </MDBContainer>
-            </MDBCol>
-                  </MDBRow>
+          </MDBCol>
+         
+          </MDBRow>
 
 
                   <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">

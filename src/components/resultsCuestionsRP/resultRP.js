@@ -148,7 +148,7 @@ ads(){
               </MDBNavbarBrand>
 
               <MDBNavbarBrand>
-               Resultados de la Encuesta RP
+               Resultados de la Encuesta Riesgo Psicosocial
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
