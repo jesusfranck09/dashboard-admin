@@ -99,7 +99,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/company' component={Company}/>
                   <PrivateRoute exact path='/employees' component={Employees}/>
                   <PrivateRoute exact path='/table' component={Table}/>
-                  <PrivateRoute exact path='/survey' component={Survey}/>
+                  <Route exact path='/survey' component={Survey}/>
                   <PrivateRoute exact path='/Initsurvey' component={InitSurvey}/>
 
                   <PrivateRoute exact path='/page1' component={SurveyPage1}/>
