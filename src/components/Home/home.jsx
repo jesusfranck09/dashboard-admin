@@ -511,11 +511,11 @@ toggle = (nr) => () => {
     let AlertaDepartamento = localStorage.getItem("DepartamentoActivo")
    let empleadoAc=localStorage.getItem("empleadoActivo")
     if(empleadoAc=="false"){
-     Alerta =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 usuario Registrado</Alert>
+     Alerta =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 usuario Registrado </Alert>
     }if(AlertaDepartamento=="false"){
       dep =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Departamento Registrado</Alert>
     }if(alertaSucursal=="false"){
-      suc =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Sucursal Registrada</Alert>
+      suc =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Centro de Trabajo Registrado</Alert>
     }if(alertaPuesto=="false"){
       pues =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Puesto Registrado</Alert>
     }
@@ -845,7 +845,7 @@ toggle = (nr) => () => {
 
    }
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
-    const container = { width: 2500, height: 1300 }
+    const container = { width: 1000, height: 500 }
     const container3={marginLeft:200}
     return (
 
@@ -907,21 +907,21 @@ toggle = (nr) => () => {
         {/* {this.state.nombre.nombre} */}
         <MDBRow>
         <MDBCol>
-        <MDBCard style={{ width: "25rem" ,marginTop:100}}>
+        <MDBCard style={{ width: "25rem" ,marginTop:60}}>
           <MDBCardBody>        
           <strong>Empleados Evaluación ATS</strong>
          <MDBCardHeader><strong>Realizada : {this.state.empleadosAts.length} </strong>  <IconButton onClick={this.toggle(16)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada : {this.state.empleadosAtsFalse.length}</strong><IconButton onClick={this.toggle(15)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                 
        </MDBCardBody>
       </MDBCard>
 
-      <MDBCard style={{ width: "25rem" ,marginTop:20}}>
+      <MDBCard style={{ width: "25rem" ,marginTop:5}}>
           <MDBCardBody>        
           <strong>Empleados Evaluación RP</strong>
          <MDBCardHeader><strong>Realizada : {this.state.empleadosRP.length} </strong>  <IconButton onClick={this.toggle(14)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada : {this.state.empleadosRPFalse.length} </strong><IconButton onClick={this.toggle(13)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
        </MDBCardBody>
       </MDBCard>
 
-      <MDBCard style={{ width: "25rem" ,marginTop:20}}>
+      <MDBCard style={{ width: "25rem" ,marginTop:5}}>
           <MDBCardBody>        
           <strong>Empleados Evaluación EEO</strong>
          <MDBCardHeader><strong>Realizada : {this.state.empleadosEEO.length} </strong>  <IconButton onClick={this.toggle(11)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada : {this.state.empleadosEEOFalse.length} </strong><IconButton onClick={this.toggle(12)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
@@ -930,7 +930,7 @@ toggle = (nr) => () => {
         {/* <MDBContainer className=" mt-5 pt-5" ><Alert color = "primary">Su licencia caduca en undefined dias</Alert>  <ProgressBar/></MDBContainer> */}
         </MDBCol>
         <MDBCol>
-        <MDBCard style={{ width: "22rem" ,marginTop:100,marginLeft:100}}>
+        <MDBCard style={{ width: "22rem" ,marginTop:60,marginLeft:100}}>
           <MDBCardBody>        
           <MDBCardTitle>Su Licencia caduca en :</MDBCardTitle>
          <MDBCardHeader>{this.state.dias} Dias  {this.state.horas} horas {this.state.minutos} minutos {this.state.segundos} segundos
@@ -949,8 +949,8 @@ toggle = (nr) => () => {
          
         {expiro}
        </MDBCardBody>
-      </MDBCard>
-      <MDBCard style={{ width: "22rem" ,marginTop:20,marginLeft:100}}>
+      </MDBCard >
+      <MDBCard style={{ width: "22rem",marginLeft:100,marginTop:5}}>
           <MDBCardBody>        
          <MDBCardHeader><strong>Acciones a Realizar </strong> <IconButton onClick={this.toggle(10)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
        </MDBCardBody>

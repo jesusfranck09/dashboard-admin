@@ -15,7 +15,7 @@ import Login from './components/views/Login/login';
 import SignUp from './components/views/SignUp/signup';
 import Cuestions from './components//addCuestions/cuestions';
 import Home from './components/Home/home';
-import Company from './components/views/addCompany/addCompany';
+// import Company from './components/views/addCompany/addCompany';
 import Employees from './components/Upload/Employes';
 import Table from './components/Home/table';
 import Survey from './components/addCuestions/PoliticaPrivacidad';
@@ -96,7 +96,7 @@ class Routes extends Component{
 
                   <PrivateRoute exact path='/cuestions' component={Cuestions}/>
                   <PrivateRoute exact path='/inicio' component={Home}/>
-                  <PrivateRoute exact path='/company' component={Company}/>
+                  {/* <PrivateRoute exact path='/company' component={Company}/> */}
                   <PrivateRoute exact path='/employees' component={Employees}/>
                   <PrivateRoute exact path='/table' component={Table}/>
                   <Route exact path='/survey' component={Survey}/>

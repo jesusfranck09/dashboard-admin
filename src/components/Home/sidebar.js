@@ -142,7 +142,7 @@ export default function MiniDrawer() {
           </IconButton>
         </div>
         {/* <Divider /> */}
-        <Link to="/company" style={{ textDecoration: 'none' }}>
+        {/* <Link to="/company" style={{ textDecoration: 'none' }}>
         <List >
           {[' Sucursal Principal'].map((text) => (
             <ListItem button key={text} >
@@ -151,7 +151,7 @@ export default function MiniDrawer() {
             </ListItem>
           ))}
         </List>
-        </Link>
+        </Link> */}
 
         <Link to="/table" style={{ textDecoration: 'none' }}>
         <List >
