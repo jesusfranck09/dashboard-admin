@@ -307,7 +307,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
                           disabled={submitting}
                           onClick={(e) =>evaluar(values)}
                         >
-                          Registrar Sucursal
+                          Registrar Centro de Trabajo
                         </Button>
                       </Grid>
                     </Grid>
@@ -359,7 +359,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
                         full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
                     </MDBNavbarBrand>
                     <MDBNavbarBrand >
-                    <strong> Registrar Sucursales</strong>
+                    <strong> Registrar Centros de Trabajo</strong>
                     </MDBNavbarBrand>
                     <MDBNavbarNav left>
                   <MDBNavItem active>

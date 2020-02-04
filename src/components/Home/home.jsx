@@ -87,7 +87,7 @@ class Home extends React.Component {
     this.setState({date:FechaCompleta}) 
     this.setState({nombre:Nombre}) 
     this.setState({apellidos:Apellidos}) 
-    this.countdown('Jan 31 2020 23:20:58 GMT-0600 ')
+    this.countdown('Feb 20 2020 09:46:21 GMT-0600')
     this.getMaxEmployees();
     this.countEmployees();
     this.verifyTables()

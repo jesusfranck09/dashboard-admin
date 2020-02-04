@@ -983,7 +983,7 @@ class App extends React.Component {
 
   render() {
 
-    const columns = [" ","Nombre", "Sexo",  "Area", "Puesto"];
+    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto"];
 
     const data = this.state.empleados.map(rows=>{
       return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoP,rows.Sexo,rows.AreaTrabajo,rows.Puesto])
@@ -993,7 +993,40 @@ class App extends React.Component {
     let filtro;
     const options = {
         filterType: "dropdown",
-        responsive: "stacked",
+        responsive: "stacked", textLabels: {
+          body: {
+            noMatch: "Lo Siento ,No se han encontrado Resultados :(",
+            toolTip: "Sort",
+            columnHeaderTooltip: column => `Sort for ${column.label}`
+          },
+          pagination: {
+            next: "Siguiente Página",
+            previous: "Anterior Página",
+            rowsPerPage: "Filas por Página:",
+            displayRows: "de",
+          },
+          toolbar: {
+            search: "Buscar",
+            downloadCsv: "Descargar CSV",
+            print: "Imprimir",
+            viewColumns: "Ver Columnas",
+            filterTable: "Filtrar Tabla",
+          },
+          filter: {
+            all: "Todos",
+            title: "Filtros",
+            reset: "Deshacer",
+          },
+          viewColumns: {
+            title: "Mostrar Columnas",
+            titleAria: "Show/Hide Table Columns",
+          },
+          selectedRows: {
+            text: "Filas Selecionadas",
+            delete: "Borrar",
+            deleteAria: "Eliminar Filas Seleccionadas",
+          },
+        },
       
         onTableChange: (action, tableState) => {
         datosEmpleados=tableState.displayData

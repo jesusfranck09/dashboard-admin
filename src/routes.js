@@ -106,7 +106,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/page2' component={SurveyPage2}/>
                   <PrivateRoute exact path='/page3' component={SurveyPage3}/>
 
-                  <PrivateRoute exact path='/politicaRP' component={PoliticaRP}/>
+                  <Route exact path='/politicaRP' component={PoliticaRP}/>
 
                   <PrivateRoute exact path='/RPpage1' component={RPPage1}/>
                   <PrivateRoute exact path='/RPpage2' component={RPPage2}/>
@@ -121,7 +121,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/RPValidate8' component={RPValidateCuestion8}/>
 
 
-                  <PrivateRoute exact path='/politicaEEO' component={PoliticaEEO}/>
+                  <Route exact path='/politicaEEO' component={PoliticaEEO}/>
 
                   <PrivateRoute exact path='/EEOpage1' component={EEOpage1}/>
                   <PrivateRoute exact path='/EEOpage2' component={EEOpage2}/>
