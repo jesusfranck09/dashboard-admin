@@ -36,15 +36,28 @@ class Home extends React.Component {
       collapse: !this.state.collapse,
     });
   }
-
-
-
+  validate = values => {
+    const errors = {};
+    if (!values.pregunta65) {
+      errors.pregunta65 = 'Este campo es requerido';
+    }
+    if (!values.pregunta66) {
+      errors.pregunta66 = 'Este campo es requerido';
+    }
+    if (!values.pregunta67) {
+      errors.pregunta67 = 'Este campo es requerido';
+    }
+    if (!values.pregunta68) {
+      errors.pregunta68 = 'Este campo es requerido';
+    }
+  }
+   
   evaluar= (values) => {
 
     if( (values.pregunta65 == "Siempre" || values.pregunta65=="CasiSiempre"|| values.pregunta65=="AlgunasVeces"|| values.pregunta65=="CasiNunca"|| values.pregunta65=="Nunca") 
-    || (values.pregunta66 == "Siempre" || values.pregunta66=="CasiSiempre"|| values.pregunta66=="AlgunasVeces"|| values.pregunta66=="CasiNunca"|| values.pregunta66=="Nunca") 
-    || (values.pregunta67 == "Siempre" || values.pregunta67=="CasiSiempre"|| values.pregunta67=="AlgunasVeces"|| values.pregunta67=="CasiNunca"|| values.pregunta67=="Nunca")
-    || (values.pregunta68 == "Siempre" || values.pregunta68=="CasiSiempre"|| values.pregunta68=="AlgunasVeces"|| values.pregunta68=="CasiNunca"|| values.pregunta68=="Nunca")
+    && (values.pregunta66 == "Siempre" || values.pregunta66=="CasiSiempre"|| values.pregunta66=="AlgunasVeces"|| values.pregunta66=="CasiNunca"|| values.pregunta66=="Nunca") 
+    && (values.pregunta67 == "Siempre" || values.pregunta67=="CasiSiempre"|| values.pregunta67=="AlgunasVeces"|| values.pregunta67=="CasiNunca"|| values.pregunta67=="Nunca")
+    && (values.pregunta68 == "Siempre" || values.pregunta68=="CasiSiempre"|| values.pregunta68=="AlgunasVeces"|| values.pregunta68=="CasiNunca"|| values.pregunta68=="Nunca")
 
     ){
 
@@ -72,29 +85,12 @@ class Home extends React.Component {
 
   }
 
-
   componentWillMount(){
     setTimeout(() => { this.setState({showModal:false})},1500)
 }
 
 
   handleClick(){
-
-    
-
-// var val =  JSON.parse(values)
-// console.log(val.rotacion)
-// if(val.rotacion=="si"){
-
-// return(
-// console.log("jlkjl")
-// )
-// }else if(val.rotacion=="no"){ 
-
-  
-// }
- 
-
 console.log("data" ,this.state.data)
 
   }
@@ -117,7 +113,7 @@ console.log("data" ,this.state.data)
       <Form
         onSubmit={onSubmit}
         
-        validate={validate}
+        validate={this.validate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
            <Alert color="primary">Sección EEO<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
@@ -203,18 +199,10 @@ console.log("data" ,this.state.data)
     
       </div>
       </React.Fragment>
-
-
-
-
-
     );
 
-
-    
   }
 }
-
                   function onSubmit (values) {
                   const vari = JSON.stringify(values,1,2)
 
@@ -222,48 +210,4 @@ console.log("data" ,this.state.data)
                   alert(vari)
 
                   };
-
-
-
-
-                  const validate = values => {
-                    const errors = {};
-                    if (!values.Nombre) {
-                      errors.Nombre = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoP) {
-                      errors.ApellidoP = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoM) {
-                      errors.ApellidoM = 'Este campo es requerido';
-                    }
-                    if (!values.curp) {
-                      errors.curp = 'Este campo es requerido';
-                    }
-                    if (!values.rfc) {
-                      errors.rfc = 'Este campo es requerido';
-                    }
-                    if (!values.Correo) {
-                      errors.Correo = 'Este campo es requerido';
-                    }
-                    if (!values.cp) {
-                      errors.cp = 'Este campo es requerido';
-                    }
-
-                    if (!values.area) {
-                      errors.area = 'Required';
-                    }
-
-                  
-
-                    return errors;
-                  };
-
-
-                  // function App() {
-                  //   return (
-                    
-                  // }
-
-
                   export default Home;

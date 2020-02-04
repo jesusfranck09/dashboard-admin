@@ -36,17 +36,37 @@ class Home extends React.Component {
       collapse: !this.state.collapse,
     });
   }
-
-
+validate = values => {
+    const errors = {};
+    if (!values.pregunta17) {
+      errors.pregunta17 = 'Este campo es requerido';
+    }
+    if (!values.pregunta18) {
+      errors.pregunta18 = 'Este campo es requerido';
+    }
+    if (!values.pregunta19) {
+      errors.pregunta19 = 'Este campo es requerido';
+    }
+    if (!values.pregunta20) {
+      errors.pregunta20 = 'Este campo es requerido';
+    }
+    if (!values.pregunta21) {
+      errors.pregunta21 = 'Este campo es requerido';
+    }
+    if (!values.pregunta22) {
+      errors.pregunta22 = 'Este campo es requerido';
+    }
+    return errors;
+  };
 
   evaluar= (values) => {
 
     if( (values.pregunta17 == "Siempre" || values.pregunta17=="CasiSiempre"|| values.pregunta17=="AlgunasVeces"|| values.pregunta17=="CasiNunca"|| values.pregunta17=="Nunca") 
-    || (values.pregunta18 == "Siempre" || values.pregunta18=="CasiSiempre"|| values.pregunta18=="AlgunasVeces"|| values.pregunta18=="CasiNunca"|| values.pregunta18=="Nunca") 
-    || (values.pregunta19 == "Siempre" || values.pregunta19=="CasiSiempre"|| values.pregunta19=="AlgunasVeces"|| values.pregunta19=="CasiNunca"|| values.pregunta19=="Nunca")
-    || (values.pregunta20 == "Siempre" || values.pregunta20=="CasiSiempre"|| values.pregunta20=="AlgunasVeces"|| values.pregunta20=="CasiNunca"|| values.pregunta20=="Nunca")
-    || (values.pregunta21 == "Siempre" || values.pregunta21=="CasiSiempre"|| values.pregunta21=="AlgunasVeces"|| values.pregunta21=="CasiNunca"|| values.pregunta21=="Nunca")
-    || (values.pregunta22 == "Siempre" || values.pregunta22=="CasiSiempre"|| values.pregunta22=="AlgunasVeces"|| values.pregunta22=="CasiNunca"|| values.pregunta22=="Nunca")
+    && (values.pregunta18 == "Siempre" || values.pregunta18=="CasiSiempre"|| values.pregunta18=="AlgunasVeces"|| values.pregunta18=="CasiNunca"|| values.pregunta18=="Nunca") 
+    && (values.pregunta19 == "Siempre" || values.pregunta19=="CasiSiempre"|| values.pregunta19=="AlgunasVeces"|| values.pregunta19=="CasiNunca"|| values.pregunta19=="Nunca")
+    && (values.pregunta20 == "Siempre" || values.pregunta20=="CasiSiempre"|| values.pregunta20=="AlgunasVeces"|| values.pregunta20=="CasiNunca"|| values.pregunta20=="Nunca")
+    && (values.pregunta21 == "Siempre" || values.pregunta21=="CasiSiempre"|| values.pregunta21=="AlgunasVeces"|| values.pregunta21=="CasiNunca"|| values.pregunta21=="Nunca")
+    && (values.pregunta22 == "Siempre" || values.pregunta22=="CasiSiempre"|| values.pregunta22=="AlgunasVeces"|| values.pregunta22=="CasiNunca"|| values.pregunta22=="Nunca")
 
     ){
 
@@ -81,22 +101,6 @@ class Home extends React.Component {
 
 
   handleClick(){
-
-    
-
-// var val =  JSON.parse(values)
-// console.log(val.rotacion)
-// if(val.rotacion=="si"){
-
-// return(
-// console.log("jlkjl")
-// )
-// }else if(val.rotacion=="no"){ 
-
-  
-// }
- 
-
 console.log("data" ,this.state.data)
 
   }
@@ -119,7 +123,7 @@ console.log("data" ,this.state.data)
       <Form
         onSubmit={onSubmit}
         
-        validate={validate}
+        validate={this.validate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
            <Alert color="primary">Sección EEO<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
@@ -221,18 +225,9 @@ console.log("data" ,this.state.data)
     
       </div>
       </React.Fragment>
-
-
-
-
-
-    );
-
-
-    
+    )
   }
 }
-
                   function onSubmit (values) {
                   const vari = JSON.stringify(values,1,2)
 
@@ -240,48 +235,5 @@ console.log("data" ,this.state.data)
                   alert(vari)
 
                   };
-
-
-
-
-                  const validate = values => {
-                    const errors = {};
-                    if (!values.Nombre) {
-                      errors.Nombre = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoP) {
-                      errors.ApellidoP = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoM) {
-                      errors.ApellidoM = 'Este campo es requerido';
-                    }
-                    if (!values.curp) {
-                      errors.curp = 'Este campo es requerido';
-                    }
-                    if (!values.rfc) {
-                      errors.rfc = 'Este campo es requerido';
-                    }
-                    if (!values.Correo) {
-                      errors.Correo = 'Este campo es requerido';
-                    }
-                    if (!values.cp) {
-                      errors.cp = 'Este campo es requerido';
-                    }
-
-                    if (!values.area) {
-                      errors.area = 'Required';
-                    }
-
-                  
-
-                    return errors;
-                  };
-
-
-                  // function App() {
-                  //   return (
-                    
-                  // }
-
 
                   export default Home;

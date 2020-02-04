@@ -76,9 +76,7 @@ class App extends Component {
           })     
   }
 
-              click(id){
-              console.log("el id es " , id)
-                  
+              click(id){                  
                       const url = 'http://localhost:8000/graphql'
                       axios({
                         url:  url,
@@ -118,6 +116,7 @@ class App extends Component {
                             `
                         }
                             }).then(datos => {   
+                              console.log("los datos son " ,  datos)
                            if(datos.data.data.resultSingleSurvey.length > 0 ){
                             this.setState({resultados :datos.data.data.resultSingleSurvey })                
                             console.log("resultados de la encuesta" , this.state.resultados[1])
@@ -133,7 +132,7 @@ class App extends Component {
 
                           })
                             .catch(err => {
-                              console.log("el error es  ",err)
+                              console.log("el error es  ",err.response)
                             });  
                            
          
@@ -145,6 +144,7 @@ class App extends Component {
     const container = { marginLeft:20}
     let pdfView1;
     let ATS;
+    console.log("los resultados de la encuesta ATS son" , this.state.resultados)
     if(this.state.resultados.length!=0){
       if(this.state.resultados[1].Respuestas=="si"){
         ATS = <Alert className ="mt-4" color ="danger ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>

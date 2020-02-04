@@ -41,8 +41,6 @@ class App extends Component {
       return state;
     })
   }
-
-
   componentWillMount(){  
     var correo  = localStorage.getItem("correo")    
      const url = 'http://localhost:8000/graphql'
@@ -84,200 +82,199 @@ class App extends Component {
            console.log("this.state.resultados" ,  datos.data.data.getUsersTableEmployees)
           })     
   }
-
               click(id){
               console.log("el id es " , id)
-                  
-                      const url = 'http://localhost:8000/graphql'
-                      axios({
-                        url:  url,
-                        method:'post',
-                        data:{
-                        query:`
-                          query{
-                          resultSingleSurveyEEO(data:"${[id]}"){
-                            id 
-                            Respuestas 
-                            fk_preguntasEEO
-                            fk_Empleados
-                            nombre 
-                            ApellidoP 
-                            ApellidoM 
-                            Curp 
-                            RFC 
-                            FechaNacimiento 
-                            Sexo 
-                            CP 
-                            EstadoCivil 
-                            correo 
-                            AreaTrabajo 
-                            Puesto 
-                            Ciudad 
-                            NivelEstudios 
-                            TipoPersonal 
-                            JornadaTrabajo 
-                            TipoContratacion 
-                            TiempoPuesto 
-                            ExperienciaLaboral 
-                            RotacionTurnos 
-                            fk_administrador 
-                            fk_correos 
-                                }
-                              }
-                            `
-                        }
-                            }).then(datos => {               
-                            
-                            if(datos.data.data.resultSingleSurveyEEO.length > 0 ){
-                              this.setState({resultados :datos.data.data.resultSingleSurveyEEO })                
-                              //  console.log("resultados" . this.state.resultados)
-                              this.setState({getPonderacion:[]})
-                            } if(datos.data.data.resultSingleSurveyEEO.length <= 0){
-                             DialogUtility.alert({
-                                animationSettings: { effect: 'Zoom' },           
-                                title: "Su colaborador aun no responde la Encuesta",
-                                // title: 'Aviso!',
-                                position: "fixed"
-                                });
-                            }
-                          })
-                            .catch(err => {
-                              console.log("el error es  ",err)
-                            });  
+      
+          const url = 'http://localhost:8000/graphql'
+          axios({
+            url:  url,
+            method:'post',
+            data:{
+            query:`
+              query{
+              resultSingleSurveyEEO(data:"${[id]}"){
+                id 
+                Respuestas 
+                fk_preguntasEEO
+                fk_Empleados
+                nombre 
+                ApellidoP 
+                ApellidoM 
+                Curp 
+                RFC 
+                FechaNacimiento 
+                Sexo 
+                CP 
+                EstadoCivil 
+                correo 
+                AreaTrabajo 
+                Puesto 
+                Ciudad 
+                NivelEstudios 
+                TipoPersonal 
+                JornadaTrabajo 
+                TipoContratacion 
+                TiempoPuesto 
+                ExperienciaLaboral 
+                RotacionTurnos 
+                fk_administrador 
+                fk_correos 
+                    }
+                  }
+                `
+            }
+                }).then(datos => {               
+                
+                if(datos.data.data.resultSingleSurveyEEO.length > 0 ){
+                  this.setState({resultados :datos.data.data.resultSingleSurveyEEO })                
+                  //  console.log("resultados" . this.state.resultados)
+                  this.setState({getPonderacion:[]})
+                } if(datos.data.data.resultSingleSurveyEEO.length <= 0){
+                  DialogUtility.alert({
+                    animationSettings: { effect: 'Zoom' },           
+                    title: "Su colaborador aun no responde la Encuesta",
+                    // title: 'Aviso!',
+                    position: "fixed"
+                    });
+                }
+              })
+                .catch(err => {
+                  console.log("el error es  ",err)
+                });  
 
-                          }          
-                            getEvaluacion(id){
-                              const url = 'http://localhost:8000/graphql'
-                              axios({
-                                url:  url,
-                                method:'post',
-                                data:{
-                                query:`
-                                  query{
-                                  resultSingleSurveyEEO(data:"${[id]}"){
-                                    id 
-                                    Respuestas 
-                                    fk_preguntasEEO
-                                    fk_Empleados
-                                    nombre 
-                                    ApellidoP 
-                                    ApellidoM 
-                                    Curp 
-                                    RFC 
-                                    FechaNacimiento 
-                                    Sexo 
-                                    CP 
-                                    EstadoCivil 
-                                    correo 
-                                    AreaTrabajo 
-                                    Puesto 
-                                    Ciudad 
-                                    NivelEstudios 
-                                    TipoPersonal 
-                                    JornadaTrabajo 
-                                    TipoContratacion 
-                                    TiempoPuesto 
-                                    ExperienciaLaboral 
-                                    RotacionTurnos 
-                                    fk_administrador 
-                                    fk_correos 
-                                        }
-                                      }
-                                    `
-                                }
-                                    }).then(datos => {   
-                                      if(datos.data.data.resultSingleSurveyEEO.length > 0 ){
-                                      this.setState({resultadosEvaluacion :datos.data.data.resultSingleSurveyEEO })                
-                                      this.setState({resultados:[]}) 
-                                      console.log("el estado en resultadosEvaluacion" , this.state.resultadosEvaluacion)
-                                    } if(datos.data.data.resultSingleSurveyEEO.length <= 0){
-                                     DialogUtility.alert({
-                                        animationSettings: { effect: 'Zoom' },           
-                                        title: "Su colaborador aun no responde la Encuesta",
-                                        // title: 'Aviso!',
-                                        position: "fixed"
-                                        });
-                                    }
-                                  })
-                                    .catch(err => {
-                                      console.log("el error es  ",err)
-                                    });  
-              
-              
-                                    axios({
-                                      url:  url,
-                                      method:'post',
-                                      data:{
-                                      query:`
-                                        query{
-                                        getPonderacionEEO(data:"${[id]}"){
-                                          id
-                                          siempre
-                                          casisiempre
-                                          algunasveces
-                                          casinunca
-                                          nunca
-              
-                                              }
-                                            }
-                                          `
-                                      }
-                                          }).then(datos => { 
-                                            this.setState({getPonderacion: datos.data.data.getPonderacionEEO})
-                                            console.log("ponderaciones",datos.data.data.getPonderacionEEO)
-                                          })
-                                          .catch(err => {
-                                            console.log("el error es  ",err.response)
-                                          });
-                                          
-                                          axios({
-                                            url:  url,
-                                            method:'post',
-                                            data:{
-                                            query:`
-                                              query{
-                                              resultSingleSurveyEEO(data:"${[id]}"){
-                                                id 
-                                                Respuestas 
-                                                fk_preguntasEEO
-                                                fk_Empleados
-                                                nombre 
-                                                ApellidoP 
-                                                ApellidoM 
-                                                Curp 
-                                                RFC 
-                                                FechaNacimiento 
-                                                Sexo 
-                                                CP 
-                                                EstadoCivil 
-                                                correo 
-                                                AreaTrabajo 
-                                                Puesto 
-                                                Ciudad 
-                                                NivelEstudios 
-                                                TipoPersonal 
-                                                JornadaTrabajo 
-                                                TipoContratacion 
-                                                TiempoPuesto 
-                                                ExperienciaLaboral 
-                                                RotacionTurnos 
-                                                fk_administrador 
-                                                fk_correos 
-                                                    }
-                                                  }
-                                                `
-                                            }
-                                                }).then(datos => {                  
-                                                  this.setState({resultadosQuery :datos.data.data.resultSingleSurveyEEO })                
-                                                  console.log("los resultadosQuery",this.state.resultadosQuery )
-                                                })
-                                                .catch(err => {
-                                                  console.log("el error es  ",err)
-                                                });  
-                                }
+              }          
+          getEvaluacion(id){
+            const url = 'http://localhost:8000/graphql'
+            axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+                query{
+                resultSingleSurveyEEO(data:"${[id]}"){
+                  id 
+                  Respuestas 
+                  fk_preguntasEEO
+                  fk_Empleados
+                  nombre 
+                  ApellidoP 
+                  ApellidoM 
+                  Curp 
+                  RFC 
+                  FechaNacimiento 
+                  Sexo 
+                  CP 
+                  EstadoCivil 
+                  correo 
+                  AreaTrabajo 
+                  Puesto 
+                  Ciudad 
+                  NivelEstudios 
+                  TipoPersonal 
+                  JornadaTrabajo 
+                  TipoContratacion 
+                  TiempoPuesto 
+                  ExperienciaLaboral 
+                  RotacionTurnos 
+                  fk_administrador 
+                  fk_correos 
+                      }
+                    }
+                  `
+              }
+                  }).then(datos => {   
+                    if(datos.data.data.resultSingleSurveyEEO.length > 0 ){
+                    this.setState({resultadosEvaluacion :datos.data.data.resultSingleSurveyEEO })                
+                    this.setState({resultados:[]}) 
+                    console.log("el estado en resultadosEvaluacion" , this.state.resultadosEvaluacion)
+                  } if(datos.data.data.resultSingleSurveyEEO.length <= 0){
+                    DialogUtility.alert({
+                      animationSettings: { effect: 'Zoom' },           
+                      title: "Su colaborador aun no responde la Encuesta",
+                      // title: 'Aviso!',
+                      position: "fixed"
+                      });
+                  }
+                })
+                  .catch(err => {
+                    console.log("el error es  ",err)
+                  });  
+  
+
+                axios({
+                  url:  url,
+                  method:'post',
+                  data:{
+                  query:`
+                    query{
+                    getPonderacionEEO(data:"${[id]}"){
+                      id
+                      siempre
+                      casisiempre
+                      algunasveces
+                      casinunca
+                      nunca
+
+                          }
+                        }
+                      `
+                    }
+                  }).then(datos => { 
+                    this.setState({getPonderacion: datos.data.data.getPonderacionEEO})
+                    console.log("ponderaciones",datos.data.data.getPonderacionEEO)
+                  })
+                  .catch(err => {
+                    console.log("el error es  ",err.response)
+                  });
+                              
+            axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+                query{
+                resultSingleSurveyEEO(data:"${[id]}"){
+                  id 
+                  Respuestas 
+                  fk_preguntasEEO
+                  fk_Empleados
+                  nombre 
+                  ApellidoP 
+                  ApellidoM 
+                  Curp 
+                  RFC 
+                  FechaNacimiento 
+                  Sexo 
+                  CP 
+                  EstadoCivil 
+                  correo 
+                  AreaTrabajo 
+                  Puesto 
+                  Ciudad 
+                  NivelEstudios 
+                  TipoPersonal 
+                  JornadaTrabajo 
+                  TipoContratacion 
+                  TiempoPuesto 
+                  ExperienciaLaboral 
+                  RotacionTurnos 
+                  fk_administrador 
+                  fk_correos 
+                      }
+                    }
+                  `
+              }
+                  }).then(datos => {    
+                    console.log("datos recibidos" ,datos.data.data.resultSingleSurveyEEO )              
+                    this.setState({resultadosQuery :datos.data.data.resultSingleSurveyEEO })                
+                    console.log("los resultadosQuery",this.state.resultadosQuery )
+                  })
+                  .catch(err => {
+                    console.log("el error es  ",err)
+                  });  
+                    }
 
   render() {
- 
     const container = { marginLeft:20}
     let pdfView1;
     let pdfView2;
@@ -490,7 +487,6 @@ class App extends Component {
                       <td>Pienso que mis responsabilidades familiares afectan mi trabajo</td>   
                       <td>{this.state.resultados[22].Respuestas}</td> 
                     </tr>
-                  
                   </MDBTableBody>
                   <br/>
                   <MDBTableHead >
@@ -667,7 +663,6 @@ class App extends Component {
                     <br/>
 
                   </MDBTableBody>
-
                   <MDBTableHead>
                     <tr>
                       <th  width="10px"></th>
@@ -859,17 +854,18 @@ class App extends Component {
       </MDBContainer>
     } 
  ///////////////////////////////////////////////////////////////////////////////////7
-
  let ponderacion 
- let valor1,valor2,valor3,valor4,valor5,valor6,valor7, valor8,valor9,valor10;
- let valor11,valor12,valor13,valor14,valor15,valor16,valor17, valor18,valor19,valor20;
- let valor21,valor22,valor23,valor24,valor25,valor26,valor27, valor28,valor29,valor30;
- let valor31,valor32,valor33,valor34,valor35,valor36,valor37, valor38,valor39,valor40;
- let valor41,valor42,valor43,valor44,valor45,valor46,valor47,valor48,valor49,valor50,valor51;
- let valor52,valor53,valor54,valor55,valor56,valor57,valor58,valor59,valor60,valor61;
- let valor62,valor63,valor64,valor65,valor66,valor67,valor68,valor69,valor70,valor71,valor72;
  
- if(this.state.getPonderacion[3]  && this.state.resultadosEvaluacion.length > 0 && this.state.resultadosQuery.length>0){
+let valor1=0,valor2=0,valor3=0,valor4=0,valor5=0,valor6=0,valor7=0, valor8=0,valor9=0,valor10=0;
+let valor11=0,valor12=0,valor13=0,valor14=0,valor15=0,valor16=0,valor17=0, valor18=0,valor19=0,valor20=0;
+let valor21=0,valor22=0,valor23=0,valor24=0,valor25=0,valor26=0,valor27=0, valor28=0,valor29=0,valor30=0;
+let valor31=0,valor32=0,valor33=0,valor34=0,valor35=0,valor36=0,valor37=0, valor38=0,valor39=0,valor40=0;
+let valor41=0,valor42=0,valor43=0,valor44=0,valor45=0,valor46=0,valor47=0,valor48=0,valor49=0,valor50=0,valor51=0;
+let valor52=0,valor53=0,valor54=0,valor55=0,valor56=0,valor57=0,valor58=0,valor59=0,valor60=0,valor61=0;
+let valor62=0,valor63=0,valor64=0,valor65=0,valor66=0,valor67=0,valor68=0,valor69=0,valor70=0,valor71=0,valor72=0;
+
+console.log("esta es la validacion",this.state.getPonderacion,this.state.resultadosEvaluacion.length,this.state.resultadosQuery.length>0)
+ if(this.state.getPonderacion  && this.state.resultadosEvaluacion.length > 0 && this.state.resultadosQuery.length>0){
   let respuesta1;
   let respuesta2;
   let respuesta3;
@@ -995,7 +991,6 @@ class App extends Component {
       respuesta25="Nunca"
       valor5= this.state.getPonderacion[4].nunca
     } 
-  
     let respuesta26;
     let respuesta27;
     let respuesta28;
@@ -1116,7 +1111,6 @@ class App extends Component {
       respuesta50="Nunca"
       valor10= this.state.getPonderacion[9].nunca
     }
-  
     ///////////////////////////////////////////////////////////////////////7
   let respuesta51;
   let respuesta52;
@@ -1146,8 +1140,6 @@ class App extends Component {
     let respuesta58;
     let respuesta59;
     let respuesta60;
-    
-  
     if(this.state.resultadosEvaluacion[12].Respuestas=="Siempre"){
     respuesta56="Siempre"
     valor12= this.state.getPonderacion[11].siempre
@@ -1167,7 +1159,6 @@ class App extends Component {
       respuesta60="Nunca"
       valor12= this.state.getPonderacion[11].nunca
     } 
-  
     let respuesta61;
     let respuesta62;
     let respuesta63;
@@ -1240,7 +1231,6 @@ class App extends Component {
       respuesta75="Nunca"
       valor15= this.state.getPonderacion[14].nunca
     } 
-  
     let respuesta76;
     let respuesta77;
     let respuesta78;
@@ -1388,7 +1378,6 @@ class App extends Component {
     respuesta105="Nunca"
     valor21= this.state.getPonderacion[20].nunca
   } 
-
     let respuesta106;
     let respuesta107;
     let respuesta108;
@@ -2692,14 +2681,13 @@ class App extends Component {
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  
-    
 let categoria1Nulo;
 let categoria1Bajo;
 let categoria1Medio;
 let categoria1Alto;
 let categoria1MuyAlto;
 let categoriaUno = (entero1+entero3+entero2+entero4+entero5);
+console.log("categotia1",entero1,entero3,entero2,entero4,entero5)
 if(categoriaUno < 5){
   categoria1Nulo= <MDBBadge color="info">{categoriaUno}</MDBBadge>
 }else if(categoriaUno >= 5 && categoriaUno < 9){

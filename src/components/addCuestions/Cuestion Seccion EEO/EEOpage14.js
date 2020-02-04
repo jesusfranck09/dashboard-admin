@@ -41,12 +41,30 @@ class Home extends React.Component {
 
 
 
+validate = values => {
+    const errors = {};
+    if (!values.pregunta69) {
+      errors.pregunta69 = 'Este campo es requerido';
+    }
+    if (!values.pregunta70) {
+      errors.pregunta70 = 'Este campo es requerido';
+    }
+    if (!values.pregunta71) {
+      errors.pregunta71 = 'Este campo es requerido';
+    }
+    if (!values.pregunta72) {
+      errors.pregunta72 = 'Este campo es requerido';
+    }
+   
+
+    return errors;
+  };
   evaluar= (values) => {
 
     if( (values.pregunta69 == "Siempre" || values.pregunta69=="CasiSiempre"|| values.pregunta69=="AlgunasVeces"|| values.pregunta69=="CasiNunca"|| values.pregunta69=="Nunca") 
-    || (values.pregunta70 == "Siempre" || values.pregunta70=="CasiSiempre"|| values.pregunta70=="AlgunasVeces"|| values.pregunta70=="CasiNunca"|| values.pregunta70=="Nunca") 
-    || (values.pregunta71 == "Siempre" || values.pregunta71=="CasiSiempre"|| values.pregunta71=="AlgunasVeces"|| values.pregunta71=="CasiNunca"|| values.pregunta71=="Nunca")
-    || (values.pregunta72 == "Siempre" || values.pregunta72=="CasiSiempre"|| values.pregunta72=="AlgunasVeces"|| values.pregunta72=="CasiNunca"|| values.pregunta72=="Nunca")
+    && (values.pregunta70 == "Siempre" || values.pregunta70=="CasiSiempre"|| values.pregunta70=="AlgunasVeces"|| values.pregunta70=="CasiNunca"|| values.pregunta70=="Nunca") 
+    && (values.pregunta71 == "Siempre" || values.pregunta71=="CasiSiempre"|| values.pregunta71=="AlgunasVeces"|| values.pregunta71=="CasiNunca"|| values.pregunta71=="Nunca")
+    && (values.pregunta72 == "Siempre" || values.pregunta72=="CasiSiempre"|| values.pregunta72=="AlgunasVeces"|| values.pregunta72=="CasiNunca"|| values.pregunta72=="Nunca")
 
     ){
 
@@ -92,22 +110,6 @@ class Home extends React.Component {
 
 
   handleClick(){
-
-    
-
-// var val =  JSON.parse(values)
-// console.log(val.rotacion)
-// if(val.rotacion=="si"){
-
-// return(
-// console.log("jlkjl")
-// )
-// }else if(val.rotacion=="no"){ 
-
-  
-// }
- 
-
 console.log("data" ,this.state.data)
 
   }
@@ -130,7 +132,7 @@ console.log("data" ,this.state.data)
       <Form
         onSubmit={onSubmit}
         
-        validate={validate}
+        validate={this.validate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
            <Alert color="primary">Sección EEO<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
@@ -215,47 +217,9 @@ console.log("data" ,this.state.data)
         </MDBContainer>
     
       </div>
-      {/* <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
-                    <div className="row">
-                        <div className="col-md-12" item xs={12}>
-                            <center><br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <img src={Ok} alt="ok" className="img-fluid"/><br/><br/>
-                                
-                                <br/>
-                                <br/>
-                                <br/>
-                                <Alert color="secondary" style={{fontSize: 24}}>Su encuesta ha finalizado, Gracias por su colaboración</Alert>
-                                <br/>
-                                <br/>
-                                <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
-                                <Button 
-                                  variant="contained"
-                                    color="secondary"
-                                    type = "submit"
-                                    onClick={()=>{this.props.history.push('/inicio')}}
-                                  >
-                                    Pantalla de inicio  
-                                  </Button>
-                                  </Grid>
-                            </center>
-                        </div>
-                    </div>
-
-                </Modal> */}
       </React.Fragment>
-
-
-
-
-
     );
 
-
-    
   }
 }
 
@@ -270,38 +234,6 @@ console.log("data" ,this.state.data)
 
 
 
-                  const validate = values => {
-                    const errors = {};
-                    if (!values.Nombre) {
-                      errors.Nombre = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoP) {
-                      errors.ApellidoP = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoM) {
-                      errors.ApellidoM = 'Este campo es requerido';
-                    }
-                    if (!values.curp) {
-                      errors.curp = 'Este campo es requerido';
-                    }
-                    if (!values.rfc) {
-                      errors.rfc = 'Este campo es requerido';
-                    }
-                    if (!values.Correo) {
-                      errors.Correo = 'Este campo es requerido';
-                    }
-                    if (!values.cp) {
-                      errors.cp = 'Este campo es requerido';
-                    }
-
-                    if (!values.area) {
-                      errors.area = 'Required';
-                    }
-
-                  
-
-                    return errors;
-                  };
 
 
                   // function App() {

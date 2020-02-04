@@ -11,7 +11,6 @@ import {MDBIcon} from 'mdbreact'
         $last_name:String!,
         $rfc:String!,
         $razon_social:String!,
-        $user:String!,
         $email:String!,
         $password:String!, 
         ){
@@ -20,7 +19,6 @@ import {MDBIcon} from 'mdbreact'
               last_name: $last_name
                 rfc:$rfc
                 razon_social:$razon_social
-                user:$user
                 email: $email
                 password: $password
               
@@ -121,7 +119,7 @@ handleError = (error) => {
                           <MDBIcon icon="male"/>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input id="first_name" onChange={this.handleInput} type="text"  placeholder="Nombre/Nombres" />
+                        <Input id="first_name" onChange={this.handleInput} type="text"  placeholder="Nombre/Representante" />
                       </InputGroup>
 
 
@@ -151,15 +149,6 @@ handleError = (error) => {
                         </InputGroupAddon>
                         <Input id="razon_social" onChange={this.handleInput} type="text"  placeholder="Razón Social" 
                         />
-                      </InputGroup>
-
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                          <MDBIcon icon="user-circle" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input id="user" onChange={this.handleInput} type="text"  placeholder="Nombre de Usuario" />
                       </InputGroup>
                       
                       <InputGroup className="mb-3">

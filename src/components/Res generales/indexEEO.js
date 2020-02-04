@@ -188,6 +188,7 @@ class App extends React.Component {
           Sexo
           AreaTrabajo
           Puesto
+          CentroTrabajo
             }
           }
           `
@@ -983,10 +984,10 @@ class App extends React.Component {
 
   render() {
 
-    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto"];
+    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo"];
 
     const data = this.state.empleados.map(rows=>{
-      return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoP,rows.Sexo,rows.AreaTrabajo,rows.Puesto])
+      return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoP,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo])
     })
 
     let datosEmpleados;

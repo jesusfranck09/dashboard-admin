@@ -36,19 +36,50 @@ class Home extends React.Component {
       collapse: !this.state.collapse,
     });
   }
+  validate = values => {
+    const errors = {};
+    if (!values.pregunta57) {
+      errors.pregunta57 = 'Este campo es requerido';
+    }
+    if (!values.pregunta58) {
+      errors.pregunta58 = 'Este campo es requerido';
+    }
+    if (!values.pregunta59) {
+      errors.pregunta59 = 'Este campo es requerido';
+    }
+    if (!values.pregunta60) {
+      errors.pregunta60 = 'Este campo es requerido';
+    }
+    if (!values.pregunta61) {
+      errors.pregunta61 = 'Este campo es requerido';
+    }
+    if (!values.pregunta62) {
+      errors.pregunta62 = 'Este campo es requerido';
+    }
+    if (!values.pregunta63) {
+      errors.pregunta63 = 'Este campo es requerido';
+    }
 
+    if (!values.pregunta64) {
+      errors.pregunta64 = 'Required';
+    }
+
+  
+
+    return errors;
+  };
 
 
   evaluar= (values) => {
 
     if( (values.pregunta57 == "Siempre" || values.pregunta57=="CasiSiempre"|| values.pregunta57=="AlgunasVeces"|| values.pregunta57=="CasiNunca"|| values.pregunta57=="Nunca") 
-    || (values.pregunta58 == "Siempre" || values.pregunta58=="CasiSiempre"|| values.pregunta58=="AlgunasVeces"|| values.pregunta58=="CasiNunca"|| values.pregunta58=="Nunca") 
-    || (values.pregunta59 == "Siempre" || values.pregunta59=="CasiSiempre"|| values.pregunta59=="AlgunasVeces"|| values.pregunta59=="CasiNunca"|| values.pregunta59=="Nunca")
-    || (values.pregunta60 == "Siempre" || values.pregunta60=="CasiSiempre"|| values.pregunta60=="AlgunasVeces"|| values.pregunta60=="CasiNunca"|| values.pregunta60=="Nunca")
-    || (values.pregunta61 == "Siempre" || values.pregunta61=="CasiSiempre"|| values.pregunta61=="AlgunasVeces"|| values.pregunta61=="CasiNunca"|| values.pregunta61=="Nunca")
-    || (values.pregunta62 == "Siempre" || values.pregunta62=="CasiSiempre"|| values.pregunta62=="AlgunasVeces"|| values.pregunta62=="CasiNunca"|| values.pregunta62=="Nunca")
-    || (values.pregunta63 == "Siempre" || values.pregunta63=="CasiSiempre"|| values.pregunta63=="AlgunasVeces"|| values.pregunta63=="CasiNunca"|| values.pregunta63=="Nunca")
-    || (values.pregunta64 == "Siempre" || values.pregunta64=="CasiSiempre"|| values.pregunta64=="AlgunasVeces"|| values.pregunta64=="CasiNunca"|| values.pregunta64=="Nunca")
+    &&(values.pregunta58 == "Siempre" || values.pregunta58=="CasiSiempre"|| values.pregunta58=="AlgunasVeces"|| values.pregunta58=="CasiNunca"|| values.pregunta58=="Nunca") 
+    && (values.pregunta59 == "Siempre" || values.pregunta59=="CasiSiempre"|| values.pregunta59=="AlgunasVeces"|| values.pregunta59=="CasiNunca"|| values.pregunta59=="Nunca")
+    && (values.pregunta60 == "Siempre" || values.pregunta60=="CasiSiempre"|| values.pregunta60=="AlgunasVeces"|| values.pregunta60=="CasiNunca"|| values.pregunta60=="Nunca")
+    && (values.pregunta61 == "Siempre" || values.pregunta61=="CasiSiempre"|| values.pregunta61=="AlgunasVeces"|| values.pregunta61=="CasiNunca"|| values.pregunta61=="Nunca")
+    && (values.pregunta62 == "Siempre" || values.pregunta62=="CasiSiempre"|| values.pregunta62=="AlgunasVeces"|| values.pregunta62=="CasiNunca"|| values.pregunta62=="Nunca")
+    && (values.pregunta63 == "Siempre" || values.pregunta63=="CasiSiempre"|| values.pregunta63=="AlgunasVeces"|| values.pregunta63=="CasiNunca"|| values.pregunta63=="Nunca")
+    && (values.pregunta64 == "Siempre" || values.pregunta64=="CasiSiempre"|| values.pregunta64=="AlgunasVeces"|| values.pregunta64=="CasiNunca"|| values.pregunta64=="Nunca")
   
     ){
 
@@ -82,22 +113,6 @@ class Home extends React.Component {
 
 
   handleClick(){
-
-    
-
-// var val =  JSON.parse(values)
-// console.log(val.rotacion)
-// if(val.rotacion=="si"){
-
-// return(
-// console.log("jlkjl")
-// )
-// }else if(val.rotacion=="no"){ 
-
-  
-// }
- 
-
 console.log("data" ,this.state.data)
 
   }
@@ -108,8 +123,6 @@ console.log("data" ,this.state.data)
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
     return (
-
-
       <React.Fragment>
            <MDBContainer>
         <Navbar></Navbar>
@@ -122,7 +135,7 @@ console.log("data" ,this.state.data)
       <Form
         onSubmit={onSubmit}
         
-        validate={validate}
+        validate={this.validate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
            <Alert color="primary">Sección EEO<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
@@ -239,15 +252,7 @@ console.log("data" ,this.state.data)
     
       </div>
       </React.Fragment>
-
-
-
-
-
-    );
-
-
-    
+    );    
   }
 }
 
@@ -258,48 +263,4 @@ console.log("data" ,this.state.data)
                   alert(vari)
 
                   };
-
-
-
-
-                  const validate = values => {
-                    const errors = {};
-                    if (!values.Nombre) {
-                      errors.Nombre = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoP) {
-                      errors.ApellidoP = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoM) {
-                      errors.ApellidoM = 'Este campo es requerido';
-                    }
-                    if (!values.curp) {
-                      errors.curp = 'Este campo es requerido';
-                    }
-                    if (!values.rfc) {
-                      errors.rfc = 'Este campo es requerido';
-                    }
-                    if (!values.Correo) {
-                      errors.Correo = 'Este campo es requerido';
-                    }
-                    if (!values.cp) {
-                      errors.cp = 'Este campo es requerido';
-                    }
-
-                    if (!values.area) {
-                      errors.area = 'Required';
-                    }
-
-                  
-
-                    return errors;
-                  };
-
-
-                  // function App() {
-                  //   return (
-                    
-                  // }
-
-
                   export default Home;

@@ -36,15 +36,31 @@ class Home extends React.Component {
       collapse: !this.state.collapse,
     });
   }
+  validate = values => {
+    const errors = {};
+    if (!values.pregunta13) {
+      errors.pregunta13 = 'Este campo es requerido';
+    }
+    if (!values.pregunta14) {
+      errors.pregunta14 = 'Este campo es requerido';
+    }
+    if (!values.pregunta15) {
+      errors.pregunta15 = 'Este campo es requerido';
+    }
+    if (!values.pregunta16) {
+      errors.pregunta16 = 'Este campo es requerido';
+    }
+        return errors;
+  };
 
 
 
   evaluar= (values) => {
 
     if( (values.pregunta13 == "Siempre" || values.pregunta13=="CasiSiempre"|| values.pregunta13=="AlgunasVeces"|| values.pregunta13=="CasiNunca"|| values.pregunta13=="Nunca") 
-    || (values.pregunta14 == "Siempre" || values.pregunta14=="CasiSiempre"|| values.pregunta14=="AlgunasVeces"|| values.pregunta14=="CasiNunca"|| values.pregunta14=="Nunca") 
-    || (values.pregunta15 == "Siempre" || values.pregunta15=="CasiSiempre"|| values.pregunta15=="AlgunasVeces"|| values.pregunta15=="CasiNunca"|| values.pregunta15=="Nunca")
-    || (values.pregunta16 == "Siempre" || values.pregunta16=="CasiSiempre"|| values.pregunta16=="AlgunasVeces"|| values.pregunta16=="CasiNunca"|| values.pregunta16=="Nunca")
+    && (values.pregunta14 == "Siempre" || values.pregunta14=="CasiSiempre"|| values.pregunta14=="AlgunasVeces"|| values.pregunta14=="CasiNunca"|| values.pregunta14=="Nunca") 
+    && (values.pregunta15 == "Siempre" || values.pregunta15=="CasiSiempre"|| values.pregunta15=="AlgunasVeces"|| values.pregunta15=="CasiNunca"|| values.pregunta15=="Nunca")
+    && (values.pregunta16 == "Siempre" || values.pregunta16=="CasiSiempre"|| values.pregunta16=="AlgunasVeces"|| values.pregunta16=="CasiNunca"|| values.pregunta16=="Nunca")
 
     ){
 
@@ -71,8 +87,6 @@ class Home extends React.Component {
       }
 
   }
-
-
   componentWillMount(){
     setTimeout(() => { this.setState({showModal:false})},1500)
 }
@@ -80,26 +94,8 @@ class Home extends React.Component {
 
   handleClick(){
 
-    
-
-// var val =  JSON.parse(values)
-// console.log(val.rotacion)
-// if(val.rotacion=="si"){
-
-// return(
-// console.log("jlkjl")
-// )
-// }else if(val.rotacion=="no"){ 
-
-  
-// }
- 
-
 console.log("data" ,this.state.data)
-
   }
-
-
   render() {
     // const { children} = this.props;
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
@@ -117,7 +113,7 @@ console.log("data" ,this.state.data)
       <Form
         onSubmit={onSubmit}
         
-        validate={validate}
+        validate={this.validate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
            <Alert color="primary">Sección EEO<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
@@ -203,67 +199,12 @@ console.log("data" ,this.state.data)
     
       </div>
       </React.Fragment>
-
-
-
-
-
     );
-
-
-    
   }
 }
-
                   function onSubmit (values) {
                   const vari = JSON.stringify(values,1,2)
-
-
                   alert(vari)
 
-                  };
-
-
-
-
-                  const validate = values => {
-                    const errors = {};
-                    if (!values.Nombre) {
-                      errors.Nombre = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoP) {
-                      errors.ApellidoP = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoM) {
-                      errors.ApellidoM = 'Este campo es requerido';
-                    }
-                    if (!values.curp) {
-                      errors.curp = 'Este campo es requerido';
-                    }
-                    if (!values.rfc) {
-                      errors.rfc = 'Este campo es requerido';
-                    }
-                    if (!values.Correo) {
-                      errors.Correo = 'Este campo es requerido';
-                    }
-                    if (!values.cp) {
-                      errors.cp = 'Este campo es requerido';
-                    }
-
-                    if (!values.area) {
-                      errors.area = 'Required';
-                    }
-
-                  
-
-                    return errors;
-                  };
-
-
-                  // function App() {
-                  //   return (
-                    
-                  // }
-
-
+                  };             
                   export default Home;

@@ -201,9 +201,6 @@ if(values.stooge=="acepto" && values.correo){
 }
 
   }
-  
-  
-
 
   componentWillMount(){
     setTimeout(() => { this.setState({showModal:false})},1500)
@@ -293,19 +290,11 @@ if(values.stooge=="acepto" && values.correo){
       </div>
       </React.Fragment>
     );
-
-
-    
   }
 }
 
 function onSubmit (values) {
-
-
 };
-
-
-
 
 const validate = values => {
   const errors = {};
@@ -318,13 +307,6 @@ const validate = values => {
 
   return errors;
 };
-
-
-// function App() {
-//   return (
-   
-// }
-
 
 export default Home
 
