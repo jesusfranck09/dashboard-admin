@@ -37,7 +37,50 @@ class Home extends React.Component {
     });
   }
 
+  validate = values => {
+    const errors = {};
+    if (!values.pregunta28) {
+      errors.pregunta28 = 'Este campo es requerido';
+    }
+    if (!values.pregunta29){
+      errors.pregunta29 = 'Este campo es requerido';
+    }
+    if (!values.pregunta30) {
+      errors.pregunta30 = 'Este campo es requerido';
+    }
+    if (!values.pregunta31) {
+      errors.pregunta31 = 'Este campo es requerido';
+    }
+    if (!values.pregunta32) {
+      errors.pregunta32 = 'Este campo es requerido';
+    }
+    if (!values.pregunta33) {
+      errors.pregunta33 = 'Este campo es requerido';
+    }
+    if (!values.pregunta34) {
+      errors.pregunta34 = 'Este campo es requerido';
+    }
 
+    if (!values.pregunta35) {
+      errors.pregunta35= 'Required';
+    }
+    if (!values.pregunta36) {
+      errors.pregunta36 = 'Este campo es requerido';
+    }
+    if (!values.pregunta37) {
+      errors.pregunta37 = 'Este campo es requerido';
+    }
+    if (!values.pregunta38) {
+      errors.pregunta38 = 'Este campo es requerido';
+    }
+    if (!values.pregunta39) {
+      errors.pregunta39 = 'Este campo es requerido';
+    }
+    if (!values.pregunta40) {
+      errors.pregunta40 = 'Este campo es requerido';
+    }
+    return errors;
+  };
 
   evaluar= (values) => {
     console.log("vslues" , values)
@@ -77,36 +120,13 @@ class Home extends React.Component {
               console.log("los datos son ",datos)
               this.props.history.push("./RPValidate7")
             }); 
-
-
-       
       }
-
   }
-
-
   componentWillMount(){
     setTimeout(() => { this.setState({showModal:false})},1500)
 }
 
-
   handleClick(){
-
-    
-
-// var val =  JSON.parse(values)
-// console.log(val.rotacion)
-// if(val.rotacion=="si"){
-
-// return(
-// console.log("jlkjl")
-// )
-// }else if(val.rotacion=="no"){ 
-
-  
-// }
- 
-
 console.log("data" ,this.state.data)
 
   }
@@ -131,7 +151,7 @@ console.log("data" ,this.state.data)
       <Form
         onSubmit={onSubmit}
         
-        validate={validate}
+        validate={this.validate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
            <Alert color="primary">Sección RP<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
@@ -290,15 +310,7 @@ console.log("data" ,this.state.data)
     
       </div>
       </React.Fragment>
-
-
-
-
-
-    );
-
-
-    
+    );  
   }
 }
 
@@ -309,48 +321,4 @@ console.log("data" ,this.state.data)
                   alert(vari)
 
                   };
-
-
-
-
-                  const validate = values => {
-                    const errors = {};
-                    if (!values.Nombre) {
-                      errors.Nombre = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoP) {
-                      errors.ApellidoP = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoM) {
-                      errors.ApellidoM = 'Este campo es requerido';
-                    }
-                    if (!values.curp) {
-                      errors.curp = 'Este campo es requerido';
-                    }
-                    if (!values.rfc) {
-                      errors.rfc = 'Este campo es requerido';
-                    }
-                    if (!values.Correo) {
-                      errors.Correo = 'Este campo es requerido';
-                    }
-                    if (!values.cp) {
-                      errors.cp = 'Este campo es requerido';
-                    }
-
-                    if (!values.area) {
-                      errors.area = 'Required';
-                    }
-
-                  
-
-                    return errors;
-                  };
-
-
-                  // function App() {
-                  //   return (
-                    
-                  // }
-
-
                   export default Home;

@@ -38,6 +38,19 @@ class Home extends React.Component {
   }
 
 
+validate = values => {
+    const errors = {};
+    if (!values.pregunta41) {
+      errors.pregunta41 = 'Este campo es requerido';
+    }
+    if (!values.pregunta42) {
+      errors.pregunta42 = 'Este campo es requerido';
+    }
+    if (!values.pregunta43) {
+      errors.pregunta43 = 'Este campo es requerido';
+    }
+   return errors;
+  };
 
   evaluar= (values) => {
 
@@ -70,31 +83,12 @@ class Home extends React.Component {
       }
 
   }
-
-
   componentWillMount(){
     setTimeout(() => { this.setState({showModal:false})},1500)
 }
 
-
   handleClick(){
-
-    
-
-// var val =  JSON.parse(values)
-// console.log(val.rotacion)
-// if(val.rotacion=="si"){
-
-// return(
-// console.log("jlkjl")
-// )
-// }else if(val.rotacion=="no"){ 
-
-  
-// }
- 
-
-console.log("data" ,this.state.data)
+    console.log("data" ,this.state.data)
 
   }
 
@@ -119,7 +113,7 @@ console.log("data" ,this.state.data)
       <Form
         onSubmit={onSubmit}
         
-        validate={validate}
+        validate={this.alidate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
             
@@ -199,18 +193,9 @@ console.log("data" ,this.state.data)
     
       </div>
       </React.Fragment>
-
-
-
-
-
-    );
-
-
-    
+    );  
   }
 }
-
                   function onSubmit (values) {
                   const vari = JSON.stringify(values,1,2)
 
@@ -218,48 +203,4 @@ console.log("data" ,this.state.data)
                   alert(vari)
 
                   };
-
-
-
-
-                  const validate = values => {
-                    const errors = {};
-                    if (!values.Nombre) {
-                      errors.Nombre = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoP) {
-                      errors.ApellidoP = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoM) {
-                      errors.ApellidoM = 'Este campo es requerido';
-                    }
-                    if (!values.curp) {
-                      errors.curp = 'Este campo es requerido';
-                    }
-                    if (!values.rfc) {
-                      errors.rfc = 'Este campo es requerido';
-                    }
-                    if (!values.Correo) {
-                      errors.Correo = 'Este campo es requerido';
-                    }
-                    if (!values.cp) {
-                      errors.cp = 'Este campo es requerido';
-                    }
-
-                    if (!values.area) {
-                      errors.area = 'Required';
-                    }
-
-                  
-
-                    return errors;
-                  };
-
-
-                  // function App() {
-                  //   return (
-                    
-                  // }
-
-
                   export default Home;

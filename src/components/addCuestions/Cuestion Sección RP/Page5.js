@@ -30,6 +30,26 @@ class Home extends React.Component {
       collapse: !this.state.collapse,
     });
   }
+ validate = values => {
+    const errors = {};
+    if (!values.pregunta23) {
+      errors.pregunta23 = 'Este campo es requerido';
+    }
+    if (!values.pregunta24) {
+      errors.pregunta24 = 'Este campo es requerido';
+    }
+    if (!values.pregunta25) {
+      errors.pregunta25 = 'Este campo es requerido';
+    }
+    if (!values.pregunta26) {
+      errors.pregunta26 = 'Este campo es requerido';
+    }
+    if (!values.pregunta27) {
+      errors.pregunta27 = 'Este campo es requerido';
+    }
+    
+    return errors;
+  };
   evaluar= (values) => {
     if( (values.pregunta23 == "Siempre" || values.pregunta23=="CasiSiempre"|| values.pregunta23=="AlgunasVeces"|| values.pregunta23=="CasiNunca"|| values.pregunta23=="Nunca") 
     || (values.pregunta24 == "Siempre" || values.pregunta24=="CasiSiempre"|| values.pregunta24=="AlgunasVeces"|| values.pregunta24=="CasiNunca"|| values.pregunta24=="Nunca") 
@@ -85,7 +105,7 @@ class Home extends React.Component {
       {/* <CssBaseline /> */}
       <Form
         onSubmit={onSubmit}
-        validate={validate}
+        validate={this.validate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
            <Alert color="primary">Sección RP<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
@@ -176,32 +196,5 @@ class Home extends React.Component {
                   const vari = JSON.stringify(values,1,2)
                   alert(vari)
                   };
-                  const validate = values => {
-                    const errors = {};
-                    if (!values.Nombre) {
-                      errors.Nombre = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoP) {
-                      errors.ApellidoP = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoM) {
-                      errors.ApellidoM = 'Este campo es requerido';
-                    }
-                    if (!values.curp) {
-                      errors.curp = 'Este campo es requerido';
-                    }
-                    if (!values.rfc) {
-                      errors.rfc = 'Este campo es requerido';
-                    }
-                    if (!values.Correo) {
-                      errors.Correo = 'Este campo es requerido';
-                    }
-                    if (!values.cp) {
-                      errors.cp = 'Este campo es requerido';
-                    }
-                    if (!values.area) {
-                      errors.area = 'Required';
-                    }
-                    return errors;
-                  };
+                
                   export default Home;

@@ -23,11 +23,16 @@ class Home extends React.Component {
     super(props);
     this.state = {
      data:'',
- 
-
-    
     };
   }
+ validate = values => {
+    const errors = {};
+    if (!values.rotacion) {
+      errors.rotacion = 'Este campo es requerido';
+    }
+    return errors;
+  };
+  
 
   evaluar= (values) => {
     console.log("los values son" , values)
@@ -107,7 +112,7 @@ console.log("data" ,this.state.data)
       <Form
         onSubmit={onSubmit}
         
-        validate={validate}
+        validate={this.validate}
         render={({ handleSubmit, reset, submitting, pristine,values }) => (
           <form onSubmit={handleSubmit}>
            <Alert color="primary"> Sección RP <br></br> INSTRUCCIONES : Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
@@ -180,138 +185,13 @@ console.log("data" ,this.state.data)
     
       </div>
       </React.Fragment>
-
-
-
-
-
-    );
-
-
-    
+    );    
   }
 }
 
-
-
-
-
-
 function onSubmit (values) {
-  // const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-  // await sleep(300);
 const vari = JSON.stringify(values,1,2)
-
-
 alert(vari)
 
-//  const url = 'http://localhost:8000/graphql'
-//   axios({
-//     url:  url,
-//     method:'post',
-//     data:{
-//     query:`
-//      mutation{
-//       registerSingleEmployee(data:$input){
-//           message
-//             }
-//           }
-//         `
-//     }
-//         }).then((datos) => {
-//           console.log("los datos son ",datos)
-//           alert("exito")
-     
-//           alert(vari)
-     
-        
-
-//           // this.props.history.push("/inicio")
-//         })
-        
-//         .catch((err) => {
-//           alert("error")
-    
-//           alert(vari)
-//           alert(vari.Nombre)
-//           console.log("los datos son ",err.response)
-        
-//         })
-// const url  = 'http://localhost:8000/graphql'
-				
-// 				const query =  `
-// 				mutation {
-// 					registerSingleEmployee(
-// 						data:${vari}
-// 					){
-// 						message
-// 					}
-// 				}
-// 				`;
-// 				axios({
-// 				url:  url,
-// 				method: 'post',
-// 				data: {
-// 					query,
-// 					variables: {
-// 						data: `${vari}`
-// 					}
-// 				}
-// 					}).then((result) => {
-//             alert("exito")
-     
-//            alert(vari[0].Nombre)
-// 					})
-// 					 .catch((error) => {
-//             alert("error")
-//             alert(query)
-
-// 					 console.log(".cartch" , error.response)
-// 				});
-
-};
-
-
-
-
-const validate = values => {
-  const errors = {};
-  if (!values.Nombre) {
-    errors.Nombre = 'Este campo es requerido';
-  }
-  if (!values.ApellidoP) {
-    errors.ApellidoP = 'Este campo es requerido';
-  }
-  if (!values.ApellidoM) {
-    errors.ApellidoM = 'Este campo es requerido';
-  }
-  if (!values.curp) {
-    errors.curp = 'Este campo es requerido';
-  }
-  if (!values.rfc) {
-    errors.rfc = 'Este campo es requerido';
-  }
-  if (!values.Correo) {
-    errors.Correo = 'Este campo es requerido';
-  }
-  if (!values.cp) {
-    errors.cp = 'Este campo es requerido';
-  }
-
-  if (!values.area) {
-    errors.area = 'Required';
-  }
-
- 
-
-  return errors;
-};
-
-
-// function App() {
-//   return (
-   
-// }
-
-
+}
 export default Home;

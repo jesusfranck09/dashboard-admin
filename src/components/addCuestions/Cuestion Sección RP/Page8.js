@@ -39,9 +39,20 @@ class Home extends React.Component {
       collapse: !this.state.collapse,
     });
   }
-
-
-
+validate = values => {
+    const errors = {};
+    if (!values.pregunta44) {
+      errors.pregunta44 = 'Este campo es requerido';
+    }
+    if (!values.pregunta45) {
+      errors.pregunta45 = 'Este campo es requerido';
+    }
+    if (!values.pregunta46) {
+      errors.pregunta46 = 'Este campo es requerido';
+    }
+    
+    return errors;
+  };
   evaluar= (values) => {
 
     if( (values.pregunta44 == "Siempre" || values.pregunta44=="CasiSiempre"|| values.pregunta44=="AlgunasVeces"|| values.pregunta44=="CasiNunca"|| values.pregunta44=="Nunca") 
@@ -89,13 +100,10 @@ class Home extends React.Component {
   componentWillMount(){
     setTimeout(() => { this.setState({showModal:false})},1500)
 }
-
-
   handleClick(){
 console.log("data" ,this.state.data)
 
   }
-
 
   render() {
     // const { children} = this.props;
@@ -116,7 +124,7 @@ console.log("data" ,this.state.data)
       <Form
         onSubmit={onSubmit}
         
-        validate={validate}
+        validate={this.validate}
         render={({ handleSubmit,values }) => (
           <form onSubmit={handleSubmit}>
            <Alert color="primary">Sección RP<br></br>  INSTRUCCIONES: Para responder las preguntas siguientes considere las condiciones ambientales de su centro de trabajo.</Alert>
@@ -191,53 +199,11 @@ console.log("data" ,this.state.data)
       />
     </div>
         </MDBContainer>
-    
       </div>
-
-      {/* <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
-                    <div className="row">
-                        <div className="col-md-12" item xs={12}>
-                            <center><br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <img src={Ok} alt="ok" className="img-fluid"/><br/><br/>
-                                
-                                <br/>
-                                <br/>
-                                <br/>
-                                <Alert color="secondary" style={{fontSize: 24}}>Su encuesta ha finalizado, Gracias por su colaboración</Alert>
-                                <br/>
-                                <br/>
-                                <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
-                                <Button 
-                                  variant="contained"
-                                    color="secondary"
-                                    type = "submit"
-                                    onClick={()=>{this.props.history.push('/inicio')}}
-                                  >
-                                    Pantalla de inicio  
-                                  </Button>
-                                  </Grid>
-                            </center>
-                        </div>
-                    </div>
-
-                </Modal> */}
       </React.Fragment>
-
-
-
-
-
-    );
-
-
-    
+    ); 
   }
 }
-
                   function onSubmit (values) {
                   const vari = JSON.stringify(values,1,2)
 
@@ -245,48 +211,4 @@ console.log("data" ,this.state.data)
                   alert(vari)
 
                   };
-
-
-
-
-                  const validate = values => {
-                    const errors = {};
-                    if (!values.Nombre) {
-                      errors.Nombre = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoP) {
-                      errors.ApellidoP = 'Este campo es requerido';
-                    }
-                    if (!values.ApellidoM) {
-                      errors.ApellidoM = 'Este campo es requerido';
-                    }
-                    if (!values.curp) {
-                      errors.curp = 'Este campo es requerido';
-                    }
-                    if (!values.rfc) {
-                      errors.rfc = 'Este campo es requerido';
-                    }
-                    if (!values.Correo) {
-                      errors.Correo = 'Este campo es requerido';
-                    }
-                    if (!values.cp) {
-                      errors.cp = 'Este campo es requerido';
-                    }
-
-                    if (!values.area) {
-                      errors.area = 'Required';
-                    }
-
-                  
-
-                    return errors;
-                  };
-
-
-                  // function App() {
-                  //   return (
-                    
-                  // }
-
-
                   export default Home;
