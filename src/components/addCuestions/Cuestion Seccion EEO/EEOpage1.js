@@ -83,8 +83,8 @@ class Home extends React.Component {
         }
             }).then((datos) => {
               console.log("los datos son ",datos)
+              this.props.history.push("./EEOpage2")
             }); 
-        this.props.history.push("./EEOpage2")
       }
 
   }
@@ -217,9 +217,6 @@ console.log("data" ,this.state.data)
 
                   function onSubmit (values) {
                   const vari = JSON.stringify(values,1,2)
-
-
-                  alert(vari)
 
                   };
 

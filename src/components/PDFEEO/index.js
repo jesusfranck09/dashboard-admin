@@ -200,7 +200,6 @@ class App extends Component {
                     console.log("el error es  ",err)
                   });  
   
-
                 axios({
                   url:  url,
                   method:'post',
@@ -214,7 +213,6 @@ class App extends Component {
                       algunasveces
                       casinunca
                       nunca
-
                           }
                         }
                       `
@@ -864,14 +862,15 @@ let valor41=0,valor42=0,valor43=0,valor44=0,valor45=0,valor46=0,valor47=0,valor4
 let valor52=0,valor53=0,valor54=0,valor55=0,valor56=0,valor57=0,valor58=0,valor59=0,valor60=0,valor61=0;
 let valor62=0,valor63=0,valor64=0,valor65=0,valor66=0,valor67=0,valor68=0,valor69=0,valor70=0,valor71=0,valor72=0;
 
-console.log("esta es la validacion",this.state.getPonderacion,this.state.resultadosEvaluacion.length,this.state.resultadosQuery.length>0)
- if(this.state.getPonderacion  && this.state.resultadosEvaluacion.length > 0 && this.state.resultadosQuery.length>0){
+// console.log("esta es la validacion",this.state.getPonderacion,this.state.resultadosEvaluacion.length,this.state.resultadosQuery.length>0)
+ if(this.state.getPonderacion[3]  && this.state.resultadosEvaluacion.length > 0 && this.state.resultadosQuery.length>0){
   let respuesta1;
   let respuesta2;
   let respuesta3;
   let respuesta4;
   let respuesta5;
   
+  console.log("la ponderacion es " ,this.state.getPonderacion)
   if(this.state.resultadosEvaluacion[1].Respuestas=="Siempre"){
   respuesta1="Siempre"
   valor1= this.state.getPonderacion[0].siempre

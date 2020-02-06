@@ -59,11 +59,10 @@ class Home extends React.Component {
   evaluar= (values) => {
 
     if( (values.pregunta18 == "Siempre" || values.pregunta18=="CasiSiempre"|| values.pregunta18=="AlgunasVeces"|| values.pregunta18=="CasiNunca"|| values.pregunta18=="Nunca") 
-    ||(values.pregunta19 == "Siempre" || values.pregunta19=="CasiSiempre"|| values.pregunta19=="AlgunasVeces"|| values.pregunta19=="CasiNunca"|| values.pregunta19=="Nunca") 
-    || (values.pregunta20 == "Siempre" || values.pregunta20=="CasiSiempre"|| values.pregunta20=="AlgunasVeces"|| values.pregunta20=="CasiNunca"|| values.pregunta20=="Nunca")
-    || (values.pregunta21 == "Siempre" || values.pregunta21=="CasiSiempre"|| values.pregunta21=="AlgunasVeces"|| values.pregunta21=="CasiNunca"|| values.pregunta21=="Nunca")
-    || (values.pregunta22 == "Siempre" || values.pregunta22=="CasiSiempre"|| values.pregunta22=="AlgunasVeces"|| values.pregunta22=="CasiNunca"|| values.pregunta22=="Nunca")
-
+    &&(values.pregunta19 == "Siempre" || values.pregunta19=="CasiSiempre"|| values.pregunta19=="AlgunasVeces"|| values.pregunta19=="CasiNunca"|| values.pregunta19=="Nunca") 
+    && (values.pregunta20 == "Siempre" || values.pregunta20=="CasiSiempre"|| values.pregunta20=="AlgunasVeces"|| values.pregunta20=="CasiNunca"|| values.pregunta20=="Nunca")
+    && (values.pregunta21 == "Siempre" || values.pregunta21=="CasiSiempre"|| values.pregunta21=="AlgunasVeces"|| values.pregunta21=="CasiNunca"|| values.pregunta21=="Nunca")
+    && (values.pregunta22 == "Siempre" || values.pregunta22=="CasiSiempre"|| values.pregunta22=="AlgunasVeces"|| values.pregunta22=="CasiNunca"|| values.pregunta22=="Nunca")
     ){
 
       const correo = localStorage.getItem('correoRP')
@@ -217,7 +216,6 @@ console.log("data" ,this.state.data)
 
                   function onSubmit (values) {
                   const vari = JSON.stringify(values,1,2)
-                  alert(vari)
                   };
 
                   export default Home;

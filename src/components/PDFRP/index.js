@@ -232,11 +232,11 @@ class App extends Component {
               data:{
               query:`
                 query{
-                resultSingleSurveyEEO(data:"${[id]}"){
+                resultSingleSurveyRP(data:"${[id]}"){
                   id 
                   Respuestas 
-                  fk_preguntasEEO
-                  fk_Empleados
+                  fk_preguntasRP
+                  fk_EmpleadosRP
                   nombre 
                   ApellidoP 
                   ApellidoM 
@@ -264,7 +264,7 @@ class App extends Component {
                   `
               }
                   }).then(datos => {                  
-                    this.setState({resultadosQuery :datos.data.data.resultSingleSurveyEEO })                
+                    this.setState({resultadosQuery :datos.data.data.resultSingleSurveyRP })                
                     console.log("los resultadosQuery",this.state.resultadosQuery )
                   })
                   .catch(err => {

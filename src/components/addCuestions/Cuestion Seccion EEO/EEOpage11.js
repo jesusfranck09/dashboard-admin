@@ -74,6 +74,7 @@ class Home extends React.Component {
 
   evaluar= (values) => {
 
+    console.log("los values son " , values)
     if( (values.pregunta47 == "Siempre" || values.pregunta47=="CasiSiempre"|| values.pregunta47=="AlgunasVeces"|| values.pregunta47=="CasiNunca"|| values.pregunta47=="Nunca") 
     && (values.pregunta48 == "Siempre" || values.pregunta48=="CasiSiempre"|| values.pregunta48=="AlgunasVeces"|| values.pregunta48=="CasiNunca"|| values.pregunta48=="Nunca") 
     && (values.pregunta49 == "Siempre" || values.pregunta49=="CasiSiempre"|| values.pregunta49=="AlgunasVeces"|| values.pregunta49=="CasiNunca"|| values.pregunta49=="Nunca")
@@ -87,6 +88,7 @@ class Home extends React.Component {
 
     ){
 
+      console.log("entro")
       const correo   = localStorage.getItem("correoEEO")
     
       const url = 'http://localhost:8000/graphql'
@@ -104,9 +106,9 @@ class Home extends React.Component {
         }
             }).then((datos) => {
               console.log("los datos son ",datos)
+              this.props.history.push("./EEOpage12")
             }); 
 
-        this.props.history.push("./EEOpage12")
       }
 
   }
@@ -280,9 +282,5 @@ console.log("data" ,this.state.data)
 }
                   function onSubmit (values) {
                   const vari = JSON.stringify(values,1,2)
-
-
-                  alert(vari)
-
                   };
                   export default Home;

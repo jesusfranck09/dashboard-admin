@@ -273,10 +273,6 @@ console.log("data" ,this.state.data)
 
                   function onSubmit (values) {
                   const vari = JSON.stringify(values,1,2)
-
-
-                  alert(vari)
-
                   };
 
                   export default Home;

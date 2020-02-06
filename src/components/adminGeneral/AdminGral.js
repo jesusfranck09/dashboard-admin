@@ -48,7 +48,9 @@ class AdminGral extends React.Component {
         updateRows:[],
         updateRowsSucursales:[],
         updateRowsDeptos:[],
-        updateRowsPuestos:[]
+        updateRowsPuestos:[],
+        periodo:[],
+        periodoDesactivado:[],
       };
       this.getEmployees = this.getEmployees.bind(this);
 
@@ -57,6 +59,51 @@ class AdminGral extends React.Component {
   
     componentWillMount(){
         this.getEmployees()
+        const idAdmin = localStorage.getItem("idAdmin")
+        const url = 'http://localhost:8000/graphql'
+        axios({
+          url:  url,
+          method:'post',
+          data:{
+          query:`
+           query{
+            getPeriodo(data:"${[idAdmin]}"){
+              idEventos
+              fk_administrador
+              evento
+                  }
+                }
+              `
+          }
+        })
+        .then(datos => {	
+          console.log("exito",datos)
+          this.setState({periodo:datos.data.data.getPeriodo})
+        }).catch(err=>{
+          console.log("error",err.response)
+        })
+
+        axios({
+          url:  url,
+          method:'post',
+          data:{
+          query:`
+           query{
+            getPeriodoDesabilited(data:"${[idAdmin]}"){
+              idEventos
+              fk_administrador
+              evento
+                  }
+                }
+              `
+          }
+        })
+        .then(datos => {	
+          console.log("exito",datos)
+          this.setState({periodoDesactivado:datos.data.data.getPeriodoDesabilited})
+        }).catch(err=>{
+          console.log("error",err.response)
+        })
     }
     onClick() {
       this.setState({
@@ -738,7 +785,166 @@ class AdminGral extends React.Component {
                    
                 } 
               }
-          
+          NuevoPeriodo(values){
+            if(values.periodoNuevo){
+            // if(values) 
+            const idAdmin=localStorage.getItem("idAdmin")
+            const url = 'http://localhost:8000/graphql'
+
+            axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+               query{
+                getEventos(data:"${[idAdmin]}"){
+                    message
+                      }
+                    }
+                  `
+              }
+            })
+            .then(datos => {
+              console.log("datos",datos)	
+              if(datos.data.data.getEventos.message=="evento encontrado"){
+                DialogUtility.alert({
+                  animationSettings: { effect: 'Fade' },        
+                  title:"AVISO!",   
+                  content: 'Hay un evento Activo por favor deshabilitelo y vuelva a intentar',
+                  position: "fixed",
+                }
+                )
+              }else if(datos.data.data.getEventos.message=="exito"){
+                
+            axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+               mutation{
+                addPeriodo(data:"${[values.periodoNuevo,idAdmin]}"){
+                    message
+                      }
+                    }
+                  `
+              }
+            })
+            .then(datos => {	
+              console.log("exito",datos)
+              DialogUtility.alert({
+                animationSettings: { effect: 'Fade' },        
+                title:"AVISO!",   
+                content: 'Periodo Registrado con Éxito',
+                position: "fixed",
+              }
+              )
+              window.location.reload();
+            })
+              }
+            }).catch(err=>{
+              console.log("error en la consulta del evento" , err.response)})
+
+            }
+          }
+
+          DesactivarPeriodo(values){
+            const idAdmin=localStorage.getItem("idAdmin")
+            const url = 'http://localhost:8000/graphql'
+            axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+               mutation{
+                deletePeriodo(data:"${[values.deshabilitar,idAdmin]}"){
+                    message
+                      }
+                    }
+                  `
+              }
+            })
+            .then(datos => {	
+              console.log("exito",datos)
+              DialogUtility.alert({
+                animationSettings: { effect: 'Fade' },        
+                title:"AVISO!",   
+                content: 'Periodo Deshabilitado con Éxito',
+                position: "fixed",
+              
+              }
+              )
+
+              window.location.reload();
+            })
+           
+          }
+
+          HabilitarPeriodo(values){
+            if(values.habilitar){
+            const idAdmin=localStorage.getItem("idAdmin")
+            const url = 'http://localhost:8000/graphql'
+            axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+               query{
+                getEventos(data:"${[idAdmin]}"){
+                    message
+                      }
+                    }
+                  `
+              }
+            }) .then(datos => {
+              console.log("datos",datos)	
+              if(datos.data.data.getEventos.message=="evento encontrado"){
+                DialogUtility.alert({
+                  animationSettings: { effect: 'Fade' },        
+                  title:"AVISO!",   
+                  content: 'Hay un evento Activo por favor deshabilitelo y vuelva a intentar',
+                  position: "fixed",
+                }
+                )
+              }else if(datos.data.data.getEventos.message=="exito"){
+                axios({
+                  url:  url,
+                  method:'post',
+                  data:{
+                  query:`
+                   mutation{
+                    updatePeriodo(data:"${[values.habilitar,idAdmin]}"){
+                        message
+                          }
+                        }
+                      `
+                  }
+                })
+                .then(datos => {	
+                 
+                  DialogUtility.alert({
+                    animationSettings: { effect: 'Fade' },        
+                    title:"AVISO!",   
+                    content: 'Periodo Habilitado con Éxito',
+                    position: "fixed",
+                  
+                  }
+                  )
+    
+                  window.location.reload();
+                })
+              }
+            })
+          }else{
+            DialogUtility.alert({
+              animationSettings: { effect: 'Fade' },        
+              title:"AVISO!",   
+              content: 'Por favor seleccione una opción',
+              position: "fixed",
+            
+            }
+            )
+          }
+          }
 
     render() {
 
@@ -1359,7 +1565,7 @@ class AdminGral extends React.Component {
    
       // const { children} = this.props;
       const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
-      const container = { width: 2500, height: 1300 }
+      const container = { width:1000, height: 800 }
       return (
         <React.Fragment>
         <div>
@@ -1387,52 +1593,163 @@ class AdminGral extends React.Component {
                 </MDBCollapse>
               </MDBNavbar>
               </header>
-                <MDBContainer style={container} >
-                    <MDBRow style={{ marginTop:60}}>
-
-                    <MDBCol>
-                    <Alert  color="primary">Nota : Puede editar y/o eliminar los campos si así lo desea</Alert>    
-
+                <MDBContainer style={{marginTop:60}} >
+              <Alert  color="primary">Nota : Puede editar y/o eliminar los campos si así lo desea</Alert>    
+              <Paper style={{ width: "40rem" }}>
+              <MDBCard style={{ width: "40rem" }} >
+                  <MDBCardBody>
+                  <MDBCardTitle>Periodo de Evaluación</MDBCardTitle>
+                      <div style={{ padding: 10, margin: 'auto', maxWidth: 300 }}>      
+                      <Form
+                    onSubmit={this.onSubmit}
+                    render={({ handleSubmit, submitting,values }) => (
+                      <form onSubmit={handleSubmit}>
+                        <Paper style={{ padding: 10} }>
+                          <Grid container alignItems="flex-start" spacing={2} >
+                            <Grid item xs={6}>
+                              <Field
+                                fullWidth
+                                required
+                                name="periodoNuevo"
+                                component={TextField}
+                                type="text"
+                               label="Nuevo Periodo"
+                              />
+                            </Grid>
+                            <Grid item >
+                              <Button
+                                variant="outlined"
+                                color="primary"
+                                type="submit"
+                                disabled={submitting}
+                                onClick={(e) =>this.NuevoPeriodo(values)}
+                              >
+                                Aceptar
+                              </Button>
+                            </Grid>
+                          </Grid>
+                        </Paper>
+                      </form>
+                          )}
+                        />  
+                   </div>     
+                  <div style={{ padding: 10, margin: 'auto', maxWidth: 600 }}>
+                
+                  <MDBRow> 
+                  <MDBCol>   
+                  <Form
+                    onSubmit={this.onSubmit}
+                    render={({ handleSubmit, submitting,values }) => (
+                      <form onSubmit={handleSubmit}>
+                        <Paper style={{ padding: 10} }>
+                          <Grid container alignItems="flex-start" spacing={2} >
+                           <Grid item xs={6}>
+                        <Field
+                        fullWidth
+                        name="deshabilitar"
+                        component={Select}
+                       label="Deshabilitar"
+                        formControlProps={{ fullWidth: true }}
+                        >
+                      {this.state.periodo.map(row=>{
+                          return(<MenuItem value={row.evento}>{row.evento}</MenuItem>)
+                        })}
+                        </Field>
+                        </Grid>
+                            <Grid item >
+                              <Button
+                                variant="outlined"
+                                color="primary"
+                                type="submit"
+                                disabled={submitting}
+                                  onClick={(e) =>this.DesactivarPeriodo(values)}
+                              >
+                                Aceptar
+                              </Button>
+                            </Grid>     
+                          </Grid>
+                        </Paper>
+                      </form>
+                          )}
+                        />  </MDBCol>  
+                        <MDBCol>
+                                <Form
+                    onSubmit={this.onSubmit}
+                    render={({ handleSubmit, submitting,values }) => (
+                      <form onSubmit={handleSubmit}>
+                        <Paper style={{ padding: 10} }>
+                          <Grid container alignItems="flex-start" spacing={2} >
+                           <Grid item xs={6}>
+                        <Field
+                        fullWidth
+                        name="habilitar"
+                        component={Select}
+                        label="Habilitar"
+                        formControlProps={{ fullWidth: true }}
+                        >
+                         {this.state.periodoDesactivado.map(row=>{
+                          return(<MenuItem value={row.evento}>{row.evento}</MenuItem>)
+                        })}
+                        </Field>
+                        </Grid>
+                            <Grid item >
+                              <Button
+                                variant="outlined"
+                                color="primary"
+                                type="submit"
+                                disabled={submitting}
+                                 onClick={(e) =>this.HabilitarPeriodo(values)}
+                              >
+                                Aceptar
+                              </Button>
+                            </Grid>
+                          </Grid>
+                        </Paper>
+                      </form>
+                          )}
+                        />  
+                        </MDBCol>  
+                        </MDBRow>   
+                          </div>
+                  </MDBCardBody>                     
+                  </MDBCard>
+                  </Paper>
+               
                     <Paper >
-
-                    <MDBCard  >
-                        <MDBCardBody>
-                        <MDBCardTitle>Empleados totales</MDBCardTitle>
-                                <Table bordered>
-                                  <TableBody>
-                                    {this.state.datos.map((rows,i )=> {
-                                      return (
-                                        <TableRow >
-                                          <TableCell component="th" scope="row">
-                                            {rows.id}
-                                          </TableCell>
-                                          <TableCell >{rows.nombre}</TableCell>
-                                          <TableCell  >{rows.ApellidoP}</TableCell>
-                                          <TableCell  >{rows.ApellidoM}</TableCell>
-                                          <TableCell  >{rows.Curp}</TableCell>
-                                          <TableCell  >{rows.Ciudad}</TableCell>
-                                          <TableCell  >{rows.Sexo}</TableCell>
-                                          <TableCell  >{rows.rfc} </TableCell>
-                                          <TableCell  >
-                                          <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } >
-                                              <DeleteIcon />
-                                            </IconButton></TableCell>
-                                            <TableCell>
-                                            <IconButton onClick={this.toggle(13,rows)}>
-                                              <CreateOutlinedIcon />
-                                            </IconButton>
-                                            </TableCell>
-                                        </TableRow> 
-                                      );
-                                    })}
-                                  </TableBody>
-                          </Table>
-                        </MDBCardBody>
-                    </MDBCard>
-                    </Paper>
-  
-                    </MDBCol>
-                    <MDBCol>
+                   <MDBCard>
+                    <MDBCardBody> 
+                    <MDBCardTitle>Empleados totales</MDBCardTitle>
+                            <Table bordered>
+                              <TableBody>
+                                {this.state.datos.map((rows,i )=> {
+                                  return (
+                                    <TableRow >
+                                      <TableCell component="th" scope="row">
+                                        {rows.id}
+                                      </TableCell>
+                                      <TableCell >{rows.nombre}</TableCell>
+                                      <TableCell  >{rows.ApellidoP}</TableCell>
+                                      <TableCell  >{rows.ApellidoM}</TableCell>
+                                      <TableCell  >{rows.Sexo}</TableCell>
+                                      <TableCell  >{rows.rfc} </TableCell>
+                                      <TableCell  >{rows.ciudad} </TableCell>
+                                      <TableCell  >
+                                      <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } >
+                                          <DeleteIcon />
+                                        </IconButton></TableCell>
+                                        <TableCell>
+                                        <IconButton onClick={this.toggle(13,rows)}>
+                                          <CreateOutlinedIcon />
+                                        </IconButton>
+                                        </TableCell>
+                                    </TableRow> 
+                                  );
+                                })}
+                              </TableBody>
+                            </Table>
+                          </MDBCardBody>
+                      </MDBCard>
+                      </Paper>
                     <Paper >
                     <MDBCard >
                         <MDBCardBody>
@@ -1451,12 +1768,8 @@ class AdminGral extends React.Component {
                                    <TableCell >{rows.nombreSucursal}</TableCell>
                                    <TableCell  >{rows.calle}</TableCell>
                                    <TableCell  >{rows.colonia}</TableCell>
-                                   <TableCell  >{rows.numExt}</TableCell>
-                                   <TableCell  >{rows.CP}</TableCell>
                                    <TableCell  >{rows.Ciudad} </TableCell>
-                                   <TableCell  >{rows.Estado}</TableCell>
                                    <TableCell  >{rows.rfc} </TableCell>
-                                   <TableCell  >{rows.correo} </TableCell>
                                    <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a esta Sucursal ?.Los datos se perderán')) this.deleteSucursales(i,rows.id)} } >
                                    <DeleteIcon /></IconButton></TableCell>
                                    <TableCell  > <IconButton onClick={this.toggleSucursales(14,rows)} >
@@ -1467,9 +1780,11 @@ class AdminGral extends React.Component {
                            </TableBody>
                    </Table>
                     </MDBCard>
-                    </Paper>
+                    </Paper> 
+                    
+                   
                     <MDBRow>
-                      <MDBCol>
+                     <MDBCol>
                     <Paper style={{ width: "22rem" }}>
                     <MDBCard style={{ width: "22rem" }}>
                         <MDBCardBody>
@@ -1496,7 +1811,7 @@ class AdminGral extends React.Component {
                         </MDBCardBody>       
                     </MDBCard>
                     </Paper>
-                    </MDBCol>
+                    </MDBCol> 
                     <MDBCol>
                     <Paper style={{ width: "22rem" }}>
                     <MDBCard style={{ width: "22rem" }} >
@@ -1525,14 +1840,11 @@ class AdminGral extends React.Component {
                     </Paper>
                     </MDBCol>
                     </MDBRow>
-                    </MDBCol>
-                    <MDBCol>
+                    
                       {modal}
                       {modalSucursales}
                       {modalDeptos}
                       {modalPuestos}
-                    </MDBCol>
-                    </MDBRow>  
                  </MDBContainer>
         </div>
         </React.Fragment>

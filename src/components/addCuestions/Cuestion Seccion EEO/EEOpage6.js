@@ -87,9 +87,8 @@ validate = values => {
         }
             }).then((datos) => {
               console.log("los datos son ",datos)
+            this.props.history.push("./EEOpage7")
             }); 
-
-        this.props.history.push("./EEOpage7")
       }
 
   }
@@ -239,10 +238,6 @@ console.log("data" ,this.state.data)
 
                   function onSubmit (values) {
                   const vari = JSON.stringify(values,1,2)
-
-
-                  alert(vari)
-
                   };
 
 

@@ -761,7 +761,7 @@ toggle = (nr) => () => {
 
    if(this.state.modal11){
   
-    if(this.state.empleadosEEOFalse[0]){
+    if(this.state.empleadosEEO[0]){
 
       modalEEO  =  <MDBContainer >
       <MDBModal isOpen={this.state.modal11} toggle={this.toggle(11)} size="lg">
@@ -962,8 +962,8 @@ toggle = (nr) => () => {
         {modalFalse}
         {modalRP}
         {modalRPFalse}
-        {modalEEO}
         {modalEEOFalse}
+        {modalEEO}
         {empleadoATSDetectado}
         {Alerta}
         {dep}

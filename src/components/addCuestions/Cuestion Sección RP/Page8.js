@@ -56,8 +56,8 @@ validate = values => {
   evaluar= (values) => {
 
     if( (values.pregunta44 == "Siempre" || values.pregunta44=="CasiSiempre"|| values.pregunta44=="AlgunasVeces"|| values.pregunta44=="CasiNunca"|| values.pregunta44=="Nunca") 
-    || (values.pregunta45 == "Siempre" || values.pregunta45=="CasiSiempre"|| values.pregunta45=="AlgunasVeces"|| values.pregunta45=="CasiNunca"|| values.pregunta45=="Nunca") 
-    || (values.pregunta46 == "Siempre" || values.pregunta46=="CasiSiempre"|| values.pregunta46=="AlgunasVeces"|| values.pregunta46=="CasiNunca"|| values.pregunta46=="Nunca")
+    && (values.pregunta45 == "Siempre" || values.pregunta45=="CasiSiempre"|| values.pregunta45=="AlgunasVeces"|| values.pregunta45=="CasiNunca"|| values.pregunta45=="Nunca") 
+    && (values.pregunta46 == "Siempre" || values.pregunta46=="CasiSiempre"|| values.pregunta46=="AlgunasVeces"|| values.pregunta46=="CasiNunca"|| values.pregunta46=="Nunca")
    
     ){
 
@@ -206,9 +206,5 @@ console.log("data" ,this.state.data)
 }
                   function onSubmit (values) {
                   const vari = JSON.stringify(values,1,2)
-
-
-                  alert(vari)
-
                   };
                   export default Home;

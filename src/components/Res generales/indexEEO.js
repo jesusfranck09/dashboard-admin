@@ -24237,8 +24237,6 @@ ponderacion=<React.Fragment>
       </div>
      
       </div>
-
-     
       </React.Fragment>
       
     )
@@ -24246,3 +24244,21 @@ ponderacion=<React.Fragment>
 }
 
 export default App
+
+// const state.empleados = []
+
+// fori
+//  const aux = state.empleados
+//  Hacer peticion
+//  const aux2 = aux.push(loQueMeMandan)
+// setState(aux2)
+
+
+
+
+// const nuevoEstado = state.empleados.map(async () => {
+//     const empleado = await consulta();
+//     return empleado;
+// })
+
+// setState(nuevoEstado)
