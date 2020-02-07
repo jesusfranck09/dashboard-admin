@@ -36,6 +36,7 @@ class Home extends React.Component {
 
   evaluar= (values) => {
     console.log("los values son" , values)
+    const periodo = localStorage.getItem("Periodo")
     if(values.rotacion === 'si'){
 
       const correo = localStorage.getItem('correoRP')
@@ -47,7 +48,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          rpValidadorPage7(data:"${[values.rotacion,correo]}"){
+          rpValidadorPage7(data:"${[values.rotacion,correo,periodo]}"){
               message
                 }
               }
@@ -62,7 +63,7 @@ class Home extends React.Component {
     if (values.rotacion === 'no') {
 
       const correo = localStorage.getItem('correoRP')
-
+     
       const url = 'http://localhost:8000/graphql'
       axios({
         url:  url,
@@ -70,7 +71,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          rpValidadorPage7(data:"${[values.rotacion,correo]}"){
+          rpValidadorPage7(data:"${[values.rotacion,correo,periodo]}"){
               message
                 }
               }

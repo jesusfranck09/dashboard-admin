@@ -32,13 +32,12 @@ class Home extends React.Component {
     };
     
   }
- 
 
   evaluar= (values) => {
     console.log("entro a evaluar")
     if( (values.pregunta10 == "si" || values.pregunta10=="no")&& (values.pregunta11 == "si" || values.pregunta11=="no")&& (values.pregunta12 == "si" || values.pregunta12=="no") 
     && (values.pregunta13 == "si" || values.pregunta13=="no")&& (values.pregunta14 == "si" || values.pregunta14=="no")){
-        
+      const periodo = localStorage.getItem("Periodo")
       const correo = localStorage.getItem('correoATS')
       const url = 'http://localhost:8000/graphql'
       axios({
@@ -47,7 +46,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          atsPage4(data:"${[values.pregunta10,values.pregunta11,values.pregunta12,values.pregunta13,values.pregunta14,correo]}"){
+          atsPage4(data:"${[values.pregunta10,values.pregunta11,values.pregunta12,values.pregunta13,values.pregunta14,correo,periodo]}"){
               message
                 }
               }
@@ -65,6 +64,7 @@ class Home extends React.Component {
             localStorage.removeItem('nombreUsuario')
             localStorage.removeItem('ApellidoPUsuario')
             localStorage.removeItem('ApellidoMUsuario')
+            localStorage.removeItem("Periodo")
             this.props.history.push("/inicio")
             })
             .catch(err=>{

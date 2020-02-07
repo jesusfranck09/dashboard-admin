@@ -62,7 +62,7 @@ class Home extends React.Component {
     ){
 
       const correo   = localStorage.getItem("correoEEO")
-    
+      const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
       axios({
         url:  url,
@@ -70,7 +70,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          eeoPage2(data:"${[values.pregunta6,values.pregunta7,values.pregunta8,correo]}"){
+          eeoPage2(data:"${[values.pregunta6,values.pregunta7,values.pregunta8,correo,periodo]}"){
               message
                 }
               }

@@ -50,7 +50,6 @@ validate = values => {
     if (!values.pregunta46) {
       errors.pregunta46 = 'Este campo es requerido';
     }
-    
     return errors;
   };
   evaluar= (values) => {
@@ -62,7 +61,7 @@ validate = values => {
     ){
 
       const correo = localStorage.getItem('correoRP')
-
+      const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
       axios({
         url:  url,
@@ -70,7 +69,7 @@ validate = values => {
         data:{
         query:`
          mutation{
-          rpPage8(data:"${[values.pregunta44,values.pregunta45,values.pregunta46,correo]}"){
+          rpPage8(data:"${[values.pregunta44,values.pregunta45,values.pregunta46,correo,periodo]}"){
               message
                 }
               }
@@ -81,6 +80,7 @@ validate = values => {
               localStorage.removeItem('nombreUsuario')
               localStorage.removeItem('ApellidoPUsuario')
               localStorage.removeItem('ApellidoMUsuario')
+              localStorage.removeItem('Periodo')
             }); 
 
             localStorage.removeItem('correoRP')

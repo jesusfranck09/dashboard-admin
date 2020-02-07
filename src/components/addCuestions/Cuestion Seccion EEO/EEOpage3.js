@@ -66,7 +66,7 @@ console.log("values" ,values)
     ){
 
       const correo   = localStorage.getItem("correoEEO")
-    
+      const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
       axios({
         url:  url,
@@ -74,7 +74,7 @@ console.log("values" ,values)
         data:{
         query:`
          mutation{
-          eeoPage3(data:"${[values.pregunta9,values.pregunta10,values.pregunta11,values.pregunta12,correo]}"){
+          eeoPage3(data:"${[values.pregunta9,values.pregunta10,values.pregunta11,values.pregunta12,correo,periodo]}"){
               message
                 }
               }

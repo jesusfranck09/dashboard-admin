@@ -36,6 +36,7 @@ class Home extends React.Component {
   }
 
   evaluar= (values) => {
+    const periodo = localStorage.getItem("Periodo")
     console.log("los values son" , values)
     if(values.rotacion === 'si'){
       const correo = localStorage.getItem('correoATS')
@@ -47,7 +48,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          atsPage1(data:"${[respuesta,correo]}"){
+          atsPage1(data:"${[respuesta,correo,periodo]}"){
               message
                 }
               }
@@ -74,7 +75,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          atsPage1(data:"${[respuesta,correo]}"){
+          atsPage1(data:"${[respuesta,correo,periodo]}"){
               message
                 }
               }

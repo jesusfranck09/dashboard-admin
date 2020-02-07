@@ -102,7 +102,7 @@ class Home extends React.Component {
       console.log("vslues" , values)
 
       const correo = localStorage.getItem('correoRP')
-
+      const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
       axios({
         url:  url,
@@ -110,7 +110,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          rpPage6(data:"${[values.pregunta28,values.pregunta29,values.pregunta30,values.pregunta31,values.pregunta32,values.pregunta33,values.pregunta34,values.pregunta35,values.pregunta36,values.pregunta37,values.pregunta38,values.pregunta39,values.pregunta40,correo]}"){
+          rpPage6(data:"${[values.pregunta28,values.pregunta29,values.pregunta30,values.pregunta31,values.pregunta32,values.pregunta33,values.pregunta34,values.pregunta35,values.pregunta36,values.pregunta37,values.pregunta38,values.pregunta39,values.pregunta40,correo,periodo]}"){
               message
                 }
               }

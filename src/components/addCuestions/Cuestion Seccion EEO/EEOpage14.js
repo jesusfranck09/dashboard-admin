@@ -69,7 +69,7 @@ validate = values => {
     ){
 
       const correo   = localStorage.getItem("correoEEO")
-    
+      const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
       axios({
         url:  url,
@@ -77,7 +77,7 @@ validate = values => {
         data:{
         query:`
          mutation{
-          eeoPage14(data:"${[values.pregunta69,values.pregunta70,values.pregunta71,values.pregunta72,correo]}"){
+          eeoPage14(data:"${[values.pregunta69,values.pregunta70,values.pregunta71,values.pregunta72,correo,periodo]}"){
               message
                 }
               }
@@ -88,6 +88,7 @@ validate = values => {
               localStorage.removeItem('nombreUsuario')
               localStorage.removeItem('ApellidoPUsuario')
               localStorage.removeItem('ApellidoMUsuario')
+              localStorage.removeItem("Periodo")
               this.props.history.push("./inicio")
             }); 
 

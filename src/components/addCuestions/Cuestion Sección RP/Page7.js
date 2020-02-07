@@ -60,7 +60,7 @@ validate = values => {
     ){
 
       const correo = localStorage.getItem('correoRP')
-
+      const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
       axios({
         url:  url,
@@ -68,7 +68,7 @@ validate = values => {
         data:{
         query:`
          mutation{
-          rpPage7(data:"${[values.pregunta41,values.pregunta42,values.pregunta43,correo]}"){
+          rpPage7(data:"${[values.pregunta41,values.pregunta42,values.pregunta43,correo,periodo]}"){
               message
                 }
               }

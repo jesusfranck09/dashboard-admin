@@ -50,7 +50,7 @@ class AdminGral extends React.Component {
         updateRowsDeptos:[],
         updateRowsPuestos:[],
         periodo:[],
-        periodoDesactivado:[],
+        // periodoDesactivado:[],
       };
       this.getEmployees = this.getEmployees.bind(this);
 
@@ -83,27 +83,27 @@ class AdminGral extends React.Component {
           console.log("error",err.response)
         })
 
-        axios({
-          url:  url,
-          method:'post',
-          data:{
-          query:`
-           query{
-            getPeriodoDesabilited(data:"${[idAdmin]}"){
-              idEventos
-              fk_administrador
-              evento
-                  }
-                }
-              `
-          }
-        })
-        .then(datos => {	
-          console.log("exito",datos)
-          this.setState({periodoDesactivado:datos.data.data.getPeriodoDesabilited})
-        }).catch(err=>{
-          console.log("error",err.response)
-        })
+        // axios({
+        //   url:  url,
+        //   method:'post',
+        //   data:{
+        //   query:`
+        //    query{
+        //     getPeriodoDesabilited(data:"${[idAdmin]}"){
+        //       idEventos
+        //       fk_administrador
+        //       evento
+        //           }
+        //         }
+        //       `
+        //   }
+        // })
+        // .then(datos => {	
+        //   console.log("exito",datos)
+        //   this.setState({periodoDesactivado:datos.data.data.getPeriodoDesabilited})
+        // }).catch(err=>{
+        //   console.log("error",err.response)
+        // })
     }
     onClick() {
       this.setState({
@@ -696,16 +696,10 @@ class AdminGral extends React.Component {
                    
                 } 
               }
-
-
-
               evaluarDeptos  = (values,id) =>{
 
                 console.log("values" , values , id)
-                const nombreDepto = values.nombreDepto
-               
-            
-                
+                const nombreDepto = values.nombreDepto  
                 const correo = localStorage.getItem('correo')
         
                 if(values.nombreDepto){
@@ -848,6 +842,7 @@ class AdminGral extends React.Component {
           }
 
           DesactivarPeriodo(values){
+            if(values.deshabilitar){
             const idAdmin=localStorage.getItem("idAdmin")
             const url = 'http://localhost:8000/graphql'
             axios({
@@ -876,75 +871,83 @@ class AdminGral extends React.Component {
 
               window.location.reload();
             })
-           
-          }
-
-          HabilitarPeriodo(values){
-            if(values.habilitar){
-            const idAdmin=localStorage.getItem("idAdmin")
-            const url = 'http://localhost:8000/graphql'
-            axios({
-              url:  url,
-              method:'post',
-              data:{
-              query:`
-               query{
-                getEventos(data:"${[idAdmin]}"){
-                    message
-                      }
-                    }
-                  `
-              }
-            }) .then(datos => {
-              console.log("datos",datos)	
-              if(datos.data.data.getEventos.message=="evento encontrado"){
-                DialogUtility.alert({
-                  animationSettings: { effect: 'Fade' },        
-                  title:"AVISO!",   
-                  content: 'Hay un evento Activo por favor deshabilitelo y vuelva a intentar',
-                  position: "fixed",
-                }
-                )
-              }else if(datos.data.data.getEventos.message=="exito"){
-                axios({
-                  url:  url,
-                  method:'post',
-                  data:{
-                  query:`
-                   mutation{
-                    updatePeriodo(data:"${[values.habilitar,idAdmin]}"){
-                        message
-                          }
-                        }
-                      `
-                  }
-                })
-                .then(datos => {	
-                 
-                  DialogUtility.alert({
-                    animationSettings: { effect: 'Fade' },        
-                    title:"AVISO!",   
-                    content: 'Periodo Habilitado con Éxito',
-                    position: "fixed",
-                  
-                  }
-                  )
-    
-                  window.location.reload();
-                })
-              }
-            })
           }else{
             DialogUtility.alert({
               animationSettings: { effect: 'Fade' },        
               title:"AVISO!",   
               content: 'Por favor seleccione una opción',
               position: "fixed",
-            
             }
             )
           }
           }
+
+          // HabilitarPeriodo(values){
+          //   if(values.habilitar){
+          //   const idAdmin=localStorage.getItem("idAdmin")
+          //   const url = 'http://localhost:8000/graphql'
+          //   axios({
+          //     url:  url,
+          //     method:'post',
+          //     data:{
+          //     query:`
+          //      query{
+          //       getEventos(data:"${[idAdmin]}"){
+          //           message
+          //             }
+          //           }
+          //         `
+          //     }
+          //   }) .then(datos => {
+          //     console.log("datos",datos)	
+          //     if(datos.data.data.getEventos.message=="evento encontrado"){
+          //       DialogUtility.alert({
+          //         animationSettings: { effect: 'Fade' },        
+          //         title:"AVISO!",   
+          //         content: 'Hay un evento Activo por favor deshabilitelo y vuelva a intentar',
+          //         position: "fixed",
+          //       }
+          //       )
+          //     }else if(datos.data.data.getEventos.message=="exito"){
+          //       axios({
+          //         url:  url,
+          //         method:'post',
+          //         data:{
+          //         query:`
+          //          mutation{
+          //           updatePeriodo(data:"${[values.habilitar,idAdmin]}"){
+          //               message
+          //                 }
+          //               }
+          //             `
+          //         }
+          //       })
+          //       .then(datos => {	
+                 
+          //         DialogUtility.alert({
+          //           animationSettings: { effect: 'Fade' },        
+          //           title:"AVISO!",   
+          //           content: 'Periodo Habilitado con Éxito',
+          //           position: "fixed",
+                  
+          //         }
+          //         )
+    
+          //         window.location.reload();
+          //       })
+          //     }
+          //   })
+          // }else{
+          //   DialogUtility.alert({
+          //     animationSettings: { effect: 'Fade' },        
+          //     title:"AVISO!",   
+          //     content: 'Por favor seleccione una opción',
+          //     position: "fixed",
+            
+          //   }
+          //   )
+          // }
+          // }
 
     render() {
 
@@ -1595,8 +1598,8 @@ class AdminGral extends React.Component {
               </header>
                 <MDBContainer style={{marginTop:60}} >
               <Alert  color="primary">Nota : Puede editar y/o eliminar los campos si así lo desea</Alert>    
-              <Paper style={{ width: "40rem" }}>
-              <MDBCard style={{ width: "40rem" }} >
+              <Paper style={{ width: "25rem" }}>
+              <MDBCard style={{ width: "25rem" }} >
                   <MDBCardBody>
                   <MDBCardTitle>Periodo de Evaluación</MDBCardTitle>
                       <div style={{ padding: 10, margin: 'auto', maxWidth: 300 }}>      
@@ -1662,8 +1665,8 @@ class AdminGral extends React.Component {
                                 color="primary"
                                 type="submit"
                                 disabled={submitting}
-                                  onClick={(e) =>this.DesactivarPeriodo(values)}
-                              >
+                                onClick={(e) => { if (window.confirm('Si desactiva el periodo no podrá habilitarlo nuevamente, Desea Continuar?')) this.DesactivarPeriodo(values)} }
+                              > 
                                 Aceptar
                               </Button>
                             </Grid>     
@@ -1672,7 +1675,7 @@ class AdminGral extends React.Component {
                       </form>
                           )}
                         />  </MDBCol>  
-                        <MDBCol>
+                        {/* <MDBCol>
                                 <Form
                     onSubmit={this.onSubmit}
                     render={({ handleSubmit, submitting,values }) => (
@@ -1708,7 +1711,7 @@ class AdminGral extends React.Component {
                       </form>
                           )}
                         />  
-                        </MDBCol>  
+                        </MDBCol>   */}
                         </MDBRow>   
                           </div>
                   </MDBCardBody>                     

@@ -42,6 +42,7 @@ class Home extends React.Component {
     && (values.pregunta9 == "si" || values.pregunta9=="no")){
         
       const correo = localStorage.getItem('correoATS')
+      const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
       axios({
         url:  url,
@@ -49,7 +50,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          atsPage3(data:"${[values.pregunta3,values.pregunta4,values.pregunta5,values.pregunta6,values.pregunta7,values.pregunta8,values.pregunta9,correo]}"){
+          atsPage3(data:"${[values.pregunta3,values.pregunta4,values.pregunta5,values.pregunta6,values.pregunta7,values.pregunta8,values.pregunta9,correo,periodo]}"){
               message
                 }
               }

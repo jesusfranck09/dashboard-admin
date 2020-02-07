@@ -90,7 +90,7 @@ class Home extends React.Component {
 
       console.log("entro")
       const correo   = localStorage.getItem("correoEEO")
-    
+      const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
       axios({
         url:  url,
@@ -98,7 +98,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          eeoPage11(data:"${[values.pregunta47,values.pregunta48,values.pregunta49,values.pregunta50,values.pregunta51,values.pregunta52,values.pregunta53,values.pregunta54,values.pregunta55,values.pregunta56,correo]}"){
+          eeoPage11(data:"${[values.pregunta47,values.pregunta48,values.pregunta49,values.pregunta50,values.pregunta51,values.pregunta52,values.pregunta53,values.pregunta54,values.pregunta55,values.pregunta56,correo,periodo]}"){
               message
                 }
               }

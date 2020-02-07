@@ -146,23 +146,57 @@ if(values.stooge=="acepto" && values.correo){
   
   const correo = values.correo
   const acepto  = values.stooge
-  const idAdmin= localStorage.getItem("idAdmin")
-  
   localStorage.setItem('correoEEO', correo)
 
   const url = 'http://localhost:8000/graphql'
+
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+    query{
+      getEmployeesFkAdmin(data:"${[correo]}"){
+       fk_administrador               
+          }
+        }
+        `
+    }
+        }).then((datos) => {
+        const idAdmin= datos.data.data.getEmployeesFkAdmin[0].fk_administrador
+        console.log("idAdmin" , idAdmin)
+          axios({
+            url:  url,
+            method:'post',
+            data:{
+            query:`
+             query{
+              getPeriodo(data:"${[idAdmin]}"){
+                idEventos
+                fk_administrador
+                evento
+                    }
+                  }
+                `
+            }
+          })
+          .then(datos => {	
+            // console.log("exito",datos.data.data.getPeriodo[0].evento)
+           localStorage.setItem("Periodo" , datos.data.data.getPeriodo[0].evento)
+           const periodo =localStorage.getItem("Periodo")
   axios({
     url:  url,
     method:'post',
     data:{
     query:`
      mutation{
-      eeoPoliticaPrivacidad(data:"${[correo,acepto,idAdmin]}"){
+      eeoPoliticaPrivacidad(data:"${[correo,acepto,periodo]}"){
             message
             nombre
             ApellidoP
             ApellidoM
             correo
+            fk_administrador
             }
           }
         `
@@ -171,8 +205,8 @@ if(values.stooge=="acepto" && values.correo){
           if(datos.data.data.eeoPoliticaPrivacidad.message=="usuario incorrecto"){
             DialogUtility.alert({
               animationSettings: { effect: 'Zoom' },           
-              title: 'Aviso! , Usuario no Encontrado',
-              content: `Por favor verifique su Correo Electrónico e intentelo Nuevamente`, 
+              title: 'Aviso!',
+              content: `El Empleado no fue encontrado o ya resolvio su encuesta`, 
               position: "fixed",
           })
           }else{
@@ -181,11 +215,10 @@ if(values.stooge=="acepto" && values.correo){
             const nombre = datos.data.data.eeoPoliticaPrivacidad.nombre
             const apellidoP = datos.data.data.eeoPoliticaPrivacidad.ApellidoP
             const apellidoM =  datos.data.data.eeoPoliticaPrivacidad.ApellidoM
-            
             localStorage.setItem("nombreUsuario", nombre)
             localStorage.setItem("ApellidoPUsuario", apellidoP)
             localStorage.setItem("ApellidoMUsuario", apellidoM)
-
+          
             DialogUtility.alert({
               animationSettings: { effect: 'Zoom' },           
               title: 'Notificación!',
@@ -198,12 +231,41 @@ if(values.stooge=="acepto" && values.correo){
           }).catch((err)=>{
             console.log(err.response)
           })
+          }).catch(err=>{
+            console.log("error",err.response)
+          })
+        })
+        
 }
 
   }
 
   componentWillMount(){
     setTimeout(() => { this.setState({showModal:false})},1500)
+
+    const idAdmin = localStorage.getItem("idAdmin")
+    const url = 'http://localhost:8000/graphql'
+    axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+       query{
+        getPeriodo(data:"${[idAdmin]}"){
+          idEventos
+          fk_administrador
+          evento
+              }
+            }
+          `
+      }
+    })
+    .then(datos => {	
+      console.log("exito",datos)
+      this.setState({periodo:datos.data.data.getPeriodo})
+    }).catch(err=>{
+      console.log("error",err.response)
+    })
 }
 
 

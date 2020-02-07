@@ -39,6 +39,7 @@ console.log("values", values)
 if( (values.pregunta1 == "si" || values.pregunta1=="no") && (values.pregunta2 == "si" || values.pregunta2=="no")){
   
   const correo = localStorage.getItem('correoATS')
+  const periodo = localStorage.getItem("Periodo")
 
 
   const url = 'http://localhost:8000/graphql'
@@ -48,7 +49,7 @@ if( (values.pregunta1 == "si" || values.pregunta1=="no") && (values.pregunta2 ==
     data:{
     query:`
      mutation{
-      atsPage2(data:"${[values.pregunta1,values.pregunta2,correo]}"){
+      atsPage2(data:"${[values.pregunta1,values.pregunta2,correo,periodo]}"){
           message
             }
           }

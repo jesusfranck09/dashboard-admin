@@ -189,6 +189,7 @@ class App extends React.Component {
           AreaTrabajo
           Puesto
           CentroTrabajo
+          periodo
             }
           }
           `
@@ -269,7 +270,7 @@ class App extends React.Component {
       this.setState({filtro:filtro})
       this.setState({datosLength:datos.length})
       if(datos[0]){
-        
+        console.log("los datitos",datos[0])
         const url = 'http://localhost:8000/graphql'
         axios({
           url:  url,
@@ -277,7 +278,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[0].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[0].data[0],datos[0].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -324,7 +325,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[1].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[1].data[0],datos[1].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -371,7 +372,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[2].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[2].data[0],datos[2].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -418,7 +419,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[3].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[3].data[0],datos[3].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -465,7 +466,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[4].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[4].data[0],datos[4].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -512,7 +513,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[5].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[5].data[0],datos[5].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -559,7 +560,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[6].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[6].data[0],datos[6].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -606,7 +607,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[7].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[7].data[0],datos[7].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -653,7 +654,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[8].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[8].data[0],datos[8].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -700,7 +701,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[9].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[9].data[0],datos[9].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -747,7 +748,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[10].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[10].data[0],datos[10].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -794,7 +795,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[11].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[11].data[0],datos[11].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -841,7 +842,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[12].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[12].data[0],datos[12].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -888,7 +889,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[13].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[13].data[0],datos[13].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -935,7 +936,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[14].data[0]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[14].data[0],datos[14].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -982,10 +983,10 @@ class App extends React.Component {
 
   render() {
 
-    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo"];
+    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo"];
 
     const data = this.state.empleados.map(rows=>{
-      return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoP,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo])
+      return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoP,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo])
     })
 
     let datosEmpleados;

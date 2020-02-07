@@ -150,59 +150,99 @@ if(values.stooge=="acepto" && values.correo){
 
   
   localStorage.setItem('correoRP', correo) 
-  const idAdmin= localStorage.getItem("idAdmin")
 
   const url = 'http://localhost:8000/graphql'
-  axios({
+
+ axios({
     url:  url,
     method:'post',
     data:{
     query:`
-     mutation{
-      rpPoliticaPrivacidad(data:"${[correo,acepto,idAdmin]}"){
-            message
-            nombre
-            ApellidoP
-            ApellidoM
-            correo
-            }
+    query{
+      getEmployeesFkAdmin(data:"${[correo]}"){
+       fk_administrador               
           }
+        }
         `
     }
         }).then((datos) => {
-          
-          if(datos.data.data.rpPoliticaPrivacidad.message=="usuario incorrecto"){
-            DialogUtility.alert({
-              animationSettings: { effect: 'Zoom' },           
-              title: 'Aviso! , Usuario no Encontrado',
-              content: `Por favor verifique su Correo Electrónico e intentelo Nuevamente`, 
-             
-              position: "fixed",
+        const idAdmin= datos.data.data.getEmployeesFkAdmin[0].fk_administrador
+        console.log("idAdmin" , idAdmin)
+          axios({
+            url:  url,
+            method:'post',
+            data:{
+            query:`
+             query{
+              getPeriodo(data:"${[idAdmin]}"){
+                idEventos
+                fk_administrador
+                evento
+                    }
+                  }
+                `
+            }
           })
-          }else{
+          .then(datos => {	
+            console.log("exito",datos.data.data.getPeriodo[0].evento)
+           localStorage.setItem("Periodo" , datos.data.data.getPeriodo[0].evento)
 
-            console.log("datos", datos)
-            const nombre = datos.data.data.rpPoliticaPrivacidad.nombre
-            const apellidoP = datos.data.data.rpPoliticaPrivacidad.ApellidoP
-            const apellidoM =  datos.data.data.rpPoliticaPrivacidad.ApellidoM
-            
-            localStorage.setItem("nombreUsuario", nombre)
-            localStorage.setItem("ApellidoPUsuario", apellidoP)
-            localStorage.setItem("ApellidoMUsuario", apellidoM)
+           const periodo =localStorage.getItem("Periodo")
 
-            DialogUtility.alert({
-              animationSettings: { effect: 'Zoom' },           
-              title: 'Notificación!',
-              content: `Bienvenido a su Encuesta  ${nombre}  ${apellidoP}  ${apellidoM}`, 
-             
-              position: "fixed",
+           console.log("el periodo", periodo)
+           axios({
+             url:  url,
+             method:'post',
+             data:{
+             query:`
+             mutation{
+               rpPoliticaPrivacidad(data:"${[correo,acepto,periodo]}"){
+                     message
+                     nombre
+                     ApellidoP
+                     ApellidoM
+                     correo
+                     fk_administrador
+                     }
+                   }
+                 `
+             }
+                 }).then((datos) => {
+                   
+                   if(datos.data.data.rpPoliticaPrivacidad.message=="usuario incorrecto"){
+                     DialogUtility.alert({
+                       animationSettings: { effect: 'Zoom' },           
+                       title: 'Aviso!',
+                       content: `El Empleado no fue encontrado o ya resolvio su encuesta`, 
+                     
+                       position: "fixed",
+                   })
+                   }else{
+     
+                     console.log("datos", datos)
+                     const nombre = datos.data.data.rpPoliticaPrivacidad.nombre
+                     const apellidoP = datos.data.data.rpPoliticaPrivacidad.ApellidoP
+                     const apellidoM =  datos.data.data.rpPoliticaPrivacidad.ApellidoM
+                     localStorage.setItem("nombreUsuario", nombre)
+                     localStorage.setItem("ApellidoPUsuario", apellidoP)
+                     localStorage.setItem("ApellidoMUsuario", apellidoM)
+     
+                     DialogUtility.alert({
+                       animationSettings: { effect: 'Zoom' },           
+                       title: 'Notificación!',
+                       content: `Bienvenido a su Encuesta  ${nombre}  ${apellidoP}  ${apellidoM}`, 
+                     
+                       position: "fixed",
+                   })
+                   this.props.history.push("./RPpage1")
+                   }
+                   }).catch((err)=>{
+                     console.log(err)
+                   })
+          }).catch(err=>{
+            console.log("error",err.response)
           })
-          this.props.history.push("./RPpage1")
-          }
-          }).catch((err)=>{
-            console.log(err)
-          })
-      
+        })
 
 }
 

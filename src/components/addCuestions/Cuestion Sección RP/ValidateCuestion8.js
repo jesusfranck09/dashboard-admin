@@ -34,6 +34,7 @@ class Home extends React.Component {
   }
   validate = values => {
     const errors = {};
+    
     if (!values.rotacion) {
       errors.rotacion = 'Este campo es requerido';
     }
@@ -41,9 +42,9 @@ class Home extends React.Component {
   };
   
   evaluar= (values) => {
+    const periodo = localStorage.getItem("Periodo")
     console.log("los values son" , values)
     if(values.rotacion === 'si'){
-
       const correo = localStorage.getItem('correoRP')
 
       const url = 'http://localhost:8000/graphql'
@@ -53,7 +54,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          rpValidadorPage8(data:"${[values.rotacion,correo]}"){
+          rpValidadorPage8(data:"${[values.rotacion,correo,periodo]}"){
               message
                 }
               }
@@ -76,7 +77,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          rpValidadorPage8(data:"${[values.rotacion,correo]}"){
+          rpValidadorPage8(data:"${[values.rotacion,correo,periodo]}"){
               message
                 }
               }
@@ -86,6 +87,7 @@ class Home extends React.Component {
 
             }); 
             localStorage.removeItem('correoRP')
+            localStorage.removeItem('Periodo')
             DialogUtility.alert({
               animationSettings: { effect: 'Zoom' },           
               content: "Su Encuesta  RP ha finalizado, gracias por su colaboracion!",
