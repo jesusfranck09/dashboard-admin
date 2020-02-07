@@ -58,6 +58,8 @@ class App extends React.Component {
       filtro4:'',
       filtro5:'',
       filtro6:'',
+      filtro7:'',
+      filtro8:'',
       datosLength:'',
       collapse: false,
       isOpen: false,
@@ -229,7 +231,9 @@ class App extends React.Component {
      }
 
      consultarDatosFiltrados = (datos,filtro) =>{
-      if(filtro){
+      
+       
+      if(filtro!= undefined){
       if(filtro[0].length>0){
         this.setState({filtro1:"ID"})
         this.setState({filtro6:""})
@@ -238,35 +242,44 @@ class App extends React.Component {
         this.setState({filtro6:""})
       }
       if(filtro[1].length>0){
-        this.setState({filtro2:"Nombre"})
+        this.setState({filtro2:"NOMBRE"})
         this.setState({filtro6:""})
       }else{
         this.setState({filtro2:""})
         this.setState({filtro6:""})
       }
       if(filtro[2].length>0){
-        this.setState({filtro3:"Sexo"})
+        this.setState({filtro3:"SEXO"})
         this.setState({filtro6:""})
       }else{
         this.setState({filtro3:""})
         this.setState({filtro6:""})
       }
       if(filtro[3].length>0){
-        this.setState({filtro4:"Area de Trabajo"})
+        this.setState({filtro4:"ÁREA DE TRABAJO"})
         this.setState({filtro6:""})
       }else{
         this.setState({filtro4:""})
         this.setState({filtro6:""})
       }if(filtro[4].length>0){
-        this.setState({filtro5:"Puesto"})
+        this.setState({filtro5:"PUESTO"})
         this.setState({filtro6:""})
       }else{
         this.setState({filtro5:""})
         this.setState({filtro6:""})
+      }if(filtro[5].length>0){
+        this.setState({filtro7:"CENTRO DE TRABAJO"})
+        this.setState({filtro6:""})
+      }else{
+        this.setState({filtro7:""})
+        this.setState({filtro6:""})
+      }if(filtro[6].length>0){
+        this.setState({filtro8:"PERIODO"})
+        this.setState({filtro6:""})
+      }else{
+        this.setState({filtro8:""})
+        this.setState({filtro6:""})
       }
-    }else{
-      this.setState({filtro6:"Todos los Empleados"})
-    }
       this.setState({filtro:filtro})
       this.setState({datosLength:datos.length})
       if(datos[0]){
@@ -975,7 +988,9 @@ class App extends React.Component {
               .catch(err => {
                 console.log("el error es  ",err)
               });  
-      }
+
+
+    }}
           
     }
 
@@ -1141,7 +1156,7 @@ class App extends React.Component {
   let pet4res212,pet4res213,pet4res214,pet4res215,pet4res216,pet4res217,pet4res218,pet4res219,pet4res220,pet4res221,pet4res222,pet4res223;
   let pet4res224,pet4res225,pet4res226,pet4res227,pet4res228,pet4res229,pet4res230;  
   
-  let pet4val1=0,pet4val2=0,pet4val3=0,pet4val4=0,pet4val5=0,pet4val6=0,pet4val7=0, pet4val8=0,pet4val9=0,pet4val10 =0;
+  let pet4val1=0, pet4val2=0,pet4val3=0,pet4val4=0,pet4val5=0,pet4val6=0,pet4val7=0, pet4val8=0,pet4val9=0,pet4val10 =0;
   let pet4val11=0,pet4val12=0,pet4val13=0,pet4val14=0,pet4val15=0,pet4val16=0,pet4val17=0, pet4val18=0,pet4val19=0,pet4val20=0;
   let pet4val21=0,pet4val22=0,pet4val23=0,pet4val24=0,pet4val25=0,pet4val26=0,pet4val27=0, pet4val28=0,pet4val29=0,pet4val30=0;
   let pet4val31=0,pet4val32=0,pet4val33=0,pet4val34=0,pet4val35=0,pet4val36=0,pet4val37=0, pet4val38=0,pet4val39=0,pet4val40=0;
@@ -4289,7 +4304,6 @@ console.log("entro a la peticion 3" )
         pet4res5="Nunca"
         pet4val1= this.state.getPonderacion[0].nunca
       } 
-  
   
     if(this.state.peticion4[2].Respuestas=="Siempre"){
       pet4res6="Siempre"
@@ -15240,7 +15254,7 @@ pet3ent41=parseInt(pet3val41); pet3ent42=parseInt(pet3val42); pet3ent43=parseInt
 pet3ent45=parseInt(pet3val45); pet3ent46=parseInt(pet3val46)
 totalpet3 = (pet3ent1+pet3ent2+pet3ent3+pet3ent4+pet3ent5+pet3ent6+pet3ent7+pet3ent8+pet3ent9+pet3ent10+pet3ent11+pet3ent12+pet3ent13+pet3ent14+pet3ent15+pet3ent16+pet3ent17+pet3ent18+pet3ent19+pet3ent20+pet3ent21+pet3ent22+pet3ent23+pet3ent24+pet3ent25+pet3ent26+pet3ent27+pet3ent28+pet3ent29+pet3ent30+pet3ent31+pet3ent32+pet3ent33+pet3ent34+pet3ent35+pet3ent36+pet3ent37+pet3ent38+pet3ent39+pet3ent40+pet3ent41+pet3ent42+pet3ent43+pet3ent44+pet3ent45+pet3ent46);        
 
-console.log("esta es la peticion3" ,pet3ent1,pet3ent2,pet3ent3,pet3ent4,pet3ent5,pet3ent6,pet3ent7,pet3ent8)
+console.log("esta es la peticion3" ,pet4val2)
 pet4ent1=parseInt(pet4val1); pet4ent2=parseInt(pet4val2); pet4ent3=parseInt(pet4val3); pet4ent4=parseInt(pet4val4);
 pet4ent5=parseInt(pet4val5); pet4ent6=parseInt(pet4val6); pet4ent7=parseInt(pet4val7); pet4ent8=parseInt(pet4val8);
 pet4ent9=parseInt(pet4val9); pet4ent10=parseInt(pet4val10); pet4ent11=parseInt(pet4val11); pet4ent12=parseInt(pet4val12);
@@ -15526,7 +15540,7 @@ if(categoriaUno < 3){
 }else if(categoriaUno >= 9){
   categoria1MuyAlto= <MDBBadge color="danger">{categoriaUno}</MDBBadge>
 }
-
+console.log("esta es la categoria 1" ,pet4ent2,pet5ent2)
 let categoria2Nulo;
 let categoria2Bajo;
 let categoria2Medio;
@@ -15789,7 +15803,7 @@ ponderacion=<React.Fragment>
     
       >
 <MDBContainer >
-<font face="arial" className = "mt-4" ><strong> ENCUESTA RP. </strong> <br/> <strong>FILTRADO POR  :  {this.state.filtro6} {this.state.filtro1} <br/>{this.state.filtro2} <br/> {this.state.filtro3}  <br/>{this.state.filtro4} <br/> {this.state.filtro5} <br/></strong></font><br/>
+<font face="arial" className = "mt-4" ><strong> ENCUESTA RP. </strong> <br/> <strong>FILTRADO POR  :  {this.state.filtro6} {this.state.filtro1} <br/>{this.state.filtro2} <br/> {this.state.filtro3}  <br/>{this.state.filtro4} <br/> {this.state.filtro5}<br/> {this.state.filtro7} <br/> {this.state.filtro8} <br/></strong></font><br/>
 <font face="arial " className = "mt-4 " ><strong>{localStorage.getItem("razonsocial")}</strong> </font>
 
 <Table   responsive small borderless className="text-left mt-4 ">
