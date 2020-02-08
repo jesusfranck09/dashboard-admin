@@ -5,6 +5,8 @@ import gql from 'graphql-tag';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import {Alert} from 'reactstrap'
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import axios from 'axios'
+
 import {MDBIcon} from 'mdbreact'
  const SIGNUP = gql`
     mutation SIGNUP($first_name:String!,
@@ -80,6 +82,26 @@ handleData = (data) => {
     title: 'Aviso!',
     position: "fixed"
   });
+  
+  let periodo = "Periodo Inicial"
+  const url = 'http://localhost:8000/graphql'
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+     mutation{
+      addPeriodoInicial(data:"${[periodo]}"){
+          message
+            }
+          }
+        `
+    }
+  })
+  .then(datos => {	
+
+  })
+
   this.props.history.push('/');
 }
 

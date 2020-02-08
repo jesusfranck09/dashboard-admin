@@ -950,7 +950,12 @@ class AdminGral extends React.Component {
           // }
 
     render() {
+      let periodo;
+      console.log("este es el periodo" , this.state.periodo.length)
+      if(this.state.periodo.length == 0){
+       periodo = <Alert color="danger"> AVISO! : Por favor Registre otro periodo antes de salir, "Su sistema podria funcionar de manera Incorrecta". </Alert> 
 
+      }
       let modal 
       let modalSucursales
       let modalDeptos
@@ -1674,7 +1679,7 @@ class AdminGral extends React.Component {
                         </Paper>
                       </form>
                           )}
-                        />  </MDBCol>  
+                        />  </MDBCol>
                         {/* <MDBCol>
                                 <Form
                     onSubmit={this.onSubmit}
@@ -1717,7 +1722,7 @@ class AdminGral extends React.Component {
                   </MDBCardBody>                     
                   </MDBCard>
                   </Paper>
-               
+                  {periodo}
                     <Paper >
                    <MDBCard>
                     <MDBCardBody> 

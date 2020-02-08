@@ -41,7 +41,6 @@ class App extends Component {
   }
 
   componentWillMount(){  
-        
     const url = 'http://localhost:8000/graphql'
     var correo  = localStorage.getItem("correo")   
     const idAdmin = localStorage.getItem("idAdmin")
@@ -61,15 +60,13 @@ class App extends Component {
       }
     })
     .then(datos => {	
-      console.log("los datos del periodo son " , datos.data.data.getPeriodo[0].evento)
-
       axios({
         url:  url,
         method:'post',
         data:{
         query:`
         query{
-          getUsersTableEmployees(data:"${[idAdmin,datos.data.data.getPeriodo[0].evento]}"){
+          getUsersTableEmployeesthisPeriodo(data:"${[idAdmin,datos.data.data.getPeriodo[0].evento]}"){
             id
             nombre
             ApellidoP
@@ -97,11 +94,14 @@ class App extends Component {
             `
         }
             }).then((datos) => {
-              this.setState({ datos: datos.data.data.getUsersTableEmployees});
+              this.setState({ datos: datos.data.data.getUsersTableEmployeesthisPeriodo});
              console.log("this.state.resultados" , this.state.resultados)
+            }).catch(err=>{
+              console.log("el error " , err.response)
             })     
+    }).catch(err=>{
+      console.log("err", err.response)
     })
-
   }
 
   click(id){ 
@@ -2891,8 +2891,8 @@ ponderacion =  <React.Fragment>
 
     return (
       <React.Fragment>
-      <TableContainer responsive component={Paper}>
-      <Table responsive>
+      <TableContainer component={Paper}>
+      <Table >
  
         <TableBody>
           {this.state.datos.map(rows => {

@@ -179,7 +179,7 @@ class App extends React.Component {
     axios({
       url:  url,
       method:'post',
-      data:{
+      data:{ 
       query:`
       query{
         getEmployeesResolvesRP(data:"${id}"){
@@ -280,8 +280,10 @@ class App extends React.Component {
         this.setState({filtro8:""})
         this.setState({filtro6:""})
       }
+    }
       this.setState({filtro:filtro})
       this.setState({datosLength:datos.length})
+      console.log("datos enviados",datos[0].data[6])
       if(datos[0]){
         console.log("los datitos",datos[0])
         const url = 'http://localhost:8000/graphql'
@@ -573,7 +575,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyRP(data:"${[datos[6].data[0],datos[6].data[6]]}"){
+              getresultGlobalSurveyRP(data:"${[datos[6].data[0],datos[5].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasRP
@@ -990,7 +992,8 @@ class App extends React.Component {
               });  
 
 
-    }}
+    }
+
           
     }
 
@@ -2702,7 +2705,7 @@ if(this.state.peticion1.length>0){
           pet2res60="Nunca"
           pet2val12= this.state.getPonderacion[11].nunca
         }
-
+       
       if(this.state.peticion2[13].Respuestas=="Siempre"){
         pet2res61="Siempre"
         pet2val13= this.state.getPonderacion[12].siempre
@@ -3308,7 +3311,6 @@ if(this.state.peticion1.length>0){
           pet2res215="Nunca"
           pet2val43= this.state.getPonderacion[42].nunca
         }
-
       if(this.state.peticion2[46].Respuestas=="Siempre"){
         pet2res216="Siempre"
         pet2val44= this.state.getPonderacion[43].siempre
@@ -3394,8 +3396,7 @@ console.log("entro a la peticion 3" )
       pet3res5="Nunca"
       pet3val1= this.state.getPonderacion[0].nunca
     } 
-
-
+   
   if(this.state.peticion3[2].Respuestas=="Siempre"){
     pet3res6="Siempre"
     pet3val2= this.state.getPonderacion[1].siempre
@@ -4304,25 +4305,29 @@ console.log("entro a la peticion 3" )
         pet4res5="Nunca"
         pet4val1= this.state.getPonderacion[0].nunca
       } 
-  
+     
+
     if(this.state.peticion4[2].Respuestas=="Siempre"){
       pet4res6="Siempre"
-      pet4val2= this.state.peticion4[1].siempre
+      pet4val2= this.state.getPonderacion[1].siempre
+     
       }else if(this.state.peticion4[2].Respuestas=="CasiSiempre"){
         pet4res7="Casi Siempre"
-        pet4val2= this.state.peticion4[1].casisiempre
+        pet4val2= this.state.getPonderacion[1].casisiempre
+        
       }
       else if(this.state.peticion4[2].Respuestas=="AlgunasVeces"){
         pet4res8="Algunas Veces"
-        pet4val2= this.state.peticion4[1].algunasveces
+        pet4val2= this.state.getPonderacion[1].algunasveces
+       console.log("esta es la peticion", this.state.peticion4)
       } 
       else if(this.state.peticion4[2].Respuestas=="CasiNunca"){
         pet4res9="Casi Nunca"
-        pet4val2= this.state.peticion4[2].casinunca
+        pet4val2= this.state.getPonderacion[1].casinunca
       } 
       else if(this.state.peticion4[2].Respuestas=="Nunca"){
         pet4res10="Nunca"
-        pet4val2= this.state.peticion4[1].nunca
+        pet4val2= this.state.getPonderacion[1].nunca
       } 
   
       if(this.state.peticion4[3].Respuestas=="Siempre"){
@@ -5193,7 +5198,7 @@ console.log("entro a la peticion 3" )
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
+   
   if(this.state.peticion5.length>0){
 
     if(this.state.peticion5[1].Respuestas=="Siempre"){
@@ -7015,7 +7020,8 @@ console.log("entro a la peticion 3" )
    } 
    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////77777777
      ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
+   
+  
   if(this.state.peticion7.length>0){
 
     if(this.state.peticion7[1].Respuestas=="Siempre"){
@@ -7078,8 +7084,7 @@ console.log("entro a la peticion 3" )
           pet7res15="Nunca"
           pet7val3= this.state.getPonderacion[2].nunca
         } 
-  
-  
+      
       if(this.state.peticion7[4].Respuestas=="Siempre"){
         pet7res16="Siempre"
         pet7val4= this.state.getPonderacion[3].siempre
@@ -7433,7 +7438,7 @@ console.log("entro a la peticion 3" )
             pet7res105="Nunca"
             pet7val21= this.state.getPonderacion[20].nunca
           } 
-  
+         
         if(this.state.peticion7[22].Respuestas=="Siempre"){
           pet7res106="Siempre"
           pet7val22= this.state.getPonderacion[21].siempre
@@ -15254,7 +15259,7 @@ pet3ent41=parseInt(pet3val41); pet3ent42=parseInt(pet3val42); pet3ent43=parseInt
 pet3ent45=parseInt(pet3val45); pet3ent46=parseInt(pet3val46)
 totalpet3 = (pet3ent1+pet3ent2+pet3ent3+pet3ent4+pet3ent5+pet3ent6+pet3ent7+pet3ent8+pet3ent9+pet3ent10+pet3ent11+pet3ent12+pet3ent13+pet3ent14+pet3ent15+pet3ent16+pet3ent17+pet3ent18+pet3ent19+pet3ent20+pet3ent21+pet3ent22+pet3ent23+pet3ent24+pet3ent25+pet3ent26+pet3ent27+pet3ent28+pet3ent29+pet3ent30+pet3ent31+pet3ent32+pet3ent33+pet3ent34+pet3ent35+pet3ent36+pet3ent37+pet3ent38+pet3ent39+pet3ent40+pet3ent41+pet3ent42+pet3ent43+pet3ent44+pet3ent45+pet3ent46);        
 
-console.log("esta es la peticion3" ,pet4val2)
+
 pet4ent1=parseInt(pet4val1); pet4ent2=parseInt(pet4val2); pet4ent3=parseInt(pet4val3); pet4ent4=parseInt(pet4val4);
 pet4ent5=parseInt(pet4val5); pet4ent6=parseInt(pet4val6); pet4ent7=parseInt(pet4val7); pet4ent8=parseInt(pet4val8);
 pet4ent9=parseInt(pet4val9); pet4ent10=parseInt(pet4val10); pet4ent11=parseInt(pet4val11); pet4ent12=parseInt(pet4val12);
@@ -16179,9 +16184,10 @@ ponderacion=<React.Fragment>
             <h5 >Ejemplo de Ponderación</h5>
             <Bar  data={this.state.dataBar} options={this.state.barChartOptions} />
             {/* <span>{this.state.dias} {this.state.horas} {this.state.minutos} {this.state.segundos}</span> */}
+          <Alert color ="primary">Seleccione por favor el periodo como primer filtro </Alert>
           </MDBContainer>
           </MDBCol>
-         
+    
           </MDBRow>
 
 

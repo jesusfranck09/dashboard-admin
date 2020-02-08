@@ -58,6 +58,8 @@ class App extends React.Component {
       filtro4:'',
       filtro5:'',
       filtro6:'',
+      filtro7:'',
+      filtro8:'',
       datosLength:'',
       collapse: false,
       isOpen: false,
@@ -173,7 +175,7 @@ class App extends React.Component {
   getGlobalEmployees(){
     var id  =localStorage.getItem("idAdmin")       
     const url = 'http://localhost:8000/graphql'
-    
+    console.log("entro")
     axios({
       url:  url,
       method:'post',
@@ -189,14 +191,15 @@ class App extends React.Component {
           AreaTrabajo
           Puesto
           CentroTrabajo
+          periodo
             }
           }
           `
       }
           }).then((datos) => {
-    
+            console.log("exito" , datos)
           this.setState({empleados:datos.data.data.getEmployeesResolvesEEO})       
-          console.log("state",this.state.empleados)
+      
           }).catch(err=>{
             console.log("error" ,err.response)
           })
@@ -229,48 +232,58 @@ class App extends React.Component {
      }
 
      consultarDatosFiltrados = (datos,filtro) =>{
-      if(filtro){
-      if(filtro[0].length>0){
-        this.setState({filtro1:"ID"})
+      if(filtro!= undefined){
+        if(filtro[0].length>0){
+          this.setState({filtro1:"ID"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({filtro1:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[1].length>0){
+          this.setState({filtro2:"NOMBRE"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({filtro2:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[2].length>0){
+          this.setState({filtro3:"SEXO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({filtro3:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[3].length>0){
+          this.setState({filtro4:"ÁREA DE TRABAJO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({filtro4:""})
+          this.setState({filtro6:""})
+        }if(filtro[4].length>0){
+          this.setState({filtro5:"PUESTO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({filtro5:""})
+          this.setState({filtro6:""})
+        }if(filtro[5].length>0){
+        this.setState({filtro7:"CENTRO DE TRABAJO"})
         this.setState({filtro6:""})
       }else{
-        this.setState({filtro1:""})
+        this.setState({filtro7:""})
+        this.setState({filtro6:""})
+      }if(filtro[6].length>0){
+        this.setState({filtro8:"PERIODO"})
+        this.setState({filtro6:""})
+      }else{
+        this.setState({filtro8:""})
         this.setState({filtro6:""})
       }
-      if(filtro[1].length>0){
-        this.setState({filtro2:"Nombre"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({filtro2:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[2].length>0){
-        this.setState({filtro3:"Sexo"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({filtro3:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[3].length>0){
-        this.setState({filtro4:"Area de Trabajo"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({filtro4:""})
-        this.setState({filtro6:""})
-      }if(filtro[4].length>0){
-        this.setState({filtro5:"Puesto"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({filtro5:""})
-        this.setState({filtro6:""})
-      }
-    }else{
-      this.setState({filtro6:"Todos los Empleados"})
     }
       this.setState({filtro:filtro})
       this.setState({datosLength:datos.length})
 
-     console.log("datos enviados",[datos[0].data[0][0]])
+     console.log("datos enviados",datos[0].data[6])
       if(datos[0]){
         
         const url = 'http://localhost:8000/graphql'
@@ -280,7 +293,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[0].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[0].data[0],datos[0].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -317,7 +330,7 @@ class App extends React.Component {
                  this.setState({peticion1:datos.data.data.getresultGlobalSurveyEEO})
               })
               .catch(err => {
-                console.log("el error es  ",err)
+                console.log("el error es  ",err.response)
               });  
       } if(datos[1]){
         const url = 'http://localhost:8000/graphql'
@@ -327,7 +340,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[1].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[1].data[0],datos[1].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -374,7 +387,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[2].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[2].data[0],datos[2].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -421,7 +434,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[3].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[3].data[0],datos[3].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -468,7 +481,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[4].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[4].data[0],datos[4].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -515,7 +528,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[5].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[5].data[0],datos[5].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -562,7 +575,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[6].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[6].data[0],datos[6].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -609,7 +622,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[7].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[7].data[0],datos[7].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -656,7 +669,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[8].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[8].data[0],datos[8].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -703,7 +716,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[9].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[9].data[0],datos[9].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -750,7 +763,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[10].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[10].data[0],datos[10].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -797,7 +810,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[11].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[11].data[0],datos[11].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -844,7 +857,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[12].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[12].data[0],datos[12].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -891,7 +904,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[13].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[13].data[0],datos[13].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -938,7 +951,7 @@ class App extends React.Component {
           data:{
           query:`
             query{
-              getresultGlobalSurveyEEO(data:"${[datos[14].data[0]]}"){
+              getresultGlobalSurveyEEO(data:"${[datos[14].data[0],datos[14].data[6]]}"){
               id 
               Respuestas 
               fk_preguntasEEO
@@ -984,10 +997,10 @@ class App extends React.Component {
 
   render() {
 
-    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo"];
+    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo"];
 
     const data = this.state.empleados.map(rows=>{
-      return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoP,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo])
+      return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoP,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo])
     })
 
     let datosEmpleados;
@@ -23706,7 +23719,7 @@ ponderacion=<React.Fragment>
     
       >
 <MDBContainer >
-<font face="arial" className = "mt-4" ><strong> ENCUESTA EEO. </strong> <br/> <strong>FILTRADO POR  :  {this.state.filtro6} {this.state.filtro1} <br/>{this.state.filtro2} <br/> {this.state.filtro3}  <br/>{this.state.filtro4} <br/> {this.state.filtro5} <br/></strong></font><br/>
+<font face="arial" className = "mt-4" ><strong> ENCUESTA EEO. </strong> <br/> <strong>FILTRADO POR  :{this.state.filtro1} <br/>{this.state.filtro2} <br/> {this.state.filtro3}  <br/>{this.state.filtro4} <br/> {this.state.filtro5} <br/> {this.state.filtro7}<br/> {this.state.filtro8}</strong></font><br/>
 <font face="arial " className = "mt-4 " ><strong>{localStorage.getItem("razonsocial")}</strong> </font>
 
 <Table   responsive small borderless className="text-left mt-4 ">
@@ -23920,7 +23933,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >5.- Ritmos de trabajo acelerado</TableCell> 
+            <TableCell component="th" scope="row" width="50%">5.- Ritmos de trabajo acelerado</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
             <TableCell component="th" scope="row" > <MDBBadge  color="primary">{(entero7/length)+(entero8/length)}</MDBBadge ></TableCell>
@@ -24152,6 +24165,7 @@ ponderacion=<React.Fragment>
             <h5 >Ejemplo de Ponderación</h5>
             <Bar  data={this.state.dataBar} options={this.state.barChartOptions} />
             {/* <span>{this.state.dias} {this.state.horas} {this.state.minutos} {this.state.segundos}</span> */}
+            <Alert color ="primary">Seleccione por favor el periodo como primer filtro </Alert>
           </MDBContainer>
           </MDBCol>
          
