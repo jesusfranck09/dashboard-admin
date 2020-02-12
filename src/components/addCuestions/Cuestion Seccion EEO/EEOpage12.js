@@ -82,7 +82,104 @@ class Home extends React.Component {
     && (values.pregunta64 == "Siempre" || values.pregunta64=="CasiSiempre"|| values.pregunta64=="AlgunasVeces"|| values.pregunta64=="CasiNunca"|| values.pregunta64=="Nunca")
   
     ){
+      let pregunta57;
+      let pregunta58;
+      let pregunta59;
+      let pregunta60;
+      let pregunta61;
+      let pregunta62;
+      let pregunta63;
+      let pregunta64;
 
+      if(values.pregunta57=="Siempre"){
+        pregunta57=0
+      }else if(values.pregunta57=="CasiSiempre"){
+        pregunta57=1
+      }else if(values.pregunta57=="AlgunasVeces"){
+        pregunta57=2
+      }else if(values.pregunta57=="CasiNunca"){
+        pregunta57=3
+      }else if(values.pregunta57=="Nunca"){
+        pregunta57=4
+      }
+      if(values.pregunta58=="Siempre"){
+        pregunta58=4
+      }else if(values.pregunta58=="CasiSiempre"){
+        pregunta58=3
+      }else if(values.pregunta58=="AlgunasVeces"){
+        pregunta58=2
+      }else if(values.pregunta58=="CasiNunca"){
+        pregunta58=1
+      }else if(values.pregunta58=="Nunca"){
+        pregunta58=0
+      }
+      if(values.pregunta59=="Siempre"){
+        pregunta59=4
+      }else if(values.pregunta59=="CasiSiempre"){
+        pregunta59=3
+      }else if(values.pregunta59=="AlgunasVeces"){
+        pregunta59=2
+      }else if(values.pregunta59=="CasiNunca"){
+        pregunta59=1
+      }else if(values.pregunta59=="Nunca"){
+        pregunta59=0
+      }
+      if(values.pregunta60=="Siempre"){
+        pregunta60=4
+      }else if(values.pregunta60=="CasiSiempre"){
+        pregunta60=3
+      }else if(values.pregunta60=="AlgunasVeces"){
+        pregunta60=2
+      }else if(values.pregunta60=="CasiNunca"){
+        pregunta60=1
+      }else if(values.pregunta60=="Nunca"){
+        pregunta60=0
+      }
+      if(values.pregunta61=="Siempre"){
+        pregunta61=4
+      }else if(values.pregunta61=="CasiSiempre"){
+        pregunta61=3
+      }else if(values.pregunta61=="AlgunasVeces"){
+        pregunta61=2
+      }else if(values.pregunta61=="CasiNunca"){
+        pregunta61=1
+      }else if(values.pregunta61=="Nunca"){
+        pregunta61=0
+      }
+      if(values.pregunta62=="Siempre"){
+        pregunta62=4
+      }else if(values.pregunta62=="CasiSiempre"){
+        pregunta62=3
+      }else if(values.pregunta62=="AlgunasVeces"){
+        pregunta62=2
+      }else if(values.pregunta62=="CasiNunca"){
+        pregunta62=1
+      }else if(values.pregunta62=="Nunca"){
+        pregunta62=0
+      }
+      if(values.pregunta63=="Siempre"){
+        pregunta63=4
+      }else if(values.pregunta63=="CasiSiempre"){
+        pregunta63=3
+      }else if(values.pregunta63=="AlgunasVeces"){
+        pregunta63=2
+      }else if(values.pregunta63=="CasiNunca"){
+        pregunta63=1
+      }else if(values.pregunta63=="Nunca"){
+        pregunta63=0
+      }
+      if(values.pregunta64=="Siempre"){
+        pregunta64=4
+      }else if(values.pregunta64=="CasiSiempre"){
+        pregunta64=3
+      }else if(values.pregunta64=="AlgunasVeces"){
+        pregunta64=2
+      }else if(values.pregunta64=="CasiNunca"){
+        pregunta64=1
+      }else if(values.pregunta64=="Nunca"){
+        pregunta64=0
+      }
+     
       const correo   = localStorage.getItem("correoEEO")
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -92,7 +189,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          eeoPage12(data:"${[values.pregunta57,values.pregunta58,values.pregunta59,values.pregunta60,values.pregunta61,values.pregunta62,values.pregunta63,values.pregunta64,correo,periodo]}"){
+          eeoPage12(data:"${[values.pregunta57,values.pregunta58,values.pregunta59,values.pregunta60,values.pregunta61,values.pregunta62,values.pregunta63,values.pregunta64,correo,periodo,pregunta57,pregunta58,pregunta59,pregunta60,pregunta61,pregunta62,pregunta63,pregunta64]}"){
               message
                 }
               }

@@ -63,6 +63,55 @@ class Home extends React.Component {
     && (values.pregunta16 == "Siempre" || values.pregunta16=="CasiSiempre"|| values.pregunta16=="AlgunasVeces"|| values.pregunta16=="CasiNunca"|| values.pregunta16=="Nunca")
 
     ){
+      let pregunta13;
+      let pregunta14;
+      let pregunta15;
+      let pregunta16;
+   
+      if(values.pregunta13=="Siempre"){
+        pregunta13=4
+      }else if(values.pregunta13=="CasiSiempre"){
+        pregunta13=3
+      }else if(values.pregunta13=="AlgunasVeces"){
+        pregunta13=2
+      }else if(values.pregunta13=="CasiNunca"){
+        pregunta13=1
+      }else if(values.pregunta13=="Nunca"){
+        pregunta13=0
+      }
+      if(values.pregunta14=="Siempre"){
+        pregunta14=4
+      }else if(values.pregunta14=="CasiSiempre"){
+        pregunta14=3
+      }else if(values.pregunta14=="AlgunasVeces"){
+        pregunta14=2
+      }else if(values.pregunta14=="CasiNunca"){
+        pregunta14=1
+      }else if(values.pregunta14=="Nunca"){
+        pregunta14=0
+      }
+      if(values.pregunta15=="Siempre"){
+        pregunta15=4
+      }else if(values.pregunta15=="CasiSiempre"){
+        pregunta15=3
+      }else if(values.pregunta15=="AlgunasVeces"){
+        pregunta15=2
+      }else if(values.pregunta15=="CasiNunca"){
+        pregunta15=1
+      }else if(values.pregunta15=="Nunca"){
+        pregunta15=0
+      }
+      if(values.pregunta16=="Siempre"){
+        pregunta16=4
+      }else if(values.pregunta16=="CasiSiempre"){
+        pregunta16=3
+      }else if(values.pregunta16=="AlgunasVeces"){
+        pregunta16=2
+      }else if(values.pregunta16=="CasiNunca"){
+        pregunta16=1
+      }else if(values.pregunta16=="Nunca"){
+        pregunta16=0
+      }
 
       const correo   = localStorage.getItem("correoEEO")
       const periodo = localStorage.getItem("Periodo")
@@ -73,7 +122,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          eeoPage4(data:"${[values.pregunta13,values.pregunta14,values.pregunta15,values.pregunta16,correo,periodo]}"){
+          eeoPage4(data:"${[values.pregunta13,values.pregunta14,values.pregunta15,values.pregunta16,correo,periodo,pregunta13,pregunta14,pregunta15,pregunta16]}"){
               message
                 }
               }

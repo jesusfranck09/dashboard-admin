@@ -60,7 +60,55 @@ class Home extends React.Component {
     && (values.pregunta68 == "Siempre" || values.pregunta68=="CasiSiempre"|| values.pregunta68=="AlgunasVeces"|| values.pregunta68=="CasiNunca"|| values.pregunta68=="Nunca")
 
     ){
-
+      let pregunta65;
+      let pregunta66;
+      let pregunta67;
+      let pregunta68;
+      
+      if(values.pregunta65=="Siempre"){
+        pregunta65=4
+      }else if(values.pregunta65=="CasiSiempre"){
+        pregunta65=3
+      }else if(values.pregunta65=="AlgunasVeces"){
+        pregunta65=2
+      }else if(values.pregunta65=="CasiNunca"){
+        pregunta65=1
+      }else if(values.pregunta65=="Nunca"){
+        pregunta65=0
+      }
+      if(values.pregunta66=="Siempre"){
+        pregunta66=4
+      }else if(values.pregunta66=="CasiSiempre"){
+        pregunta66=3
+      }else if(values.pregunta66=="AlgunasVeces"){
+        pregunta66=2
+      }else if(values.pregunta66=="CasiNunca"){
+        pregunta66=1
+      }else if(values.pregunta66=="Nunca"){
+        pregunta66=0
+      }
+      if(values.pregunta67=="Siempre"){
+        pregunta67=4
+      }else if(values.pregunta67=="CasiSiempre"){
+        pregunta67=3
+      }else if(values.pregunta67=="AlgunasVeces"){
+        pregunta67=2
+      }else if(values.pregunta67=="CasiNunca"){
+        pregunta67=1
+      }else if(values.pregunta67=="Nunca"){
+        pregunta67=0
+      }
+      if(values.pregunta68=="Siempre"){
+        pregunta68=4
+      }else if(values.pregunta68=="CasiSiempre"){
+        pregunta68=3
+      }else if(values.pregunta68=="AlgunasVeces"){
+        pregunta68=2
+      }else if(values.pregunta68=="CasiNunca"){
+        pregunta68=1
+      }else if(values.pregunta68=="Nunca"){
+        pregunta68=0
+      }
       const correo   = localStorage.getItem("correoEEO")
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -70,7 +118,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          eeoPage13(data:"${[values.pregunta65,values.pregunta66,values.pregunta67,values.pregunta68,correo,periodo]}"){
+          eeoPage13(data:"${[values.pregunta65,values.pregunta66,values.pregunta67,values.pregunta68,correo,periodo,pregunta65,pregunta66,pregunta67,pregunta68]}"){
               message
                 }
               }

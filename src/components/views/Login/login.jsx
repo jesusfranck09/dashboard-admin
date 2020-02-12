@@ -57,15 +57,6 @@ class Login extends React.Component {
         
         }
       }
-
-
-//   handleTogglerClick = () => {
-//     this.setState({
-//       collapsed: !this.state.collapsed
-//     });
-//   };
-
-
 handleInput = (e) => {
     const {id, value} = e.target
      this.setState({
@@ -83,15 +74,31 @@ handleInput = (e) => {
   }
   
   handleData = (data) => {
-    if (data.login.token === 'ERROR'){
+    if (data.login.token === 'no hay token' && data.login.message=="error"){
+      DialogUtility.alert({
+        animationSettings: { effect: 'Zoom' },           
+        title: 'Por favor no deje espacios en blanco',
+        position: "fixed",
+    })
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000); 
 
-        alert('Error en login...');
-        return false;
-      }
+  }
+ if(data.login.token=='no hay token' && data.login.message=='usuario y contraseña incorrectos'){
+    DialogUtility.alert({
+      animationSettings: { effect: 'Zoom' },           
+      title: 'USUARIO Y CONTRASEÑA INCORRECTOS',
+      position: "fixed",
+  })  
+  setTimeout(() => {
+    window.location.reload();
+  }, 2000); 
+  }
+      console.log("esta es la data")
 
 
-
-      if(data.login.Activo=='true'){
+      if(data.login.message=='Login exitoso'){
       localStorage.setItem('idAdmin', data.login.id) 
 
       localStorage.setItem('elToken', data.login.token) 
@@ -123,18 +130,6 @@ handleInput = (e) => {
 
   }
   }
-
-  handleError = (error) => {
-
-    DialogUtility.alert({
-      animationSettings: { effect: 'Zoom' },           
-      title: 'Aviso!',
-      content: `Error de Inicio de Sesión`, 
-     
-      position: "fixed",
-  })
-  }
-
   render() {
     const overlay = (
       <div
@@ -147,14 +142,9 @@ handleInput = (e) => {
         <Mutation mutation={LOGIN}>
         {
 
-    (login, {data, error, loading}) => {
-    if (loading) console.log(loading);
+    (login, {data, error}) => {
     if (data){
       this.handleData(data)
-    } 
-    if (error){
-      this.handleError(error);
-      console.log("el error es " , error.response)
     } 
     return ( 
         <React.Fragment>

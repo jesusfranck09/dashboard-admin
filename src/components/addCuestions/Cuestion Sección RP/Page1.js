@@ -84,7 +84,115 @@ class Home extends React.Component {
     && (values.pregunta9 == "Siempre" || values.pregunta9=="CasiSiempre"|| values.pregunta9=="AlgunasVeces"|| values.pregunta9=="CasiNunca"|| values.pregunta9=="Nunca")
 
     ){
+      let pregunta1;
+      let pregunta2;
+      let pregunta3;
+      let pregunta4;
+      let pregunta5;
+      let pregunta6;
+      let pregunta7;
+      let pregunta8;
+      let pregunta9;
 
+      if(values.pregunta1=="Siempre"){
+        pregunta1=4
+      }else if(values.pregunta1=="CasiSiempre"){
+        pregunta1=3
+      }else if(values.pregunta1=="AlgunasVeces"){
+        pregunta1=2
+      }else if(values.pregunta1=="CasiNunca"){
+        pregunta1=1
+      }else if(values.pregunta1=="Nunca"){
+        pregunta1=0
+      }
+      if(values.pregunta2=="Siempre"){
+        pregunta2=4
+      }else if(values.pregunta2=="CasiSiempre"){
+        pregunta2=3
+      }else if(values.pregunta2=="AlgunasVeces"){
+        pregunta2=2
+      }else if(values.pregunta2=="CasiNunca"){
+        pregunta2=1
+      }else if(values.pregunta2=="Nunca"){
+        pregunta2=0
+      }
+      if(values.pregunta3=="Siempre"){
+        pregunta3=4
+      }else if(values.pregunta3=="CasiSiempre"){
+        pregunta3=3
+      }else if(values.pregunta3=="AlgunasVeces"){
+        pregunta3=2
+      }else if(values.pregunta3=="CasiNunca"){
+        pregunta3=1
+      }else if(values.pregunta3=="Nunca"){
+        pregunta3=0
+      }
+      if(values.pregunta4=="Siempre"){
+        pregunta4=4
+      }else if(values.pregunta4=="CasiSiempre"){
+        pregunta4=3
+      }else if(values.pregunta4=="AlgunasVeces"){
+        pregunta4=2
+      }else if(values.pregunta4=="CasiNunca"){
+        pregunta4=1
+      }else if(values.pregunta4=="Nunca"){
+        pregunta4=0
+      }
+      if(values.pregunta5=="Siempre"){
+        pregunta5=4
+      }else if(values.pregunta5=="CasiSiempre"){
+        pregunta5=3
+      }else if(values.pregunta5=="AlgunasVeces"){
+        pregunta5=2
+      }else if(values.pregunta5=="CasiNunca"){
+        pregunta5=1
+      }else if(values.pregunta5=="Nunca"){
+        pregunta5=0
+      }
+      if(values.pregunta6=="Siempre"){
+        pregunta6=4
+      }else if(values.pregunta6=="CasiSiempre"){
+        pregunta6=3
+      }else if(values.pregunta6=="AlgunasVeces"){
+        pregunta6=2
+      }else if(values.pregunta6=="CasiNunca"){
+        pregunta6=1
+      }else if(values.pregunta6=="Nunca"){
+        pregunta6=0
+      }
+      if(values.pregunta7=="Siempre"){
+        pregunta7=4
+      }else if(values.pregunta7=="CasiSiempre"){
+        pregunta7=3
+      }else if(values.pregunta7=="AlgunasVeces"){
+        pregunta7=2
+      }else if(values.pregunta7=="CasiNunca"){
+        pregunta7=1
+      }else if(values.pregunta7=="Nunca"){
+        pregunta7=0
+      }
+      if(values.pregunta8=="Siempre"){
+        pregunta8=4
+      }else if(values.pregunta8=="CasiSiempre"){
+        pregunta8=3
+      }else if(values.pregunta8=="AlgunasVeces"){
+        pregunta8=2
+      }else if(values.pregunta8=="CasiNunca"){
+        pregunta8=1
+      }else if(values.pregunta8=="Nunca"){
+        pregunta8=0
+      }
+      if(values.pregunta9=="Siempre"){
+        pregunta9=4
+      }else if(values.pregunta9=="CasiSiempre"){
+        pregunta9=3
+      }else if(values.pregunta9=="AlgunasVeces"){
+        pregunta9=2
+      }else if(values.pregunta9=="CasiNunca"){
+        pregunta9=1
+      }else if(values.pregunta9=="Nunca"){
+        pregunta9=0
+      }
       const correo = localStorage.getItem('correoRP')
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -94,7 +202,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          rpPage1(data:"${[values.pregunta1,values.pregunta2,values.pregunta3,values.pregunta4,values.pregunta5,values.pregunta6,values.pregunta7,values.pregunta8,values.pregunta9,correo,periodo]}"){
+          rpPage1(data:"${[values.pregunta1,values.pregunta2,values.pregunta3,values.pregunta4,values.pregunta5,values.pregunta6,values.pregunta7,values.pregunta8,values.pregunta9,correo,periodo,pregunta1,pregunta2,pregunta3,pregunta4,pregunta5,pregunta6,pregunta7,pregunta8,pregunta9]}"){
               message
                 }
               }

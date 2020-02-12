@@ -63,6 +63,7 @@ class Home extends React.Component {
       minutos:'',
       segundos:'',
       licencia:'',
+      array:[]
     };
     this.onClick = this.onClick.bind(this);
     this.handleclick = this.handleclick.bind(this);
@@ -71,6 +72,28 @@ class Home extends React.Component {
   }
 
   componentWillMount(){
+  const idAdmin   = localStorage.getItem('idAdmin')
+  const url = 'http://localhost:8000/graphql'
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+     query{
+      getAdminFechaRegistro(data:"${[idAdmin]}"){
+      fechaRegistro
+            }
+          }
+        `
+    }
+        }).then((datos) => {
+        console.log("Registro",datos.data.data.getAdminFechaRegistro.fechaRegistro)
+        
+        var part1=datos.data.data.getAdminFechaRegistro.fechaRegistro.substring(5,11)
+        var part2=datos.data.data.getAdminFechaRegistro.fechaRegistro.substring(16,29)
+        this.countdown(part1 + " 2021 " + part2)
+        })
+
     var Nombre = localStorage.getItem("nombre")
     var Apellidos = localStorage.getItem("apellidos")
 
@@ -87,7 +110,8 @@ class Home extends React.Component {
     this.setState({date:FechaCompleta}) 
     this.setState({nombre:Nombre}) 
     this.setState({apellidos:Apellidos}) 
-    this.countdown('Feb 20 2020 09:46:21 GMT-0600')
+
+
     this.getMaxEmployees();
     this.countEmployees();
     this.verifyTables()
@@ -132,7 +156,6 @@ DialogUtility.alert({
 
 
 ads(){
-
   this.setState({showModal2:true})
   
 }
@@ -165,79 +188,79 @@ verifyTables(){
           console.log("este es el error " , err.response)
         })
         
-        axios({
-          url:  url,
-          method:'post',
-          data:{
-          query:`
-           query{
-            deptoActive(data:"${[idAdmin]}"){
-              id
-              DepartamentoActivo
-                  }
-                }
-              `
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+      query{
+      deptoActive(data:"${[idAdmin]}"){
+        id
+        DepartamentoActivo
+            }
           }
-              }).then((datos) => {
-                 console.log("depto activo",datos.data.data.deptoActive)
-                if(datos.data.data.deptoActive.length>0){
-                 localStorage.setItem("DepartamentoActivo","true")
-                }else{
-                  localStorage.setItem("DepartamentoActivo","false")
-                }
-            
-              }).catch(err=>{
-                console.log("este es el error " , err.response)
-              })
-              axios({
-                url:  url,
-                method:'post',
-                data:{
-                query:`
-                 query{
-                  sucActive(data:"${[idAdmin]}"){
-                    id
-                    SucursalActiva
-                        }
-                      }
-                    `
-                }
-                    }).then((datos) => {
-                       console.log("depto activo",datos.data.data.sucActive)
-                      if(datos.data.data.sucActive.length>0){
-                       localStorage.setItem("SucursalActiva","true")
-                      }else{
-                        localStorage.setItem("SucursalActiva","false")
-                      }
-                  
-                    }).catch(err=>{
-                      console.log("este es el error " , err.response)
-                    })
-                    axios({
-                      url:  url,
-                      method:'post',
-                      data:{
-                      query:`
-                       query{
-                        puestoActive(data:"${[idAdmin]}"){
-                          id
-                          PuestoActivo
-                              }
-                            }
-                          `
-                      }
-                          }).then((datos) => {
-                             console.log("depto activo",datos.data.data.puestoActive)
-                            if(datos.data.data.puestoActive.length>0){
-                             localStorage.setItem("PuestoActivo","true")
-                            }else{
-                              localStorage.setItem("PuestoActivo","false")
-                            }
-                        
-                          }).catch(err=>{
-                            console.log("este es el error " , err.response)
-                          })
+        `
+    }
+        }).then((datos) => {
+            console.log("depto activo",datos.data.data.deptoActive)
+          if(datos.data.data.deptoActive.length>0){
+            localStorage.setItem("DepartamentoActivo","true")
+          }else{
+            localStorage.setItem("DepartamentoActivo","false")
+          }
       
+        }).catch(err=>{
+          console.log("este es el error " , err.response)
+        })
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+      query{
+      sucActive(data:"${[idAdmin]}"){
+        id
+        SucursalActiva
+            }
+          }
+        `
+    }
+        }).then((datos) => {
+            console.log("depto activo",datos.data.data.sucActive)
+          if(datos.data.data.sucActive.length>0){
+            localStorage.setItem("SucursalActiva","true")
+          }else{
+            localStorage.setItem("SucursalActiva","false")
+          }
+      
+        }).catch(err=>{
+          console.log("este es el error " , err.response)
+        })
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+      query{
+      puestoActive(data:"${[idAdmin]}"){
+        id
+        PuestoActivo
+            }
+          }
+        `
+    }
+        }).then((datos) => {
+            console.log("depto activo",datos.data.data.puestoActive)
+          if(datos.data.data.puestoActive.length>0){
+            localStorage.setItem("PuestoActivo","true")
+          }else{
+            localStorage.setItem("PuestoActivo","false")
+          }
+      
+        }).catch(err=>{
+          console.log("este es el error " , err.response)
+        })
+
 
 }
 
@@ -265,27 +288,27 @@ countEmployees(){
           console.log("este es el error " , err.response)
         })
 
-        axios({
-          url:  url,
-          method:'post',
-          data:{
-          query:`
-           query{
-                getEmployeesATSDetectado(data:"${[idAdmin]}"){
-                  nombre
-                  ApellidoP
-                  ApellidoM
-                  correo
-                  }
-                }
-              `
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+      query{
+          getEmployeesATSDetectado(data:"${[idAdmin]}"){
+            nombre
+            ApellidoP
+            ApellidoM
+            correo
+            }
           }
-              }).then((datos) => {
-                // console.log("los datos son ",datos.data.data.countEmployees[0].id)
-                this.setState({empleadosAtsDetectado:datos.data.data.getEmployeesATSDetectado})
-              }).catch(err=>{
-                console.log("este es el error " , err.response)
-              })
+        `
+    }
+        }).then((datos) => {
+          // console.log("los datos son ",datos.data.data.countEmployees[0].id)
+          this.setState({empleadosAtsDetectado:datos.data.data.getEmployeesATSDetectado})
+        }).catch(err=>{
+          console.log("este es el error " , err.response)
+        })
 
 }
 
@@ -316,121 +339,121 @@ getMaxEmployees(){
           // console.log("este es el error " , err.response)
         })
 
-        axios({
-          url:  url,
-          method:'post',
-          data:{
-          query:`
-           query{
-            getEmployeesResolvesSurveyATSFalse(data:"${[idAdmin]}"){
-                  nombre
-                  ApellidoP
-                  ApellidoM
-                  correo
-                  ATSContestado
-                  }
-                }
-              `
-          }
-              }).then((datos) => {
-                // console.log("los datos son ",datos)
-                this.setState({empleadosAtsFalse:datos.data.data.getEmployeesResolvesSurveyATSFalse})
-                // console.log("state.lenghtFalse" , this.state.empleadosAtsFalse.length)
-              }).catch(err=>{
-                // console.log("este es el error " , err.response)
-              })   
-                
-          axios({
-            url:  url,
-            method:'post',
-            data:{
-            query:`
-            query{
-              getEmployeesResolvesSurveyRP(data:"${[idAdmin]}"){
-                nombre
-                ApellidoP
-                ApellidoM
-                correo
-                ATSContestado
-                    }
-                  }
-                `
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+      query{
+      getEmployeesResolvesSurveyATSFalse(data:"${[idAdmin]}"){
+            nombre
+            ApellidoP
+            ApellidoM
+            correo
+            ATSContestado
             }
-                }).then((datos) => {
-                  this.setState({empleadosRP:datos.data.data.getEmployeesResolvesSurveyRP})
-                  // console.log("hay datos RP  " ,datos ) 
-                }).catch(err=>{
-                  // console.log("error", err.response)
-                })
+          }
+        `
+    }
+        }).then((datos) => {
+          // console.log("los datos son ",datos)
+          this.setState({empleadosAtsFalse:datos.data.data.getEmployeesResolvesSurveyATSFalse})
+          // console.log("state.lenghtFalse" , this.state.empleadosAtsFalse.length)
+        }).catch(err=>{
+          // console.log("este es el error " , err.response)
+        })  
+                 
+  axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+    query{
+      getEmployeesResolvesSurveyRP(data:"${[idAdmin]}"){
+        nombre
+        ApellidoP
+        ApellidoM
+        correo
+        ATSContestado
+            }
+          }
+        `
+    }
+        }).then((datos) => {
+          this.setState({empleadosRP:datos.data.data.getEmployeesResolvesSurveyRP})
+          // console.log("hay datos RP  " ,datos ) 
+        }).catch(err=>{
+          // console.log("error", err.response)
+        })
 
-                axios({
-                  url:  url,
-                  method:'post',
-                  data:{
-                  query:`
-                  query{
-                    getEmployeesResolvesSurveyRPFalse(data:"${[idAdmin]}"){
-                      nombre
-                      ApellidoP
-                      ApellidoM
-                      correo
-                      ATSContestado
-                          }
-                        }
-                      `
-                  }
-                      }).then((datos) => {
-                        this.setState({empleadosRPFalse:datos.data.data.getEmployeesResolvesSurveyRPFalse})
-                        // console.log("hay datos RPFalse  " ,datos ) 
-                      }).catch(err=>{
-                        // console.log("error", err.response)
-                      })
+    axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+      query{
+        getEmployeesResolvesSurveyRPFalse(data:"${[idAdmin]}"){
+          nombre
+          ApellidoP
+          ApellidoM
+          correo
+          ATSContestado
+              }
+            }
+          `
+      }
+          }).then((datos) => {
+            this.setState({empleadosRPFalse:datos.data.data.getEmployeesResolvesSurveyRPFalse})
+            // console.log("hay datos RPFalse  " ,datos ) 
+          }).catch(err=>{
+            // console.log("error", err.response)
+          })
  
-                  axios({
-                    url:  url,
-                    method:'post',
-                    data:{
-                    query:`
-                    query{
-                      getEmployeesResolvesSurveyEEO(data:"${[idAdmin]}"){
-                        nombre
-                        ApellidoP
-                        ApellidoM
-                        correo
-                        ATSContestado
-                            }
-                          }
-                        `
-                    }
-                        }).then((datos) => {
-                          this.setState({empleadosEEO:datos.data.data.getEmployeesResolvesSurveyEEO})
+    axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+      query{
+        getEmployeesResolvesSurveyEEO(data:"${[idAdmin]}"){
+          nombre
+          ApellidoP
+          ApellidoM
+          correo
+          ATSContestado
+              }
+            }
+          `
+      }
+          }).then((datos) => {
+            this.setState({empleadosEEO:datos.data.data.getEmployeesResolvesSurveyEEO})
 
-                        }).catch(err=>{
-                          // console.log("error", err.response)
-                        })
+          }).catch(err=>{
+            // console.log("error", err.response)
+          })
 
-                        axios({
-                          url:  url,
-                          method:'post',
-                          data:{
-                          query:`
-                          query{
-                            getEmployeesResolvesSurveyEEOFalse(data:"${[idAdmin]}"){
-                              nombre
-                              ApellidoP
-                              ApellidoM
-                              correo
-                              ATSContestado
-                                  }
-                                }
-                              `
-                          }
-                              }).then((datos) => {
-                                this.setState({empleadosEEOFalse:datos.data.data.getEmployeesResolvesSurveyEEOFalse})
-                                // console.log("datosFalse" ,datos.data.data.getEmployeesResolvesSurveyEEOFalse )
-                              }).catch(err=>{
-                                // console.log("error", err.response)
-                              })
+    axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+      query{
+        getEmployeesResolvesSurveyEEOFalse(data:"${[idAdmin]}"){
+          nombre
+          ApellidoP
+          ApellidoM
+          correo
+          ATSContestado
+              }
+            }
+          `
+      }
+          }).then((datos) => {
+            this.setState({empleadosEEOFalse:datos.data.data.getEmployeesResolvesSurveyEEOFalse})
+            // console.log("datosFalse" ,datos.data.data.getEmployeesResolvesSurveyEEOFalse )
+          }).catch(err=>{
+            // console.log("error", err.response)
+          })
 
 
 }
@@ -466,10 +489,8 @@ countdown = (deadline) => {
             }).then((datos) => {
            
             }); 
-
-
     }else {
-this.setState({licencia:""})
+    this.setState({licencia:""})
 
     }
 
@@ -968,7 +989,6 @@ toggle = (nr) => () => {
         {Alerta}
         {dep}
         {suc}
-       
         </MDBContainer>
       </div>
 

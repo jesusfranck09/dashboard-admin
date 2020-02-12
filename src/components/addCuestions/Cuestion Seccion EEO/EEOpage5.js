@@ -69,7 +69,78 @@ validate = values => {
     && (values.pregunta22 == "Siempre" || values.pregunta22=="CasiSiempre"|| values.pregunta22=="AlgunasVeces"|| values.pregunta22=="CasiNunca"|| values.pregunta22=="Nunca")
 
     ){
-
+      let pregunta17;
+      let pregunta18;
+      let pregunta19;
+      let pregunta20;
+      let pregunta21;
+      let pregunta22;
+      if(values.pregunta17=="Siempre"){
+        pregunta17=4
+      }else if(values.pregunta17=="CasiSiempre"){
+        pregunta17=3
+      }else if(values.pregunta17=="AlgunasVeces"){
+        pregunta17=2
+      }else if(values.pregunta17=="CasiNunca"){
+        pregunta17=1
+      }else if(values.pregunta17=="Nunca"){
+        pregunta17=0
+      }
+      if(values.pregunta18=="Siempre"){
+        pregunta18=4
+      }else if(values.pregunta18=="CasiSiempre"){
+        pregunta18=3
+      }else if(values.pregunta18=="AlgunasVeces"){
+        pregunta18=2
+      }else if(values.pregunta18=="CasiNunca"){
+        pregunta18=1
+      }else if(values.pregunta18=="Nunca"){
+        pregunta18=0
+      }
+      if(values.pregunta19=="Siempre"){
+        pregunta19=4
+      }else if(values.pregunta19=="CasiSiempre"){
+        pregunta19=3
+      }else if(values.pregunta19=="AlgunasVeces"){
+        pregunta19=2
+      }else if(values.pregunta19=="CasiNunca"){
+        pregunta19=1
+      }else if(values.pregunta19=="Nunca"){
+        pregunta19=0
+      }
+      if(values.pregunta20=="Siempre"){
+        pregunta20=4
+      }else if(values.pregunta20=="CasiSiempre"){
+        pregunta20=3
+      }else if(values.pregunta20=="AlgunasVeces"){
+        pregunta20=2
+      }else if(values.pregunta20=="CasiNunca"){
+        pregunta20=1
+      }else if(values.pregunta20=="Nunca"){
+        pregunta20=0
+      }
+      if(values.pregunta21=="Siempre"){
+        pregunta21=4
+      }else if(values.pregunta21=="CasiSiempre"){
+        pregunta21=3
+      }else if(values.pregunta21=="AlgunasVeces"){
+        pregunta21=2
+      }else if(values.pregunta21=="CasiNunca"){
+        pregunta21=1
+      }else if(values.pregunta21=="Nunca"){
+        pregunta21=0
+      }
+      if(values.pregunta22=="Siempre"){
+        pregunta22=4
+      }else if(values.pregunta22=="CasiSiempre"){
+        pregunta22=3
+      }else if(values.pregunta22=="AlgunasVeces"){
+        pregunta22=2
+      }else if(values.pregunta22=="CasiNunca"){
+        pregunta22=1
+      }else if(values.pregunta22=="Nunca"){
+        pregunta22=0
+      }
       const correo   = localStorage.getItem("correoEEO")
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -79,7 +150,7 @@ validate = values => {
         data:{
         query:`
          mutation{
-          eeoPage5(data:"${[values.pregunta17,values.pregunta18,values.pregunta19,values.pregunta20,values.pregunta21,values.pregunta22,correo,periodo]}"){
+          eeoPage5(data:"${[values.pregunta17,values.pregunta18,values.pregunta19,values.pregunta20,values.pregunta21,values.pregunta22,correo,periodo,pregunta17,pregunta18,pregunta19,pregunta20,pregunta21,pregunta22]}"){
               message
                 }
               }

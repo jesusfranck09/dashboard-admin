@@ -100,7 +100,163 @@ class Home extends React.Component {
 
     ){
       console.log("vslues" , values)
+      let pregunta28;
+      let pregunta29;
+      let pregunta30;
+      let pregunta31;
+      let pregunta32;
+      let pregunta33;
+      let pregunta34;
+      let pregunta35;
+      let pregunta36;
+      let pregunta37;
+      let pregunta38;
+      let pregunta39;
+      let pregunta40;
 
+      if(values.pregunta28=="Siempre"){
+        pregunta28=0
+      }else if(values.pregunta28=="CasiSiempre"){
+        pregunta28=1
+      }else if(values.pregunta28=="AlgunasVeces"){
+        pregunta28=2
+      }else if(values.pregunta28=="CasiNunca"){
+        pregunta28=3
+      }else if(values.pregunta28=="Nunca"){
+        pregunta28=4
+      }
+      if(values.pregunta29=="Siempre"){
+        pregunta29=0
+      }else if(values.pregunta29=="CasiSiempre"){
+        pregunta29=1
+      }else if(values.pregunta29=="AlgunasVeces"){
+        pregunta29=2
+      }else if(values.pregunta29=="CasiNunca"){
+        pregunta29=3
+      }else if(values.pregunta29=="Nunca"){
+        pregunta29=4
+      }
+      if(values.pregunta30=="Siempre"){
+        pregunta30=0
+      }else if(values.pregunta30=="CasiSiempre"){
+        pregunta30=1
+      }else if(values.pregunta30=="AlgunasVeces"){
+        pregunta30=2
+      }else if(values.pregunta30=="CasiNunca"){
+        pregunta30=3
+      }else if(values.pregunta30=="Nunca"){
+        pregunta30=4
+      }
+      if(values.pregunta31=="Siempre"){
+        pregunta31=0
+      }else if(values.pregunta31=="CasiSiempre"){
+        pregunta31=1
+      }else if(values.pregunta31=="AlgunasVeces"){
+        pregunta31=2
+      }else if(values.pregunta31=="CasiNunca"){
+        pregunta31=3
+      }else if(values.pregunta31=="Nunca"){
+        pregunta31=4
+      }
+      if(values.pregunta32=="Siempre"){
+        pregunta32=0
+      }else if(values.pregunta32=="CasiSiempre"){
+        pregunta32=1
+      }else if(values.pregunta32=="AlgunasVeces"){
+        pregunta32=2
+      }else if(values.pregunta32=="CasiNunca"){
+        pregunta32=3
+      }else if(values.pregunta32=="Nunca"){
+        pregunta32=4
+      }
+      if(values.pregunta33=="Siempre"){
+        pregunta33=0
+      }else if(values.pregunta33=="CasiSiempre"){
+        pregunta33=1
+      }else if(values.pregunta33=="AlgunasVeces"){
+        pregunta33=2
+      }else if(values.pregunta33=="CasiNunca"){
+        pregunta33=3
+      }else if(values.pregunta33=="Nunca"){
+        pregunta33=4
+      }
+      if(values.pregunta34=="Siempre"){
+        pregunta34=4
+      }else if(values.pregunta34=="CasiSiempre"){
+        pregunta34=3
+      }else if(values.pregunta34=="AlgunasVeces"){
+        pregunta34=2
+      }else if(values.pregunta34=="CasiNunca"){
+        pregunta34=1
+      }else if(values.pregunta34=="Nunca"){
+        pregunta34=0
+      }
+      if(values.pregunta35=="Siempre"){
+        pregunta35=4
+      }else if(values.pregunta35=="CasiSiempre"){
+        pregunta35=3
+      }else if(values.pregunta35=="AlgunasVeces"){
+        pregunta35=2
+      }else if(values.pregunta35=="CasiNunca"){
+        pregunta35=1
+      }else if(values.pregunta35=="Nunca"){
+        pregunta35=0
+      }
+      if(values.pregunta36=="Siempre"){
+        pregunta36=4
+      }else if(values.pregunta36=="CasiSiempre"){
+        pregunta36=3
+      }else if(values.pregunta36=="AlgunasVeces"){
+        pregunta36=2
+      }else if(values.pregunta36=="CasiNunca"){
+        pregunta36=1
+      }else if(values.pregunta36=="Nunca"){
+        pregunta36=0
+      }
+      if(values.pregunta37=="Siempre"){
+        pregunta37=4
+      }else if(values.pregunta37=="CasiSiempre"){
+        pregunta37=3
+      }else if(values.pregunta37=="AlgunasVeces"){
+        pregunta37=2
+      }else if(values.pregunta37=="CasiNunca"){
+        pregunta37=1
+      }else if(values.pregunta37=="Nunca"){
+        pregunta37=0
+      }
+      if(values.pregunta38=="Siempre"){
+        pregunta38=4
+      }else if(values.pregunta38=="CasiSiempre"){
+        pregunta38=3
+      }else if(values.pregunta38=="AlgunasVeces"){
+        pregunta38=2
+      }else if(values.pregunta38=="CasiNunca"){
+        pregunta38=1
+      }else if(values.pregunta38=="Nunca"){
+        pregunta38=0
+      }
+      if(values.pregunta39=="Siempre"){
+        pregunta39=4
+      }else if(values.pregunta39=="CasiSiempre"){
+        pregunta39=3
+      }else if(values.pregunta39=="AlgunasVeces"){
+        pregunta39=2
+      }else if(values.pregunta39=="CasiNunca"){
+        pregunta39=1
+      }else if(values.pregunta39=="Nunca"){
+        pregunta39=0
+      }
+      if(values.pregunta40=="Siempre"){
+        pregunta40=4
+      }else if(values.pregunta40=="CasiSiempre"){
+        pregunta40=3
+      }else if(values.pregunta40=="AlgunasVeces"){
+        pregunta40=2
+      }else if(values.pregunta40=="CasiNunca"){
+        pregunta40=1
+      }else if(values.pregunta40=="Nunca"){
+        pregunta40=0
+      }
       const correo = localStorage.getItem('correoRP')
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -110,7 +266,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          rpPage6(data:"${[values.pregunta28,values.pregunta29,values.pregunta30,values.pregunta31,values.pregunta32,values.pregunta33,values.pregunta34,values.pregunta35,values.pregunta36,values.pregunta37,values.pregunta38,values.pregunta39,values.pregunta40,correo,periodo]}"){
+          rpPage6(data:"${[values.pregunta28,values.pregunta29,values.pregunta30,values.pregunta31,values.pregunta32,values.pregunta33,values.pregunta34,values.pregunta35,values.pregunta36,values.pregunta37,values.pregunta38,values.pregunta39,values.pregunta40,correo,periodo,pregunta28,pregunta29,pregunta30,pregunta31,pregunta32,pregunta33,pregunta34,pregunta35,pregunta36,pregunta37,pregunta38,pregunta39,pregunta40]}"){
               message
                 }
               }

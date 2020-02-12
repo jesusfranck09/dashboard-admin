@@ -60,7 +60,44 @@ class Home extends React.Component {
     && (values.pregunta7 == "Siempre" || values.pregunta7=="CasiSiempre"|| values.pregunta7=="AlgunasVeces"|| values.pregunta7=="CasiNunca"|| values.pregunta7=="Nunca") 
     && (values.pregunta8 == "Siempre" || values.pregunta8=="CasiSiempre"|| values.pregunta8=="AlgunasVeces"|| values.pregunta8=="CasiNunca"|| values.pregunta8=="Nunca")
     ){
-
+      let pregunta6;
+      let pregunta7;
+      let pregunta8;
+    
+    
+      if(values.pregunta6=="Siempre"){
+        pregunta6=4
+      }else if(values.pregunta6=="CasiSiempre"){
+        pregunta6=3
+      }else if(values.pregunta6=="AlgunasVeces"){
+        pregunta6=2
+      }else if(values.pregunta6=="CasiNunca"){
+        pregunta6=1
+      }else if(values.pregunta6=="Nunca"){
+        pregunta6=0
+      }
+      if(values.pregunta7=="Siempre"){
+        pregunta7=4
+      }else if(values.pregunta7=="CasiSiempre"){
+        pregunta7=3
+      }else if(values.pregunta7=="AlgunasVeces"){
+        pregunta7=2
+      }else if(values.pregunta7=="CasiNunca"){
+        pregunta7=1
+      }else if(values.pregunta7=="Nunca"){
+        pregunta7=0
+      }
+      if(values.pregunta8=="Siempre"){
+        pregunta8=4
+      }else if(values.pregunta8=="CasiSiempre"){
+        pregunta8=3
+      }else if(values.pregunta8=="AlgunasVeces"){
+        pregunta8=2
+      }else if(values.pregunta8=="CasiNunca"){
+        pregunta8=1
+      }else if(values.pregunta8=="Nunca"){
+        pregunta8=0
+      }
       const correo   = localStorage.getItem("correoEEO")
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -70,7 +107,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          eeoPage2(data:"${[values.pregunta6,values.pregunta7,values.pregunta8,correo,periodo]}"){
+          eeoPage2(data:"${[values.pregunta6,values.pregunta7,values.pregunta8,correo,periodo,pregunta6,pregunta7,pregunta8]}"){
               message
                 }
               }

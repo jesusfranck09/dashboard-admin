@@ -65,7 +65,67 @@ validate = values => {
     && (values.pregunta46 == "Siempre" || values.pregunta46=="CasiSiempre"|| values.pregunta46=="AlgunasVeces"|| values.pregunta46=="CasiNunca"|| values.pregunta46=="Nunca")
 
     ){
-
+      let pregunta42;
+      let pregunta43;
+      let pregunta44;
+      let pregunta45;
+      let pregunta46;
+      
+      if(values.pregunta42=="Siempre"){
+        pregunta42=0
+      }else if(values.pregunta42=="CasiSiempre"){
+        pregunta42=1
+      }else if(values.pregunta42=="AlgunasVeces"){
+        pregunta42=2
+      }else if(values.pregunta42=="CasiNunca"){
+        pregunta42=3
+      }else if(values.pregunta42=="Nunca"){
+        pregunta42=4
+      }
+      if(values.pregunta43=="Siempre"){
+        pregunta43=0
+      }else if(values.pregunta43=="CasiSiempre"){
+        pregunta43=1
+      }else if(values.pregunta43=="AlgunasVeces"){
+        pregunta43=2
+      }else if(values.pregunta43=="CasiNunca"){
+        pregunta43=3
+      }else if(values.pregunta43=="Nunca"){
+        pregunta43=4
+      }
+      if(values.pregunta44=="Siempre"){
+        pregunta44=0
+      }else if(values.pregunta44=="CasiSiempre"){
+        pregunta44=1
+      }else if(values.pregunta44=="AlgunasVeces"){
+        pregunta44=2
+      }else if(values.pregunta44=="CasiNunca"){
+        pregunta44=3
+      }else if(values.pregunta44=="Nunca"){
+        pregunta44=4
+      }
+      if(values.pregunta45=="Siempre"){
+        pregunta45=0
+      }else if(values.pregunta45=="CasiSiempre"){
+        pregunta45=1
+      }else if(values.pregunta45=="AlgunasVeces"){
+        pregunta45=2
+      }else if(values.pregunta45=="CasiNunca"){
+        pregunta45=3
+      }else if(values.pregunta45=="Nunca"){
+        pregunta45=4
+      }
+      if(values.pregunta46=="Siempre"){
+        pregunta46=0
+      }else if(values.pregunta46=="CasiSiempre"){
+        pregunta46=1
+      }else if(values.pregunta46=="AlgunasVeces"){
+        pregunta46=2
+      }else if(values.pregunta46=="CasiNunca"){
+        pregunta46=3
+      }else if(values.pregunta46=="Nunca"){
+        pregunta46=4
+      }
       const correo   = localStorage.getItem("correoEEO")
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -75,7 +135,7 @@ validate = values => {
         data:{
         query:`
          mutation{
-          eeoPage10(data:"${[values.pregunta42,values.pregunta43,values.pregunta44,values.pregunta45,values.pregunta46,correo,periodo]}"){
+          eeoPage10(data:"${[values.pregunta42,values.pregunta43,values.pregunta44,values.pregunta45,values.pregunta46,correo,periodo,pregunta42,pregunta43,pregunta44,pregunta45,pregunta46]}"){
               message
                 }
               }

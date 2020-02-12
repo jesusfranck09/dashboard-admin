@@ -98,7 +98,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
             DialogUtility.alert({
                 animationSettings: { effect: 'Fade' },           
                 title:'Aviso',
-                content: 'La Sucursal ha sido Registrada con Éxito!',
+                content: 'Centro de trabajo Registrado con Éxito!',
                 position: "fixed",
               
               }
@@ -129,7 +129,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
               validate={validate}
               render={({ handleSubmit, submitting,values }) => (
                 <form onSubmit={handleSubmit}>
-                 <Alert color="dark">Datos generales de la Empresa</Alert>
+                 <Alert color="dark">Datos generales</Alert>
                   <Paper style={{ padding: 16} }>
                     <Grid container alignItems="flex-start" spacing={2} >
                       <Grid item xs={6}>
@@ -139,13 +139,13 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
                           name="Nombre"
                           component={TextField}
                           type="text"
-                          label="Nombre / Razón Social"
+                          label="Centro de trabajo"
                         />
                       </Grid>
 
                      
                       <Grid item xs={12} style ={{marginTop:20}}>
-                      <Alert color="secondary">Dirección de la Sucursal  </Alert>
+                      <Alert color="secondary">Dirección </Alert>
                         <Field
                           fullWidth
                           required

@@ -87,7 +87,127 @@ class Home extends React.Component {
     && (values.pregunta56 == "Siempre" || values.pregunta56=="CasiSiempre"|| values.pregunta56=="AlgunasVeces"|| values.pregunta56=="CasiNunca"|| values.pregunta56=="Nunca")
 
     ){
+      let pregunta47;
+      let pregunta48;
+      let pregunta49;
+      let pregunta50;
+      let pregunta51;
+      let pregunta52;
+      let pregunta53;
+      let pregunta54;
+      let pregunta55;
+      let pregunta56;
 
+      if(values.pregunta47=="Siempre"){
+        pregunta47=0
+      }else if(values.pregunta47=="CasiSiempre"){
+        pregunta47=1
+      }else if(values.pregunta47=="AlgunasVeces"){
+        pregunta47=2
+      }else if(values.pregunta47=="CasiNunca"){
+        pregunta47=3
+      }else if(values.pregunta47=="Nunca"){
+        pregunta47=4
+      }
+      if(values.pregunta48=="Siempre"){
+        pregunta48=0
+      }else if(values.pregunta48=="CasiSiempre"){
+        pregunta48=1
+      }else if(values.pregunta48=="AlgunasVeces"){
+        pregunta48=2
+      }else if(values.pregunta48=="CasiNunca"){
+        pregunta48=3
+      }else if(values.pregunta48=="Nunca"){
+        pregunta48=4
+      }
+      if(values.pregunta49=="Siempre"){
+        pregunta49=0
+      }else if(values.pregunta49=="CasiSiempre"){
+        pregunta49=1
+      }else if(values.pregunta49=="AlgunasVeces"){
+        pregunta49=2
+      }else if(values.pregunta49=="CasiNunca"){
+        pregunta49=3
+      }else if(values.pregunta49=="Nunca"){
+        pregunta49=4
+      }
+      if(values.pregunta50=="Siempre"){
+        pregunta50=0
+      }else if(values.pregunta50=="CasiSiempre"){
+        pregunta50=1
+      }else if(values.pregunta50=="AlgunasVeces"){
+        pregunta50=2
+      }else if(values.pregunta50=="CasiNunca"){
+        pregunta50=3
+      }else if(values.pregunta50=="Nunca"){
+        pregunta50=4
+      }
+      if(values.pregunta51=="Siempre"){
+        pregunta51=0
+      }else if(values.pregunta51=="CasiSiempre"){
+        pregunta51=1
+      }else if(values.pregunta51=="AlgunasVeces"){
+        pregunta51=2
+      }else if(values.pregunta51=="CasiNunca"){
+        pregunta51=3
+      }else if(values.pregunta51=="Nunca"){
+        pregunta51=4
+      }
+      if(values.pregunta52=="Siempre"){
+        pregunta52=0
+      }else if(values.pregunta52=="CasiSiempre"){
+        pregunta52=1
+      }else if(values.pregunta52=="AlgunasVeces"){
+        pregunta52=2
+      }else if(values.pregunta52=="CasiNunca"){
+        pregunta52=3
+      }else if(values.pregunta52=="Nunca"){
+        pregunta52=4
+      }
+      if(values.pregunta53=="Siempre"){
+        pregunta53=0
+      }else if(values.pregunta53=="CasiSiempre"){
+        pregunta53=1
+      }else if(values.pregunta53=="AlgunasVeces"){
+        pregunta53=2
+      }else if(values.pregunta53=="CasiNunca"){
+        pregunta53=3
+      }else if(values.pregunta53=="Nunca"){
+        pregunta53=4
+      }
+      if(values.pregunta54=="Siempre"){
+        pregunta54=4
+      }else if(values.pregunta54=="CasiSiempre"){
+        pregunta54=3
+      }else if(values.pregunta54=="AlgunasVeces"){
+        pregunta54=2
+      }else if(values.pregunta54=="CasiNunca"){
+        pregunta54=1
+      }else if(values.pregunta54=="Nunca"){
+        pregunta54=0
+      }
+      if(values.pregunta55=="Siempre"){
+        pregunta55=0
+      }else if(values.pregunta55=="CasiSiempre"){
+        pregunta55=1
+      }else if(values.pregunta55=="AlgunasVeces"){
+        pregunta55=2
+      }else if(values.pregunta55=="CasiNunca"){
+        pregunta55=3
+      }else if(values.pregunta55=="Nunca"){
+        pregunta55=4
+      }
+      if(values.pregunta56=="Siempre"){
+        pregunta56=0
+      }else if(values.pregunta56=="CasiSiempre"){
+        pregunta56=1
+      }else if(values.pregunta56=="AlgunasVeces"){
+        pregunta56=2
+      }else if(values.pregunta56=="CasiNunca"){
+        pregunta56=3
+      }else if(values.pregunta56=="Nunca"){
+        pregunta56=4
+      }
       console.log("entro")
       const correo   = localStorage.getItem("correoEEO")
       const periodo = localStorage.getItem("Periodo")
@@ -98,7 +218,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          eeoPage11(data:"${[values.pregunta47,values.pregunta48,values.pregunta49,values.pregunta50,values.pregunta51,values.pregunta52,values.pregunta53,values.pregunta54,values.pregunta55,values.pregunta56,correo,periodo]}"){
+          eeoPage11(data:"${[values.pregunta47,values.pregunta48,values.pregunta49,values.pregunta50,values.pregunta51,values.pregunta52,values.pregunta53,values.pregunta54,values.pregunta55,values.pregunta56,correo,periodo,pregunta47,pregunta48,pregunta49,pregunta50,pregunta51,pregunta52,pregunta53,pregunta54,pregunta55,pregunta56]}"){
               message
                 }
               }

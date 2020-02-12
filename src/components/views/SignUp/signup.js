@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { Button as Boton, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import { Mutation } from 'react-apollo';
@@ -9,12 +10,12 @@ import axios from 'axios'
 
 import {MDBIcon} from 'mdbreact'
  const SIGNUP = gql`
-    mutation SIGNUP($first_name:String!,
-        $last_name:String!,
-        $rfc:String!,
-        $razon_social:String!,
-        $email:String!,
-        $password:String!, 
+    mutation SIGNUP($first_name:String,
+        $last_name:String,
+        $rfc:String,
+        $razon_social:String,
+        $email:String,
+        $password:String, 
         ){
             signup(data: {
               first_name: $first_name
@@ -62,7 +63,6 @@ handleInput = (e) => {
 handleForm = (e, signup) => {
   e.preventDefault();
   console.log('Enviando formulario...');
-
   signup({variables: { 
       ...this.state
       
@@ -70,45 +70,69 @@ handleForm = (e, signup) => {
 }
 
 handleData = (data) => {
+
+  if(data.signup.message=="no hay data"){
+    DialogUtility.alert({
+          animationSettings: { effect: 'Zoom' },           
+          content: "No deje espacios en blanco! ---- por favor espere...",
+          title: 'Aviso!',
+          position: "fixed"
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);     
+        
+  }
+  console.log("data" ,data.signup.message)
   // if (data.signup.token === 'ERROR'){
   //   console.log("el token es "+ data.signup.token)
   //     alert('hubo un error ...');
   //     return false;
   //   }
   // localStorage.setItem('elToken', data.signup.token) 
-  DialogUtility.alert({
-    animationSettings: { effect: 'Zoom' },           
-    content: "Registro Exitoso!",
-    title: 'Aviso!',
-    position: "fixed"
-  });
-  
-  let periodo = "Periodo Inicial"
-  const url = 'http://localhost:8000/graphql'
-  axios({
-    url:  url,
-    method:'post',
-    data:{
-    query:`
-     mutation{
-      addPeriodoInicial(data:"${[periodo]}"){
-          message
+
+  if(data.signup.message=='duplicado'){
+    DialogUtility.alert({
+      animationSettings: { effect: 'Zoom' },           
+      content: "El RFC y/o correo electrónico ya han sido registrados con Anterioridad ---- por favor espere....",
+      title: 'Aviso!',
+      position: "fixed"
+    });
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000); 
+  }else if(data.signup.message=="Signup exitoso"){
+    DialogUtility.alert({
+      animationSettings: { effect: 'Zoom' },           
+      content: "Registro Exitoso!",
+      title: 'Aviso!',
+      position: "fixed"
+    });
+    
+    let periodo = "Periodo Inicial"
+    const url = 'http://localhost:8000/graphql'
+    axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+       mutation{
+        addPeriodoInicial(data:"${[periodo]}"){
+            message
+              }
             }
-          }
-        `
-    }
-  })
-  .then(datos => {	
-
-  })
-
-  this.props.history.push('/');
+          `
+      }
+    })
+    .then(datos => {	
+  
+    })
+  
+    this.props.history.push('/');
+  }
+  
 }
 
-handleError = (error) => {
-  alert('Error en en el Registro...');
-  console.log("el error es " , error.response)
-}
   render() {
    
     return (
@@ -116,9 +140,12 @@ handleError = (error) => {
       {
         (signup, {data, error, loading}) => {
          if (loading) console.log(loading);
-        if (data) this.handleData(data);
-        if (error) this.handleError(error);
-    
+        if (data){
+          console.log("hay datos en el formulario" , data)
+          this.handleData(data)} 
+
+          
+         
           return ( 
 
       <React.Fragment>

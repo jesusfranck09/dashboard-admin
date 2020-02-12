@@ -65,6 +65,57 @@ console.log("values" ,values)
 
     ){
 
+
+      let pregunta9;
+      let pregunta10;
+      let pregunta11;
+      let pregunta12;
+   
+      if(values.pregunta9=="Siempre"){
+        pregunta9=4
+      }else if(values.pregunta9=="CasiSiempre"){
+        pregunta9=3
+      }else if(values.pregunta9=="AlgunasVeces"){
+        pregunta9=2
+      }else if(values.pregunta9=="CasiNunca"){
+        pregunta9=1
+      }else if(values.pregunta9=="Nunca"){
+        pregunta9=0
+      }
+      if(values.pregunta10=="Siempre"){
+        pregunta10=4
+      }else if(values.pregunta10=="CasiSiempre"){
+        pregunta10=3
+      }else if(values.pregunta10=="AlgunasVeces"){
+        pregunta10=2
+      }else if(values.pregunta10=="CasiNunca"){
+        pregunta10=1
+      }else if(values.pregunta10=="Nunca"){
+        pregunta10=0
+      }
+      if(values.pregunta11=="Siempre"){
+        pregunta11=4
+      }else if(values.pregunta11=="CasiSiempre"){
+        pregunta11=3
+      }else if(values.pregunta11=="AlgunasVeces"){
+        pregunta11=2
+      }else if(values.pregunta11=="CasiNunca"){
+        pregunta11=1
+      }else if(values.pregunta11=="Nunca"){
+        pregunta11=0
+      }
+      if(values.pregunta12=="Siempre"){
+        pregunta12=4
+      }else if(values.pregunta12=="CasiSiempre"){
+        pregunta12=3
+      }else if(values.pregunta12=="AlgunasVeces"){
+        pregunta12=2
+      }else if(values.pregunta12=="CasiNunca"){
+        pregunta12=1
+      }else if(values.pregunta12=="Nunca"){
+        pregunta12=0
+      }
+  
       const correo   = localStorage.getItem("correoEEO")
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -74,7 +125,7 @@ console.log("values" ,values)
         data:{
         query:`
          mutation{
-          eeoPage3(data:"${[values.pregunta9,values.pregunta10,values.pregunta11,values.pregunta12,correo,periodo]}"){
+          eeoPage3(data:"${[values.pregunta9,values.pregunta10,values.pregunta11,values.pregunta12,correo,periodo,pregunta9,pregunta10,pregunta11,pregunta12]}"){
               message
                 }
               }

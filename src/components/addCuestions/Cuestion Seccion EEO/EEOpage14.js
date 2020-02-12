@@ -67,7 +67,55 @@ validate = values => {
     && (values.pregunta72 == "Siempre" || values.pregunta72=="CasiSiempre"|| values.pregunta72=="AlgunasVeces"|| values.pregunta72=="CasiNunca"|| values.pregunta72=="Nunca")
 
     ){
-
+      let pregunta69;
+      let pregunta70;
+      let pregunta71;
+      let pregunta72;
+      
+      if(values.pregunta69=="Siempre"){
+        pregunta69=4
+      }else if(values.pregunta69=="CasiSiempre"){
+        pregunta69=3
+      }else if(values.pregunta69=="AlgunasVeces"){
+        pregunta69=2
+      }else if(values.pregunta69=="CasiNunca"){
+        pregunta69=1
+      }else if(values.pregunta69=="Nunca"){
+        pregunta69=0
+      }
+      if(values.pregunta70=="Siempre"){
+        pregunta70=4
+      }else if(values.pregunta70=="CasiSiempre"){
+        pregunta70=3
+      }else if(values.pregunta70=="AlgunasVeces"){
+        pregunta70=2
+      }else if(values.pregunta70=="CasiNunca"){
+        pregunta70=1
+      }else if(values.pregunta70=="Nunca"){
+        pregunta70=0
+      }
+      if(values.pregunta71=="Siempre"){
+        pregunta71=4
+      }else if(values.pregunta71=="CasiSiempre"){
+        pregunta71=3
+      }else if(values.pregunta71=="AlgunasVeces"){
+        pregunta71=2
+      }else if(values.pregunta71=="CasiNunca"){
+        pregunta71=1
+      }else if(values.pregunta71=="Nunca"){
+        pregunta71=0
+      }
+      if(values.pregunta72=="Siempre"){
+        pregunta72=4
+      }else if(values.pregunta72=="CasiSiempre"){
+        pregunta72=3
+      }else if(values.pregunta72=="AlgunasVeces"){
+        pregunta72=2
+      }else if(values.pregunta72=="CasiNunca"){
+        pregunta72=1
+      }else if(values.pregunta72=="Nunca"){
+        pregunta72=0
+      }
       const correo   = localStorage.getItem("correoEEO")
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -77,7 +125,7 @@ validate = values => {
         data:{
         query:`
          mutation{
-          eeoPage14(data:"${[values.pregunta69,values.pregunta70,values.pregunta71,values.pregunta72,correo,periodo]}"){
+          eeoPage14(data:"${[values.pregunta69,values.pregunta70,values.pregunta71,values.pregunta72,correo,periodo,pregunta69,pregunta70,pregunta71,pregunta72]}"){
               message
                 }
               }

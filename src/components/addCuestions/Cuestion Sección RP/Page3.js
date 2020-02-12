@@ -59,7 +59,55 @@ class Home extends React.Component {
     && (values.pregunta16 == "Siempre" || values.pregunta16=="CasiSiempre"|| values.pregunta16=="AlgunasVeces"|| values.pregunta16=="CasiNunca"|| values.pregunta16=="Nunca")
     && (values.pregunta17 == "Siempre" || values.pregunta17=="CasiSiempre"|| values.pregunta17=="AlgunasVeces"|| values.pregunta17=="CasiNunca"|| values.pregunta17=="Nunca")
     ){
+      let pregunta14;
+      let pregunta15;
+      let pregunta16;
+      let pregunta17;
 
+      if(values.pregunta14=="Siempre"){
+        pregunta14=4
+      }else if(values.pregunta14=="CasiSiempre"){
+        pregunta14=3
+      }else if(values.pregunta14=="AlgunasVeces"){
+        pregunta14=2
+      }else if(values.pregunta14=="CasiNunca"){
+        pregunta14=1
+      }else if(values.pregunta14=="Nunca"){
+        pregunta14=0
+      }
+      if(values.pregunta15=="Siempre"){
+        pregunta15=4
+      }else if(values.pregunta15=="CasiSiempre"){
+        pregunta15=3
+      }else if(values.pregunta15=="AlgunasVeces"){
+        pregunta15=2
+      }else if(values.pregunta15=="CasiNunca"){
+        pregunta15=1
+      }else if(values.pregunta15=="Nunca"){
+        pregunta15=0
+      }
+      if(values.pregunta16=="Siempre"){
+        pregunta16=4
+      }else if(values.pregunta16=="CasiSiempre"){
+        pregunta16=3
+      }else if(values.pregunta16=="AlgunasVeces"){
+        pregunta16=2
+      }else if(values.pregunta16=="CasiNunca"){
+        pregunta16=1
+      }else if(values.pregunta16=="Nunca"){
+        pregunta16=0
+      }
+      if(values.pregunta17=="Siempre"){
+        pregunta17=4
+      }else if(values.pregunta17=="CasiSiempre"){
+        pregunta17=3
+      }else if(values.pregunta17=="AlgunasVeces"){
+        pregunta17=2
+      }else if(values.pregunta17=="CasiNunca"){
+        pregunta17=1
+      }else if(values.pregunta17=="Nunca"){
+        pregunta17=0
+      }
       const correo = localStorage.getItem('correoRP')
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -69,7 +117,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          rpPage3(data:"${[values.pregunta14,values.pregunta15,values.pregunta16,values.pregunta17,correo,periodo]}"){
+          rpPage3(data:"${[values.pregunta14,values.pregunta15,values.pregunta16,values.pregunta17,correo,periodo,pregunta14,pregunta15,pregunta16,pregunta17]}"){
               message
                 }
               }

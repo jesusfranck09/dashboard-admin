@@ -64,7 +64,70 @@ class Home extends React.Component {
     && (values.pregunta21 == "Siempre" || values.pregunta21=="CasiSiempre"|| values.pregunta21=="AlgunasVeces"|| values.pregunta21=="CasiNunca"|| values.pregunta21=="Nunca")
     && (values.pregunta22 == "Siempre" || values.pregunta22=="CasiSiempre"|| values.pregunta22=="AlgunasVeces"|| values.pregunta22=="CasiNunca"|| values.pregunta22=="Nunca")
     ){
+      let pregunta18;
+      let pregunta19;
+      let pregunta20;
+      let pregunta21;
+      let pregunta22;
 
+      if(values.pregunta18=="Siempre"){
+        pregunta18=0
+      }else if(values.pregunta18=="CasiSiempre"){
+        pregunta18=1
+      }else if(values.pregunta18=="AlgunasVeces"){
+        pregunta18=2
+      }else if(values.pregunta18=="CasiNunca"){
+        pregunta18=3
+      }else if(values.pregunta18=="Nunca"){
+        pregunta18=4
+      }
+      if(values.pregunta19=="Siempre"){
+        pregunta19=0
+      }else if(values.pregunta19=="CasiSiempre"){
+        pregunta19=1
+      }else if(values.pregunta19=="AlgunasVeces"){
+        pregunta19=2
+      }else if(values.pregunta19=="CasiNunca"){
+        pregunta19=3
+      }else if(values.pregunta19=="Nunca"){
+        pregunta19=4
+      }
+      if(values.pregunta20=="Siempre"){
+        pregunta20=0
+      }else if(values.pregunta20=="CasiSiempre"){
+        pregunta20=1
+      }else if(values.pregunta20=="AlgunasVeces"){
+        pregunta20=2
+      }else if(values.pregunta20=="CasiNunca"){
+        pregunta20=3
+      }else if(values.pregunta20=="Nunca"){
+        pregunta20=4
+      }
+      if(values.pregunta21=="Siempre"){
+        pregunta21=0
+      }else if(values.pregunta21=="CasiSiempre"){
+        pregunta21=1
+      }else if(values.pregunta21=="AlgunasVeces"){
+        pregunta21=2
+      }else if(values.pregunta21=="CasiNunca"){
+        pregunta21=3
+      }else if(values.pregunta21=="Nunca"){
+        pregunta21=4
+      }
+      if(values.pregunta22=="Siempre"){
+        pregunta22=0
+      }else if(values.pregunta22=="CasiSiempre"){
+        pregunta22=1
+      }else if(values.pregunta22=="AlgunasVeces"){
+        pregunta22=2
+      }else if(values.pregunta22=="CasiNunca"){
+        pregunta22=3
+      }else if(values.pregunta22=="Nunca"){
+        pregunta22=4
+      }
+      
+      
+      
       const correo = localStorage.getItem('correoRP')
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -74,7 +137,7 @@ class Home extends React.Component {
         data:{
         query:`
          mutation{
-          rpPage4(data:"${[values.pregunta18,values.pregunta19,values.pregunta20,values.pregunta21,values.pregunta22,correo,periodo]}"){
+          rpPage4(data:"${[values.pregunta18,values.pregunta19,values.pregunta20,values.pregunta21,values.pregunta22,correo,periodo,pregunta18,pregunta19,pregunta20,pregunta21,pregunta22]}"){
               message
                 }
               }

@@ -51,7 +51,30 @@ validate = values => {
     if( (values.pregunta29 == "Siempre" || values.pregunta29=="CasiSiempre"|| values.pregunta29=="AlgunasVeces"|| values.pregunta29=="CasiNunca"|| values.pregunta29=="Nunca") 
     && (values.pregunta30 == "Siempre" || values.pregunta30=="CasiSiempre"|| values.pregunta30=="AlgunasVeces"|| values.pregunta30=="CasiNunca"|| values.pregunta30=="Nunca") 
     ){
-
+      let pregunta29;
+      let pregunta30;
+      if(values.pregunta29=="Siempre"){
+        pregunta29=4
+      }else if(values.pregunta29=="CasiSiempre"){
+        pregunta29=5
+      }else if(values.pregunta29=="AlgunasVeces"){
+        pregunta29=2
+      }else if(values.pregunta29=="CasiNunca"){
+        pregunta29=1
+      }else if(values.pregunta29=="Nunca"){
+        pregunta29=0
+      }
+      if(values.pregunta30=="Siempre"){
+        pregunta30=0
+      }else if(values.pregunta30=="CasiSiempre"){
+        pregunta30=1
+      }else if(values.pregunta30=="AlgunasVeces"){
+        pregunta30=2
+      }else if(values.pregunta30=="CasiNunca"){
+        pregunta30=3
+      }else if(values.pregunta30=="Nunca"){
+        pregunta30=4
+      }
       const correo   = localStorage.getItem("correoEEO")
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -61,7 +84,7 @@ validate = values => {
         data:{
         query:`
          mutation{
-          eeoPage7(data:"${[values.pregunta29,values.pregunta30,correo,periodo]}"){
+          eeoPage7(data:"${[values.pregunta29,values.pregunta30,correo,periodo,pregunta29,pregunta30]}"){
               message
                 }
               }

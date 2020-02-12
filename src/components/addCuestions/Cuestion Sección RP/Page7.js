@@ -58,7 +58,44 @@ validate = values => {
     && (values.pregunta42 == "Siempre" || values.pregunta42=="CasiSiempre"|| values.pregunta42=="AlgunasVeces"|| values.pregunta42=="CasiNunca"|| values.pregunta42=="Nunca") 
     && (values.pregunta43 == "Siempre" || values.pregunta43=="CasiSiempre"|| values.pregunta43=="AlgunasVeces"|| values.pregunta43=="CasiNunca"|| values.pregunta43=="Nunca")
     ){
-
+      let pregunta41;
+      let pregunta42;
+      let pregunta43;
+  
+      if(values.pregunta41=="Siempre"){
+        pregunta41=4
+      }else if(values.pregunta41=="CasiSiempre"){
+        pregunta41=3
+      }else if(values.pregunta41=="AlgunasVeces"){
+        pregunta41=2
+      }else if(values.pregunta41=="CasiNunca"){
+        pregunta41=1
+      }else if(values.pregunta41=="Nunca"){
+        pregunta41=0
+      }
+      if(values.pregunta42=="Siempre"){
+        pregunta42=4
+      }else if(values.pregunta42=="CasiSiempre"){
+        pregunta42=3
+      }else if(values.pregunta42=="AlgunasVeces"){
+        pregunta42=2
+      }else if(values.pregunta42=="CasiNunca"){
+        pregunta42=1
+      }else if(values.pregunta42=="Nunca"){
+        pregunta42=0
+      }
+      if(values.pregunta43=="Siempre"){
+        pregunta43=4
+      }else if(values.pregunta43=="CasiSiempre"){
+        pregunta43=3
+      }else if(values.pregunta43=="AlgunasVeces"){
+        pregunta43=2
+      }else if(values.pregunta43=="CasiNunca"){
+        pregunta43=1
+      }else if(values.pregunta43=="Nunca"){
+        pregunta43=0
+      }
+    
       const correo = localStorage.getItem('correoRP')
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
@@ -68,7 +105,7 @@ validate = values => {
         data:{
         query:`
          mutation{
-          rpPage7(data:"${[values.pregunta41,values.pregunta42,values.pregunta43,correo,periodo]}"){
+          rpPage7(data:"${[values.pregunta41,values.pregunta42,values.pregunta43,correo,periodo,pregunta41,pregunta42,pregunta43]}"){
               message
                 }
               }
