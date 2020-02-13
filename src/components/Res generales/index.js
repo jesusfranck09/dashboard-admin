@@ -232,7 +232,20 @@ class App extends React.Component {
 
      consultarDatosFiltrados = (datos,filtro) =>{
       
-       
+       console.log("datos de la table "  , datos)
+
+       let array
+       datos.map(rows=>{
+         console.log("rows", rows.data[0])
+       })
+      // for (var i =0; i<=datos.length;i++){
+
+      // console.log("datos[i]", datos[i].data[0])
+
+      // }
+
+
+
       if(filtro!= undefined){
       if(filtro[0].length>0){
         this.setState({filtro1:"ID"})

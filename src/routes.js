@@ -71,7 +71,7 @@ import Res from './components/resultsCuestions/resultados';
 
 import ResGral from './components/Res generales/index';
 
-// import Prueba from './components/adminGeneral/prueba';
+ import Prueba from './components/eeoGlobalOptimizado/indexEEO';
 
 
 class Routes extends Component{
@@ -101,6 +101,8 @@ class Routes extends Component{
                   <PrivateRoute exact path='/table' component={Table}/>
                   <Route exact path='/survey' component={Survey}/>
                   <PrivateRoute exact path='/Initsurvey' component={InitSurvey}/>
+
+                  <PrivateRoute exact path='/eeoGlobal' component={Prueba}/>
 
                   <PrivateRoute exact path='/page1' component={SurveyPage1}/>
                   <PrivateRoute exact path='/page2' component={SurveyPage2}/>
