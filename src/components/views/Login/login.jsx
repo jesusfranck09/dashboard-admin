@@ -57,6 +57,19 @@ class Login extends React.Component {
         
         }
       }
+componentWillMount(){
+  localStorage.removeItem('idAdmin') 
+
+      localStorage.removeItem('elToken') 
+      localStorage.removeItem('nombre')
+      localStorage.removeItem('apellidos') 
+      localStorage.removeItem('rfc') 
+      localStorage.removeItem('razonsocial') 
+      localStorage.removeItem('usuario') 
+      localStorage.removeItem('correo') 
+
+
+}      
 handleInput = (e) => {
     const {id, value} = e.target
      this.setState({
