@@ -35,45 +35,68 @@ class App extends Component {
     })
   }
   componentWillMount(){  
-    var correo  = localStorage.getItem("correo")      
     const url = 'http://localhost:8000/graphql'
+    var correo  = localStorage.getItem("correo")   
+    const idAdmin = localStorage.getItem("idAdmin")
     axios({
       url:  url,
       method:'post',
       data:{
       query:`
-      query{
-        getUsersTableEmployees(email:"${correo}"){
-          id
-          nombre
-          ApellidoP
-          ApellidoM
-          Curp
-          rfc
-          FechaNacimiento
-          Sexo
-          cp
-          EstadoCivil
-          correo
-          AreaTrabajo
-          Puesto
-          Ciudad
-          NivelEstudios
-          TipoPersonal
-          JornadaTrabajo
-          TipoContratacion
-          TiempoPuesto
-          ExperienciaLaboral
-          RotacionTurnos
+       query{
+        getPeriodo(data:"${[idAdmin]}"){
+          idEventos
           fk_administrador
+          evento
+              }
             }
-          }
           `
       }
-          }).then((datos) => {
-            this.setState({ datos: datos.data.data.getUsersTableEmployees});
-           console.log("this.state.resultados" , this.state.resultados)
-          })     
+    })
+    .then(datos => {	
+ 
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+        query{
+          getUsersTableEmployeesthisPeriodoATS(data:"${[idAdmin,datos.data.data.getPeriodo[0].evento]}"){
+            id
+            nombre
+            ApellidoP
+            ApellidoM
+            Curp
+            rfc
+            FechaNacimiento
+            Sexo
+            cp
+            EstadoCivil
+            correo
+            AreaTrabajo
+            Puesto
+            Ciudad
+            NivelEstudios
+            TipoPersonal
+            JornadaTrabajo
+            TipoContratacion
+            TiempoPuesto
+            ExperienciaLaboral
+            RotacionTurnos
+            fk_administrador
+              }
+            }
+            `
+        }
+            }).then((datos) => {
+              this.setState({ datos: datos.data.data.getUsersTableEmployeesthisPeriodoATS});
+             console.log("this.state.resultados" ,idAdmin,datos)
+            }).catch(err=>{
+              console.log("el error " , err)
+            })     
+    }).catch(err=>{
+      console.log("err", err.response)
+    }) 
   }
 
               click(id){                  

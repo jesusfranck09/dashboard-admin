@@ -49,62 +49,6 @@
 
         }
 
-        getEmployees = event => {
-
-            var correo  =localStorage.getItem("correo")       
-              const url = 'http://localhost:8000/graphql'
-              axios({
-                url:  url,
-                method:'post',
-                data:{
-                query:`
-                query{
-                  getUsersTableEmployees(email:"${correo}"){
-                    id
-                    nombre
-                    ApellidoP
-                    ApellidoM
-                    Curp
-                    rfc
-                    FechaNacimiento
-                    Sexo
-                    cp
-                    EstadoCivil
-                    correo
-                    AreaTrabajo
-                    Puesto
-                    Ciudad
-                    NivelEstudios
-                    TipoPersonal
-                    JornadaTrabajo
-                    TipoContratacion
-                    TiempoPuesto
-                    ExperienciaLaboral
-                    RotacionTurnos
-                    fk_administrador
-                    ATSContestado
-                    RPContestado
-                    EEOContestado
-                      }
-                    }
-                    `
-                }
-                    }).then((datos) => {
-                      // console.log("parseo" ,JSON.stringify(datos.data.data))
-                      // console.log("datps" ,datos.data.data.getUsersTableEmployees)
-                      this.setState({ datos: datos.data.data.getUsersTableEmployees});
-                    
-                     console.log("estos son los id" , datos.data.data.getUsersTableEmployees)
-                      // this.props.history.push("/inicio")
-                    })
-
-                    .catch((error) => {
-                
-                      //console.log("errores" ,error.response.data.errors[0].message)
-                      console.log(".cartch" , error.response)
-                  });
-                  
-            }  
 
             componentWillMount(){
               this.getEmployees()
@@ -136,6 +80,62 @@
           
           }
           
+        getEmployees = event => {
+
+          var idAdmin  =localStorage.getItem("idAdmin")       
+            const url = 'http://localhost:8000/graphql'
+            axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+              query{
+                getUsersTableEmployees(data:"${[idAdmin]}"){
+                  id
+                  nombre
+                  ApellidoP
+                  ApellidoM
+                  Curp
+                  rfc
+                  FechaNacimiento
+                  Sexo
+                  cp
+                  EstadoCivil
+                  correo
+                  AreaTrabajo
+                  Puesto
+                  Ciudad
+                  NivelEstudios
+                  TipoPersonal
+                  JornadaTrabajo
+                  TipoContratacion
+                  TiempoPuesto
+                  ExperienciaLaboral
+                  RotacionTurnos
+                  fk_administrador
+                  ATSContestado
+                  RPContestado
+                  EEOContestado
+                    }
+                  }
+                  `
+              }
+                  }).then((datos) => {
+                    // console.log("parseo" ,JSON.stringify(datos.data.data))
+                    // console.log("datps" ,datos.data.data.getUsersTableEmployees)
+                    this.setState({ datos: datos.data.data.getUsersTableEmployees});
+                  
+                   console.log("estos son los id" , datos.data.data.getUsersTableEmployees)
+                    // this.props.history.push("/inicio")
+                  })
+
+                  .catch((error) => {
+              
+                    //console.log("errores" ,error.response.data.errors[0].message)
+                    console.log(".cartch" , error.response)
+                });
+                
+          }  
           
           
           handleLogOut(){

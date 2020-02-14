@@ -163,6 +163,7 @@ if(values.stooge=="acepto" && values.correo){
         `
     }
         }).then((datos) => {
+          if(datos.data.data.getEmployeesFkAdmin.length>0){
         const idAdmin= datos.data.data.getEmployeesFkAdmin[0].fk_administrador
         console.log("idAdmin" , idAdmin)
           axios({
@@ -234,6 +235,15 @@ if(values.stooge=="acepto" && values.correo){
           }).catch(err=>{
             console.log("error",err.response)
           })
+        }else{
+            DialogUtility.alert({
+              animationSettings: { effect: 'Zoom' },           
+              title: 'Aviso!',
+              content: `Usuario  Incorrecto`, 
+             
+              position: "fixed",
+          })
+          }
         })
         
 }
