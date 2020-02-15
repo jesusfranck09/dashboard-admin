@@ -35,6 +35,7 @@ import RPPage7 from './components/addCuestions/Cuestion Sección RP/Page7';
 import RPPage8 from './components/addCuestions/Cuestion Sección RP/Page8';
 import AdminGral from './components/adminGeneral/AdminGral';
 
+import Empresas from './components/views/empresas/Empresas';
 
 import PoliticaRP from './components/addCuestions/Cuestion Sección RP/PoliticaPrivacidadRP';
 
@@ -103,7 +104,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/Initsurvey' component={InitSurvey}/>
 
                   <PrivateRoute exact path='/paquetes' component={Prueba}/>
-
+                  <PrivateRoute exact path='/empresas' component={Empresas}/>
                   <PrivateRoute exact path='/page1' component={SurveyPage1}/>
                   <PrivateRoute exact path='/page2' component={SurveyPage2}/>
                   <PrivateRoute exact path='/page3' component={SurveyPage3}/>

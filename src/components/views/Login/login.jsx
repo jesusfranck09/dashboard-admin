@@ -36,13 +36,7 @@ const LOGIN = gql`
           message 
           token 
           id
-          nombre 
-          Apellidos 
-          RFC
-          RazonSocial
-          Usuario
-          correo
-          Activo
+        
         }
     }
 `
@@ -67,6 +61,10 @@ componentWillMount(){
       localStorage.removeItem('razonsocial') 
       localStorage.removeItem('usuario') 
       localStorage.removeItem('correo') 
+      localStorage.removeItem('empleadoActivo') 
+      localStorage.removeItem('DepartamentoActivo') 
+      localStorage.removeItem('SucursalActiva') 
+      localStorage.removeItem('PuestoActivo') 
 
 
 }      
@@ -120,8 +118,10 @@ handleInput = (e) => {
       localStorage.setItem('rfc', data.login.RFC) 
       localStorage.setItem('razonsocial', data.login.RazonSocial) 
       localStorage.setItem('usuario', data.login.Usuario) 
-      localStorage.setItem('correo', data.login.correo) 
-
+      localStorage.setItem('correo', data.login.correo)
+      
+      
+      localStorage.setItem('idASuperusuario', data.login.id) 
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
         title: 'Sesión iniciada exitosamente!',
@@ -129,7 +129,7 @@ handleInput = (e) => {
         position: "fixed",
     })
 
-    this.props.history.push("/inicio")    
+    this.props.history.push("/empresas")    
   }
   if(data.login.Activo=='false'){
 
