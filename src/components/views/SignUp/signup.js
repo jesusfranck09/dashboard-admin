@@ -109,25 +109,6 @@ handleData = (data) => {
       position: "fixed"
     });
     
-    let periodo = "Periodo Inicial"
-    const url = 'http://localhost:8000/graphql'
-    axios({
-      url:  url,
-      method:'post',
-      data:{
-      query:`
-       mutation{
-        addPeriodoInicial(data:"${[periodo]}"){
-            message
-              }
-            }
-          `
-      }
-    })
-    .then(datos => {	
-  
-    })
-  
     this.props.history.push('/');
   }
   

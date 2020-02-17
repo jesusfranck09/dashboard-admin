@@ -203,14 +203,9 @@ class SheetJSApp extends React.Component {
 	};
 
     handleSubmit = event => {
-		event.preventDefault();
-
-		
-		const token = localStorage.getItem('elToken')
-		let pl = payload(token);
-	  
-		const correoAdmin =  pl.email
-  
+	
+	const correoA = localStorage.getItem("correo")
+	console.log("el correo" , correoA)
 		 const url = 'http://localhost:8000/graphql'
 		axios({
 		  url:  url,
@@ -218,7 +213,7 @@ class SheetJSApp extends React.Component {
 		  data:{
 		  query:`
 		   mutation{
-			  authRegisterSingleEmployee(data:"${[correoAdmin]}"){
+			  authRegisterSingleEmployee(data:"${[correoA]}"){
 				max
 				  }
 				}
@@ -301,13 +296,14 @@ class SheetJSApp extends React.Component {
 			const ws = wb.Sheets[wsname];
 
 			const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
-			const token = localStorage.getItem('elToken')
-			let pl = payload(token);
-			var correoAdmin  = pl.email
-			var passAdmin = pl.password 
+			// const token = localStorage.getItem('elToken')
+			// let pl = payload(token);
+			// var correoAdmin  = pl.email
+			var correoAdmin = localStorage.getItem("correo")
+			// var passAdmin = pl.password 
 
 			//aqui podemos visualizar la data
-            this.setState({ data: data, emailAdmin:correoAdmin,passAdmin:passAdmin });
+            this.setState({ data: data, emailAdmin:correoAdmin });
 		};
 		if (rABS) reader.readAsBinaryString(file); else reader.readAsArrayBuffer(file);
 	};
@@ -532,11 +528,11 @@ class App extends React.Component {
 		const rotacion = values.rotacion
 	  
 	  
-		const token = localStorage.getItem('elToken')
-		let pl = payload(token);
+		// const token = localStorage.getItem('elToken')
+		// let pl = payload(token);
 	  
-		const correoAdmin =  pl.email
-		const passAdmin = pl.password
+		const correoAdmin =  localStorage.getItem("correo")
+		// const passAdmin = pl.password
 		const url = 'http://localhost:8000/graphql'
 		if(Nombre && ApellidoP && ApellidoM && curp && rfc && fechaN && sexo && cp && Estado_Civil && CentroTrabajo && Correo && area && puesto && city && estudios && personal && Jornada && contratacion && Tiempo_puestoActual && experiencia_Laboral && rotacion){
 	   
@@ -567,7 +563,7 @@ class App extends React.Component {
 		  data:{
 		  query:`
 		   mutation{
-			registerSingleEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,cp,Estado_Civil,Correo,area,puesto,city,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,correoAdmin,passAdmin,CentroTrabajo]}"){
+			registerSingleEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,cp,Estado_Civil,Correo,area,puesto,city,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,correoAdmin,CentroTrabajo]}"){
 				message
 				  }
 				}

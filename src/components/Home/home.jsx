@@ -72,7 +72,7 @@ class Home extends React.Component {
   }
 
   componentWillMount(){
-  const idAdmin   = localStorage.getItem('idAdmin')
+  const idAdmin   = localStorage.getItem('idASuperusuario')
   const url = 'http://localhost:8000/graphql'
   axios({
     url:  url,
@@ -87,7 +87,7 @@ class Home extends React.Component {
         `
     }
         }).then((datos) => {
-        console.log("Registro",datos.data.data.getAdminFechaRegistro.fechaRegistro)
+        console.log("Registro",datos)
         
         var part1=datos.data.data.getAdminFechaRegistro.fechaRegistro.substring(5,11)
         var part2=datos.data.data.getAdminFechaRegistro.fechaRegistro.substring(16,29)
@@ -144,7 +144,7 @@ localStorage.removeItem("correo")
 localStorage.removeItem("max")
 localStorage.removeItem("idAdmin")
 
-this.props.history.push("/login")
+this.props.history.push("/empresas")
 DialogUtility.alert({
   animationSettings: { effect: 'Fade' },           
   title: 'Hasta luego...!',
@@ -471,7 +471,7 @@ countdown = (deadline) => {
    this.setState({licencia:licencia})
     if(t.remainTime <= 1) {
       clearInterval(timerUpdate);
-      const correo   = localStorage.getItem('correo')
+      const correo   = localStorage.getItem('idASuperusuario')
       console.log("entro")
       const url = 'http://localhost:8000/graphql'
       axios({
@@ -893,7 +893,8 @@ toggle = (nr) => () => {
                     <MDBNavLink to="/politicaEEO">Cuestionario EEO</MDBNavLink>
                   </MDBNavItem>
                 </MDBNavbarNav>
-                <strong>{this.state.date}</strong> 
+              
+    <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
                 <MDBNavbarNav right>
                 <MDBNavbarBrand>
               <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               

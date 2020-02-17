@@ -148,16 +148,6 @@ const useStyles = makeStyles(theme => ({
         </List>    
         </Link>
 
-        <Link to="/employees" style={{ textDecoration: 'none' }}>
-        <List >
-          {['Mis Empleados'].map((text) => (
-            <ListItem button key={text} >
-              <ListItemIcon> <DirectionsWalkOutlinedIcon /> </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>    
-        </Link>
         <Link to="/puestos" style={{ textDecoration: 'none' }}>
         <List >
           {['Puestos'].map((text) => (
@@ -169,7 +159,16 @@ const useStyles = makeStyles(theme => ({
         </List>    
         </Link>
       
-        
+        <Link to="/employees" style={{ textDecoration: 'none' }}>
+        <List >
+          {['Mis Empleados'].map((text) => (
+            <ListItem button key={text} >
+              <ListItemIcon> <DirectionsWalkOutlinedIcon /> </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>    
+        </Link>        
       </Drawer>
       <IconButton
             color="inherit"

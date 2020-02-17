@@ -53,7 +53,7 @@ class Login extends React.Component {
       }
 componentWillMount(){
   localStorage.removeItem('idAdmin') 
-
+  localStorage.removeItem('idASuperusuario') 
       localStorage.removeItem('elToken') 
       localStorage.removeItem('nombre')
       localStorage.removeItem('apellidos') 
@@ -85,6 +85,9 @@ handleInput = (e) => {
   }
   
   handleData = (data) => {
+
+
+    console.log("data del dash" , data)
     if (data.login.token === 'no hay token' && data.login.message=="error"){
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
@@ -110,22 +113,12 @@ handleInput = (e) => {
 
 
       if(data.login.message=='Login exitoso'){
-      localStorage.setItem('idAdmin', data.login.id) 
-
-      localStorage.setItem('elToken', data.login.token) 
-      localStorage.setItem('nombre', data.login.nombre)
-      localStorage.setItem('apellidos', data.login.Apellidos) 
-      localStorage.setItem('rfc', data.login.RFC) 
-      localStorage.setItem('razonsocial', data.login.RazonSocial) 
-      localStorage.setItem('usuario', data.login.Usuario) 
-      localStorage.setItem('correo', data.login.correo)
-      
-      
+      localStorage.setItem('elToken', data.login.token)  
+      localStorage.setItem('idASuperusuario', data.login.correo)   
       localStorage.setItem('idASuperusuario', data.login.id) 
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
         title: 'Sesión iniciada exitosamente!',
-        content:`Bienvenido ${data.login.nombre}  ${data.login.Apellidos}`,
         position: "fixed",
     })
 

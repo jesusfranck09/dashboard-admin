@@ -71,13 +71,13 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
         const cp = values.cp
         const city= values.city
         const estado = values.estado
-        const RFC = values.RFC
+        const actividad = values.actividad
         const telefono = values.telefono
         const email =  values.correo
 
         const correo = localStorage.getItem('correo')
 
-        if(Nombre && calle && numInt && NumExt && colonia && cp && city && estado && RFC && telefono && email){
+        if(Nombre && calle && numInt && NumExt && colonia && cp && city && estado && actividad && telefono && email){
             const url = 'http://localhost:8000/graphql'
             axios({
               url:  url,
@@ -85,7 +85,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
               data:{
               query:`
                mutation{
-                registerSucursales(data:"${[Nombre,calle,NumExt,numInt,colonia,cp,city,estado,RFC,telefono,email,correo]}"){
+                registerSucursales(data:"${[Nombre,calle,NumExt,numInt,colonia,cp,city,estado,actividad,telefono,email,correo]}"){
                     message
                       }
                     }
@@ -175,7 +175,8 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
                           name="numInt"
                           component={TextField}
                           type="text"
-                          label="Número Interior"
+                          label="Número Interior  /  ejemplo. 0"
+                        
                         />
                       </Grid>
       
@@ -266,9 +267,9 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
                         <Field
                           required
                           fullWidth
-                          name="RFC"
+                          name="actividad"
                           component={TextField}
-                          label="RFC"      
+                          label="Actividad Principal"      
                           type = "text"                   
                         >
                           </Field>

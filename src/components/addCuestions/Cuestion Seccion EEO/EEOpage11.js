@@ -59,14 +59,14 @@ class Home extends React.Component {
     }
 
     if (!values.pregunta54) {
-      errors.pregunta54 = 'Required';
+      errors.pregunta54 = 'Este campo es requerido';
     }
     if (!values.pregunta55) {
       errors.pregunta55 = 'Este campo es requerido';
     }
 
     if (!values.pregunta56) {
-      errors.pregunta56 = 'Required';
+      errors.pregunta56 = 'Este campo es requerido';
     }
 
     return errors;
@@ -75,18 +75,19 @@ class Home extends React.Component {
   evaluar= (values) => {
 
     console.log("los values son " , values)
-    if( (values.pregunta47 == "Siempre" || values.pregunta47=="CasiSiempre"|| values.pregunta47=="AlgunasVeces"|| values.pregunta47=="CasiNunca"|| values.pregunta47=="Nunca") 
-    && (values.pregunta48 == "Siempre" || values.pregunta48=="CasiSiempre"|| values.pregunta48=="AlgunasVeces"|| values.pregunta48=="CasiNunca"|| values.pregunta48=="Nunca") 
-    && (values.pregunta49 == "Siempre" || values.pregunta49=="CasiSiempre"|| values.pregunta49=="AlgunasVeces"|| values.pregunta49=="CasiNunca"|| values.pregunta49=="Nunca")
-    && (values.pregunta50 == "Siempre" || values.pregunta50=="CasiSiempre"|| values.pregunta30=="AlgunasVeces"|| values.pregunta50=="CasiNunca"|| values.pregunta50=="Nunca")
-    && (values.pregunta51 == "Siempre" || values.pregunta51=="CasiSiempre"|| values.pregunta51=="AlgunasVeces"|| values.pregunta51=="CasiNunca"|| values.pregunta51=="Nunca")
-    && (values.pregunta52 == "Siempre" || values.pregunta52=="CasiSiempre"|| values.pregunta52=="AlgunasVeces"|| values.pregunta52=="CasiNunca"|| values.pregunta52=="Nunca")
-    && (values.pregunta53 == "Siempre" || values.pregunta53=="CasiSiempre"|| values.pregunta53=="AlgunasVeces"|| values.pregunta53=="CasiNunca"|| values.pregunta53=="Nunca")
-    && (values.pregunta54 == "Siempre" || values.pregunta54=="CasiSiempre"|| values.pregunta54=="AlgunasVeces"|| values.pregunta54=="CasiNunca"|| values.pregunta54=="Nunca")
-    && (values.pregunta55 == "Siempre" || values.pregunta55=="CasiSiempre"|| values.pregunta55=="AlgunasVeces"|| values.pregunta55=="CasiNunca"|| values.pregunta55=="Nunca")
-    && (values.pregunta56 == "Siempre" || values.pregunta56=="CasiSiempre"|| values.pregunta56=="AlgunasVeces"|| values.pregunta56=="CasiNunca"|| values.pregunta56=="Nunca")
+    if((values.pregunta47 == "Siempre" || values.pregunta47=="CasiSiempre" || values.pregunta47=="AlgunasVeces" || values.pregunta47=="CasiNunca" || values.pregunta47=="Nunca") 
+    && (values.pregunta48 == "Siempre" || values.pregunta48=="CasiSiempre" || values.pregunta48=="AlgunasVeces" || values.pregunta48=="CasiNunca" || values.pregunta48=="Nunca") 
+    && (values.pregunta49 == "Siempre" || values.pregunta49=="CasiSiempre" || values.pregunta49=="AlgunasVeces" || values.pregunta49=="CasiNunca" || values.pregunta49=="Nunca")
+    && (values.pregunta50 == "Siempre" || values.pregunta50=="CasiSiempre" || values.pregunta50=="AlgunasVeces" || values.pregunta50=="CasiNunca" || values.pregunta50=="Nunca")
+    && (values.pregunta51 == "Siempre" || values.pregunta51=="CasiSiempre" || values.pregunta51=="AlgunasVeces" || values.pregunta51=="CasiNunca" || values.pregunta51=="Nunca")
+    && (values.pregunta52 == "Siempre" || values.pregunta52=="CasiSiempre" || values.pregunta52=="AlgunasVeces" || values.pregunta52=="CasiNunca" || values.pregunta52=="Nunca")
+    && (values.pregunta53 == "Siempre" || values.pregunta53=="CasiSiempre" || values.pregunta53=="AlgunasVeces" || values.pregunta53=="CasiNunca" || values.pregunta53=="Nunca")
+    && (values.pregunta54 == "Siempre" || values.pregunta54=="CasiSiempre" || values.pregunta54=="AlgunasVeces" || values.pregunta54=="CasiNunca" || values.pregunta54=="Nunca")
+    && (values.pregunta55 == "Siempre" || values.pregunta55=="CasiSiempre" || values.pregunta55=="AlgunasVeces" || values.pregunta55=="CasiNunca" || values.pregunta55=="Nunca")
+    && (values.pregunta56 == "Siempre" || values.pregunta56=="CasiSiempre" || values.pregunta56=="AlgunasVeces" || values.pregunta56=="CasiNunca" || values.pregunta56=="Nunca")
 
     ){
+      console.log("entro")
       let pregunta47;
       let pregunta48;
       let pregunta49;

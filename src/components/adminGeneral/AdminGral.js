@@ -112,7 +112,8 @@ class AdminGral extends React.Component {
     }
 
     getEmployees(){
-        var correo  =localStorage.getItem("correo")       
+        var correo  =localStorage.getItem("correo") 
+        const idAdmin= localStorage.getItem("idAdmin") 
         const url = 'http://localhost:8000/graphql'
         axios({
           url:  url,
@@ -120,7 +121,7 @@ class AdminGral extends React.Component {
           data:{
           query:`
           query{
-            getUsersTableEmployees(email:"${correo}"){
+            getUsersTableEmployees(data:"${idAdmin}"){
               id
               nombre
               ApellidoP
@@ -178,7 +179,7 @@ class AdminGral extends React.Component {
                   CP
                   Ciudad
                   Estado
-                  rfc
+                  actividad
                   telefono
                   correo
                   fk_administrador
