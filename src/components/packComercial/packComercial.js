@@ -4,12 +4,46 @@ import { MDBBtn,MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, 
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import axios from 'axios';
+
 const container = { width: 1500, height: 800 }
-const redireccionar = () => {
- console.log("estoy redireccionando")
- this.props.history.push("/inicio")
-}
-const CardExample = () => {
+
+class Paquetes extends React.Component {
+  constructor(props){
+      super(props);
+      this.state = {
+          email: '',
+          password: '',
+      
+      }
+    }
+
+
+ send(values){
+
+    const url = 'http://localhost:8000/graphql'
+    axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+      mutation{
+        insertPack(data:"${[values]}"){
+        id
+              }
+            }
+          `
+      }
+    })
+    .then(datos => {	
+      console.log("exito",datos.data.data.insertPack.id)
+    localStorage.setItem("idRegistro" , datos.data.data.insertPack.id )
+    this.props.history.push("/signUp")
+    }).catch(err=>{
+      console.log("error",err.response)
+    })
+ }   
+render(){
   return (
     <MDBContainer style={container} className="text-center">
     <MDBCol>
@@ -30,7 +64,7 @@ const CardExample = () => {
       </MDBCol> 
       <MDBCol>
 
-      <MDBCard style={{width:"30rem",marginTop:10,marginLeft:5}} >
+      <MDBCard style={{width:"30rem",marginTop:10}} >
        
         <MDBCardBody>
         <ButtonGroup
@@ -39,9 +73,9 @@ const CardExample = () => {
         aria-label="vertical contained primary button group"
         variant="outlined"
       >
-        <Button style={{marginBottom:5}} onClick= {redireccionar}>1 a 15 Empleados</Button>
-        <Button style={{marginBottom:5}}>16 a 50 Empleados</Button>
-        <Button style={{marginBottom:5}}>50 a 100 Empleados</Button>
+        <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(1)} }>1 a 15 Empleados</Button>
+        <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(2)} }>16 a 50 Empleados</Button>
+        <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(3)} }>50 a 100 Empleados</Button>
 
       </ButtonGroup>
       <ButtonGroup
@@ -50,14 +84,14 @@ const CardExample = () => {
         aria-label="vertical contained secondary button group"
         variant="outlined"
       >
-        <Button  style={{marginLeft:5,marginBottom:5}}>1 RFC</Button>
-        <Button style={{marginLeft:5,marginBottom:5}}>1 RFC</Button>
-        <Button style={{marginLeft:5,marginBottom:5}}>1 RFC</Button>
+        <Button  style={{marginBottom:5}}>1 RFC</Button>
+        <Button style={{marginBottom:5}}>1 RFC</Button>
+        <Button style={{marginBottom:5}}>1 RFC</Button>
 
       </ButtonGroup>
         </MDBCardBody>
       </MDBCard> 
-      <MDBCard style={{width:"30rem",marginTop:5,marginLeft:5}} >
+      <MDBCard style={{width:"30rem",marginTop:1,marginLeft:5}} >
        
        <MDBCardBody>
        <ButtonGroup
@@ -66,9 +100,9 @@ const CardExample = () => {
        aria-label="vertical contained primary button group"
        variant="outlined"
      >
-       <Button style={{marginBottom:5}}>1 a 15 Empleados</Button>
-       <Button style={{marginBottom:5}}>16 a 50 Empleados</Button>
-       <Button style={{marginBottom:5}}>50 a 100 Empleados</Button>
+       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(4)} }>1 a 15 Empleados</Button>
+       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(5)} }>16 a 50 Empleados</Button>
+       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(6)} }>50 a 100 Empleados</Button>
  
      </ButtonGroup>
      <ButtonGroup
@@ -77,14 +111,14 @@ const CardExample = () => {
        aria-label="vertical contained secondary button group"
        variant="outlined"
      >
-       <Button  style={{marginLeft:5,marginBottom:5}}>3 RFC</Button>
-       <Button style={{marginLeft:5,marginBottom:5}}>3 RFC</Button>
-       <Button style={{marginLeft:5,marginBottom:5}}>3 RFC</Button>
+       <Button  style={{marginBottom:5}}>3 RFC</Button>
+       <Button style={{marginBottom:5}}>3 RFC</Button>
+       <Button style={{marginBottom:5}}>3 RFC</Button>
    
      </ButtonGroup>
        </MDBCardBody>
      </MDBCard> 
-     <MDBCard style={{width:"30rem",marginTop:5,marginLeft:5}} >
+     <MDBCard style={{width:"30rem",marginTop:1,marginLeft:5}} >
        
        <MDBCardBody>
        <ButtonGroup
@@ -93,9 +127,9 @@ const CardExample = () => {
        aria-label="vertical contained primary button group"
        variant="outlined"
      >
-       <Button style={{marginBottom:5}}>1 a 15 Empleados</Button>
-       <Button style={{marginBottom:5}}>16 a 50 Empleados</Button>
-       <Button style={{marginBottom:5}}>50 a 100 Empleados</Button>
+       <Button style={{marginBottom:5}}  onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(7)} }>1 a 15 Empleados</Button>
+       <Button style={{marginBottom:5}}  onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(8)} }>16 a 50 Empleados</Button>
+       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(9)} } >51  a 100 Empleados</Button>
 
      </ButtonGroup>
      <ButtonGroup
@@ -104,14 +138,14 @@ const CardExample = () => {
        aria-label="vertical contained secondary button group"
        variant="outlined"
      >
-       <Button  style={{marginLeft:5,marginBottom:5}}>5 RFC</Button>
-       <Button style={{marginLeft:5,marginBottom:5}}>5 RFC</Button>
-       <Button style={{marginLeft:5,marginBottom:5}}>5 RFC</Button>
+       <Button  style={{marginBottom:5}}>5 RFC</Button>
+       <Button style={{marginBottom:5}}>5 RFC</Button>
+       <Button style={{marginBottom:5}}>5 RFC</Button>
 
      </ButtonGroup>
        </MDBCardBody>
      </MDBCard> 
-     <MDBCard style={{width:"30rem",marginTop:5,marginLeft:5}} >
+     <MDBCard style={{width:"30rem",marginTop:1,marginLeft:5}} >
        
        <MDBCardBody>
        <ButtonGroup
@@ -120,9 +154,9 @@ const CardExample = () => {
        aria-label="vertical contained primary button group"
        variant="outlined"
      >
-       <Button style={{marginBottom:5}}>1 a 15 Empleados</Button>
-       <Button style={{marginBottom:5}}>16 a 50 Empleados</Button>
-       <Button style={{marginBottom:5}}>50 a 100 Empleados</Button>
+       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(10)} }>1 a 15 Empleados</Button>
+       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(11)} }>16 a 50 Empleados</Button>
+       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(12)} }>50 a 100 Empleados</Button>
 
      </ButtonGroup>
      <ButtonGroup
@@ -131,9 +165,9 @@ const CardExample = () => {
        aria-label="vertical contained secondary button group"
        variant="outlined"
      >
-       <Button  style={{marginLeft:5,marginBottom:5}}>10 RFC</Button>
-       <Button style={{marginLeft:5,marginBottom:5}}>10 RFC</Button>
-       <Button style={{marginLeft:5,marginBottom:5}}>10 RFC</Button>
+       <Button  style={{marginBottom:5}}>10 RFC</Button>
+       <Button style={{marginBottom:5}}>10 RFC</Button>
+       <Button style={{marginBottom:5}}>10 RFC</Button>
 
      </ButtonGroup>
        </MDBCardBody>
@@ -146,4 +180,6 @@ const CardExample = () => {
   )
 }
 
-export default CardExample;
+}
+
+export default Paquetes;

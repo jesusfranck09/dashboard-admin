@@ -12,6 +12,7 @@ import {
 import React, { Component } from 'react';
 
 import Login from './components/views/Login/login';
+import LoginEmpresas from './components/views/Login/LoginEmpresas';
 import SignUp from './components/views/SignUp/signup';
 import Cuestions from './components//addCuestions/cuestions';
 import Home from './components/Home/home';
@@ -72,7 +73,7 @@ import Res from './components/resultsCuestions/resultados';
 
 import ResGral from './components/Res generales/index';
 
- import Prueba from './components/packComercial/packComercial';
+ import Paquetes from './components/packComercial/packComercial';
 
 
 class Routes extends Component{
@@ -90,7 +91,9 @@ class Routes extends Component{
               <main>
                   
                   <Route exact path='/' component={Login}/>
+                  <Route exact path='/paquetes' component={Paquetes}/>
                   <Route exact path='/login' component={Login}/>
+                  <Route exact path='/loginEmpresas' component={LoginEmpresas}/>
                   {/* <Route exact path='/verify/:id' component={Verify}/> */}
                   <Route exact path='/signup' component={SignUp}/>
                   {/* <PrivateRoute exact path='/result' component={Result}/> */}
@@ -103,7 +106,7 @@ class Routes extends Component{
                   <Route exact path='/survey' component={Survey}/>
                   <PrivateRoute exact path='/Initsurvey' component={InitSurvey}/>
 
-                  <PrivateRoute exact path='/paquetes' component={Prueba}/>
+                  {/* <PrivateRoute exact path='/paquetes' component={Prueba}/> */}
                   <PrivateRoute exact path='/empresas' component={Empresas}/>
                   <PrivateRoute exact path='/page1' component={SurveyPage1}/>
                   <PrivateRoute exact path='/page2' component={SurveyPage2}/>

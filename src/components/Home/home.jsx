@@ -149,7 +149,6 @@ DialogUtility.alert({
   animationSettings: { effect: 'Fade' },           
   title: 'Hasta luego...!',
   position: "fixed",
-
 }
 )
 }

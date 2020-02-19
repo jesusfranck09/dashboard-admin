@@ -30,13 +30,20 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 
-const LOGIN = gql`
-    mutation LOGIN($email: String!, $password: String!){
-        login(email: $email, password: $password){
+const LOGINEMPRESAS = gql`
+    mutation LOGINEMPRESAS($rfc: String!, $password: String!){
+        loginEmpresas(rfc: $email, password: $password){
           activo
           message 
           token 
           id
+          nombre
+          Apellidos
+          RFC
+          RazonSocial
+          correo
+          Activo 
+          fechaRegistro
         
         }
     }
@@ -47,7 +54,7 @@ class Login extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            email: '',
+            rfc: '',
             password: '',
         
         }
@@ -146,7 +153,7 @@ handleInput = (e) => {
       />
     );
     return (
-        <Mutation mutation={LOGIN}>
+        <Mutation mutation={LOGINEMPRESAS}>
         {
 
     (login, {data, error}) => {
@@ -171,7 +178,7 @@ handleInput = (e) => {
                 <MDBNavbarBrand>
                 <AppNavbarBrand
                   full={{ src: logo, width: 89, height: 25, alt: 'ADS' }} />
-                  <strong className="white-text">Bienvenido  Login Super-Usuario</strong>
+                  <strong className="white-text">Bienvenido  Login Empresas</strong>
                 </MDBNavbarBrand>
      
                 <MDBNavbarToggler />
@@ -263,8 +270,6 @@ handleInput = (e) => {
                     
 
                     </MDBCard>
-                    <strong>NORMA OFICIAL MEXICANA NOM-035-STPS-2018, FACTORES DE RIESGO PSICOSOCIAL EN EL
-                      TRABAJO-IDENTIFICACIÓN, ANÁLISIS Y PREVENCIÓN</strong>
                   </MDBAnimation>
                 </MDBCol>
                 <MDBCol md="6" xl="5" className="mt-xl-5">

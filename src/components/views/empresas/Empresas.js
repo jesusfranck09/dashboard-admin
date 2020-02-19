@@ -74,8 +74,12 @@ class Validation1 extends React.Component {
                   console.log("Registro",datos.data.data.getAdminFechaRegistro.fechaRegistro)
                   
                   var part1=datos.data.data.getAdminFechaRegistro.fechaRegistro.substring(5,11)
+                  
+                  var año = datos.data.data.getAdminFechaRegistro.fechaRegistro.substring(12,16)
+                  var añoEntero  = parseInt(año)
+                  var añoExpiracion = añoEntero+1 
                   var part2=datos.data.data.getAdminFechaRegistro.fechaRegistro.substring(16,29)
-                  this.countdown(part1 + " 2021 " + part2)
+                  this.countdown(part1 + añoExpiracion + part2)
                   })
 
 
@@ -107,16 +111,65 @@ class Validation1 extends React.Component {
         }
         
         
-        evaluar  = (values) =>{
+        evaluar  = async (values) =>{
             
         console.log("evaluar" , values) 
-        var idAdmin  =localStorage.getItem("idASuperusuario")       
+        const url = 'http://localhost:8000/graphql'
+        var idAdmin  =localStorage.getItem("idASuperusuario") 
+        let noEmpresasPack;
+        await axios({
+          url:  url,
+          method:'post',
+          data:{
+          query:`
+           query{
+            verifyPackSuperUser(data:"${[idAdmin]}"){
+                empresas
+                  }
+                }
+              `
+          }
+        })
+        .then(datos => {	
+      console.log("exito PAquetes" , datos)
+          noEmpresasPack=datos.data.data.verifyPackSuperUser.empresas
+        }).catch(err=>{
+          console.log("error" ,err.response)
+        })     
+
+       let intEmpresasPack = parseInt(noEmpresasPack) 
+       let empresas;     
+       await axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         query{
+          countEmpresas(data:"${[idAdmin]}"){
+              id
+                }
+              }
+            `
+        }
+      })
+      .then(datos => {	
+    
+      empresas=datos.data.data.countEmpresas.id
+
+      }).catch(err=>{
+        console.log("error" ,err.response)
+      })     
+
+     let empresasInt = parseInt(empresas)
+
+     console.log("resultados" , empresasInt,intEmpresasPack)
+       if(empresasInt< intEmpresasPack){
         const nombre= values.Nombre
         const apellidos= values.Apellidos
         const rfc = values.rfc
         const RazonSocial = values.RazonSocial
         const correo = values.correo  
-        const url = 'http://localhost:8000/graphql'
+       
         axios({
           url:  url,
           method:'post',
@@ -180,55 +233,64 @@ class Validation1 extends React.Component {
                 //console.log("errores" ,error.response.data.errors[0].message)
                 console.log(".cartch" , error.response)
             });
+       }else{
+        DialogUtility.alert({
+          animationSettings: { effect: 'Zoom' },           
+          content: "Estimado Usuario ,no es posible registrar mas Empresas, Puede Ampliar su paquete Contactándose con su ejecutivo de ADS",
+          title: 'Aviso!',
+          position: "fixed"
+        });
+       }  
+       
+
+
+
         }
 
         entrar  = (values) => {
-         console.log("values", values.empresa)
-            const url = 'http://localhost:8000/graphql'
-            axios({
-            url:  url,
-            method:'post',
-            data:{
-            query:`
-            query{
-                getAdminDashboard(data:"${[values.empresa]}"){
-                    id
-                    nombre
-                    Apellidos
-                    RFC
-                    RazonSocial
-                    correo
-                    Activo
-                    fechaRegistro
-                    }
-                }
-                `
-            }
-        })
-        .then(datos => {	
+          this.props.history.push("./loginEmpresas")
+        //  console.log("values", values.empresa)
+        //     const url = 'http://localhost:8000/graphql'
+        //     axios({
+        //     url:  url,
+        //     method:'post',
+        //     data:{
+        //     query:`
+        //     query{
+        //         getAdminDashboard(data:"${[values.empresa]}"){
+        //             id
+        //             nombre
+        //             Apellidos
+        //             RFC
+        //             RazonSocial
+        //             correo
+        //             Activo
+        //             fechaRegistro
+        //             }
+        //         }
+        //         `
+        //     }
+        // })
+        // .then(datos => {	
       	
-             console.log("deptosExtraidas" , datos.data.data.getAdminDashboard)
-             if(datos.data.data.getAdminDashboard){
-                localStorage.setItem('nombre', datos.data.data.getAdminDashboard.nombre)
-                localStorage.setItem('apellidos', datos.data.data.getAdminDashboard.Apellidos) 
-                localStorage.setItem('rfc',datos.data.data.getAdminDashboard.RFC) 
-                localStorage.setItem('razonsocial', datos.data.data.getAdminDashboard.RazonSocial) 
-                localStorage.setItem('correo', datos.data.data.getAdminDashboard.correo)
-                localStorage.setItem('idAdmin', datos.data.data.getAdminDashboard.id) 
-                this.props.history.push("./inicio")
-                DialogUtility.alert({
-                    animationSettings: { effect: 'Zoom' },           
-                    title: 'Inicio Exitoso!',
-                    content:`Bienvenido ${datos.data.data.getAdminDashboard.nombre}  ${datos.data.data.getAdminDashboard.Apellidos}`,
-                    position: "fixed",
-                })
-            }
+        //      console.log("deptosExtraidas" , datos.data.data.getAdminDashboard)
+        //      if(datos.data.data.getAdminDashboard){
+        //         localStorage.setItem('nombre', datos.data.data.getAdminDashboard.nombre)
+        //         localStorage.setItem('apellidos', datos.data.data.getAdminDashboard.Apellidos) 
+        //         localStorage.setItem('rfc',datos.data.data.getAdminDashboard.RFC) 
+        //         localStorage.setItem('razonsocial', datos.data.data.getAdminDashboard.RazonSocial) 
+        //         localStorage.setItem('correo', datos.data.data.getAdminDashboard.correo)
+        //         localStorage.setItem('idAdmin', datos.data.data.getAdminDashboard.id) 
+                
+               
+        //     }
 
 
              
-        }).catch(err=>{
-            console.log("este es el error get deptos" , err.response)
-        })}
+        // }).catch(err=>{
+        //     console.log("este es el error get deptos" , err.response)
+        // })
+      }
 
         countdown = (deadline) => {
 

@@ -193,52 +193,76 @@ class SheetJSApp extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: [],
-			emailAdmin:[],
-			passAdmin:[]
-	
+			data: [],	
 		};
 		this.handleFile = this.handleFile.bind(this);
 		this.exportFile = this.exportFile.bind(this);
 	};
 
-    handleSubmit = event => {
+    handleSubmit = async event => {
 	
 	const correoA = localStorage.getItem("correo")
 	console.log("el correo" , correoA)
 		 const url = 'http://localhost:8000/graphql'
-		axios({
-		  url:  url,
-		  method:'post',
-		  data:{
-		  query:`
-		   mutation{
-			  authRegisterSingleEmployee(data:"${[correoA]}"){
-				max
-				  }
-				}
-			  `
-		  }
-		})
-		.then(datos => {		
-		 localStorage.setItem("max" , datos.data.data.authRegisterSingleEmployee[0].max)
-	  
-		});    
-	   
-		var max = localStorage.getItem("max")
+
+		 const idSuperUsuario = localStorage.getItem("idASuperusuario")
+		 let em;
+		 await axios({
+		   url:  url,
+		   method:'post',
+		   data:{
+		   query:`
+			query{
+			 verifyPackSuperUser(data:"${[idSuperUsuario]}"){
+				 empleados
+				   }
+				 }
+			   `
+		   }
+		 })
+		 .then(datos => {		
+			 em =datos.data.data.verifyPackSuperUser.empleados
+		  console.log("exito no empleados",datos)
  
-		if(max<15){
-	
-		console.log("this.state.data la data que se carga" , this.state.data)
+		 }).catch(err=>{
+			 console.log("error" , err.response)
+		 }) 
+	   
+		 let empleadosPack = parseInt(em)
+		 let max;
+		
+		 await axios({
+				 url:  url,
+				 method:'post',
+				 data:{
+				 query:`
+				 mutation{
+					 authRegisterSingleEmployee(data:"${[correoA]}"){
+					 max
+						 }
+					 }
+					 `
+				 }
+			 })
+			 .then(datos => {		
+			 console.log("exito empleados registrados" , datos.data.data.authRegisterSingleEmployee[0].max)
+			 max=datos.data.data.authRegisterSingleEmployee[0].max
+			 });
+ 
+			 let empleadosRegistrados=parseInt(max)
+
+		if(empleadosRegistrados < empleadosPack ){
 			
+
         for (var i=0; i< this.state.data.length; i++)
      	  {
 				const url  = 'http://localhost:8000/graphql'
 				var estado = this.state.data[i]	
+
 				const query =  `
 				mutation {
 					registerEmployee(
-						data:["${estado},${this.state.emailAdmin},${this.state.passAdmin}"]
+						data:["${estado},${correoA}"]
 					){
 						message
 					}
@@ -299,11 +323,11 @@ class SheetJSApp extends React.Component {
 			// const token = localStorage.getItem('elToken')
 			// let pl = payload(token);
 			// var correoAdmin  = pl.email
-			var correoAdmin = localStorage.getItem("correo")
+			var idAdmin = localStorage.getItem("idAdmin")
 			// var passAdmin = pl.password 
 
 			//aqui podemos visualizar la data
-            this.setState({ data: data, emailAdmin:correoAdmin });
+            this.setState({ data: data });
 		};
 		if (rABS) reader.readAsBinaryString(file); else reader.readAsArrayBuffer(file);
 	};
@@ -503,7 +527,7 @@ class App extends React.Component {
 	}) 
 	}
 
- evaluar  = (values) =>{
+ evaluar  = async (values) =>{
 
 		const Nombre = values.Nombre
 		const ApellidoP = values.ApellidoP
@@ -535,62 +559,88 @@ class App extends React.Component {
 		// const passAdmin = pl.password
 		const url = 'http://localhost:8000/graphql'
 		if(Nombre && ApellidoP && ApellidoM && curp && rfc && fechaN && sexo && cp && Estado_Civil && CentroTrabajo && Correo && area && puesto && city && estudios && personal && Jornada && contratacion && Tiempo_puestoActual && experiencia_Laboral && rotacion){
-	   
-		axios({
+		
+		const idSuperUsuario = localStorage.getItem("idASuperusuario")
+		let em;
+		await axios({
 		  url:  url,
 		  method:'post',
 		  data:{
 		  query:`
-		   mutation{
-			  authRegisterSingleEmployee(data:"${[correoAdmin]}"){
-				max
+		   query{
+			verifyPackSuperUser(data:"${[idSuperUsuario]}"){
+				empleados
 				  }
 				}
 			  `
 		  }
 		})
 		.then(datos => {		
-		 localStorage.setItem("max" , datos.data.data.authRegisterSingleEmployee[0].max)
+			em =datos.data.data.verifyPackSuperUser.empleados
+		 console.log("exito no empleados",datos)
+
+		}).catch(err=>{
+			console.log("error" , err.response)
+		}) 
 	  
-		});    
-	  
-	   
-		var max = localStorage.getItem("max")
-		if(max <15 ){
-		axios({
-		  url:  url,
-		  method:'post',
-		  data:{
-		  query:`
-		   mutation{
-			registerSingleEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,cp,Estado_Civil,Correo,area,puesto,city,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,correoAdmin,CentroTrabajo]}"){
-				message
-				  }
+	    let empleadosPack = parseInt(em)
+		let max;
+		await axios({
+				url:  url,
+				method:'post',
+				data:{
+				query:`
+				mutation{
+					authRegisterSingleEmployee(data:"${[correoAdmin]}"){
+					max
+						}
+					}
+					`
 				}
-			  `
-		  }
-		})
-		
-		.then((datos )=> {
-		 console.log("los segundos datos" , datos)
-		  DialogUtility.alert({
-			  animationSettings: { effect: 'Zoom' },           
-			  content: "Empleado Registrado!",
-			  title: 'Aviso!',
-			  position: "fixed"
-		  });
-		  window.location.reload();
-		});   
-	  } else{
-  
-		  DialogUtility.alert({
-			  animationSettings: { effect: 'Zoom' },           
-			  content: 'Su suscripción no le permite registrar mas Empleados, por favor póngase en contacto con su asesor para ampliar el numero de sus usuarios. !',
-			  position: "fixed",
-		  })
-		  localStorage.removeItem("max")
-	  }  
-  } 
+			})
+			.then(datos => {		
+			console.log("exito empleados registrados" , datos.data.data.authRegisterSingleEmployee[0].max)
+		    max=datos.data.data.authRegisterSingleEmployee[0].max
+			});
+
+			let empleadosRegistrados=parseInt(max)
+			console.log("empleadosRegistrados",empleadosRegistrados)
+			
+			if(empleadosRegistrados < empleadosPack ){
+			axios({
+			url:  url,
+			method:'post',
+			data:{
+			query:`
+			mutation{
+				registerSingleEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,cp,Estado_Civil,Correo,area,puesto,city,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,correoAdmin,CentroTrabajo]}"){
+					message
+					}
+					}
+				`
+			}
+			})
+			
+			.then((datos )=> {
+			console.log("los segundos datos" , datos)
+			DialogUtility.alert({
+				animationSettings: { effect: 'Zoom' },           
+				content: "Empleado Registrado!",
+				title: 'Aviso!',
+				position: "fixed"
+			});
+			window.location.reload();
+			});   
+		} else{
+	
+			DialogUtility.alert({
+				animationSettings: { effect: 'Zoom' },           
+				content: 'Su suscripción no le permite registrar mas Empleados, por favor póngase en contacto con su asesor para ampliar el numero de sus usuarios. !',
+				position: "fixed",
+			})
+			localStorage.removeItem("max")
+		}  
+	   } 
   
 	  }
 	  

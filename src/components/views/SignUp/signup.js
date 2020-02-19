@@ -16,6 +16,7 @@ import {MDBIcon} from 'mdbreact'
         $razon_social:String,
         $email:String,
         $password:String, 
+        $id:String
         ){
             signup(data: {
               first_name: $first_name
@@ -24,7 +25,7 @@ import {MDBIcon} from 'mdbreact'
                 razon_social:$razon_social
                 email: $email
                 password: $password
-              
+                id:$id
             }){
              
                 message
@@ -62,9 +63,11 @@ handleInput = (e) => {
 
 handleForm = (e, signup) => {
   e.preventDefault();
+  const id = localStorage.getItem("idRegistro")
   console.log('Enviando formulario...');
   signup({variables: { 
-      ...this.state
+      ...this.state,
+         id
       
   }});
 }
@@ -108,7 +111,7 @@ handleData = (data) => {
       title: 'Aviso!',
       position: "fixed"
     });
-    
+    localStorage.removeItem("idRegistro")
     this.props.history.push('/');
   }
   
