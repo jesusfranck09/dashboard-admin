@@ -2,8 +2,8 @@
   "name": "plataforma-digital",
   "version": "0.1.0",
   "private": true,
-  "engines":{
-    "node":"10.16.0"
+  "engines": {
+    "node": "10.16.0"
   },
   "dependencies": {
     "@coreui/coreui": "^2.1.12",
@@ -18,6 +18,7 @@
     "@progress/kendo-react-pdf": "^3.9.0",
     "@react-pdf/renderer": "^1.6.8",
     "@syncfusion/ej2-popups": "^17.3.29",
+    "apexcharts": "^3.15.6",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
     "apollo-link-context": "^1.0.19",
@@ -42,13 +43,14 @@
     "npm": "^6.13.6",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
+    "react-apexcharts": "^1.3.6",
     "react-apollo": "^3.1.2",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-chartjs-2": "^2.8.0",
     "react-dom": "^16.10.2",
     "react-dropzone": "^10.1.10",
     "react-final-form": "^6.3.0",
-    "react-fusioncharts": "^3.0.1",
+    "react-fusioncharts": "^3.1.2",
     "react-modal-login": "^1.3.4",
     "react-native": "^0.61.2",
     "react-router-dom": "^5.1.2",

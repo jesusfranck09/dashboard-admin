@@ -63,7 +63,9 @@ class Home extends React.Component {
       minutos:'',
       segundos:'',
       licencia:'',
-      array:[]
+      array:[],
+      empleados:'',
+      max:''
     };
     this.onClick = this.onClick.bind(this);
     this.handleclick = this.handleclick.bind(this);
@@ -72,28 +74,9 @@ class Home extends React.Component {
   }
 
   componentWillMount(){
-  const idAdmin   = localStorage.getItem('idASuperusuario')
-  const url = 'http://localhost:8000/graphql'
-  axios({
-    url:  url,
-    method:'post',
-    data:{
-    query:`
-     query{
-      getAdminFechaRegistro(data:"${[idAdmin]}"){
-      fechaRegistro
-            }
-          }
-        `
-    }
-        }).then((datos) => {
-        console.log("Registro",datos)
-        
-        var part1=datos.data.data.getAdminFechaRegistro.fechaRegistro.substring(5,11)
-        var part2=datos.data.data.getAdminFechaRegistro.fechaRegistro.substring(16,29)
-        this.countdown(part1 + " 2021 " + part2)
-        })
 
+    
+    this.handleFront();
     var Nombre = localStorage.getItem("nombre")
     var Apellidos = localStorage.getItem("apellidos")
 
@@ -128,8 +111,72 @@ this.props.history.push("/profile")
 
 }
 
-handleFront(){
-console.log("hola mundo")
+handleFront = async () =>{
+  
+  let em;
+  let idSuperUsuario;
+  let max;
+  let correoAdmin = localStorage.getItem("correo")
+  const url = 'http://localhost:8000/graphql'
+  await axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+    mutation{
+      authRegisterSingleEmployee(data:"${[correoAdmin]}"){
+      max
+        }
+      }
+      `
+    }
+  })
+  .then(datos => {		
+        max=datos.data.data.authRegisterSingleEmployee[0].max;
+        this.setState({max:max})
+  });
+
+  const idAdmin =  localStorage.getItem("idAdmin")
+   axios({
+    url:  url,
+    method:'post',
+    data:{
+    query:`
+     query{
+      getAdminDashboard(data:"${[idAdmin]}"){
+        fk_superusuario
+        }
+        }
+      `
+    }
+    })
+    .then(datos => {		
+    idSuperUsuario = datos.data.data.getAdminDashboard.fk_superusuario;
+    axios({
+		  url:  url,
+		  method:'post',
+		  data:{
+		  query:`
+		   query{
+			verifyPackSuperUser(data:"${[idSuperUsuario]}"){
+				empleados
+				  }
+				}
+			  `
+		  }
+		})
+		.then(datos => {		
+      console.log("exito pack " , datos)
+      em =datos.data.data.verifyPackSuperUser.empleados
+      this.setState({empleados:em})
+		}).catch(err=>{
+			console.log("error" , err.response)
+		}) 
+    }).catch(err=>{
+      console.log("error" , err.response)
+    }) 
+   
+ 
 }
 
 
@@ -143,8 +190,9 @@ localStorage.removeItem("usuario")
 localStorage.removeItem("correo")
 localStorage.removeItem("max")
 localStorage.removeItem("idAdmin")
+localStorage.removeItem("fechaRegistro")
 
-this.props.history.push("/empresas")
+this.props.history.push("/loginEmpresas")
 DialogUtility.alert({
   animationSettings: { effect: 'Fade' },           
   title: 'Hasta luego...!',
@@ -457,61 +505,6 @@ getMaxEmployees(){
 
 }
 
-countdown = (deadline) => {
-
-
-  const timerUpdate = setInterval( () => {
-    const licencia ="su licencia ha caducado"
-    let t = this.getRemainingTime(deadline);
-   this.setState ({dias:t.remainDays})
-   this.setState ({horas:t.remainHours})
-   this.setState ({minutos:t.remainMinutes})
-   this.setState ({segundos:t.remainSeconds})
-   this.setState({licencia:licencia})
-    if(t.remainTime <= 1) {
-      clearInterval(timerUpdate);
-      const correo   = localStorage.getItem('idASuperusuario')
-      console.log("entro")
-      const url = 'http://localhost:8000/graphql'
-      axios({
-        url:  url,
-        method:'post',
-        data:{
-        query:`
-         mutation{
-          inactiveAdmin(data:"${[correo]}"){
-              message
-                }
-              }
-            `
-        }
-            }).then((datos) => {
-           
-            }); 
-    }else {
-    this.setState({licencia:""})
-
-    }
-
-  }, 1000)
-};
-
-getRemainingTime = deadline => {
-  let now = new Date(),
-      remainTime = (new Date(deadline) - now + 1000) / 1000,
-      remainSeconds = ('0' + Math.floor(remainTime % 60)).slice(-2),
-      remainMinutes = ('0' + Math.floor(remainTime / 60 % 60)).slice(-2),
-      remainHours = ('0' + Math.floor(remainTime / 3600 % 24)).slice(-2),
-      remainDays = Math.floor(remainTime / (3600 * 24));
-
-  return {
-    remainSeconds,
-    remainMinutes,
-    remainHours,
-    remainDays,
-    remainTime
-  }
-};
 
 toggle = (nr) => () => {  
   let modalNumber = 'modal' + nr
@@ -953,17 +946,16 @@ toggle = (nr) => () => {
         <MDBCol>
         <MDBCard style={{ width: "22rem" ,marginTop:60,marginLeft:100}}>
           <MDBCardBody>        
-          <MDBCardTitle>Su Licencia caduca en :</MDBCardTitle>
-         <MDBCardHeader>{this.state.dias} Dias  {this.state.horas} horas {this.state.minutos} minutos {this.state.segundos} segundos
+          <MDBCardTitle>Información General:</MDBCardTitle>
+         <MDBCardHeader>
+          
+    <strong>Licencia de {this.state.empleados} Usuarios</strong>
           <br/>
           <br/>
-          <strong>Licencia de 1-15 Usuarios</strong>
+          <strong>Empleados Totales : {this.state.empleados}</strong>
           <br/>
           <br/>
-          <strong>Empleados Totales : {this.state.totalEmpleados}</strong>
-          <br/>
-          <br/>
-          <strong>Empleados Restantes : {(15-this.state.totalEmpleados)}</strong>
+          <strong>Empleados Restantes : {(this.state.empleados-this.state.max)}</strong>
         
          
          </MDBCardHeader>      

@@ -36,6 +36,7 @@ import {
 } from "mdbreact";
 import "../../Home/index.css";
 
+import Chart from 'react-apexcharts'
 
 
 class Validation1 extends React.Component {
@@ -49,6 +50,9 @@ class Validation1 extends React.Component {
             minutos:'',
             segundos:'',
             licencia:'',
+            options: {},
+            series: [33,69],
+            labels: ['Ocupado', 'Disponible'],
         }
       }
       onSubmit (values) {
@@ -80,6 +84,7 @@ class Validation1 extends React.Component {
                   var añoExpiracion = añoEntero+1 
                   var part2=datos.data.data.getAdminFechaRegistro.fechaRegistro.substring(16,29)
                   this.countdown(part1 + añoExpiracion + part2)
+                  localStorage.setItem("fechaRegistroSuperusuario",datos.data.data.getAdminFechaRegistro.fechaRegistro)
                   })
 
 
@@ -112,9 +117,10 @@ class Validation1 extends React.Component {
         
         
         evaluar  = async (values) =>{
-            
-        console.log("evaluar" , values) 
-        const url = 'http://localhost:8000/graphql'
+        console.log("values" , values)    
+        if(values.Nombre && values.Apellidos && values.rfc && values.RazonSocial && values.correo && values.contraseña){
+        console.log("entro")
+          const url = 'http://localhost:8000/graphql'
         var idAdmin  =localStorage.getItem("idASuperusuario") 
         let noEmpresasPack;
         await axios({
@@ -162,23 +168,25 @@ class Validation1 extends React.Component {
 
      let empresasInt = parseInt(empresas)
 
-     console.log("resultados" , empresasInt,intEmpresasPack)
+   
        if(empresasInt< intEmpresasPack){
         const nombre= values.Nombre
         const apellidos= values.Apellidos
         const rfc = values.rfc
         const RazonSocial = values.RazonSocial
         const correo = values.correo  
-       
+       const contraseña = values.contraseña
+       var fecha = localStorage.getItem("fechaRegistroSuperusuario")
+        const fechaRegistro  = fecha.substring(5,29)
         axios({
           url:  url,
           method:'post',
           data:{
           query:`
           mutation{
-            addAdminEmpresa(data:"${[nombre,apellidos,rfc,RazonSocial,correo,idAdmin]}"){
+            addAdminEmpresa(data:"${[nombre,apellidos,rfc,RazonSocial,correo,contraseña,fechaRegistro,idAdmin]}"){
               message 
-            
+              token
                 }
               }
               `
@@ -241,14 +249,15 @@ class Validation1 extends React.Component {
           position: "fixed"
         });
        }  
-       
-
-
-
+        }
         }
 
         entrar  = (values) => {
           this.props.history.push("./loginEmpresas")
+          localStorage.removeItem('elToken')  
+          localStorage.removeItem('idASuperusuario')   
+          localStorage.removeItem('idASuperusuario') 
+          localStorage.removeItem('fechaRegistroSuperusuario')
         //  console.log("values", values.empresa)
         //     const url = 'http://localhost:8000/graphql'
         //     axios({
@@ -275,12 +284,7 @@ class Validation1 extends React.Component {
       	
         //      console.log("deptosExtraidas" , datos.data.data.getAdminDashboard)
         //      if(datos.data.data.getAdminDashboard){
-        //         localStorage.setItem('nombre', datos.data.data.getAdminDashboard.nombre)
-        //         localStorage.setItem('apellidos', datos.data.data.getAdminDashboard.Apellidos) 
-        //         localStorage.setItem('rfc',datos.data.data.getAdminDashboard.RFC) 
-        //         localStorage.setItem('razonsocial', datos.data.data.getAdminDashboard.RazonSocial) 
-        //         localStorage.setItem('correo', datos.data.data.getAdminDashboard.correo)
-        //         localStorage.setItem('idAdmin', datos.data.data.getAdminDashboard.id) 
+        //        
                 
                
         //     }
@@ -290,6 +294,13 @@ class Validation1 extends React.Component {
         // }).catch(err=>{
         //     console.log("este es el error get deptos" , err.response)
         // })
+      }
+      salir(){
+        this.props.history.push("./login")
+          localStorage.removeItem('elToken')  
+          localStorage.removeItem('idASuperusuario')   
+          localStorage.removeItem('idASuperusuario') 
+          localStorage.removeItem('fechaRegistroSuperusuario')
       }
 
         countdown = (deadline) => {
@@ -366,6 +377,39 @@ getRemainingTime = deadline => {
     remainTime
   }
 };
+
+
+validate = values => {
+  const errors = {};
+  const length = {} 
+  if (!values.Nombre) {
+    errors.Nombre = 'Este campo es requerido';
+  }
+  if (!values.Apellidos) {
+    errors.Apellidos = 'Este campo es requerido';
+  }
+  if (!values.rfc) {
+    errors.rfc = 'Este campo es requerido';
+  }
+  if (!values.RazonSocial) {
+    errors.RazonSocial = 'Este campo es requerido';
+  }
+  if (!values.correo) {
+    errors.correo = 'Este campo es requerido';
+  }
+  
+  if (!values.contraseña) {
+    errors.contraseña = 'Este campo es Requerido';
+  }
+
+  // if(values.contraseña<8){
+  //   length.contraseña = 'Su contraseña debe contener almenos 8 caracteres'
+  //   return length;
+  // }
+  
+  return errors;
+
+  };
   render() {
       
     let expiro;
@@ -448,6 +492,16 @@ getRemainingTime = deadline => {
 					  label="Correo"
 					/>
 				  </Grid>
+          <Grid item xs={6}>
+					<Field
+					  fullWidth
+					  required
+					  name="contraseña"
+					  component={TextField}
+					  type="password"
+					  label="contraseña"
+					/>
+				  </Grid>
                  
 				  <Grid item style={{ marginTop: 16 ,marginLeft:100 }}>
 					<Button
@@ -502,13 +556,15 @@ getRemainingTime = deadline => {
               <MDBRow>
                
               
-                <MDBCol md="6" className="mb-8 mt-xl-5 pt-5" >
+                <MDBCol md="6" className="mb-8 mt-xl-5 " >
                   <MDBAnimation type="fadeInRight" delay=".3s">
                     <MDBCard id="classic-card" style={{marginTop:18}} >
+                     <MDBCardHeader> <strong >Su Licencia caduca en {this.state.dias} Dias  {this.state.horas} horas {this.state.minutos} minutos {this.state.segundos} segundos</strong>  </MDBCardHeader> 
                       <MDBCardBody className="white-text">
                         <h3 className="text-center">
                              Por favor Seleccione su Empresa
                         </h3>
+                     
                         <hr className="hr-light" />
 
 
@@ -593,24 +649,19 @@ getRemainingTime = deadline => {
                   </MDBAnimation> */}
                 </MDBCol>
                 </MDBRow>
-                <MDBCard style={{ width: "22rem" ,marginTop:60,marginLeft:100}}>
-                <MDBCardBody>        
-                <MDBCardTitle>Su Licencia caduca en :</MDBCardTitle>
-                <MDBCardHeader>{this.state.dias} Dias  {this.state.horas} horas {this.state.minutos} minutos {this.state.segundos} segundos
-                <br/>
-                <br/>
-                <strong>Licencia de 1-15 Usuarios</strong>
-                <br/>
-                <br/>      
-         
-         </MDBCardHeader>      
-         
-        {expiro}
-       </MDBCardBody>
-      </MDBCard >
+                <MDBRow>
+                <MDBCol>
+                <div className="donut">
+            <Chart options={this.state.options} series={this.state.series} type="donut" width="380" />
+                 </div>
+                  </MDBCol>  
+                
+                    </MDBRow>
+               
             </MDBContainer>
           </MDBMask>
         </MDBView>
+     
       </div>
 
       </React.Fragment>

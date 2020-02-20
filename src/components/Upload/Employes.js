@@ -527,7 +527,7 @@ class App extends React.Component {
 	}) 
 	}
 
- evaluar  = async (values) =>{
+ evaluar  =async (values) =>{
 
 		const Nombre = values.Nombre
 		const ApellidoP = values.ApellidoP
@@ -553,14 +553,33 @@ class App extends React.Component {
 	  
 	  
 		// const token = localStorage.getItem('elToken')
-		// let pl = payload(token);
-	  
-		const correoAdmin =  localStorage.getItem("correo")
-		// const passAdmin = pl.password
+	    let idSuperUsuario;
 		const url = 'http://localhost:8000/graphql'
+		const idAdmin =  localStorage.getItem("idAdmin")
+		await axios({
+			url:  url,
+			method:'post',
+			data:{
+			query:`
+			 query{
+				getAdminDashboard(data:"${[idAdmin]}"){
+				  fk_superusuario
+					}
+				  }
+				`
+			}
+		  })
+		  .then(datos => {		
+			idSuperUsuario = datos.data.data.getAdminDashboard.fk_superusuario;
+  
+		  }).catch(err=>{
+			  console.log("error" , err.response)
+		  }) 
+		// const passAdmin = pl.password
+		
 		if(Nombre && ApellidoP && ApellidoM && curp && rfc && fechaN && sexo && cp && Estado_Civil && CentroTrabajo && Correo && area && puesto && city && estudios && personal && Jornada && contratacion && Tiempo_puestoActual && experiencia_Laboral && rotacion){
 		
-		const idSuperUsuario = localStorage.getItem("idASuperusuario")
+	
 		let em;
 		await axios({
 		  url:  url,
@@ -582,10 +601,10 @@ class App extends React.Component {
 		}).catch(err=>{
 			console.log("error" , err.response)
 		}) 
-	  
+		let correoAdmin = localStorage.getItem("correo")
 	    let empleadosPack = parseInt(em)
 		let max;
-		await axios({
+		  await axios({
 				url:  url,
 				method:'post',
 				data:{

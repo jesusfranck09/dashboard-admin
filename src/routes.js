@@ -64,7 +64,7 @@ import Sucursales from './components/adminGeneral/Sucursales';
 import adminEmployees from './components/adminGeneral/adminEmployees';
 import Puestos from './components/adminGeneral/Puestos';
 import IndexEEO from './components/Res generales/indexEEO';
-// import Result from './components/resultsCuestions/result';
+import Demo from './components/demo/demo';
 import ResultRP from './components/resultsCuestionsRP/resultRP';
 import ResultEEO from './components/resultsCuestionsEEO/resultEEO';
 import Apartments from './components/adminGeneral/Apartments';
@@ -81,7 +81,7 @@ class Routes extends Component{
   render(){
       
       const PrivateRoute = ({component:Component, ...rest}) => (
-      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/"/>)}/>
+      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/"/> || <Redirect to="/loginEmpresas"/>)}/>
       
       )
       return(
@@ -156,6 +156,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/puestos' component={Puestos}/>
                   <PrivateRoute exact path='/resultGralEEO' component={IndexEEO}/>
                   <PrivateRoute exact path='/resultGral' component={ResGral}/>
+                  <PrivateRoute exact path='/demo' component={Demo}/>
          
 
 

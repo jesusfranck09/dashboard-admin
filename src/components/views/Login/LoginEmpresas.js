@@ -32,7 +32,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
 
 const LOGINEMPRESAS = gql`
     mutation LOGINEMPRESAS($rfc: String!, $password: String!){
-        loginEmpresas(rfc: $email, password: $password){
+        loginEmpresas(rfc: $rfc, password: $password){
           activo
           message 
           token 
@@ -42,13 +42,12 @@ const LOGINEMPRESAS = gql`
           RFC
           RazonSocial
           correo
-          Activo 
-          fechaRegistro
+          activo 
+      fechaRegistro
         
         }
     }
 `
-
 
 class Login extends React.Component {
     constructor(props){
@@ -60,21 +59,7 @@ class Login extends React.Component {
         }
       }
 componentWillMount(){
-  localStorage.removeItem('idAdmin') 
-  localStorage.removeItem('idASuperusuario') 
-      localStorage.removeItem('elToken') 
-      localStorage.removeItem('nombre')
-      localStorage.removeItem('apellidos') 
-      localStorage.removeItem('rfc') 
-      localStorage.removeItem('razonsocial') 
-      localStorage.removeItem('usuario') 
-      localStorage.removeItem('correo') 
-      localStorage.removeItem('empleadoActivo') 
-      localStorage.removeItem('DepartamentoActivo') 
-      localStorage.removeItem('SucursalActiva') 
-      localStorage.removeItem('PuestoActivo') 
-
-
+  
 }      
 handleInput = (e) => {
     const {id, value} = e.target
@@ -94,9 +79,9 @@ handleInput = (e) => {
   
   handleData = (data) => {
 
-
+console.log(data)
     console.log("data del dash" , data)
-    if (data.login.token === 'no hay token' && data.login.message=="error"){
+    if (data.loginEmpresas.token === 'no hay token' && data.loginEmpresas.message=="error"){
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
         title: 'Por favor no deje espacios en blanco',
@@ -107,7 +92,7 @@ handleInput = (e) => {
     }, 2000); 
 
   }
- if(data.login.token=='no hay token' && data.login.message=='usuario y contraseña incorrectos'){
+ if(data.loginEmpresas.token=='no hay token' && data.loginEmpresas.message=='usuario y contraseña incorrectos'){
     DialogUtility.alert({
       animationSettings: { effect: 'Zoom' },           
       title: 'USUARIO Y CONTRASEÑA INCORRECTOS',
@@ -117,22 +102,24 @@ handleInput = (e) => {
     window.location.reload();
   }, 2000); 
   }
-      console.log("esta es la data",data)
-
-
-      if(data.login.message=='Login exitoso' && data.login.activo=="true"){
-      localStorage.setItem('elToken', data.login.token)  
-      localStorage.setItem('idASuperusuario', data.login.correo)   
-      localStorage.setItem('idASuperusuario', data.login.id) 
+   if(data.loginEmpresas.message=='Login exitoso' && data.loginEmpresas.token){
+        localStorage.setItem('nombre', data.loginEmpresas.nombre)
+        localStorage.setItem('elToken', data.loginEmpresas.token)  
+        localStorage.setItem('apellidos', data.loginEmpresas.Apellidos) 
+        localStorage.setItem('rfc',data.loginEmpresas.RFC) 
+        localStorage.setItem('razonsocial', data.loginEmpresas.RazonSocial) 
+        localStorage.setItem('correo',data.loginEmpresas.correo)
+        localStorage.setItem('idAdmin', data.loginEmpresas.id) 
+        localStorage.setItem('fechaRegistro', data.loginEmpresas.fechaRegistro) 
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
-        title: 'Sesión iniciada exitosamente!',
+        title: 'Sesión iniciada  BIENVENIDO  '+ data.loginEmpresas.nombre,
         position: "fixed",
     })
 
-    this.props.history.push("/empresas")    
+    this.props.history.push("/inicio")    
   }
-  if(data.login.activo=='false'){
+  if(data.loginEmpresas.activo=='false'){
 
     DialogUtility.alert({
       animationSettings: { effect: 'Zoom' },           
@@ -239,7 +226,7 @@ handleInput = (e) => {
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText><MDBIcon icon="user" /></InputGroupText>
                         </InputGroupAddon>
-                        <Input id="email" onChange={this.handleInput} type="email"  placeholder="Correo" />
+                        <Input id="rfc" onChange={this.handleInput} type="text"  placeholder="RFC/Empresa" />
                       </InputGroup>
   
 
