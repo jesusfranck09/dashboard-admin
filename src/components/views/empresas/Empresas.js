@@ -9,10 +9,17 @@ import {
 	Grid,
 	MenuItem,Button
   } from '@material-ui/core';
+  import TableCell from '@material-ui/core/TableCell';
+  import TableBody from '@material-ui/core/TableBody';
+  import Table from '@material-ui/core/Table';
+  import TableRow from '@material-ui/core/TableRow';
+  import { MDBModal, MDBModalBody, MDBModalHeader} from "mdbreact";
+  import TableHead from '@material-ui/core/TableHead';
+  import TableContainer from '@material-ui/core/TableContainer';
 
 //   import { MDBModal, MDBModalBody, MDBModalHeader, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 
-  import { MDBCardTitle,MDBCardHeader } from 'mdbreact';
+  import { MDBCardTitle,MDBCardHeader ,MDBBtn} from 'mdbreact';
   
   import { Form, Field } from 'react-final-form';
   import {Alert} from 'reactstrap';
@@ -45,14 +52,18 @@ class Validation1 extends React.Component {
         this.state = {
             registro:'',
             empresa:[],
+     
             dias:'',
             horas:'',
             minutos:'',
             segundos:'',
             licencia:'',
-            options: {},
-            series: [33,69],
-            labels: ['Ocupado', 'Disponible'],
+            noEmpresas:'',
+            datosEmpresas:'',
+            modal11:false,
+            rs:'',
+            totalEmpledosRegistrados:'',
+            empleadosPack:'',
         }
       }
       onSubmit (values) {
@@ -108,11 +119,31 @@ class Validation1 extends React.Component {
                     }
                 })
                 .then(datos => {	
-                this.setState({empresa:datos.data.data.getEmpresas})	
-                    console.log("deptosExtraidas" , datos)
+                this.setState({empresa:datos.data.data.getEmpresas})
                 }).catch(err=>{
                     console.log("este es el error get deptos" , err.response)
                 }) 
+                 axios({
+                  url:  url,
+                  method:'post',
+                  data:{
+                  query:`
+                   query{
+                    verifyPackSuperUser(data:"${[idASuperusuario]}"){
+                        empresas
+                        empleados
+                          }
+                        }
+                      `
+                  }
+                })
+                .then(datos => {	
+              console.log("exito PAquetes" , datos)
+              this.setState({empleadosPack:datos.data.data.verifyPackSuperUser.empleados})
+              this.setState({noEmpresas: datos.data.data.verifyPackSuperUser.empresas})   
+                }).catch(err=>{
+                  console.log("error" ,err.response)
+                })     
         }
         
         
@@ -131,6 +162,7 @@ class Validation1 extends React.Component {
            query{
             verifyPackSuperUser(data:"${[idAdmin]}"){
                 empresas
+   
                   }
                 }
               `
@@ -144,6 +176,7 @@ class Validation1 extends React.Component {
         })     
 
        let intEmpresasPack = parseInt(noEmpresasPack) 
+      
        let empresas;     
        await axios({
         url:  url,
@@ -401,17 +434,126 @@ validate = values => {
   if (!values.contraseña) {
     errors.contraseña = 'Este campo es Requerido';
   }
-
-  // if(values.contraseña<8){
-  //   length.contraseña = 'Su contraseña debe contener almenos 8 caracteres'
-  //   return length;
-  // }
-  
   return errors;
-
   };
+
+  toggle =  (nr,id,rs) => () => {
+    const url = 'http://localhost:8000/graphql'
+     axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+       query{
+        countEmployees(data:"${[id]}"){
+            id
+              }
+            }
+          `
+      }
+          }).then((datos) => {  
+         this.setState({totalEmpledosRegistrados:datos.data.data.countEmployees[0].id})
+          }); 
+    console.log("id",rs)
+    this.setState({rs:rs})
+    let modalNumber = 'modal' + nr
+    this.setState({
+      [modalNumber]: !this.state[modalNumber]
+    });
+  }
+  
+
   render() {
-      
+    let modal;
+    if(this.state.modal11){
+  
+  
+        modal  =  <MDBContainer >
+        <MDBModal isOpen={this.state.modal11} toggle={this.toggle(11)  } size="lg">
+          <MDBModalHeader toggle={this.toggle(11)}>
+            Detalles Generales de la Empresa
+          </MDBModalHeader>
+          <MDBModalBody>
+          <TableContainer component={Paper} align="center">
+       <Table  aria-label="simple table" style={{width:650}}>
+         <TableHead>
+           <TableRow>
+    <TableCell align="left">Razón Social :  {this.state.rs}</TableCell>
+             <TableCell align="left">Empleados Registrados : {this.state.totalEmpledosRegistrados} </TableCell>    
+           </TableRow>         
+         </TableHead>
+         <TableBody>
+         <TableRow>
+    <TableCell align="left">Empleados por Registrar : {this.state.empleadosPack-this.state.totalEmpledosRegistrados}</TableCell>
+           <TableCell align="left">Periodos : </TableCell>   
+           </TableRow>
+           <TableRow>
+           <TableCell align="left">Evaluaciones ATS Contestadas : </TableCell>
+             <TableCell align="left">Evaluaciones RP Contestadas</TableCell>
+           </TableRow>
+         <TableRow>
+         <TableCell align="left">Evaluaciones EEO Contestadas</TableCell>
+             <TableCell align="left">ATS Detectado : </TableCell>    
+           </TableRow>
+           <TableRow>
+           <TableCell align="left">Departamentos Totales : </TableCell>
+             <TableCell align="left">Puestos Totales : </TableCell>
+           </TableRow>
+           <TableRow>
+           <TableCell align="left">Centros de Trabajo Registrados :</TableCell>
+
+           </TableRow>
+          {/* {this.state.empleadosEEO.map(row => (
+             <TableRow key={row.id}>
+               <TableCell component="th" scope="row">
+                 {row.nombre}
+               </TableCell>
+               <TableCell align="center">{row.ApellidoP}</TableCell>
+               <TableCell align="center">{row.ApellidoM}</TableCell>
+               <TableCell align="center">{row.correo}</TableCell>
+              
+             </TableRow>
+             ))} */}
+         </TableBody>
+       </Table>
+     </TableContainer>
+          </MDBModalBody>   
+        </MDBModal>
+      </MDBContainer>
+
+  
+     }
+  
+
+   let empresasRegistradas;
+   let empresasPaquete;
+   empresasRegistradas = this.state.empresa.length;
+   empresasPaquete  =  this.state.noEmpresas
+    let detalles;
+if(this.state.datosEmpresas =='1'){
+  detalles= <Paper variant = {"elevation"} square={false}>
+  <Table bordered>
+
+    <TableBody>
+      {this.state.empresa.map(rows => {
+
+        return (
+          <TableRow >
+            <TableCell component="th" scope="row">
+              {rows.id}
+            </TableCell>
+            <TableCell >{rows.RazonSocial}</TableCell>
+            <TableCell  ><MDBBtn  color ="primary" onClick={this.toggle(11,rows.id,rows.RazonSocial) }>Detalles</MDBBtn></TableCell>
+          </TableRow>         
+        );
+      })}
+    </TableBody>
+
+
+      </Table>
+      </Paper>
+}
+
     let expiro;
     if(this.state.licencia){
 
@@ -559,7 +701,7 @@ validate = values => {
                 <MDBCol md="6" className="mb-8 mt-xl-5 " >
                   <MDBAnimation type="fadeInRight" delay=".3s">
                     <MDBCard id="classic-card" style={{marginTop:18}} >
-                     <MDBCardHeader> <strong >Su Licencia caduca en {this.state.dias} Dias  {this.state.horas} horas {this.state.minutos} minutos {this.state.segundos} segundos</strong>  </MDBCardHeader> 
+                     <MDBCardHeader> <strong >Su Licencia caduca en {this.state.dias} Dias  {this.state.horas} horas {this.state.minutos} minutos {this.state.segundos} segundos</strong> {expiro} </MDBCardHeader> 
                       <MDBCardBody className="white-text">
                         <h3 className="text-center">
                              Por favor Seleccione su Empresa
@@ -637,31 +779,66 @@ validate = values => {
                     </MDBCard>
                   </MDBAnimation>
                 </MDBCol>
-                <MDBCol md="8" xl="5" className="mt-xl-5  pt-5">
-                                      
-                    {registro}
-                  {/* <MDBAnimation type="fadeInRight" delay=".3s">
-                    <img
-                      src="https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png"
-                      alt=""
-                      className="img-fluid"
-                    />
-                  </MDBAnimation> */}
+                <MDBCol md="8" xl="5" className="mt-xl-5  pt-5">                          
+                {registro}
                 </MDBCol>
                 </MDBRow>
                 <MDBRow>
                 <MDBCol>
                 <div className="donut">
-            <Chart options={this.state.options} series={this.state.series} type="donut" width="380" />
-                 </div>
+                <Chart
+                  options={{
+                    labels:["disponible","ocupado"],
+                    chart: {
+                      events: {
+                        dataPointSelection: (event, chartContext, config) => {
+                          var index = config.dataPointIndex;
+                          var empresa = config.w.config.labels[index]
+                          if(empresa=="ocupado"){
+                            this.setState({datosEmpresas:'1'})
+                          }
+                        console.log(empresa)
+                        }
+                      }
+                    },
+                    theme: {
+                      monochrome: {
+                        enabled: false
+                      }
+                    },
+                    responsive: [
+                      {
+                        breakpoint: 100,
+                        options: {
+                          chart: {
+                            width: "100%"
+                          },
+                          legend: {
+                            show: false
+                          }
+                        }
+                      }
+                    ]
+                  }}
+                  colors={["#1B2260"]}
+                  series={[empresasPaquete-empresasRegistradas,empresasRegistradas]}
+                  // labels={["Apple", "Mango", "Orange", "Watermelon"]}
+                  type="donut"
+                  width="500"
+                />
+             </div>
                   </MDBCol>  
+                  <MDBCol>
+                  {detalles}
+
+                  </MDBCol>
                 
                     </MDBRow>
                
             </MDBContainer>
           </MDBMask>
         </MDBView>
-     
+        { modal }
       </div>
 
       </React.Fragment>

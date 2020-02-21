@@ -593,6 +593,7 @@ toggle = (nr) => () => {
      let modalRPFalse;
      let modalEEO;
      let modalEEOFalse;
+     
      if(this.state.modal16){
   
       if(this.state.empleadosAts[0]){
