@@ -171,7 +171,7 @@ handleInput = (e) => {
                 <MDBNavbarBrand>
                 <AppNavbarBrand
                   full={{ src: logo, width: 89, height: 25, alt: 'ADS' }} />
-                  <strong className="white-text">Bienvenido  Login Super-Usuario</strong>
+                  <strong className="white-text">Bienvenido</strong>
                 </MDBNavbarBrand>
      
                 <MDBNavbarToggler />

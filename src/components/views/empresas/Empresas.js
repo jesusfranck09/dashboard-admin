@@ -64,6 +64,14 @@ class Validation1 extends React.Component {
             rs:'',
             totalEmpledosRegistrados:'',
             empleadosPack:'',
+            empleadosAtsContestado:[],
+            empleadosEEOContestado:[],
+            empleadosRPContestado:[],
+            empleadosAtsDetectado:[],
+            periodo:[],
+            deptos:[],
+            puestos:[],
+            sucursales:[],
         }
       }
       onSubmit (values) {
@@ -98,8 +106,6 @@ class Validation1 extends React.Component {
                   localStorage.setItem("fechaRegistroSuperusuario",datos.data.data.getAdminFechaRegistro.fechaRegistro)
                   })
 
-
-		
                     axios({
                     url:  url,
                     method:'post',
@@ -291,42 +297,6 @@ class Validation1 extends React.Component {
           localStorage.removeItem('idASuperusuario')   
           localStorage.removeItem('idASuperusuario') 
           localStorage.removeItem('fechaRegistroSuperusuario')
-        //  console.log("values", values.empresa)
-        //     const url = 'http://localhost:8000/graphql'
-        //     axios({
-        //     url:  url,
-        //     method:'post',
-        //     data:{
-        //     query:`
-        //     query{
-        //         getAdminDashboard(data:"${[values.empresa]}"){
-        //             id
-        //             nombre
-        //             Apellidos
-        //             RFC
-        //             RazonSocial
-        //             correo
-        //             Activo
-        //             fechaRegistro
-        //             }
-        //         }
-        //         `
-        //     }
-        // })
-        // .then(datos => {	
-      	
-        //      console.log("deptosExtraidas" , datos.data.data.getAdminDashboard)
-        //      if(datos.data.data.getAdminDashboard){
-        //        
-                
-               
-        //     }
-
-
-             
-        // }).catch(err=>{
-        //     console.log("este es el error get deptos" , err.response)
-        // })
       }
       salir(){
         this.props.history.push("./login")
@@ -437,9 +407,28 @@ validate = values => {
   return errors;
   };
 
-  toggle =  (nr,id,rs) => () => {
+  toggle = (nr,id,rs) => async  () => {
+    if(id){
     const url = 'http://localhost:8000/graphql'
-     axios({
+    let correo;
+    await axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+       query{
+        getAdminDashboard(data:"${[id]}"){
+            id
+            correo
+              }
+            }
+          `
+      }
+      }).then((datos) => {  
+       correo =  datos.data.data.getAdminDashboard.correo
+      }).catch(err=>{console.log("error dash" , err.response)})
+    
+      await axios({
       url:  url,
       method:'post',
       data:{
@@ -451,16 +440,172 @@ validate = values => {
             }
           `
       }
+      }).then((datos) => {  
+      this.setState({totalEmpledosRegistrados:datos.data.data.countEmployees[0].id})
+      }); 
+        
+      await axios({
+          url:  url,
+          method:'post',
+          data:{
+          query:`
+            query{
+            getEmployeesResolvesSurveyATS(data:"${[id]}"){
+              nombre
+              ApellidoP
+              ApellidoM
+              correo
+              ATSContestado
+                  }
+                }
+              `
+          }
           }).then((datos) => {  
-         this.setState({totalEmpledosRegistrados:datos.data.data.countEmployees[0].id})
-          }); 
-    console.log("id",rs)
-    this.setState({rs:rs})
-    let modalNumber = 'modal' + nr
-    this.setState({
-      [modalNumber]: !this.state[modalNumber]
-    });
-  }
+            this.setState({empleadosAtsContestado:datos.data.data.getEmployeesResolvesSurveyATS})
+          }).catch(err=>{console.log("error",err.response)})
+          
+          await axios({
+            url:  url,
+            method:'post',
+            data:{
+            query:`
+              query{
+              getEmployeesResolvesSurveyEEO(data:"${[id]}"){
+                nombre
+                ApellidoP
+                ApellidoM
+                correo
+                ATSContestado
+                    }
+                  }
+                `
+            }
+            }).then((datos) => {  
+              this.setState({empleadosEEOContestado:datos.data.data.getEmployeesResolvesSurveyEEO})
+            }).catch(err=>{console.log("error",err.response)})
+                  
+            await  axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+                query{
+                getEmployeesResolvesSurveyRP(data:"${[id]}"){
+                  nombre
+                  ApellidoP
+                  ApellidoM
+                  correo
+                  ATSContestado
+                      }
+                    }
+                  `
+              }
+                }).then((datos) => {  
+                  this.setState({empleadosRPContestado:datos.data.data.getEmployeesResolvesSurveyRP})
+                }).catch(err=>{console.log("error",err.response)}) 
+              
+                await   axios({
+                url:  url,
+                method:'post',
+                data:{
+                query:`
+                  query{
+                    getEmployeesATSDetectado(data:"${[id]}"){
+                    nombre
+                    ApellidoP
+                    ApellidoM
+                    correo
+                        }
+                      }
+                    `
+                }
+                }).then((datos) => {  
+                  this.setState({empleadosAtsDetectado:datos.data.data.getEmployeesATSDetectado})
+                }).catch(err=>{console.log("error",err.response)})        
+                  
+                await  axios({
+                url:  url,
+                method:'post',
+                data:{
+                query:`
+                  query{
+                  getPeriodo(data:"${[id]}"){
+                    idEventos
+                    fk_administrador
+                    evento
+                        }
+                      }
+                    `
+                }
+              })
+              .then(datos => {	
+                this.setState({periodo:datos.data.data.getPeriodo})
+              }).catch(err=>{
+                console.log("error",err.response)
+              })     
+  
+      
+ 
+          await axios({
+            url:  url,
+            method:'post',
+            data:{
+            query:`
+              query{
+                getDeptos(data:"${[correo]}"){
+                  id
+                  nombre
+                  fk_Administrador
+                    }
+                  }
+                `
+            }
+            }).then((datos) => {  
+              this.setState({deptos:datos.data.data.getDeptos})
+            }).catch(err=>{console.log("error",err.response)})
+          
+            await axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+                query{
+                  getPuestos(data:"${[correo]}"){
+                    id
+                    nombre
+                    fk_Administrador
+                      }
+                    }
+                  `
+              }
+              }).then((datos) => {  
+                this.setState({puestos:datos.data.data.getPuestos})
+              }).catch(err=>{console.log("error",err.response)})
+              
+              await axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+                query{
+                  getSucursales(data:"${[correo]}"){
+                    id
+                    nombreSucursal
+                    fk_administrador
+                      }
+                    }
+                  `
+              }
+              }).then((datos) => {  
+                this.setState({sucursales:datos.data.data.getSucursales})
+              }).catch(err=>{console.log("error",err.response)})
+            }
+            this.setState({rs:rs})
+            let modalNumber = 'modal' + nr
+            this.setState({
+              [modalNumber]: !this.state[modalNumber]
+            });
+       }
   
 
   render() {
@@ -475,45 +620,35 @@ validate = values => {
           </MDBModalHeader>
           <MDBModalBody>
           <TableContainer component={Paper} align="center">
-       <Table  aria-label="simple table" style={{width:650}}>
+           <Table  aria-label="simple table" style={{width:650}}>
          <TableHead>
            <TableRow>
-    <TableCell align="left">Razón Social :  {this.state.rs}</TableCell>
-             <TableCell align="left">Empleados Registrados : {this.state.totalEmpledosRegistrados} </TableCell>    
+            <TableCell align="left">Razón Social :  {this.state.rs}</TableCell>
+             <TableCell align="left">Empleados Registrados: {this.state.totalEmpledosRegistrados} </TableCell>    
            </TableRow>         
          </TableHead>
          <TableBody>
          <TableRow>
-    <TableCell align="left">Empleados por Registrar : {this.state.empleadosPack-this.state.totalEmpledosRegistrados}</TableCell>
-           <TableCell align="left">Periodos : </TableCell>   
+          <TableCell align="left">Empleados por Registrar : {this.state.empleadosPack-this.state.totalEmpledosRegistrados}</TableCell>
+            <TableCell align="left">Periodos : {this.state.periodo.length}</TableCell>   
            </TableRow>
            <TableRow>
-           <TableCell align="left">Evaluaciones ATS Contestadas : </TableCell>
-             <TableCell align="left">Evaluaciones RP Contestadas</TableCell>
+           <TableCell align="left">Evaluaciones ATS Contestadas : {this.state.empleadosAtsContestado.length}</TableCell>
+             <TableCell align="left">Evaluaciones RP Contestadas : {this.state.empleadosRPContestado.length}</TableCell>
            </TableRow>
          <TableRow>
-         <TableCell align="left">Evaluaciones EEO Contestadas</TableCell>
-             <TableCell align="left">ATS Detectado : </TableCell>    
+          <TableCell align="left">Evaluaciones EEO Contestadas : {this.state.empleadosEEOContestado.length}</TableCell>
+             <TableCell align="left">ATS Detectado : {this.state.empleadosAtsDetectado.length}  </TableCell>    
            </TableRow>
            <TableRow>
-           <TableCell align="left">Departamentos Totales : </TableCell>
-             <TableCell align="left">Puestos Totales : </TableCell>
+           <TableCell align="left">Departamentos Totales : {this.state.deptos.length} </TableCell>
+            <TableCell align="left">Puestos Totales : {this.state.puestos.length}</TableCell>
            </TableRow>
            <TableRow>
-           <TableCell align="left">Centros de Trabajo Registrados :</TableCell>
+          <TableCell align="left">Centros de Trabajo Registrados : {this.state.sucursales.length}</TableCell>
 
            </TableRow>
-          {/* {this.state.empleadosEEO.map(row => (
-             <TableRow key={row.id}>
-               <TableCell component="th" scope="row">
-                 {row.nombre}
-               </TableCell>
-               <TableCell align="center">{row.ApellidoP}</TableCell>
-               <TableCell align="center">{row.ApellidoM}</TableCell>
-               <TableCell align="center">{row.correo}</TableCell>
-              
-             </TableRow>
-             ))} */}
+
          </TableBody>
        </Table>
      </TableContainer>

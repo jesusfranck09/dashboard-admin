@@ -244,13 +244,6 @@ console.log(data)
                         <MDBCol md="8">
                           <MDBBtn outline color="success" className="px-4" type='submit'>Entrar</MDBBtn>
                         </MDBCol>
-    
-                        <MDBCol>                   
-                        <Link to="/paquetes">                  
-                        <MDBBtn outline color="primary" >
-                            Regístrate ahora!</MDBBtn>
-                        </Link>                        
-                        </MDBCol>
                       </MDBRow>
                     
                       </MDBCardBody>

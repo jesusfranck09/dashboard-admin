@@ -82,7 +82,8 @@
           
         getEmployees = event => {
 
-          var idAdmin  =localStorage.getItem("idAdmin")       
+          var idAdmin  =localStorage.getItem("idAdmin")  
+          console.log(idAdmin)     
             const url = 'http://localhost:8000/graphql'
             axios({
               url:  url,

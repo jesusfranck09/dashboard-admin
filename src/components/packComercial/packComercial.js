@@ -69,19 +69,18 @@ render(){
         <MDBCardBody>
         <ButtonGroup
         orientation="vertical"
-        color="primary"
         aria-label="vertical contained primary button group"
-        variant="outlined"
+       
       >
-        <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(1)} }>1 a 15 Empleados</Button>
-        <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(2)} }>16 a 50 Empleados</Button>
-        <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(3)} }>50 a 100 Empleados</Button>
+        <MDBBtn  color="primary" style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(1)} }>1 a 15 Empleados</MDBBtn>
+        <MDBBtn  color="primary" style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(2)} }>16 a 50 Empleados</MDBBtn>
+        <MDBBtn  color="primary" style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(3)} }>50 a 100 Empleados</MDBBtn>
 
       </ButtonGroup>
       <ButtonGroup
         orientation="vertical"
-        color="default"
         aria-label="vertical contained secondary button group"
+        color="default"
         variant="outlined"
       >
         <Button  style={{marginBottom:5}}>1 RFC</Button>
@@ -96,13 +95,11 @@ render(){
        <MDBCardBody>
        <ButtonGroup
        orientation="vertical"
-       color="primary"
        aria-label="vertical contained primary button group"
-       variant="outlined"
      >
-       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(4)} }>1 a 15 Empleados</Button>
-       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(5)} }>16 a 50 Empleados</Button>
-       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(6)} }>50 a 100 Empleados</Button>
+       <MDBBtn color="primary" style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(4)} }>1 a 15 Empleados</MDBBtn>
+       <MDBBtn color="primary" style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(5)} }>16 a 50 Empleados</MDBBtn>
+       <MDBBtn color="primary" style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(6)} }>50 a 100 Empleados</MDBBtn>
  
      </ButtonGroup>
      <ButtonGroup
@@ -123,13 +120,12 @@ render(){
        <MDBCardBody>
        <ButtonGroup
        orientation="vertical"
-       color="primary"
        aria-label="vertical contained primary button group"
-       variant="outlined"
+      
      >
-       <Button style={{marginBottom:5}}  onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(7)} }>1 a 15 Empleados</Button>
-       <Button style={{marginBottom:5}}  onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(8)} }>16 a 50 Empleados</Button>
-       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(9)} } >51  a 100 Empleados</Button>
+       <MDBBtn color="primary"  style={{marginBottom:5}}  onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(7)} }>1 a 15 Empleados</MDBBtn>
+       <MDBBtn color="primary"  style={{marginBottom:5}}  onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(8)} }>16 a 50 Empleados</MDBBtn>
+       <MDBBtn color="primary"  style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(9)} } >51  a 100 Empleados</MDBBtn>
 
      </ButtonGroup>
      <ButtonGroup
@@ -150,13 +146,11 @@ render(){
        <MDBCardBody>
        <ButtonGroup
        orientation="vertical"
-       color="primary"
        aria-label="vertical contained primary button group"
-       variant="outlined"
      >
-       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(10)} }>1 a 15 Empleados</Button>
-       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(11)} }>16 a 50 Empleados</Button>
-       <Button style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(12)} }>50 a 100 Empleados</Button>
+       <MDBBtn color="primary" style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(10)} }>1 a 15 Empleados</MDBBtn>
+       <MDBBtn color="primary" style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(11)} }>16 a 50 Empleados</MDBBtn>
+       <MDBBtn color="primary" style={{marginBottom:5}} onClick={(e) => { if (window.confirm('¿Esta seguro de Registrar este Paquete?,No podrá Retroceder')) this.send(12)} }>50 a 100 Empleados</MDBBtn>
 
      </ButtonGroup>
      <ButtonGroup

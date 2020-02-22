@@ -11,8 +11,6 @@ import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import { PDFExport } from '@progress/kendo-react-pdf';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 
 import {Alert} from 'reactstrap'
 class App extends Component {
@@ -36,7 +34,7 @@ class App extends Component {
   }
   componentWillMount(){  
     const url = 'http://localhost:8000/graphql'
-    var correo  = localStorage.getItem("correo")   
+ 
     const idAdmin = localStorage.getItem("idAdmin")
     axios({
       url:  url,
@@ -54,7 +52,7 @@ class App extends Component {
       }
     })
     .then(datos => {	
- 
+      console.log("eventos o periodos exito" , datos.data.data.getPeriodo)
       axios({
         url:  url,
         method:'post',
@@ -99,67 +97,62 @@ class App extends Component {
     }) 
   }
 
-              click(id){                  
-                      const url = 'http://localhost:8000/graphql'
-                      axios({
-                        url:  url,
-                        method:'post',
-                        data:{
-                        query:`
-                          query{
-                          resultSingleSurvey(data:"${[id]}"){
-                            id 
-                            Respuestas 
-                            fk_preguntasATS 
-                            fk_Empleados 
-                            nombre 
-                            ApellidoP 
-                            ApellidoM 
-                            Curp 
-                            RFC 
-                            FechaNacimiento 
-                            Sexo 
-                            CP 
-                            EstadoCivil 
-                            correo 
-                            AreaTrabajo 
-                            Puesto 
-                            Ciudad 
-                            NivelEstudios 
-                            TipoPersonal 
-                            JornadaTrabajo 
-                            TipoContratacion 
-                            TiempoPuesto 
-                            ExperienciaLaboral 
-                            RotacionTurnos 
-                            fk_administrador 
-                            fk_correos 
-                                }
-                              }
-                            `
-                        }
-                            }).then(datos => {   
-                              console.log("los datos son " ,  datos)
-                           if(datos.data.data.resultSingleSurvey.length > 0 ){
-                            this.setState({resultados :datos.data.data.resultSingleSurvey })                
-                            console.log("resultados de la encuesta" , this.state.resultados[1])
-                          } if(datos.data.data.resultSingleSurvey.length <= 0){
-                           DialogUtility.alert({
-                              animationSettings: { effect: 'Zoom' },           
-                              title: "Su colaborador aun no responde la Encuesta",
-                              // title: 'Aviso!',
-                              position: "fixed"
-                              });
-                          }
-
-
-                          })
-                            .catch(err => {
-                              console.log("el error es  ",err.response)
-                            });  
-                           
-         
+    click(id){                  
+            const url = 'http://localhost:8000/graphql'
+            axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+                query{
+                resultSingleSurvey(data:"${[id]}"){
+                  id 
+                  Respuestas 
+                  fk_preguntasATS 
+                  fk_Empleados 
+                  nombre 
+                  ApellidoP 
+                  ApellidoM 
+                  Curp 
+                  RFC 
+                  FechaNacimiento 
+                  Sexo 
+                  CP 
+                  EstadoCivil 
+                  correo 
+                  AreaTrabajo 
+                  Puesto 
+                  Ciudad 
+                  NivelEstudios 
+                  TipoPersonal 
+                  JornadaTrabajo 
+                  TipoContratacion 
+                  TiempoPuesto 
+                  ExperienciaLaboral 
+                  RotacionTurnos 
+                  fk_administrador 
+                  fk_correos 
+                      }
                     }
+                  `
+              }
+                  }).then(datos => {   
+                    console.log("los datos son " ,  datos)
+                  if(datos.data.data.resultSingleSurvey.length > 0 ){
+                  this.setState({resultados :datos.data.data.resultSingleSurvey })                
+                } if(datos.data.data.resultSingleSurvey.length <= 0){
+                  DialogUtility.alert({
+                    animationSettings: { effect: 'Zoom' },           
+                    title: "Su colaborador aun no responde la Encuesta",
+                    // title: 'Aviso!',
+                    position: "fixed"
+                    });
+                }
+                })
+                  .catch(err => {
+                    console.log("el error es  ",err.response)
+                  });  
+          }
 
     
   render() {
@@ -167,7 +160,7 @@ class App extends Component {
     const container = { marginLeft:20}
     let pdfView1;
     let ATS;
-    console.log("los resultados de la encuesta ATS son" , this.state.resultados)
+
     if(this.state.resultados.length!=0){
       if(this.state.resultados[1].Respuestas=="si"){
         ATS = <Alert className ="mt-4" color ="danger ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
