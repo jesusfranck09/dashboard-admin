@@ -16,9 +16,9 @@ import {
   import { MDBModal, MDBModalBody, MDBModalHeader} from "mdbreact";
   import TableHead from '@material-ui/core/TableHead';
   import TableContainer from '@material-ui/core/TableContainer';
-
+  import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 //   import { MDBModal, MDBModalBody, MDBModalHeader, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
-
+  import KeyboardArrowRightOutlinedIcon from '@material-ui/icons/KeyboardArrowRightOutlined';
   import { MDBCardTitle,MDBCardHeader ,MDBBtn} from 'mdbreact';
   
   import { Form, Field } from 'react-final-form';
@@ -26,7 +26,7 @@ import {
   import {  Select, TextField} from 'final-form-material-ui';
   import axios from 'axios'
   import { DialogUtility } from '@syncfusion/ej2-popups';
-
+  import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 
 import {
   MDBNavbar,
@@ -72,6 +72,8 @@ class Validation1 extends React.Component {
             deptos:[],
             puestos:[],
             sucursales:[],
+            editar:'',
+            editarDatos:[]
         }
       }
       onSubmit (values) {
@@ -261,10 +263,10 @@ class Validation1 extends React.Component {
                   }, 2000);   
 
                }
-               else if(datos.data.data.addAdminEmpresa.message=="rfc duplicado"){
+               else if(datos.data.data.addAdminEmpresa.message=="rfc o correo duplicados"){
                 DialogUtility.alert({
                     animationSettings: { effect: 'Zoom' },           
-                    content: "El rfc ya se encuentra registrado por favor ingrese uno diferente ",
+                    content: "El rfc o correo electrónico  ya se encuentran registrados por favor ingrese valores diferentes",
                     title: 'Aviso!',
                     position: "fixed"
                   });
@@ -606,9 +608,159 @@ validate = values => {
               [modalNumber]: !this.state[modalNumber]
             });
        }
+
+
+        editar(values){
+      
+        if(values.empresa){
+        const url = 'http://localhost:8000/graphql'
+         axios({
+          url:  url,
+          method:'post',
+          data:{
+          query:`
+           query{
+            getAdminDashboard(data:"${[values.empresa]}"){
+                id
+                nombre
+                Apellidos
+                correo
+
+                  }
+                }
+              `
+          }
+          }).then((datos) => {  
+          
+          this.setState({editarDatos:datos.data.data.getAdminDashboard})
+         
+          }).catch(err=>{console.log("error dash" , err.response)})
+         this.setState({registro:''})
+        this.setState({editar:'1'})
+        }else{
+          DialogUtility.alert({
+            animationSettings: { effect: 'Zoom' },           
+            content: "Por favor seleccione una empresa",
+            title: 'Aviso!',
+            position: "fixed"
+          });
+        }
+       }
+
+       editarDatos (values,id) {
+        
+        if(values.Nombre && values.Apellidos && values.correo && values.contraseña){
+          const url = 'http://localhost:8000/graphql'
+          axios({
+           url:  url,
+           method:'post',
+           data:{
+           query:`
+            mutation{
+             editDataAdmin(data:"${[values.Nombre,values.Apellidos,values.correo,values.contraseña,id]}"){
+                   message
+ 
+                   }
+                 }
+               `
+           }
+           }).then((datos) => {  
+            DialogUtility.alert({
+              animationSettings: { effect: 'Zoom' },           
+              content: "Datos actualizados Correctamente",
+              title: 'Aviso!',
+              position: "fixed"
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000); 
+           }).catch(err=>{console.log("error dash" , err.response)})
+
+        }else{
+          DialogUtility.alert({
+            animationSettings: { effect: 'Zoom' },           
+            content: "Por favor ingrese algún valor",
+            title: 'Aviso!',
+            position: "fixed"
+          });
+        }
+       }
   
 
   render() {
+    let editar;
+    if(this.state.editar=='1' && this.state.editarDatos){
+     
+      editar = <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
+      <Form
+        onSubmit={this.onSubmit}
+        
+        validate={this.validate}
+        render={({ handleSubmit, submitting,values }) => (
+        <form onSubmit={handleSubmit}>
+          <Paper style={{ padding: 16 }}>
+          <Grid container alignItems="flex-start" spacing={2}>
+            <Grid item xs={12}>
+            <Field
+              fullWidth
+              required
+              name="Nombre"
+              component={TextField}
+              type="text"
+              label={this.state.editarDatos.nombre}
+            />
+            </Grid>
+    
+            <Grid item xs={6}>
+            <Field
+              fullWidth
+              required
+              name="Apellidos"
+              component={TextField}
+              type="text"
+              label={this.state.editarDatos.Apellidos}
+            />
+            </Grid>
+            <Grid item xs={6}>
+            <Field
+              fullWidth
+              required
+              name="correo"
+              component={TextField}
+              type="email"
+              label={this.state.editarDatos.correo}
+            />
+            </Grid>
+            <Grid item xs={6}>
+            <Field
+              fullWidth
+              required
+              name="contraseña"
+              component={TextField}
+              type="password"
+              label="Nueva Contraseña"
+            />
+            </Grid>
+                   
+            <Grid item style={{ marginTop: 16 ,marginLeft:100 }}>
+            <Button
+             variant="outlined"
+              color="secondary"
+              type="submit"
+              onClick={(e) => { if (window.confirm('¿Esta seguro de editar ? , los datos se perderán')) this.editarDatos(values,this.state.editarDatos.id)} }
+            >
+              Editar Empresa
+            </Button>
+            </Grid>
+          </Grid>
+          </Paper>
+         
+        </form>
+        )}
+      />
+      </div>
+    }
+
     let modal;
     if(this.state.modal11){
   
@@ -786,7 +938,7 @@ if(this.state.datosEmpresas =='1'){
 					  color="secondary"
 					  type="submit"
 					  disabled={submitting}
-					  onClick={(e) =>this.evaluar(values)}
+					  onClick={(e) => { if (window.confirm('¿Registrar esta Empresa ?')) this.evaluar(values)} }
 					>
 					  Registrar Empresa
 					</Button>
@@ -879,16 +1031,18 @@ if(this.state.datosEmpresas =='1'){
                                         type="submit"
                                         disabled={submitting}
                                         onClick={(e) =>this.entrar(values)}
+                                        startIcon={<KeyboardArrowRightOutlinedIcon />}
                                         >
                                             Entrar
                                         </Button>
                                         </MDBCol>   
                                         <MDBCol>
+                                        
                                         <Button
                                             variant="contained"
                                             color="secondary"
                                             startIcon={<AddCircleOutlineIcon />}
-                                            onClick={e=>this.setState({registro:"1"})}
+                                            onClick={e=>this.setState({registro:"1",editar:''})}
                                           
                                         >
                                             Agregar
@@ -899,9 +1053,22 @@ if(this.state.datosEmpresas =='1'){
                                         color="default"
                                         type="submit"
                                         onClick={(e) =>this.props.history.push("./login")}
+                                        startIcon={<ExitToAppOutlinedIcon />}
                                         >
                                             Salir
                                         </Button></MDBCol>
+                                        
+                                        <MDBCol style={{marginTop:15}}>
+                                        <Button
+                                        variant="contained"
+                                        color="default"
+                                        type="submit"
+                                        onClick={(e) =>this.editar(values)}
+                                        startIcon={<CreateOutlinedIcon />}
+                                        >
+                                             Editar
+                                        </Button>
+                                        </MDBCol>
                                         </MDBRow>   
 				                        </Grid>   
                                     </Grid>
@@ -916,6 +1083,7 @@ if(this.state.datosEmpresas =='1'){
                 </MDBCol>
                 <MDBCol md="8" xl="5" className="mt-xl-5  pt-5">                          
                 {registro}
+                {editar}
                 </MDBCol>
                 </MDBRow>
                 <MDBRow>
@@ -931,6 +1099,7 @@ if(this.state.datosEmpresas =='1'){
                           var empresa = config.w.config.labels[index]
                           if(empresa=="ocupado"){
                             this.setState({datosEmpresas:'1'})
+                           
                           }
                         console.log(empresa)
                         }

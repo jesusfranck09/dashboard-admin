@@ -81,7 +81,7 @@ handleInput = (e) => {
 
 console.log(data)
     console.log("data del dash" , data)
-    if (data.loginEmpresas.token === 'no hay token' && data.loginEmpresas.message=="error"){
+    if (data.loginEmpresas.token === 'no hay token' && data.loginEmpresas.message=="ningun dato"){
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
         title: 'Por favor no deje espacios en blanco',

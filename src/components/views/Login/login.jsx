@@ -89,7 +89,7 @@ handleInput = (e) => {
 
 
     console.log("data del dash" , data)
-    if (data.login.token === 'no hay token' && data.login.message=="error"){
+    if (data.login.token === 'no hay token' && data.login.message=="ningun dato"){
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
         title: 'Por favor no deje espacios en blanco',
@@ -97,7 +97,7 @@ handleInput = (e) => {
     })
     setTimeout(() => {
       window.location.reload();
-    }, 2000); 
+    }); 
 
   }
  if(data.login.token=='no hay token' && data.login.message=='usuario y contraseña incorrectos'){

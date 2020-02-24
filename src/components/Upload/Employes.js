@@ -623,7 +623,7 @@ class App extends React.Component {
 			});
 
 			let empleadosRegistrados=parseInt(max)
-			console.log("empleadosRegistrados",empleadosRegistrados)
+			let idAdmin = localStorage.getItem("idAdmin")
 			
 			if(empleadosRegistrados < empleadosPack ){
 			axios({
@@ -632,7 +632,7 @@ class App extends React.Component {
 			data:{
 			query:`
 			mutation{
-				registerSingleEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,cp,Estado_Civil,Correo,area,puesto,city,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,correoAdmin,CentroTrabajo]}"){
+				registerSingleEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,cp,Estado_Civil,Correo,area,puesto,city,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,idAdmin,CentroTrabajo]}"){
 					message
 					}
 					}
@@ -641,14 +641,27 @@ class App extends React.Component {
 			})
 			
 			.then((datos )=> {
+
+			if(datos.data.data.registerSingleEmployee.message == 'correo existente'){
+				DialogUtility.alert({
+					animationSettings: { effect: 'Zoom' },           
+					content: "El correo proporcionado ya está en uso por favor ingrese uno diferente",
+					title: 'Aviso!',
+					position: "fixed"
+				});
+			}else if(datos.data.data.registerSingleEmployee.message == 'registro exitoso')	{
+				DialogUtility.alert({
+					animationSettings: { effect: 'Zoom' },           
+					content: "Colaborador Registrado exitosamente",
+					title: 'Aviso!',
+					position: "fixed"
+				});
+				window.location.reload();
+
+			}
 			console.log("los segundos datos" , datos)
-			DialogUtility.alert({
-				animationSettings: { effect: 'Zoom' },           
-				content: "Empleado Registrado!",
-				title: 'Aviso!',
-				position: "fixed"
-			});
-			window.location.reload();
+			
+			
 			});   
 		} else{
 	

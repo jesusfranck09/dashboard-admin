@@ -83,27 +83,6 @@ class AdminGral extends React.Component {
           console.log("error",err.response)
         })
 
-        // axios({
-        //   url:  url,
-        //   method:'post',
-        //   data:{
-        //   query:`
-        //    query{
-        //     getPeriodoDesabilited(data:"${[idAdmin]}"){
-        //       idEventos
-        //       fk_administrador
-        //       evento
-        //           }
-        //         }
-        //       `
-        //   }
-        // })
-        // .then(datos => {	
-        //   console.log("exito",datos)
-        //   this.setState({periodoDesactivado:datos.data.data.getPeriodoDesabilited})
-        // }).catch(err=>{
-        //   console.log("error",err.response)
-        // })
     }
     onClick() {
       this.setState({
@@ -800,7 +779,7 @@ class AdminGral extends React.Component {
               }
             })
             .then(datos => {
-              console.log("datos",datos)	
+              console.log("message",datos.data.data.getEventos.message)	
               if(datos.data.data.getEventos.message=="evento encontrado"){
                 DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },        
@@ -825,15 +804,28 @@ class AdminGral extends React.Component {
               }
             })
             .then(datos => {	
-              console.log("exito",datos)
-              DialogUtility.alert({
-                animationSettings: { effect: 'Fade' },        
-                title:"AVISO!",   
-                content: 'Periodo Registrado con Éxito',
-                position: "fixed",
+              if(datos.data.data.addPeriodo.message=='registro exitoso'){
+                console.log("exito",datos)
+                DialogUtility.alert({
+                  animationSettings: { effect: 'Fade' },        
+                  title:"AVISO!",   
+                  content: 'Periodo Registrado con Éxito',
+                  position: "fixed",
+                }
+                )
+                  window.location.reload();
+              }else if(datos.data.data.addPeriodo.message=='periodo existente' ){
+                DialogUtility.alert({
+                  animationSettings: { effect: 'Fade' },        
+                  title:"AVISO!",   
+                  content: 'El periodo ya fue registrado con anterioridad',
+                  position: "fixed",
+                }
+                )
               }
-              )
-              window.location.reload();
+
+            
+             
             })
               }
             }).catch(err=>{
