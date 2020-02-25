@@ -1723,6 +1723,7 @@ class AdminGral extends React.Component {
                             <Table bordered>
                               <TableBody>
                                 {this.state.datos.map((rows,i )=> {
+                                  console.log("rows.id" , rows)
                                   return (
                                     <TableRow >
                                       <TableCell component="th" scope="row">

@@ -242,7 +242,7 @@ console.log(data)
                            
                       <MDBRow>
                         <MDBCol md="8">
-                          <MDBBtn outline color="success" className="px-4" type='submit'>Entrar</MDBBtn>
+                          <MDBBtn  color="success" className="px-4" type='submit'>Entrar</MDBBtn>
                         </MDBCol>
                       </MDBRow>
                     

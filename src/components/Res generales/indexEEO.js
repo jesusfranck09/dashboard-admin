@@ -613,27 +613,6 @@ class App extends React.Component {
             respuesta10 += numero;
           });
           })
-          var filtrar10 ;
-          var array10Int;
-          var arr10Int;
-          var respuesta10;
-          this.state.peticion1.map(rows=>{
-          filtrar10 =  rows.filter(function(hero) {
-            return hero.fk_preguntasEEO == 10;
-          });
-          array10.push(filtrar10)
-          let valor10=[];    
-          array10.map(rows=>{
-            if(rows[0]){
-              valor10.push(rows[0].ponderacion)
-            } 
-          })
-          arr10Int = valor10.map(x => Number.parseInt(x, 10)); 
-          respuesta10=0;
-          arr10Int.forEach (function(numero){
-            respuesta10 += numero;
-          });
-          })
           var filtrar11 ;
           var array11Int;
           var arr11Int;
@@ -1981,7 +1960,7 @@ criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}>El riesgo resulta de
  celda = <TableCell  width="10%" style={{backgroundColor: "#FF905A"}} >Alto</TableCell>
  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} >Se requiere realizar un análisis de cada categoría y dominio, de manera que
  se puedan determinar las acciones de intervención apropiadas a través de un
- Programa de intervención, que podrá incluir una evaluación específica1 y
+ Programa de intervención, que podrá incluir una evaluación específica y
  deberá incluir una campaña de sensibilización, revisar la política de
  prevención de riesgos psicosociales y programas para la prevención de los
  factores de riesgo psicosocial, la promoción de un entorno organizacional
@@ -1992,7 +1971,7 @@ else if( general > 140){
   celda  = <TableCell width="10%"  style={{backgroundColor: "#E20338"}}>Muy Alto</TableCell>
   criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} >Se requiere realizar el análisis de cada categoría y dominio para establecer
   las acciones de intervención apropiadas, mediante un Programa de
-  intervención que deberá incluir evaluaciones específicas1, y contemplar
+  intervención que deberá incluir evaluaciones específicas, y contemplar
   campañas de sensibilización, revisar la política de prevención de riesgos
   psicosociales y programas para la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la

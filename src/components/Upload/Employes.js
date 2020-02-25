@@ -94,62 +94,6 @@ import {
 			 </MDBRow>
 			</MDBContainer>
 		</div>
-  
-		<MDBContainer>
-			<Alert style = {{marginTop:20}} color ="danger" >1.- Su excel no debe llevar Encabezados solo el contenido ya que el encabezado solo se muestra como ejemplo.</Alert>
-
-			<MDBTable style={{fontSize: '6pt'}} large >
-			<MDBTableHead>
-				<tr>
-				<th>nombre</th>
-				<th>Apellido P</th>
-				<th>Apellido M</th>
-				<th>Curp</th>
-				<th>RFC</th>
-				<th>Año de Nacimiento</th>
-				<th>Sexo</th>
-				<th>CP</th>
-				<th>Estado Civil</th>
-				<th>Correo</th>
-				<th>Area de trabajo</th>
-				<th>Puesto</th>
-				<th>Ciudad</th>
-				<th>Nivel Estudios</th>
-				<th>Tipo de Personal</th>
-				<th>Tipo Contratacion</th>
-				<th>Tiempo Puesto</th>
-				<th>Experiencia Laboral</th>
-				<th>Rotacion de Turnos</th>
-
-				</tr>
-			</MDBTableHead>
-			<MDBTableBody>
-				<tr>
-				<th>JOSE</th>
-				<th>ÁLVAREZ</th>
-				<th>HERNANDEZ</th>
-				<th>AAHJ000110HMCLRSA6</th>
-				<th>AAHJ000110RR3</th>
-				<th>2000</th>
-				<th>HOMBRE</th>
-				<th>24349</th>
-				<th>SOLTERO</th>
-				<th>jose@gmail.com</th>
-				<th>VENTAS</th>
-				<th>GERENTE</th>
-				<th>CIUDAD DE MEXICO</th>
-				<th>LICENCIATURA</th>
-				<th>CONNFIANZA</th>
-				<th>FIJO</th>
-				<th>ENTRE 1 Y 4 AÑOS</th>
-				<th>ENTRE 1 Y 4 AÑOS</th>
-				<th>NO</th>
-				</tr>
-			</MDBTableBody>
-			</MDBTable>
-
-		<Alert color="primary" style={{marginTop:20}}>2.- En los apartados:<br/> <br/> Estado Civil <br/>Nivel de Estudios <br/>Tipo de Personal <br/> Tipo de Jornada de Trabajo <br/> Tipo de Contratacion <br/>Tiempo en el puesto Actual <br/>Tiempo de Experiencia laboral<br/>Rotación de Turnos <br/><br/> Se puede basar en las opciones del formulario de registro para poder ingresar los datos.</Alert>	
-		</MDBContainer>
 		</React.Fragment>
 	  );
 	}
@@ -183,7 +127,7 @@ import {
 		</Modal>
 	  </div>
 	 
-	<Alert style = {{marginTop:40,width:400}} color ="success">Nota : Puede visualizar los requisitos de su Excel en la parte de Abajo<br/></Alert>
+	<Alert style = {{marginTop:40,width:400}} color ="success">Nota : Puede ver los requisitos de su excel desde este enlace<br/>   <a href="https://drive.google.com/open?id=1819fK76agx6YHZXyt9-bT7XWTdffTLOF" target="_blank">Carga de empleados Excel Ejemplo </a></Alert>
 	
 	  </React.Fragment>	
 	);
@@ -200,12 +144,29 @@ class SheetJSApp extends React.Component {
 	};
 
     handleSubmit = async event => {
-	
-	const correoA = localStorage.getItem("correo")
-	console.log("el correo" , correoA)
-		 const url = 'http://localhost:8000/graphql'
+		let idSuperUsuario;
+		const url = 'http://localhost:8000/graphql'
+		const idAdmin =  localStorage.getItem("idAdmin")
+		await axios({
+			url:  url,
+			method:'post',
+			data:{
+			query:`
+			 query{
+				getAdminDashboard(data:"${[idAdmin]}"){
+				  fk_superusuario
+					}
+				  }
+				`
+			}
+		  })
+		  .then(datos => {		
+			idSuperUsuario = datos.data.data.getAdminDashboard.fk_superusuario;
+  
+		  }).catch(err=>{
+			  console.log("error" , err.response)
+		  }) 
 
-		 const idSuperUsuario = localStorage.getItem("idASuperusuario")
 		 let em;
 		 await axios({
 		   url:  url,
@@ -230,7 +191,7 @@ class SheetJSApp extends React.Component {
 	   
 		 let empleadosPack = parseInt(em)
 		 let max;
-		
+		const correoA = localStorage.getItem("correo")
 		 await axios({
 				 url:  url,
 				 method:'post',
@@ -250,24 +211,27 @@ class SheetJSApp extends React.Component {
 			 });
  
 			 let empleadosRegistrados=parseInt(max)
-
+			 console.log("empleados registrados " ,empleadosRegistrados ,empleadosPack)
 		if(empleadosRegistrados < empleadosPack ){
-			
-
+			console.log("estado" , this.state.data)
+	
         for (var i=0; i< this.state.data.length; i++)
      	  {
 				const url  = 'http://localhost:8000/graphql'
 				var estado = this.state.data[i]	
+			
+				if(this.state.data[i].length==21  ){
 
 				const query =  `
 				mutation {
 					registerEmployee(
-						data:["${estado},${correoA}"]
+						data:["${estado},${idAdmin}"]
 					){
 						message
 					}
 				}
 				`;
+				
 				axios({
 				url:  url,
 				method: 'post',
@@ -277,22 +241,40 @@ class SheetJSApp extends React.Component {
 						data: `${estado}`
 					}
 				}
-					}).then((result) => {
-	
+					}).then( datos => {
+						if(datos.data.data.registerEmployee.message == 'correo existente'){
+							DialogUtility.alert({
+								animationSettings: { effect: 'Zoom' },           
+								title:"Aviso!",
+								content: "Uno de los correos  ya se encuentra registrado, por favor verifiquelo nuevamente !",
+								position: "fixed"
+							});
+						}else if(datos.data.data.registerEmployee.message == 'registro exitoso'){
+							DialogUtility.alert({
+								animationSettings: { effect: 'Zoom' },           
+						
+								title: "Datos Cargados Exitosamente!",
+								position: "fixed"
+							});
+							// window.location.reload();
+						}
 					})
 					 .catch((error) => {
 					 console.log(".cartch" , error.response)
 				});
-				};
 
-				DialogUtility.alert({
+				}else{
+					DialogUtility.alert({
 					animationSettings: { effect: 'Zoom' },           
-			 
-					title: "Datos Cargados Exitosamente!",
+						
+					title: "Su archivo no cumple con los requisitos",
 					position: "fixed"
 				});
-				window.location.reload();
-				
+				}
+
+		
+				};
+
 			    }else{
 					DialogUtility.alert({
 						animationSettings: { effect: 'Zoom' },           
@@ -303,6 +285,8 @@ class SheetJSApp extends React.Component {
 					localStorage.removeItem("max")
 
 				}
+
+				
 		
 				}
 
@@ -632,7 +616,7 @@ class App extends React.Component {
 			data:{
 			query:`
 			mutation{
-				registerSingleEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,cp,Estado_Civil,Correo,area,puesto,city,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,idAdmin,CentroTrabajo]}"){
+				registerEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,cp,Estado_Civil,Correo,area,puesto,city,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,CentroTrabajo,idAdmin]}"){
 					message
 					}
 					}
@@ -642,14 +626,14 @@ class App extends React.Component {
 			
 			.then((datos )=> {
 
-			if(datos.data.data.registerSingleEmployee.message == 'correo existente'){
+			if(datos.data.data.registerEmployee.message == 'correo existente'){
 				DialogUtility.alert({
 					animationSettings: { effect: 'Zoom' },           
 					content: "El correo proporcionado ya está en uso por favor ingrese uno diferente",
 					title: 'Aviso!',
 					position: "fixed"
 				});
-			}else if(datos.data.data.registerSingleEmployee.message == 'registro exitoso')	{
+			}else if(datos.data.data.registerEmployee.message == 'registro exitoso')	{
 				DialogUtility.alert({
 					animationSettings: { effect: 'Zoom' },           
 					content: "Colaborador Registrado exitosamente",

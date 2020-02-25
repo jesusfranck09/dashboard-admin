@@ -81,8 +81,7 @@ class Routes extends Component{
   render(){
       
       const PrivateRoute = ({component:Component, ...rest}) => (
-      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/"/> || <Redirect to="/loginEmpresas"/>)}/>
-      
+      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/"/> || <Redirect to="/loginEmpresas"/>|| <Redirect to="/survey"/>)}/>      
       )
       return(
         <ApolloProvider client={client}>

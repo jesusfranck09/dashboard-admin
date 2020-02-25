@@ -248,13 +248,13 @@ handleInput = (e) => {
                            
                       <MDBRow>
                         <MDBCol md="8">
-                          <MDBBtn outline color="success" className="px-4" type='submit'>Entrar</MDBBtn>
+                          <MDBBtn  color="success" className="px-4" type='submit'>Entrar</MDBBtn>
                         </MDBCol>
     
                         <MDBCol>                   
                         <Link to="/paquetes">                  
-                        <MDBBtn outline color="primary" >
-                            Regístrate ahora!</MDBBtn>
+                        <MDBBtn  color="primary" >
+                            PAQUETES!</MDBBtn>
                         </Link>                        
                         </MDBCol>
                       </MDBRow>
