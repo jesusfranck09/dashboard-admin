@@ -20,6 +20,7 @@ import { TextField ,Select} from 'final-form-material-ui';
 import {
 	MenuItem,
   } from '@material-ui/core';
+  import InputLabel from '@material-ui/core/InputLabel';
 
 
 import {
@@ -106,10 +107,10 @@ class AdminGral extends React.Component {
               ApellidoP
               ApellidoM
               Curp
-              rfc
+              RFC
               FechaNacimiento
               Sexo
-              cp
+              CP
               EstadoCivil
               correo
               AreaTrabajo
@@ -980,8 +981,9 @@ class AdminGral extends React.Component {
                           name="nombre"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRows.nombre}
+                          defaultValue={this.state.updateRows.nombre}
                         />
+                       
                       </Grid>
 
                       <Grid item xs={6}>
@@ -991,7 +993,7 @@ class AdminGral extends React.Component {
                           name="ApellidoP"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRows.ApellidoP}
+                          defaultValue={this.state.updateRows.ApellidoP}
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1001,7 +1003,7 @@ class AdminGral extends React.Component {
                           name="ApellidoM"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRows.ApellidoM}
+                          defaultValue={this.state.updateRows.ApellidoM}
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1011,7 +1013,7 @@ class AdminGral extends React.Component {
                           name="Curp"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRows.Curp}
+                          defaultValue={this.state.updateRows.Curp}
                         />
                       </Grid>
                       
@@ -1022,7 +1024,7 @@ class AdminGral extends React.Component {
                           name="rfc"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRows.rfc}
+                          defaultValue={this.state.updateRows.RFC}
                         />
                       </Grid>
                       {/* <Grid item xs={6}>
@@ -1096,7 +1098,7 @@ class AdminGral extends React.Component {
                           name="sexo"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRows.Sexo}
+                          defaultValue={this.state.updateRows.Sexo}
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1106,7 +1108,7 @@ class AdminGral extends React.Component {
                           name="cp"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRows.cp}
+                          defaultValue={this.state.updateRows.CP}
                         />
                       </Grid>
                       {/* <Grid item xs={12}>
@@ -1133,7 +1135,7 @@ class AdminGral extends React.Component {
                           name="correo"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRows.correo}
+                          defaultValue={this.state.updateRows.correo}
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1143,7 +1145,7 @@ class AdminGral extends React.Component {
                           name="AreaTrabajo"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRows.AreaTrabajo}
+                          defaultValue={this.state.updateRows.AreaTrabajo}
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1153,7 +1155,7 @@ class AdminGral extends React.Component {
                           name="Puesto"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRows.Puesto}
+                          defaultValue={this.state.updateRows.Puesto}
                         />
                       </Grid>
 
@@ -1164,7 +1166,7 @@ class AdminGral extends React.Component {
                           name="Ciudad"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRows.Ciudad}
+                          defaultValue={this.state.updateRows.Ciudad}
                         />
                       </Grid>
                      {/* <Grid item xs={12}>
@@ -1327,7 +1329,7 @@ class AdminGral extends React.Component {
                           name="nombreSucursal"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRowsSucursales.nombreSucursal}
+                          defaultValue={this.state.updateRowsSucursales.nombreSucursal}
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1337,7 +1339,7 @@ class AdminGral extends React.Component {
                           name="calle"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRowsSucursales.calle}
+                          defaultValue={this.state.updateRowsSucursales.calle}
                         />
                       </Grid>
 
@@ -1348,7 +1350,7 @@ class AdminGral extends React.Component {
                           name="numExt"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRowsSucursales.numExt}
+                          defaultValue={this.state.updateRowsSucursales.numExt}
                         />
                       </Grid>
 
@@ -1359,7 +1361,7 @@ class AdminGral extends React.Component {
                           name="numInt"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRowsSucursales.numInt}
+                          defaultValue={this.state.updateRowsSucursales.numInt}
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1369,7 +1371,7 @@ class AdminGral extends React.Component {
                           name="colonia"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRowsSucursales.colonia}
+                          defaultValue={this.state.updateRowsSucursales.colonia}
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1379,7 +1381,7 @@ class AdminGral extends React.Component {
                           name="CP"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRowsSucursales.CP}
+                          defaultValue={this.state.updateRowsSucursales.CP}
                         />
                       </Grid>
 
@@ -1390,17 +1392,7 @@ class AdminGral extends React.Component {
                           name="Ciudad"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRowsSucursales.Ciudad}
-                        />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Field
-                          fullWidth
-                          required
-                          name="rfc"
-                          component={TextField}
-                          type="text"
-                          label={this.state.updateRowsSucursales.rfc}
+                          defaultValue={this.state.updateRowsSucursales.Ciudad}
                         />
                       </Grid>
 
@@ -1411,7 +1403,7 @@ class AdminGral extends React.Component {
                           name="telefono"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRowsSucursales.telefono}
+                          defaultValue={this.state.updateRowsSucursales.telefono}
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1421,7 +1413,7 @@ class AdminGral extends React.Component {
                           name="correo"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRowsSucursales.correo}
+                          defaultValue={this.state.updateRowsSucursales.correo}
                         />
                       </Grid>
 	                      <Grid item >
@@ -1432,7 +1424,7 @@ class AdminGral extends React.Component {
                           disabled={submitting}
                           onClick={(e) =>this.evaluarSucursales(values,this.state.updateRowsSucursales.id)}
                         >
-                          Actualizar Sucursal
+                          Actualizar Centro
                         </Button>
                         <MDBBtn outlined color="success" onClick={this.toggleSucursales(14)} style={{margin:60}} >
                           Cerrar
@@ -1477,10 +1469,10 @@ class AdminGral extends React.Component {
                           name="nombreDepto"
                           component={TextField}
                           type="text"
-                          label={this.state.updateRowsDeptos.nombre}
+                          defaultValue={this.state.updateRowsDeptos.nombre}
                         />
                       </Grid>
-                       <MDBRow>
+                     
 	                      <Grid item >
                         <Button
                          variant="outlined"
@@ -1489,13 +1481,13 @@ class AdminGral extends React.Component {
                           disabled={submitting}
                           onClick={(e) =>this.evaluarDeptos(values,this.state.updateRowsDeptos.id)}
                         >
-                          Actualizar Departamento
+                          Actualizar
                         </Button>
                         <MDBBtn outlined color="primary" onClick={this.toggleDeptos(15)} style={{margin:60}} >
                           Cerrar
                         </MDBBtn>
                       </Grid>
-                      </MDBRow>
+                     
                     </Grid>
                   </Paper>
                 </form>
@@ -1533,10 +1525,10 @@ class AdminGral extends React.Component {
                            name="nombrePuesto"
                            component={TextField}
                            type="text"
-                           label={this.state.updateRowsPuestos.nombre}
+                           defaultValue={this.state.updateRowsPuestos.nombre}
                          />
                        </Grid>
-                        <MDBRow>
+                      
                          <Grid item >
                          <Button
                           variant="outlined"
@@ -1551,7 +1543,7 @@ class AdminGral extends React.Component {
                            Cerrar
                          </MDBBtn>
                        </Grid>
-                       </MDBRow>
+          
                      </Grid>
                    </Paper>
                  </form>
