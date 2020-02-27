@@ -66,8 +66,8 @@ componentWillMount(){
       localStorage.removeItem('DepartamentoActivo') 
       localStorage.removeItem('SucursalActiva') 
       localStorage.removeItem('PuestoActivo') 
-
-
+      localStorage.removeItem("fechaRegistroSuperusuario")
+      localStorage.removeItem("ok")
 }      
 handleInput = (e) => {
     const {id, value} = e.target
@@ -114,8 +114,7 @@ handleInput = (e) => {
 
 
       if(data.login.message=='Login exitoso' && data.login.activo=="true"){
-      localStorage.setItem('elToken', data.login.token)  
-      localStorage.setItem('idASuperusuario', data.login.correo)   
+      localStorage.setItem('elToken', data.login.token)   
       localStorage.setItem('idASuperusuario', data.login.id) 
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
@@ -249,13 +248,6 @@ handleInput = (e) => {
                       <MDBRow>
                         <MDBCol md="8">
                           <MDBBtn  color="success" className="px-4" type='submit'>Entrar</MDBBtn>
-                        </MDBCol>
-    
-                        <MDBCol>                   
-                        <Link to="/paquetes">                  
-                        <MDBBtn  color="primary" >
-                            PAQUETES!</MDBBtn>
-                        </Link>                        
                         </MDBCol>
                       </MDBRow>
                     

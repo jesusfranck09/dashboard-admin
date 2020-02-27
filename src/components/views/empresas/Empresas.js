@@ -4,6 +4,8 @@ import logo from '../../images/logotipo.png'
 import { AppNavbarBrand } from '@coreui/react';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
+
 import {
 	Paper,
 	Grid,
@@ -19,7 +21,7 @@ import {
   import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 //   import { MDBModal, MDBModalBody, MDBModalHeader, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
   import KeyboardArrowRightOutlinedIcon from '@material-ui/icons/KeyboardArrowRightOutlined';
-  import { MDBCardTitle,MDBCardHeader ,MDBBtn} from 'mdbreact';
+  import {MDBCardHeader ,MDBBtn} from 'mdbreact';
   
   import { Form, Field } from 'react-final-form';
   import {Alert} from 'reactstrap';
@@ -1049,11 +1051,9 @@ if(this.state.datosEmpresas =='1'){
                                         </Button>
                                         </MDBCol>
                                         <MDBCol>  <Button
-                                        variant="contained"
-                                        color="default"
-                                        type="submit"
+                                       startIcon={<CloseOutlinedIcon />}  color="secondary"  
                                         onClick={(e) =>this.props.history.push("./login")}
-                                        startIcon={<ExitToAppOutlinedIcon />}
+                                        variant="contained"
                                         >
                                             Salir
                                         </Button></MDBCol>

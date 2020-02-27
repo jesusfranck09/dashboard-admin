@@ -2,7 +2,7 @@ import '../src/App.scss';
 import { ApolloProvider } from 'react-apollo';
 import client from './Graphql';
 import checkToken from '../src/resolvers/checkToken';
-// import checkSurveyATS from '../src/resolvers/checkSurveyATS';
+ // import checkSurveyATS from '../src/resolvers/checkSurveyATS';
 // import checkSurveyRP from '../src/resolvers/checkSurveyRP';
 // import checkSurveyEEO from '../src/resolvers/checkSurveyEEO';
 import {
@@ -74,15 +74,17 @@ import Res from './components/resultsCuestions/resultados';
 import ResGral from './components/Res generales/index';
 
  import Paquetes from './components/packComercial/packComercial';
-
-
+ import LoginAlfa from './components/views/Login/loginAdminAlfa';
+ import SignAlfa from './components/views/SignUp/signUpAdminAlfa';
+ import DashboardAdminAlfa from './components/dashboardAdminAlfa/dashboard';
 class Routes extends Component{
   
   render(){
       
       const PrivateRoute = ({component:Component, ...rest}) => (
-      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/"/> || <Redirect to="/loginEmpresas"/>|| <Redirect to="/survey"/>)}/>      
+      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/"/> || <Redirect to="/loginEmpresas"/>|| <Redirect to="/survey"/>||<Redirect to="/loginAlfa"/>)}/>      
       )
+
       return(
         <ApolloProvider client={client}>
           <Router>
@@ -90,9 +92,11 @@ class Routes extends Component{
               <main>
                   
                   <Route exact path='/' component={Login}/>
-                  <Route exact path='/paquetes' component={Paquetes}/>
+                  <PrivateRoute exact path='/paquetes' component={Paquetes}/>
                   <Route exact path='/login' component={Login}/>
                   <Route exact path='/loginEmpresas' component={LoginEmpresas}/>
+                  <Route exact path='/loginAlfa' component={LoginAlfa}/>
+                  <Route exact path='/register473' component={SignAlfa}/>
                   {/* <Route exact path='/verify/:id' component={Verify}/> */}
                   <Route exact path='/signup' component={SignUp}/>
                   {/* <PrivateRoute exact path='/result' component={Result}/> */}
@@ -104,6 +108,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/table' component={Table}/>
                   <Route exact path='/survey' component={Survey}/>
                   <PrivateRoute exact path='/Initsurvey' component={InitSurvey}/>
+                  <PrivateRoute exact path='/dashboardAdminAlfa' component={DashboardAdminAlfa}/>
 
                   {/* <PrivateRoute exact path='/paquetes' component={Prueba}/> */}
                   <PrivateRoute exact path='/empresas' component={Empresas}/>

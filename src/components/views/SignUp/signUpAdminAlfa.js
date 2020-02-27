@@ -12,26 +12,14 @@ import {MDBIcon} from 'mdbreact'
  const SIGNUP = gql`
     mutation SIGNUP($first_name:String,
         $last_name:String,
-        $rfc:String,
-        $razon_social:String,
         $email:String,
         $password:String, 
-        $id:String,
-        $idAdminAlfa:String,
-        $fecha:String,
-        $paquete:String
         ){
-            signup(data: {
+            signupAdminAlfa(data: {
               first_name: $first_name
               last_name: $last_name
-                rfc:$rfc
-                razon_social:$razon_social
                 email: $email
                 password: $password
-                id:$id
-                idAdminAlfa:$idAdminAlfa
-                fecha:$fecha
-                paquete:$paquete
             }){
              
                 message
@@ -46,9 +34,6 @@ class Registro extends Component {
     
     name:'',
     lastName:'',
-    rfc:'',
-    razonSocial:'',
-    nombreUsuario:'',
     email:'',
     password:''
     
@@ -68,28 +53,19 @@ handleInput = (e) => {
 
 
 handleForm = (e, signup) => {
-
   e.preventDefault();
-  const paquete  = localStorage.getItem("paquete")
-  const idAdminAlfa = localStorage.getItem("idAdminAlfa")
   const id = localStorage.getItem("idRegistro")
-  var date= new Date()
-  var fecha = date.toLocaleString('es')
   console.log('Enviando formulario...');
   signup({variables: { 
       ...this.state,
-         id,
-         idAdminAlfa,
-         fecha,
-         paquete
-        
+         id
       
   }});
 }
 
 handleData = (data) => {
 
-  if(data.signup.message=="no hay data"){
+  if(data.signupAdminAlfa.message=="no hay data"){
     DialogUtility.alert({
           animationSettings: { effect: 'Zoom' },           
           content: "No deje espacios en blanco! ---- por favor espere...",
@@ -101,33 +77,28 @@ handleData = (data) => {
         }, 2000);     
         
   }
-  console.log("data" ,data.signup.message)
-  // if (data.signup.token === 'ERROR'){
-  //   console.log("el token es "+ data.signup.token)
-  //     alert('hubo un error ...');
-  //     return false;
-  //   }
-  // localStorage.setItem('elToken', data.signup.token) 
-
-  if(data.signup.message=='duplicado'){
+  console.log("data" ,data.signupAdminAlfa.message)
+  if(data.signupAdminAlfa.message=='duplicado'){
     DialogUtility.alert({
       animationSettings: { effect: 'Zoom' },           
-      content: "El RFC y/o correo electrónico ya han sido registrados con Anterioridad ---- por favor espere....",
+      content: "El correo electrónico ya ha sido registrados con Anterioridad",
       title: 'Aviso!',
       position: "fixed"
     });
     setTimeout(() => {
       window.location.reload();
     }, 2000); 
-  }else if(data.signup.message=="Signup exitoso"){
+  }else if(data.signupAdminAlfa.message=="Signup exitoso"){
     DialogUtility.alert({
       animationSettings: { effect: 'Zoom' },           
       content: "Registro Exitoso!",
       title: 'Aviso!',
       position: "fixed"
     });
+    setTimeout(() => {
+        window.location.reload();
+      }, 2000); 
     localStorage.removeItem("idRegistro")
-    this.props.history.push('/dashboardAdminAlfa');
   }
   
 }
@@ -157,9 +128,8 @@ handleData = (data) => {
                 <Card className="p-8">
                   <CardBody>
                     <Form>                      
-                     <h1><Alert color="primary" className="text-center mt-4 ">Formulario de Registro</Alert></h1>
-                      <Alert color ="secondary" className="text-center text-muted">Ingrese sus datos por favor</Alert>     
-                      
+                     <h1><Alert color="primary" className="text-center mt-4 ">Registrar Administrador ADS</Alert></h1>
+                    
                       <InputGroup className="mb-3">
                         
                         <InputGroupAddon addonType="prepend">
@@ -183,25 +153,6 @@ handleData = (data) => {
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
-                          <MDBIcon icon="building" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input id="rfc" onChange={this.handleInput} type="text"  placeholder="RFC" />
-                      </InputGroup>
-
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                          <MDBIcon icon="building" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input id="razon_social" onChange={this.handleInput} type="text"  placeholder="Razón Social" 
-                        />
-                      </InputGroup>
-                      
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
                           <MDBIcon icon="at" />
                           </InputGroupText>
                         </InputGroupAddon>
@@ -218,20 +169,10 @@ handleData = (data) => {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Boton outline color="primary" className="px-4" type='submit'>Registrarme</Boton>
+                          <Boton outline color="primary" className="px-4" type='submit'>Registrar administrador</Boton>
                         </Col>
-
-                        {/* <Col>
-                        <Link to="/login">
-                          <Boton color="secondary" className="px-4" >cancelar</Boton>
-                          </Link>
-                        </Col> */}
-                        
                         
                   </Row>
-
-               
-
                     </Form>
                   </CardBody>
                 </Card>

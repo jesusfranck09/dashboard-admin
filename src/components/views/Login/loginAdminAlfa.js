@@ -30,51 +30,43 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 
-const LOGINEMPRESAS = gql`
-    mutation LOGINEMPRESAS($rfc: String!, $password: String!){
-        loginEmpresas(rfc: $rfc, password: $password){
-          activo
-          message 
-          token 
+const LOGIN = gql`
+    mutation LOGIN($email: String!, $password: String!){
+        loginAdminAlfa(email: $email, password: $password){
           id
-          nombre
-          Apellidos
-          RFC
-          RazonSocial
-          correo
-          activo 
-      fechaRegistro
-        
+          message 
+          token    
         }
     }
 `
+
 
 class Login extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            rfc: '',
+            email: '',
             password: '',
         
         }
       }
 componentWillMount(){
-  localStorage.removeItem("elToken")
-localStorage.removeItem("nombre")
-localStorage.removeItem("apellidos")
-localStorage.removeItem("rfc")
-localStorage.removeItem("razonsocial")
-localStorage.removeItem("usuario")
-localStorage.removeItem("correo")
-localStorage.removeItem("max")
-localStorage.removeItem("idAdmin")
-localStorage.removeItem("fechaRegistro")
-localStorage.removeItem("fechaRegistroSuperusuario")
-localStorage.removeItem("ok")
-localStorage.removeItem("empleadoActivo")
-localStorage.removeItem("DepartamentoActivo")
-localStorage.removeItem("SucursalActiva")
-localStorage.removeItem("PuestoActivo")
+    localStorage.removeItem("elToken")
+    localStorage.removeItem("nombre")
+    localStorage.removeItem("apellidos")
+    localStorage.removeItem("rfc")
+    localStorage.removeItem("razonsocial")
+    localStorage.removeItem("usuario")
+    localStorage.removeItem("correo")
+    localStorage.removeItem("max")
+    localStorage.removeItem("idAdminAlfa")
+    localStorage.removeItem("fechaRegistro")
+    localStorage.removeItem("fechaRegistroSuperusuario")
+    localStorage.removeItem("ok")
+    localStorage.removeItem("empleadoActivo")
+    localStorage.removeItem("DepartamentoActivo")
+    localStorage.removeItem("SucursalActiva")
+    localStorage.removeItem("PuestoActivo")
 }      
 handleInput = (e) => {
     const {id, value} = e.target
@@ -94,9 +86,9 @@ handleInput = (e) => {
   
   handleData = (data) => {
 
-console.log(data)
+
     console.log("data del dash" , data)
-    if (data.loginEmpresas.token === 'no hay token' && data.loginEmpresas.message=="ningun dato"){
+    if (data.loginAdminAlfa.token === 'no hay token' && data.loginAdminAlfa.message=="ningun dato"){
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
         title: 'Por favor no deje espacios en blanco',
@@ -104,10 +96,10 @@ console.log(data)
     })
     setTimeout(() => {
       window.location.reload();
-    }, 2000); 
+    }); 
 
   }
- if(data.loginEmpresas.token=='no hay token' && data.loginEmpresas.message=='usuario y contraseña incorrectos'){
+ if(data.loginAdminAlfa.token=='no hay token' && data.loginAdminAlfa.message=='usuario y contraseña incorrectos'){
     DialogUtility.alert({
       animationSettings: { effect: 'Zoom' },           
       title: 'USUARIO Y CONTRASEÑA INCORRECTOS',
@@ -117,33 +109,19 @@ console.log(data)
     window.location.reload();
   }, 2000); 
   }
-   if(data.loginEmpresas.message=='Login exitoso' && data.loginEmpresas.token){
-        localStorage.setItem('nombre', data.loginEmpresas.nombre)
-        localStorage.setItem('elToken', data.loginEmpresas.token)  
-        localStorage.setItem('apellidos', data.loginEmpresas.Apellidos) 
-        localStorage.setItem('rfc',data.loginEmpresas.RFC) 
-        localStorage.setItem('razonsocial', data.loginEmpresas.RazonSocial) 
-        localStorage.setItem('correo',data.loginEmpresas.correo)
-        localStorage.setItem('idAdmin', data.loginEmpresas.id) 
-        localStorage.setItem('fechaRegistro', data.loginEmpresas.fechaRegistro) 
+      console.log("esta es la data",data)
+
+
+      if(data.loginAdminAlfa.message=='Login exitoso'){
+      localStorage.setItem('elToken', data.loginAdminAlfa.token)  
+      localStorage.setItem('idAdminAlfa', data.loginAdminAlfa.id) 
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
-        title: 'Sesión iniciada  BIENVENIDO  '+ data.loginEmpresas.nombre,
+        title: 'Sesión iniciada exitosamente!',
         position: "fixed",
     })
 
-    this.props.history.push("/inicio")    
-  }
-  if(data.loginEmpresas.activo=='false'){
-
-    DialogUtility.alert({
-      animationSettings: { effect: 'Zoom' },           
-      title: 'Su licencia ha Expirado',
-      content: `Estimado cliente por el momento no puede iniciar sesión en el sistema de evaluaciones por favor contáctese con su Asesor de ADS para renovar su Suscripción`, 
-     
-      position: "fixed",
-  })
-
+    this.props.history.push("/dashboardAdminAlfa")    
   }
   }
   render() {
@@ -155,16 +133,16 @@ console.log(data)
       />
     );
     return (
-        <Mutation mutation={LOGINEMPRESAS}>
+        <Mutation mutation={LOGIN}>
         {
 
-    (login, {data, error}) => {
+    (loginAdminAlfa, {data, error}) => {
     if (data){
       this.handleData(data)
     } 
     return ( 
         <React.Fragment>
-    <form onSubmit={e => this.handleForm(e, login)}>
+    <form onSubmit={e => this.handleForm(e, loginAdminAlfa)}>
       <div id="apppage">
         <Router>
           <div>
@@ -180,7 +158,7 @@ console.log(data)
                 <MDBNavbarBrand>
                 <AppNavbarBrand
                   full={{ src: logo, width: 89, height: 25, alt: 'ADS' }} />
-                  <strong className="white-text">Bienvenido  Login Empresas</strong>
+                  <strong className="white-text">Bienvenido</strong>
                 </MDBNavbarBrand>
      
                 <MDBNavbarToggler />
@@ -233,7 +211,7 @@ console.log(data)
                     <MDBCard id="classic-card"  >
                       <MDBCardBody className="white-text">
                         <h3 className="text-center">
-                             Ingresar:
+                              Ingresar a Paquetes : 
                         </h3>
                         <hr className="hr-light" />
 
@@ -241,7 +219,7 @@ console.log(data)
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText><MDBIcon icon="user" /></InputGroupText>
                         </InputGroupAddon>
-                        <Input id="rfc" onChange={this.handleInput} type="text"  placeholder="RFC/Empresa" />
+                        <Input id="email" onChange={this.handleInput} type="email"  placeholder="Correo" />
                       </InputGroup>
   
 
@@ -252,9 +230,7 @@ console.log(data)
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input id="password" onChange={this.handleInput} type="password" placeholder="Contraseña"/>
-                      </InputGroup>
-
-                           
+                      </InputGroup>                           
                       <MDBRow>
                         <MDBCol md="8">
                           <MDBBtn  color="success" className="px-4" type='submit'>Entrar</MDBBtn>

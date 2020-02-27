@@ -191,6 +191,12 @@ localStorage.removeItem("correo")
 localStorage.removeItem("max")
 localStorage.removeItem("idAdmin")
 localStorage.removeItem("fechaRegistro")
+localStorage.removeItem("fechaRegistroSuperusuario")
+localStorage.removeItem("ok")
+localStorage.removeItem("empleadoActivo")
+localStorage.removeItem("DepartamentoActivo")
+localStorage.removeItem("SucursalActiva")
+localStorage.removeItem("PuestoActivo")
 
 this.props.history.push("/loginEmpresas")
 DialogUtility.alert({
