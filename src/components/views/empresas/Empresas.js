@@ -75,7 +75,8 @@ class Validation1 extends React.Component {
             puestos:[],
             sucursales:[],
             editar:'',
-            editarDatos:[]
+            editarDatos:[],
+          
         }
       }
       onSubmit (values) {
@@ -242,7 +243,9 @@ class Validation1 extends React.Component {
                     title: 'Aviso!',
                     position: "fixed"
                   });
-                  let periodo = "Periodo Inicial"
+                  
+                  let fecha= new Date();
+
                   const url = 'http://localhost:8000/graphql'
                   axios({
                     url:  url,
@@ -250,7 +253,7 @@ class Validation1 extends React.Component {
                     data:{
                     query:`
                      mutation{
-                      addPeriodoInicial(data:"${[periodo]}"){
+                      addPeriodoInicial(data:"${[fecha]}"){
                           message
                             }
                           }
@@ -282,7 +285,7 @@ class Validation1 extends React.Component {
               .catch((error) => {
           
                 //console.log("errores" ,error.response.data.errors[0].message)
-                console.log(".cartch" , error.response)
+                console.log(".cartch" , error)
             });
        }else{
         DialogUtility.alert({

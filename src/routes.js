@@ -73,6 +73,8 @@ import Res from './components/resultsCuestions/resultados';
 
 import ResGral from './components/Res generales/index';
 
+import Prueba from './components/adminGeneral/pruebaAdmingral';
+
  import Paquetes from './components/packComercial/packComercial';
  import LoginAlfa from './components/views/Login/loginAdminAlfa';
  import SignAlfa from './components/views/SignUp/signUpAdminAlfa';
@@ -110,7 +112,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/Initsurvey' component={InitSurvey}/>
                   <PrivateRoute exact path='/dashboardAdminAlfa' component={DashboardAdminAlfa}/>
 
-                  {/* <PrivateRoute exact path='/paquetes' component={Prueba}/> */}
+                  <PrivateRoute exact path='/prueba' component={Prueba}/>
                   <PrivateRoute exact path='/empresas' component={Empresas}/>
                   <PrivateRoute exact path='/page1' component={SurveyPage1}/>
                   <PrivateRoute exact path='/page2' component={SurveyPage2}/>

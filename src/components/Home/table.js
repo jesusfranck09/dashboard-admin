@@ -97,10 +97,10 @@
                   ApellidoP
                   ApellidoM
                   Curp
-                  rfc
+                  RFC
                   FechaNacimiento
                   Sexo
-                  cp
+                  CP
                   EstadoCivil
                   correo
                   AreaTrabajo
@@ -432,7 +432,7 @@
                             <TableCell width="10%" >{rows.ApellidoP}</TableCell>
                             <TableCell width="10%" >{rows.ApellidoM}</TableCell>
                             <TableCell  width="10%">{rows.Curp}</TableCell>
-                            <TableCell width="10%" >{rows.rfc} </TableCell>
+                            <TableCell width="10%" >{rows.RFC} </TableCell>
                             <TableCell width="10%" ><MDBBtn  color="danger"  onClick={(e) => sendMailATS(e,rows.id,1,rows.correo)}>ATS</MDBBtn></TableCell>
                             <TableCell width="10%" ><MDBBtn  color="danger"  onClick={(e) => sendMailRP(e,rows.id,2)}>RP</MDBBtn></TableCell>
                             <TableCell  width="10%"><MDBBtn  color="danger" onClick={(e) => sendMailEEO(e,rows.id,3)}>EEO </MDBBtn></TableCell>
