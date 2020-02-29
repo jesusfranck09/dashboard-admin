@@ -177,7 +177,7 @@ if(values.stooge=="acepto" && values.correo ){
               getPeriodo(data:"${[idAdmin]}"){
                 idEventos
                 fk_administrador
-                evento
+                Descripcion
                     }
                   }
                 `
@@ -185,7 +185,7 @@ if(values.stooge=="acepto" && values.correo ){
           })
           .then(datos => {	
             // console.log("exito",datos.data.data.getPeriodo[0].evento)
-           localStorage.setItem("Periodo" , datos.data.data.getPeriodo[0].evento)
+           localStorage.setItem("Periodo" , datos.data.data.getPeriodo[0].Descripcion)
            const periodo =localStorage.getItem("Periodo")
            axios({
              url:  url,

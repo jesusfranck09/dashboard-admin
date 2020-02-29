@@ -45,7 +45,7 @@ class App extends Component {
         getPeriodo(data:"${[idAdmin]}"){
           idEventos
           fk_administrador
-          evento
+          Descripcion
               }
             }
           `
@@ -59,16 +59,16 @@ class App extends Component {
         data:{
         query:`
         query{
-          getUsersTableEmployeesthisPeriodoATS(data:"${[idAdmin,datos.data.data.getPeriodo[0].evento]}"){
+          getUsersTableEmployeesthisPeriodoATS(data:"${[idAdmin,datos.data.data.getPeriodo[0].Descripcion]}"){
             id
             nombre
             ApellidoP
             ApellidoM
             Curp
-            rfc
+            RFC
             FechaNacimiento
             Sexo
-            cp
+            CP
             EstadoCivil
             correo
             AreaTrabajo
