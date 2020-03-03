@@ -97,7 +97,8 @@ class Home extends React.Component {
 
     this.getMaxEmployees();
     this.countEmployees();
-    this.verifyTables()
+    this.verifyTables();
+    this.sendMAilAlert1Survey();
   }
    
   onClick() {
@@ -180,6 +181,7 @@ handleFront = async () =>{
 }
 
 
+
 handleLogOut(){
 localStorage.removeItem("elToken")
 localStorage.removeItem("nombre")
@@ -213,10 +215,10 @@ ads(){
   
 }
 
-verifyTables(){
+verifyTables=async () =>{
   const idAdmin   = localStorage.getItem('idAdmin')
   const url = 'http://localhost:8000/graphql'
-  axios({
+  await axios({
     url:  url,
     method:'post',
     data:{
@@ -241,7 +243,7 @@ verifyTables(){
           console.log("este es el error " , err.response)
         })
         
-  axios({
+  await axios({
     url:  url,
     method:'post',
     data:{
@@ -265,7 +267,7 @@ verifyTables(){
         }).catch(err=>{
           console.log("este es el error " , err.response)
         })
-  axios({
+  await axios({
     url:  url,
     method:'post',
     data:{
@@ -289,7 +291,7 @@ verifyTables(){
         }).catch(err=>{
           console.log("este es el error " , err.response)
         })
-  axios({
+  await axios({
     url:  url,
     method:'post',
     data:{
@@ -317,11 +319,11 @@ verifyTables(){
 
 }
 
-countEmployees(){
+countEmployees = async()=>{
   
   const idAdmin   = localStorage.getItem('idAdmin')
   const url = 'http://localhost:8000/graphql'
-  axios({
+  await axios({
     url:  url,
     method:'post',
     data:{
@@ -341,7 +343,7 @@ countEmployees(){
           console.log("este es el error " , err.response)
         })
 
-  axios({
+  await axios({
     url:  url,
     method:'post',
     data:{
@@ -365,10 +367,10 @@ countEmployees(){
 
 }
 
-getMaxEmployees(){
+getMaxEmployees = async()=>{
   const idAdmin   = localStorage.getItem('idAdmin')
   const url = 'http://localhost:8000/graphql'
-  axios({
+  await axios({
     url:  url,
     method:'post',
     data:{
@@ -392,7 +394,7 @@ getMaxEmployees(){
           // console.log("este es el error " , err.response)
         })
 
-  axios({
+    await axios({
     url:  url,
     method:'post',
     data:{
@@ -416,7 +418,7 @@ getMaxEmployees(){
           // console.log("este es el error " , err.response)
         })  
                  
-  axios({
+    await axios({
     url:  url,
     method:'post',
     data:{
@@ -439,7 +441,7 @@ getMaxEmployees(){
           // console.log("error", err.response)
         })
 
-    axios({
+    await axios({
       url:  url,
       method:'post',
       data:{
@@ -462,7 +464,7 @@ getMaxEmployees(){
             // console.log("error", err.response)
           })
  
-    axios({
+    await axios({
       url:  url,
       method:'post',
       data:{
@@ -485,7 +487,7 @@ getMaxEmployees(){
             // console.log("error", err.response)
           })
 
-    axios({
+    await axios({
       url:  url,
       method:'post',
       data:{
@@ -503,7 +505,7 @@ getMaxEmployees(){
       }
           }).then((datos) => {
             this.setState({empleadosEEOFalse:datos.data.data.getEmployeesResolvesSurveyEEOFalse})
-            // console.log("datosFalse" ,datos.data.data.getEmployeesResolvesSurveyEEOFalse )
+             console.log("datosFalse" ,datos.data.data.getEmployeesResolvesSurveyEEOFalse )
           }).catch(err=>{
             // console.log("error", err.response)
           })
@@ -518,6 +520,634 @@ toggle = (nr) => () => {
     [modalNumber]: !this.state[modalNumber]
   });
 }
+
+sendMAilAlert1Survey  = async () => {
+
+  let eventoFinal;
+  let alerta1;
+  let alerta2;
+  let alerta3; 
+ let idAdmin = localStorage.getItem("idAdmin")
+  const url = 'http://localhost:8000/graphql'
+
+
+ 
+      await axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+        query{
+          getEventos(data:"${[idAdmin]}"){
+           message
+           eventoFinal
+            alerta1
+             alerta2,
+             alerta3
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              console.log("datos" , datos)
+              
+                eventoFinal = datos.data.data.getEventos.eventoFinal;
+                alerta1=datos.data.data.getEventos.alerta1;
+                alerta2=datos.data.data.getEventos.alerta2;
+                alerta3=datos.data.data.getEventos.alerta3;
+          
+            }).catch(err=>{
+              // console.log("error", err.response)
+            })       
+            
+            var alert3;
+            var alert2;
+            var alert1;
+            var fechaFinal;
+
+            console.log("la alerta 1 es " , alerta1)
+            if(alerta1){
+              alert1= alerta1.substring(4,34)       
+              
+            } 
+            if (alerta2){
+              alert2=alerta2.substring(4,34)
+            } 
+            if (alerta3){
+              alert3=alerta3.substring(4,34)
+            }
+            if (eventoFinal){
+              fechaFinal = eventoFinal.substring(4,34)
+              console.log("alerta",fechaFinal) 
+            }
+        
+  
+  this.countdown(fechaFinal)
+  this.alerta1(alert1)
+  this.alerta2(alert2)
+  this.alerta3(alert3)
+
+}
+countdown =  (deadline) => {
+
+  const timerUpdate = setInterval( async () => {
+    let t = this.getRemainingTime(deadline);
+    let descripcion;
+    let eventoActivo;
+
+    console.log("t",t)
+    if(t.remainTime <= 1) {
+      clearInterval(timerUpdate);
+      let idAdmin = localStorage.getItem("idAdmin")
+      const url = 'http://localhost:8000/graphql'
+      // console.log("el tiempo es " , t )
+      await axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         query{
+          getPeriodo(data:"${[idAdmin]}"){
+            idEventos
+            fk_administrador
+            Descripcion
+            EventoActivo
+                }
+              }
+            `
+        }
+      })
+      .then(datos => {	
+      descripcion = datos.data.data.getPeriodo[0].Descripcion
+      }).catch(err=>{
+        console.log("error",err.response)
+      })
+      axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         mutation{
+          deletePeriodo(data:"${[descripcion,idAdmin]}"){
+              message
+                }
+              }
+            `
+        }
+      })
+      .then(datos => {	
+        console.log("exito",datos)
+        DialogUtility.alert({
+          animationSettings: { effect: 'Fade' },        
+          title:"AVISO!",   
+          content: 'Su periodo está Desactivado por favor Registre uno nuevo',
+          position: "fixed",
+        }
+        ) 
+      })
+    }
+  }, 1000)
+};
+
+getRemainingTime = deadline => {
+  let now = new Date(),
+      remainTime = (new Date(deadline) - now + 1000) / 1000,
+      remainSeconds = ('0' + Math.floor(remainTime % 60)).slice(-2),
+      remainMinutes = ('0' + Math.floor(remainTime / 60 % 60)).slice(-2),
+      remainHours = ('0' + Math.floor(remainTime / 3600 % 24)).slice(-2),
+      remainDays = Math.floor(remainTime / (3600 * 24));
+
+  return {
+    remainSeconds,
+    remainMinutes,
+    remainHours,
+    remainDays,
+    remainTime
+  }
+};
+
+alerta1 =  (deadline) => {
+  const url = 'http://localhost:8000/graphql'
+  const timerUpdate = setInterval( async () => {
+    let t = this.getRemainingTime(deadline);
+    const idAdmin  = localStorage.getItem("idAdmin")
+    let alerta1Enviada;
+    let ATS;
+    let RP;
+    let EEO;
+    let Eventos;
+    await axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+       query{
+        getPeriodo(data:"${[idAdmin]}"){
+          idEventos
+          fk_administrador
+          Descripcion
+          Alerta1Enviada
+              }
+            }
+          `
+      }
+    })
+    .then(datos => {	
+    Eventos = datos.data.data.getPeriodo[0].idEventos
+    alerta1Enviada = datos.data.data.getPeriodo[0].Alerta1Enviada
+    }).catch(err=>{
+    })
+    if(t.remainTime <= 1 && alerta1Enviada=='false') {
+      clearInterval(timerUpdate);
+      let idAdmin = localStorage.getItem("idAdmin")
+      await axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+          query{
+          getEmployeesResolvesSurveyATSFalse(data:"${[idAdmin]}"){
+                nombre
+                ApellidoP
+                ApellidoM
+                correo
+                ATSContestado
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+             ATS=datos.data.data.getEmployeesResolvesSurveyATSFalse
+             const correo  = localStorage.getItem("correo")
+             const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta ATS por favor realice la actividad lo mas pronto posible "
+             ATS.map(rows=>{
+                axios({
+                 url:  url,
+                 method:'post',
+                 data:{
+                 query:`
+                  mutation{
+                   alert1(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
+                     message
+                         }
+                       }
+                     `
+                 }
+               })
+               .then(datos => {	
+               // descripcion = datos.data.data.getPeriodo[0].Descripcion
+               }).catch(err=>{
+               })
+ 
+             })
+            }).catch(err=>{
+            })  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+    await axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+        query{
+        getEmployeesResolvesSurveyRPFalse(data:"${[idAdmin]}"){
+              nombre
+              ApellidoP
+              ApellidoM
+              correo
+              }
+            }
+          `
+      }
+          }).then((datos) => {
+          const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta RP por favor realice la actividad lo mas pronto posible "
+          RP=datos.data.data.getEmployeesResolvesSurveyRPFalse
+          const correo  = localStorage.getItem("correo")
+          RP.map(rows=>{
+              axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+              mutation{
+                alert1(data:"${[rows.correo , correo , mensaje,Eventos]}"){
+                  message
+                      }
+                    }
+                  `
+              }
+            })
+            .then(datos => {	
+            }).catch(err=>{
+            })
+          })
+          }).catch(err=>{
+          }) 
+      ///////////////////////////////////////////////////////////////////////////////////////////
+      await axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+          query{
+          getEmployeesResolvesSurveyEEOFalse(data:"${[idAdmin]}"){
+                nombre
+                ApellidoP
+                ApellidoM
+                correo
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+            const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta EEO por favor realice la actividad lo mas pronto posible "
+             EEO=datos.data.data.getEmployeesResolvesSurveyEEOFalse
+             const correo  = localStorage.getItem("correo")
+             EEO.map(rows=>{
+                axios({
+                 url:  url,
+                 method:'post',
+                 data:{
+                 query:`
+                 mutation{
+                   alert1(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
+                     message
+                         }
+                       }
+                     `
+                 }
+               })
+               .then(datos => {	
+               }).catch(err=>{
+               })
+             })
+            }).catch(err=>{
+            })  
+    }
+  }, 1000)
+};
+
+alerta2 =  (deadline) => {
+  const url = 'http://localhost:8000/graphql'
+  const timerUpdate = setInterval( async () => {
+    let t = this.getRemainingTime(deadline);
+   
+    const idAdmin  = localStorage.getItem("idAdmin")
+    let alerta2Enviada;
+    let ATS;
+    let RP;
+    let EEO;
+    let Eventos;
+    await axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+       query{
+        getPeriodo(data:"${[idAdmin]}"){
+          idEventos
+          fk_administrador
+          Descripcion
+          Alerta2Enviada
+              }
+            }
+          `
+      }
+    })
+    .then(datos => {	
+    Eventos = datos.data.data.getPeriodo[0].idEventos
+    alerta2Enviada = datos.data.data.getPeriodo[0].Alerta2Enviada
+    }).catch(err=>{
+      console.log("error" , err)
+    })
+    if(t.remainTime <= 1 && alerta2Enviada=='false') {
+      clearInterval(timerUpdate);
+      let idAdmin = localStorage.getItem("idAdmin")
+      await axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+          query{
+          getEmployeesResolvesSurveyATSFalse(data:"${[idAdmin]}"){
+                nombre
+                ApellidoP
+                ApellidoM
+                correo
+                ATSContestado
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+             ATS=datos.data.data.getEmployeesResolvesSurveyATSFalse
+             const correo  = localStorage.getItem("correo")
+             const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta ATS por favor realice la actividad lo mas pronto posible"
+             ATS.map(rows=>{
+                axios({
+                 url:  url,
+                 method:'post',
+                 data:{
+                 query:`
+                  mutation{
+                   alert2(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
+                     message
+                         }
+                       }
+                     `
+                 }
+               })
+               .then(datos => {	
+               // descripcion = datos.data.data.getPeriodo[0].Descripcion
+               }).catch(err=>{
+               })
+ 
+             })
+            }).catch(err=>{
+            })  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+    await axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+        query{
+        getEmployeesResolvesSurveyRPFalse(data:"${[idAdmin]}"){
+              nombre
+              ApellidoP
+              ApellidoM
+              correo
+              }
+            }
+          `
+      }
+          }).then((datos) => {
+          const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta RP por favor realice la actividad lo mas pronto posible "
+          RP=datos.data.data.getEmployeesResolvesSurveyRPFalse
+          const correo  = localStorage.getItem("correo")
+          RP.map(rows=>{
+              axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+              mutation{
+                alert2(data:"${[rows.correo , correo , mensaje,Eventos]}"){
+                  message
+                      }
+                    }
+                  `
+              }
+            })
+            .then(datos => {	
+            }).catch(err=>{
+            })
+          })
+          }).catch(err=>{
+          }) 
+      ///////////////////////////////////////////////////////////////////////////////////////////
+      await axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+          query{
+          getEmployeesResolvesSurveyEEOFalse(data:"${[idAdmin]}"){
+                nombre
+                ApellidoP
+                ApellidoM
+                correo
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+            const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta EEO por favor realice la actividad lo mas pronto posible "
+             EEO=datos.data.data.getEmployeesResolvesSurveyEEOFalse
+             const correo  = localStorage.getItem("correo")
+             EEO.map(rows=>{
+                axios({
+                 url:  url,
+                 method:'post',
+                 data:{
+                 query:`
+                 mutation{
+                   alert2(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
+                     message
+                         }
+                       }
+                     `
+                 }
+               })
+               .then(datos => {	
+               }).catch(err=>{
+               })
+             })
+            }).catch(err=>{
+            })  
+    }
+  }, 1000)
+};
+
+alerta3 =  (deadline) => {
+  const url = 'http://localhost:8000/graphql'
+  const timerUpdate = setInterval( async () => {
+    let t = this.getRemainingTime(deadline);
+    const idAdmin  = localStorage.getItem("idAdmin")
+    let alerta3Enviada;
+    let ATS;
+    let RP;
+    let EEO;
+    let Eventos;
+    await axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+       query{
+        getPeriodo(data:"${[idAdmin]}"){
+          idEventos
+          fk_administrador
+          Descripcion
+          Alerta3Enviada
+              }
+            }
+          `
+      }
+    })
+    .then(datos => {	
+    Eventos = datos.data.data.getPeriodo[0].idEventos
+    alerta3Enviada = datos.data.data.getPeriodo[0].Alerta3Enviada
+    }).catch(err=>{
+      console.log("error" , err)
+    })
+    if(t.remainTime <= 1 && alerta3Enviada=='false') {
+      clearInterval(timerUpdate);
+      let idAdmin = localStorage.getItem("idAdmin")
+      await axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+          query{
+          getEmployeesResolvesSurveyATSFalse(data:"${[idAdmin]}"){
+                nombre
+                ApellidoP
+                ApellidoM
+                correo
+                ATSContestado
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+             ATS=datos.data.data.getEmployeesResolvesSurveyATSFalse
+             const correo  = localStorage.getItem("correo")
+             const mensaje = "Estimado Colaborador el periodo de evaluación se cerrara pronto por favor responda su encuesta ATS lo antes posible"
+             ATS.map(rows=>{
+                axios({
+                 url:  url,
+                 method:'post',
+                 data:{
+                 query:`
+                  mutation{
+                   alert3(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
+                     message
+                         }
+                       }
+                     `
+                 }
+               })
+               .then(datos => {	
+               // descripcion = datos.data.data.getPeriodo[0].Descripcion
+               }).catch(err=>{
+               })
+ 
+             })
+            }).catch(err=>{
+            })  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+    await axios({
+      url:  url,
+      method:'post',
+      data:{
+      query:`
+        query{
+        getEmployeesResolvesSurveyRPFalse(data:"${[idAdmin]}"){
+              nombre
+              ApellidoP
+              ApellidoM
+              correo
+              }
+            }
+          `
+      }
+          }).then((datos) => {
+            const mensaje = "Estimado Colaborador el periodo de evaluación se cerrara pronto por favor responda su encuesta RP lo antes posible"
+            RP=datos.data.data.getEmployeesResolvesSurveyRPFalse
+          const correo  = localStorage.getItem("correo")
+          RP.map(rows=>{
+              axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+              mutation{
+                alert3(data:"${[rows.correo , correo , mensaje,Eventos]}"){
+                  message
+                      }
+                    }
+                  `
+              }
+            })
+            .then(datos => {	
+            }).catch(err=>{
+            })
+          })
+          }).catch(err=>{
+          }) 
+      ///////////////////////////////////////////////////////////////////////////////////////////
+      await axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+          query{
+          getEmployeesResolvesSurveyEEOFalse(data:"${[idAdmin]}"){
+                nombre
+                ApellidoP
+                ApellidoM
+                correo
+                }
+              }
+            `
+        }
+            }).then((datos) => {
+              const mensaje = "Estimado Colaborador el periodo de evaluación se cerrara pronto por favor responda su encuesta EEO lo antes posible"
+              EEO=datos.data.data.getEmployeesResolvesSurveyEEOFalse
+             const correo  = localStorage.getItem("correo")
+             EEO.map(rows=>{
+                axios({
+                 url:  url,
+                 method:'post',
+                 data:{
+                 query:`
+                 mutation{
+                   alert3(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
+                     message
+                         }
+                       }
+                     `
+                 }
+               })
+               .then(datos => {	
+               }).catch(err=>{
+               })
+             })
+            }).catch(err=>{
+            })  
+    }
+  }, 1000)
+};
 
 
   render() {

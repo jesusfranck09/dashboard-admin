@@ -39,6 +39,7 @@
             propiedades:[]   ,
             showModal2: false,     
             ATSContestado:'',
+            periodoActivo:''
 
          
           };
@@ -68,6 +69,33 @@
               this.setState({date:FechaCompleta}) 
               this.setState({nombre:Nombre}) 
               this.setState({apellidos:Apellidos}) 
+
+              let idAdmin = localStorage.getItem("idAdmin")
+              const url = 'http://localhost:8000/graphql'
+              // console.log("el tiempo es " , t )
+               axios({
+                url:  url,
+                method:'post',
+                data:{
+                query:`
+                 query{
+                  getPeriodo(data:"${[idAdmin]}"){
+                    idEventos
+                    fk_administrador
+                    Descripcion
+                    EventoActivo
+                        }
+                      }
+                    `
+                }
+              })
+              .then(datos => {	
+              this.setState({periodoActivo : datos.data.data.getPeriodo.length})
+            
+              }).catch(err=>{
+                console.log("error",err.response)
+              })
+            
             }
             onClick() {
               this.setState({
@@ -267,10 +295,8 @@
                           //  this.setState({ATSContestado:datos.data.data.verifiEmailSurveyATS[0].ATSContestado})
                           var contestado = datos.data.data.verifiEmailSurveyATS[0].ATSContestado
                           localStorage.setItem("ATSContestado" ,contestado )
-                          console.log("entro primero aqui")
                           if(localStorage.getItem("ATSContestado") =='true'){
-                            console.log("entro deoues aqui")
-                            console.log("atscontestado" , this.state.ATSContestado)
+
                             DialogUtility.alert({
                               animationSettings: { effect: 'Zoom' },           
                               title: "Su colaborador ya ha respondido la encuesta",
@@ -279,7 +305,7 @@
                               });
                               localStorage.removeItem("ATSContestado")
                            }
-                           else if (localStorage.getItem("ATSContestado")=='false'){
+                           else if (localStorage.getItem("ATSContestado")=='false' && this.state.periodoActivo > 0){
                              
                             DialogUtility.alert({
                               animationSettings: { effect: 'Zoom' },           
@@ -303,7 +329,14 @@
                                     localStorage.removeItem("ATSContestado")
                                   });
   
-                           }        
+                           } else{
+                            DialogUtility.alert({
+                              animationSettings: { effect: 'Zoom' },           
+                              content: " Su evaluación no fue enviada ya que no cuenta con un periodo Registrado!",
+                              title: 'Aviso!',
+                              position: "fixed"
+                              });
+                           }       
                          }).catch(err =>{
                            console.log(err.response)
                          })             
@@ -337,7 +370,7 @@
                                   });
                                   localStorage.removeItem("RPContestado")
                                }
-                               else if (localStorage.getItem("RPContestado")=='false'){
+                               else if (localStorage.getItem("RPContestado")=='false' && this.state.periodoActivo > 0){
                                  
                                 DialogUtility.alert({
                                   animationSettings: { effect: 'Zoom' },           
@@ -360,6 +393,13 @@
                                       }).then(datos => {  
                                         localStorage.removeItem("RPContestado")
                                       });
+                               }else{
+                                DialogUtility.alert({
+                                  animationSettings: { effect: 'Zoom' },           
+                                  content: " Su evaluación no fue enviada ya que no cuenta con un periodo Registrado!",
+                                  title: 'Aviso!',
+                                  position: "fixed"
+                                  });
                                }        
                              }).catch(err =>{
                                console.log(err.response)
@@ -393,7 +433,7 @@
                                 });
                                 localStorage.removeItem("EEOContestado")
                              }
-                             else if (localStorage.getItem("EEOContestado")=='false'){
+                             else if (localStorage.getItem("EEOContestado")=='false' && this.state.periodoActivo > 0){
                                
                               DialogUtility.alert({
                                 animationSettings: { effect: 'Zoom' },           
@@ -416,6 +456,13 @@
                                     }).then(datos => {  
                                       localStorage.removeItem("EEOContestado")
                                     });
+                             }else{
+                              DialogUtility.alert({
+                                animationSettings: { effect: 'Zoom' },           
+                                content: " Su evaluación no fue enviada ya que no cuenta con un periodo Registrado!",
+                                title: 'Aviso!',
+                                position: "fixed"
+                                });
                              }        
                            }).catch(err =>{
                              console.log(err.response)
