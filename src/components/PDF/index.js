@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import { PDFExport } from '@progress/kendo-react-pdf';
+import logo from '../images/logo.png'
 
 import {Alert} from 'reactstrap'
 class App extends Component {
@@ -182,12 +183,7 @@ class App extends Component {
                     </MDBBtn>
            </div>
            <br/>
-           <PDFExport
-                    scale={0.7}
-                    paperSize="A4"
-                    margin="2cm"
-                    ref={(component) => this.pdfExportComponent = component}
-                >
+        
           <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font><br/><br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
           <font face="arial" className = "mt-4 " >  <img ref={(image) => this.image = image} src="http://www.ads.com.mx/_Media/logotipo_ads_png_med.png" width="100px"
                 /></font>
@@ -347,9 +343,30 @@ class App extends Component {
                   </MDBTableBody>
                   </MDBTable> 
                 {ATS}
-                </MDBContainer>  
-                 </PDFExport>
+                </MDBContainer>
           </section>
+          <div>
+                <div className="example-config">
+                  
+                </div>
+
+                <div style={{ position: "absolute", left: "-1000px", top: 0 }}>
+                    <PDFExport
+                        paperSize="A4"
+                        margin="1cm"
+                        ref={(component) => this.pdfExportComponent = component}
+                    >
+                        <div style={{ width: "500px" }}>
+                        
+                            <p>
+                            <img src={logo} alt="logo" style = {{width:600}}/>
+                            </p>
+                            <p>
+                            </p>
+                        </div>
+                    </PDFExport>
+                </div>
+            </div>
         </React.Fragment>
        
       </MDBContainer>

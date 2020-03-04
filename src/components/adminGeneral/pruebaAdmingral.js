@@ -36,6 +36,7 @@ import {
     KeyboardDatePicker,
   } from '@material-ui/pickers';
   import esLocale from "date-fns/locale/es";
+import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
 
 class AdminGral extends React.Component {
     constructor(props) {
@@ -60,7 +61,8 @@ class AdminGral extends React.Component {
         Alerta1:null,
         Alerta2:null,
         Alerta3:null,
-        registrarPeriodo:''
+        registrarPeriodo:'',
+        editarPeriodo:''
         // periodoDesactivado:[],
       };
       this.getEmployees = this.getEmployees.bind(this);
@@ -772,16 +774,9 @@ class AdminGral extends React.Component {
                 } 
               }
           NuevoPeriodo(values){
-            console.log("values" , values) 
-            console.log("inicial",this.state.inicial)
-            console.log("final" ,this.state.final)
-            console.log("alerta1",this.state.Alerta1)
-            console.log("alerta2",this.state.Alerta2)
-            console.log("alerta3",this.state.Alerta3)
+            if(values.NombrePeriodo && this.state.inicial && this.state.final && this.state.Alerta1&& this.state.Alerta1&& this.state.Alerta2&& this.state.Alerta3){
 
-   
-            
-                const idAdmin=localStorage.getItem("idAdmin")
+            const idAdmin=localStorage.getItem("idAdmin")
             const url = 'http://localhost:8000/graphql'
             axios({
               url:  url,
@@ -814,7 +809,7 @@ class AdminGral extends React.Component {
               data:{
               query:`
                mutation{
-                addPeriodo(data:"${[values.NombrePeriodo,this.state.final,this.state.inicial,this.state.Alerta1,this.state.Alerta2,this.state.Alerta3,idAdmin]}"){
+                addPeriodo(data:"${[values.NombrePeriodo,this.state.inicial,this.state.final,this.state.Alerta1,this.state.Alerta2,this.state.Alerta3,idAdmin]}"){
                     message
                       }
                     }
@@ -844,10 +839,75 @@ class AdminGral extends React.Component {
             })
               }
             }).catch(err=>{
-              console.log("error en la consulta del evento" , err.response)})
-            
-                 
-            
+              console.log("error en la consulta del evento" , err.response)}) 
+            }else{
+              DialogUtility.alert({
+                animationSettings: { effect: 'Fade' },        
+                title:"AVISO!",   
+                content: 'Por favor ingrese algún valor',
+                position: "fixed",
+              }
+              )
+            }
+          }
+
+          editarPeriodo(values){  
+            if(values.NombrePeriodo && this.state.final && this.state.Alerta1 && this.state.Alerta2 && this.state.Alerta3){    
+            const idAdmin=localStorage.getItem("idAdmin")
+            const url = 'http://localhost:8000/graphql'    
+            console.log("entro aqui")                  
+            axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+               mutation{
+                updatePeriodo(data:"${[values.NombrePeriodo,this.state.final,this.state.Alerta1,this.state.Alerta2,this.state.Alerta3,idAdmin]}"){
+                    message
+                      }
+                    }
+                  `
+              }
+            })
+            .then(datos => {	
+              if(datos.data.data.updatePeriodo.message=='evento existente'){
+                DialogUtility.alert({
+                  animationSettings: { effect: 'Fade' },        
+                  title:"AVISO!",   
+                  content: 'El nombre del periodo ya corresponde a un evento registrado y deshabilitado con anterioridad por favor ingrese uno diferente',
+                  position: "fixed",
+                }
+                )
+              }else if (datos.data.data.updatePeriodo.message=='no hay eventos'){
+                DialogUtility.alert({
+                  animationSettings: { effect: 'Fade' },        
+                  title:"AVISO!",   
+                  content: 'No existe ningun periodo Activo por favor registre uno antes de editar',
+                  position: "fixed",
+                }
+                )
+              }else if ( datos.data.data.updatePeriodo.message=='evento Actualizdo'){
+                DialogUtility.alert({
+                  animationSettings: { effect: 'Fade' },        
+                  title:"AVISO!",   
+                  content: 'periodo Actualizado con éxito',
+                  position: "fixed",
+                }
+                )
+                window.location.reload();
+              }
+            }).catch(err=>{
+              console.log("error" , err.response)
+            })
+          }else{
+            DialogUtility.alert({
+              animationSettings: { effect: 'Fade' },        
+              title:"AVISO!",   
+              content:'Por favor complete todos los campos',
+              position: "fixed",
+            }
+            ) 
+          }
           }
 
           DesactivarPeriodo(values){
@@ -893,7 +953,7 @@ class AdminGral extends React.Component {
 
            handleDateChange = date => {
             this.setState({inicial:date})
-            console.log("data" , date)
+          
           };
            handleDateChange2 = date2 => {
             this.setState({final:date2})
@@ -912,10 +972,128 @@ class AdminGral extends React.Component {
         
                 };  
     render() {
+      let editarPeriodo;
+      if(this.state.editarPeriodo=='1'){
+       
+        editarPeriodo =<Paper style={{ width: "70rem" }}>
+            <MDBCard style={{ width: "70rem" }} >
+                <MDBCardBody>
+                <MDBCardTitle>Periodo de Evaluación</MDBCardTitle>
+                    <Form
+                  onSubmit={this.onSubmit}
+                  render={({ handleSubmit, submitting,values }) => (
+                    <form onSubmit={handleSubmit}>
+                    
+                          <MDBRow>
+                         <MDBCol>    
+                         <Paper>
+                         <Grid item xs={12}  >
+                            <Field
+                              fullWidth
+                              required
+                              name="NombrePeriodo"
+                              component={TextField}
+                              type="text"
+                             label="Nombre del Periodo"
+                            />
+                            </Grid>
+                          <Grid item xs={12}  justify="center">
+                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>
+                                  
+                                  <KeyboardDatePicker
+                                  margin="normal"
+                                  id="date-picker-dialog"
+                                  label="Fecha Final"
+                                  format="dd/MM/yyyy"
+                                  value={this.state.final}
+                                  onChange={this.handleDateChange2}
+                                  
+                                  KeyboardButtonProps={{
+                                      'aria-label': 'change date',
+                                  }}
+                                  />
+
+                              </MuiPickersUtilsProvider>     
+                                              
+                          </Grid>
+                          
+                          </Paper>        
+                          </MDBCol>      
+                          <MDBCol>                  
+                            
+                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>
+                                                   {/* <Alert color="danger">LAs alertas que ingrese enviaran un correo electrónico a sus empleados en caso de no haber contestado su evaluación</Alert> */}
+                          <KeyboardDatePicker
+                              margin="normal"
+                              id="date-picker-dialog"
+                              label="Alerta 1"
+                              format="dd/MM/yyyy"
+                              value={this.state.Alerta1}
+                              onChange={this.handleAlerta1}
+                              
+                              KeyboardButtonProps={{
+                                  'aria-label': 'change date',
+                              }}
+                              />
+                          </MuiPickersUtilsProvider>
+                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>
+                                  
+                                  <KeyboardDatePicker
+                                  margin="normal"
+                                  id="date-picker-dialog"
+                                  label="Alerta 2"
+                                  format="dd/MM/yyyy"
+                                  value={this.state.Alerta2}
+                                  onChange={this.handleAlerta2}
+                                  
+                                  KeyboardButtonProps={{
+                                      'aria-label': 'change date',
+                                  }}
+                                  />
+
+                              </MuiPickersUtilsProvider>
+                              <Grid>
+                              <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>     
+                                  <KeyboardDatePicker
+                                  margin="normal"
+                                  id="date-picker-dialog"
+                                  label="Alerta 3"
+                                  format="dd/MM/yyyy"
+                                  value={this.state.Alerta3}
+                                  onChange={this.handleAlerta3}
+                                  
+                                  KeyboardButtonProps={{
+                                      'aria-label': 'change date',
+                                  }}
+                                  />
+
+                              </MuiPickersUtilsProvider>
+                              </Grid>
+                   
+                              <MDBBtn
+                              // variant="contained"
+                              color="success"                             
+                              style={{marginTop:25}}
+                              onClick={ e => this.editarPeriodo(values)}
+                            >
+                              Aceptar
+                            </MDBBtn>          
+                          </MDBCol> 
+                        
+                          </MDBRow>
+                     
+                    </form>
+                        )}
+                      />  
+                </MDBCardBody>                     
+                </MDBCard>
+                </Paper>
+      }
 
         let registrarPeriodo ;
 
         if(this.state.registrarPeriodo=='1'){
+          
           registrarPeriodo =  <Paper style={{ width: "70rem" }}>
             <MDBCard style={{ width: "70rem" }} >
                 <MDBCardBody>
@@ -945,8 +1123,8 @@ class AdminGral extends React.Component {
                               id="date-picker-dialog"
                               label="Fecha Inicial"
                               format="dd/MM/yyyy"
-                              value={this.state.final}
-                              onChange={this.handleDateChange2}
+                              value={this.state.inicial}
+                              onChange={this.handleDateChange}
                               
                               KeyboardButtonProps={{
                                   'aria-label': 'change date',
@@ -960,8 +1138,8 @@ class AdminGral extends React.Component {
                                   id="date-picker-dialog"
                                   label="Fecha Final"
                                   format="dd/MM/yyyy"
-                                  value={this.state.inicial}
-                                  onChange={this.handleDateChange}
+                                  value={this.state.final}
+                                  onChange={this.handleDateChange2}
                                   
                                   KeyboardButtonProps={{
                                       'aria-label': 'change date',
@@ -1261,7 +1439,7 @@ class AdminGral extends React.Component {
 
 
       if(this.state.modal14){
-        console.log("update rows" , this.state.updateRowsSucursales)
+ 
        modalSucursales  =  <MDBContainer>
         <MDBModal isOpen={this.state.modal14} toggle={this.toggleSucursales(14)}>
           <MDBModalHeader toggle={this.toggleSucursales(14)}>
@@ -1546,10 +1724,14 @@ class AdminGral extends React.Component {
               </header>
                 <MDBContainer style={{marginTop:60}} >
               <Alert  color="primary">Nota : El periodo de Evaluación debe ser Registrado para que su sistema funcione de manera correcta, si desea Agregar o desactivar Periodos de evaluacion puede hacerlo mediante el botón de abajo</Alert>    
-              <Button  startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({registrarPeriodo:"1"}) } style={{marginBottom:20}}>
-                  Agregar , Editar o Desactivar Periodo
+              <Button  startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({registrarPeriodo:"1",editarPeriodo:''}) } style={{marginBottom:20}}>
+                  Agregar o Desactivar Periodo
+               </Button>
+               <Button  startIcon={<BorderColorOutlinedIcon />} color="secondary" onClick={(e)=>this.setState({editarPeriodo:"1",registrarPeriodo:''}) } style={{marginBottom:20}}>
+                  Editar Periodo
                </Button>
                  {registrarPeriodo} 
+                 {editarPeriodo}
                   {periodo}
                     <Paper >
                    <MDBCard>
@@ -1558,7 +1740,7 @@ class AdminGral extends React.Component {
                             <Table bordered>
                               <TableBody>
                                 {this.state.datos.map((rows,i )=> {
-                                  console.log("rows.id" , rows)
+                                 
                                   return (
                                     <TableRow >
                                       <TableCell component="th" scope="row">
