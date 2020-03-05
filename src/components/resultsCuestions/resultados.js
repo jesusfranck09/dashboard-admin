@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
-import PDF from '../PDF/index'
+import PDF from '../../components/PDF/index'
 import { Bar } from "react-chartjs-2";
 
 import {
