@@ -111,7 +111,8 @@ pdfExportComponent =(props)=><span><font size="1"face="arial"color="red">diagnos
     this.setState({fecha:FechaCompleta})
   }
 
-    click(id){                  
+    click(id){           
+            const periodo  = localStorage.getItem("periodo")        
             const url = 'http://localhost:8000/graphql'
             axios({
               url:  url,
@@ -119,7 +120,7 @@ pdfExportComponent =(props)=><span><font size="1"face="arial"color="red">diagnos
               data:{
               query:`
                 query{
-                resultSingleSurvey(data:"${[id]}"){
+                resultSingleSurvey(data:"${[id,periodo]}"){
                   id 
                   Respuestas 
                   fk_preguntasATS 

@@ -75,7 +75,31 @@ class Home extends React.Component {
 
   componentWillMount(){
 
-    
+    let idAdmin = localStorage.getItem("idAdmin")
+      const url = 'http://localhost:8000/graphql'
+      // console.log("el tiempo es " , t )
+       axios({
+        url:  url,
+        method:'post',
+        data:{
+        query:`
+         query{
+          getPeriodo(data:"${[idAdmin]}"){
+            idEventos
+            fk_administrador
+            Descripcion
+            EventoActivo
+                }
+              }
+            `
+        }
+      })
+      .then(datos => {	
+        localStorage.setItem("periodo" ,datos.data.data.getPeriodo[0].Descripcion )
+      }).catch(err=>{
+        console.log("error",err.response)
+      })
+
     this.handleFront();
     var Nombre = localStorage.getItem("nombre")
     var Apellidos = localStorage.getItem("apellidos")
@@ -595,7 +619,7 @@ countdown =  (deadline) => {
     let descripcion;
     let eventoActivo;
 
-    console.log("t",t)
+    // console.log("t",t)
     if(t.remainTime <= 1) {
       clearInterval(timerUpdate);
       let idAdmin = localStorage.getItem("idAdmin")
