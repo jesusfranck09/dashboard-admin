@@ -2149,100 +2149,100 @@ if(DominioDiez < 4){
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >6</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Carga mental</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{entero9+entero10+entero11}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >7</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas psicológicas emocionales</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{(entero65+entero66+entero67+entero68)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >8</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas de alta responsabilidad</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{entero13+entero14}</font></td>
                                         </tr>
 
 
                                         <tr>           
                                         <td width="5px"><font size="1" face="arial"color="black" >9</font></td>
-                                        <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Condiciones peligrosas e inseguras</font></td>
+                                        <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Cargas contradictorias o inconsistentes</font></td>
                                         <td width="15px"><font size="1" face="arial"color="black">{entero15+entero16}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >10</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Condiciones deficientes e insalubres</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Falta de control y autonomía sobre el trabajo</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{entero25+entero26+entero27+entero28}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >11</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitada o nula posibilidad de desarrollo</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{entero23+entero24}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >12</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Insuficiente participación y manejo del cambio</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{(entero29+entero30)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >13</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitada o inexistente capacitación</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{entero35+entero36}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >14</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Jornadas de trabajo extensas</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{entero17+entero18}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >15</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Influencia del trabajo fuera del centro laboral</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{(entero19+entero20)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >16</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Influencia de las responsabilidades familiares</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{entero21+entero22}</font></td>
                                         </tr>
 
                                         <tr>           
                                         <td width="5px"><font size="1" face="arial"color="black" >17</font></td>
-                                        <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Condiciones peligrosas e inseguras</font></td>
+                                        <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Escasa claridad de funciones</font></td>
                                         <td width="15px"><font size="1" face="arial"color="black">{entero31+entero32+entero33+entero34}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >18</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Condiciones deficientes e insalubres</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Características del liderazgo</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{entero37+entero38+entero39+entero40+entero41}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >19</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black"></font>Relaciones sociales en el trabajo</td>
                                           <td width="15px"><font size="1" face="arial"color="black">{entero42+entero43+entero44+entero45+entero46}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >20</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Deficiente relación con los colaboradores que Supervisa</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{(entero69+entero70+entero71+entero72)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >21</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Violencia laboral</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{entero57+entero58+entero59+entero60+entero61+entero62+entero63+entero64}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >22</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Escasa o nula retroalimentación del desempeño</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{entero47+entero48}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >23</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Escaso o nulo reconocimiento y compensación</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{(entero49+entero50+entero51+entero52)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >24</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitado sentido de pertenencia</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{entero55+entero56}</font></td>
                                         </tr>
                                         <tr>         

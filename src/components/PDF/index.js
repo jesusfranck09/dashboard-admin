@@ -154,6 +154,7 @@ pdfExportComponent =(props)=><span><font size="1"face="arial"color="red">diagnos
                   }).then(datos => {   
                     console.log("los datos son " ,  datos)
                   if(datos.data.data.resultSingleSurvey.length > 0 ){
+                  this.setState({resultados:'' })  
                   this.setState({resultados :datos.data.data.resultSingleSurvey })                
                 } if(datos.data.data.resultSingleSurvey.length <= 0){
                   DialogUtility.alert({
