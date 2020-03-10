@@ -3,7 +3,7 @@ import { setContext } from 'apollo-link-context'; //Setea headers de los request
 import { InMemoryCache } from 'apollo-cache-inmemory'; //Cache Graphql
 import { createUploadLink } from 'apollo-upload-client';
 
- const API_URL = 'http://localhost:8000'; //URL
+ const API_URL = 'https://git.heroku.com/backenddiagnostico035.git'; //URL
 
  const httpLink = createUploadLink({
     uri: `${API_URL}/graphql`
