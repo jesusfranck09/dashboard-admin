@@ -17,7 +17,7 @@ import TableHead from '@material-ui/core/TableHead';
 import { PDFExport } from '@progress/kendo-react-pdf';
 import logo from '../images/logo.png'
 import logotipo from '../images/logotipo.png'
-
+import diagnostico from '../images/diagnostico.png'
 import {Alert} from 'reactstrap'
 class App extends Component {
   pdfExportComponent =(props)=><span><font size="1"face="arial"color="red">diagnostico.com</font><br/><font size="1"face="arial"color="gray">{props.pageNum}</font></span>;
@@ -288,7 +288,7 @@ class App extends Component {
                     }
 
   render() {
-    const container = { marginLeft:20}
+    const container = { marginLeft:65}
     let pdfView1;
     let pdfView2;
     if(this.state.resultados[2]){ 
@@ -312,12 +312,24 @@ class App extends Component {
                     allPages= "true"
               
                 >
+          <MDBTable small borderless className="mt-4 text-center">
+            <MDBTableBody>
+              <tr>
+                <td width ="50%"> <img src={logotipo} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                <td width ="50%">
+                <img src={diagnostico} alt="logo" style = {{width:100,marginBottom:30}}/>
+
+                </td>
+              </tr>
+
+            </MDBTableBody>        
+            </MDBTable>
+          
+         
           <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>
           <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
-          <font face="arial" className = "mt-4 " >  <img ref={(image) => this.image = image} src="http://www.ads.com.mx/_Media/logotipo_ads_png_med.png" width="100px"
-                /></font>
                 <MDBContainer style={container}>
-                <MDBTable responsive small borderless className="text-left mt-4 ">
+                <MDBTable small borderless className="text-left mt-4 ml-4">
        
                 <MDBTableBody>                  
                   <tr>
@@ -336,20 +348,20 @@ class App extends Component {
                 </MDBTable>
                 </MDBContainer>
                 
-                <MDBContainer>
-                <MDBTable small borderless className="mt-4 text-left">
+                <MDBContainer style={{marginLeft:20}} >
+                <MDBTable small borderless className="mt-4 text-left ml-4">
                   <MDBTableHead>
                     <tr>
-                      <th width="10px"></th>
-                      <th width="150px">I. Condiciones ambientales de su centro de trabajo.</th>    
-                      <td width="60px"></td>   
+                      <th width="5%"></th>
+                      <th width="70%">I. Condiciones ambientales de su centro de trabajo.</th>    
+                      <td width="25%"></td>   
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td width="10px">1</td>
-                      <td>El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</td>
-                      <td >{this.state.resultados[1].Respuestas}</td> 
+                      <td width="5%">1</td>
+                      <td width="70%">El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</td>
+                      <td width="25%" >{this.state.resultados[1].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td >2</td>
@@ -377,9 +389,9 @@ class App extends Component {
       
                   <MDBTableHead>
                     <tr>
-                      <th></th>
-                      <th  width="10px">II. La cantidad y ritmo de trabajo que tiene.</th>       
-                      <td></td> 
+                    <td></td>
+                      <th >II. La cantidad y ritmo de trabajo que tiene.</th>       
+                      <td></td>
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
@@ -403,16 +415,16 @@ class App extends Component {
   
                   <MDBTableHead>
                     <tr>
-                      <th></th>
-                      <th>III. El esfuerzo mental que le exige su trabajo.</th>       
-                      <td></td> 
+                      <th width="5%"></th>
+                      <th width="70%">III. El esfuerzo mental que le exige su trabajo.</th>       
+                      <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td>9</td>
-                      <td>Mi trabajo exige que esté muy concentrado</td> 
-                      <td >{this.state.resultados[9].Respuestas}</td> 
+                      <td width="5%">9</td>
+                      <td width="70%">Mi trabajo exige que esté muy concentrado</td> 
+                      <td width="25%" >{this.state.resultados[9].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>10</td>
@@ -434,16 +446,16 @@ class App extends Component {
 
                   <MDBTableHead>
                     <tr>
-                      <th></th>
-                      <th>IV. Trabajo y las responsabilidades que tiene.</th>       
-                      <td ></td> 
+                      <th width="5%"></th>
+                      <th width="70%">IV. Trabajo y las responsabilidades que tiene.</th>       
+                      <td width="25%" ></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td>13</td>
-                      <td>En mi trabajo soy responsable de cosas de mucho valor</td>   
-                      <td >{this.state.resultados[13].Respuestas}</td> 
+                      <td width="5%">13</td>
+                      <td width="70%">En mi trabajo soy responsable de cosas de mucho valor</td>   
+                      <td width="25%" >{this.state.resultados[13].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>14</td>
@@ -464,16 +476,16 @@ class App extends Component {
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
-                      <th></th>
-                      <th>V. Jornada de trabajo.</th>       
-                      <td></td> 
+                      <th width="5%"></th>
+                      <th width="70%">V. Jornada de trabajo.</th>       
+                      <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td>17</td>
-                      <td>Trabajo horas extras más de tres veces a la semana</td>   
-                      <td>{this.state.resultados[17].Respuestas}</td> 
+                      <td width="5%">17</td>
+                      <td width="70%">Trabajo horas extras más de tres veces a la semana</td>   
+                      <td width="25%">{this.state.resultados[17].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>18</td>
@@ -504,16 +516,16 @@ class App extends Component {
                   <br/>
                   <MDBTableHead >
                     <tr>
-                      <th  width="10px"></th>
-                      <th  width="150px">VI. Decisiones que puede tomar en su trabajo.</th>       
-                      <td  width="60px"></td> 
+                      <th  width="5%"></th>
+                      <th  width="70%">VI. Decisiones que puede tomar en su trabajo.</th>       
+                      <td  width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td>23</td>
-                      <td>Mi trabajo permite que desarrolle nuevas habilidades</td>   
-                      <td>{this.state.resultados[23].Respuestas}</td> 
+                      <td width="5%">23</td>
+                      <td width="70%">Mi trabajo permite que desarrolle nuevas habilidades</td>   
+                      <td width="25%">{this.state.resultados[23].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>24</td>
@@ -526,9 +538,9 @@ class App extends Component {
                       <td>{this.state.resultados[25].Respuestas}</td> 
                     </tr>
                     <tr>
-                      <td>26</td>
-                      <td>Puedo decidir cuánto trabajo realizo durante la jornada laboral</td>   
-                      <td>{this.state.resultados[26].Respuestas}</td> 
+                      <td >26</td>
+                      <td >Puedo decidir cuánto trabajo realizo durante la jornada laboral</td>   
+                      <td >{this.state.resultados[26].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>27</td>
@@ -545,16 +557,16 @@ class App extends Component {
                   
                   <MDBTableHead>
                     <tr>
-                      <th width="10px"></th>
-                      <th width="150px">VII. Cualquier tipo de cambio que ocurra en su trabajo (considere los últimos cambios realizados).</th>       
-                      <td width="60px"> </td> 
+                      <th width="5%"></th>
+                      <th width="70%">VII. Cualquier tipo de cambio que ocurra en su trabajo (considere los últimos cambios realizados).</th>       
+                      <td width="25%"> </td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td  width="10px">29</td>
-                      <td  width="150px">Los cambios que se presentan en mi trabajo dificultan mi labor</td>   
-                      <td  width="60px">{this.state.resultados[29].Respuestas}</td> 
+                      <td  width="5%">29</td>
+                      <td  width="70%">Los cambios que se presentan en mi trabajo dificultan mi labor</td>   
+                      <td  width="25%">{this.state.resultados[29].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>30</td>
@@ -565,16 +577,16 @@ class App extends Component {
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
-                      <th></th>
-                      <th>VIII. capacitación e información que se le proporciona sobre su trabajo.</th>       
-                      <td></td> 
+                      <th width="5%"></th>
+                      <th width="70%">VIII. capacitación e información que se le proporciona sobre su trabajo.</th>       
+                      <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td>31</td>
-                      <td>Me informan con claridad cuáles son mis funciones</td>   
-                      <td>{this.state.resultados[31].Respuestas}</td> 
+                      <td width="5%">31</td>
+                      <td width="70%">Me informan con claridad cuáles son mis funciones</td>   
+                      <td width="25%">{this.state.resultados[31].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>32</td>
@@ -606,16 +618,16 @@ class App extends Component {
 
                   <MDBTableHead>
                     <tr>
-                      <th></th>
-                      <th>IX. Jefes con quien tiene contacto.</th>       
-                      <td></td> 
+                      <th width="5%"></th>
+                      <th width="70%">IX. Jefes con quien tiene contacto.</th>       
+                      <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td>37</td>
-                      <td>Mi jefe ayuda a organizar mejor el trabajo</td>   
-                      <td>{this.state.resultados[37].Respuestas}</td> 
+                      <td width="5%">37</td>
+                      <td width="70%">Mi jefe ayuda a organizar mejor el trabajo</td>   
+                      <td width="25%">{this.state.resultados[37].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>38</td>
@@ -642,16 +654,16 @@ class App extends Component {
 
                   <MDBTableHead>
                     <tr>
-                      <th></th>
-                      <th>X. Relaciones con sus compañeros.</th>       
-                      <td></td> 
+                      <th width="5%"></th>
+                      <th width="70%">X. Relaciones con sus compañeros.</th>       
+                      <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                   <tr>
-                      <td>42</td>
-                      <td>Puedo confiar en mis compañeros de trabajo</td>   
-                      <td>{this.state.resultados[42].Respuestas}</td> 
+                      <td width="5%">42</td>
+                      <td width="70%">Puedo confiar en mis compañeros de trabajo</td>   
+                      <td width="25%">{this.state.resultados[42].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>43</td>
@@ -678,16 +690,16 @@ class App extends Component {
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
-                      <th  width="10px"></th>
-                      <th  width="150px">XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento, el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</th>       
-                      <td  width="60px"></td> 
+                      <th  width="5px"></th>
+                      <th  width="70px">XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento, el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</th>       
+                      <td  width="25px"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                   <tr>
-                      <td>47</td>
-                      <td>Me informan sobre lo que hago bien en mi trabajo</td>   
-                      <td>{this.state.resultados[47].Respuestas}</td> 
+                      <td width="5%">47</td>
+                      <td width="70%">Me informan sobre lo que hago bien en mi trabajo</td>   
+                      <td width="25%">{this.state.resultados[47].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>48</td>
@@ -734,31 +746,21 @@ class App extends Component {
                       <td>Me siento comprometido con mi trabajo</td>   
                       <td>{this.state.resultados[56].Respuestas}</td> 
                     </tr>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
+               
                   </MDBTableBody>
 
                   <MDBTableHead>
                     <tr>
-                      <th width="10%"></th>
-                      <th width="150%">XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</th>       
-                      <td width="60%"></td> 
+                      <th width="5%"></th>
+                      <th width="70%">XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</th>       
+                      <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                   <tr>
-                      <td>57</td>
-                      <td>En mi trabajo puedo expresarme libremente sin interrupciones</td>   
-                      <td>{this.state.resultados[57].Respuestas}</td> 
+                      <td width="5%">57</td>
+                      <td width="70%">En mi trabajo puedo expresarme libremente sin interrupciones</td>   
+                      <td width="25%">{this.state.resultados[57].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>58</td>
@@ -799,16 +801,16 @@ class App extends Component {
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
-                      <th></th>
-                      <th>XIII. Atención a clientes y usuarios.</th>       
-                      <td></td> 
+                      <th width="5%"></th>
+                      <th width="70%">XIII. Atención a clientes y usuarios.</th>       
+                      <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                   <tr>
-                      <td>65</td>
-                      <td>Atiendo clientes o usuarios muy enojados</td>   
-                      <td>{this.state.resultados[65].Respuestas}</td> 
+                      <td width="5%">65</td>
+                      <td width="70%">Atiendo clientes o usuarios muy enojados</td>   
+                      <td width="25%">{this.state.resultados[65].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>66</td>
@@ -830,16 +832,16 @@ class App extends Component {
 
                   <MDBTableHead>
                     <tr>
-                      <th></th>
-                      <th>XIV.  Las actitudes de las personas que supervisa.</th>       
-                      <td></td> 
+                      <th width="5%"></th>
+                      <th width="70%">XIV.  Las actitudes de las personas que supervisa.</th>       
+                      <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                   <tr>
-                      <td>69</td>
-                      <td>Comunican tarde los asuntos de trabajo</td>   
-                      <td>{this.state.resultados[69].Respuestas}</td> 
+                      <td width="5%">69</td>
+                      <td width="70%"> Comunican tarde los asuntos de trabajo</td>   
+                      <td width="25%">{this.state.resultados[69].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>70</td>

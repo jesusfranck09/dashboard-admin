@@ -16,6 +16,8 @@ import { TextField, Radio, Select } from 'final-form-material-ui';
 import MiniDrawer from './Sidebar'
 import { DialogUtility } from '@syncfusion/ej2-popups';
 
+import diagnostico from '../images/diagnostico.png'
+
  function onSubmit (values) {
 	};
 
@@ -154,7 +156,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
                    <MiniDrawer/>
                     <MDBNavbarBrand a href="./inicio">
                     <AppNavbarBrand
-                        full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
+                    full={{ src: diagnostico, width: 100, height: 33, alt: 'DIAGNOSTICO' }} />                       
                     </MDBNavbarBrand>
                     <MDBNavbarBrand >
                     <strong> Registrar Puestos</strong>

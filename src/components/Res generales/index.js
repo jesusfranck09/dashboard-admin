@@ -6,6 +6,8 @@ import Sidebar from '../Home/sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logo.png'
 import logotipo from '../images/logotipo.png'
+import diagnostico from '../images/diagnostico.png'
+
 
 import '../Home/index.css'
 import usuario from '../images/usuario.png'
@@ -1449,41 +1451,41 @@ let celda;
 let criterios;
 
 if(general<20){
-celda = <TableCell width="10%"  style={{backgroundColor: "#51EAFF"}}>Nulo o Despreciable</TableCell>
-criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</TableCell>
+celda = <TableCell width="10%"  style={{backgroundColor: "#51EAFF"}}><font size="1" face="arial"color="black">Nulo o Despreciable</font></TableCell>
+criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
 }else if(general>=20 && general < 45){
-  celda = <TableCell width="10%" style={{backgroundColor: "#45D09E"}} >Bajo</TableCell>
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}>Es necesario una mayor difusión de la política de prevención de riesgos
+  celda = <TableCell width="10%" style={{backgroundColor: "#45D09E"}} ><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black"> necesario una mayor difusión de la política de prevención de riesgos
   psicosociales y programas para: la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
-  prevención de la violencia laboral.</TableCell>
+  prevención de la violencia laboral.</font></TableCell>
 }else if(general>=45 && general < 70){
-  celda = <TableCell width="10%"  style={{backgroundColor: "#FFD600"}} >Medio</TableCell>
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} >Se requiere revisar la política de prevención de riesgos psicosociales y
+  celda = <TableCell width="10%"  style={{backgroundColor: "#FFD600"}} ><font size="1" face="arial"color="black">Medio</font></TableCell>
+  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black">Se requiere revisar la política de prevención de riesgos psicosociales y
   programas para la prevención de los factores de riesgo psicosocial, la
   promoción de un entorno organizacional favorable y la prevención de la
   violencia laboral, así como reforzar su aplicación y difusión, mediante un
-  Programa de intervención.</TableCell>
+  Programa de intervención.</font></TableCell>
 }else if(general>=70 && general < 90){
- celda = <TableCell  width="10%" style={{backgroundColor: "#FF905A"}} >Alto</TableCell>
- criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} >Se requiere realizar un análisis de cada categoría y dominio, de manera que
+ celda = <TableCell  width="10%" style={{backgroundColor: "#FF905A"}} ><font size="1" face="arial"color="black">Alto</font></TableCell>
+ criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black">Se requiere realizar un análisis de cada categoría y dominio, de manera que
  se puedan determinar las acciones de intervención apropiadas a través de un
  Programa de intervención, que podrá incluir una evaluación específica y
  deberá incluir una campaña de sensibilización, revisar la política de
  prevención de riesgos psicosociales y programas para la prevención de los
  factores de riesgo psicosocial, la promoción de un entorno organizacional
  favorable y la prevención de la violencia laboral, así como reforzar su
- aplicación y difusión.</TableCell>
+ aplicación y difusión.</font></TableCell>
 }
 else if( general > 90){
-  celda  = <TableCell width="10%"  style={{backgroundColor: "#E20338"}}>Muy Alto</TableCell>
-  criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} >Se requiere realizar el análisis de cada categoría y dominio para establecer
+  celda  = <TableCell width="10%"  style={{backgroundColor: "#E20338"}}><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black">Se requiere realizar el análisis de cada categoría y dominio para establecer
   las acciones de intervención apropiadas, mediante un Programa de
   intervención que deberá incluir evaluaciones específicas, y contemplar
   campañas de sensibilización, revisar la política de prevención de riesgos
   psicosociales y programas para la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
-  prevención de la violencia laboral, así como reforzar su aplicación y difusión.</TableCell>
+  prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
 }
 
 
@@ -2135,7 +2137,7 @@ ponderacion=<React.Fragment>
                           
                                     <MDBTableBody>     
                             <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-                            <font size="3"face="arial"color="black">Diagnóstico Global de factores de riesgo psicosocial y evaluación de entorno organizacional en los centros de trabajo</font><br></br>
+                            <font size="3"face="arial"color="black">Diagnóstico Global de factores de riesgo psicosocial  en los centros de trabajo</font><br></br>
                             <font size="1"face="arial"color="black">{this.state.date}</font><br/>
                             <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
                             <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>
@@ -2182,9 +2184,8 @@ ponderacion=<React.Fragment>
                               <MDBTableBody>
                               <font size="1"
                               face="arial"
-                              color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA III -
-                              CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y
-                              EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>   <br/>  
+                              color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA II -
+                              CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font>   <br/>  
                                 </MDBTableBody>
                                 </MDBTable>
                                 <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
@@ -2301,17 +2302,19 @@ ponderacion=<React.Fragment>
                                           <td width="15px"><font size="1" face="arial"color="black">{DominioCuatro}</font></td>
                                           {colorDominioCuatro}
                                           </tr>
-                                        <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Interferencia en la relación trabajo-familia</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{DominioCinco}</font></td>
-                                          {colorDominioCinco}  
-                                        </tr>
+                                       
                                         
                                       </MDBTableBody>
                                       </MDBTable>
                                       <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
                                       <MDBTableBody>
+                                      
+                                      <tr>         
+                                          <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
+                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Interferencia en la relación trabajo-familia</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{DominioCinco}</font></td>
+                                          {colorDominioCinco}  
+                                        </tr>
                                           <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >6</font></td>
                                           <td width="60px" className="text-left"><font size="1" face="arial"color="black">Liderazgo</font></td>
@@ -2350,105 +2353,105 @@ ponderacion=<React.Fragment>
                                         <tr>           
                                         <td width="5px"><font size="1" face="arial"color="black" >1</font></td>
                                         <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Condiciones peligrosas e inseguras</font></td>
-                                        <td width="15px"><font size="1" face="arial"color="black">{respuesta1}</font></td>
+                                        <td width="15px"><font size="1" face="arial"color="black">{respuesta1/length}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >2</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Condiciones deficientes e insalubres</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta2}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta2/length}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >3</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta3}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta3/length}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >4</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta4+respuesta9)}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta4/length)+(respuesta9/length)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta5+respuesta6}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta5/length)+(respuesta6/length)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >6</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Carga mental</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta7+respuesta8}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta7/length)+(respuesta8/length)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >7</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas psicológicas emocionales</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta41+respuesta42+respuesta43}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta41/length)+(respuesta42/length)+(respuesta43/length)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >8</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas de alta responsabilidad</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta10+respuesta11}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta10/length)+(respuesta11/length)}</font></td>
                                         </tr>
 
 
                                         <tr>           
                                         <td width="5px"><font size="1" face="arial"color="black" >9</font></td>
                                         <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Cargas contradictorias o inconsistentes</font></td>
-                                        <td width="15px"><font size="1" face="arial"color="black">{respuesta12+respuesta13}</font></td>
+                                        <td width="15px"><font size="1" face="arial"color="black">{(respuesta12/length)+(respuesta13/length)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >10</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Falta de control y autonomía sobre el trabajo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta20+respuesta21+respuesta22}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta20/length)+(respuesta21/length)+(respuesta22/length)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >11</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitada o nula posibilidad de desarrollo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta23+respuesta24}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta18/length)+(respuesta19/length)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >12</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitada o inexistente capacitación</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta26+respuesta27)}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta26/length)+(respuesta27/length)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >13</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Jornadas de trabajo extensas</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta14+respuesta15}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta14/length)+(respuesta15/length)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >14</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Influencia del trabajo fuera del centro laboral</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta16}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta16/length)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >15</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Influencia de las responsabilidades familiares</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta17)}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta17/length)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >16</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Escasa claridad de funciones</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta23+respuesta24+respuesta25}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta23/length)+(respuesta24/length)+(respuesta25/length)}</font></td>
                                         </tr>
 
                                         <tr>           
                                         <td width="5px"><font size="1" face="arial"color="black" >17</font></td>
                                         <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Características del liderazgo</font></td>
-                                        <td width="15px"><font size="1" face="arial"color="black">{respuesta28+respuesta29}</font></td>
+                                        <td width="15px"><font size="1" face="arial"color="black">{(respuesta28/length)+(respuesta29/length)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >18</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Relaciones sociales en el trabajo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta30+respuesta31+respuesta32}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta30/length)+(respuesta31/length)+(respuesta32/length)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >19</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Deficiente relación con los colaboradores que Supervisa</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta44+respuesta45+respuesta46}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta44/length)+(respuesta45/length)+(respuesta46/length)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >20</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Violencia laboral</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta33/length)+(respuesta34/length)+(respuesta35/length)+(respuesta36/length)+(respuesta37/length)+(respuesta38/length)+(respuesta39/length)+(respuesta40/length)}</font></td>
                                           </tr>
                               
                                       </MDBTableBody>
@@ -2491,32 +2494,40 @@ ponderacion=<React.Fragment>
             <Sidebar/>
               <MDBNavbarBrand a href="./inicio">
               <AppNavbarBrand
-                  full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
+                  full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
               </MDBNavbarBrand>
-
               <MDBNavbarBrand>
-               Resultados Globales de la Encuesta Riesgo Psicosocial
+                Resultados Globales de la Encuesta Riesgo Psicosocial
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
-                <MDBNavbarNav >   
-                </MDBNavbarNav>
-                <strong>{this.state.date}</strong> 
+              &nbsp;&nbsp;&nbsp;
+              
+                <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
                 <MDBNavbarNav right>
+                              
+           
                 <MDBNavbarBrand>
+                <AppNavbarBrand
+                  full={{ src: logotipo, width: 80, height:25 , alt: 'ADS' }} /> 
               <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
               {this.state.nombre}
               </MDBNavbarBrand>
               <MDBNavbarBrand>
+              
               <MDBNavItem>
-              <MDBDropdown>  
-                <MDBDropdownToggle nav caret> 
+                
+              <MDBDropdown>
+                
+                <MDBDropdownToggle nav caret>
+               
                 </MDBDropdownToggle>
                 <MDBDropdownMenu className="dropdown-default">
                   <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
                   <MDBDropdownItem href="#!">Configuración</MDBDropdownItem>
                   <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
                   <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
+
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>

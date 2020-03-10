@@ -10,6 +10,7 @@ import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import '../Home/index.css'
 import { DialogUtility } from '@syncfusion/ej2-popups';
+import diagnostico from '../images/diagnostico.png'
 
 import MiniDrawer from '../adminGeneral/Sidebar'
 
@@ -68,7 +69,7 @@ import {
 			   <MiniDrawer/>
 				<MDBNavbarBrand a href="./inicio">
 				<AppNavbarBrand
-					full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
+                    full={{ src: diagnostico, width: 100, height: 33, alt: 'DIAGNOSTICO' }} />               
 				</MDBNavbarBrand>
 				<MDBNavbarBrand >
 				<strong> Registrar Empleados</strong>

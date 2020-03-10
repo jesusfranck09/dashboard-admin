@@ -5,6 +5,7 @@ import {
 	Button,
 	MenuItem,
   } from '@material-ui/core';
+  import diagnostico from '../images/diagnostico.png'
 
 import axios from 'axios';
 import {Alert } from 'reactstrap'
@@ -357,7 +358,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
                    <MiniDrawer/>
                     <MDBNavbarBrand a href="./inicio">
                     <AppNavbarBrand
-                        full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
+                    full={{ src: diagnostico, width: 100, height: 33, alt: 'DIAGNOSTICO' }} />             
                     </MDBNavbarBrand>
                     <MDBNavbarBrand >
                     <strong> Registrar Centros de Trabajo</strong>

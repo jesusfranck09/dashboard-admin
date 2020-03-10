@@ -17,11 +17,12 @@ import { MDBBadge} from "mdbreact";
 import { PDFExport } from '@progress/kendo-react-pdf';
 import logo from '../images/logo.png'
 import logotipo from '../images/logotipo.png'
+import diagnostico from '../images/diagnostico.png'
 
 
 import {Alert,Badge} from 'reactstrap'
 class App extends Component {
-  pdfExportComponent =(props)=><span><font size="1"face="arial"color="red">diagnostico.com</font><br/><font size="1"face="arial"color="gray">{props.pageNum}</font></span>;
+  pdfExportComponent ;
   constructor(props) {
     super(props);
     this.state = {
@@ -290,7 +291,7 @@ class App extends Component {
           }
     
   render(){
-    const container = { marginLeft:20}
+    const container = { marginLeft:60}
     let pdfView1;
     let pdfView2;
     if(this.state.resultados[2]){ 
@@ -313,6 +314,19 @@ class App extends Component {
                     margin="2cm"
                     ref={(component) => this.pdfExportComponent = component}
                 >
+                          
+          <MDBTable small borderless className="mt-4 text-center" >
+            <MDBTableBody>
+              <tr>
+                <td width ="50%"> <img src={logotipo} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                <td width ="50%">
+                <img src={diagnostico} alt="logo" style = {{width:100,marginBottom:30}}/>
+
+                </td>
+              </tr>
+           
+            </MDBTableBody>        
+            </MDBTable>
           <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font>
           <font face="arial " className = "mt-4 " > {localStorage.getItem("razonsocial")}</font>
                 <MDBContainer style={container}>
@@ -335,13 +349,13 @@ class App extends Component {
                 </MDBTable>
                 </MDBContainer>
                 
-                <MDBContainer>
-                <MDBTable component={Paper}  small borderless className="text-left mt-4 " responsive className="mt-4 text-left">
+                <MDBContainer style={{marginLeft:20}}>
+                <MDBTable component={Paper}  small borderless className="text-left mt-4 ml-4 " responsive className="mt-4 text-left">
                   <MDBTableHead>
                     <tr>
-                      <th width="10%"></th>
+                      <th width="5%"></th>
                       <th  width="70%">I. Las condiciones de su centro de trabajo, así como la cantidad y ritmo de trabajo.</th>    
-                      <td></td>   
+                      <td width="25%"></td>   
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
@@ -485,17 +499,13 @@ class App extends Component {
                       <td>Puedo cambiar el orden de las actividades que realizo en mi trabajo.</td>   
                       <td >{this.state.resultados[22].Respuestas}</td> 
                     </tr>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
+                  
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
-                      <th width="10%"></th>
+                      <th width="5%"></th>
                       <th width="70%">V. La capacitación e información que recibe sobre su trabajo.</th>       
-                      <td ></td> 
+                      <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
@@ -816,7 +826,6 @@ else if( total > 90){
   psicosociales y programas para la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
   prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
- colorCategoriaUno = <TableCell style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
  color = <TableCell style={ {backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   celda5  = <TableCell style={{backgroundColor: "#E20338"}} align="right">{total}</TableCell>
 }

@@ -12,6 +12,8 @@ import {MDBRow, MDBNavItem,MDBNavbarNav, MDBNavLink, MDBContainer, MDBNavbar, MD
 import { Form, Field } from 'react-final-form';
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
+import diagnostico from '../images/diagnostico.png'
+
 import { TextField, Radio, Select } from 'final-form-material-ui';
 import MiniDrawer from './Sidebar'
 import { DialogUtility } from '@syncfusion/ej2-popups';
@@ -154,7 +156,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
                    <MiniDrawer/>
                     <MDBNavbarBrand a href="./inicio">
                     <AppNavbarBrand
-                        full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
+                    full={{ src: diagnostico, width: 100, height: 33, alt: 'DIAGNOSTICO' }} />           
                     </MDBNavbarBrand>
                     <MDBNavbarBrand >
                     <strong> Registrar Departamento</strong>

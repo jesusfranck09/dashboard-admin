@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { BrowserRouter as Router } from "react-router-dom";
 import { InputGroup, InputGroupAddon, InputGroupText,Input } from 'reactstrap';
 import logo from '../../images/logotipo.png'
+import diagnostico from '../../images/diagnostico.png'
+
 import { AppNavbarBrand } from '@coreui/react';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -157,7 +159,7 @@ handleInput = (e) => {
               <MDBContainer>
                 <MDBNavbarBrand>
                 <AppNavbarBrand
-                  full={{ src: logo, width: 89, height: 25, alt: 'ADS' }} />
+                    full={{ src: diagnostico, width: 140, height: 45, alt: 'DIAGNOSTICO' }} />
                   <strong className="white-text">Bienvenido</strong>
                 </MDBNavbarBrand>
      

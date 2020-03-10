@@ -5,6 +5,7 @@ import { AppNavbarBrand } from '@coreui/react';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
+import diagnostico from '../../images/diagnostico.png'
 
 import {
 	Paper,
@@ -974,7 +975,7 @@ if(this.state.datosEmpresas =='1'){
               <MDBContainer>
                 <MDBNavbarBrand>
                 <AppNavbarBrand
-                  full={{ src: logo, width: 89, height: 25, alt: 'ADS' }} />
+                    full={{ src: diagnostico, width: 100, height: 33, alt: 'DIAGNOSTICO' }} />
                   <strong className="white-text">Empresas</strong>
                 </MDBNavbarBrand>
      

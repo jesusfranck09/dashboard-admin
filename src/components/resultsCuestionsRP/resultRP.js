@@ -3,6 +3,7 @@ import {MDBRow,MDBCol, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MD
 import Sidebar from '../Home/sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
+import diagnostico from '../images/diagnostico.png'
 import '../Home/index.css'
 import usuario from '../images/usuario.png'
 import Button from '@material-ui/core/Button';
@@ -140,36 +141,44 @@ ads(){
       <React.Fragment>
       <div>
           <header>
-            <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
+          <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
             <Sidebar/>
               <MDBNavbarBrand a href="./inicio">
               <AppNavbarBrand
-                  full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
+                  full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
               </MDBNavbarBrand>
-
               <MDBNavbarBrand>
-               Resultados de la Encuesta Riesgo Psicosocial
+                Resultados de la Encuesta Riesgo Psicosocial
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
-                <MDBNavbarNav >   
-                </MDBNavbarNav>
-                <strong>{this.state.date}</strong> 
+              &nbsp;&nbsp;&nbsp;
+              
+                <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
                 <MDBNavbarNav right>
+                              
+           
                 <MDBNavbarBrand>
+                <AppNavbarBrand
+                  full={{ src: logo, width: 80, height:25 , alt: 'ADS' }} /> 
               <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
               {this.state.nombre}
               </MDBNavbarBrand>
               <MDBNavbarBrand>
+              
               <MDBNavItem>
-              <MDBDropdown>  
-                <MDBDropdownToggle nav caret> 
+                
+              <MDBDropdown>
+                
+                <MDBDropdownToggle nav caret>
+               
                 </MDBDropdownToggle>
                 <MDBDropdownMenu className="dropdown-default">
                   <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
                   <MDBDropdownItem href="#!">Configuración</MDBDropdownItem>
                   <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
                   <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
+
                 </MDBDropdownMenu>
               </MDBDropdown>
             </MDBNavItem>

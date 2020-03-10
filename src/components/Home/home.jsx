@@ -3,6 +3,7 @@ import {MDBRow, MDBContainer,MDBBadge, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, 
 import Sidebar from './sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
+import diagnostico from '../images/diagnostico.png'
 import './index.css'
 import usuario from '../images/usuario.png'
 import Avatar from '@material-ui/core/Avatar';
@@ -1531,7 +1532,7 @@ alerta3 =  (deadline) => {
             <Sidebar/>
               <MDBNavbarBrand a href="./inicio">
               <AppNavbarBrand
-                  full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
+                  full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
@@ -1549,7 +1550,11 @@ alerta3 =  (deadline) => {
               
     <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
                 <MDBNavbarNav right>
+                              
+           
                 <MDBNavbarBrand>
+                <AppNavbarBrand
+                  full={{ src: logo, width: 80, height:25 , alt: 'ADS' }} /> 
               <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
               {this.state.nombre}
               </MDBNavbarBrand>

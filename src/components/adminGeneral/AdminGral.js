@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import {MDBRow,MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBContainer, MDBNavbar,MDBNavbarNav, MDBNavbarBrand, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol, MDBCardHeader, MDBTable} from 'mdbreact';
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
@@ -20,18 +20,24 @@ import { TextField ,Select} from 'final-form-material-ui';
 import {
 	MenuItem,
   } from '@material-ui/core';
-  import InputLabel from '@material-ui/core/InputLabel';
-
-
+  import MenuIcon from '@material-ui/icons/Menu';
+  import 'date-fns';
+  import DateFnsUtils from '@date-io/date-fns';
 import {
   Grid,
   Button,
 
 } from '@material-ui/core';
+import diagnostico from '../images/diagnostico.png'
 import axios from 'axios'
 import {Alert} from 'reactstrap';
 import { MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
-
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+  } from '@material-ui/pickers';
+  import esLocale from "date-fns/locale/es";
+import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
 
 class AdminGral extends React.Component {
     constructor(props) {
@@ -51,11 +57,20 @@ class AdminGral extends React.Component {
         updateRowsDeptos:[],
         updateRowsPuestos:[],
         periodo:[],
+        inicial:null,
+        final:null,
+        Alerta1:null,
+        Alerta2:null,
+        Alerta3:null,
+        registrarPeriodo:'',
+        editarPeriodo:'',
+        imagePreviewUrl: ''
         // periodoDesactivado:[],
       };
       this.getEmployees = this.getEmployees.bind(this);
 
-      
+      this.handleImageChange = this.handleImageChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
   
     componentWillMount(){
@@ -71,14 +86,15 @@ class AdminGral extends React.Component {
             getPeriodo(data:"${[idAdmin]}"){
               idEventos
               fk_administrador
-              evento
+              Descripcion
+
                   }
                 }
               `
           }
         })
         .then(datos => {	
-          console.log("exito",datos)
+          console.log("exito eventos",datos)
           this.setState({periodo:datos.data.data.getPeriodo})
         }).catch(err=>{
           console.log("error",err.response)
@@ -761,11 +777,10 @@ class AdminGral extends React.Component {
                 } 
               }
           NuevoPeriodo(values){
-            if(values.periodoNuevo){
-            // if(values) 
+            if(values.NombrePeriodo && this.state.inicial && this.state.final && this.state.Alerta1&& this.state.Alerta1&& this.state.Alerta2&& this.state.Alerta3){
+
             const idAdmin=localStorage.getItem("idAdmin")
             const url = 'http://localhost:8000/graphql'
-
             axios({
               url:  url,
               method:'post',
@@ -797,7 +812,7 @@ class AdminGral extends React.Component {
               data:{
               query:`
                mutation{
-                addPeriodo(data:"${[values.periodoNuevo,idAdmin]}"){
+                addPeriodo(data:"${[values.NombrePeriodo,this.state.inicial,this.state.final,this.state.Alerta1,this.state.Alerta2,this.state.Alerta3,idAdmin]}"){
                     message
                       }
                     }
@@ -819,20 +834,83 @@ class AdminGral extends React.Component {
                 DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },        
                   title:"AVISO!",   
-                  content: 'El periodo ya fue registrado con anterioridad',
+                  content: 'El nombre del periodo ya fue registrado con anterioridad',
                   position: "fixed",
                 }
                 )
-              }
-
-            
-             
+              }   
             })
               }
             }).catch(err=>{
-              console.log("error en la consulta del evento" , err.response)})
-
+              console.log("error en la consulta del evento" , err.response)}) 
+            }else{
+              DialogUtility.alert({
+                animationSettings: { effect: 'Fade' },        
+                title:"AVISO!",   
+                content: 'Por favor ingrese algún valor',
+                position: "fixed",
+              }
+              )
             }
+          }
+
+          editarPeriodo(values){  
+            if(values.NombrePeriodo && this.state.final && this.state.Alerta1 && this.state.Alerta2 && this.state.Alerta3){    
+            const idAdmin=localStorage.getItem("idAdmin")
+            const url = 'http://localhost:8000/graphql'    
+            console.log("entro aqui")                  
+            axios({
+              url:  url,
+              method:'post',
+              data:{
+              query:`
+               mutation{
+                updatePeriodo(data:"${[values.NombrePeriodo,this.state.final,this.state.Alerta1,this.state.Alerta2,this.state.Alerta3,idAdmin]}"){
+                    message
+                      }
+                    }
+                  `
+              }
+            })
+            .then(datos => {	
+              if(datos.data.data.updatePeriodo.message=='evento existente'){
+                DialogUtility.alert({
+                  animationSettings: { effect: 'Fade' },        
+                  title:"AVISO!",   
+                  content: 'El nombre del periodo ya corresponde a un evento registrado y deshabilitado con anterioridad por favor ingrese uno diferente',
+                  position: "fixed",
+                }
+                )
+              }else if (datos.data.data.updatePeriodo.message=='no hay eventos'){
+                DialogUtility.alert({
+                  animationSettings: { effect: 'Fade' },        
+                  title:"AVISO!",   
+                  content: 'No existe ningun periodo Activo por favor registre uno antes de editar',
+                  position: "fixed",
+                }
+                )
+              }else if ( datos.data.data.updatePeriodo.message=='evento Actualizdo'){
+                DialogUtility.alert({
+                  animationSettings: { effect: 'Fade' },        
+                  title:"AVISO!",   
+                  content: 'periodo Actualizado con éxito',
+                  position: "fixed",
+                }
+                )
+                window.location.reload();
+              }
+            }).catch(err=>{
+              console.log("error" , err.response)
+            })
+          }else{
+            DialogUtility.alert({
+              animationSettings: { effect: 'Fade' },        
+              title:"AVISO!",   
+              content:'Por favor complete todos los campos',
+              position: "fixed",
+            }
+            ) 
+          }
           }
 
           DesactivarPeriodo(values){
@@ -876,76 +954,395 @@ class AdminGral extends React.Component {
           }
           }
 
-          // HabilitarPeriodo(values){
-          //   if(values.habilitar){
-          //   const idAdmin=localStorage.getItem("idAdmin")
-          //   const url = 'http://localhost:8000/graphql'
-          //   axios({
-          //     url:  url,
-          //     method:'post',
-          //     data:{
-          //     query:`
-          //      query{
-          //       getEventos(data:"${[idAdmin]}"){
-          //           message
-          //             }
-          //           }
-          //         `
-          //     }
-          //   }) .then(datos => {
-          //     console.log("datos",datos)	
-          //     if(datos.data.data.getEventos.message=="evento encontrado"){
-          //       DialogUtility.alert({
-          //         animationSettings: { effect: 'Fade' },        
-          //         title:"AVISO!",   
-          //         content: 'Hay un evento Activo por favor deshabilitelo y vuelva a intentar',
-          //         position: "fixed",
-          //       }
-          //       )
-          //     }else if(datos.data.data.getEventos.message=="exito"){
-          //       axios({
-          //         url:  url,
-          //         method:'post',
-          //         data:{
-          //         query:`
-          //          mutation{
-          //           updatePeriodo(data:"${[values.habilitar,idAdmin]}"){
-          //               message
-          //                 }
-          //               }
-          //             `
-          //         }
-          //       })
-          //       .then(datos => {	
-                 
-          //         DialogUtility.alert({
-          //           animationSettings: { effect: 'Fade' },        
-          //           title:"AVISO!",   
-          //           content: 'Periodo Habilitado con Éxito',
-          //           position: "fixed",
-                  
-          //         }
-          //         )
-    
-          //         window.location.reload();
-          //       })
-          //     }
-          //   })
-          // }else{
-          //   DialogUtility.alert({
-          //     animationSettings: { effect: 'Fade' },        
-          //     title:"AVISO!",   
-          //     content: 'Por favor seleccione una opción',
-          //     position: "fixed",
+           handleDateChange = date => {
+            this.setState({inicial:date})
+          
+          };
+           handleDateChange2 = date2 => {
+            this.setState({final:date2})
+              console.log("data" , date2)
+            };    
+            handleAlerta1 = date => {
+                this.setState({Alerta1:date})
+         
+                }; 
+            handleAlerta2 = date => {
+            this.setState({Alerta2:date})
             
-          //   }
-          //   )
-          // }
-          // }
+            }; 
+            handleAlerta3 = date => {
+            this.setState({Alerta3:date})
+        
+                };  
 
+                handleSubmit() {
+                  // var fd = new FormData();
+ 
+                  // fd.append('file', this.state.file);
+                  // const idAdmin=localStorage.getItem("idAdmin")
+                  // const url = 'http://localhost:8000/graphql'
+                  // // axios({
+                  // //   url:  url,
+                  // //   method:'post',
+                  // //   data:{
+                  // //   query:`
+                  // //   mutation{
+                  // //     loadLogo(data:"${[idAdmin]}"){
+                  // //         IMAGE
+                  // //           }
+                  // //         }
+                  // //       `
+                  // //   }
+                  // // })
+                  // // .then(datos => {	
+                  // //   // console.log("exito",datos)
+                  // //  
+                  // // console.log("exito " ,datos)}).catch(err=>{
+                  // //   console.log("error" , err.response)
+                  // // })
+
+
+                  // axios({
+                  //   url:  url,
+                  //   method:'post',
+                  //   data:{
+                  //   query:`
+                  //   query{
+                  //     getImage(data:"${[idAdmin]}"){
+                  //         image
+                  //           }
+                  //         }
+                  //       `
+                  //   }
+                  // })
+                  // .then(datos => {	
+                   
+                  // console.log("exito " ,datos)}).catch(err=>{
+                  //   console.log("error" , err.response)
+                  // })
+                  // TODO: do something with -> this.state.file
+                }
+              handleImageChange(e) {
+                // e.preventDefault();
+            
+                let reader = new FileReader();
+                let file = e.target.files[0];
+            
+                reader.onloadend = () => {
+                  this.setState({
+                    file: file,
+                    imagePreviewUrl: reader.result
+                  });
+                }
+                reader.readAsDataURL(file)
+                console.log("file" , file)
+
+                // console.log("image" , this.state.imagePreviewUrl)
+              }
+            
     render() {
+      let {imagePreviewUrl} = this.state;
+      let imagePreview = null;
+      if (imagePreviewUrl) {
+        imagePreview = (<img src={imagePreviewUrl} />);
+      }
+
+      let editarPeriodo;
+      if(this.state.editarPeriodo=='1'){
+       
+        editarPeriodo =<Paper style={{ width: "70rem" }}>
+            <MDBCard style={{ width: "70rem" }} >
+                <MDBCardBody>
+                <MDBCardTitle>Periodo de Evaluación</MDBCardTitle>
+                    <Form
+                  onSubmit={this.onSubmit}
+                  render={({ handleSubmit, submitting,values }) => (
+                    <form onSubmit={handleSubmit}>
+                    
+                          <MDBRow>
+                         <MDBCol>    
+                         <Paper>
+                         <Grid item xs={12}  >
+                            <Field
+                              fullWidth
+                              required
+                              name="NombrePeriodo"
+                              component={TextField}
+                              type="text"
+                             label="Nombre del Periodo"
+                            />
+                            </Grid>
+                          <Grid item xs={12}  justify="center">
+                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>
+                                  
+                                  <KeyboardDatePicker
+                                  margin="normal"
+                                  id="date-picker-dialog"
+                                  label="Fecha Final"
+                                  format="dd/MM/yyyy"
+                                  value={this.state.final}
+                                  onChange={this.handleDateChange2}
+                                  
+                                  KeyboardButtonProps={{
+                                      'aria-label': 'change date',
+                                  }}
+                                  />
+
+                              </MuiPickersUtilsProvider>     
+                                              
+                          </Grid>
+                          
+                          </Paper>        
+                          </MDBCol>      
+                          <MDBCol>                  
+                            
+                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>
+                                                   {/* <Alert color="danger">LAs alertas que ingrese enviaran un correo electrónico a sus empleados en caso de no haber contestado su evaluación</Alert> */}
+                          <KeyboardDatePicker
+                              margin="normal"
+                              id="date-picker-dialog"
+                              label="Alerta 1"
+                              format="dd/MM/yyyy"
+                              value={this.state.Alerta1}
+                              onChange={this.handleAlerta1}
+                              
+                              KeyboardButtonProps={{
+                                  'aria-label': 'change date',
+                              }}
+                              />
+                          </MuiPickersUtilsProvider>
+                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>
+                                  
+                                  <KeyboardDatePicker
+                                  margin="normal"
+                                  id="date-picker-dialog"
+                                  label="Alerta 2"
+                                  format="dd/MM/yyyy"
+                                  value={this.state.Alerta2}
+                                  onChange={this.handleAlerta2}
+                                  
+                                  KeyboardButtonProps={{
+                                      'aria-label': 'change date',
+                                  }}
+                                  />
+
+                              </MuiPickersUtilsProvider>
+                              <Grid>
+                              <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>     
+                                  <KeyboardDatePicker
+                                  margin="normal"
+                                  id="date-picker-dialog"
+                                  label="Alerta 3"
+                                  format="dd/MM/yyyy"
+                                  value={this.state.Alerta3}
+                                  onChange={this.handleAlerta3}
+                                  
+                                  KeyboardButtonProps={{
+                                      'aria-label': 'change date',
+                                  }}
+                                  />
+
+                              </MuiPickersUtilsProvider>
+                              </Grid>
+                   
+                              <MDBBtn
+                              // variant="contained"
+                              color="success"                             
+                              style={{marginTop:25}}
+                              onClick={ e => this.editarPeriodo(values)}
+                            >
+                              Aceptar
+                            </MDBBtn>          
+                          </MDBCol> 
+                        
+                          </MDBRow>
+                     
+                    </form>
+                        )}
+                      />  
+                </MDBCardBody>                     
+                </MDBCard>
+                </Paper>
+      }
+
+        let registrarPeriodo ;
+
+        if(this.state.registrarPeriodo=='1'){
+          
+          registrarPeriodo =  <Paper style={{ width: "70rem" }}>
+            <MDBCard style={{ width: "70rem" }} >
+                <MDBCardBody>
+                <MDBCardTitle>Periodo de Evaluación</MDBCardTitle>
+                    <Form
+                  onSubmit={this.onSubmit}
+                  render={({ handleSubmit, submitting,values }) => (
+                    <form onSubmit={handleSubmit}>
+                    
+                          <MDBRow>
+                         <MDBCol>    
+                         <Paper>
+                       
+                            <Field
+                              fullWidth
+                              required
+                              name="NombrePeriodo"
+                              component={TextField}
+                              type="text"
+                             label="Nombre del Periodo"
+                            />
+
+                          <Grid item xs={12}>
+                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>
+                          <KeyboardDatePicker
+                              margin="normal"
+                              id="date-picker-dialog"
+                              label="Fecha Inicial"
+                              format="dd/MM/yyyy"
+                              value={this.state.inicial}
+                              onChange={this.handleDateChange}
+                              
+                              KeyboardButtonProps={{
+                                  'aria-label': 'change date',
+                              }}
+                              />
+                          </MuiPickersUtilsProvider>
+                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>
+                                  
+                                  <KeyboardDatePicker
+                                  margin="normal"
+                                  id="date-picker-dialog"
+                                  label="Fecha Final"
+                                  format="dd/MM/yyyy"
+                                  value={this.state.final}
+                                  onChange={this.handleDateChange2}
+                                  
+                                  KeyboardButtonProps={{
+                                      'aria-label': 'change date',
+                                  }}
+                                  />
+
+                              </MuiPickersUtilsProvider>                                 
+                          </Grid>
+                          <MDBBtn
+                              // variant="contained"
+                              color="primary"
+                              type="submit"
+                              disabled={submitting}
+                              onClick={(e) =>this.NuevoPeriodo(values)}
+                            >
+                              Registrar
+                            </MDBBtn>
+                          </Paper>        
+                          </MDBCol>      
+                          <MDBCol>
+                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>
+                                                   {/* <Alert color="danger">LAs alertas que ingrese enviaran un correo electrónico a sus empleados en caso de no haber contestado su evaluación</Alert> */}
+                          <KeyboardDatePicker
+                              margin="normal"
+                              id="date-picker-dialog"
+                              label="Alerta 1"
+                              format="dd/MM/yyyy"
+                              value={this.state.Alerta1}
+                              onChange={this.handleAlerta1}
+                              
+                              KeyboardButtonProps={{
+                                  'aria-label': 'change date',
+                              }}
+                              />
+                          </MuiPickersUtilsProvider>
+                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>
+                                  
+                                  <KeyboardDatePicker
+                                  margin="normal"
+                                  id="date-picker-dialog"
+                                  label="Alerta 2"
+                                  format="dd/MM/yyyy"
+                                  value={this.state.Alerta2}
+                                  onChange={this.handleAlerta2}
+                                  
+                                  KeyboardButtonProps={{
+                                      'aria-label': 'change date',
+                                  }}
+                                  />
+
+                              </MuiPickersUtilsProvider>
+                              <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap[locale]}>     
+                                  <KeyboardDatePicker
+                                  margin="normal"
+                                  id="date-picker-dialog"
+                                  label="Alerta 3"
+                                  format="dd/MM/yyyy"
+                                  value={this.state.Alerta3}
+                                  onChange={this.handleAlerta3}
+                                  
+                                  KeyboardButtonProps={{
+                                      'aria-label': 'change date',
+                                  }}
+                                  />
+
+                              </MuiPickersUtilsProvider>
+                          </MDBCol>  
+                          </MDBRow>
+                     
+                    </form>
+                        )}
+                      />  
+                
+                <MDBRow> 
+                <MDBCol>   
+                <Form
+                  onSubmit={this.onSubmit}
+                  render={({ handleSubmit, submitting,values }) => (
+                    <form onSubmit={handleSubmit}>
+                      <Paper style={{ padding: 10} }>
+                       <MDBRow>  
+                         <MDBCol>
+                         <Grid item xs={12}>
+                          <Field
+                          fullWidth
+                          name="deshabilitar"
+                          component={Select}
+                          label="Seleccione el Periodo a Deshabilitar"
+                          formControlProps={{ fullWidth: true }}
+                          >
+                         {this.state.periodo.map(row=>{
+                          return(<MenuItem value={row.Descripcion}>{row.Descripcion}</MenuItem>)
+                          })}
+                          </Field>
+                          </Grid>
+                          </MDBCol>
+                          <MDBCol>
+                              
+                          <MDBBtn
+                              style={{marginTop:14}}
+                              color="danger"
+                              type="submit"
+                              disabled={submitting}
+                              onClick={(e) => { if (window.confirm('Si desactiva el periodo no podrá habilitarlo nuevamente, Desea Continuar?')) this.DesactivarPeriodo(values)} }
+                          > 
+                              Deshabilitar Periodo
+                             </MDBBtn>
+                            
+                              </MDBCol>
+                          </MDBRow>
+                     
+                      </Paper>
+                    </form>
+                        )}
+                      />  </MDBCol>
+                      </MDBRow>         
+                </MDBCardBody>                     
+                </MDBCard>
+                </Paper>
+        }
+
+        const localeMap = {
+            es: esLocale
+          }; 
+
+          const locale = "es";
+
       let periodo;
-      console.log("este es el periodo" , this.state.periodo.length)
       if(this.state.periodo.length == 0){
        periodo = <Alert color="danger"> AVISO! : Por favor Registre otro periodo antes de salir, "Su sistema podria funcionar de manera Incorrecta". </Alert> 
 
@@ -955,7 +1352,6 @@ class AdminGral extends React.Component {
       let modalDeptos
       let modalPuestos
       if(this.state.modal13){
-        console.log("update rows" , this.state.updateRows)
        modal  =  <MDBContainer>
         <MDBModal isOpen={this.state.modal13} toggle={this.toggle(13)}>
           <MDBModalHeader toggle={this.toggle(13)}>
@@ -1027,70 +1423,7 @@ class AdminGral extends React.Component {
                           defaultValue={this.state.updateRows.RFC}
                         />
                       </Grid>
-                      {/* <Grid item xs={6}>
-                      <Field
-                      required
-                      fullWidth
-                      name="FechaNacimiento"
-                      component={Select}
-                      label={this.state.updateRows.FechaNacimiento}
-                      formControlProps={{ fullWidth: true }}
-                      >
-                      <MenuItem value="1950">1950</MenuItem>
-                      <MenuItem value="1951">1951</MenuItem>
-                      <MenuItem value="1952">1952</MenuItem>
-                      <MenuItem value="1953">1953</MenuItem>
-                      <MenuItem value="1954">1954</MenuItem>
-                      <MenuItem value="1955">1955</MenuItem>
-                      <MenuItem value="1956">1956</MenuItem>
-                      <MenuItem value="1957">1957</MenuItem>
-                      <MenuItem value="1958">1958</MenuItem>
-                      <MenuItem value="1959">1959</MenuItem>
-                      <MenuItem value="1960">1960</MenuItem>
-                      <MenuItem value="1961">1961</MenuItem>
-                      <MenuItem value="1962">1962</MenuItem>
-                      <MenuItem value="1963">1963</MenuItem>
-                      <MenuItem value="1964">1964</MenuItem>
-                      <MenuItem value="1965">1965</MenuItem>
-                      <MenuItem value="1966">1966</MenuItem>
-                      <MenuItem value="1967">1967</MenuItem>
-                      <MenuItem value="1968">1968</MenuItem>
-                      <MenuItem value="1969">1969</MenuItem>
-                      <MenuItem value="1970">1970</MenuItem>
-                      <MenuItem value="1971">1971</MenuItem>
-                      <MenuItem value="1972">1972</MenuItem>
-                      <MenuItem value="1973">1973</MenuItem>
-                      <MenuItem value="1974">1973</MenuItem>
-                      <MenuItem value="1975">1975</MenuItem>
-                      <MenuItem value="1976">1976</MenuItem>
-                      <MenuItem value="1977">1977</MenuItem>
-                      <MenuItem value="1979">1979</MenuItem>
-                      <MenuItem value="1980">1980</MenuItem>
-                      <MenuItem value="1981">1981</MenuItem>
-                      <MenuItem value="1982">1982</MenuItem>
-                      <MenuItem value="1983">1983</MenuItem>
-                      <MenuItem value="1984">1984</MenuItem>
-                      <MenuItem value="1985">1985</MenuItem>
-                      <MenuItem value="1986">1986</MenuItem>
-                      <MenuItem value="1987">1987</MenuItem>
-                      <MenuItem value="1988">1988</MenuItem>
-                      <MenuItem value="1989">1989</MenuItem>
-                      <MenuItem value="1990">1990</MenuItem>
-                      <MenuItem value="1991">1991</MenuItem>
-                      <MenuItem value="1992">1992</MenuItem>
-                      <MenuItem value="1993">1993</MenuItem>
-                      <MenuItem value="1994">1994</MenuItem>
-                      <MenuItem value="1995">1995</MenuItem>
-                      <MenuItem value="1996">1996</MenuItem>
-                      <MenuItem value="1997">1997</MenuItem>
-                      <MenuItem value="1998">1998</MenuItem>
-                      <MenuItem value="1999">1999</MenuItem>
-                      <MenuItem value="2000">2000</MenuItem>
-                      <MenuItem value="2001">2001</MenuItem>
-                      
-                      
-                      </Field>
-                      </Grid> */}
+
                       <Grid item xs={6}>
                         <Field
                           fullWidth
@@ -1111,22 +1444,6 @@ class AdminGral extends React.Component {
                           defaultValue={this.state.updateRows.CP}
                         />
                       </Grid>
-                      {/* <Grid item xs={12}>
-                        <Field
-                        fullWidth
-                        name="EstadoCivil"
-                        component={Select}
-                        label={this.state.updateRows.EstadoCivil}
-                        formControlProps={{ fullWidth: true }}
-                        >
-              
-                        <MenuItem value="Casado">Casado</MenuItem>
-                        <MenuItem value="Soltero">Soltero</MenuItem>
-                        <MenuItem value="Unión libre">Unión libre</MenuItem>
-                        <MenuItem value="Divorciado">Divorciado</MenuItem>
-                        <MenuItem value="Viudo">Viudo</MenuItem>
-                        </Field>
-                        </Grid> */}
 
                       <Grid item xs={6}>
                         <Field
@@ -1169,113 +1486,7 @@ class AdminGral extends React.Component {
                           defaultValue={this.state.updateRows.Ciudad}
                         />
                       </Grid>
-                     {/* <Grid item xs={12}>
-                      <Field
-                      fullWidth
-                      name="NivelEstudios"
-                      component={Select}
-                      label={this.state.updateRows.NivelEstudios}
-                      formControlProps={{ fullWidth: true }}
-                      >
-            
-                      <MenuItem value="Sin formación">Sin formación</MenuItem>
-                      <MenuItem value="Primaria">Primaria</MenuItem>
-                      <MenuItem value="Secundaria">Secundaria</MenuItem>
-                      <MenuItem value="Preparatoria o Bachillerato">Preparatoria o Bachillerato</MenuItem>
-                      <MenuItem value="Licenciatura">Licenciatura</MenuItem>
-                      <MenuItem value="Maestría">Maestría</MenuItem>
-                      <MenuItem value="Doctorado">Doctorado</MenuItem>
-            
-                      </Field>
-                      </Grid> */}
 
-{/* 
-                      <Grid item xs={12}>
-                        <Field
-                        fullWidth
-                        name="TipoPersonal"
-                        component={Select}
-                        label={this.state.updateRows.TipoPersonal}
-                        formControlProps={{ fullWidth: true }}
-                        >
-                        <MenuItem value="Sindicalizado">Sindicalizado</MenuItem>
-                        <MenuItem value="Ninguno">Ninguno</MenuItem>
-                        <MenuItem value="Confianza">Confianza</MenuItem>
-                        </Field>
-                        </Grid> */}
-
-                        {/* <Grid item xs={12}>
-                        <Field
-                        fullWidth
-                        name="JornadaTrabajo"
-                        component={Select}
-                        label={this.state.updateRows.JornadaTrabajo}
-                        formControlProps={{ fullWidth: true }}
-                        >
-                        <MenuItem value="Fijo nocturno (entre las 20:00 y 6:00 hrs)">Fijo nocturno (entre las 20:00 y 6:00 hrs)</MenuItem>
-                        <MenuItem value="Fijo diurno (entre las 6:00 y 20:00 hrs">Fijo diurno (entre las 6:00 y 20:00 hrs</MenuItem>
-                        <MenuItem value="Fijo mixto (combinación de nocturno y diurno)">Fijo mixto (combinación de nocturno y diurno)</MenuItem>
-                
-                        
-                        </Field>
-                        </Grid> */}
-
-                        {/* <Grid item xs={12}>
-                        <Field
-                        fullWidth
-                        name="TipoContratacion"
-                        component={Select}
-                        label={this.state.updateRows.TipoContratacion}
-                        formControlProps={{ fullWidth: true }}
-                        >
-                        <MenuItem value="Por obra o proyecto">Por obra o proyecto</MenuItem>
-                        <MenuItem value="por tiempo">Por tiempo determinado (temporal)</MenuItem>
-                        <MenuItem value="Tiempo indeterminado">Tiempo indeterminado</MenuItem>
-                        <MenuItem value="Honorarios">Honorarios</MenuItem>
-                        </Field>
-                        </Grid> */}
-              
-                        {/* <Grid item xs={12}>
-                        <Field
-                        fullWidth
-                        name="TiempoPuesto"
-                        component={Select}
-                        label={this.state.updateRows.TiempoPuesto}
-                        formControlProps={{ fullWidth: true }}
-                        >
-              
-                        <MenuItem value="Menos de 6 meses">Menos de 6 meses</MenuItem>
-                        <MenuItem value="Entre 6 meses y 1 año">Entre 6 meses y 1 año</MenuItem>
-                        <MenuItem value="Entre 1 a 4 años">Entre 1 a 4 años</MenuItem>
-                        <MenuItem value="Entre 5 a 9 años">Entre 5 a 9 años</MenuItem>
-                        <MenuItem value="Entre 10 a 14 años">Entre 10 a 14 años</MenuItem>
-                        <MenuItem value="Entre 15 a 19 años">Entre 15 a 19 años</MenuItem>
-                        <MenuItem value="Entre 20 a 24 años">Entre 20 a 24 años</MenuItem>
-                        <MenuItem value="25 años o más">25 años o más</MenuItem>
-                        </Field>
-                        </Grid> */}
-
-                        {/* <Grid item xs={12}>
-                        <Field
-                        fullWidth
-                        name="ExperienciaLaboral"
-                        component={Select}
-                        label={this.state.updateRows.ExperienciaLaboral}
-                        formControlProps={{ fullWidth: true }}
-                        
-                        >
-              
-                        <MenuItem value="Menos de 6 meses">Menos de 6 meses</MenuItem>
-                        <MenuItem value="Entre 6 meses y 1 año">Entre 6 meses y 1 año</MenuItem>
-                        <MenuItem value="Entre 1 a 4 años">Entre 1 a 4 años</MenuItem>
-                        <MenuItem value="Entre 5 a 9 años">Entre 5 a 9 años</MenuItem>
-                        <MenuItem value="Entre 10 a 14 años">Entre 10 a 14 años</MenuItem>
-                        <MenuItem value="Entre 15 a 19 años">Entre 15 a 19 años</MenuItem>
-                        <MenuItem value="Entre 20 a 24 años">Entre 20 a 24 años</MenuItem>
-                        <MenuItem value="25 años o más">25 años o más</MenuItem>
-                        </Field>
-                        </Grid>
-	 */}
 	                      <Grid item >
                         <Button
                          variant="outlined"
@@ -1303,7 +1514,7 @@ class AdminGral extends React.Component {
 
 
       if(this.state.modal14){
-        console.log("update rows" , this.state.updateRowsSucursales)
+ 
        modalSucursales  =  <MDBContainer>
         <MDBModal isOpen={this.state.modal14} toggle={this.toggleSucursales(14)}>
           <MDBModalHeader toggle={this.toggleSucursales(14)}>
@@ -1567,7 +1778,7 @@ class AdminGral extends React.Component {
                <MiniDrawer/>
                 <MDBNavbarBrand a href="./inicio">
                 <AppNavbarBrand
-                    full={{ src: logo, width: 80, height: 25, alt: 'ADS' }} />               
+                    full={{ src: diagnostico, width: 100, height: 33, alt: 'DIAGNOSTICO' }} />               
                 </MDBNavbarBrand>
                 <MDBNavbarBrand>
                 <strong> Administración general de  Mi Empresa </strong>
@@ -1587,126 +1798,21 @@ class AdminGral extends React.Component {
               </MDBNavbar>
               </header>
                 <MDBContainer style={{marginTop:60}} >
-              <Alert  color="primary">Nota : Puede editar y/o eliminar los campos si así lo desea</Alert>    
-              <Paper style={{ width: "25rem" }}>
-              <MDBCard style={{ width: "25rem" }} >
-                  <MDBCardBody>
-                  <MDBCardTitle>Periodo de Evaluación</MDBCardTitle>
-                      <div style={{ padding: 10, margin: 'auto', maxWidth: 300 }}>      
-                      <Form
-                    onSubmit={this.onSubmit}
-                    render={({ handleSubmit, submitting,values }) => (
-                      <form onSubmit={handleSubmit}>
-                        <Paper style={{ padding: 10} }>
-                          <Grid container alignItems="flex-start" spacing={2} >
-                            <Grid item xs={6}>
-                              <Field
-                                fullWidth
-                                required
-                                name="periodoNuevo"
-                                component={TextField}
-                                type="text"
-                               label="Nuevo Periodo"
-                              />
-                            </Grid>
-                            <Grid item >
-                              <Button
-                                variant="outlined"
-                                color="primary"
-                                type="submit"
-                                disabled={submitting}
-                                onClick={(e) =>this.NuevoPeriodo(values)}
-                              >
-                                Aceptar
-                              </Button>
-                            </Grid>
-                          </Grid>
-                        </Paper>
-                      </form>
-                          )}
-                        />  
-                   </div>     
-                  <div style={{ padding: 10, margin: 'auto', maxWidth: 600 }}>
-                
-                  <MDBRow> 
-                  <MDBCol>   
-                  <Form
-                    onSubmit={this.onSubmit}
-                    render={({ handleSubmit, submitting,values }) => (
-                      <form onSubmit={handleSubmit}>
-                        <Paper style={{ padding: 10} }>
-                          <Grid container alignItems="flex-start" spacing={2} >
-                           <Grid item xs={6}>
-                        <Field
-                        fullWidth
-                        name="deshabilitar"
-                        component={Select}
-                       label="Deshabilitar"
-                        formControlProps={{ fullWidth: true }}
-                        >
-                      {this.state.periodo.map(row=>{
-                          return(<MenuItem value={row.evento}>{row.evento}</MenuItem>)
-                        })}
-                        </Field>
-                        </Grid>
-                            <Grid item >
-                              <Button
-                                variant="outlined"
-                                color="primary"
-                                type="submit"
-                                disabled={submitting}
-                                onClick={(e) => { if (window.confirm('Si desactiva el periodo no podrá habilitarlo nuevamente, Desea Continuar?')) this.DesactivarPeriodo(values)} }
-                              > 
-                                Aceptar
-                              </Button>
-                            </Grid>     
-                          </Grid>
-                        </Paper>
-                      </form>
-                          )}
-                        />  </MDBCol>
-                        {/* <MDBCol>
-                                <Form
-                    onSubmit={this.onSubmit}
-                    render={({ handleSubmit, submitting,values }) => (
-                      <form onSubmit={handleSubmit}>
-                        <Paper style={{ padding: 10} }>
-                          <Grid container alignItems="flex-start" spacing={2} >
-                           <Grid item xs={6}>
-                        <Field
-                        fullWidth
-                        name="habilitar"
-                        component={Select}
-                        label="Habilitar"
-                        formControlProps={{ fullWidth: true }}
-                        >
-                         {this.state.periodoDesactivado.map(row=>{
-                          return(<MenuItem value={row.evento}>{row.evento}</MenuItem>)
-                        })}
-                        </Field>
-                        </Grid>
-                            <Grid item >
-                              <Button
-                                variant="outlined"
-                                color="primary"
-                                type="submit"
-                                disabled={submitting}
-                                 onClick={(e) =>this.HabilitarPeriodo(values)}
-                              >
-                                Aceptar
-                              </Button>
-                            </Grid>
-                          </Grid>
-                        </Paper>
-                      </form>
-                          )}
-                        />  
-                        </MDBCol>   */}
-                        </MDBRow>   
-                          </div>
-                  </MDBCardBody>                     
-                  </MDBCard>
-                  </Paper>
+              <Alert  color="primary">Nota : El periodo de Evaluación debe ser Registrado para que su sistema funcione de manera correcta, si desea Agregar o desactivar Periodos de evaluacion puede hacerlo mediante el botón de abajo</Alert>    
+              <Button  startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({registrarPeriodo:"1",editarPeriodo:''}) } style={{marginBottom:20}}>
+                  Agregar o Desactivar Periodo
+               </Button>
+               <div>
+          <input type="file" onChange={this.handleImageChange} />
+          <button  onClick={this.handleSubmit}>Cargar imagen</button>
+      
+        {imagePreview}
+      </div>
+               <Button  startIcon={<BorderColorOutlinedIcon />} color="secondary" onClick={(e)=>this.setState({editarPeriodo:"1",registrarPeriodo:''}) } style={{marginBottom:20}}>
+                  Editar Periodo
+               </Button>
+                 {registrarPeriodo} 
+                 {editarPeriodo}
                   {periodo}
                     <Paper >
                    <MDBCard>
@@ -1715,7 +1821,7 @@ class AdminGral extends React.Component {
                             <Table bordered>
                               <TableBody>
                                 {this.state.datos.map((rows,i )=> {
-                                  console.log("rows.id" , rows)
+                                 
                                   return (
                                     <TableRow >
                                       <TableCell component="th" scope="row">
