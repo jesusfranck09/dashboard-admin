@@ -16,7 +16,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-
+import { API} from '../utils/http'
 import axios from 'axios';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 
@@ -141,17 +141,18 @@ class Home extends React.Component {
   }
 
   evaluar= (values) => {
- 
+ console.log(API)
+
 
 if(values.stooge=="acepto" && values.correo ){
 
-  const url = 'http://localhost:8000/graphql'
+  // const url = 'https://git.heroku.com/backenddiagnostico035.git'
   const correo = values.correo
   const acepto  = values.stooge  
   localStorage.setItem('correoATS', correo) 
 
   axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -169,7 +170,7 @@ if(values.stooge=="acepto" && values.correo ){
         const idAdmin= datos.data.data.getEmployeesFkAdmin[0].fk_administrador
   
           axios({
-            url:  url,
+            url:  API,
             method:'post',
             data:{
             query:`
@@ -188,7 +189,7 @@ if(values.stooge=="acepto" && values.correo ){
            localStorage.setItem("Periodo" , datos.data.data.getPeriodo[0].Descripcion)
            const periodo =localStorage.getItem("Periodo")
            axios({
-             url:  url,
+             url:  API,
              method:'post',
              data:{
              query:`
@@ -229,17 +230,15 @@ if(values.stooge=="acepto" && values.correo ){
                        content: `Bienvenido a su Encuesta  ${nombre}  ${apellidoP}  ${apellidoM}`, 
                       
                        position: "fixed",
-                   })
-                  
-         
+                   })         
                      this.props.history.push("./Initsurvey")
                    }
                    }).catch((err)=>{
                      console.log(err.response)
                    })
-          }).catch(err=>{
-            console.log("error",err.response)
-          })
+          }).catch(function (error) {
+            console.warn('error',error)
+       })
         }else{
           DialogUtility.alert({
             animationSettings: { effect: 'Zoom' },           
@@ -249,9 +248,11 @@ if(values.stooge=="acepto" && values.correo ){
             position: "fixed",
         })
         }
-        })
+        }).catch(err=>{
+          console.log("error" , err)
 
-     
+          return err
+        })
 
 }
 

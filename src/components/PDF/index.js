@@ -13,6 +13,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
 import { PDFExport } from '@progress/kendo-react-pdf';
 import logo from '../images/logo.png'
 import logotipo from '../images/logotipo.png'
+import { API} from '../utils/http'
 
 import {Alert} from 'reactstrap'
 class App extends Component {
@@ -36,11 +37,11 @@ pdfExportComponent =(props)=><span><font size="1"face="arial"color="red">diagnos
     })
   }
   componentWillMount(){  
-    const url = 'http://localhost:8000/graphql'
+    // const url = 'http://localhost:8000/graphql'
  
     const idAdmin = localStorage.getItem("idAdmin")
     axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -57,7 +58,7 @@ pdfExportComponent =(props)=><span><font size="1"face="arial"color="red">diagnos
     .then(datos => {	
       console.log("eventos o periodos exito" , datos.data.data.getPeriodo)
       axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -113,9 +114,9 @@ pdfExportComponent =(props)=><span><font size="1"face="arial"color="red">diagnos
 
     click(id){           
             const periodo  = localStorage.getItem("periodo")        
-            const url = 'http://localhost:8000/graphql'
+            // const url = 'http://localhost:8000/graphql'
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`

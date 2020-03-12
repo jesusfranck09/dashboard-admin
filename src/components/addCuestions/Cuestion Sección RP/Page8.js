@@ -16,6 +16,7 @@ import axios from 'axios';
 // import Ok from '../../images/ok.png'
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Navbar from '../NavbarDatos'
+import { API} from '../../utils/http'
 
 import {  MDBBadge } from 'mdbreact';
 
@@ -100,7 +101,7 @@ validate = values => {
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
       axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`

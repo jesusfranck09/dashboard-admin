@@ -15,7 +15,7 @@ import axios from 'axios';
 import Ok from '../images/ok.png'
 // import payload from '../../resolvers/payload';
 
-
+import { API} from '../utils/http'
 import { MDBRow, MDBCol} from 'mdbreact';
 
 import { MDBContainer} from 'mdbreact';
@@ -41,9 +41,9 @@ class Home extends React.Component {
     if(values.rotacion === 'si'){
       const correo = localStorage.getItem('correoATS')
       const respuesta = values.rotacion
-      const url = 'http://localhost:8000/graphql'
+      // const url = 'http://localhost:8000/graphql'
       axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -68,9 +68,8 @@ class Home extends React.Component {
       const respuesta = values.rotacion
      
     
-      const url = 'http://localhost:8000/graphql'
       axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`

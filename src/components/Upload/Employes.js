@@ -11,6 +11,7 @@ import logo from '../images/logotipo.png'
 import '../Home/index.css'
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import diagnostico from '../images/diagnostico.png'
+import { API} from '../utils/http'
 
 import MiniDrawer from '../adminGeneral/Sidebar'
 
@@ -146,10 +147,10 @@ class SheetJSApp extends React.Component {
 
     handleSubmit = async event => {
 		let idSuperUsuario;
-		const url = 'http://localhost:8000/graphql'
+		// const url = 'http://localhost:8000/graphql'
 		const idAdmin =  localStorage.getItem("idAdmin")
 		await axios({
-			url:  url,
+			url:  API,
 			method:'post',
 			data:{
 			query:`
@@ -170,7 +171,7 @@ class SheetJSApp extends React.Component {
 
 		 let em;
 		 await axios({
-		   url:  url,
+		   url:  API,
 		   method:'post',
 		   data:{
 		   query:`
@@ -194,7 +195,7 @@ class SheetJSApp extends React.Component {
 		 let max;
 		const correoA = localStorage.getItem("correo")
 		 await axios({
-				 url:  url,
+				 url:  API,
 				 method:'post',
 				 data:{
 				 query:`
@@ -218,7 +219,7 @@ class SheetJSApp extends React.Component {
 	
         for (var i=0; i< this.state.data.length; i++)
      	  {
-				const url  = 'http://localhost:8000/graphql'
+				// const url  = 'http://localhost:8000/graphql'
 				var estado = this.state.data[i]	
 			
 				if(this.state.data[i].length==21  ){
@@ -234,7 +235,7 @@ class SheetJSApp extends React.Component {
 				`;
 				
 				axios({
-				url:  url,
+				url:  API,
 				method: 'post',
 				data: {
 					query,
@@ -446,9 +447,9 @@ class App extends React.Component {
 
    const correoAdmin = localStorage.getItem("correo")
   
-		const url = 'http://localhost:8000/graphql'
+		// const url = 'http://localhost:8000/graphql'
 		axios({
-		url:  url,
+		url:  API,
 		method:'post',
 		data:{
 		query:`
@@ -470,7 +471,7 @@ class App extends React.Component {
 	}) 
 
 	axios({
-		url:  url,
+		url:  API,
 		method:'post',
 		data:{
 		query:`
@@ -492,7 +493,7 @@ class App extends React.Component {
 	}) 
 
 	axios({
-		url:  url,
+		url:  API,
 		method:'post',
 		data:{
 		query:`
@@ -539,10 +540,10 @@ class App extends React.Component {
 	  
 		// const token = localStorage.getItem('elToken')
 	    let idSuperUsuario;
-		const url = 'http://localhost:8000/graphql'
+		// const url = 'http://localhost:8000/graphql'
 		const idAdmin =  localStorage.getItem("idAdmin")
 		await axios({
-			url:  url,
+			url:  API,
 			method:'post',
 			data:{
 			query:`
@@ -567,7 +568,7 @@ class App extends React.Component {
 	
 		let em;
 		await axios({
-		  url:  url,
+		  url:  API,
 		  method:'post',
 		  data:{
 		  query:`
@@ -590,7 +591,7 @@ class App extends React.Component {
 	    let empleadosPack = parseInt(em)
 		let max;
 		  await axios({
-				url:  url,
+				url:  API,
 				method:'post',
 				data:{
 				query:`
@@ -612,7 +613,7 @@ class App extends React.Component {
 			
 			if(empleadosRegistrados < empleadosPack ){
 			axios({
-			url:  url,
+			url:  API,
 			method:'post',
 			data:{
 			query:`

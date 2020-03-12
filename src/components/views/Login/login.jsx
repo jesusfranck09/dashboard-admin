@@ -4,7 +4,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { InputGroup, InputGroupAddon, InputGroupText,Input } from 'reactstrap';
 import logo from '../../images/logotipo.png'
 import diagnostico from '../../images/diagnostico.png'
-
 import { AppNavbarBrand } from '@coreui/react';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 

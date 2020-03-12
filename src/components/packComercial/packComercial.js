@@ -15,6 +15,7 @@ import {
 
 } from "mdbreact";
 import { AppNavbarBrand } from '@coreui/react';
+import { API} from '../utils/http'
 
 const container = { width: 1500, height: 800 }
 
@@ -29,9 +30,9 @@ class Paquetes extends React.Component {
     }
  send(values){
   localStorage.setItem("paquete" , values)
-    const url = 'http://localhost:8000/graphql'
+    // const url = 'http://localhost:8000/graphql'
     axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`

@@ -7,6 +7,7 @@ import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logo.png'
 import logotipo from '../images/logotipo.png'
 import diagnostico from '../images/diagnostico.png'
+import { API} from '../utils/http'
 
 import '../Home/index.css'
 import usuario from '../images/usuario.png'
@@ -175,10 +176,10 @@ export default class App extends React.Component {
   }
   getGlobalEmployees(){
     var id  =localStorage.getItem("idAdmin")       
-    const url = 'http://localhost:8000/graphql'
+    // const url = 'http://localhost:8000/graphql'
     console.log("entro")
     axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -206,7 +207,7 @@ export default class App extends React.Component {
           })
 
           axios({
-            url:  url,
+            url:  API,
             method:'post',
             data:{
             query:`
@@ -243,9 +244,9 @@ export default class App extends React.Component {
       })
       for(var i=0; i<=array.length;i++){
         console.log("este es el array en i" , array[i])
-        const url = 'http://localhost:8000/graphql'
+        // const url = 'http://localhost:8000/graphql'
        await  axios({
-          url:  url,
+          url:  API,
           method:'post',
           data:{
           query:`

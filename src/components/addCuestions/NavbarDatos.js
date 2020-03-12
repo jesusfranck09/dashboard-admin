@@ -4,6 +4,7 @@ import { MDBNavbar, MDBNavbarBrand,} from 'mdbreact';
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import '../Home/index.css'
+// import { API} from '../utils/http'
 
 
 class Home extends React.Component {

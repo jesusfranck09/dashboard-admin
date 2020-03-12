@@ -6,6 +6,7 @@ import {
 	MenuItem,
   } from '@material-ui/core';
   import diagnostico from '../images/diagnostico.png'
+  import { API} from '../utils/http'
 
 import axios from 'axios';
 import {Alert } from 'reactstrap'
@@ -79,9 +80,9 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
         const correo = localStorage.getItem('correo')
 
         if(Nombre && calle && numInt && NumExt && colonia && cp && city && estado && actividad && telefono && email){
-            const url = 'http://localhost:8000/graphql'
+            // const url = 'http://localhost:8000/graphql'
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`

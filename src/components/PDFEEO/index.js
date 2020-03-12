@@ -19,6 +19,8 @@ import logo from '../images/logo.png'
 import logotipo from '../images/logotipo.png'
 import diagnostico from '../images/diagnostico.png'
 import {Alert} from 'reactstrap'
+import { API} from '../utils/http'
+
 class App extends Component {
   pdfExportComponent =(props)=><span><font size="1"face="arial"color="red">diagnostico.com</font><br/><font size="1"face="arial"color="gray">{props.pageNum}</font></span>;
   constructor(props) {
@@ -41,11 +43,11 @@ class App extends Component {
     })
   }
   componentWillMount(){  
-    const url = 'http://localhost:8000/graphql'
+    // const url = 'http://localhost:8000/graphql'
     var correo  = localStorage.getItem("correo")   
     const idAdmin = localStorage.getItem("idAdmin")
     axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -61,7 +63,7 @@ class App extends Component {
     })
     .then(datos => {	
       axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -118,9 +120,9 @@ class App extends Component {
         console.log("el id es " , id)
         const periodo  = localStorage.getItem("periodo")        
 
-          const url = 'http://localhost:8000/graphql'
+          // const url = 'http://localhost:8000/graphql'
           axios({
-            url:  url,
+            url:  API,
             method:'post',
             data:{
             query:`
@@ -179,9 +181,9 @@ class App extends Component {
           getEvaluacion(id){
             const periodo  = localStorage.getItem("periodo")        
 
-            const url = 'http://localhost:8000/graphql'
+            // const url = 'http://localhost:8000/graphql'
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -240,7 +242,7 @@ class App extends Component {
   
                               
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`

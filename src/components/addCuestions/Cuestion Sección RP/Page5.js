@@ -15,6 +15,7 @@ import axios from 'axios';
 import { MDBRow, MDBCol, MDBBadge } from 'mdbreact';
 import Navbar from '../NavbarDatos'
 import { MDBContainer,MDBTableBody,MDBTable,MDBTableHead,MDBCollapse} from 'mdbreact';
+import { API} from '../../utils/http'
 
 class Home extends React.Component {
   constructor(props) {
@@ -121,9 +122,9 @@ class Home extends React.Component {
       
       const correo = localStorage.getItem('correoRP')
       const periodo = localStorage.getItem("Periodo")
-      const url = 'http://localhost:8000/graphql'
+      // const url = 'http://localhost:8000/graphql'
       axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`

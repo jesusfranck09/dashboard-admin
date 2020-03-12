@@ -7,7 +7,7 @@ import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logo.png'
 import logotipo from '../images/logotipo.png'
 import diagnostico from '../images/diagnostico.png'
-
+import { API} from '../utils/http'
 
 import '../Home/index.css'
 import usuario from '../images/usuario.png'
@@ -172,10 +172,10 @@ pdfExportComponent ;
   }
   getGlobalEmployees(){
     var id  =localStorage.getItem("idAdmin")       
-    const url = 'http://localhost:8000/graphql'
+    // const url = 'http://localhost:8000/graphql'
     
     axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{ 
       query:`
@@ -202,7 +202,7 @@ pdfExportComponent ;
           })
 
           axios({
-            url:  url,
+            url:  API,
             method:'post',
             data:{
             query:`
@@ -238,9 +238,9 @@ pdfExportComponent ;
       })
       for(var i=0; i<=array.length;i++){
        
-        const url = 'http://localhost:8000/graphql'
+        // const url = 'http://localhost:8000/graphql'
        await  axios({
-          url:  url,
+          url:  API,
           method:'post',
           data:{
           query:`

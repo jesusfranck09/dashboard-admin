@@ -6,6 +6,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import diagnostico from '../../images/diagnostico.png'
+import { API} from '../../utils/http'
 
 import {
 	Paper,
@@ -86,9 +87,9 @@ class Validation1 extends React.Component {
         componentWillMount(){
             var idASuperusuario = localStorage.getItem("idASuperusuario")    
 
-            const url = 'http://localhost:8000/graphql'
+            // const url = 'http://localhost:8000/graphql'
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -113,7 +114,7 @@ class Validation1 extends React.Component {
                   })
 
                     axios({
-                    url:  url,
+                    url:  API,
                     method:'post',
                     data:{
                     query:`
@@ -136,7 +137,7 @@ class Validation1 extends React.Component {
                     console.log("este es el error get deptos" , err.response)
                 }) 
                  axios({
-                  url:  url,
+                  url:  API,
                   method:'post',
                   data:{
                   query:`
@@ -163,11 +164,11 @@ class Validation1 extends React.Component {
         console.log("values" , values)    
         if(values.Nombre && values.Apellidos && values.rfc && values.RazonSocial && values.correo && values.contraseña){
         console.log("entro")
-          const url = 'http://localhost:8000/graphql'
+          // const url = 'http://localhost:8000/graphql'
         var idAdmin  =localStorage.getItem("idASuperusuario") 
         let noEmpresasPack;
         await axios({
-          url:  url,
+          url:  API,
           method:'post',
           data:{
           query:`
@@ -191,7 +192,7 @@ class Validation1 extends React.Component {
       
        let empresas;     
        await axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -224,7 +225,7 @@ class Validation1 extends React.Component {
        var fecha = localStorage.getItem("fechaRegistroSuperusuario")
         const fechaRegistro  = fecha.substring(5,29)
         axios({
-          url:  url,
+          url:  API,
           method:'post',
           data:{
           query:`
@@ -247,9 +248,9 @@ class Validation1 extends React.Component {
                   
                   let fecha= new Date();
 
-                  const url = 'http://localhost:8000/graphql'
+                  // const url = 'http://localhost:8000/graphql'
                   axios({
-                    url:  url,
+                    url:  API,
                     method:'post',
                     data:{
                     query:`
@@ -329,9 +330,9 @@ class Validation1 extends React.Component {
                 clearInterval(timerUpdate);
                 const correo   = localStorage.getItem('idASuperusuario')
                 console.log("entro")
-                const url = 'http://localhost:8000/graphql'
+                // const url = 'http://localhost:8000/graphql'
                 axios({
-                  url:  url,
+                  url:  API,
                   method:'post',
                   data:{
                   query:`
@@ -417,10 +418,10 @@ validate = values => {
 
   toggle = (nr,id,rs) => async  () => {
     if(id){
-    const url = 'http://localhost:8000/graphql'
+    // const url = 'http://localhost:8000/graphql'
     let correo;
     await axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -437,7 +438,7 @@ validate = values => {
       }).catch(err=>{console.log("error dash" , err.response)})
     
       await axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -453,7 +454,7 @@ validate = values => {
       }); 
         
       await axios({
-          url:  url,
+          url:  API,
           method:'post',
           data:{
           query:`
@@ -473,7 +474,7 @@ validate = values => {
           }).catch(err=>{console.log("error",err.response)})
           
           await axios({
-            url:  url,
+            url:  API,
             method:'post',
             data:{
             query:`
@@ -493,7 +494,7 @@ validate = values => {
             }).catch(err=>{console.log("error",err.response)})
                   
             await  axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -513,7 +514,7 @@ validate = values => {
                 }).catch(err=>{console.log("error",err.response)}) 
               
                 await   axios({
-                url:  url,
+                url:  API,
                 method:'post',
                 data:{
                 query:`
@@ -532,7 +533,7 @@ validate = values => {
                 }).catch(err=>{console.log("error",err.response)})        
                   
                 await  axios({
-                url:  url,
+                url:  API,
                 method:'post',
                 data:{
                 query:`
@@ -555,7 +556,7 @@ validate = values => {
       
  
           await axios({
-            url:  url,
+            url:  API,
             method:'post',
             data:{
             query:`
@@ -573,7 +574,7 @@ validate = values => {
             }).catch(err=>{console.log("error",err.response)})
           
             await axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -591,7 +592,7 @@ validate = values => {
               }).catch(err=>{console.log("error",err.response)})
               
               await axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -619,9 +620,9 @@ validate = values => {
         editar(values){
       
         if(values.empresa){
-        const url = 'http://localhost:8000/graphql'
+        // const url = 'http://localhost:8000/graphql'
          axios({
-          url:  url,
+          url:  API,
           method:'post',
           data:{
           query:`
@@ -656,9 +657,9 @@ validate = values => {
        editarDatos (values,id) {
         
         if(values.Nombre && values.Apellidos && values.correo && values.contraseña){
-          const url = 'http://localhost:8000/graphql'
+          // const url = 'http://localhost:8000/graphql'
           axios({
-           url:  url,
+           url:  API,
            method:'post',
            data:{
            query:`

@@ -26,6 +26,7 @@ import {
 import "../Home/index.css";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import axios from 'axios'
+import { API} from '../utils/http'
 
 class Das extends React.Component {
     constructor(props){
@@ -35,10 +36,10 @@ class Das extends React.Component {
         }
       }
 componentWillMount(){
-  const url = 'http://localhost:8000/graphql'
+  // const url = 'http://localhost:8000/graphql'
  var idAdminA = localStorage.getItem("idAdminAlfa")
   axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`

@@ -17,6 +17,7 @@ import diagnostico from '../images/diagnostico.png'
 import { TextField, Radio, Select } from 'final-form-material-ui';
 import MiniDrawer from './Sidebar'
 import { DialogUtility } from '@syncfusion/ej2-popups';
+import { API} from '../utils/http'
 
  function onSubmit (values) {
 	};
@@ -38,9 +39,9 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
         const correo = localStorage.getItem('correo')
 
         if(departamento){
-            const url = 'http://localhost:8000/graphql'
+            // const url = 'http://localhost:8000/graphql'
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`

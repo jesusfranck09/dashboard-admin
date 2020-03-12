@@ -17,6 +17,7 @@ import usuario from '../../images/usuario.png'
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
+import { API} from '../utils/http'
 
   makeStyles(theme => ({
   '@global': {
@@ -155,9 +156,9 @@ class Cuestions extends Component{
         const passAdmin = pl.password
 
       
-        const url = 'http://localhost:8000/graphql'
+        // const url = 'http://localhost:8000/graphql'
         axios({
-          url:  url,
+          url:  API,
           method:'post',
           data:{
           query:`

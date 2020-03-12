@@ -12,7 +12,8 @@ import {
 } from '@material-ui/core';
 import { Alert } from 'reactstrap';
 import axios from 'axios';
- 
+import { API} from '../../utils/http'
+
 import Navbar from '../NavbarDatos'
 import { MDBRow, MDBCol, MDBBadge } from 'mdbreact';
 
@@ -98,9 +99,9 @@ validate = values => {
     
       const correo = localStorage.getItem('correoRP')
       const periodo = localStorage.getItem("Periodo")
-      const url = 'http://localhost:8000/graphql'
+      // const url = 'http://localhost:8000/graphql'
       axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`

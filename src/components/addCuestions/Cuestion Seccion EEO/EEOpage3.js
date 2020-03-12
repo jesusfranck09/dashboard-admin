@@ -13,6 +13,7 @@ import {
 import { Alert } from 'reactstrap';
 import axios from 'axios';
 import Navbar from '../NavbarDatos'
+import { API} from '../../utils/http'
 
 import { MDBRow, MDBCol, MDBBadge } from 'mdbreact';
 
@@ -120,7 +121,7 @@ console.log("values" ,values)
       const periodo = localStorage.getItem("Periodo")
       const url = 'http://localhost:8000/graphql'
       axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`

@@ -17,6 +17,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import { DialogUtility } from '@syncfusion/ej2-popups';
+import { API} from '../../utils/http'
 
 
 import axios from 'axios';
@@ -151,10 +152,10 @@ if(values.stooge=="acepto" && values.correo){
   
   localStorage.setItem('correoRP', correo) 
 
-  const url = 'http://localhost:8000/graphql'
+  // const url = 'http://localhost:8000/graphql'
 
  axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -170,7 +171,7 @@ if(values.stooge=="acepto" && values.correo){
         const idAdmin= datos.data.data.getEmployeesFkAdmin[0].fk_administrador
         console.log("idAdmin" , idAdmin)
           axios({
-            url:  url,
+            url:  API,
             method:'post',
             data:{
             query:`
@@ -192,7 +193,7 @@ if(values.stooge=="acepto" && values.correo){
 
            console.log("el periodo", periodo)
            axios({
-             url:  url,
+             url:  API,
              method:'post',
              data:{
              query:`

@@ -5,6 +5,7 @@
       import { AppNavbarBrand } from '@coreui/react';
       import logo from '../images/logotipo.png'
       import diagnostico from '../images/diagnostico.png'
+      import { API} from '../utils/http'
 
       import '../Home/index.css'
       import TableCell from '@material-ui/core/TableCell';
@@ -73,10 +74,10 @@
               this.setState({apellidos:Apellidos}) 
 
               let idAdmin = localStorage.getItem("idAdmin")
-              const url = 'http://localhost:8000/graphql'
+              // const url = 'http://localhost:8000/graphql'
               // console.log("el tiempo es " , t )
                axios({
-                url:  url,
+                url:  API,
                 method:'post',
                 data:{
                 query:`
@@ -114,9 +115,9 @@
 
           var idAdmin  =localStorage.getItem("idAdmin")  
           console.log(idAdmin)     
-            const url = 'http://localhost:8000/graphql'
+            // const url = 'http://localhost:8000/graphql'
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -277,9 +278,9 @@
                   
                           const sendMailATS =  async  (event,valor,idSurvey,correo) =>{
                             
-                            const url = 'http://localhost:8000/graphql'
+                            // const url = 'http://localhost:8000/graphql'
                             axios({
-                            url:  url,
+                            url:  API,
                             method:'post',
                             data:{
                             query:`
@@ -314,7 +315,7 @@
                               position: "fixed"
                               });
                               axios({
-                              url:  url,
+                              url:  API,
                               method:'post',
                               data:{
                               query:`
@@ -345,9 +346,9 @@
                             ///////////////////////////////////////////////////////////////////////////////////////
                               const sendMailRP =  async  (event,valor,idSurvey) =>{
                             
-                                const url = 'http://localhost:8000/graphql'
+                                // const url = 'http://localhost:8000/graphql'
                                 axios({
-                                url:  url,
+                                url:  API,
                                 method:'post',
                                 data:{
                                 query:`
@@ -379,7 +380,7 @@
                                   position: "fixed"
                                   });
                                   axios({
-                                  url:  url,
+                                  url:  API,
                                   method:'post',
                                   data:{
                                   query:`
@@ -408,9 +409,9 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
                             const sendMailEEO =  async  (event,valor,idSurvey) =>{
                             console.log("valor EEO" , valor)
-                              const url = 'http://localhost:8000/graphql'
+                              // const url = 'http://localhost:8000/graphql'
                               axios({
-                              url:  url,
+                              url:  API,
                               method:'post',
                               data:{
                               query:`
@@ -442,7 +443,7 @@
                                 position: "fixed"
                                 });
                                 axios({
-                                url:  url,
+                                url:  API,
                                 method:'post',
                                 data:{
                                 query:`

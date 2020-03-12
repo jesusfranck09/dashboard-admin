@@ -26,6 +26,7 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from "@material-ui/core/IconButton";
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import RemoveRedEyeOutlinedIcon from '@material-ui/icons/RemoveRedEyeOutlined';
+import { API} from '../utils/http'
 
 
 // import ProgressBar from '../ProgressBar/index'
@@ -77,10 +78,10 @@ class Home extends React.Component {
   componentWillMount(){
 
     let idAdmin = localStorage.getItem("idAdmin")
-      const url = 'http://localhost:8000/graphql'
+      // const url = 'http://localhost:8000/graphql'
       // console.log("el tiempo es " , t )
        axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -143,9 +144,9 @@ handleFront = async () =>{
   let idSuperUsuario;
   let max;
   let correoAdmin = localStorage.getItem("correo")
-  const url = 'http://localhost:8000/graphql'
+  // const url = 'http://localhost:8000/graphql'
   await axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -164,7 +165,7 @@ handleFront = async () =>{
 
   const idAdmin =  localStorage.getItem("idAdmin")
    axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -179,7 +180,7 @@ handleFront = async () =>{
     .then(datos => {		
     idSuperUsuario = datos.data.data.getAdminDashboard.fk_superusuario;
     axios({
-		  url:  url,
+		  url:  API,
 		  method:'post',
 		  data:{
 		  query:`
@@ -242,9 +243,9 @@ ads(){
 
 verifyTables=async () =>{
   const idAdmin   = localStorage.getItem('idAdmin')
-  const url = 'http://localhost:8000/graphql'
+  // const url = 'http://localhost:8000/graphql'
   await axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -269,7 +270,7 @@ verifyTables=async () =>{
         })
         
   await axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -293,7 +294,7 @@ verifyTables=async () =>{
           console.log("este es el error " , err.response)
         })
   await axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -317,7 +318,7 @@ verifyTables=async () =>{
           console.log("este es el error " , err.response)
         })
   await axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -347,9 +348,9 @@ verifyTables=async () =>{
 countEmployees = async()=>{
   
   const idAdmin   = localStorage.getItem('idAdmin')
-  const url = 'http://localhost:8000/graphql'
+  // const url = 'http://localhost:8000/graphql'
   await axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -369,7 +370,7 @@ countEmployees = async()=>{
         })
 
   await axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -394,9 +395,9 @@ countEmployees = async()=>{
 
 getMaxEmployees = async()=>{
   const idAdmin   = localStorage.getItem('idAdmin')
-  const url = 'http://localhost:8000/graphql'
+  // const url = 'http://localhost:8000/graphql'
   await axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -420,7 +421,7 @@ getMaxEmployees = async()=>{
         })
 
     await axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -444,7 +445,7 @@ getMaxEmployees = async()=>{
         })  
                  
     await axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`
@@ -467,7 +468,7 @@ getMaxEmployees = async()=>{
         })
 
     await axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -490,7 +491,7 @@ getMaxEmployees = async()=>{
           })
  
     await axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -513,7 +514,7 @@ getMaxEmployees = async()=>{
           })
 
     await axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -553,12 +554,12 @@ sendMAilAlert1Survey  = async () => {
   let alerta2;
   let alerta3; 
  let idAdmin = localStorage.getItem("idAdmin")
-  const url = 'http://localhost:8000/graphql'
+  // const url = 'http://localhost:8000/graphql'
 
 
  
       await axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -624,10 +625,10 @@ countdown =  (deadline) => {
     if(t.remainTime <= 1) {
       clearInterval(timerUpdate);
       let idAdmin = localStorage.getItem("idAdmin")
-      const url = 'http://localhost:8000/graphql'
+      // const url = 'http://localhost:8000/graphql'
       // console.log("el tiempo es " , t )
       await axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -648,7 +649,7 @@ countdown =  (deadline) => {
         console.log("error",err.response)
       })
       axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -692,7 +693,7 @@ getRemainingTime = deadline => {
 };
 
 alerta1 =  (deadline) => {
-  const url = 'http://localhost:8000/graphql'
+  // const url = 'http://localhost:8000/graphql'
   const timerUpdate = setInterval( async () => {
     let t = this.getRemainingTime(deadline);
     const idAdmin  = localStorage.getItem("idAdmin")
@@ -702,7 +703,7 @@ alerta1 =  (deadline) => {
     let EEO;
     let Eventos;
     await axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -726,7 +727,7 @@ alerta1 =  (deadline) => {
       clearInterval(timerUpdate);
       let idAdmin = localStorage.getItem("idAdmin")
       await axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -747,7 +748,7 @@ alerta1 =  (deadline) => {
              const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta ATS por favor realice la actividad lo mas pronto posible "
              ATS.map(rows=>{
                 axios({
-                 url:  url,
+                 url:  API,
                  method:'post',
                  data:{
                  query:`
@@ -769,7 +770,7 @@ alerta1 =  (deadline) => {
             })  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
     await axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -789,7 +790,7 @@ alerta1 =  (deadline) => {
           const correo  = localStorage.getItem("correo")
           RP.map(rows=>{
               axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -809,7 +810,7 @@ alerta1 =  (deadline) => {
           }) 
       ///////////////////////////////////////////////////////////////////////////////////////////
       await axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -829,7 +830,7 @@ alerta1 =  (deadline) => {
              const correo  = localStorage.getItem("correo")
              EEO.map(rows=>{
                 axios({
-                 url:  url,
+                 url:  API,
                  method:'post',
                  data:{
                  query:`
@@ -852,7 +853,7 @@ alerta1 =  (deadline) => {
 };
 
 alerta2 =  (deadline) => {
-  const url = 'http://localhost:8000/graphql'
+  // const url = 'http://localhost:8000/graphql'
   const timerUpdate = setInterval( async () => {
     let t = this.getRemainingTime(deadline);
    
@@ -863,7 +864,7 @@ alerta2 =  (deadline) => {
     let EEO;
     let Eventos;
     await axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -888,7 +889,7 @@ alerta2 =  (deadline) => {
       clearInterval(timerUpdate);
       let idAdmin = localStorage.getItem("idAdmin")
       await axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -909,7 +910,7 @@ alerta2 =  (deadline) => {
              const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta ATS por favor realice la actividad lo mas pronto posible"
              ATS.map(rows=>{
                 axios({
-                 url:  url,
+                 url:  API,
                  method:'post',
                  data:{
                  query:`
@@ -931,7 +932,7 @@ alerta2 =  (deadline) => {
             })  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
     await axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -951,7 +952,7 @@ alerta2 =  (deadline) => {
           const correo  = localStorage.getItem("correo")
           RP.map(rows=>{
               axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -971,7 +972,7 @@ alerta2 =  (deadline) => {
           }) 
       ///////////////////////////////////////////////////////////////////////////////////////////
       await axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -991,7 +992,7 @@ alerta2 =  (deadline) => {
              const correo  = localStorage.getItem("correo")
              EEO.map(rows=>{
                 axios({
-                 url:  url,
+                 url:  API,
                  method:'post',
                  data:{
                  query:`
@@ -1014,7 +1015,7 @@ alerta2 =  (deadline) => {
 };
 
 alerta3 =  (deadline) => {
-  const url = 'http://localhost:8000/graphql'
+  // const url = 'http://localhost:8000/graphql'
   const timerUpdate = setInterval( async () => {
     let t = this.getRemainingTime(deadline);
     const idAdmin  = localStorage.getItem("idAdmin")
@@ -1024,7 +1025,7 @@ alerta3 =  (deadline) => {
     let EEO;
     let Eventos;
     await axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -1049,7 +1050,7 @@ alerta3 =  (deadline) => {
       clearInterval(timerUpdate);
       let idAdmin = localStorage.getItem("idAdmin")
       await axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -1070,7 +1071,7 @@ alerta3 =  (deadline) => {
              const mensaje = "Estimado Colaborador el periodo de evaluación se cerrara pronto por favor responda su encuesta ATS lo antes posible"
              ATS.map(rows=>{
                 axios({
-                 url:  url,
+                 url:  API,
                  method:'post',
                  data:{
                  query:`
@@ -1092,7 +1093,7 @@ alerta3 =  (deadline) => {
             })  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
     await axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -1112,7 +1113,7 @@ alerta3 =  (deadline) => {
           const correo  = localStorage.getItem("correo")
           RP.map(rows=>{
               axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -1132,7 +1133,7 @@ alerta3 =  (deadline) => {
           }) 
       ///////////////////////////////////////////////////////////////////////////////////////////
       await axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -1152,7 +1153,7 @@ alerta3 =  (deadline) => {
              const correo  = localStorage.getItem("correo")
              EEO.map(rows=>{
                 axios({
-                 url:  url,
+                 url:  API,
                  method:'post',
                  data:{
                  query:`

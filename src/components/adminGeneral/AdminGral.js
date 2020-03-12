@@ -5,6 +5,7 @@ import logo from '../images/logotipo.png'
 import '../Home/index.css'
 import Paper from '@material-ui/core/Paper';
 import inicio from '../images/house.png'
+import { API} from '../utils/http'
 
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -76,9 +77,9 @@ class AdminGral extends React.Component {
     componentWillMount(){
         this.getEmployees()
         const idAdmin = localStorage.getItem("idAdmin")
-        const url = 'http://localhost:8000/graphql'
+        // const url = 'http://localhost:8000/graphql'
         axios({
-          url:  url,
+          url:  API,
           method:'post',
           data:{
           query:`
@@ -110,9 +111,9 @@ class AdminGral extends React.Component {
     getEmployees(){
         var correo  =localStorage.getItem("correo") 
         const idAdmin= localStorage.getItem("idAdmin") 
-        const url = 'http://localhost:8000/graphql'
+        // const url = 'http://localhost:8000/graphql'
         axios({
-          url:  url,
+          url:  API,
           method:'post',
           data:{
           query:`
@@ -160,7 +161,7 @@ class AdminGral extends React.Component {
             });  
 
               axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -196,7 +197,7 @@ class AdminGral extends React.Component {
             });  
 
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -223,7 +224,7 @@ class AdminGral extends React.Component {
                 });  
 
                 axios({
-                  url:  url,
+                  url:  API,
                   method:'post',
                   data:{
                   query:`
@@ -256,10 +257,10 @@ class AdminGral extends React.Component {
             })
 
             var correo  =localStorage.getItem("correo")       
-            const url = 'http://localhost:8000/graphql'
+            // const url = 'http://localhost:8000/graphql'
 
               axios({
-                url:  url,
+                url:  API,
                 method:'post',
                 data:{
                 query:`
@@ -296,10 +297,10 @@ class AdminGral extends React.Component {
             })
             
             var correo  = localStorage.getItem("correo")       
-            const url = 'http://localhost:8000/graphql'
+            // const url = 'http://localhost:8000/graphql'
 
               axios({
-                url:  url,
+                url:  API,
                 method:'post',
                 data:{
                 query:`
@@ -334,10 +335,10 @@ class AdminGral extends React.Component {
                   })
                   
                   var correo  = localStorage.getItem("correo")       
-                  const url = 'http://localhost:8000/graphql'
+                  // const url = 'http://localhost:8000/graphql'
       
                     axios({
-                      url:  url,
+                      url:  API,
                       method:'post',
                       data:{
                       query:`
@@ -372,10 +373,10 @@ class AdminGral extends React.Component {
                         })
                         
                         var correo  = localStorage.getItem("correo")       
-                        const url = 'http://localhost:8000/graphql'
+                        // const url = 'http://localhost:8000/graphql'
             
                           axios({
-                            url:  url,
+                            url:  API,
                             method:'post',
                             data:{
                             query:`
@@ -598,9 +599,9 @@ class AdminGral extends React.Component {
                 const correo = localStorage.getItem('correo')
         
                 if(values.nombre){
-                    const url = 'http://localhost:8000/graphql'
+                    // const url = 'http://localhost:8000/graphql'
                     axios({
-                      url:  url,
+                      url:  API,
                       method:'post',
                       data:{
                       query:`
@@ -659,9 +660,9 @@ class AdminGral extends React.Component {
                 const correo = localStorage.getItem('correo')
         
                 if(values.nombreSucursal){
-                    const url = 'http://localhost:8000/graphql'
+                    // const url = 'http://localhost:8000/graphql'
                     axios({
-                      url:  url,
+                      url:  API,
                       method:'post',
                       data:{
                       query:`
@@ -700,9 +701,9 @@ class AdminGral extends React.Component {
                 const correo = localStorage.getItem('correo')
         
                 if(values.nombreDepto){
-                    const url = 'http://localhost:8000/graphql'
+                    // const url = 'http://localhost:8000/graphql'
                     axios({
-                      url:  url,
+                      url:  API,
                       method:'post',
                       data:{
                       query:`
@@ -742,9 +743,9 @@ class AdminGral extends React.Component {
                 const correo = localStorage.getItem('correo')
         
                 if(values.nombrePuesto){
-                    const url = 'http://localhost:8000/graphql'
+                    // const url = 'http://localhost:8000/graphql'
                     axios({
-                      url:  url,
+                      url:  API,
                       method:'post',
                       data:{
                       query:`
@@ -780,9 +781,9 @@ class AdminGral extends React.Component {
             if(values.NombrePeriodo && this.state.inicial && this.state.final && this.state.Alerta1&& this.state.Alerta1&& this.state.Alerta2&& this.state.Alerta3){
 
             const idAdmin=localStorage.getItem("idAdmin")
-            const url = 'http://localhost:8000/graphql'
+            // const url = 'http://localhost:8000/graphql'
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -807,7 +808,7 @@ class AdminGral extends React.Component {
               }else if(datos.data.data.getEventos.message=="exito"){
                 
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -857,10 +858,10 @@ class AdminGral extends React.Component {
           editarPeriodo(values){  
             if(values.NombrePeriodo && this.state.final && this.state.Alerta1 && this.state.Alerta2 && this.state.Alerta3){    
             const idAdmin=localStorage.getItem("idAdmin")
-            const url = 'http://localhost:8000/graphql'    
+            // const url = 'http://localhost:8000/graphql'    
             console.log("entro aqui")                  
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`
@@ -916,9 +917,9 @@ class AdminGral extends React.Component {
           DesactivarPeriodo(values){
             if(values.deshabilitar){
             const idAdmin=localStorage.getItem("idAdmin")
-            const url = 'http://localhost:8000/graphql'
+            // const url = 'http://localhost:8000/graphql'
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`

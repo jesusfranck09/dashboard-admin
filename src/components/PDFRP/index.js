@@ -18,6 +18,7 @@ import { PDFExport } from '@progress/kendo-react-pdf';
 import logo from '../images/logo.png'
 import logotipo from '../images/logotipo.png'
 import diagnostico from '../images/diagnostico.png'
+import { API} from '../utils/http'
 
 
 import {Alert,Badge} from 'reactstrap'
@@ -45,11 +46,11 @@ class App extends Component {
   }
 
   componentWillMount(){  
-    const url = 'http://localhost:8000/graphql'
+    // const url = 'http://localhost:8000/graphql'
     var correo  = localStorage.getItem("correo")   
     const idAdmin = localStorage.getItem("idAdmin")
     axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -65,7 +66,7 @@ class App extends Component {
     })
     .then(datos => {	
       axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
@@ -121,9 +122,9 @@ class App extends Component {
   click(id){ 
     const periodo  = localStorage.getItem("periodo")        
 
-          const url = 'http://localhost:8000/graphql'
+          // const url = 'http://localhost:8000/graphql'
           axios({
-            url:  url,
+            url:  API,
             method:'post',
             data:{
             query:`
@@ -183,9 +184,9 @@ class App extends Component {
   getEvaluacion(id){
     const periodo  = localStorage.getItem("periodo")        
 
-    const url = 'http://localhost:8000/graphql'
+    // const url = 'http://localhost:8000/graphql'
     axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`
@@ -243,7 +244,7 @@ class App extends Component {
           });  
 
             axios({
-              url:  url,
+              url:  API,
               method:'post',
               data:{
               query:`

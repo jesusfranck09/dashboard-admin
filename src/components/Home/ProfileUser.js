@@ -15,6 +15,7 @@ import {MDBMask,MDBAnimation} from 'mdbreact'
 import axios from  'axios'
 import { Image } from 'semantic-ui-react'
 import AddressAdmin from  './addressAdmin'
+import { API} from '../utils/http'
 
 
 const useStyles = makeStyles(theme => ({
@@ -82,9 +83,9 @@ export default function RecipeReviewCard() {
     setExpanded(!expanded);
  
 
-    const url = 'http://localhost:8000/graphql'
+    // const url = 'http://localhost:8000/graphql'
     axios({
-      url:  url,
+      url:  API,
       method:'post',
       data:{
       query:`

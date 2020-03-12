@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup,  Row } from 'reactstrap';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+// import { API} from '../utils/http'
 
 const CUESTIONS = gql`
     mutation CUESTIONS($data:[String]!){

@@ -14,7 +14,8 @@ import {
 import { Alert } from 'reactstrap';
 import axios from 'axios';
 import Navbar from './NavbarDatos'
- 
+import { API} from '../utils/http'
+
 
 import {  MDBBadge } from 'mdbreact';
 
@@ -42,9 +43,9 @@ if( (values.pregunta1 == "si" || values.pregunta1=="no") && (values.pregunta2 ==
   const periodo = localStorage.getItem("Periodo")
 
 
-  const url = 'http://localhost:8000/graphql'
+  // const url = 'http://localhost:8000/graphql'
   axios({
-    url:  url,
+    url:  API,
     method:'post',
     data:{
     query:`

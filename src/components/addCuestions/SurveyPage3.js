@@ -16,6 +16,7 @@ import {
 import { Alert } from 'reactstrap';
 import axios from 'axios';
 import { DialogUtility } from '@syncfusion/ej2-popups';
+import { API} from '../utils/http'
 
 import {MDBBadge } from 'mdbreact';
 import Navbar from './NavbarDatos'
@@ -39,9 +40,9 @@ class Home extends React.Component {
     && (values.pregunta13 == "si" || values.pregunta13=="no")&& (values.pregunta14 == "si" || values.pregunta14=="no")){
       const periodo = localStorage.getItem("Periodo")
       const correo = localStorage.getItem('correoATS')
-      const url = 'http://localhost:8000/graphql'
+      // const url = 'http://localhost:8000/graphql'
       axios({
-        url:  url,
+        url:  API,
         method:'post',
         data:{
         query:`
