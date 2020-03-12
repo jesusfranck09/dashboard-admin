@@ -91,7 +91,7 @@ class Routes extends Component{
               <main>
                  
                   <Route exact path='/' component={Login}/>
-                  <PrivateRoute exact path='/paquetes' component={Paquetes}/>
+                  <Route exact path='/paquetes' component={Paquetes}/>
                   <Route exact path='/loginEmpresas' component={LoginEmpresas}/>
                   <Route exact path='/loginAlfa' component={LoginAlfa}/>
                   <Route exact path='/register473' component={SignAlfa}/>
@@ -99,65 +99,65 @@ class Routes extends Component{
                   <Route exact path='/signup' component={SignUp}/>
                   {/* <PrivateRoute exact path='/result' component={Result}/> */}
 
-                  <PrivateRoute exact path='/cuestions' component={Cuestions}/>
-                  <PrivateRoute exact path='/inicio' component={Home}/>
+                  <Route exact path='/cuestions' component={Cuestions}/>
+                  <Route exact path='/inicio' component={Home}/>
                   {/* <PrivateRoute exact path='/company' component={Company}/> */}
-                  <PrivateRoute exact path='/employees' component={Employees}/>
-                  <PrivateRoute exact path='/table' component={Table}/>
+                  <Route exact path='/employees' component={Employees}/>
+                  <Route exact path='/table' component={Table}/>
                   <Route exact path='/survey' component={Survey}/>
                   <Route exact path='/Initsurvey' component={InitSurvey}/>
-                  <PrivateRoute exact path='/dashboardAdminAlfa' component={DashboardAdminAlfa}/>
+                  <Route exact path='/dashboardAdminAlfa' component={DashboardAdminAlfa}/>
 
-                  <PrivateRoute exact path='/empresas' component={Empresas}/>
-                  <PrivateRoute exact path='/page1' component={SurveyPage1}/>
-                  <PrivateRoute exact path='/page2' component={SurveyPage2}/>
-                  <PrivateRoute exact path='/page3' component={SurveyPage3}/>
+                  <Route exact path='/empresas' component={Empresas}/>
+                  <Route exact path='/page1' component={SurveyPage1}/>
+                  <Route exact path='/page2' component={SurveyPage2}/>
+                  <Route exact path='/page3' component={SurveyPage3}/>
 
                   <Route exact path='/politicaRP' component={PoliticaRP}/>
 
-                  <PrivateRoute exact path='/RPpage1' component={RPPage1}/>
-                  <PrivateRoute exact path='/RPpage2' component={RPPage2}/>
-                  <PrivateRoute exact path='/RPpage3' component={RPPage3}/>
-                  <PrivateRoute exact path='/RPpage4' component={RPPage4}/>
-                  <PrivateRoute exact path='/RPpage5' component={RPPage5}/>
-                  <PrivateRoute exact path='/RPpage6' component={RPPage6}/>
-                  <PrivateRoute exact path='/RPpage7' component={RPPage7}/>
-                  <PrivateRoute exact path='/RPpage8' component={RPPage8}/>
+                  <Route exact path='/RPpage1' component={RPPage1}/>
+                  <Route exact path='/RPpage2' component={RPPage2}/>
+                  <Route exact path='/RPpage3' component={RPPage3}/>
+                  <Route exact path='/RPpage4' component={RPPage4}/>
+                  <Route exact path='/RPpage5' component={RPPage5}/>
+                  <Route exact path='/RPpage6' component={RPPage6}/>
+                  <Route exact path='/RPpage7' component={RPPage7}/>
+                  <Route exact path='/RPpage8' component={RPPage8}/>
 
-                  <PrivateRoute exact path='/RPValidate7' component={RPValidateCuestion7}/>
-                  <PrivateRoute exact path='/RPValidate8' component={RPValidateCuestion8}/>
+                  <Route exact path='/RPValidate7' component={RPValidateCuestion7}/>
+                  <Route exact path='/RPValidate8' component={RPValidateCuestion8}/>
 
 
                   <Route exact path='/politicaEEO' component={PoliticaEEO}/>
 
-                  <PrivateRoute exact path='/EEOpage1' component={EEOpage1}/>
-                  <PrivateRoute exact path='/EEOpage2' component={EEOpage2}/>
-                  <PrivateRoute exact path='/EEOpage3' component={EEOpage3}/>
-                  <PrivateRoute exact path='/EEOpage4' component={EEOpage4}/>
-                  <PrivateRoute exact path='/EEOpage5' component={EEOpage5}/>
-                  <PrivateRoute exact path='/EEOpage6' component={EEOpage6}/>
-                  <PrivateRoute exact path='/EEOpage7' component={EEOpage7}/>
-                  <PrivateRoute exact path='/EEOpage8' component={EEOpage8}/>
-                  <PrivateRoute exact path='/EEOpage9' component={EEOpage9}/>
-                  <PrivateRoute exact path='/EEOpage10' component={EEOpage10}/>
-                  <PrivateRoute exact path='/EEOpage11' component={EEOpage11}/>
-                  <PrivateRoute exact path='/EEOpage12' component={EEOpage12}/>
-                  <PrivateRoute exact path='/EEOpage13' component={EEOpage13}/>
-                  <PrivateRoute exact path='/EEOpage14' component={EEOpage14}/>
-                  <PrivateRoute exact path='/profile' component={ProfileUser}/>
+                  <Route exact path='/EEOpage1' component={EEOpage1}/>
+                  <Route exact path='/EEOpage2' component={EEOpage2}/>
+                  <Route exact path='/EEOpage3' component={EEOpage3}/>
+                  <Route exact path='/EEOpage4' component={EEOpage4}/>
+                  <Route exact path='/EEOpage5' component={EEOpage5}/>
+                  <Route exact path='/EEOpage6' component={EEOpage6}/>
+                  <Route exact path='/EEOpage7' component={EEOpage7}/>
+                  <Route exact path='/EEOpage8' component={EEOpage8}/>
+                  <Route exact path='/EEOpage9' component={EEOpage9}/>
+                  <Route exact path='/EEOpage10' component={EEOpage10}/>
+                  <Route exact path='/EEOpage11' component={EEOpage11}/>
+                  <Route exact path='/EEOpage12' component={EEOpage12}/>
+                  <Route exact path='/EEOpage13' component={EEOpage13}/>
+                  <Route exact path='/EEOpage14' component={EEOpage14}/>
+                  <Route exact path='/profile' component={ProfileUser}/>
                   {/* <PrivateRoute exact path='/result' component={Result}/> */}
                   {/* <PrivateRoute exact path='/pdf' component={PDF}/> */}
-                  <PrivateRoute exact path='/resultRP' component={ResultRP}/>
-                  <PrivateRoute exact path='/resultEEO' component={ResultEEO}/>
-                  <PrivateRoute exact path='/res' component={Res}/>
-                  <PrivateRoute exact path='/adminGral' component={AdminGral}/>
-                  <PrivateRoute exact path='/sucursales' component={Sucursales}/>
-                  <PrivateRoute exact path='/apartments' component={Apartments}/>
-                  <PrivateRoute exact path='/adminEmployees' component={adminEmployees}/>
-                  <PrivateRoute exact path='/puestos' component={Puestos}/>
-                  <PrivateRoute exact path='/resultGralEEO' component={IndexEEO}/>
-                  <PrivateRoute exact path='/resultGral' component={ResGral}/>
-                  <PrivateRoute exact path='/demo' component={Demo}/>
+                  <Route exact path='/resultRP' component={ResultRP}/>
+                  <Route exact path='/resultEEO' component={ResultEEO}/>
+                  <Route exact path='/res' component={Res}/>
+                  <Route exact path='/adminGral' component={AdminGral}/>
+                  <Route exact path='/sucursales' component={Sucursales}/>
+                  <Route exact path='/apartments' component={Apartments}/>
+                  <Route exact path='/adminEmployees' component={adminEmployees}/>
+                  <Route exact path='/puestos' component={Puestos}/>
+                  <Route exact path='/resultGralEEO' component={IndexEEO}/>
+                  <Route exact path='/resultGral' component={ResGral}/>
+                  <Route exact path='/demo' component={Demo}/>
          
 
 
