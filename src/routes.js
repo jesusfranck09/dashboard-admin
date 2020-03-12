@@ -7,7 +7,7 @@ import checkToken from '../src/resolvers/checkToken';
 // import checkSurveyEEO from '../src/resolvers/checkSurveyEEO';
 import {
   BrowserRouter as Router,
-  Route,Redirect
+  Route,Redirect,Switch
 } from 'react-router-dom';
 import React, { Component } from 'react';
 
@@ -85,17 +85,15 @@ class Routes extends Component{
       const PrivateRoute = ({component:Component, ...rest}) => (
       <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/"/> )}/>,  
       <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/loginEmpresas"/>)}/>,   
-      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/loginAlfa"/>)}/>,     
-      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/survey"/>)}/>
-
+      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/loginAlfa"/>)}/>    
       )
 
       return(
         <ApolloProvider client={client}>
           <Router>
-              
+          <Switch>
               <main>
-                  
+                 
                   <Route exact path='/' component={Login}/>
                   <PrivateRoute exact path='/paquetes' component={Paquetes}/>
                   <Route exact path='/login' component={Login}/>
@@ -172,6 +170,7 @@ class Routes extends Component{
     
 
               </main>
+              </Switch>
           </Router>
           </ApolloProvider>
       )
