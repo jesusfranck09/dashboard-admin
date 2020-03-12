@@ -83,9 +83,7 @@ class Routes extends Component{
   render(){
       
       const PrivateRoute = ({component:Component, ...rest}) => (
-      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/"/> )}/>,  
-      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/loginEmpresas"/>)}/>,   
-      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/loginAlfa"/>)}/>    
+      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/loginEmpresas"/> )}/> 
       )
 
       return(
@@ -96,7 +94,6 @@ class Routes extends Component{
                  
                   <Route exact path='/' component={Login}/>
                   <PrivateRoute exact path='/paquetes' component={Paquetes}/>
-                  <Route exact path='/login' component={Login}/>
                   <Route exact path='/loginEmpresas' component={LoginEmpresas}/>
                   <Route exact path='/loginAlfa' component={LoginAlfa}/>
                   <Route exact path='/register473' component={SignAlfa}/>
