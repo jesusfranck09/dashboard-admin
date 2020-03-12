@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API =  'https://git.heroku.com/backenddiagnostico035.git'
+const API =  'https://backenddiagnostico035.herokuapp.com/graphql'
 
 
 export {
