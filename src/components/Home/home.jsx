@@ -226,7 +226,7 @@ localStorage.removeItem("DepartamentoActivo")
 localStorage.removeItem("SucursalActiva")
 localStorage.removeItem("PuestoActivo")
 
-this.props.history.push("/loginEmpresas")
+this.props.history.push("/login")
 DialogUtility.alert({
   animationSettings: { effect: 'Fade' },           
   title: 'Hasta luego...!',
