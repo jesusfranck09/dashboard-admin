@@ -2497,7 +2497,7 @@ ponderacion=<React.Fragment>
                   full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
               </MDBNavbarBrand>
               <MDBNavbarBrand>
-                Resultados Globales de la Encuesta Riesgo Psicosocial
+                Resultados Globales de la Encuesta RP
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
@@ -2508,9 +2508,7 @@ ponderacion=<React.Fragment>
                               
            
                 <MDBNavbarBrand>
-                <AppNavbarBrand
-                  full={{ src: logotipo, width: 80, height:25 , alt: 'ADS' }} /> 
-              <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
+               <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
               {this.state.nombre}
               </MDBNavbarBrand>
               <MDBNavbarBrand>

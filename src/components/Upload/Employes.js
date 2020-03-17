@@ -12,7 +12,7 @@ import '../Home/index.css'
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import diagnostico from '../images/diagnostico.png'
 import { API} from '../utils/http'
-
+import { createHashHistory } from "history";
 import MiniDrawer from '../adminGeneral/Sidebar'
 
 import {
@@ -642,7 +642,8 @@ class App extends React.Component {
 					title: 'Aviso!',
 					position: "fixed"
 				});
-				window.location.reload();
+				const history = createHashHistory();
+				history.go("/adminGral");
 
 			}
 			console.log("los segundos datos" , datos)
@@ -799,7 +800,7 @@ render(){
 					  <MenuItem value="1971">1971</MenuItem>
 					  <MenuItem value="1972">1972</MenuItem>
 					  <MenuItem value="1973">1973</MenuItem>
-					  <MenuItem value="1974">1973</MenuItem>
+					  <MenuItem value="1974">1974</MenuItem>
 					  <MenuItem value="1975">1975</MenuItem>
 					  <MenuItem value="1976">1976</MenuItem>
 					  <MenuItem value="1977">1977</MenuItem>

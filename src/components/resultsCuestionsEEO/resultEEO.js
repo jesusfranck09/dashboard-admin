@@ -169,7 +169,7 @@ ads(){
                   full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
               </MDBNavbarBrand>
               <MDBNavbarBrand>
-                Resultados de la Encuesta Evaluacion Entorno Organizacional
+                Resultados de la Encuesta EEO
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
@@ -180,9 +180,7 @@ ads(){
                               
            
                 <MDBNavbarBrand>
-                <AppNavbarBrand
-                  full={{ src: logo, width: 80, height:25 , alt: 'ADS' }} /> 
-              <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
+               <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
               {this.state.nombre}
               </MDBNavbarBrand>
               <MDBNavbarBrand>

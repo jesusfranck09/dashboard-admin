@@ -178,7 +178,7 @@ class AdminGral extends React.Component {
                   Estado
                   actividad
                   telefono
-                  correo
+                  actividades
                   fk_administrador
                     }
                   }
@@ -1622,10 +1622,10 @@ class AdminGral extends React.Component {
                         <Field
                           fullWidth
                           required
-                          name="correo"
+                          name="actividades"
                           component={TextField}
                           type="text"
-                          defaultValue={this.state.updateRowsSucursales.correo}
+                          defaultValue={this.state.updateRowsSucursales.actividades}
                         />
                       </Grid>
 	                      <Grid item >

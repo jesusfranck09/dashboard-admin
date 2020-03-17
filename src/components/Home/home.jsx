@@ -1549,8 +1549,7 @@ alerta3 =  (deadline) => {
                               
            
                 <MDBNavbarBrand>
-                <AppNavbarBrand
-                  full={{ src: logo, width: 80, height:25 , alt: 'ADS' }} /> 
+                
               <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
               {this.state.nombre}
               </MDBNavbarBrand>

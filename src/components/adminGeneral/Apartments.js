@@ -26,103 +26,9 @@ import { API} from '../utils/http'
         const errors = {};
         if (!values.departamento) {
           errors.departamento = 'Este campo es requerido';
-        }
-      
-      
+        }  
         return errors;
       };
-
-      const evaluar  = (values) =>{
-
-        const departamento = values.departamento
-        
-        const correo = localStorage.getItem('correo')
-
-        if(departamento){
-            // const url = 'http://localhost:8000/graphql'
-            axios({
-              url:  API,
-              method:'post',
-              data:{
-              query:`
-               mutation{
-                registerApartments(data:"${[departamento,correo]}"){
-                    message
-                      }
-                    }
-                  `
-              }
-            })
-            .then(datos => {		
-            console.log("datos correctos" , datos)
-            localStorage.setItem("ok",1)
-            DialogUtility.alert({
-                animationSettings: { effect: 'Fade' },           
-                title:'Aviso',
-                content: 'Se agregó el Nuevo Departamento!',
-                position: "fixed",
-              
-              }
-              )
-              window.location.reload();
-            });    
-           
-        } else{
-            DialogUtility.alert({
-                animationSettings: { effect: 'Fade' },           
-                title:'Aviso',
-                content: 'Por favor complete el Campo!',
-                position: "fixed",
-              
-              }
-              )
-        }
-      }
-      
-      
-      function App() {
-        return (
-          <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
-            <Form
-              onSubmit={onSubmit}
-              
-              validate={validate}
-              render={({ handleSubmit, submitting,values }) => (
-                <form onSubmit={handleSubmit}>
-                 <Alert color="primary">Por favor ingrese el nuevo Departamento a Registrar</Alert>
-                  <Paper style={{ padding: 16} }>
-                    <Grid container alignItems="flex-start" spacing={2} >
-                      <Grid item xs={6}>
-                        <Field
-                          fullWidth
-                          required
-                          name="departamento"
-                          component={TextField}
-                          type="text"
-                          label="Nuevo Departamento"
-                        />
-                      </Grid>
-
-                      <Grid item style={{ marginTop: 16 ,marginLeft:160 }}>
-                        <Button
-                         variant="outlined"
-                          color="secondary"
-                          type="submit"
-                          disabled={submitting}
-                          onClick={(e) =>evaluar(values)}
-                        >
-                          Registrar Departamento
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Paper>
-                 
-                </form>
-              )}
-            />
-          </div>
-        );
-      }
 
       class Sucursales extends React.Component {
         constructor(props) {
@@ -140,8 +46,53 @@ import { API} from '../utils/http'
             collapse: !this.state.collapse,
           });
         }
-    
-        
+
+        evaluar  = (values) =>{
+
+          const departamento = values.departamento
+          
+          const correo = localStorage.getItem('correo')
+  
+          if(departamento){
+              // const url = 'http://localhost:8000/graphql'
+              axios({
+                url:  API,
+                method:'post',
+                data:{
+                query:`
+                 mutation{
+                  registerApartments(data:"${[departamento,correo]}"){
+                      message
+                        }
+                      }
+                    `
+                }
+              })
+              .then(datos => {		
+              console.log("datos correctos" , datos)
+              localStorage.setItem("ok",1)
+              DialogUtility.alert({
+                  animationSettings: { effect: 'Fade' },           
+                  title:'Aviso',
+                  content: 'Se agregó el Nuevo Departamento!',
+                  position: "fixed",
+                
+                }
+                )
+                this.props.history.push("/adminGral")
+              });    
+             
+          } else{
+              DialogUtility.alert({
+                  animationSettings: { effect: 'Fade' },           
+                  title:'Aviso',
+                  content: 'Por favor complete el Campo!',
+                  position: "fixed",
+                
+                }
+                )
+          }
+        }
         render() {
             
           // const { children} = this.props;
@@ -178,7 +129,45 @@ import { API} from '../utils/http'
                
                 <MDBContainer style={{marginTop:40}}>
                  <MDBRow>
-                 <App/>
+                        <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
+                    <Form
+                      onSubmit={onSubmit}
+                      
+                      validate={validate}
+                      render={({ handleSubmit, submitting,values }) => (
+                        <form onSubmit={handleSubmit}>
+                        <Alert color="primary">Por favor ingrese el nuevo Departamento a Registrar</Alert>
+                          <Paper style={{ padding: 16} }>
+                            <Grid container alignItems="flex-start" spacing={2} >
+                              <Grid item xs={6}>
+                                <Field
+                                  fullWidth
+                                  required
+                                  name="departamento"
+                                  component={TextField}
+                                  type="text"
+                                  label="Nuevo Departamento"
+                                />
+                              </Grid>
+
+                              <Grid item style={{ marginTop: 16 ,marginLeft:160 }}>
+                                <Button
+                                variant="outlined"
+                                  color="secondary"
+                                  type="submit"
+                                  disabled={submitting}
+                                  onClick={(e) =>this.evaluar(values)}
+                                >
+                                  Registrar Departamento
+                                </Button>
+                              </Grid>
+                            </Grid>
+                          </Paper>
+                        
+                        </form>
+                      )}
+                    />
+                  </div>
                 </MDBRow>   
                 </MDBContainer>
             </div>
