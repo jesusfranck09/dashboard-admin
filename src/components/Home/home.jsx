@@ -1538,18 +1538,13 @@ alerta3 =  (deadline) => {
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav left>
-                  <MDBNavItem active>
-                    <MDBNavLink to="/survey">Cuestionario ATS</MDBNavLink>
+                  <MDBNavItem >
+                  <a href="https://master.d14ylpne1awxxr.amplifyapp.com/">Resolver Encuesta</a>
                   </MDBNavItem>
-                  <MDBNavItem active>
-                    <MDBNavLink to="/politicaRP">Cuestionario RP</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem active>
-                    <MDBNavLink to="/politicaEEO">Cuestionario EEO</MDBNavLink>
-                  </MDBNavItem>
+                  
                 </MDBNavbarNav>
               
-    <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
+               <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
                 <MDBNavbarNav right>
                               
            
