@@ -627,8 +627,7 @@ class AdminGral extends React.Component {
                       
                       }
                       )
-
-                      window.location.reload();
+                      this.setState({modal13:false})
                     })
                    
                 } 
@@ -689,7 +688,7 @@ class AdminGral extends React.Component {
                       }
                       )
 
-                      window.location.reload();
+                      this.setState({modal14:false})
                     })
                    
                 } 
@@ -730,7 +729,7 @@ class AdminGral extends React.Component {
                       }
                       )
 
-                      window.location.reload();
+                      this.setState({modal15:false})
                     })
                    
                 } 
@@ -772,7 +771,7 @@ class AdminGral extends React.Component {
                       }
                       )
 
-                      window.location.reload();
+                      this.setState({modal16:false})
                     })
                    
                 } 
