@@ -623,8 +623,7 @@ class AdminGral extends React.Component {
                         animationSettings: { effect: 'Fade' },        
                         title:"AVISO!",   
                         content: 'Empleado Actualizado',
-                        position: "fixed",
-                      
+                        position: "fixed", 
                       }
                       )
                       this.setState({modal13:false})

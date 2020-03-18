@@ -1690,19 +1690,19 @@ let Dominio5MuyAlto;
 let colorDominioCinco;
 let DominioCinco = (respuesta16+respuesta17)/length;
 if(DominioCinco < 1){
-  colorDominioCinco  = <TableCell width="15px" style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioCinco  = <TableCell width="20px" style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio5Nulo= <MDBBadge color="info">{DominioCinco}</MDBBadge>
 }else if(DominioCinco >= 1 && DominioCinco < 2){
-  colorDominioCinco=<TableCell width="15px" style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioCinco=<TableCell width="20px" style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio5Bajo= <MDBBadge color="success">{DominioCinco}</MDBBadge>
 }else if(DominioCinco >= 2 && DominioCinco < 4){
-  colorDominioCinco=<TableCell width="15px" style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioCinco=<TableCell width="20px" style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   Dominio5Medio= <MDBBadge color="warning">{DominioCinco}</MDBBadge>
 }else if(DominioCinco >= 4 && DominioCinco < 6){
-  colorDominioCinco = <TableCell  width="15px"style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioCinco = <TableCell  width="20px"style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   Dominio5Alto= <MDBBadge color="warning">{DominioCinco}</MDBBadge>
 }else if(DominioCinco >= 6){
-  colorDominioCinco= <TableCell  width="15px" style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioCinco= <TableCell  width="20px" style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   Dominio5MuyAlto= <MDBBadge color="danger">{DominioCinco}</MDBBadge>
 }
 
@@ -1789,7 +1789,8 @@ ponderacion=<React.Fragment>
  <br/>
  
 <MDBContainer >
-<font face="arial" className = "mt-4" ><strong> ENCUESTA RP. </strong> <br/> <strong>FILTRADO POR  :  {this.state.filtro6} {this.state.filtro1} <br/>{this.state.filtro2} <br/> {this.state.filtro3}  <br/>{this.state.filtro4} <br/> {this.state.filtro5}<br/> {this.state.filtro7} <br/> {this.state.filtro8} <br/></strong></font><br/>
+<font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>&nbsp;&nbsp;
+
 <font face="arial " className = "mt-4 " ><strong>{localStorage.getItem("razonsocial")}</strong> </font>
 
 <Table   responsive small borderless className="text-left mt-4 ">
@@ -2306,6 +2307,7 @@ ponderacion=<React.Fragment>
                                         
                                       </MDBTableBody>
                                       </MDBTable>
+                                      <br/>
                                       <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
                                       <MDBTableBody>
                                       
