@@ -57,7 +57,7 @@ import {
 		</Modal>
 	  </div>
 	 
-	<Alert style = {{marginTop:40,width:400}} color ="success">Nota : Puede ver los requisitos de su excel desde este enlace<br/>   <a href="https://drive.google.com/open?id=1819fK76agx6YHZXyt9-bT7XWTdffTLOF" target="_blank">Carga de empleados Excel Ejemplo </a></Alert>
+	<Alert style = {{marginTop:40,width:400}} color ="success">Nota : Puede ver los requisitos de su excel desde este enlace<br/>   <a href="https://drive.google.com/open?id=1eys_82rd1j1WnNnp_LPIKj-L1mbKADEF" target="_blank">Carga de empleados Excel Ejemplo </a></Alert>
 	
 	  </React.Fragment>	
 	);
@@ -76,7 +76,7 @@ class SheetJSApp extends React.Component {
     handleSubmit = async event => {
 		let idSuperUsuario;
 		// const url = 'http://localhost:8000/graphql'
-		const idAdmin =  localStorage.getItem("idAdmin")
+		const idAdmin =  await localStorage.getItem("idAdmin")
 		await axios({
 			url:  API,
 			method:'post',
@@ -141,17 +141,15 @@ class SheetJSApp extends React.Component {
 			 });
  
 			 let empleadosRegistrados=parseInt(max)
-			 console.log("empleados registrados " ,empleadosRegistrados ,empleadosPack)
+			//  console.log("empleados registrados " ,empleadosRegistrados ,empleadosPack)
 		if(empleadosRegistrados < empleadosPack ){
-			console.log("estado" , this.state.data)
+	
 	
         for (var i=0; i< this.state.data.length; i++)
      	  {
 				// const url  = 'http://localhost:8000/graphql'
 				var estado = this.state.data[i]	
-			
-				if(this.state.data[i].length==21  ){
-
+				if(this.state.data[i].length==21 && this.state.data[i][0] != "FILAS USADAS COMO MUESTRA POR FAVOR ELIMINAR LA FILA 1 2 Y 3 ANTES DE CARGAR EL ARCHIVO"){		
 				const query =  `
 				mutation {
 					registerEmployee(
@@ -179,14 +177,15 @@ class SheetJSApp extends React.Component {
 								content: "Uno de los correos  ya se encuentra registrado, por favor verifiquelo nuevamente !",
 								position: "fixed"
 							});
+							
 						}else if(datos.data.data.registerEmployee.message == 'registro exitoso'){
+						
 							DialogUtility.alert({
 								animationSettings: { effect: 'Zoom' },           
 						
 								title: "Datos Cargados Exitosamente!",
 								position: "fixed"
 							});
-							// window.location.reload();
 						}
 					})
 					 .catch((error) => {
@@ -194,12 +193,13 @@ class SheetJSApp extends React.Component {
 				});
 
 				}else{
+			
 					DialogUtility.alert({
 					animationSettings: { effect: 'Zoom' },           
-						
 					title: "Su archivo no cumple con los requisitos",
 					position: "fixed"
 				});
+				{ break; }
 				}
 
 		

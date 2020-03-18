@@ -1801,12 +1801,12 @@ class AdminGral extends React.Component {
               <Button  startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({registrarPeriodo:"1",editarPeriodo:''}) } style={{marginBottom:20}}>
                   Agregar o Desactivar Periodo
                </Button>
-               <div>
+               {/* <div>
           <input type="file" onChange={this.handleImageChange} />
           <button  onClick={this.handleSubmit}>Cargar imagen</button>
       
         {imagePreview}
-      </div>
+      </div> */}
                <Button  startIcon={<BorderColorOutlinedIcon />} color="secondary" onClick={(e)=>this.setState({editarPeriodo:"1",registrarPeriodo:''}) } style={{marginBottom:20}}>
                   Editar Periodo
                </Button>

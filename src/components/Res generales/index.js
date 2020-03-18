@@ -1666,19 +1666,19 @@ let Dominio4MuyAlto;
 let colorDominioCuatro;
 let DominioCuatro = (respuesta14+respuesta15)/length;
 if(DominioCuatro < 1){
-  colorDominioCuatro  = <TableCell style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioCuatro  = <TableCell width="20px" style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio4Nulo= <MDBBadge color="info">{DominioCuatro}</MDBBadge>
 }else if(DominioCuatro >= 1 && DominioCuatro < 2){
-  colorDominioCuatro=<TableCell style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioCuatro=<TableCell width="20px" style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio4Bajo= <MDBBadge color="success">{DominioCuatro}</MDBBadge>
 }else if(DominioCuatro >= 2 && DominioCuatro < 4){
-  colorDominioCuatro = <TableCell style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioCuatro = <TableCell  width="20px" style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   Dominio4Medio= <MDBBadge color="warning">{DominioCuatro}</MDBBadge>
 }else if(DominioCuatro >= 4 && DominioCuatro < 6){
-  colorDominioCuatro = <TableCell style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioCuatro = <TableCell width="20px" style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   Dominio4Alto= <MDBBadge color="warning">{DominioCuatro}</MDBBadge>
 }else if(DominioCuatro >= 6){
-  colorDominioCuatro= <TableCell style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioCuatro= <TableCell width="20px" style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   Dominio4MuyAlto= <MDBBadge color="danger">{DominioCuatro}</MDBBadge>
 }
 
@@ -2303,14 +2303,6 @@ ponderacion=<React.Fragment>
                                           <td width="15px"><font size="1" face="arial"color="black">{DominioCuatro}</font></td>
                                           {colorDominioCuatro}
                                           </tr>
-                                       
-                                        
-                                      </MDBTableBody>
-                                      </MDBTable>
-                                      <br/>
-                                      <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
-                                      <MDBTableBody>
-                                      
                                       <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
                                           <td width="60px" className="text-left"><font size="1" face="arial"color="black">Interferencia en la relación trabajo-familia</font></td>
@@ -2336,8 +2328,10 @@ ponderacion=<React.Fragment>
                                           {colorDominioOcho}  
                                         </tr>
                                     
+                                        
                                       </MDBTableBody>
                                       </MDBTable>
+                          
 
                                       <MDBTable  component={Paper}  small  className="text-left ">
                                      <MDBTableBody>
@@ -2613,7 +2607,7 @@ ponderacion=<React.Fragment>
             
            
               <MUIDataTable
-                title={"Total de Empleados Alfa Diseño de Sistemas"}
+                title={`Empledos  totales de ${localStorage.getItem("razonsocial")}`}
                 data={data}
                 columns={columns}
                 options={options}
