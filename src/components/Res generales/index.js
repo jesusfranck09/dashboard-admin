@@ -162,7 +162,7 @@ pdfExportComponent ;
   localStorage.removeItem("usuario")
   localStorage.removeItem("correo")
   localStorage.removeItem("max")
-  this.props.history.push("/login")
+  this.props.history.push("/")
   DialogUtility.alert({
     animationSettings: { effect: 'Fade' },           
     title: 'Hasta luego...!',

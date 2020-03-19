@@ -72,7 +72,7 @@ class Routes extends Component{
   render(){
       
     const PrivateRoute = ({component:Component, ...rest}) => (
-      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/login"/> )}/>      
+      <Route {...rest} render = {(props) => (checkToken() === true ? <Component {...props}/> : <Redirect to="/"/> )}/>      
       )
 
       return(
@@ -80,7 +80,7 @@ class Routes extends Component{
           <Router>
           <Switch>
               <main>
-              <Route exact path='/login' component={Login}/>
+              <Route exact path='/' component={Login}/>
                   {/* <Route exact path='/verify/:id' component={Verify}/> */}
                   {/* <PrivateRoute exact path='/result' component={Result}/> */}
 

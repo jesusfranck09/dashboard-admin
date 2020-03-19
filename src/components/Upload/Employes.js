@@ -57,7 +57,7 @@ import {
 		</Modal>
 	  </div>
 	 
-	<Alert style = {{marginTop:40,width:400}} color ="success">Nota : Puede ver los requisitos de su excel desde este enlace<br/>   <a href="https://drive.google.com/open?id=1eys_82rd1j1WnNnp_LPIKj-L1mbKADEF" target="_blank">Carga de empleados Excel Ejemplo </a></Alert>
+	<Alert style = {{marginTop:40,width:400}} color ="success">Nota : Puede ver los requisitos de su excel desde este enlace<br/>   <a href="https://drive.google.com/open?id=1s3a_gRCF6LXrRhwOx0qyMz5ufw6GCJng" target="_blank">Carga de empleados Excel Ejemplo </a></Alert>
 	
 	  </React.Fragment>	
 	);
@@ -145,11 +145,12 @@ class SheetJSApp extends React.Component {
 		if(empleadosRegistrados < empleadosPack ){
 	
 	
-        for (var i=0; i< this.state.data.length; i++)
+        for (var i=2; i< this.state.data.length; i++)
      	  {
+			 
 				// const url  = 'http://localhost:8000/graphql'
 				var estado = this.state.data[i]	
-				if(this.state.data[i].length==21 && this.state.data[i][0] != "FILAS USADAS COMO MUESTRA POR FAVOR ELIMINAR LA FILA 1 2 Y 3 ANTES DE CARGAR EL ARCHIVO"){		
+				if(this.state.data[i].length==21){		
 				const query =  `
 				mutation {
 					registerEmployee(
@@ -178,6 +179,33 @@ class SheetJSApp extends React.Component {
 								position: "fixed"
 							});
 							
+						}else if(datos.data.data.registerEmployee.message == 'la sucursal no existe'){
+						
+							DialogUtility.alert({
+								animationSettings: { effect: 'Zoom' },           
+								title:"Aviso!",
+								content: "Estimado usuario el centro de trabajo proporcionado en su excel no existe en su catálogo de centros de trabajo activos",
+								position: "fixed"
+							});
+							console.log("hola mundo")
+						}else if(datos.data.data.registerEmployee.message == 'el puesto no existe'){
+						
+							DialogUtility.alert({
+								animationSettings: { effect: 'Zoom' },           
+								title:"Aviso!",
+								content: "Estimado usuario el puesto proporcionado en su excel no existe en su catálogo de puestos activos",
+								position: "fixed"
+							});
+							console.log("hola mundo")
+						}else if(datos.data.data.registerEmployee.message == 'el departamento no existe'){
+						
+							DialogUtility.alert({
+								animationSettings: { effect: 'Zoom' },           
+								title:"Aviso!",
+								content: "Estimado usuario el departamento proporcionado en su excel no existe en su catálogo de departamentos activos",
+								position: "fixed"
+							});
+							console.log("hola mundo")
 						}else if(datos.data.data.registerEmployee.message == 'registro exitoso'){
 						
 							DialogUtility.alert({
