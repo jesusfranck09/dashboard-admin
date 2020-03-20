@@ -193,7 +193,7 @@ handleFront = async () =>{
 		  }
 		})
 		.then(datos => {		
-      console.log("exito pack " , datos)
+      // console.log("exito pack " , datos)
       em =datos.data.data.verifyPackSuperUser.empleados
       this.setState({empleados:em})
 		}).catch(err=>{
@@ -242,7 +242,7 @@ ads(){
 }
 
 verifyTables=async () =>{
-  const idAdmin   = localStorage.getItem('idAdmin')
+  const idAdmin   = await localStorage.getItem('idAdmin')
   // const url = 'http://localhost:8000/graphql'
   await axios({
     url:  API,
@@ -283,7 +283,7 @@ verifyTables=async () =>{
         `
     }
         }).then((datos) => {
-            console.log("depto activo",datos.data.data.deptoActive)
+            // console.log("depto activo",datos.data.data.deptoActive)
           if(datos.data.data.deptoActive.length>0){
             localStorage.setItem("DepartamentoActivo","true")
           }else{
@@ -307,7 +307,7 @@ verifyTables=async () =>{
         `
     }
         }).then((datos) => {
-            console.log("depto activo",datos.data.data.sucActive)
+            // console.log("depto activo",datos.data.data.sucActive)
           if(datos.data.data.sucActive.length>0){
             localStorage.setItem("SucursalActiva","true")
           }else{
@@ -331,7 +331,7 @@ verifyTables=async () =>{
         `
     }
         }).then((datos) => {
-            console.log("depto activo",datos.data.data.puestoActive)
+            // console.log("depto activo",datos.data.data.puestoActive)
           if(datos.data.data.puestoActive.length>0){
             localStorage.setItem("PuestoActivo","true")
           }else{
@@ -531,7 +531,7 @@ getMaxEmployees = async()=>{
       }
           }).then((datos) => {
             this.setState({empleadosEEOFalse:datos.data.data.getEmployeesResolvesSurveyEEOFalse})
-             console.log("datosFalse" ,datos.data.data.getEmployeesResolvesSurveyEEOFalse )
+            //  console.log("datosFalse" ,datos.data.data.getEmployeesResolvesSurveyEEOFalse )
           }).catch(err=>{
             // console.log("error", err.response)
           })
@@ -591,7 +591,7 @@ sendMAilAlert1Survey  = async () => {
             var alert1;
             var fechaFinal;
 
-            console.log("la alerta 1 es " , alerta1)
+            // console.log("la alerta 1 es " , alerta1)
             if(alerta1){
               alert1= alerta1.substring(4,34)       
               
@@ -604,7 +604,7 @@ sendMAilAlert1Survey  = async () => {
             }
             if (eventoFinal){
               fechaFinal = eventoFinal.substring(4,34)
-              console.log("alerta",fechaFinal) 
+              // console.log("alerta",fechaFinal) 
             }
         
   
@@ -662,7 +662,7 @@ countdown =  (deadline) => {
         }
       })
       .then(datos => {	
-        console.log("exito",datos)
+        // console.log("exito",datos)
         DialogUtility.alert({
           animationSettings: { effect: 'Fade' },        
           title:"AVISO!",   

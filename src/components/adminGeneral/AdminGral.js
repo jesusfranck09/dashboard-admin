@@ -18,6 +18,8 @@ import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import { Form, Field } from 'react-final-form';
 import { TextField ,Select} from 'final-form-material-ui';
+import MUIDataTable from "mui-datatables";
+
 import {
 	MenuItem,
   } from '@material-ui/core';
@@ -675,9 +677,8 @@ class AdminGral extends React.Component {
                 const numInt = values.numInt
                 const colonia = values.colonia
                 const CP = values.CP
-                const rfc =values.rfc
                 const telefono= values.telefono
-                const correoSucursal = values.correo
+                const actividades = values.actividades
                 const Ciudad= values.Ciudad
             
                 
@@ -691,7 +692,7 @@ class AdminGral extends React.Component {
                       data:{
                       query:`
                        mutation{
-                        updateSucursales(data:"${[nombreSucursal,calle,numExt,numInt,colonia,CP,Ciudad,rfc,telefono,correoSucursal,id,correo]}"){
+                        updateSucursales(data:"${[nombreSucursal,calle,numExt,numInt,colonia,CP,Ciudad,telefono,id,actividades,correo]}"){
                             message
                               }
                             }
@@ -1833,7 +1834,96 @@ class AdminGral extends React.Component {
         </MDBContainer>  
        }
       
-   
+       const columns = ["Nombre","Apellido P", "Apellido M.",  "Sexo","Correo","Editar","Eliminar"];
+
+       const data = this.state.datos.map((rows,i)=>{
+         const boton2 = <div><IconButton onClick={this.toggle(13,rows)}>
+         <CreateOutlinedIcon />
+       </IconButton></div>
+         const boton = <div><IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } > <DeleteIcon /></IconButton> </div>
+         return([rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Sexo,rows.correo,boton,boton2])
+       })
+
+
+       const columnsCentro = ["Centro de Trabajo","Calle", "Colonia",  "Ciudad","Editar","Eliminar"];
+
+       const dataCentro = this.state.datosSucursales.map((rows,i)=>{
+         const botonUno = <div> <IconButton onClick={this.toggleSucursales(14,rows)} >
+         <CreateOutlinedIcon /></IconButton></div>
+         const botonDos = <div><IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a esta Sucursal ?.Los datos se perderán')) this.deleteSucursales(i,rows.id)} } >
+         <DeleteIcon /></IconButton></div>
+         return([rows.nombreSucursal,rows.calle ,rows.colonia ,rows.Ciudad,botonUno,botonDos])
+       })
+
+
+       const columnsDeptos = ["Nombre de Departamento","Editar","Eliminar"];
+
+       const dataDeptos = this.state.datosDeptos.map((rows,i)=>{
+         const boton1Uno = <div><IconButton onClick={ this.toggleDeptos(15,rows)}  >
+         <CreateOutlinedIcon /></IconButton></div>
+         const boton2Dos = <div><IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Departamento ?.Los datos se perderán')) this.deleteDepartamentos(i,rows.id)} } >
+         <DeleteIcon /></IconButton></div>
+         return([rows.nombre,boton1Uno,boton2Dos])
+       })
+
+       const columnsPuestos = ["Nombre de Departamento","Editar","Eliminar"];
+
+       const dataPuestos = this.state.datosPuestos.map((rows,i)=>{
+         const boton11 = <div><IconButton onClick={ this.togglePuestos(16,rows)}  >
+         <CreateOutlinedIcon /></IconButton></div>
+         const boton22 = <div> <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Puesto ?.Los datos se perderán')) this.deletePuestos(i,rows.id)} } >
+         <DeleteIcon /></IconButton></div>
+         return([rows.nombre,boton11,boton22])
+       })
+
+       let datosEmpleados;
+       let filtro;
+       const options = {
+           filterType: "dropdown",
+           responsive: "stacked",
+           textLabels: {
+                      body: {
+                        noMatch: "Lo Siento ,No se han encontrado Resultados :(",
+                        toolTip: "Sort",
+                        columnHeaderTooltip: column => `Sort for ${column.label}`
+                      },
+                      pagination: {
+                        next: "Siguiente Página",
+                        previous: "Anterior Página",
+                        rowsPerPage: "Filas por Página:",
+                        displayRows: "de",
+                      },
+                      toolbar: {
+                        search: "Buscar",
+                        downloadCsv: "Descargar CSV",
+                        print: "Imprimir",
+                        viewColumns: "Ver Columnas",
+                        filterTable: "Filtrar Tabla",
+                      },
+                      filter: {
+                        all: "Todos",
+                        title: "Filtros",
+                        reset: "Deshacer",
+                      },
+                      viewColumns: {
+                        title: "Mostrar Columnas",
+                        titleAria: "Show/Hide Table Columns",
+                      },
+                      selectedRows: {
+                        text: "Filas Selecionadas",
+                        delete: "Borrar",
+                        deleteAria: "Eliminar Filas Seleccionadas",
+                      },
+                    },
+         
+           onTableChange: (action, tableState) => {
+           datosEmpleados=tableState.displayData
+           console.log("datosEmpleados " , datosEmpleados)
+           },
+           onFilterChange: (action, filtroTable) => {
+             filtro=filtroTable
+             console.log("filtro" , filtro) 
+             }     };
       // const { children} = this.props;
       const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
       const container = { width:1000, height: 800 }
@@ -1888,133 +1978,47 @@ class AdminGral extends React.Component {
                  {editarPeriodo}
                   {periodo}
                   {misPeriodos}
-                    <Paper >
-                   <MDBCard>
-                    <MDBCardBody> 
-                    <MDBCardTitle>Empleados totales</MDBCardTitle>
-                            <Table bordered>
-                              <TableBody>
-                                {this.state.datos.map((rows,i )=> {
-                                 
-                                  return (
-                                    <TableRow >
-                                      <TableCell component="th" scope="row">
-                                        {rows.id}
-                                      </TableCell>
-                                      <TableCell >{rows.nombre}</TableCell>
-                                      <TableCell  >{rows.ApellidoP}</TableCell>
-                                      <TableCell  >{rows.ApellidoM}</TableCell>
-                                      <TableCell  >{rows.Sexo}</TableCell>
-                                      <TableCell  >{rows.rfc} </TableCell>
-                                      <TableCell  >{rows.ciudad} </TableCell>
-                                      <TableCell  >
-                                      <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } >
-                                          <DeleteIcon />
-                                        </IconButton></TableCell>
-                                        <TableCell>
-                                        <IconButton onClick={this.toggle(13,rows)}>
-                                          <CreateOutlinedIcon />
-                                        </IconButton>
-                                        </TableCell>
-                                    </TableRow> 
-                                  );
-                                })}
-                              </TableBody>
-                            </Table>
-                          </MDBCardBody>
-                      </MDBCard>
-                      </Paper>
-                    <Paper >
-                    <MDBCard >
-                        <MDBCardBody>
-                        <MDBCardTitle>Centros de Trabajo</MDBCardTitle>
-                        </MDBCardBody>
-                         
-                        <Table bordered>
-                           
-                           <TableBody>
-                             {this.state.datosSucursales.map((rows,i) => {
-                               return (
-                                 <TableRow >
-                                   <TableCell component="th" scope="row">
-                                     {rows.id}
-                                   </TableCell>
-                                   <TableCell >{rows.nombreSucursal}</TableCell>
-                                   <TableCell  >{rows.calle}</TableCell>
-                                   <TableCell  >{rows.colonia}</TableCell>
-                                   <TableCell  >{rows.Ciudad} </TableCell>
-                                   <TableCell  >{rows.rfc} </TableCell>
-                                   <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a esta Sucursal ?.Los datos se perderán')) this.deleteSucursales(i,rows.id)} } >
-                                   <DeleteIcon /></IconButton></TableCell>
-                                   <TableCell  > <IconButton onClick={this.toggleSucursales(14,rows)} >
-                                   <CreateOutlinedIcon /></IconButton></TableCell>
-                                 </TableRow>                                
-                               );
-                             })}
-                           </TableBody>
-                   </Table>
-                    </MDBCard>
-                    </Paper> 
-                    
-                   
-                    <MDBRow>
-                     <MDBCol>
-                    <Paper style={{ width: "22rem" }}>
-                    <MDBCard style={{ width: "22rem" }}>
-                        <MDBCardBody>
-                        <MDBCardTitle>Departamentos Actuales</MDBCardTitle>
-                        <Table bordered>
-                           
-                           <TableBody>
-                             {this.state.datosDeptos.map((rows,i) => {
-                               return (
-                                 <TableRow >
-                                   <TableCell component="th" scope="row">
-                                     {rows.id}
-                                   </TableCell>
-                                 <TableCell ><strong> {rows.nombre}</strong> </TableCell>
-                                 <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Departamento ?.Los datos se perderán')) this.deleteDepartamentos(i,rows.id)} } >
-                                   <DeleteIcon /></IconButton></TableCell>
-                                   <TableCell  > <IconButton onClick={ this.toggleDeptos(15,rows)}  >
-                                   <CreateOutlinedIcon /></IconButton></TableCell>
-                                 </TableRow>                                
-                               );
-                             })}
-                           </TableBody>
-                          </Table>
-                        </MDBCardBody>       
-                    </MDBCard>
-                    </Paper>
-                    </MDBCol> 
-                    <MDBCol>
-                    <Paper style={{ width: "22rem" }}>
-                    <MDBCard style={{ width: "22rem" }} >
-                        <MDBCardBody>
-                        <MDBCardTitle>Puestos Actuales</MDBCardTitle>
-                        <Table bordered>
-                           <TableBody>
-                             {this.state.datosPuestos.map((rows,i) => {
-                               return (
-                                 <TableRow >
-                                   <TableCell component="th" scope="row">
-                                     {rows.id}
-                                   </TableCell>
-                                 <TableCell ><strong> {rows.nombre}</strong> </TableCell>
-                                 <TableCell  > <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Puesto ?.Los datos se perderán')) this.deletePuestos(i,rows.id)} } >
-                                   <DeleteIcon /></IconButton></TableCell>
-                                   <TableCell  > <IconButton onClick={ this.togglePuestos(16,rows)}  >
-                                   <CreateOutlinedIcon /></IconButton></TableCell>                           
-                                 </TableRow>                                
-                               );
-                             })}
-                           </TableBody>
-                   </Table>
-                        </MDBCardBody>                     
-                    </MDBCard>
-                    </Paper>
-                    </MDBCol>
-                    </MDBRow>
-                    
+                  <MDBRow>
+                                      <MDBContainer>
+                                      
+                                       <MUIDataTable
+                                        title={`Empleados de ${localStorage.getItem("razonsocial")}`}
+                                        data={data}
+                                        columns={columns}
+                                        options={options}
+                                       
+                                      />
+                                      
+                                      </MDBContainer>
+                                      <MDBContainer style={{marginTop:40}}>
+                                          <MUIDataTable
+                                        title={`Centros de trabajo de ${localStorage.getItem("razonsocial")}`}
+                                        data={dataCentro}
+                                        columns={columnsCentro}
+                                        options={options}
+                                        
+                                      />
+                                   
+                                   </MDBContainer>
+                                   <MDBContainer style={{marginTop:40}}>
+                                         <MUIDataTable
+                                        title={`Departamentos de ${localStorage.getItem("razonsocial")}`}
+                                        data={dataDeptos}
+                                        columns={columnsDeptos}
+                                        options={options}
+                                        
+                                      />
+                                   </MDBContainer>
+                                      <MDBContainer style={{marginTop:40}}>
+                                      <MUIDataTable
+                                        title={`Puestos de ${localStorage.getItem("razonsocial")}`}
+                                        data={dataPuestos}
+                                        columns={columnsPuestos}
+                                        options={options}
+                                       
+                                      />
+                                </MDBContainer>
+                                </MDBRow> 
                       {modal}
                       {modalSucursales}
                       {modalDeptos}

@@ -51,7 +51,8 @@ class TableEmployees extends React.Component {
       showModal2: false,     
       ATSContestado:'',
       periodoActivo:'',
-      correosEnviados:''
+      correosEnviados:'',
+      correos:[]
 
    
     };
@@ -107,7 +108,6 @@ class TableEmployees extends React.Component {
         }).catch(err=>{
           console.log("error",err.response)
         })
-      
       }
       onClick() {
         this.setState({
@@ -117,15 +117,14 @@ class TableEmployees extends React.Component {
     
     handleclick(){
     this.props.history.push("/profile")
-    
     }
     
-  getEmployees = event => {
+  getEmployees = async event => {
 
     var idAdmin  =localStorage.getItem("idAdmin")  
     console.log(idAdmin)     
       // const url = 'http://localhost:8000/graphql'
-      axios({
+     await axios({
         url:  API,
         method:'post',
         data:{
@@ -163,23 +162,40 @@ class TableEmployees extends React.Component {
             `
         }
             }).then((datos) => {
-              // console.log("parseo" ,JSON.stringify(datos.data.data))
-              // console.log("datps" ,datos.data.data.getUsersTableEmployees)
               this.setState({ datos: datos.data.data.getUsersTableEmployees});
-            
              console.log("estos son los id" , datos.data.data.getUsersTableEmployees)
-              // this.props.history.push("/inicio")
             })
-
             .catch((error) => {
-        
-              //console.log("errores" ,error.response.data.errors[0].message)
               console.log(".cartch" , error.response)
           });
-          
-    }  
-    
-    
+
+          axios({
+            url:  API,
+            method:'post',
+            data:{
+            query:`
+             query{
+              getCorreos(data:"${[idAdmin]}"){
+                Encuesta
+                fecha
+                nombre
+                ApellidoP
+                ApellidoM
+                Curp
+              }
+                  }
+                `
+            }
+          })
+          .then(datos => {	
+            console.log("exito datos",datos)
+          this.setState({correos:datos.data.data.getCorreos})
+          }).catch(err=>{
+            console.log("error",err)
+          }) 
+
+        }
+
     handleLogOut(){
     localStorage.removeItem("elToken")
     localStorage.removeItem("nombre")
@@ -414,6 +430,12 @@ class TableEmployees extends React.Component {
       return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.CentroTrabajo,rows.correo])
     })
 
+    const columnss = ["Encuesta","Fecha", "Nombre",  "Apellido P.","Apellido M.","Curp"];
+
+    const datas = this.state.correos.map(rows=>{
+      return([rows.Encuesta,rows.fecha,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Curp])
+    })
+
     let datosEmpleados;
     let filtro;
     const options = {
@@ -466,39 +488,13 @@ class TableEmployees extends React.Component {
           let correosEnviados;
           if(this.state.correosEnviados=='1'){
             console.log("mis periodos2 ")
-            correosEnviados =<MDBContainer><Paper >
-           <MDBCard >
-               <MDBCardBody>
-               <MDBCardTitle>Mis Correos</MDBCardTitle>
-               </MDBCardBody>
-                
-               <Table bordered>
-   
-               <TableCell component="th" scope="row">
-                          <strong>Encuesta</strong>
-                          </TableCell>
-                          <TableCell > <strong>Fecha </strong></TableCell>
-                          <TableCell  > <strong>Final</strong></TableCell>
-                          <TableCell  > <strong>Nombre del Empleado</strong></TableCell>                           
-                <  TableBody>
-                    {/* {this.state.allperiodo.map((rows,i) => {
-                      return (
-                        <TableRow >
-                          <TableCell component="th" scope="row">
-                            {rows.Descripcion}
-                          </TableCell>
-                          <TableCell >{rows.evento}</TableCell>
-                          <TableCell  >{rows.eventoFinal}</TableCell>
-                          <TableCell  >{rows.alerta1}</TableCell>
-                          <TableCell  >{rows.alerta2} </TableCell>
-                          <TableCell  >{rows.alerta3} </TableCell>
-                        </TableRow>                                
-                      );
-                    })} */}
-                  </TableBody>
-          </Table>
-           </MDBCard>
-           </Paper>
+            correosEnviados =<MDBContainer>
+               <MUIDataTable
+                title={`Mis Correos`}
+                data={datas}
+                columns={columnss}
+                options={options}
+              />
            </MDBContainer>  
           }
          
@@ -546,11 +542,10 @@ class TableEmployees extends React.Component {
                         <MDBDropdownItem href="#!">Configuración</MDBDropdownItem>
                         <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
                         <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
-
-                      </MDBDropdownMenu>
-                    </MDBDropdown>
-                  </MDBNavItem>
-                  </MDBNavbarBrand>
+                          </MDBDropdownMenu>
+                        </MDBDropdown>
+                      </MDBNavItem>
+                      </MDBNavbarBrand>
                       </MDBNavbarNav>
                     </MDBCollapse>
                   </MDBNavbar>
@@ -576,6 +571,9 @@ class TableEmployees extends React.Component {
         <div style={{ height: "110%"}}>
         <Button  startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({correosEnviados:'1'})} style={{marginBottom:20}}>
            correos Enviados
+         </Button>
+         <Button  startIcon={<CloseOutlinedIcon />} color="secondary" onClick={(e)=>this.setState({correosEnviados:''})} style={{marginBottom:20}}>
+           Cerrar
          </Button>
          {correosEnviados}
           <Grow in={true}>
