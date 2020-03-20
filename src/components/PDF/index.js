@@ -17,7 +17,8 @@ import { API} from '../utils/http'
 
 import {Alert} from 'reactstrap'
 class App extends Component {
-pdfExportComponent =(props)=><span><font size="1"face="arial"color="red">diagnostico.com</font><br/><font size="1"face="arial"color="gray">{props.pageNum}</font></span>;
+pdfExportComponent
+// =(props)=><span><font size="1"face="arial"color="red">diagnostico.com</font><br/><font size="1"face="arial"color="gray">{props.pageNum}</font></span>;
   constructor(props) {
     super(props);
     this.state = {
@@ -377,7 +378,7 @@ pdfExportComponent =(props)=><span><font size="1"face="arial"color="red">diagnos
                         paperSize="letter"
                         margin="1cm"
                         pageNum
-                        pageTemplate={this.pdfExportComponent}
+                        // pageTemplate={this.pdfExportComponent}
                         ref={(component) => this.pdfExportComponent = component}
                     >
                         <div style={{ width: "500px" }}>

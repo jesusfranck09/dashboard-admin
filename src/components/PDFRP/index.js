@@ -1512,7 +1512,7 @@ ponderacion =  <React.Fragment>
                         paperSize="letter"
                         margin="1cm"
                         pageNum
-                        pageTemplate={this.pdfExportComponent}
+                        // pageTemplate={this.pdfExportComponent}
                         ref={(component) => this.pdfExportComponent = component}
                     >
                         <div style={{ width: "500px" }}>

@@ -67,6 +67,7 @@ import Apartments from './components/adminGeneral/Apartments';
 import Res from './components/resultsCuestions/resultados';
 
 import ResGral from './components/Res generales/index';
+
 class Routes extends Component{
   
   render(){

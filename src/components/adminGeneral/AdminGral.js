@@ -6,7 +6,7 @@ import '../Home/index.css'
 import Paper from '@material-ui/core/Paper';
 import inicio from '../images/house.png'
 import { API} from '../utils/http'
-
+import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
@@ -39,7 +39,7 @@ import {
   } from '@material-ui/pickers';
   import esLocale from "date-fns/locale/es";
 import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
-
+import AccessTimeOutlinedIcon from '@material-ui/icons/AccessTimeOutlined';
 class AdminGral extends React.Component {
     constructor(props) {
       super(props);
@@ -65,7 +65,9 @@ class AdminGral extends React.Component {
         Alerta3:null,
         registrarPeriodo:'',
         editarPeriodo:'',
-        imagePreviewUrl: ''
+        imagePreviewUrl: '',
+        misPeriodos:'',
+        allperiodo:[]
         // periodoDesactivado:[],
       };
       this.getEmployees = this.getEmployees.bind(this);
@@ -97,6 +99,30 @@ class AdminGral extends React.Component {
         .then(datos => {	
           console.log("exito eventos",datos)
           this.setState({periodo:datos.data.data.getPeriodo})
+        }).catch(err=>{
+          console.log("error",err.response)
+        })
+        axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+           query{
+            getallPeriodo(data:"${[idAdmin]}"){
+             evento
+             eventoFinal
+             alerta1
+             alerta2
+             alerta3
+             Descripcion
+                  }
+                }
+              `
+          }
+        })
+        .then(datos => {	
+          console.log("exito datos",datos)
+          this.setState({allperiodo:datos.data.data.getallPeriodo})
         }).catch(err=>{
           console.log("error",err.response)
         })
@@ -1764,7 +1790,49 @@ class AdminGral extends React.Component {
          </MDBModal>
        </MDBContainer>
        }
- 
+       let misPeriodos;
+      
+       if(this.state.misPeriodos=='1'){
+         console.log("mis periodos2 ")
+        misPeriodos =<MDBContainer><Paper >
+        <MDBCard >
+            <MDBCardBody>
+            <MDBCardTitle>Mis Periodos</MDBCardTitle>
+            </MDBCardBody>
+             
+            <Table bordered>
+
+            <TableCell component="th" scope="row">
+                       <strong>Nombre</strong>
+                       </TableCell>
+                       <TableCell > <strong>Inicial </strong></TableCell>
+                       <TableCell  > <strong>Final</strong></TableCell>
+                       <TableCell  > <strong>Alerta1</strong></TableCell>
+                       <TableCell  > <strong>Alerta2</strong></TableCell>
+                       <TableCell  > <strong>Alerta3</strong></TableCell>
+                                                  
+             <  TableBody>
+                 {this.state.allperiodo.map((rows,i) => {
+                   return (
+                     <TableRow >
+                       <TableCell component="th" scope="row">
+                         {rows.Descripcion}
+                       </TableCell>
+                       <TableCell >{rows.evento}</TableCell>
+                       <TableCell  >{rows.eventoFinal}</TableCell>
+                       <TableCell  >{rows.alerta1}</TableCell>
+                       <TableCell  >{rows.alerta2} </TableCell>
+                       <TableCell  >{rows.alerta3} </TableCell>
+                     </TableRow>                                
+                   );
+                 })}
+               </TableBody>
+       </Table>
+        </MDBCard>
+        </Paper>
+        </MDBContainer>  
+       }
+      
    
       // const { children} = this.props;
       const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
@@ -1798,7 +1866,7 @@ class AdminGral extends React.Component {
               </header>
                 <MDBContainer style={{marginTop:60}} >
               <Alert  color="primary">Nota : El periodo de Evaluación debe ser Registrado para que su sistema funcione de manera correcta, si desea Agregar o desactivar Periodos de evaluacion puede hacerlo mediante el botón de abajo</Alert>    
-              <Button  startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({registrarPeriodo:"1",editarPeriodo:''}) } style={{marginBottom:20}}>
+              <Button  startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({registrarPeriodo:"1",editarPeriodo:'',misPeriodos:'0'}) } style={{marginBottom:20}}>
                   Agregar o Desactivar Periodo
                </Button>
                {/* <div>
@@ -1807,12 +1875,19 @@ class AdminGral extends React.Component {
       
         {imagePreview}
       </div> */}
-               <Button  startIcon={<BorderColorOutlinedIcon />} color="secondary" onClick={(e)=>this.setState({editarPeriodo:"1",registrarPeriodo:''}) } style={{marginBottom:20}}>
+               <Button  startIcon={<BorderColorOutlinedIcon />} color="primary" onClick={(e)=>this.setState({editarPeriodo:"1",registrarPeriodo:'',misPeriodos:'0'}) } style={{marginBottom:20}}>
                   Editar Periodo
+               </Button>
+               <Button  startIcon={<AccessTimeOutlinedIcon />} color="default" onClick={(e)=>this.setState({misPeriodos:'1',editarPeriodo:'',registrarPeriodo:''}) } style={{marginBottom:20}}>
+                Mis periodos
+               </Button>
+               <Button  startIcon={<CloseOutlinedIcon />} outlined color="secondary" onClick={(e)=>this.setState({misPeriodos:'',editarPeriodo:'',registrarPeriodo:''}) } style={{marginBottom:20}}>
+                Cerrar 
                </Button>
                  {registrarPeriodo} 
                  {editarPeriodo}
                   {periodo}
+                  {misPeriodos}
                     <Paper >
                    <MDBCard>
                     <MDBCardBody> 
