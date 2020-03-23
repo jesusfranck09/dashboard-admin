@@ -24,6 +24,8 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SettingsIcon from '@material-ui/icons/Settings';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import TimelineIcon from '@material-ui/icons/Timeline';
+import TextFormatIcon from '@material-ui/icons/TextFormat';
+import ExplicitOutlinedIcon from '@material-ui/icons/ExplicitOutlined';
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -194,6 +196,16 @@ export default function MiniDrawer() {
           ))}
         </List>    
         </Link>
+        <Link to="/indexAts" style={{ textDecoration: 'none' }}>
+        <List >
+          {['Res. Globales ATS'].map((text) => (
+            <ListItem button key={text} >
+              <ListItemIcon> <TextFormatIcon /> </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>    
+        </Link>
 
         <Link to="/resultGral" style={{ textDecoration: 'none' }}>
         <List >
@@ -209,7 +221,7 @@ export default function MiniDrawer() {
         <List >
           {['Res. Globales EEO'].map((text) => (
             <ListItem button key={text} >
-              <ListItemIcon> <TimelineIcon /> </ListItemIcon>
+              <ListItemIcon> <ExplicitOutlinedIcon /> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
