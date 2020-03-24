@@ -648,7 +648,7 @@ pdfExportComponent ;
                 <td width="10px"><font size="1" face="arial"color="black"><strong>Accion Requerida</strong></font></td>                                         
                                     
               </tr>
-              { this.state.peticion1.map(rows => {
+              { this.state.peticion1.map((rows,i) => {
                 if(rows[1]){
                   let respuesta;
                   if(rows[1].Respuestas =='si'){
@@ -659,7 +659,7 @@ pdfExportComponent ;
                    
                   return (
                     <TableRow >
-                   <td width="10px"  className="text-left"><font size="1" face="arial"color="black" > </font></td>
+                   <td width="10px"  className="text-left"><font size="1" face="arial"color="black" >{i + 1} </font></td>
                    <td width="30px"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].nombre} </font></td>
                    <td width="30px" className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoP  }</font></td>
                 <td width="20px"  className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoM}</font></td>
