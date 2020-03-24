@@ -169,17 +169,17 @@ pdfExportComponent ;
   ads(){
     this.setState({showModal2:true}) 
   }
-  getGlobalEmployees(){
-    var id  =localStorage.getItem("idAdmin")       
+  getGlobalEmployees   = async () => {
+    var id  =  localStorage.getItem("idAdmin")       
     // const url = 'http://localhost:8000/graphql'
     
-    axios({
+   await  axios({
       url:  API,
       method:'post',
       data:{ 
       query:`
       query{
-        getEmployeesResolvesATS(data:"${id}"){
+        getEmployeesResolvesATS(data:"${[id]}"){
           id
           nombre
           ApellidoP
@@ -195,15 +195,14 @@ pdfExportComponent ;
       }
           }).then((datos) => {
           this.setState({empleados:datos.data.data.getEmployeesResolvesATS})       
-          console.log("state",this.state.empleados)
           }).catch(err=>{
-            console.log("error" ,err.response)
+            console.log("error" ,err)
           })
 
          
      }
 
-     consultarDatosFiltrados = async (datos,filtro) =>{
+   consultarDatosFiltrados = async (datos,filtro) =>{
       let array=[];
       let periodo;
       let totalEmpleados=[];
@@ -211,9 +210,10 @@ pdfExportComponent ;
         periodo= rows.data[6]
         array.push(rows.data[0])
       })
-      for(var i=0; i<=array.length;i++){
-       
+      for(var i=0; i<=array.length;i++){   
+        // console.log("array en la posicion  de i " , array[i])    
         // const url = 'http://localhost:8000/graphql'
+
        await  axios({
           url:  API,
           method:'post',
@@ -254,8 +254,9 @@ pdfExportComponent ;
           }
               }).then(datos => {    
               totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
-              console.log("totalEMpleados" , totalEmpleados)
+              // console.log("totalEMpleados" , totalEmpleados)
               this.setState({peticion1:totalEmpleados})
+              console.log("estado",this.state.peticion1)
               })
               .catch(err => {
               });  
@@ -332,13 +333,31 @@ pdfExportComponent ;
 
   render() {
      
-  let atencion; 
-  let noAtencion;
+    let accionSi = 0;
+    let accionNo =0;
+    
+    this.state.peticion1.map(rows=>{
+      if(rows[1]){
+        if (rows[1].Respuestas == 'si'){
+           accionSi = accionSi + 1
+      
+        }
+        console.log("accionSi" , accionSi)
+        if (rows[1].Respuestas == 'no'){
+           accionNo = accionNo +1
+        
+        }
+        
+      }
+    })
+    
+   
+    console.log("accionNo" , accionNo)
 
     const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo"];
 
     const data = this.state.empleados.map(rows=>{
-      return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoP,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo])
+      return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo])
     })
 
     let datosEmpleados;
@@ -505,20 +524,16 @@ pdfExportComponent ;
 
  
         <MDBContainer style = {{marginTop:60}}>
-        <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>&nbsp;&nbsp;
+        <font face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>&nbsp;&nbsp;
 
       <font face="arial " className = "mt-4 " ><strong>{localStorage.getItem("razonsocial")}</strong> </font>
 
         { this.state.peticion1.map(rows =>{ 
+   
+
             if(rows[1]){
-                if(rows[1].Respuestas =='no') {
-                    atencion =  <TableCell ><strong>no requiere atencion</strong></TableCell>
-                } if(rows[1].Respuestas =='si') {
-                    atencion =  <TableCell ><strong>Requiere Atención</strong> </TableCell>
-                }
                 return (
                     <MDBContainer >
-                   
                      <div>
                 <div className="example-config">
                   
@@ -533,7 +548,6 @@ pdfExportComponent ;
                         ref={(component) => this.pdfExportComponent = component}
                     >
                         <div style={{ width: "500px" }}>
-                      
                             <MDBRow> 
                             <MDBCol>
                             <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
@@ -547,12 +561,12 @@ pdfExportComponent ;
                           
                                     <MDBTableBody>     
                             <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-                            <font size="3"face="arial"color="black">Diagnóstico Global de factores de riesgo psicosocial  en los centros de trabajo</font><br></br>
+                            <font size="3"face="arial"color="black">Reporte Global de Acontecimientos Traumáticos Severos  </font><br></br>
                             <font size="1"face="arial"color="black">{this.state.date}</font><br/>
                             <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
                             <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>
-
-                        
+                            <br/><font size="1"face="arial"color="black">Total de empleados con atención requerida : <strong>{accionSi}</strong></font>
+                            <br/><font size="1"face="arial"color="black">Total de empleados sin atención requerida : <strong>{accionNo}</strong></font>
                             </MDBTableBody>
                             </MDBTable>
                             <br/>
@@ -563,23 +577,87 @@ pdfExportComponent ;
                             <br/>
                             <br/>
                             <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-center mt-4 ">
+                              <MDBTableBody>
+                              <font size="1"
+                              face="arial"
+                              color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA I -
+                              CUESTIONARIO PARA IDENTIFICAR LOS ACONTECIMIENTOS TRAUMÁTICOS SEVEROS EN LOS CENTROS DE TRABAJO</font>   <br/>  
+                                </MDBTableBody>
+                                </MDBTable>
+                                <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
+                                    <MDBTableBody>
+                                    <tr>
+                                        <td width="25%"><font size="1" face="arial"color="black"><strong>{localStorage.getItem("razonsocial")}</strong></font></td>
+                                   </tr>
+                                   </MDBTableBody>
+                                   </MDBTable>
+                                   <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left ">
+                                    <MDBTableBody>
+                                    <tr>
+                                        <td width="25%"><font size="1" face="arial"color="black"></font></td>
+                                   </tr>
+                                   </MDBTableBody>
+                                   </MDBTable>
+                                   <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left ">
+                                    <MDBTableBody>
                             
-                            
-                            <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
-
-                            <TableBody>
-                            <TableCell >
-                            {rows[1].nombre}
-                            </TableCell>
-                            {atencion}
-                        </TableBody>
-                        </MDBTable>
+                                   <tr>
+                                   <td width="40%" style={{backgroundColor: "#D8D8D8"}}><font size="1" face="arial"color="black">TOTAL DE EVALUACIONES : <strong>{this.state.datosLength}</strong></font></td>
+                                   <td width="30%" style={{backgroundColor: "#F61414"}} ><font size="1" face="arial"color="black">ACCIÓN REQUERIDA : {accionSi}</font></td>
+                                   <td width="30%" style={{backgroundColor: "#62F0FA"}}><font size="1" face="arial"color="black" >ACCIÓN NO REQUERIDA : {accionNo}</font></td>
+                                    
+                                   </tr>                                  
+                                   </MDBTableBody>
+                                    </MDBTable>  
+            <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
+              <MDBTableBody>
+                
+                <tr >   
+                <td width="10px"><font size="1" face="arial"color="black" ><strong></strong></font></td>                           
+                <td width="30px"><font size="1" face="arial"color="black" ><strong>Nombre</strong></font></td>
+                <td width="30px" ><font size="1" face="arial"color="black"><strong>Apellido Paterno</strong></font></td>
+                <td width="20px"><font size="1" face="arial"color="black"><strong>Apellido Materno</strong></font></td>
+                <td width="10px"><font size="1" face="arial"color="black"><strong>Accion Requerida</strong></font></td>                                         
+                                    
+              </tr>
+              { this.state.peticion1.map(rows => {
+                if(rows[1]){
+                  let respuesta;
+                  if(rows[1].Respuestas =='si'){
+                   respuesta =  <TableCell  width="10px" style={{backgroundColor: "#F61414"}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">SI</font></TableCell>
+                  }if(rows[1].Respuestas =='no'){
+                    respuesta =  <TableCell  width="10px" style={{backgroundColor: "#62F0FA"}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">NO</font></TableCell>
+                   }
+                   
+                  return (
+                    <TableRow >
+                   <td width="10px"  className="text-left"><font size="1" face="arial"color="black" > </font></td>
+                   <td width="30px"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].nombre} </font></td>
+                   <td width="30px" className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoP  }</font></td>
+                <td width="20px"  className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoM}</font></td>
+                  {respuesta}
+                    </TableRow>                                
+                  );
+                }
+             
+              })}
+            </MDBTableBody>
+          </MDBTable>
+                          
                         </div>
                     </PDFExport>
                 </div>
             </div>
-                 </MDBContainer>  
-                              
+                 </MDBContainer>              
                  )       
             }
                 return(
@@ -589,8 +667,6 @@ pdfExportComponent ;
                     </MDBBtn>
                     </div>
                 )
-          
-           
         })
 }
         </MDBContainer>

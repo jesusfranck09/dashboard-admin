@@ -99,7 +99,7 @@ class Home extends React.Component {
       .then(datos => {	
         localStorage.setItem("periodo" ,datos.data.data.getPeriodo[0].Descripcion )
       }).catch(err=>{
-        console.log("error",err.response)
+        // console.log("error",err.response)
       })
 
     this.handleFront();
@@ -197,10 +197,10 @@ handleFront = async () =>{
       em =datos.data.data.verifyPackSuperUser.empleados
       this.setState({empleados:em})
 		}).catch(err=>{
-			console.log("error" , err.response)
+			// console.log("error" , err.response)
 		}) 
     }).catch(err=>{
-      console.log("error" , err.response)
+      // console.log("error" , err.response)
     }) 
    
  
@@ -266,7 +266,7 @@ verifyTables=async () =>{
           }
       
         }).catch(err=>{
-          console.log("este es el error " , err.response)
+          // console.log("este es el error " , err.response)
         })
         
   await axios({
@@ -291,7 +291,7 @@ verifyTables=async () =>{
           }
       
         }).catch(err=>{
-          console.log("este es el error " , err.response)
+          // console.log("este es el error " , err.response)
         })
   await axios({
     url:  API,
@@ -315,7 +315,7 @@ verifyTables=async () =>{
           }
       
         }).catch(err=>{
-          console.log("este es el error " , err.response)
+          // console.log("este es el error " , err.response)
         })
   await axios({
     url:  API,
@@ -339,7 +339,7 @@ verifyTables=async () =>{
           }
       
         }).catch(err=>{
-          console.log("este es el error " , err.response)
+          // console.log("este es el error " , err.response)
         })
 
 
@@ -366,7 +366,7 @@ countEmployees = async()=>{
           this.setState({totalEmpleados:datos.data.data.countEmployees[0].id})
        
         }).catch(err=>{
-          console.log("este es el error " , err.response)
+          // console.log("este es el error " , err.response)
         })
 
   await axios({
@@ -388,7 +388,7 @@ countEmployees = async()=>{
           // console.log("los datos son ",datos.data.data.countEmployees[0].id)
           this.setState({empleadosAtsDetectado:datos.data.data.getEmployeesATSDetectado})
         }).catch(err=>{
-          console.log("este es el error " , err.response)
+          // console.log("este es el error " , err.response)
         })
 
 }
@@ -575,7 +575,7 @@ sendMAilAlert1Survey  = async () => {
             `
         }
             }).then((datos) => {
-              console.log("datos" , datos)
+              // console.log("datos" , datos)
               
                 eventoFinal = datos.data.data.getEventos.eventoFinal;
                 alerta1=datos.data.data.getEventos.alerta1;
@@ -646,7 +646,7 @@ countdown =  (deadline) => {
       .then(datos => {	
       descripcion = datos.data.data.getPeriodo[0].Descripcion
       }).catch(err=>{
-        console.log("error",err.response)
+        // console.log("error",err.response)
       })
       axios({
         url:  API,
@@ -857,7 +857,7 @@ alerta2 =  (deadline) => {
   const timerUpdate = setInterval( async () => {
     let t = this.getRemainingTime(deadline);
    
-    const idAdmin  = localStorage.getItem("idAdmin")
+    const idAdmin  = await localStorage.getItem("idAdmin")
     let alerta2Enviada;
     let ATS;
     let RP;
@@ -883,7 +883,7 @@ alerta2 =  (deadline) => {
     Eventos = datos.data.data.getPeriodo[0].idEventos
     alerta2Enviada = datos.data.data.getPeriodo[0].Alerta2Enviada
     }).catch(err=>{
-      console.log("error" , err)
+      // console.log("error" , err)
     })
     if(t.remainTime <= 1 && alerta2Enviada=='false') {
       clearInterval(timerUpdate);
@@ -1044,7 +1044,7 @@ alerta3 =  (deadline) => {
     Eventos = datos.data.data.getPeriodo[0].idEventos
     alerta3Enviada = datos.data.data.getPeriodo[0].Alerta3Enviada
     }).catch(err=>{
-      console.log("error" , err)
+      // console.log("error" , err)
     })
     if(t.remainTime <= 1 && alerta3Enviada=='false') {
       clearInterval(timerUpdate);
