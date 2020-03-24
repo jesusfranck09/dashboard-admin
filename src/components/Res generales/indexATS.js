@@ -585,6 +585,20 @@ pdfExportComponent ;
                             <br/>
                             <br/>
                             <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
                             <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-center mt-4 ">
                               <MDBTableBody>
                               <font size="1"
