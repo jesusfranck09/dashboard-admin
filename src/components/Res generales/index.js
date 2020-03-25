@@ -1451,23 +1451,23 @@ let celda;
 let criterios;
 
 if(general<20){
-celda = <TableCell width="10%"  style={{backgroundColor: "#51EAFF"}}><font size="1" face="arial"color="black">Nulo o Despreciable</font></TableCell>
+celda = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7 "}}><font size="1" face="arial"color="black">Nulo o Despreciable</font></TableCell>
 criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
 }else if(general>=20 && general < 45){
-  celda = <TableCell width="10%" style={{backgroundColor: "#45D09E"}} ><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  celda = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}} ><font size="1" face="arial"color="black">Bajo</font></TableCell>
   criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black"> necesario una mayor difusión de la política de prevención de riesgos
   psicosociales y programas para: la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
   prevención de la violencia laboral.</font></TableCell>
 }else if(general>=45 && general < 70){
-  celda = <TableCell width="10%"  style={{backgroundColor: "#FFD600"}} ><font size="1" face="arial"color="black">Medio</font></TableCell>
+  celda = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}} ><font size="1" face="arial"color="black">Medio</font></TableCell>
   criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black">Se requiere revisar la política de prevención de riesgos psicosociales y
   programas para la prevención de los factores de riesgo psicosocial, la
   promoción de un entorno organizacional favorable y la prevención de la
   violencia laboral, así como reforzar su aplicación y difusión, mediante un
   Programa de intervención.</font></TableCell>
 }else if(general>=70 && general < 90){
- celda = <TableCell  width="10%" style={{backgroundColor: "#FF905A"}} ><font size="1" face="arial"color="black">Alto</font></TableCell>
+ celda = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} ><font size="1" face="arial"color="black">Alto</font></TableCell>
  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black">Se requiere realizar un análisis de cada categoría y dominio, de manera que
  se puedan determinar las acciones de intervención apropiadas a través de un
  Programa de intervención, que podrá incluir una evaluación específica y
@@ -1478,7 +1478,7 @@ criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face=
  aplicación y difusión.</font></TableCell>
 }
 else if( general > 90){
-  celda  = <TableCell width="10%"  style={{backgroundColor: "#E20338"}}><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  celda  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}}><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black">Se requiere realizar el análisis de cada categoría y dominio para establecer
   las acciones de intervención apropiadas, mediante un Programa de
   intervención que deberá incluir evaluaciones específicas, y contemplar
@@ -1497,19 +1497,19 @@ let categoria1MuyAlto;
 let colorCategoriaUno;
 let categoriaUno = (respuesta2+respuesta1+respuesta3)/length;
 if(categoriaUno < 3){
-  colorCategoriaUno  = <TableCell style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorCategoriaUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   categoria1Nulo= <MDBBadge color="info">{categoriaUno}</MDBBadge>
 }else if(categoriaUno >= 3 && categoriaUno < 5){
-  colorCategoriaUno =<TableCell style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorCategoriaUno =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   categoria1Bajo= <MDBBadge color="success">{categoriaUno}</MDBBadge>
 }else if(categoriaUno >= 5 && categoriaUno < 7){
-  colorCategoriaUno=<TableCell style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorCategoriaUno=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   categoria1Medio= <MDBBadge color="warning">{categoriaUno}</MDBBadge>
 }else if(categoriaUno >= 7 && categoriaUno < 9){
-  colorCategoriaUno = <TableCell style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorCategoriaUno = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   categoria1Alto= <MDBBadge color="warning">{categoriaUno}</MDBBadge>
 }else if(categoriaUno >= 9){
-  colorCategoriaUno = <TableCell style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorCategoriaUno = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   categoria1MuyAlto= <MDBBadge color="danger">{categoriaUno}</MDBBadge>
 }
 let categoria2Nulo;
@@ -1545,19 +1545,19 @@ let colorCategoriaTre;
 
 let categoriaTre = (respuesta14+respuesta15+respuesta16+respuesta17)/length;
 if(categoriaTre < 4){
-  colorCategoriaTre  = <TableCell style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorCategoriaTre  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   categoria3Nulo= <MDBBadge color="info">{categoriaTre}</MDBBadge>
 }else if(categoriaTre >= 4 && categoriaTre < 6){
-  colorCategoriaTre =<TableCell style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorCategoriaTre =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   categoria3Bajo= <MDBBadge color="success">{categoriaTre}</MDBBadge>
 }else if(categoriaTre >=6 && categoriaTre < 9){
-  colorCategoriaTre=<TableCell style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorCategoriaTre=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   categoria3Medio= <MDBBadge color="warning">{categoriaTre}</MDBBadge>
 }else if(categoriaTre >=9 && categoriaTre < 12){
-  colorCategoriaTre = <TableCell style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorCategoriaTre = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   categoria3Alto= <MDBBadge color="warning">{categoriaTre}</MDBBadge>
 }else if(categoriaTre >= 12){
-  colorCategoriaTre = <TableCell style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorCategoriaTre = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   categoria3MuyAlto= <MDBBadge color="danger">{categoriaTre}</MDBBadge>
 }
 
@@ -1570,19 +1570,19 @@ let colorCategoriaCuatro;
 
 let categoriaCuatro = (respuesta23+respuesta24+respuesta25+respuesta28+respuesta29+respuesta30+respuesta31+respuesta32+respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40+respuesta44+respuesta45+respuesta46)/length;
 if(categoriaCuatro < 10){
-  colorCategoriaCuatro  = <TableCell style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorCategoriaCuatro  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   categoria4Nulo= <MDBBadge color="info">{categoriaCuatro}</MDBBadge>
 }else if(categoriaCuatro >= 10 && categoriaCuatro < 18){
-  colorCategoriaCuatro =<TableCell style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorCategoriaCuatro =<TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   categoria4Bajo= <MDBBadge color="success">{categoriaCuatro}</MDBBadge>
 }else if(categoriaCuatro >=18 && categoriaCuatro < 28){
-  colorCategoriaCuatro=<TableCell style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorCategoriaCuatro=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   categoria4Medio= <MDBBadge color="warning">{categoriaCuatro}</MDBBadge>
 }else if(categoriaCuatro >=28 && categoriaCuatro < 38){
-  colorCategoriaCuatro = <TableCell style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorCategoriaCuatro = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   categoria4Alto= <MDBBadge color="warning">{categoriaCuatro}</MDBBadge>
 }else if(categoriaCuatro >= 38){
-  colorCategoriaCuatro= <TableCell style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorCategoriaCuatro= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   categoria4MuyAlto= <MDBBadge color="danger">{categoriaCuatro}</MDBBadge>
 }
 
@@ -1594,19 +1594,19 @@ let Dominio1MuyAlto;
 let colorDominioUno;
 let DominioUno = (respuesta2+respuesta1+respuesta3)/length;
 if(DominioUno < 3){
-  colorDominioUno  = <TableCell style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio1Nulo= <MDBBadge color="info">{DominioUno}</MDBBadge>
 }else if(DominioUno >= 3 && DominioUno < 5){
-  colorDominioUno=<TableCell style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioUno=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio1Bajo= <MDBBadge color="success">{DominioUno}</MDBBadge>
 }else if(DominioUno >= 5 && DominioUno < 7){
-  colorDominioUno=<TableCell style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioUno=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   Dominio1Medio= <MDBBadge color="warning">{DominioUno}</MDBBadge>
 }else if(DominioUno >= 7 && DominioUno < 9){
-  colorDominioUno = <TableCell style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioUno = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   Dominio1Alto= <MDBBadge color="warning">{DominioUno}</MDBBadge>
 }else if(DominioUno >= 9){
-  colorDominioUno= <TableCell style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioUno= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   Dominio1MuyAlto= <MDBBadge color="danger">{DominioUno}</MDBBadge>
 }
 
@@ -1618,19 +1618,19 @@ let Dominio2MuyAlto;
 let colorDominioDos;
 let DominioDos = (respuesta4+respuesta9+respuesta5+respuesta6+respuesta7+respuesta8+respuesta41+respuesta42+respuesta43+respuesta10+respuesta11+respuesta12+respuesta13) /length;
 if(DominioDos < 12){
-  colorDominioDos  = <TableCell style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioDos  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio2Nulo= <MDBBadge color="info">{DominioDos}</MDBBadge>
 }else if(DominioDos >= 12 && DominioDos < 16){
-  colorDominioDos=<TableCell style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioDos=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio2Bajo= <MDBBadge color="success">{DominioDos}</MDBBadge>
 }else if(DominioDos >= 16 && DominioDos < 20){
-  colorDominioDos=<TableCell style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioDos=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   Dominio2Medio= <MDBBadge color="warning">{DominioDos}</MDBBadge>
 }else if(DominioDos >= 20 && DominioDos < 24){
-  colorDominioDos = <TableCell style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioDos = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   Dominio2Alto= <MDBBadge color="warning">{DominioDos}</MDBBadge>
 }else if(DominioDos >= 24){
-  colorDominioDos= <TableCell style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioDos= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   Dominio2MuyAlto= <MDBBadge color="danger">{DominioDos}</MDBBadge>
 }
 
@@ -1642,19 +1642,19 @@ let Dominio3MuyAlto;
 let colorDominioTres;
 let DominioTres = (respuesta20+respuesta21+respuesta22+respuesta18+respuesta19+respuesta26+respuesta27)/length;
 if(DominioTres < 5){
-  colorDominioTres  = <TableCell style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioTres  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio3Nulo= <MDBBadge color="info">{DominioTres}</MDBBadge>
 }else if(DominioTres >= 5 && DominioTres < 8){
-  colorDominioTres=<TableCell style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioTres=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio3Bajo= <MDBBadge color="success">{DominioTres}</MDBBadge>
 }else if(DominioTres >= 8 && DominioTres < 11){
-  colorDominioTres=<TableCell style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioTres=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   Dominio3Medio= <MDBBadge color="warning">{DominioTres}</MDBBadge>
 }else if(DominioTres >= 11 && DominioTres < 14){
-  colorDominioTres = <TableCell style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioTres = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   Dominio3Alto= <MDBBadge color="warning">{DominioTres}</MDBBadge>
 }else if(DominioTres >= 14){
-  colorDominioTres= <TableCell style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioTres= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   Dominio3MuyAlto= <MDBBadge color="danger">{DominioTres}</MDBBadge>
 }
 
@@ -1666,19 +1666,19 @@ let Dominio4MuyAlto;
 let colorDominioCuatro;
 let DominioCuatro = (respuesta14+respuesta15)/length;
 if(DominioCuatro < 1){
-  colorDominioCuatro  = <TableCell width="20px" style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioCuatro  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio4Nulo= <MDBBadge color="info">{DominioCuatro}</MDBBadge>
 }else if(DominioCuatro >= 1 && DominioCuatro < 2){
-  colorDominioCuatro=<TableCell width="20px" style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioCuatro=<TableCell width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio4Bajo= <MDBBadge color="success">{DominioCuatro}</MDBBadge>
 }else if(DominioCuatro >= 2 && DominioCuatro < 4){
-  colorDominioCuatro = <TableCell  width="20px" style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioCuatro = <TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   Dominio4Medio= <MDBBadge color="warning">{DominioCuatro}</MDBBadge>
 }else if(DominioCuatro >= 4 && DominioCuatro < 6){
-  colorDominioCuatro = <TableCell width="20px" style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioCuatro = <TableCell width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   Dominio4Alto= <MDBBadge color="warning">{DominioCuatro}</MDBBadge>
 }else if(DominioCuatro >= 6){
-  colorDominioCuatro= <TableCell width="20px" style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioCuatro= <TableCell width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   Dominio4MuyAlto= <MDBBadge color="danger">{DominioCuatro}</MDBBadge>
 }
 
@@ -1690,19 +1690,19 @@ let Dominio5MuyAlto;
 let colorDominioCinco;
 let DominioCinco = (respuesta16+respuesta17)/length;
 if(DominioCinco < 1){
-  colorDominioCinco  = <TableCell width="20px" style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioCinco  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio5Nulo= <MDBBadge color="info">{DominioCinco}</MDBBadge>
 }else if(DominioCinco >= 1 && DominioCinco < 2){
-  colorDominioCinco=<TableCell width="20px" style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioCinco=<TableCell width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio5Bajo= <MDBBadge color="success">{DominioCinco}</MDBBadge>
 }else if(DominioCinco >= 2 && DominioCinco < 4){
-  colorDominioCinco=<TableCell width="20px" style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioCinco=<TableCell width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   Dominio5Medio= <MDBBadge color="warning">{DominioCinco}</MDBBadge>
 }else if(DominioCinco >= 4 && DominioCinco < 6){
-  colorDominioCinco = <TableCell  width="20px"style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioCinco = <TableCell  width="20px"style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   Dominio5Alto= <MDBBadge color="warning">{DominioCinco}</MDBBadge>
 }else if(DominioCinco >= 6){
-  colorDominioCinco= <TableCell  width="20px" style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioCinco= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   Dominio5MuyAlto= <MDBBadge color="danger">{DominioCinco}</MDBBadge>
 }
 
@@ -1714,19 +1714,19 @@ let Dominio6MuyAlto;
 let colorDominioSeis;
 let DominioSeis = (respuesta23+respuesta24+respuesta25+respuesta28+respuesta29)/length;
 if(DominioSeis < 3){
-  colorDominioSeis  = <TableCell width="20px" style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioSeis  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio6Nulo= <MDBBadge color="info">{DominioSeis}</MDBBadge>
 }else if(DominioSeis >= 3 && DominioSeis < 5){
-  colorDominioSeis=<TableCell  width="20px" style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioSeis=<TableCell  width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio6Bajo= <MDBBadge color="success">{DominioSeis}</MDBBadge>
 }else if(DominioSeis >= 5 && DominioSeis < 8){
-  colorDominioSeis=<TableCell width="20px"  style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioSeis=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
 Dominio6Medio= <MDBBadge color="warning">{DominioSeis}</MDBBadge>
 }else if(DominioSeis >= 8 && DominioSeis < 11){
-  colorDominioSeis = <TableCell width="20px" style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioSeis = <TableCell width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   Dominio6Alto= <MDBBadge color="warning">{DominioSeis}</MDBBadge>
 }else if(DominioSeis >= 11){
-  colorDominioSeis= <TableCell  width="20px" style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioSeis= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   Dominio6MuyAlto= <MDBBadge color="danger">{DominioSeis}</MDBBadge>
 }
 
@@ -1738,19 +1738,19 @@ let Dominio7MuyAlto;
 let colorDominioSiete;
 let DominioSiete = (respuesta30+respuesta31+respuesta32+respuesta44+respuesta45+respuesta46)/length;
 if(DominioSiete < 5){
-  colorDominioSiete  = <TableCell width="20px" style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioSiete  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio7Nulo= <MDBBadge color="info">{DominioSiete}</MDBBadge>
 }else if(DominioSiete >= 5 && DominioSiete < 8){
-  colorDominioSiete=<TableCell width="20px" style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioSiete=<TableCell width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio7Bajo= <MDBBadge color="success">{DominioSiete}</MDBBadge>
 }else if(DominioSiete >= 8 && DominioSiete < 11){
-  colorDominioSiete=<TableCell  width="20px" style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioSiete=<TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   Dominio7Medio= <MDBBadge color="warning">{DominioSiete}</MDBBadge>
 }else if(DominioSiete >= 11 && DominioSiete < 14){
-  colorDominioSiete = <TableCell width="20px"  style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioSiete = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   Dominio7Alto= <MDBBadge color="warning">{DominioSiete}</MDBBadge>
 }else if(DominioSiete >= 14){
-  colorDominioSiete= <TableCell  width="20px" style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioSiete= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   Dominio7MuyAlto= <MDBBadge color="danger">{DominioSiete}</MDBBadge>
 }
 
@@ -1762,19 +1762,19 @@ let Dominio8MuyAlto;
 let colorDominioOcho;
 let DominioOcho = (respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40)/length;
 if(DominioOcho < 7){
-  colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio8Nulo= <MDBBadge color="info">{DominioOcho}</MDBBadge>
 }else if(DominioOcho >= 7 && DominioOcho < 10){
-  colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio8Bajo= <MDBBadge color="success">{DominioOcho}</MDBBadge>
 }else if(DominioOcho >= 10 && DominioOcho < 13){
-  colorDominioOcho=<TableCell width="20px"  style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioOcho=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   Dominio8Medio= <MDBBadge color="warning">{DominioOcho}</MDBBadge>
 }else if(DominioOcho >= 13 && DominioOcho < 16){
-  colorDominioOcho = <TableCell width="20px"  style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioOcho = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   Dominio8Alto= <MDBBadge color="warning">{DominioOcho}</MDBBadge>
 }else if(DominioOcho >= 16){
-  colorDominioOcho= <TableCell width="20px"  style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioOcho= <TableCell width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   Dominio8MuyAlto= <MDBBadge color="danger">{DominioOcho}</MDBBadge>
 }
 
@@ -1812,11 +1812,11 @@ ponderacion=<React.Fragment>
         <TableHead>
           <TableRow>
             <TableCell width="50%" ></TableCell>
-            <TableCell align="right" style={{backgroundColor: "#51EAFF"}}>Nulo</TableCell>
-            <TableCell align="right" style={{backgroundColor: "#76FEC5"}}>Bajo&nbsp;</TableCell>
-            <TableCell align="right" style={{backgroundColor: "#F4EDB2"}}>Medio&nbsp;</TableCell>
-            <TableCell align="right" style={{backgroundColor: "#F5E027"}}>Alto&nbsp;</TableCell>
-            <TableCell align="right" style={{backgroundColor: "#FF756B"}}>Muy Alto&nbsp;</TableCell>
+            <TableCell align="center" style={{backgroundColor: "#9BE0F7"}}>Nulo</TableCell>
+            <TableCell align="center" style={{backgroundColor: "#6BF56E"}}>Bajo&nbsp;</TableCell>
+            <TableCell align="center" style={{backgroundColor: "#FFFF00"}}>Medio&nbsp;</TableCell>
+            <TableCell align="center" style={{backgroundColor: "#FFC000"}}>Alto&nbsp;</TableCell>
+            <TableCell align="center" style={{backgroundColor: "#FF0000"}}>Muy Alto&nbsp;</TableCell>
           </TableRow>
         </TableHead>
         <TableBody  style={{marginTop:20}}>       
