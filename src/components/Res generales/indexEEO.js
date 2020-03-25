@@ -2414,44 +2414,44 @@ ponderacion=<React.Fragment>
             </TableRow>
             <TableRow>
                 <TableCell component="th" scope="row" >I. Ambiente de Trabajo</TableCell>
-                <TableCell component="th" scope="row" >{categoria1Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{categoria1Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{categoria1Medio}</TableCell>
-                <TableCell component="th" scope="row" >{categoria1Alto}</TableCell>
-                <TableCell component="th" scope="row" >{categoria1MuyAlto}</TableCell>           
+                <TableCell component="th" scope="row" align="center">{categoria1Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria1Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria1Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria1Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria1MuyAlto}</TableCell>           
                 </TableRow>
                 <TableRow>
                 <TableCell component="th" scope="row" >II. Factores propios de la actividad</TableCell>   
-                <TableCell component="th" scope="row" >{categoria2Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{categoria2Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{categoria2Medio}</TableCell>
-                <TableCell component="th" scope="row" >{categoria2Alto}</TableCell>
-                <TableCell component="th" scope="row" >{categoria2MuyAlto}</TableCell>    
+                <TableCell component="th" scope="row" align="center">{categoria2Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria2Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria2Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria2Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria2MuyAlto}</TableCell>    
                 </TableRow>
                 <TableRow>
                 <TableCell component="th" scope="row" >III. Organización del tiempo de trabajo</TableCell>   
-                <TableCell component="th" scope="row" >{categoria3Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{categoria3Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{categoria3Medio}</TableCell>
-                <TableCell component="th" scope="row" >{categoria3Alto}</TableCell>
-                <TableCell component="th" scope="row" >{categoria3MuyAlto}</TableCell>    
+                <TableCell component="th" scope="row" align="center">{categoria3Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria3Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria3Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria3Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria3MuyAlto}</TableCell>    
                 </TableRow>
                 <TableRow>
                 <TableCell component="th" scope="row" >IV. Liderazgo y relaciones en el trabajo</TableCell>   
-                <TableCell component="th" scope="row" >{categoria4Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{categoria4Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{categoria4Medio}</TableCell>
-                <TableCell component="th" scope="row" >{categoria4Alto}</TableCell>
-                <TableCell component="th" scope="row" >{categoria4MuyAlto}</TableCell>           
+                <TableCell component="th" scope="row" align="center">{categoria4Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria4Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria4Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria4Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria4MuyAlto}</TableCell>           
                 </TableRow>
 
                 <TableRow>
                 <TableCell component="th" scope="row" >V. Entorno organizacional</TableCell>   
-                <TableCell component="th" scope="row" >{categoria5Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{categoria5Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{categoria5Medio}</TableCell>
-                <TableCell component="th" scope="row" >{categoria5Alto}</TableCell>
-                <TableCell component="th" scope="row" >{categoria5MuyAlto}</TableCell>           
+                <TableCell component="th" scope="row" align="center">{categoria5Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria5Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria5Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria5Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{categoria5MuyAlto}</TableCell>           
                 </TableRow>
                
                 <TableRow>
@@ -2466,84 +2466,84 @@ ponderacion=<React.Fragment>
                 
                 <TableRow>
                 <TableCell component="th" scope="row" >I. Condiciones en el ambiente de trabajo</TableCell> 
-                <TableCell component="th" scope="row" >{Dominio1Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio1Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio1Medio}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio1Alto}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio1MuyAlto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio1Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio1Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio1Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio1Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio1MuyAlto}</TableCell>
     
                 </TableRow>
                 <TableRow>
                 <TableCell component="th" scope="row" >II. Carga de trabajo</TableCell>    
-                <TableCell component="th" scope="row" >{Dominio2Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio2Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio2Medio}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio2Alto}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio2MuyAlto}</TableCell>       
+                <TableCell component="th" scope="row" align="center">{Dominio2Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio2Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio2Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio2Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio2MuyAlto}</TableCell>       
                 </TableRow>
                 <TableRow>
                 <TableCell component="th" scope="row" >III. Falta de control sobre el trabajo</TableCell>     
-                <TableCell component="th" scope="row" >{Dominio3Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio3Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio3Medio}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio3Alto}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio3MuyAlto}</TableCell>       
+                <TableCell component="th" scope="row" align="center">{Dominio3Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio3Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio3Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio3Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio3MuyAlto}</TableCell>       
                 </TableRow>
                 <TableRow>
                 <TableCell component="th" scope="row" >IV. Jornada de trabajo</TableCell>  
-                <TableCell component="th" scope="row" >{Dominio4Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio4Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio4Medio}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio4Alto}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio4MuyAlto}</TableCell>         
+                <TableCell component="th" scope="row" align="center">{Dominio4Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio4Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio4Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio4Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio4MuyAlto}</TableCell>         
                 </TableRow>
                 <TableRow>
                 <TableCell component="th" scope="row" >V. Interferencia en la relación trabajo-familia</TableCell>           
-                <TableCell component="th" scope="row" >{Dominio5Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio5Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio5Medio}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio5Alto}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio5MuyAlto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio5Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio5Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio5Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio5Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio5MuyAlto}</TableCell>
                 </TableRow>
                 <TableRow>
                 <TableCell component="th" scope="row" >VI. Liderazgo</TableCell>    
-                <TableCell component="th" scope="row" >{Dominio6Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio6Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio6Medio}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio6Alto}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio6MuyAlto}</TableCell>       
+                <TableCell component="th" scope="row" align="center">{Dominio6Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio6Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio6Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio6Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio6MuyAlto}</TableCell>       
                 </TableRow>
                 <TableRow>
                 <TableCell component="th" scope="row" >VII. Relaciones en el trabajo</TableCell>    
-                <TableCell component="th" scope="row" >{Dominio7Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio7Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio7Medio}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio7Alto}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio7MuyAlto}</TableCell>       
+                <TableCell component="th" scope="row" align="center">{Dominio7Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio7Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio7Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio7Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio7MuyAlto}</TableCell>       
                 </TableRow>
                 <TableRow>
                 <TableCell component="th" scope="row" >VIII. Violencia</TableCell>    
-                <TableCell component="th" scope="row" >{Dominio8Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio8Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio8Medio}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio8Alto}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio8MuyAlto}</TableCell>        
+                <TableCell component="th" scope="row" align="center">{Dominio8Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio8Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio8Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio8Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center" >{Dominio8MuyAlto}</TableCell>        
                 </TableRow>
                 <TableRow>
                 <TableCell component="th" scope="row" >IX. Reconocimiento del desempeño</TableCell>    
-                <TableCell component="th" scope="row" >{Dominio9Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio9Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio9Medio}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio9Alto}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio9MuyAlto}</TableCell>       
+                <TableCell component="th" scope="row" align="center">{Dominio9Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio9Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio9Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio9Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio9MuyAlto}</TableCell>       
                 </TableRow>
                 <TableRow>
                 <TableCell component="th" scope="row" >XX. Insuficiente sentido de pertenencia e, inestabilidad</TableCell>    
-                <TableCell component="th" scope="row" >{Dominio10Nulo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio10Bajo}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio10Medio}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio10Alto}</TableCell>
-                <TableCell component="th" scope="row" >{Dominio10MuyAlto}</TableCell>        
+                <TableCell component="th" scope="row" align="center">{Dominio10Nulo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio10Bajo}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio10Medio}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio10Alto}</TableCell>
+                <TableCell component="th" scope="row" align="center">{Dominio10MuyAlto}</TableCell>        
                 </TableRow>
                 <TableRow>
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados Por Dimensión</strong></TableCell>              
@@ -2558,7 +2558,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >1.- Condiciones peligrosas e inseguras</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta1/length)+(respuesta3/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta1/length)+(respuesta3/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2566,7 +2566,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" width="50%" >2.- Condiciones deficientes e insalubres</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta2/length)+(respuesta4/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta2/length)+(respuesta4/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow> 
@@ -2575,7 +2575,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >3.- Trabajos peligrosos</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{respuesta5/length}</TableCell>
+            <TableCell component="th" scope="row" align="center">{respuesta5/length}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2583,7 +2583,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" width="50%">4.- Cargas cuantitativas</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta6/length)+(respuesta12/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta6/length)+(respuesta12/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2591,7 +2591,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" width="50%">5.- Ritmos de trabajo acelerado</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta7/length)+(respuesta8/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta7/length)+(respuesta8/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2599,7 +2599,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >6.- Carga mental</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta9/length)+(respuesta10/length)+(respuesta11/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta9/length)+(respuesta10/length)+(respuesta11/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2607,7 +2607,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >7.- Cargas psicológicas emocionales</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta65/length)+(respuesta66/length)+(respuesta67/length)+(respuesta68/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta65/length)+(respuesta66/length)+(respuesta67/length)+(respuesta68/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2615,7 +2615,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >8.- Cargas de alta responsabilidad</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta13/length)+(respuesta14/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta13/length)+(respuesta14/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2623,7 +2623,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >9.- Cargas contradictorias o inconsistentes</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta15/length)+(respuesta16/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta15/length)+(respuesta16/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2631,7 +2631,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" width="50%" >10.- Falta de control y autonomía sobre el trabajo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta25/length)+(respuesta26/length)+(respuesta27/length)+(respuesta28/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta25/length)+(respuesta26/length)+(respuesta27/length)+(respuesta28/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2639,7 +2639,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >11.- Limitada o nula posibilidad de desarrollo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta23/length)+(respuesta24/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta23/length)+(respuesta24/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2648,7 +2648,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >12.- Insuficiente participación y manejo del cambio</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta29/length)+(respuesta30/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta29/length)+(respuesta30/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2659,7 +2659,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >13.- Limitada o inexistente capacitación</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta35/length)+(respuesta36/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta35/length)+(respuesta36/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2667,7 +2667,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >14.- Jornadas de trabajo extensas</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta17/length)+(respuesta18/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta17/length)+(respuesta18/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2675,7 +2675,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >15.- Influencia del trabajo fuera del centro laboral</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > {(respuesta19/length)+(respuesta20/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta19/length)+(respuesta20/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2683,7 +2683,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >16.- Influencia de las responsabilidades familiares</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta21/length)+(respuesta22/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta21/length)+(respuesta22/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2691,7 +2691,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >17.- Escasa claridad de funciones</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta31/length)+(respuesta32/length)+(respuesta33/length)+(respuesta34/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta31/length)+(respuesta32/length)+(respuesta33/length)+(respuesta34/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2699,7 +2699,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >18.- Características del liderazgo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta37/length)+(respuesta38/length)+(respuesta39/length)+(respuesta40/length)+(respuesta41/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta37/length)+(respuesta38/length)+(respuesta39/length)+(respuesta40/length)+(respuesta41/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2707,7 +2707,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >19.- Relaciones sociales en el trabajo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta42/length)+(respuesta43/length)+(respuesta44/length)+(respuesta45/length)+(respuesta46/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta42/length)+(respuesta43/length)+(respuesta44/length)+(respuesta45/length)+(respuesta46/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2715,7 +2715,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >20.- Deficiente relación con los colaboradores que supervisa</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta69/length)+(respuesta70/length)+(respuesta71/length)+(respuesta72/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta69/length)+(respuesta70/length)+(respuesta71/length)+(respuesta72/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2723,7 +2723,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >21.- Violencia laboral</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta57/length)+(respuesta58/length)+(respuesta59/length)+(respuesta60/length)+(respuesta61/length)+(respuesta62/length)+(respuesta63/length)+(respuesta64/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta57/length)+(respuesta58/length)+(respuesta59/length)+(respuesta60/length)+(respuesta61/length)+(respuesta62/length)+(respuesta63/length)+(respuesta64/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2731,7 +2731,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >22.- Escasa o nula retroalimentación del desempeño</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta47/length)+(respuesta48/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta47/length)+(respuesta48/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2740,7 +2740,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >23.- Escaso o nulo reconocimiento y compensación</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta49/length)+(respuesta50/length)+(respuesta51/length)+(respuesta52/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta49/length)+(respuesta50/length)+(respuesta51/length)+(respuesta52/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2748,7 +2748,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >24.- Limitado sentido de pertenencia</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" >{(respuesta55/length)+(respuesta56/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center">{(respuesta55/length)+(respuesta56/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2756,7 +2756,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >25.- Inestabilidad laboral</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > {(respuesta53/length)+(respuesta54/length)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta53/length)+(respuesta54/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
