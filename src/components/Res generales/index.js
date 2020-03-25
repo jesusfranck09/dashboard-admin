@@ -90,27 +90,27 @@ pdfExportComponent ;
         }
       },
       dataBar: {
-        labels: ["Siempre", "Casi Siempre", "Algunas Veces", "Casi nunca", "Nunca"],
+        labels: ["Nulo", "Bajo", "Medio", "Alto", "Muy Alto"],
         datasets: [
           {
             label: "% Resultados",
             data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
-              "rgba(255, 134,159,0.4)",
-              "rgba(98,  182, 239,0.4)",
-              "rgba(255, 218, 128,0.4)",
-              "rgba(113, 205, 205,0.4)",
-              "rgba(170, 128, 252,0.4)",
-              "rgba(255, 177, 101,0.4)"
+              "rgba(155,224,247)",
+              "rgba(107,245,110)",
+              "rgba(255, 500,0)",
+              "rgba(255, 192, 0)",
+              "rgba(255, 0,0)",
+              // "rgba(255, 177, 101,0.4)"
             ],
             borderWidth: 2,
             borderColor: [
-              "rgba(255, 134, 159, 1)",
-              "rgba(98,  182, 239, 1)",
-              "rgba(255, 218, 128, 1)",
-              "rgba(113, 205, 205, 1)",
-              "rgba(170, 128, 252, 1)",
-              "rgba(255, 177, 101, 1)"
+              // "rgba(255, 134, 159, 1)",
+              // "rgba(98,  182, 239, 1)",
+              // "rgba(255, 218, 128, 1)",
+              // "rgba(113, 205, 205, 1)",
+              // "rgba(170, 128, 252, 1)",
+              // "rgba(255, 177, 101, 1)"
             ]
           }
         ]
@@ -1498,19 +1498,19 @@ let colorCategoriaUno;
 let categoriaUno = (respuesta2+respuesta1+respuesta3)/length;
 if(categoriaUno < 3){
   colorCategoriaUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  categoria1Nulo= <MDBBadge color="info">{categoriaUno}</MDBBadge>
+  categoria1Nulo=categoriaUno
 }else if(categoriaUno >= 3 && categoriaUno < 5){
   colorCategoriaUno =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  categoria1Bajo= <MDBBadge color="success">{categoriaUno}</MDBBadge>
+  categoria1Bajo= categoriaUno
 }else if(categoriaUno >= 5 && categoriaUno < 7){
   colorCategoriaUno=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
-  categoria1Medio= <MDBBadge color="warning">{categoriaUno}</MDBBadge>
+  categoria1Medio= categoriaUno
 }else if(categoriaUno >= 7 && categoriaUno < 9){
   colorCategoriaUno = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  categoria1Alto= <MDBBadge color="warning">{categoriaUno}</MDBBadge>
+  categoria1Alto= categoriaUno
 }else if(categoriaUno >= 9){
   colorCategoriaUno = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  categoria1MuyAlto= <MDBBadge color="danger">{categoriaUno}</MDBBadge>
+  categoria1MuyAlto= categoriaUno
 }
 let categoria2Nulo;
 let categoria2Bajo;
@@ -1522,19 +1522,19 @@ let colorCategoriaDos;
 let categoriaDos = (respuesta4+respuesta9+respuesta5+respuesta6+respuesta7+respuesta8+respuesta41+respuesta42+respuesta43+respuesta10+respuesta11+respuesta12+respuesta13+respuesta20+respuesta21+respuesta22+respuesta18+respuesta19+respuesta26+respuesta27)/length;
 if(categoriaDos < 10){
   colorCategoriaDos  = <TableCell style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  categoria2Nulo= <MDBBadge color="info">{categoriaDos}</MDBBadge>
+  categoria2Nulo=categoriaDos
 }else if(categoriaDos >= 10 && categoriaDos < 20){
   colorCategoriaDos =<TableCell style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  categoria2Bajo= <MDBBadge color="success">{categoriaDos}</MDBBadge>
+  categoria2Bajo= categoriaDos
 }else if(categoriaDos >=20 && categoriaDos < 30){
   colorCategoriaDos=<TableCell style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
-  categoria2Medio= <MDBBadge color="warning">{categoriaDos}</MDBBadge>
+  categoria2Medio= categoriaDos
 }else if(categoriaDos >=30 && categoriaDos < 40){
   colorCategoriaDos = <TableCell style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  categoria2Alto= <MDBBadge color="warning">{categoriaDos}</MDBBadge>
+  categoria2Alto= categoriaDos
 }else if(categoriaDos >= 40){
   colorCategoriaDos = <TableCell style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  categoria2MuyAlto= <MDBBadge color="danger">{categoriaDos}</MDBBadge>
+  categoria2MuyAlto= categoriaDos
 }
 let categoria3Nulo;
 let categoria3Bajo;
@@ -1546,19 +1546,19 @@ let colorCategoriaTre;
 let categoriaTre = (respuesta14+respuesta15+respuesta16+respuesta17)/length;
 if(categoriaTre < 4){
   colorCategoriaTre  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  categoria3Nulo= <MDBBadge color="info">{categoriaTre}</MDBBadge>
+  categoria3Nulo=categoriaTre
 }else if(categoriaTre >= 4 && categoriaTre < 6){
   colorCategoriaTre =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  categoria3Bajo= <MDBBadge color="success">{categoriaTre}</MDBBadge>
+  categoria3Bajo= categoriaTre
 }else if(categoriaTre >=6 && categoriaTre < 9){
   colorCategoriaTre=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
-  categoria3Medio= <MDBBadge color="warning">{categoriaTre}</MDBBadge>
+  categoria3Medio= categoriaTre
 }else if(categoriaTre >=9 && categoriaTre < 12){
   colorCategoriaTre = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  categoria3Alto= <MDBBadge color="warning">{categoriaTre}</MDBBadge>
+  categoria3Alto= categoriaTre
 }else if(categoriaTre >= 12){
   colorCategoriaTre = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  categoria3MuyAlto= <MDBBadge color="danger">{categoriaTre}</MDBBadge>
+  categoria3MuyAlto= categoriaTre
 }
 
 let categoria4Nulo;
@@ -1571,19 +1571,19 @@ let colorCategoriaCuatro;
 let categoriaCuatro = (respuesta23+respuesta24+respuesta25+respuesta28+respuesta29+respuesta30+respuesta31+respuesta32+respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40+respuesta44+respuesta45+respuesta46)/length;
 if(categoriaCuatro < 10){
   colorCategoriaCuatro  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  categoria4Nulo= <MDBBadge color="info">{categoriaCuatro}</MDBBadge>
+  categoria4Nulo=categoriaCuatro
 }else if(categoriaCuatro >= 10 && categoriaCuatro < 18){
   colorCategoriaCuatro =<TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  categoria4Bajo= <MDBBadge color="success">{categoriaCuatro}</MDBBadge>
+  categoria4Bajo= categoriaCuatro
 }else if(categoriaCuatro >=18 && categoriaCuatro < 28){
   colorCategoriaCuatro=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
-  categoria4Medio= <MDBBadge color="warning">{categoriaCuatro}</MDBBadge>
+  categoria4Medio= categoriaCuatro
 }else if(categoriaCuatro >=28 && categoriaCuatro < 38){
   colorCategoriaCuatro = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  categoria4Alto= <MDBBadge color="warning">{categoriaCuatro}</MDBBadge>
+  categoria4Alto= categoriaCuatro
 }else if(categoriaCuatro >= 38){
   colorCategoriaCuatro= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  categoria4MuyAlto= <MDBBadge color="danger">{categoriaCuatro}</MDBBadge>
+  categoria4MuyAlto= categoriaCuatro
 }
 
 let Dominio1Nulo;
@@ -1595,19 +1595,19 @@ let colorDominioUno;
 let DominioUno = (respuesta2+respuesta1+respuesta3)/length;
 if(DominioUno < 3){
   colorDominioUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  Dominio1Nulo= <MDBBadge color="info">{DominioUno}</MDBBadge>
+  Dominio1Nulo=DominioUno
 }else if(DominioUno >= 3 && DominioUno < 5){
   colorDominioUno=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  Dominio1Bajo= <MDBBadge color="success">{DominioUno}</MDBBadge>
+  Dominio1Bajo= DominioUno
 }else if(DominioUno >= 5 && DominioUno < 7){
   colorDominioUno=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
-  Dominio1Medio= <MDBBadge color="warning">{DominioUno}</MDBBadge>
+  Dominio1Medio= DominioUno
 }else if(DominioUno >= 7 && DominioUno < 9){
   colorDominioUno = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  Dominio1Alto= <MDBBadge color="warning">{DominioUno}</MDBBadge>
+  Dominio1Alto= DominioUno
 }else if(DominioUno >= 9){
   colorDominioUno= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  Dominio1MuyAlto= <MDBBadge color="danger">{DominioUno}</MDBBadge>
+  Dominio1MuyAlto= DominioUno
 }
 
 let Dominio2Nulo;
@@ -1619,19 +1619,19 @@ let colorDominioDos;
 let DominioDos = (respuesta4+respuesta9+respuesta5+respuesta6+respuesta7+respuesta8+respuesta41+respuesta42+respuesta43+respuesta10+respuesta11+respuesta12+respuesta13) /length;
 if(DominioDos < 12){
   colorDominioDos  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  Dominio2Nulo= <MDBBadge color="info">{DominioDos}</MDBBadge>
+  Dominio2Nulo=DominioDos
 }else if(DominioDos >= 12 && DominioDos < 16){
   colorDominioDos=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  Dominio2Bajo= <MDBBadge color="success">{DominioDos}</MDBBadge>
+  Dominio2Bajo= DominioDos
 }else if(DominioDos >= 16 && DominioDos < 20){
   colorDominioDos=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
-  Dominio2Medio= <MDBBadge color="warning">{DominioDos}</MDBBadge>
+  Dominio2Medio= DominioDos
 }else if(DominioDos >= 20 && DominioDos < 24){
   colorDominioDos = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  Dominio2Alto= <MDBBadge color="warning">{DominioDos}</MDBBadge>
+  Dominio2Alto= DominioDos
 }else if(DominioDos >= 24){
   colorDominioDos= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  Dominio2MuyAlto= <MDBBadge color="danger">{DominioDos}</MDBBadge>
+  Dominio2MuyAlto= DominioDos
 }
 
 let Dominio3Nulo;
@@ -1643,19 +1643,19 @@ let colorDominioTres;
 let DominioTres = (respuesta20+respuesta21+respuesta22+respuesta18+respuesta19+respuesta26+respuesta27)/length;
 if(DominioTres < 5){
   colorDominioTres  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  Dominio3Nulo= <MDBBadge color="info">{DominioTres}</MDBBadge>
+  Dominio3Nulo=DominioTres
 }else if(DominioTres >= 5 && DominioTres < 8){
   colorDominioTres=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  Dominio3Bajo= <MDBBadge color="success">{DominioTres}</MDBBadge>
+  Dominio3Bajo= DominioTres
 }else if(DominioTres >= 8 && DominioTres < 11){
   colorDominioTres=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
-  Dominio3Medio= <MDBBadge color="warning">{DominioTres}</MDBBadge>
+  Dominio3Medio= DominioTres
 }else if(DominioTres >= 11 && DominioTres < 14){
   colorDominioTres = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  Dominio3Alto= <MDBBadge color="warning">{DominioTres}</MDBBadge>
+  Dominio3Alto= DominioTres
 }else if(DominioTres >= 14){
   colorDominioTres= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  Dominio3MuyAlto= <MDBBadge color="danger">{DominioTres}</MDBBadge>
+  Dominio3MuyAlto= DominioTres
 }
 
 let Dominio4Nulo;
@@ -1667,19 +1667,19 @@ let colorDominioCuatro;
 let DominioCuatro = (respuesta14+respuesta15)/length;
 if(DominioCuatro < 1){
   colorDominioCuatro  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  Dominio4Nulo= <MDBBadge color="info">{DominioCuatro}</MDBBadge>
+  Dominio4Nulo=DominioCuatro
 }else if(DominioCuatro >= 1 && DominioCuatro < 2){
   colorDominioCuatro=<TableCell width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  Dominio4Bajo= <MDBBadge color="success">{DominioCuatro}</MDBBadge>
+  Dominio4Bajo= DominioCuatro
 }else if(DominioCuatro >= 2 && DominioCuatro < 4){
   colorDominioCuatro = <TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  Dominio4Medio= <MDBBadge color="warning">{DominioCuatro}</MDBBadge>
+  Dominio4Medio= DominioCuatro
 }else if(DominioCuatro >= 4 && DominioCuatro < 6){
   colorDominioCuatro = <TableCell width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  Dominio4Alto= <MDBBadge color="warning">{DominioCuatro}</MDBBadge>
+  Dominio4Alto= DominioCuatro
 }else if(DominioCuatro >= 6){
   colorDominioCuatro= <TableCell width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  Dominio4MuyAlto= <MDBBadge color="danger">{DominioCuatro}</MDBBadge>
+  Dominio4MuyAlto= DominioCuatro
 }
 
 let Dominio5Nulo;
@@ -1691,19 +1691,19 @@ let colorDominioCinco;
 let DominioCinco = (respuesta16+respuesta17)/length;
 if(DominioCinco < 1){
   colorDominioCinco  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  Dominio5Nulo= <MDBBadge color="info">{DominioCinco}</MDBBadge>
+  Dominio5Nulo=DominioCinco
 }else if(DominioCinco >= 1 && DominioCinco < 2){
   colorDominioCinco=<TableCell width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  Dominio5Bajo= <MDBBadge color="success">{DominioCinco}</MDBBadge>
+  Dominio5Bajo= DominioCinco
 }else if(DominioCinco >= 2 && DominioCinco < 4){
   colorDominioCinco=<TableCell width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
-  Dominio5Medio= <MDBBadge color="warning">{DominioCinco}</MDBBadge>
+  Dominio5Medio= DominioCinco
 }else if(DominioCinco >= 4 && DominioCinco < 6){
   colorDominioCinco = <TableCell  width="20px"style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  Dominio5Alto= <MDBBadge color="warning">{DominioCinco}</MDBBadge>
+  Dominio5Alto= DominioCinco
 }else if(DominioCinco >= 6){
   colorDominioCinco= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  Dominio5MuyAlto= <MDBBadge color="danger">{DominioCinco}</MDBBadge>
+  Dominio5MuyAlto= DominioCinco
 }
 
 let Dominio6Nulo;
@@ -1715,19 +1715,19 @@ let colorDominioSeis;
 let DominioSeis = (respuesta23+respuesta24+respuesta25+respuesta28+respuesta29)/length;
 if(DominioSeis < 3){
   colorDominioSeis  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  Dominio6Nulo= <MDBBadge color="info">{DominioSeis}</MDBBadge>
+  Dominio6Nulo=DominioSeis
 }else if(DominioSeis >= 3 && DominioSeis < 5){
   colorDominioSeis=<TableCell  width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  Dominio6Bajo= <MDBBadge color="success">{DominioSeis}</MDBBadge>
+  Dominio6Bajo= DominioSeis
 }else if(DominioSeis >= 5 && DominioSeis < 8){
   colorDominioSeis=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
-Dominio6Medio= <MDBBadge color="warning">{DominioSeis}</MDBBadge>
+Dominio6Medio= DominioSeis
 }else if(DominioSeis >= 8 && DominioSeis < 11){
   colorDominioSeis = <TableCell width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  Dominio6Alto= <MDBBadge color="warning">{DominioSeis}</MDBBadge>
+  Dominio6Alto= DominioSeis
 }else if(DominioSeis >= 11){
   colorDominioSeis= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  Dominio6MuyAlto= <MDBBadge color="danger">{DominioSeis}</MDBBadge>
+  Dominio6MuyAlto= DominioSeis
 }
 
 let Dominio7Nulo;
@@ -1739,19 +1739,19 @@ let colorDominioSiete;
 let DominioSiete = (respuesta30+respuesta31+respuesta32+respuesta44+respuesta45+respuesta46)/length;
 if(DominioSiete < 5){
   colorDominioSiete  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  Dominio7Nulo= <MDBBadge color="info">{DominioSiete}</MDBBadge>
+  Dominio7Nulo=DominioSiete
 }else if(DominioSiete >= 5 && DominioSiete < 8){
   colorDominioSiete=<TableCell width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  Dominio7Bajo= <MDBBadge color="success">{DominioSiete}</MDBBadge>
+  Dominio7Bajo= DominioSiete
 }else if(DominioSiete >= 8 && DominioSiete < 11){
   colorDominioSiete=<TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
-  Dominio7Medio= <MDBBadge color="warning">{DominioSiete}</MDBBadge>
+  Dominio7Medio= DominioSiete
 }else if(DominioSiete >= 11 && DominioSiete < 14){
   colorDominioSiete = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  Dominio7Alto= <MDBBadge color="warning">{DominioSiete}</MDBBadge>
+  Dominio7Alto= DominioSiete
 }else if(DominioSiete >= 14){
   colorDominioSiete= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  Dominio7MuyAlto= <MDBBadge color="danger">{DominioSiete}</MDBBadge>
+  Dominio7MuyAlto= DominioSiete
 }
 
 let Dominio8Nulo;
@@ -1763,19 +1763,19 @@ let colorDominioOcho;
 let DominioOcho = (respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40)/length;
 if(DominioOcho < 7){
   colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  Dominio8Nulo= <MDBBadge color="info">{DominioOcho}</MDBBadge>
+  Dominio8Nulo=DominioOcho
 }else if(DominioOcho >= 7 && DominioOcho < 10){
   colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-  Dominio8Bajo= <MDBBadge color="success">{DominioOcho}</MDBBadge>
+  Dominio8Bajo= DominioOcho
 }else if(DominioOcho >= 10 && DominioOcho < 13){
   colorDominioOcho=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
-  Dominio8Medio= <MDBBadge color="warning">{DominioOcho}</MDBBadge>
+  Dominio8Medio= DominioOcho
 }else if(DominioOcho >= 13 && DominioOcho < 16){
   colorDominioOcho = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
-  Dominio8Alto= <MDBBadge color="warning">{DominioOcho}</MDBBadge>
+  Dominio8Alto= DominioOcho
 }else if(DominioOcho >= 16){
   colorDominioOcho= <TableCell width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  Dominio8MuyAlto= <MDBBadge color="danger">{DominioOcho}</MDBBadge>
+  Dominio8MuyAlto= DominioOcho
 }
 
 
@@ -1829,104 +1829,104 @@ ponderacion=<React.Fragment>
               <TableCell component="th" scope="row" ></TableCell>  
             </TableRow>
             <TableRow>
-            <TableCell component="th" scope="row" >I. Ambiente de Trabajo</TableCell>
-            <TableCell component="th" scope="row" >{categoria1Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria1Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria1Medio}</TableCell>
-            <TableCell component="th" scope="row" >{categoria1Alto}</TableCell>
-            <TableCell component="th" scope="row" >{categoria1MuyAlto}</TableCell>           
+            <TableCell component="th" scope="row">I. Ambiente de Trabajo</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria1Nulo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria1Bajo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria1Medio}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria1Alto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria1MuyAlto}</TableCell>           
             </TableRow>
             <TableRow>
             <TableCell component="th" scope="row" >II. Factores propios de la actividad</TableCell>   
-            <TableCell component="th" scope="row" >{categoria2Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria2Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria2Medio}</TableCell>
-            <TableCell component="th" scope="row" >{categoria2Alto}</TableCell>
-            <TableCell component="th" scope="row" >{categoria2MuyAlto}</TableCell>    
+            <TableCell component="th" scope="row" align="center">{categoria2Nulo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria2Bajo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria2Medio}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria2Alto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria2MuyAlto}</TableCell>    
             </TableRow>
             <TableRow>
             <TableCell component="th" scope="row" >III. Organización del tiempo de trabajo</TableCell>   
-            <TableCell component="th" scope="row" >{categoria3Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria3Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria3Medio}</TableCell>
-            <TableCell component="th" scope="row" >{categoria3Alto}</TableCell>
-            <TableCell component="th" scope="row" >{categoria3MuyAlto}</TableCell>    
+            <TableCell component="th" scope="row" align="center">{categoria3Nulo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria3Bajo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria3Medio}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria3Alto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria3MuyAlto}</TableCell>    
             </TableRow>
             <TableRow>
             <TableCell component="th" scope="row" >IV. Liderazgo y relaciones en el trabajo</TableCell>   
-            <TableCell component="th" scope="row" >{categoria4Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria4Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{categoria4Medio}</TableCell>
-            <TableCell component="th" scope="row" >{categoria4Alto}</TableCell>
-            <TableCell component="th" scope="row" >{categoria4MuyAlto}</TableCell>           
+            <TableCell component="th" scope="row" align="center">{categoria4Nulo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria4Bajo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria4Medio}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria4Alto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{categoria4MuyAlto}</TableCell>           
             </TableRow>
            
             <TableRow>
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados del Dominio</strong></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
+              <TableCell component="th" scope="row" align="center" style={{backgroundColor: "#E6E7E8"}}></TableCell>              
+              <TableCell component="th" scope="row" align="center" style={{backgroundColor: "#E6E7E8"}}></TableCell>              
+              <TableCell component="th" scope="row" align="center" style={{backgroundColor: "#E6E7E8"}}></TableCell>              
+              <TableCell component="th" scope="row" align="center" style={{backgroundColor: "#E6E7E8"}}></TableCell>              
+              <TableCell component="th" scope="row" align="center" style={{backgroundColor: "#E6E7E8"}}></TableCell>              
 
             </TableRow>
             
             <TableRow>
             <TableCell component="th" scope="row" >I. Condiciones en el ambiente de trabajo</TableCell> 
-            <TableCell component="th" scope="row" >{Dominio1Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio1Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio1Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio1Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio1MuyAlto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio1Nulo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio1Bajo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio1Medio}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio1Alto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio1MuyAlto}</TableCell>
 
             </TableRow>
             <TableRow>
             <TableCell component="th" scope="row" >II. Carga de trabajo</TableCell>    
-            <TableCell component="th" scope="row" >{Dominio2Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio2Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio2Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio2Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio2MuyAlto}</TableCell>       
+            <TableCell component="th" scope="row" align="center" >{Dominio2Nulo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio2Bajo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio2Medio}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio2Alto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio2MuyAlto}</TableCell>       
             </TableRow>
             <TableRow>
             <TableCell component="th" scope="row" >III. Falta de control sobre el trabajo</TableCell>     
-            <TableCell component="th" scope="row" >{Dominio3Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio3Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio3Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio3Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio3MuyAlto}</TableCell>       
+            <TableCell component="th" scope="row" align="center">{Dominio3Nulo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio3Bajo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio3Medio}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio3Alto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio3MuyAlto}</TableCell>       
             </TableRow>
             <TableRow>
             <TableCell component="th" scope="row" >IV. Jornada de trabajo</TableCell>  
-            <TableCell component="th" scope="row" >{Dominio4Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio4Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio4Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio4Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio4MuyAlto}</TableCell>         
+            <TableCell component="th" scope="row"align="center">{Dominio4Nulo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio4Bajo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio4Medio}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio4Alto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio4MuyAlto}</TableCell>         
             </TableRow>
             <TableRow>
             <TableCell component="th" scope="row" width="50%" >V. Interferencia en la relación trabajo-familia</TableCell>           
-            <TableCell component="th" scope="row" >{Dominio5Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio5Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio5Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio5Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio5MuyAlto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio5Nulo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio5Bajo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio5Medio}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio5Alto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio5MuyAlto}</TableCell>
             </TableRow>
             <TableRow>
             <TableCell component="th" scope="row" >VI. Liderazgo</TableCell>    
-            <TableCell component="th" scope="row" >{Dominio6Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio6Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio6Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio6Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio6MuyAlto}</TableCell>       
+            <TableCell component="th" scope="row" align="center">{Dominio6Nulo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio6Bajo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio6Medio}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio6Alto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio6MuyAlto}</TableCell>       
             </TableRow>
             <TableRow>
             <TableCell component="th" scope="row" >VII. Relaciones en el trabajo</TableCell>    
-            <TableCell component="th" scope="row" >{Dominio7Nulo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio7Bajo}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio7Medio}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio7Alto}</TableCell>
-            <TableCell component="th" scope="row" >{Dominio7MuyAlto}</TableCell>       
+            <TableCell component="th" scope="row" align="center">{Dominio7Nulo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio7Bajo}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio7Medio}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio7Alto}</TableCell>
+            <TableCell component="th" scope="row" align="center">{Dominio7MuyAlto}</TableCell>       
             </TableRow>
             <TableRow>
             <TableCell component="th" scope="row" >VIII. Violencia</TableCell>    
@@ -1949,7 +1949,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >1.- Condiciones peligrosas e inseguras</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{respuesta1/length}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {respuesta1/length}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1957,7 +1957,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >2.- Condiciones deficientes e insalubres</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{respuesta2/length}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {respuesta2/length}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1966,7 +1966,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >3.- Trabajos peligrosos</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{respuesta3/length}</Badge ></TableCell>
+            <TableCell component="th" scope="row"align="center"> {respuesta3/length}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1974,7 +1974,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >4.- Cargas cuantitativas</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta4/length)+(respuesta9/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta4/length)+(respuesta9/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1982,7 +1982,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >5.- Ritmos de trabajo acelerado</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta5/length)+(respuesta6/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta5/length)+(respuesta6/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1990,7 +1990,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >6.- Carga mental</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta7/length)+(respuesta8/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta7/length)+(respuesta8/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1998,7 +1998,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >7.- Cargas psicológicas emocionales</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta41/length)+(respuesta42/length)+(respuesta43/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta41/length)+(respuesta42/length)+(respuesta43/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2006,7 +2006,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" width="50%" >8.- Cargas de alta responsabilidad</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta10/length)+(respuesta11/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta10/length)+(respuesta11/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2014,7 +2014,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row"  width="50%">9.- Cargas contradictorias o inconsistentes</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta12/length)+(respuesta13/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta12/length)+(respuesta13/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2022,7 +2022,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >10.- Falta de control y autonomía sobre el trabajo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta20/length)+(respuesta21/length)+(respuesta22/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta20/length)+(respuesta21/length)+(respuesta22/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2030,7 +2030,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >11.- Limitada o nula posibilidad de desarrollo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta18/length)+(respuesta19/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta18/length)+(respuesta19/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2038,7 +2038,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >12.- Limitada o inexistente capacitación</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta26/length)+(respuesta27/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta26/length)+(respuesta27/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2046,7 +2046,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >13.- Jornadas de trabajo extensas</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta14/length)+(respuesta15/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta14/length)+(respuesta15/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2054,7 +2054,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >14.- Influencia del trabajo fuera del centro laboral</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta16/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta16/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2062,7 +2062,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >15.- Influencia de las responsabilidades familiares</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta17/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta17/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2070,7 +2070,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >16.- Escasa claridad de funciones</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta23/length)+(respuesta24/length)+(respuesta25/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta23/length)+(respuesta24/length)+(respuesta25/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2078,7 +2078,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >17.- Características del liderazgo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta28/length)+(respuesta29/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta28/length)+(respuesta29/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2086,7 +2086,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >18.- Relaciones sociales en el trabajo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta30/length)+(respuesta31/length)+(respuesta32/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta30/length)+(respuesta31/length)+(respuesta32/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2094,7 +2094,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >19.- Deficiente relación con los colaboradores que supervisa</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta44/length)+(respuesta45/length)+(respuesta46/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta44/length)+(respuesta45/length)+(respuesta46/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2102,7 +2102,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >20.- Violencia laboral</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" > <Badge  color="primary">{(respuesta33/length)+(respuesta34/length)+(respuesta35/length)+(respuesta36/length)+(respuesta37/length)+(respuesta38/length)+(respuesta39/length)+(respuesta40/length)}</Badge ></TableCell>
+            <TableCell component="th" scope="row" align="center"> {(respuesta33/length)+(respuesta34/length)+(respuesta35/length)+(respuesta36/length)+(respuesta37/length)+(respuesta38/length)+(respuesta39/length)+(respuesta40/length)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -2539,11 +2539,8 @@ ponderacion=<React.Fragment>
             {/* <span>{this.state.dias} {this.state.horas} {this.state.minutos} {this.state.segundos}</span> */}
           <Alert color ="primary">Seleccione por favor el periodo como primer filtro </Alert>
           </MDBContainer>
-          </MDBCol>
-    
+          </MDBCol>  
           </MDBRow>
-
-
                   <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
                     <div className="row">
                         <div className="col-md-12" item xs={12}>
@@ -2616,8 +2613,7 @@ ponderacion=<React.Fragment>
               <MDBCol  sm="4"></MDBCol>  
               <MDBCol><MDBBtn onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Ver Resultados Globales</MDBBtn></MDBCol>  
              </MDBRow>
-               {ponderacion}
-              
+               {ponderacion}   
             </div> 
           </Grow>  
         </div>

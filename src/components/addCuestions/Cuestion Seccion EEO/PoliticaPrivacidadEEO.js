@@ -141,7 +141,6 @@ class Home extends React.Component {
   }
 
   evaluar= (values) => {
- 
 
 if(values.stooge=="acepto" && values.correo){
   
@@ -231,10 +230,10 @@ if(values.stooge=="acepto" && values.correo){
           this.props.history.push("./EEOpage1")
           }
           }).catch((err)=>{
-            console.log(err.response)
+            console.log(err)
           })
           }).catch(err=>{
-            console.log("error",err.response)
+            console.log("error",err)
           })
         }else{
             DialogUtility.alert({
@@ -246,8 +245,7 @@ if(values.stooge=="acepto" && values.correo){
           })
           }
         })
-        
-}
+    }
 
   }
 
