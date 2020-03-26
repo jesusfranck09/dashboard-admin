@@ -155,7 +155,7 @@ class AdminGral extends React.Component {
               RFC
               FechaNacimiento
               Sexo
-              CP
+              CentroTrabajo
               EstadoCivil
               correo
               AreaTrabajo
@@ -618,7 +618,7 @@ class AdminGral extends React.Component {
                 const Curp = values.Curp
                 const rfc = values.rfc
                 const sexo = values.sexo
-                const cp = values.cp
+                const centro = values.centrotrabajo
                 const correoEmployee =values.correo
                 const AreaTrabajo= values.AreaTrabajo
                 const Puesto = values.Puesto
@@ -634,7 +634,7 @@ class AdminGral extends React.Component {
                       data:{
                       query:`
                        mutation{
-                        updateEmployees(data:"${[nombre,ApellidoP,ApellidoM,Curp,rfc,sexo,cp,correoEmployee,AreaTrabajo,Puesto,Ciudad,id,correo]}"){
+                        updateEmployees(data:"${[nombre,ApellidoP,ApellidoM,Curp,rfc,sexo,centro,correoEmployee,AreaTrabajo,Puesto,Ciudad,id,correo]}"){
                             message
                               }
                             }
@@ -1464,10 +1464,10 @@ class AdminGral extends React.Component {
                         <Field
                           fullWidth
                           required
-                          name="cp"
+                          name="centrotrabajo"
                           component={TextField}
                           type="text"
-                          defaultValue={this.state.updateRows.CP}
+                          defaultValue={this.state.updateRows.CentroTrabajo}
                         />
                       </Grid>
 
