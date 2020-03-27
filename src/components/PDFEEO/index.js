@@ -78,12 +78,11 @@ class App extends Component {
             RFC
             FechaNacimiento
             Sexo
-            CP
             EstadoCivil
             correo
             AreaTrabajo
             Puesto
-            Ciudad
+            TipoPuesto
             NivelEstudios
             TipoPersonal
             JornadaTrabajo
@@ -139,13 +138,12 @@ class App extends Component {
                 Curp 
                 RFC 
                 FechaNacimiento 
-                Sexo 
-                CP 
+                Sexo  
                 EstadoCivil 
                 correo 
                 AreaTrabajo 
                 Puesto 
-                Ciudad 
+                TipoPuesto 
                 NivelEstudios 
                 TipoPersonal 
                 JornadaTrabajo 
@@ -201,13 +199,12 @@ class App extends Component {
                   Curp 
                   RFC 
                   FechaNacimiento 
-                  Sexo 
-                  CP 
+                  Sexo  
                   EstadoCivil 
                   correo 
                   AreaTrabajo 
                   Puesto 
-                  Ciudad 
+                  TipoPuesto 
                   NivelEstudios 
                   TipoPersonal 
                   JornadaTrabajo 
@@ -260,12 +257,11 @@ class App extends Component {
                   RFC 
                   FechaNacimiento 
                   Sexo 
-                  CP 
                   EstadoCivil 
                   correo 
                   AreaTrabajo 
                   Puesto 
-                  Ciudad 
+                  TipoPuesto 
                   NivelEstudios 
                   TipoPersonal 
                   JornadaTrabajo 

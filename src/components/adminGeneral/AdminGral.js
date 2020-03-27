@@ -160,7 +160,7 @@ class AdminGral extends React.Component {
               correo
               AreaTrabajo
               Puesto
-              Ciudad
+              TipoPuesto
               NivelEstudios
               TipoPersonal
               JornadaTrabajo
@@ -517,8 +517,8 @@ class AdminGral extends React.Component {
                 if (!values.Puesto) {
                   errors.Puesto = 'Este campo es requerido';
                 }
-                if (!values.Ciudad) {
-                  errors.Ciudad = 'Este campo es requerido';
+                if (!values.TipoPuesto) {
+                  errors.TipoPuesto = 'Este campo es requerido';
                 }
 
                 if (!values.NivelEstudios) {
@@ -622,7 +622,7 @@ class AdminGral extends React.Component {
                 const correoEmployee =values.correo
                 const AreaTrabajo= values.AreaTrabajo
                 const Puesto = values.Puesto
-                const Ciudad = values.Ciudad
+                const TipoPuesto = values.TipoPuesto
                 
                 const correo = localStorage.getItem('correo')
         
@@ -634,7 +634,7 @@ class AdminGral extends React.Component {
                       data:{
                       query:`
                        mutation{
-                        updateEmployees(data:"${[nombre,ApellidoP,ApellidoM,Curp,rfc,sexo,centro,correoEmployee,AreaTrabajo,Puesto,Ciudad,id,correo]}"){
+                        updateEmployees(data:"${[nombre,ApellidoP,ApellidoM,Curp,rfc,sexo,centro,correoEmployee,AreaTrabajo,Puesto,TipoPuesto,id,correo]}"){
                             message
                               }
                             }
@@ -1506,10 +1506,10 @@ class AdminGral extends React.Component {
                         <Field
                           fullWidth
                           required
-                          name="Ciudad"
+                          name="TipoPuesto"
                           component={TextField}
                           type="text"
-                          defaultValue={this.state.updateRows.Ciudad}
+                          defaultValue={this.state.updateRows.TipoPuesto}
                         />
                       </Grid>
 

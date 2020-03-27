@@ -262,13 +262,12 @@ export default class App extends React.Component {
               Curp 
               RFC 
               FechaNacimiento 
-              Sexo 
-              CP 
+              Sexo  
               EstadoCivil 
               correo 
               AreaTrabajo 
               Puesto 
-              Ciudad 
+              TipoPuesto 
               NivelEstudios 
               TipoPersonal 
               JornadaTrabajo 

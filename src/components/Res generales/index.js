@@ -258,12 +258,11 @@ pdfExportComponent ;
               RFC 
               FechaNacimiento 
               Sexo 
-              CP 
               EstadoCivil 
               correo 
               AreaTrabajo 
               Puesto 
-              Ciudad 
+              TipoPuesto 
               NivelEstudios 
               TipoPersonal 
               JornadaTrabajo 

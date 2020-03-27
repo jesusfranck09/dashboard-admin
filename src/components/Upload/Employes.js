@@ -31,7 +31,6 @@ import {
 
   import { TextField, Radio, Select } from 'final-form-material-ui';
 
-
   const ModalPrueba = (props) => {
 	const {
 	  buttonLabel,
@@ -41,10 +40,8 @@ import {
 	const [modal, setModal] = useState(false);
   
 	const toggle = () => setModal(!modal);
-	
+
 	const handleToggle = () => setModal(!modal);
-	
-  
 	return (
 	<React.Fragment>
 	  <div>
@@ -56,9 +53,7 @@ import {
 		  <MDBBtn color="secondary" onClick={handleToggle}>Cerrar</MDBBtn>
 		</Modal>
 	  </div>
-	 
 	<Alert style = {{marginTop:40,width:400}} color ="success">Nota : Puede ver los requisitos de su excel desde este enlace<br/>   <a href="https://drive.google.com/open?id=1NSWrZqQ9ZbgUxUgUAGsYnsVqfbcBGC8t" target="_blank">Carga de empleados Excel Ejemplo </a></Alert>
-	
 	  </React.Fragment>	
 	);
   }
@@ -481,13 +476,13 @@ class App extends React.Component {
 		const rfc =  values.rfc
 		const fechaN = values.fechaN
 		const sexo = values.stooge
-		const cp= values.cp
+
 		const Estado_Civil= values.Estado_Civil
 		const CentroTrabajo= values.CentroTrabajo
 		const Correo = values.Correo
 		const area = values.area
 		const puesto = values.puesto
-		const city =  values.city
+		const tipoPuesto =  values.tipoPuesto
 		const estudios = values.estudios
 		const personal =  values.personal
 		const Jornada = values.Jornada
@@ -522,7 +517,7 @@ class App extends React.Component {
 		  }) 
 		// const passAdmin = pl.password
 		
-		if(Nombre && ApellidoP && ApellidoM && curp && rfc && fechaN && sexo && cp && Estado_Civil && CentroTrabajo && Correo && area && puesto && city && estudios && personal && Jornada && contratacion && Tiempo_puestoActual && experiencia_Laboral && rotacion){
+		if(Nombre && ApellidoP && ApellidoM && curp && rfc && fechaN && sexo && Estado_Civil && CentroTrabajo && Correo && area && puesto && tipoPuesto && estudios && personal && Jornada && contratacion && Tiempo_puestoActual && experiencia_Laboral && rotacion){
 		
 	
 		let em;
@@ -577,7 +572,7 @@ class App extends React.Component {
 			data:{
 			query:`
 			mutation{
-				registerEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,cp,Estado_Civil,Correo,area,puesto,city,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,CentroTrabajo,idAdmin]}"){
+				registerEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,Estado_Civil,Correo,area,puesto,tipoPuesto,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,CentroTrabajo,idAdmin]}"){
 					message
 					}
 					}
@@ -641,9 +636,7 @@ class App extends React.Component {
 		if (!values.Correo) {
 		  errors.Correo = 'Este campo es requerido';
 		}
-		if (!values.cp) {
-		  errors.cp = 'Este campo es requerido';
-		}
+	
 	  
 		if (!values.area) {
 		  errors.area = 'Required';
@@ -860,16 +853,6 @@ render(){
 								label="Correo"
 								/>
 							</Grid>
-							<Grid item xs={6}>
-								<Field
-								name="cp"
-								fullWidth
-								required
-								component={TextField}
-								type="text"
-								label="Código Postal"
-								/>
-							</Grid>
 			
 							<Grid item xs={6}>
 								<Field
@@ -889,7 +872,7 @@ render(){
 								</Field>
 							</Grid>
 			
-							<Grid item xs={6}>
+							<Grid item xs={12}>
 								<Field
 								fullWidth
 								name="puesto"
@@ -906,123 +889,19 @@ render(){
 							<Grid item xs={12}>
 								<Field
 								fullWidth
-								name="city"
+								name="tipoPuesto"
 								component={Select}
-								label="Seleccione su Ciudad"
+								label="Seleccione el Tipo de Puesto"
 								formControlProps={{ fullWidth: true }}
 								>
 								
-								<MenuItem value="Aguascalientes">Aguascalientes</MenuItem>
-								<MenuItem value="Apodaca">Apodaca</MenuItem>
-								<MenuItem value="Buenavista">Buenavista</MenuItem>
-								<MenuItem value="Campeche">Campeche</MenuItem>
-								<MenuItem value="Cancún">Cancún</MenuItem>
-								<MenuItem value="Celaya">Celaya</MenuItem>
-								<MenuItem value="Chalco">Chalco</MenuItem>
-								<MenuItem value="Chetumal">Chetumal</MenuItem>
-								<MenuItem value="Chicoloapan">Chicoloapan</MenuItem>
-								<MenuItem value="Chihuahua">Chihuahua</MenuItem>
-								<MenuItem value="Chilpancingo">Chilpancingo</MenuItem>
-								<MenuItem value="Chimalhuacán">Chimalhuacán</MenuItem>
-								<MenuItem value="Ciudad Acuña">Ciudad Acuña</MenuItem>
-								<MenuItem value="Ciudad de México DF (CDMX)">Ciudad de México DF (CDMX)</MenuItem>
-								<MenuItem value="Ciudad del Carmen">Ciudad del Carmen</MenuItem>
-								<MenuItem value="Ciudad López Mateos">Ciudad López Mateos</MenuItem>
-								<MenuItem value="Ciudad Madero">Ciudad Madero</MenuItem>
-								<MenuItem value="Ciudad Obregón">Ciudad Obregón</MenuItem>
-								<MenuItem value="Ciudad Valles">Ciudad Valles</MenuItem>
-								<MenuItem value="Ciudad Victoria">Ciudad Victoria</MenuItem>
-								<MenuItem value="Coatzacoalcos">Coatzacoalcos</MenuItem>
-								<MenuItem value="Colima">Colima</MenuItem>
-								<MenuItem value="PariCórdobas">Córdoba</MenuItem>
-								<MenuItem value="Cuauhtémoc">Cuauhtémoc</MenuItem>
-								<MenuItem value="Cuautitlán">Cuautitlán</MenuItem>
-								<MenuItem value="Cuautitlán">Cuautitlán Izcalli</MenuItem>
-								<MenuItem value="Cuautla">Cuautla</MenuItem>
-								<MenuItem value="Cuernavaca">Cuernavaca</MenuItem>
-								<MenuItem value="Culiacán">Culiacán</MenuItem>
-								<MenuItem value="Durango">Durango</MenuItem>
-								<MenuItem value="Ecatepec">Ecatepec</MenuItem>
-								<MenuItem value="Ensenada">Ensenada</MenuItem>
-								<MenuItem value="Fresnillo">Fresnillo</MenuItem>
-								<MenuItem value="General Escobedo">General Escobedo</MenuItem>
-								<MenuItem value="Gómez Palacio">Gómez Palacio</MenuItem>
-								<MenuItem value="Guadalajara">Guadalajara</MenuItem>
-								<MenuItem value="Guadalupe">Guadalupe</MenuItem>
-								<MenuItem value="Guaymas">Guaymas</MenuItem>
-								<MenuItem value="Hermosillo">Hermosillo</MenuItem>
-								<MenuItem value="Hidalgo del Parral">Hidalgo del Parral</MenuItem>
-								<MenuItem value="Iguala">Iguala</MenuItem>
-								<MenuItem value="Irapuato">Irapuato</MenuItem>
-								<MenuItem value="Ixtapaluca">Ixtapaluca</MenuItem>
-								<MenuItem value="Jiutepec">Jiutepec</MenuItem>
-								<MenuItem value="Juárez">Juárez</MenuItem>
-								<MenuItem value="La Paz">La Paz</MenuItem>
-								<MenuItem value="León">León</MenuItem>
-								<MenuItem value="Los Mochis">Los Mochis</MenuItem>
-								<MenuItem value="Manzanillo">Manzanillo</MenuItem>
-								<MenuItem value="Matamoros">Matamoros</MenuItem>
-								<MenuItem value="Mazatlán">Mazatlán</MenuItem>
-								<MenuItem value="Mérida">Mérida</MenuItem>
-								<MenuItem value="Mexicali">Mexicali</MenuItem>
-								<MenuItem value="Minatitlán">Minatitlán</MenuItem>
-								<MenuItem value="Miramar">Miramar</MenuItem>
-								<MenuItem value="Monclova">Monclova</MenuItem>
-								<MenuItem value="Monterrey">Monterrey</MenuItem>
-								<MenuItem value="Morelia">Morelia</MenuItem>
-								<MenuItem value="Naucalpan">Naucalpan</MenuItem>
-								<MenuItem value="Naucalpan de Juárez">Naucalpan de Juárez</MenuItem>
-								<MenuItem value="Nezahualcóyotl">Nezahualcóyotl</MenuItem>
-								<MenuItem value="Nogales">Nogales</MenuItem>
-								<MenuItem value="Nuevo Laredo">Nuevo Laredo</MenuItem>
-								<MenuItem value="Oaxaca de Juárez">Oaxaca de Juárez</MenuItem>
-								<MenuItem value="Ojo de Agua">Ojo de Agua</MenuItem>
-								<MenuItem value="Orizaba">Orizaba</MenuItem>
-								<MenuItem value="Piedras Negras">Piedras Negras</MenuItem>
-								<MenuItem value="Playa del Carmen">Playa del Carmen</MenuItem>
-								<MenuItem value="Poza Rica de Hidalgo">Poza Rica de Hidalgo</MenuItem>
-								<MenuItem value="Puerto Vallarta">Puerto Vallarta</MenuItem>
-								<MenuItem value="Querétaro">Querétaro</MenuItem>
-								<MenuItem value="Reynosa">Reynosa</MenuItem>
-								<MenuItem value="Salamanca">Salamanca</MenuItem>
-								<MenuItem value="Saltillo">Saltillo</MenuItem>
-								<MenuItem value="San Cristóbal de las Casas">San Cristóbal de las Casas</MenuItem>
-								<MenuItem value="Saltillo">Saltillo</MenuItem>
-								<MenuItem value="San Francisco Coacalco">San Francisco Coacalco</MenuItem>
-								<MenuItem value="San Juan Bautista Tuxtepec">San Juan Bautista Tuxtepec</MenuItem>
-								<MenuItem value="San Juan del Río">San Juan del Río</MenuItem>
-								<MenuItem value="San Luis Potosí">San Luis Potosí</MenuItem>
-								<MenuItem value="San Luis Río Colorado">San Luis Río Colorado</MenuItem>
-								<MenuItem value="San Miguel de Allende">San Miguel de Allende</MenuItem>
-								<MenuItem value="San Nicolás de los Garza">San Nicolás de los Garza</MenuItem>
-								<MenuItem value="San Pablo de las Salinas">San Pablo de las Salinas</MenuItem>
-								<MenuItem value="San Pedro Garza García">San Pedro Garza García</MenuItem>
-								<MenuItem value="Santa Catarina">Santa Catarina</MenuItem>
-								<MenuItem value="Soledad de Graciano Sánchez">Soledad de Graciano Sánchez</MenuItem>
-								<MenuItem value="Tampico">Tampico</MenuItem>
-								<MenuItem value="Tapachula">Tapachula</MenuItem>
-								<MenuItem value="Tehuacán">Tehuacán</MenuItem>
-								<MenuItem value="Tepexpan">Tepexpan</MenuItem>
-								<MenuItem value="Tepic">Tepic</MenuItem>
-								<MenuItem value="Texcoco de Mora">Texcoco de Mora</MenuItem>
-								<MenuItem value="Tijuana">Tijuana</MenuItem>
-								<MenuItem value="Tlalnepantla">Tlalnepantla</MenuItem>
-								<MenuItem value="Tlaquepaque">Tlaquepaque</MenuItem>
-								<MenuItem value="Toluca">Toluca</MenuItem>
-								<MenuItem value="Tonalá">Tonalá</MenuItem>
-								<MenuItem value="Torreón">Torreón</MenuItem>
-								<MenuItem value="Tulancingo de Bravo">Tulancingo de Bravo</MenuItem>
-								<MenuItem value="Tuxtla">Tuxtla</MenuItem>
-								<MenuItem value="Uruapan">Uruapan</MenuItem>
-								<MenuItem value="Veracruz">Veracruz</MenuItem>
-								<MenuItem value="Villa de Álvarez">Villa de Álvarez</MenuItem>
-								<MenuItem value="Villa Nicolás Romero">Villa Nicolás Romero</MenuItem>
-								<MenuItem value="Villahermosa">Villahermosa</MenuItem>
-								<MenuItem value="Xalapa Enriquez">Xalapa Enriquez</MenuItem>
-								<MenuItem value="Xico">Xico</MenuItem>
-								<MenuItem value="Zacatecas">Zacatecas</MenuItem>
-								<MenuItem value="Zamora">Zamora</MenuItem>
-								<MenuItem value="Zapopan">Zapopan</MenuItem>
+								<MenuItem value="sinInfo">Sin Información</MenuItem>
+								<MenuItem value="operativo">Operativo</MenuItem>
+								<MenuItem value="profesionalTecnico">Profesional o Técnico</MenuItem>
+								<MenuItem value="supervisor">Supervisor</MenuItem>
+								<MenuItem value="gerencial">Gerencial</MenuItem>
+								<MenuItem value="directivo">Directivo</MenuItem>
+
 								</Field>
 							</Grid>
 			
