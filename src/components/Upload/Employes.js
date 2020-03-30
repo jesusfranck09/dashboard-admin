@@ -688,7 +688,7 @@ render(){
 					validate={this.validate}
 					render={({ handleSubmit, submitting,values }) => (
 						<form onSubmit={handleSubmit}>
-						<Alert color="primary">Datos Personales del Colaborador</Alert>
+						<Alert color="primary">Información general</Alert>
 						<Paper style={{ padding: 16 }}>
 							<Grid container alignItems="flex-start" spacing={2}>
 							<Grid item xs={6}>
@@ -746,8 +746,66 @@ render(){
 								label="RFC"
 								/>
 							</Grid>
+							<Grid item xs={6}>
+								<Field
+								name="Correo"
+								fullWidth
+								required
+								component={TextField}
+								type="email"
+								label="Correo"
+								/>
+							</Grid>
 			
 							<Grid item xs={6}>
+								<Field
+								fullWidth
+								name="puesto"
+								component={Select}
+								label="Puesto"
+								formControlProps={{ fullWidth: true }}
+								>
+								{this.state.puestos.map(row=>{
+									return(<MenuItem value={row.nombre}>{row.nombre}</MenuItem>)
+								})}
+								</Field>
+								</Grid>
+			
+			
+							<Grid item xs={6}>
+								<Field
+								name="area"
+								fullWidth
+								required
+								component={TextField}
+								type="text"
+								label="Departamento"
+								component={Select}
+								formControlProps={{ fullWidth: true }}
+								
+								>
+								{this.state.deptos.map(rows=>{
+									return(	<MenuItem value={rows.nombre}>{rows.nombre}</MenuItem>)
+								})}
+								</Field>
+							</Grid>
+							<Grid item xs={12}>
+								<Field
+								fullWidth
+								name="CentroTrabajo"
+								component={Select}
+								label="Centro de Trabajo"
+								formControlProps={{ fullWidth: true }}
+								>
+								{this.state.sucursal.map(row=>{
+									return(<MenuItem value={row.nombreSucursal}>{row.nombreSucursal}</MenuItem>)
+								})}
+								</Field>
+								<Alert color="primary" style={{marginTop:30}}>Datos del Trabajador</Alert>
+								</Grid>
+							
+							<Grid item xs={6}>
+
 								<Field
 								required
 								fullWidth
@@ -807,8 +865,7 @@ render(){
 								<MenuItem value="1999">1999</MenuItem>
 								<MenuItem value="2000">2000</MenuItem>
 								<MenuItem value="2001">2001</MenuItem>
-								
-								
+
 								</Field>
 								</Grid>
 			
@@ -828,65 +885,8 @@ render(){
 								<MenuItem value="Viudo">Viudo</MenuItem>
 								</Field>
 								</Grid>
-								
-								<Grid item xs={6}>
-								<Field
-								fullWidth
-								name="CentroTrabajo"
-								component={Select}
-								label="Centro de Trabajo"
-								formControlProps={{ fullWidth: true }}
-								>
-								{this.state.sucursal.map(row=>{
-									return(<MenuItem value={row.nombreSucursal}>{row.nombreSucursal}</MenuItem>)
-								})}
-								</Field>
-								</Grid>
-			
+
 							<Grid item xs={6}>
-								<Field
-								name="Correo"
-								fullWidth
-								required
-								component={TextField}
-								type="email"
-								label="Correo"
-								/>
-							</Grid>
-			
-							<Grid item xs={6}>
-								<Field
-								name="area"
-								fullWidth
-								required
-								component={TextField}
-								type="text"
-								label="Departamento"
-								component={Select}
-								formControlProps={{ fullWidth: true }}
-								
-								>
-								{this.state.deptos.map(rows=>{
-									return(	<MenuItem value={rows.nombre}>{rows.nombre}</MenuItem>)
-								})}
-								</Field>
-							</Grid>
-			
-							<Grid item xs={12}>
-								<Field
-								fullWidth
-								name="puesto"
-								component={Select}
-								label="Puesto"
-								formControlProps={{ fullWidth: true }}
-								>
-								{this.state.puestos.map(row=>{
-									return(<MenuItem value={row.nombre}>{row.nombre}</MenuItem>)
-								})}
-								</Field>
-								</Grid>
-			
-							<Grid item xs={12}>
 								<Field
 								fullWidth
 								name="tipoPuesto"
@@ -906,7 +906,7 @@ render(){
 							</Grid>
 			
 						
-							<Grid item xs={12}>
+							<Grid item xs={6}>
 								<Field
 								fullWidth
 								name="estudios"
@@ -926,7 +926,7 @@ render(){
 								</Field>
 								</Grid>
 			
-								<Grid item xs={12}>
+								<Grid item xs={6}>
 								<Field
 								fullWidth
 								name="personal"
@@ -940,7 +940,7 @@ render(){
 								</Field>
 								</Grid>
 			
-								<Grid item xs={12}>
+								<Grid item xs={6}>
 								<Field
 								fullWidth
 								name="Jornada"
@@ -957,7 +957,7 @@ render(){
 								</Grid>
 			
 			
-								<Grid item xs={12}>
+								<Grid item xs={6}>
 								<Field
 								fullWidth
 								name="contratacion"
@@ -974,7 +974,7 @@ render(){
 								</Grid>
 			
 			
-								<Grid item xs={12}>
+								<Grid item xs={6}>
 								<Field
 								fullWidth
 								name="Tiempo_puestoActual"
