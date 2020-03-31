@@ -490,28 +490,28 @@ getMaxEmployees = async()=>{
             // console.log("error", err.response)
           })
  
-    await axios({
-      url:  API,
-      method:'post',
-      data:{
-      query:`
-      query{
-        getEmployeesResolvesSurveyEEO(data:"${[idAdmin]}"){
-          nombre
-          ApellidoP
-          ApellidoM
-          correo
-          ATSContestado
-              }
-            }
-          `
-      }
-          }).then((datos) => {
-            this.setState({empleadosEEO:datos.data.data.getEmployeesResolvesSurveyEEO})
+        await axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+          query{
+            getEmployeesResolvesSurveyEEO(data:"${[idAdmin]}"){
+              nombre
+              ApellidoP
+              ApellidoM
+              correo
+              ATSContestado
+                  }
+                }
+              `
+          }
+              }).then((datos) => {
+                this.setState({empleadosEEO:datos.data.data.getEmployeesResolvesSurveyEEO})
 
-          }).catch(err=>{
-            // console.log("error", err.response)
-          })
+              }).catch(err=>{
+                // console.log("error", err.response)
+            })
 
     await axios({
       url:  API,
@@ -535,9 +535,7 @@ getMaxEmployees = async()=>{
           }).catch(err=>{
             // console.log("error", err.response)
           })
-
-
-}
+      }
 
 
 toggle = (nr) => () => {  
@@ -555,9 +553,6 @@ sendMAilAlert1Survey  = async () => {
   let alerta3; 
  let idAdmin = localStorage.getItem("idAdmin")
   // const url = 'http://localhost:8000/graphql'
-
-
- 
       await axios({
         url:  API,
         method:'post',
@@ -581,7 +576,6 @@ sendMAilAlert1Survey  = async () => {
                 alerta1=datos.data.data.getEventos.alerta1;
                 alerta2=datos.data.data.getEventos.alerta2;
                 alerta3=datos.data.data.getEventos.alerta3;
-          
             }).catch(err=>{
               // console.log("error", err.response)
             })       
@@ -594,7 +588,6 @@ sendMAilAlert1Survey  = async () => {
             // console.log("la alerta 1 es " , alerta1)
             if(alerta1){
               alert1= alerta1.substring(4,34)       
-              
             } 
             if (alerta2){
               alert2=alerta2.substring(4,34)
@@ -606,16 +599,13 @@ sendMAilAlert1Survey  = async () => {
               fechaFinal = eventoFinal.substring(4,34)
               // console.log("alerta",fechaFinal) 
             }
-        
-  
-  this.countdown(fechaFinal)
-  this.alerta1(alert1)
-  this.alerta2(alert2)
-  this.alerta3(alert3)
+            this.countdown(fechaFinal)
+            this.alerta1(alert1)
+            this.alerta2(alert2)
+            this.alerta3(alert3)
 
-}
+          }
 countdown =  (deadline) => {
-
   const timerUpdate = setInterval( async () => {
     let t = this.getRemainingTime(deadline);
     let descripcion;
@@ -1299,7 +1289,7 @@ alerta3 =  (deadline) => {
       }else{
         DialogUtility.alert({
           animationSettings: { effect: 'Fade' },           
-          title: 'Sus colaboradores aún no han Realizado la evaluación',
+          content: 'Sus colaboradores aún no han Realizado la evaluación',
           position: "fixed",
         
         }
@@ -1388,6 +1378,14 @@ alerta3 =  (deadline) => {
         </MDBModalBody>   
       </MDBModal>
     </MDBContainer>
+    }else{
+      DialogUtility.alert({
+        animationSettings: { effect: 'Fade' },           
+        content: 'Sus colaboradores aún no han Realizado la evaluación',
+        position: "fixed",
+      
+      }
+      )
     }
 
    }
@@ -1474,6 +1472,14 @@ alerta3 =  (deadline) => {
         </MDBModalBody>   
       </MDBModal>
     </MDBContainer>
+    }else{
+      DialogUtility.alert({
+        animationSettings: { effect: 'Fade' },           
+        content: 'Sus colaboradores aún no han Realizado la evaluación',
+        position: "fixed",
+      
+      }
+      )
     }
 
    }

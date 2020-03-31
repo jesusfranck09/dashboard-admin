@@ -4,7 +4,6 @@ import Sidebar from '../Home/sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import diagnostico from '../images/diagnostico.png'
-
 import '../Home/index.css'
 import usuario from '../images/usuario.png'
 // import { Alert } from 'reactstrap';
@@ -63,21 +62,20 @@ class Home extends React.Component {
             label: "% Resultados",
             data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
-              "rgba(255, 134,159,0.4)",
-              "rgba(98,  182, 239,0.4)",
-              "rgba(255, 218, 128,0.4)",
-              "rgba(113, 205, 205,0.4)",
-              "rgba(170, 128, 252,0.4)",
-              "rgba(255, 177, 101,0.4)"
+              "rgba(155,224,247)",
+              "rgba(107,245,110)",
+              "rgba(255, 500,0)",
+              "rgba(255, 192, 0)",
+              "rgba(255, 0,0)",
             ],
             borderWidth: 2,
             borderColor: [
-              "rgba(255, 134, 159, 1)",
-              "rgba(98,  182, 239, 1)",
-              "rgba(255, 218, 128, 1)",
-              "rgba(113, 205, 205, 1)",
-              "rgba(170, 128, 252, 1)",
-              "rgba(255, 177, 101, 1)"
+              // "rgba(255, 134, 159, 1)",
+              // "rgba(98,  182, 239, 1)",
+              // "rgba(255, 218, 128, 1)",
+              // "rgba(113, 205, 205, 1)",
+              // "rgba(170, 128, 252, 1)",
+              // "rgba(255, 177, 101, 1)"
             ]
           }
         ]
@@ -273,7 +271,6 @@ ads(){
        <button onClick={this.change}>Prueba</button> */}
         </MDBContainer>
         </MDBContainer>
-    
       </div>
       </React.Fragment>
     );

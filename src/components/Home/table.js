@@ -249,6 +249,10 @@ class TableEmployees extends React.Component {
                   position: "fixed"
                   });
                   localStorage.removeItem("ATSContestado")
+                  setTimeout(() => {
+                    window.location.reload()
+                  }, 1000);
+
                }
                else if (localStorage.getItem("ATSContestado")=='false' && this.state.periodoActivo > 0){
                  
@@ -258,6 +262,11 @@ class TableEmployees extends React.Component {
                   title: 'Aviso!',
                   position: "fixed"
                   });
+
+                  setTimeout(() => {
+                    window.location.reload()
+                  }, 1000);
+
                   axios({
                   url:  API,
                   method:'post',
@@ -281,6 +290,10 @@ class TableEmployees extends React.Component {
                   title: 'Aviso!',
                   position: "fixed"
                   });
+                  setTimeout(() => {
+                    window.location.reload()
+                  }, 1000);
+
                }       
              }).catch(err =>{
                console.log(err.response)
@@ -316,6 +329,10 @@ class TableEmployees extends React.Component {
                   position: "fixed"
                   });
                   localStorage.removeItem("RPContestado")
+                  setTimeout(() => {
+                    window.location.reload()
+                  }, 1000);
+
                }
                else if (localStorage.getItem("RPContestado")=='false' && this.state.periodoActivo > 0){
                  
@@ -325,6 +342,10 @@ class TableEmployees extends React.Component {
                   title: 'Aviso!',
                   position: "fixed"
                   });
+                  setTimeout(() => {
+                    window.location.reload()
+                  }, 1000);
+
                   axios({
                   url:  API,
                   method:'post',
@@ -347,6 +368,10 @@ class TableEmployees extends React.Component {
                   title: 'Aviso!',
                   position: "fixed"
                   });
+                  setTimeout(() => {
+                    window.location.reload()
+                  }, 1000);
+
                }        
              }).catch(err =>{
                console.log(err.response)
@@ -357,6 +382,7 @@ class TableEmployees extends React.Component {
         }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
      sendMailEEO =  async  (datosEmpleados) =>{
+       console.log("datosEmpleados" , datosEmpleados)
         datosEmpleados.map(rows=>{
             // const url = 'http://localhost:8000/graphql'
             axios({
@@ -381,9 +407,14 @@ class TableEmployees extends React.Component {
               // title: 'Aviso!',
               position: "fixed"
               });
+              console.log("datalencth resuelto" , datos)
+              // setTimeout(() => {
+              //   window.location.reload()
+              // }, 1000);
               localStorage.removeItem("EEOContestado")
            }
            else if (localStorage.getItem("EEOContestado")=='false' && this.state.periodoActivo > 0){
+            console.log("datalength no resuelto" , datos)
              
             DialogUtility.alert({
               animationSettings: { effect: 'Zoom' },           
@@ -413,6 +444,11 @@ class TableEmployees extends React.Component {
               title: 'Aviso!',
               position: "fixed"
               });
+            
+              // setTimeout(() => {
+              //   window.location.reload()
+              // }, 1000);
+
            }        
          }).catch(err =>{
            console.log(err.response)
