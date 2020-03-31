@@ -9,18 +9,12 @@ import { API} from '../utils/http'
 import MenuIcon from '@material-ui/icons/Menu';
 import MUIDataTable from "mui-datatables";
 import Grow from "@material-ui/core/Grow";
-import { MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
-
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import '../Home/index.css'
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import {Table } from 'semantic-ui-react'
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
+import TrendingUpOutlinedIcon from '@material-ui/icons/TrendingUpOutlined';
 // import Paper from '@material-ui/core/Paper';
 import { MDBRow,MDBCol} from 'mdbreact'
 import Button from '@material-ui/core/Button';
@@ -29,6 +23,8 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
 // import TableBody from '@material-ui/core/TableBody';
 import { Alert } from 'reactstrap';
 // import TableHead from '@material-ui/core/TableHead';
+import FormatColorTextIcon from '@material-ui/icons/FormatColorText';
+import ExplicitOutlinedIcon from '@material-ui/icons/ExplicitOutlined';
 
 import usuario from '../images/usuario.png'
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
@@ -36,9 +32,6 @@ import Modal from 'react-modal';
 import {
   Grid    
 } from '@material-ui/core';
-
-import TableBody from '@material-ui/core/TableBody';
-import Paper from '@material-ui/core/Paper';
 
 class TableEmployees extends React.Component {
   constructor(props) {
@@ -52,8 +45,13 @@ class TableEmployees extends React.Component {
       ATSContestado:'',
       periodoActivo:'',
       correosEnviados:'',
-      correos:[]
-
+      correos:[],
+      ventanaATS:'',
+      ventanaRP:'',
+      ventanaEEO:'',
+      empleadosATS:[],
+      empleadosRP:[],
+      empleadosEEO:[]
    
     };
     this.onClick = this.onClick.bind(this);
@@ -120,10 +118,9 @@ class TableEmployees extends React.Component {
     }
     
   getEmployees = async event => {
-
-    var idAdmin  =localStorage.getItem("idAdmin")  
+    var idAdmin  = localStorage.getItem("idAdmin")  
     console.log(idAdmin)     
-      // const url = 'http://localhost:8000/graphql'
+    // const url = 'http://localhost:8000/graphql'
      await axios({
         url:  API,
         method:'post',
@@ -175,13 +172,13 @@ class TableEmployees extends React.Component {
             query:`
              query{
               getCorreos(data:"${[idAdmin]}"){
-                Encuesta
-                fecha
-                nombre
-                ApellidoP
-                ApellidoM
-                Curp
-              }
+                    Encuesta
+                    fecha
+                    nombre
+                    ApellidoP
+                    ApellidoM
+                    Curp
+                     }
                   }
                 `
             }
@@ -191,7 +188,81 @@ class TableEmployees extends React.Component {
           this.setState({correos:datos.data.data.getCorreos})
           }).catch(err=>{
             console.log("error",err)
+          })
+          
+
+          axios({
+            url:  API,
+            method:'post',
+            data:{
+            query:`
+             query{
+              getEmployeesResolvesSurveyATSFalse(data:"${[idAdmin]}"){
+                    id
+                    nombre
+                    ApellidoP
+                    ApellidoM
+                    correo
+                    }
+                  }
+                `
+              }
+          })
+          .then(datos => {	
+            console.log("exito datos",datos)
+          this.setState({empleadosATS:datos.data.data.getEmployeesResolvesSurveyATSFalse})
+          }).catch(err=>{
+            console.log("error",err)
           }) 
+
+          axios({
+            url:  API,
+            method:'post',
+            data:{
+            query:`
+             query{
+              getEmployeesResolvesSurveyRPFalse(data:"${[idAdmin]}"){
+                    id
+                    nombre
+                    ApellidoP
+                    ApellidoM
+                    correo
+                    }
+                  }
+                `
+              }
+          })
+          .then(datos => {	
+            console.log("exito datos",datos)
+          this.setState({empleadosRP:datos.data.data.getEmployeesResolvesSurveyRPFalse})
+          }).catch(err=>{
+            console.log("error",err)
+          }) 
+
+          axios({
+            url:  API,
+            method:'post',
+            data:{
+            query:`
+             query{
+              getEmployeesResolvesSurveyEEOFalse(data:"${[idAdmin]}"){
+                    id
+                    nombre
+                    ApellidoP
+                    ApellidoM
+                    correo
+                    }
+                  }
+                `
+              }
+          })
+          .then(datos => {	
+            console.log("exito datos",datos)
+          this.setState({empleadosEEO:datos.data.data.getEmployeesResolvesSurveyEEOFalse})
+          }).catch(err=>{
+            console.log("error",err)
+          }) 
+
 
         }
 
@@ -221,7 +292,7 @@ class TableEmployees extends React.Component {
     }
 
      sendMailATS =  async  (datosEmpleados,valor) =>{
-         console.log("datos" , datosEmpleados)
+         console.log("datos" , datosEmpleados.length)
         datosEmpleados.map(rows=>{
             console.log("rows" ,rows.data)
             axios({
@@ -230,7 +301,7 @@ class TableEmployees extends React.Component {
                 data:{
                 query:`
                 query{
-                  verifiEmailSurveyATS(data:"${[rows.data[0],rows.data[5]]}"){
+                  verifiEmailSurveyATS(data:"${[rows.data[0],rows.data[4]]}"){
                       ATSContestado
                         }
                       }
@@ -258,14 +329,14 @@ class TableEmployees extends React.Component {
                  
                 DialogUtility.alert({
                   animationSettings: { effect: 'Zoom' },           
-                  content: "Su encuesta fue enviada Exitosamente!",
+                  content: `Su encuesta fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,
                   title: 'Aviso!',
                   position: "fixed"
                   });
 
                   setTimeout(() => {
                     window.location.reload()
-                  }, 1000);
+                  }, 2000);
 
                   axios({
                   url:  API,
@@ -273,7 +344,7 @@ class TableEmployees extends React.Component {
                   data:{
                   query:` 
                   mutation{
-                    sendMail(data:"${[rows.data[5],rows.data[0],1]}"){
+                    sendMail(data:"${[rows.data[4],rows.data[0],1]}"){
                         message
                           }
                         }
@@ -298,13 +369,13 @@ class TableEmployees extends React.Component {
              }).catch(err =>{
                console.log(err.response)
              })             
-        
         })
-        // const url = 'http://localhost:8000/graphql'
-        
+        // const url = 'http://localhost:8000/graphql' 
     }    
         ///////////////////////////////////////////////////////////////////////////////////////
+
      sendMailRP =  async  (datosEmpleados) =>{
+       console.log("datosEmpleados" , datosEmpleados.length)
         datosEmpleados.map(rows=>{
             axios({
                 url:  API,
@@ -338,7 +409,7 @@ class TableEmployees extends React.Component {
                  
                 DialogUtility.alert({
                   animationSettings: { effect: 'Zoom' },           
-                  content: "Su encuesta fue enviada Exitosamente!",
+                  content: `Su encuesta fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,      
                   title: 'Aviso!',
                   position: "fixed"
                   });
@@ -352,7 +423,7 @@ class TableEmployees extends React.Component {
                   data:{
                   query:`
                   mutation{
-                    sendMail(data:"${[rows.data[5],rows.data[0],2]}"){
+                    sendMail(data:"${[rows.data[4],rows.data[0],2]}"){
                         message
                           }
                         }
@@ -408,9 +479,9 @@ class TableEmployees extends React.Component {
               position: "fixed"
               });
               console.log("datalencth resuelto" , datos)
-              // setTimeout(() => {
-              //   window.location.reload()
-              // }, 1000);
+              setTimeout(() => {
+                window.location.reload()
+              }, 1000);
               localStorage.removeItem("EEOContestado")
            }
            else if (localStorage.getItem("EEOContestado")=='false' && this.state.periodoActivo > 0){
@@ -418,17 +489,20 @@ class TableEmployees extends React.Component {
              
             DialogUtility.alert({
               animationSettings: { effect: 'Zoom' },           
-              content: "Su encuesta fue enviada Exitosamente!",
+              content: `Su encuesta fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,      
               title: 'Aviso!',
               position: "fixed"
               });
+              setTimeout(() => {
+                window.location.reload()
+              }, 1000);
               axios({
               url:  API,
               method:'post',
               data:{
               query:`
               mutation{
-                sendMail(data:"${[rows.data[5],rows.data[0],3]}"){
+                sendMail(data:"${[rows.data[4],rows.data[0],3]}"){
                     message
                       }
                     }
@@ -445,9 +519,9 @@ class TableEmployees extends React.Component {
               position: "fixed"
               });
             
-              // setTimeout(() => {
-              //   window.location.reload()
-              // }, 1000);
+              setTimeout(() => {
+                window.location.reload()
+              }, 1000);
 
            }        
          }).catch(err =>{
@@ -459,10 +533,17 @@ class TableEmployees extends React.Component {
       }
 
   render() {
-    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de Trabajo","Correo"];
+    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Correo"];
 
-    const data = this.state.datos.map(rows=>{
-      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.CentroTrabajo,rows.correo])
+    const data = this.state.empleadosATS.map(rows=>{
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo])
+    })
+
+    const dataRP = this.state.empleadosRP.map(rows=>{
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo])
+    })
+    const dataEEO = this.state.empleadosEEO.map(rows=>{
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo])
     })
 
     const columnss = ["Encuesta","Fecha", "Nombre",  "Apellido P.","Apellido M.","Curp"];
@@ -472,6 +553,10 @@ class TableEmployees extends React.Component {
     })
 
     let datosEmpleados;
+    let datosEmpleadosRP;
+    let filtroRP;
+    let datosEmpleadosEEO;
+    let filtroEEO;
     let filtro;
     const options = {
         filterType: "dropdown",
@@ -512,7 +597,7 @@ class TableEmployees extends React.Component {
                  },
       
         onTableChange: (action, tableState) => {
-        datosEmpleados=tableState.displayData
+        datosEmpleados = tableState.displayData
         console.log("datosEmpleados " , datosEmpleados)
         },
         onFilterChange: (action, filtroTable) => {
@@ -520,21 +605,155 @@ class TableEmployees extends React.Component {
           console.log("filtro" , filtro) 
           }     };
 
-          let correosEnviados;
-          if(this.state.correosEnviados=='1'){
-            console.log("mis periodos2 ")
-            correosEnviados =<MDBContainer>
-               <MUIDataTable
-                title={`Mis Correos`}
-                data={datas}
-                columns={columnss}
-                options={options}
-              />
-           </MDBContainer>  
-          }
+          const optionsRP = {
+            filterType: "dropdown",
+            responsive: "stacked",
+            textLabels: {
+                       body: {
+                         noMatch: "Lo Siento ,No se han encontrado Resultados :(",
+                         toolTip: "Sort",
+                         columnHeaderTooltip: column => `Sort for ${column.label}`
+                       },
+                       pagination: {
+                         next: "Siguiente Página",
+                         previous: "Anterior Página",
+                         rowsPerPage: "Filas por Página:",
+                         displayRows: "de",
+                       },
+                       toolbar: {
+                         search: "Buscar",
+                         downloadCsv: "Descargar CSV",
+                         print: "Imprimir",
+                         viewColumns: "Ver Columnas",
+                         filterTable: "Filtrar Tabla",
+                       },
+                       filter: {
+                         all: "Todos",
+                         title: "Filtros",
+                         reset: "Deshacer",
+                       },
+                       viewColumns: {
+                         title: "Mostrar Columnas",
+                         titleAria: "Show/Hide Table Columns",
+                       },
+                       selectedRows: {
+                         text: "Filas Selecionadas",
+                         delete: "Borrar",
+                         deleteAria: "Eliminar Filas Seleccionadas",
+                       },
+                     },
+          
+            onTableChange: (action, tableState) => {
+            datosEmpleadosRP = tableState.displayData
+            console.log("datosEmpleados " , datosEmpleados)
+            },
+            onFilterChange: (action, filtroTable) => {
+              filtroRP=filtroTable
+              }     };
+
+              const optionsEEO = {
+                filterType: "dropdown",
+                responsive: "stacked",
+                textLabels: {
+                           body: {
+                             noMatch: "Lo Siento ,No se han encontrado Resultados :(",
+                             toolTip: "Sort",
+                             columnHeaderTooltip: column => `Sort for ${column.label}`
+                           },
+                           pagination: {
+                             next: "Siguiente Página",
+                             previous: "Anterior Página",
+                             rowsPerPage: "Filas por Página:",
+                             displayRows: "de",
+                           },
+                           toolbar: {
+                             search: "Buscar",
+                             downloadCsv: "Descargar CSV",
+                             print: "Imprimir",
+                             viewColumns: "Ver Columnas",
+                             filterTable: "Filtrar Tabla",
+                           },
+                           filter: {
+                             all: "Todos",
+                             title: "Filtros",
+                             reset: "Deshacer",
+                           },
+                           viewColumns: {
+                             title: "Mostrar Columnas",
+                             titleAria: "Show/Hide Table Columns",
+                           },
+                           selectedRows: {
+                             text: "Filas Selecionadas",
+                             delete: "Borrar",
+                             deleteAria: "Eliminar Filas Seleccionadas",
+                           },
+                         },
+              
+                onTableChange: (action, tableState) => {
+                datosEmpleadosEEO = tableState.displayData
+                console.log("datosEmpleados " , datosEmpleados)
+                },
+                onFilterChange: (action, filtroTable) => {
+                  filtroEEO=filtroTable
+                  console.log("filtro" , filtro) 
+                  }     };
+
+          const options2 = {
+            filterType: "dropdown",
+            responsive: "stacked",
+            textLabels: {
+                       body: {
+                         noMatch: "Lo Siento ,No se han encontrado Resultados :(",
+                         toolTip: "Sort",
+                         columnHeaderTooltip: column => `Sort for ${column.label}`
+                       },
+                       pagination: {
+                         next: "Siguiente Página",
+                         previous: "Anterior Página",
+                         rowsPerPage: "Filas por Página:",
+                         displayRows: "de",
+                       },
+                       toolbar: {
+                         search: "Buscar",
+                         downloadCsv: "Descargar CSV",
+                         print: "Imprimir",
+                         viewColumns: "Ver Columnas",
+                         filterTable: "Filtrar Tabla",
+                       },
+                       filter: {
+                         all: "Todos",
+                         title: "Filtros",
+                         reset: "Deshacer",
+                       },
+                       viewColumns: {
+                         title: "Mostrar Columnas",
+                         titleAria: "Show/Hide Table Columns",
+                       },
+                       selectedRows: {
+                         text: "Filas Selecionadas",
+                         delete: "Borrar",
+                         deleteAria: "Eliminar Filas Seleccionadas",
+                       },
+                     },
          
+                       };
+    
+
+                      let correosEnviados;
+                      if(this.state.correosEnviados=='1'){
+                        console.log("mis periodos2 ")
+                        correosEnviados =<MDBContainer>
+                          <MUIDataTable
+                            title={`Mis Correos`}
+                            data={datas}
+                            columns={columnss}
+                            options={options2}
+                          />
+                      </MDBContainer>  
+                      }
 
 
+         
     // const { children, ...attributes } = this.props;
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
@@ -591,27 +810,22 @@ class TableEmployees extends React.Component {
             <MDBRow>
             <MDBCol> 
            </MDBCol>
-          
-            </MDBRow>
-           
+            </MDBRow>   
             </ul>
 
-            <div
         
-        style={{
-         
-          position: "absolute"
-        }}
-      >
         <div style={{ height: "110%"}}>
         <Button  startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({correosEnviados:'1'})} style={{marginBottom:20}}>
            correos Enviados
          </Button>
          <Button  startIcon={<CloseOutlinedIcon />} color="secondary" onClick={(e)=>this.setState({correosEnviados:''})} style={{marginBottom:20}}>
-           Cerrar
+           Cerrar Correos
          </Button>
+         <br></br>
+        
          {correosEnviados}
-          <Grow in={true}>
+    
+         <Grow in={true}>
             <div >
             <Alert style={{marginTop:'55', width:'1075px'}}  color="secondary" isOpen={this.state.datos.length}>
             <tr><td width="5%" ></td><td width="9%" ></td>Si desea puede enviar su encuesta a los colaboradores </tr>
@@ -629,16 +843,49 @@ class TableEmployees extends React.Component {
              <Button  startIcon={<CheckOutlinedIcon />}  outline color="secondary" onClick={(e)=>this.sendMailATS(datosEmpleados,1)}>
                   Enviar encuesta ATS
                </Button>
-               <Button  startIcon={<ThumbUpOutlinedIcon />} outline color="default" onClick={(e)=>this.sendMailRP(datosEmpleados,2)}>
+             
+            </div> 
+          </Grow>  
+          <Grow in={true}>
+            <div >
+
+              <MUIDataTable
+                title={`Empleados  totales de ${localStorage.getItem("razonsocial")}   Encuesta  RP`}
+                data={dataRP}
+                columns={columns}
+                options={optionsRP}
+              />
+              <MDBRow style={{marginTop:20}}>
+              <MDBCol  sm="4"></MDBCol>  
+             </MDBRow>
+           
+               <Button  startIcon={<ThumbUpOutlinedIcon />} outline color="default" onClick={(e)=>this.sendMailRP(datosEmpleadosRP,2)}>
                   Enviar encuesta RP
                </Button>
-               <Button  startIcon={<CheckCircleOutlineOutlinedIcon />} outline color="primary" onClick={(e)=>this.sendMailEEO(datosEmpleados,3)}>
+              
+            </div> 
+          </Grow> 
+          <Grow in={true}>
+            <div >
+              <MUIDataTable
+                title={`Empleados  totales de ${localStorage.getItem("razonsocial")}`}
+                data={dataEEO}
+                columns={columns}
+                options={optionsEEO}
+              />
+              <MDBRow style={{marginTop:20}}>
+              <MDBCol  sm="4"></MDBCol>  
+             </MDBRow>
+           
+               <Button  startIcon={<CheckCircleOutlineOutlinedIcon />} outline color="primary" onClick={(e)=>this.sendMailEEO(datosEmpleadosEEO,3)}>
                   Enviar encuesta EEO
                </Button>
             </div> 
-          </Grow>  
+          </Grow>
         </div>
-      </div>
+
+        
+   
             <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
               <div className="row">
                   <div className="col-md-12" item xs={12}>
