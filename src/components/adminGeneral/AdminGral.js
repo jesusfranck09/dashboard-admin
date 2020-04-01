@@ -621,16 +621,12 @@ class AdminGral extends React.Component {
               };
         
               evaluar  = (values,id) =>{
-                console.log("los valores son ",values,id)
-               console.log("entro")
                 // if(values){
                 //   let modalNumber = 'modal' + 13
                 //   this.setState({
                 //     [modalNumber]: !this.state[modalNumber]
                 //   });
                 // }
-                
-
                 const nombre = values.nombre
                 const ApellidoP = values.ApellidoP
                 const ApellidoM = values.ApellidoM
@@ -661,11 +657,38 @@ class AdminGral extends React.Component {
                       }
                     })
                     .then(datos => {	
-                      console.log("exito")
-                      let modalNumber = 'modal' + 13
+                      if(datos.data.data.updateEmployees.message == 'Sucursal no encontrada'){
+                        DialogUtility.alert({
+                          animationSettings: { effect: 'Fade' },        
+                          title:"AVISO!",   
+                          content: 'Estimado usuario el centro de trabajo ingresado no existe en su catálogo Centros de Trabajo, por favor verifique sus datos e inténtelo nuevamente',
+                          position: "fixed", 
+                        }
+                        )
+                        this.setState({modal13:false})
+                      } else  if(datos.data.data.updateEmployees.message == 'departamento no encontrado'){
+                        DialogUtility.alert({
+                          animationSettings: { effect: 'Fade' },        
+                          title:"AVISO!",   
+                          content: 'Estimado usuario el Departamento ingresado no existe en su catálogo Departamentos, por favor verifique sus datos e inténtelo nuevamente',
+                          position: "fixed", 
+                        }
+                        )
+                        this.setState({modal13:false})
+                      }else  if(datos.data.data.updateEmployees.message == 'puesto no encontrado'){
+                        DialogUtility.alert({
+                          animationSettings: { effect: 'Fade' },        
+                          title:"AVISO!",   
+                          content: 'Estimado usuario el Puesto ingresado no existe en su catálogo Puestos, por favor verifique sus datos e inténtelo nuevamente',
+                          position: "fixed", 
+                        }
+                        )
+                        this.setState({modal13:false})
+                      }else  if(datos.data.data.updateEmployees.message == 'actualizacion exitosa'){
                       this.setState({
-                        [modalNumber]: !this.state[modalNumber]
-                      });
+                      [modalNumber]: !this.state[modalNumber]
+                      });    let modalNumber = 'modal' + 13
+                      this.setState({modal13:false})
                       DialogUtility.alert({
                         animationSettings: { effect: 'Fade' },        
                         title:"AVISO!",   
@@ -673,7 +696,8 @@ class AdminGral extends React.Component {
                         position: "fixed", 
                       }
                       )
-                      this.setState({modal13:false})
+                     
+                      }
                     })
                    
                 } 
