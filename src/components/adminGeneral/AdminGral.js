@@ -493,6 +493,19 @@ class AdminGral extends React.Component {
                 if (!values.rfc) {
                   errors.rfc = 'Este campo es requerido';
                 }
+
+                if(values.rfc){
+                  if(values.rfc.length < 12 || values.rfc.length > 13){
+                    errors.rfc = 'El número de caracteres no es el correcto';
+                  }
+                }
+
+                if(values.Curp){
+                  if(values.Curp.length != 18){
+                    errors.Curp = 'El número de caracteres no es el correcto';
+                  }
+                }
+
                 if (!values.FechaNacimiento) {
                   errors.FechaNacimiento = 'Este campo es requerido';
                 }
@@ -587,6 +600,12 @@ class AdminGral extends React.Component {
                 if (!values.rfc) {
                   errors.rfc = 'Este campo es requerido';
                 }
+                if(values.rfc){
+                  if(values.rfc.length < 12 || values.rfc.length > 13){
+                    errors.rfc = 'El número de caracteres no es el correcto';
+                  }
+                }
+
                 if (!values.telefono) {
                   errors.telefono = 'Este campo es requerido';
                 }
@@ -1404,6 +1423,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRows.nombre}
+                          label = "Nombre"
                         />
                        
                       </Grid>
@@ -1416,6 +1436,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRows.ApellidoP}
+                          label = "Apellido Paterno"
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1426,6 +1447,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRows.ApellidoM}
+                          label  = "Apellido Materno"
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1436,6 +1458,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRows.Curp}
+                          label = "Curp"
                         />
                       </Grid>
                       
@@ -1447,6 +1470,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRows.RFC}
+                          label ="RFC"
                         />
                       </Grid>
 
@@ -1458,6 +1482,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRows.Sexo}
+                          label = "Sexo"
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1468,6 +1493,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRows.CentroTrabajo}
+                          label = "Centro de Trabajo"
                         />
                       </Grid>
 
@@ -1479,6 +1505,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRows.correo}
+                          label  = "Correo"
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1489,6 +1516,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRows.AreaTrabajo}
+                          label ="Area de Trabajo"
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1499,6 +1527,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRows.Puesto}
+                          label = "Puesto"
                         />
                       </Grid>
 
@@ -1510,6 +1539,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRows.TipoPuesto}
+                          label = "Tiempo en el Puesto"
                         />
                       </Grid>
 
@@ -1567,6 +1597,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRowsSucursales.nombreSucursal}
+                          label = "Nombre del Centro de T."
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1577,6 +1608,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRowsSucursales.calle}
+                          label = "Calle"
                         />
                       </Grid>
 
@@ -1588,6 +1620,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRowsSucursales.numExt}
+                          label="Número Exterior"
                         />
                       </Grid>
 
@@ -1599,6 +1632,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRowsSucursales.numInt}
+                          label = "Número Interior"
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1609,6 +1643,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRowsSucursales.colonia}
+                          label = "Colonia"
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1619,6 +1654,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRowsSucursales.CP}
+                          label = "Código Postal"
                         />
                       </Grid>
 
@@ -1630,6 +1666,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRowsSucursales.Ciudad}
+                          label = "Ciudad"
                         />
                       </Grid>
 
@@ -1641,6 +1678,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRowsSucursales.telefono}
+                          label = "Teléfono"
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -1651,6 +1689,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRowsSucursales.actividades}
+                          label = "Actividades "
                         />
                       </Grid>
 	                      <Grid item >
@@ -1841,7 +1880,7 @@ class AdminGral extends React.Component {
          <CreateOutlinedIcon />
        </IconButton></div>
          const boton = <div><IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } > <DeleteIcon /></IconButton> </div>
-         return([rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Sexo,rows.correo,boton,boton2])
+         return([rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Sexo,rows.correo,boton2,boton])
        })
 
 
@@ -1856,24 +1895,24 @@ class AdminGral extends React.Component {
        })
 
 
-       const columnsDeptos = ["Nombre de Departamento","Editar","Eliminar"];
+       const columnsDeptos = ["Nombre de Departamento"," "," "," "," "," ", " "," "," ","Editar","Eliminar"];
 
        const dataDeptos = this.state.datosDeptos.map((rows,i)=>{
          const boton1Uno = <div><IconButton onClick={ this.toggleDeptos(15,rows)}  >
          <CreateOutlinedIcon /></IconButton></div>
          const boton2Dos = <div><IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Departamento ?.Los datos se perderán')) this.deleteDepartamentos(i,rows.id)} } >
          <DeleteIcon /></IconButton></div>
-         return([rows.nombre,boton1Uno,boton2Dos])
+         return([rows.nombre," "," "," "," "," ", " "," "," ",boton1Uno,boton2Dos])
        })
 
-       const columnsPuestos = ["Nombre de Departamento","Editar","Eliminar"];
+       const columnsPuestos = ["Nombre de Departamento"," "," "," "," " ," "," "," "," ","Editar","Eliminar"];
 
        const dataPuestos = this.state.datosPuestos.map((rows,i)=>{
          const boton11 = <div><IconButton onClick={ this.togglePuestos(16,rows)}  >
          <CreateOutlinedIcon /></IconButton></div>
          const boton22 = <div> <IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Puesto ?.Los datos se perderán')) this.deletePuestos(i,rows.id)} } >
          <DeleteIcon /></IconButton></div>
-         return([rows.nombre,boton11,boton22])
+         return([rows.nombre," "," "," "," "," ", " "," "," ",boton11,boton22])
        })
 
        let datosEmpleados;

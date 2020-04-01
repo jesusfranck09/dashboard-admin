@@ -566,6 +566,7 @@ class App extends React.Component {
 			let idAdmin = localStorage.getItem("idAdmin")
 			
 			if(empleadosRegistrados < empleadosPack ){
+
 			axios({
 			url:  API,
 			method:'post',
@@ -636,7 +637,18 @@ class App extends React.Component {
 		if (!values.Correo) {
 		  errors.Correo = 'Este campo es requerido';
 		}
+		
+		if(values.rfc){
+			if(values.rfc.length < 12 || values.rfc.length > 13){
+				errors.rfc = 'El número de caracteres no es el correcto';
+			}
+		}
 	
+		if(values.curp){
+			if(values.curp.length != 18){
+				errors.curp = 'El número de caracteres no es el correcto';
+			}
+		}
 	  
 		if (!values.area) {
 		  errors.area = 'Required';
