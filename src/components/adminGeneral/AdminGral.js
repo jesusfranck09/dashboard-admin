@@ -685,9 +685,13 @@ class AdminGral extends React.Component {
                         )
                         this.setState({modal13:false})
                       }else  if(datos.data.data.updateEmployees.message == 'actualizacion exitosa'){
+
                       this.setState({
                       [modalNumber]: !this.state[modalNumber]
-                      });    let modalNumber = 'modal' + 13
+                      });   
+                    
+                      let modalNumber = 'modal' + 13
+                      
                       this.setState({modal13:false})
                       DialogUtility.alert({
                         animationSettings: { effect: 'Fade' },        
@@ -776,7 +780,7 @@ class AdminGral extends React.Component {
                       data:{
                       query:`
                        mutation{
-                        updateDeptos(data:"${[nombreDepto,id,correo]}"){
+                        updateDeptos(data:"${[nombreDepto.toUpperCase(),id,correo]}"){
                             message
                               }
                             }

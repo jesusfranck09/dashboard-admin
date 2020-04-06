@@ -347,29 +347,29 @@ class DataInput extends React.Component {
 	};
 }
 
-// class OutTable extends React.Component {
-// 	constructor(props) { super(props) }
+	// class OutTable extends React.Component {
+	// 	constructor(props) { super(props) }
 
-// 	render() {
-// 		return (
-// 			<div className="table-responsive">
-// 				<table className="table table-striped">
-// 					<thead>
-// 						<tr>{this.props.cols.map((c) => <th key={c.key}>{c.name}</th>)}</tr>
-// 					</thead>
-// 					<tbody>
-// 						{this.props.data.map((r, i) => <tr key={i}>
+	// 	render() {
+	// 		return (
+	// 			<div className="table-responsive">
+	// 				<table className="table table-striped">
+	// 					<thead>
+	// 						<tr>{this.props.cols.map((c) => <th key={c.key}>{c.name}</th>)}</tr>
+	// 					</thead>
+	// 					<tbody>
+	// 						{this.props.data.map((r, i) => <tr key={i}>
 
 
-// 							{this.props.cols.map(c => <td key={c.key}>{r[c.key]}</td>)}
-// 						</tr>)}
-// 					</tbody>
-// 				</table>
-// 			</div>
+	// 							{this.props.cols.map(c => <td key={c.key}>{r[c.key]}</td>)}
+	// 						</tr>)}
+	// 					</tbody>
+	// 				</table>
+	// 			</div>
 
-// 		);
-// 	}
-// };
+	// 		);
+	// 	}
+	// };
 
 const SheetJSFT = [
 	"xlsx", "xlsb", "xlsm", "xls", "xml", "csv", "txt", "ods", "fods", "uos", "sylk", "dif", "dbf", "prn", "qpw", "123", "wb*", "wq*", "html", "htm"
@@ -823,61 +823,18 @@ render(){
 								fullWidth
 								name="fechaN"
 								component={Select}
-								label="Año de Nacimiento"
+								label="Rango de Edad"
 								formControlProps={{ fullWidth: true }}
 								>
-								<MenuItem value="1950">1950</MenuItem>
-								<MenuItem value="1951">1951</MenuItem>
-								<MenuItem value="1952">1952</MenuItem>
-								<MenuItem value="1953">1953</MenuItem>
-								<MenuItem value="1954">1954</MenuItem>
-								<MenuItem value="1955">1955</MenuItem>
-								<MenuItem value="1956">1956</MenuItem>
-								<MenuItem value="1957">1957</MenuItem>
-								<MenuItem value="1958">1958</MenuItem>
-								<MenuItem value="1959">1959</MenuItem>
-								<MenuItem value="1960">1960</MenuItem>
-								<MenuItem value="1961">1961</MenuItem>
-								<MenuItem value="1962">1962</MenuItem>
-								<MenuItem value="1963">1963</MenuItem>
-								<MenuItem value="1964">1964</MenuItem>
-								<MenuItem value="1965">1965</MenuItem>
-								<MenuItem value="1966">1966</MenuItem>
-								<MenuItem value="1967">1967</MenuItem>
-								<MenuItem value="1968">1968</MenuItem>
-								<MenuItem value="1969">1969</MenuItem>
-								<MenuItem value="1970">1970</MenuItem>
-								<MenuItem value="1971">1971</MenuItem>
-								<MenuItem value="1972">1972</MenuItem>
-								<MenuItem value="1973">1973</MenuItem>
-								<MenuItem value="1974">1974</MenuItem>
-								<MenuItem value="1975">1975</MenuItem>
-								<MenuItem value="1976">1976</MenuItem>
-								<MenuItem value="1977">1977</MenuItem>
-								<MenuItem value="1979">1979</MenuItem>
-								<MenuItem value="1980">1980</MenuItem>
-								<MenuItem value="1981">1981</MenuItem>
-								<MenuItem value="1982">1982</MenuItem>
-								<MenuItem value="1983">1983</MenuItem>
-								<MenuItem value="1984">1984</MenuItem>
-								<MenuItem value="1985">1985</MenuItem>
-								<MenuItem value="1986">1986</MenuItem>
-								<MenuItem value="1987">1987</MenuItem>
-								<MenuItem value="1988">1988</MenuItem>
-								<MenuItem value="1989">1989</MenuItem>
-								<MenuItem value="1990">1990</MenuItem>
-								<MenuItem value="1991">1991</MenuItem>
-								<MenuItem value="1992">1992</MenuItem>
-								<MenuItem value="1993">1993</MenuItem>
-								<MenuItem value="1994">1994</MenuItem>
-								<MenuItem value="1995">1995</MenuItem>
-								<MenuItem value="1996">1996</MenuItem>
-								<MenuItem value="1997">1997</MenuItem>
-								<MenuItem value="1998">1998</MenuItem>
-								<MenuItem value="1999">1999</MenuItem>
-								<MenuItem value="2000">2000</MenuItem>
-								<MenuItem value="2001">2001</MenuItem>
-
+								<MenuItem value="1950">15-19</MenuItem>
+								<MenuItem value="1951">20-24</MenuItem>
+								<MenuItem value="1999">25-29</MenuItem>
+								<MenuItem value="2000">30-34</MenuItem>
+								<MenuItem value="2001">35-39</MenuItem>
+								<MenuItem value="1999">40-44</MenuItem>
+								<MenuItem value="2000">60-64</MenuItem>
+								<MenuItem value="2001">65-69</MenuItem>
+								<MenuItem value="2001">70 o más</MenuItem>
 								</Field>
 								</Grid>
 			

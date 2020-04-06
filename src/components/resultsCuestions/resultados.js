@@ -2,7 +2,6 @@ import React from 'react';
 import {MDBRow,MDBCol, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink} from 'mdbreact';
 import Sidebar from '../Home/sidebar'
 import { AppNavbarBrand } from '@coreui/react';
-import logo from '../images/logotipo.png'
 import diagnostico from '../images/diagnostico.png'
 import '../Home/index.css'
 import usuario from '../images/usuario.png'
@@ -118,7 +117,6 @@ handleclick(){
 this.props.history.push("/profile")
 
 }
-
 
 
 handleLogOut(){
