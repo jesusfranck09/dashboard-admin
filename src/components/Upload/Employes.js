@@ -145,7 +145,7 @@ class SheetJSApp extends React.Component {
 			 
 				// const url  = 'http://localhost:8000/graphql'
 				var estado = this.state.data[i]	
-				if(this.state.data[i].length==21){		
+				if(this.state.data[i].length==20){		
 				const query =  `
 				mutation {
 					registerEmployee(
