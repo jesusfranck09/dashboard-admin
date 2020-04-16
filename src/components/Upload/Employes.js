@@ -62,7 +62,8 @@ class SheetJSApp extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: [],	
+			data: [],
+			sucursalNoExiste:''
 		};
 		this.handleFile = this.handleFile.bind(this);
 		this.exportFile = this.exportFile.bind(this);
@@ -145,13 +146,17 @@ class SheetJSApp extends React.Component {
 			 
 				// const url  = 'http://localhost:8000/graphql'
 				var estado = this.state.data[i]	
+				console.log("el estado en la posicion de i " , estado)
 				if(this.state.data[i].length==20){		
 				const query =  `
 				mutation {
 					registerEmployee(
 						data:["${estado},${idAdmin}"]
-					){
+					){		
 						message
+						valor1
+						valor2
+						valor3
 					}
 				}
 				`;
@@ -166,50 +171,50 @@ class SheetJSApp extends React.Component {
 					}
 				}
 					}).then( datos => {
-						if(datos.data.data.registerEmployee.message == 'correo existente'){
-							DialogUtility.alert({
-								animationSettings: { effect: 'Zoom' },           
-								title:"Aviso!",
-								content: "Uno de los correos  ya se encuentra registrado, por favor verifiquelo nuevamente !",
-								position: "fixed"
-							});
-							
-						}else if(datos.data.data.registerEmployee.message == 'la sucursal no existe'){
 						
-							DialogUtility.alert({
-								animationSettings: { effect: 'Zoom' },           
-								title:"Aviso!",
-								content: "Estimado usuario el centro de trabajo proporcionado en su excel no existe en su catálogo de centros de trabajo activos",
-								position: "fixed"
-							});
-							console.log("hola mundo")
+						
+						console.log("datos de la inserion por excel" , datos)
+						if(datos.data.data.registerEmployee.message == 'correo existente'){
+							// DialogUtility.alert({
+							// 	animationSettings: { effect: 'Zoom' },           
+							// 	title:"Aviso!",
+							// 	content: "Uno de los correos  ya se encuentra registrado, por favor verifiquelo nuevamente !",
+							// 	position: "fixed"
+							// });
+							
+						}else if(datos.data.data.registerEmployee.message == 'la sucursal no existe' ){
+						
+							// DialogUtility.alert({
+							// 	animationSettings: { effect: 'Zoom' },           
+							// 	title:"Aviso!",
+							// 	content:`Estimado usuario el centro de trabajo ${valor3} proporcionado en su excel no existe en su catálogo de centros de trabajo activos`,
+							// 	position: "fixed"
+							// });
 						}else if(datos.data.data.registerEmployee.message == 'el puesto no existe'){
 						
-							DialogUtility.alert({
-								animationSettings: { effect: 'Zoom' },           
-								title:"Aviso!",
-								content: "Estimado usuario el puesto proporcionado en su excel no existe en su catálogo de puestos activos",
-								position: "fixed"
-							});
-							console.log("hola mundo")
+							// DialogUtility.alert({
+							// 	animationSettings: { effect: 'Zoom' },           
+							// 	title:"Aviso!",
+							// 	content: `Estimado usuario el puesto ${valor2} proporcionado en su excel no existe en su catálogo de puestos activos`,
+							// 	position: "fixed"
+							// });
 						}else if(datos.data.data.registerEmployee.message == 'el departamento no existe'){
+							this.setState({sucursalNoExiste:'1'})
 						
-							DialogUtility.alert({
-								animationSettings: { effect: 'Zoom' },           
-								title:"Aviso!",
-								content: "Estimado usuario el departamento proporcionado en su excel no existe en su catálogo de departamentos activos",
-								position: "fixed"
-							});
-							console.log("hola mundo")
+							// DialogUtility.alert({
+							// 	animationSettings: { effect: 'Zoom' },           
+							// 	title:"Aviso!",
+							// 	content: `Estimado usuario el departamento ${valor1} proporcionado en su excel no existe en su catálogo de departamentos activos`,
+							// 	position: "fixed"
+							// });
 						}else if(datos.data.data.registerEmployee.message == 'registro exitoso'){
 						
-							DialogUtility.alert({
-								animationSettings: { effect: 'Zoom' },           
+							// DialogUtility.alert({
+							// 	animationSettings: { effect: 'Zoom' },           
 						
-								title: "Datos Cargados Exitosamente!",
-								position: "fixed"
-							});
-							console.log("hola mundo")
+							// 	title: "Datos Cargados Exitosamente!",
+							// 	position: "fixed"
+							// });
 						}
 					})
 					 .catch((error) => {
@@ -278,8 +283,18 @@ class SheetJSApp extends React.Component {
 	};
 	
 	render() {
-		return (
+		let modal;
+		if (this.state.sucursalNoExiste =='1' ){
+		modal = 	DialogUtility.alert({
+				animationSettings: { effect: 'Zoom' },           
+				title: "Esto es un modal",
+				position: "fixed"
+			});
+		}
 
+		return (
+			
+				<React.Fragment>
 			 	<DragDropFile handleFile={this.handleFile}>	
 				<div className="row"><div className="col-xs-12">
 					<DataInput handleFile={this.handleFile} />
@@ -295,6 +310,8 @@ class SheetJSApp extends React.Component {
 					<OutTable data={this.state.data} cols={this.state.cols} />
 				</div></div> */}
 			</DragDropFile>	
+			{modal}
+			</React.Fragment>
 		);
 	};
 };

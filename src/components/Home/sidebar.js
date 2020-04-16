@@ -26,6 +26,7 @@ import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import TextFormatIcon from '@material-ui/icons/TextFormat';
 import ExplicitOutlinedIcon from '@material-ui/icons/ExplicitOutlined';
+import DonutSmallOutlinedIcon from '@material-ui/icons/DonutSmallOutlined';
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -229,6 +230,17 @@ export default function MiniDrawer() {
         </Link>
 
         <Divider />
+
+        <Link to="/estadisticas" style={{ textDecoration: 'none' }}>
+        <List >
+          {['Estadísticas'].map((text) => (
+            <ListItem button key={text} >
+              <ListItemIcon> <DonutSmallOutlinedIcon  /> </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>    
+        </Link>
 
         <Link to="/adminGral" style={{ textDecoration: 'none' }}>
         <List >

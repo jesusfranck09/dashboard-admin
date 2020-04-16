@@ -633,9 +633,9 @@ pdfExportComponent ;
                                   <MDBTableBody>                                    
                                     <tr >   
                                     <td width="5px"><font size="1" face="arial"color="black" ><strong>#</strong></font></td>                           
-                                    <td width="30px"><font size="1" face="arial"color="black" ><strong>Nombre</strong></font></td>
                                     <td width="30px" ><font size="1" face="arial"color="black"><strong>Apellido Paterno</strong></font></td>
                                     <td width="20px"><font size="1" face="arial"color="black"><strong>Apellido Materno</strong></font></td>
+                                    <td width="30px"><font size="1" face="arial"color="black" ><strong>Nombre</strong></font></td>
                                     <td width="10px"><font size="1" face="arial"color="black"><strong>Accion Requerida</strong></font></td>                                                                     
                                   </tr>
                                   { this.state.peticion1.map((rows,i) => {
@@ -649,9 +649,9 @@ pdfExportComponent ;
                                       return (
                                         <TableRow >
                                       <td width="5px"  className="text-center"><font size="1" face="arial"color="black" >{i + 1} </font></td>
-                                      <td width="30px"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].nombre} </font></td>
                                       <td width="30px" className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoP  }</font></td>
                                     <td width="25px"  className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoM}</font></td>
+                                    <td width="30px"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].nombre} </font></td>
                                       {respuesta}
                                         </TableRow>                                
                                       );

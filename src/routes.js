@@ -64,6 +64,7 @@ import ResultEEO from './components/resultsCuestionsEEO/resultEEO';
 import Apartments from './components/adminGeneral/Apartments';
 import IndexATS from './components/Res generales/indexATS';
 import Res from './components/resultsCuestions/resultados';
+import Estadisticas from './components/Estadisticas/estadisticas';
 
 import ResGral from './components/Res generales/index';
 
@@ -141,7 +142,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/puestos' component={Puestos}/>
                   <PrivateRoute exact path='/resultGralEEO' component={IndexEEO}/>
                   <PrivateRoute exact path='/resultGral' component={ResGral}/>
-         
+                  <PrivateRoute exact path='/estadisticas' component={Estadisticas}/>
 
 
                   {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}
