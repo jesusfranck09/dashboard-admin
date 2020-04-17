@@ -533,7 +533,7 @@ class Estadisticas extends React.Component {
                           
                                     <MDBTableBody>     
                             <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-                            <font size="3"face="arial"color="black">Estadísticas generales de mi Empresa</font><br></br>
+                            <font size="3"face="arial"color="black">Estadística Guia de Referencia V</font><br></br>
                             <br/><font size="1"face="arial"color="black">Total de Empleados Considerados : <strong>{this.state.reporteEstadisticas.length}</strong></font>
 
                         
@@ -579,7 +579,7 @@ class Estadisticas extends React.Component {
                               <font size="1"
                               face="arial"
                               color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA V -
-                              GUIA V DATOS DEL TRABAJADOR</font>   <br/>  
+                              DATOS DEL TRABAJADOR</font>   <br/>  
                                 </MDBTableBody>
                                 </MDBTable>
                                 <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
@@ -610,7 +610,7 @@ class Estadisticas extends React.Component {
                                         </tr>
                                     
                                         <tr >  
-                                        <td width="20px" className="text-center"><font size="1" face="arial"color="black" >Totales</font></td>
+                                        <td width="20px" className="text-center"><font size="1" face="arial"color="black" >Total</font></td>
                             
                                           <td width="40px" className="text-venyer"><font size="1" face="arial"color="black">{hombre[0].length}</font></td>
                                           <td width="40px" className="text-center"><font size="1" face="arial"color="black">{mujer[0].length}</font></td>
@@ -682,7 +682,7 @@ class Estadisticas extends React.Component {
                                           <td width="70px" className="text-venyer"><font size="1" face="arial"color="black">{edad70omas[0].length}</font></td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Totales</font></td>
+                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Total</font></td>
                                           <td width="70px" className="text-venyer"><font size="1" face="arial"color="black">{this.state.reporteEstadisticas.length}</font></td>                                 
                                         </tr>
                                       </MDBTableBody>
@@ -735,7 +735,7 @@ class Estadisticas extends React.Component {
                                           <td width="70px" className="text-center"><font size="1" face="arial"color="black">{doctorado[0].length}</font></td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Totales</font></td>
+                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Total</font></td>
                                           <td width="70px" className="text-center"><font size="1" face="arial"color="black">{this.state.reporteEstadisticas.length}</font></td>                                 
                                         </tr>
                                       </MDBTableBody>
@@ -787,7 +787,7 @@ class Estadisticas extends React.Component {
                                           <td width="70px" className="text-center"><font size="1" face="arial"color="black">{expLab25años[0].length}</font></td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Totales</font></td>
+                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Total</font></td>
                                           <td width="70px" className="text-center"><font size="1" face="arial"color="black">{this.state.reporteEstadisticas.length}</font></td>                                 
                                         </tr>
                                       </MDBTableBody>
@@ -840,7 +840,7 @@ class Estadisticas extends React.Component {
                                           <td width="70px" className="text-center"><font size="1" face="arial"color="black">{ant25años[0].length}</font></td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Totales</font></td>
+                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Total</font></td>
                                           <td width="70px" className="text-center"><font size="1" face="arial"color="black">{this.state.reporteEstadisticas.length}</font></td>                                 
                                         </tr>
                                       </MDBTableBody>
@@ -880,7 +880,7 @@ class Estadisticas extends React.Component {
                                           <td width="70px" className="text-center"><font size="1" face="arial"color="black">{directivo[0].length}</font></td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Totales</font></td>
+                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Total</font></td>
                                           <td width="70px" className="text-center"><font size="1" face="arial"color="black">{this.state.reporteEstadisticas.length}</font></td>                                 
                                         </tr>
                                       

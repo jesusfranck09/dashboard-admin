@@ -1454,7 +1454,7 @@ celda = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7 "}}><font size
 criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
 }else if(general>=20 && general < 45){
   celda = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}} ><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black"> necesario una mayor difusión de la política de prevención de riesgos
+  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black"> Es necesario una mayor difusión de la política de prevención de riesgos
   psicosociales y programas para: la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
   prevención de la violencia laboral.</font></TableCell>

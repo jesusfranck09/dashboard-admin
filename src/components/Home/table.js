@@ -203,6 +203,7 @@ class TableEmployees extends React.Component {
                     ApellidoP
                     ApellidoM
                     correo
+                    CentroTrabajo
                     }
                   }
                 `
@@ -227,6 +228,7 @@ class TableEmployees extends React.Component {
                     ApellidoP
                     ApellidoM
                     correo
+                    CentroTrabajo
                     }
                   }
                 `
@@ -251,6 +253,7 @@ class TableEmployees extends React.Component {
                     ApellidoP
                     ApellidoM
                     correo
+                    CentroTrabajo
                     }
                   }
                 `
@@ -533,17 +536,18 @@ class TableEmployees extends React.Component {
       }
 
   render() {
-    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Correo"];
+    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Correo","Centro de trabajo"];
 
     const data = this.state.empleadosATS.map(rows=>{
-      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo])
+      console.log("rows", rows)
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo])
     })
 
     const dataRP = this.state.empleadosRP.map(rows=>{
-      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo])
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo])
     })
     const dataEEO = this.state.empleadosEEO.map(rows=>{
-      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo])
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo])
     })
 
     const columnss = ["Encuesta","Fecha", "Nombre",  "Apellido P.","Apellido M.","Curp"];
