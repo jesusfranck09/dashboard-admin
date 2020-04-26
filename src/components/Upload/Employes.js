@@ -5,13 +5,20 @@ import axios from 'axios';
 import { Alert } from 'reactstrap';
 import payload from '../../resolvers/payload';
 import { Button as Boton, Modal, ModalBody} from 'reactstrap';
-import {MDBRow,MDBTable, MDBTableBody, MDBTableHead, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
+
+import {MDBRow,MDBTable, MDBTableBody, MDBTableHead,  MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter ,MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import '../Home/index.css'
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import diagnostico from '../images/diagnostico.png'
 import { API} from '../utils/http'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import { withRouter } from 'react-router-dom';
 import MiniDrawer from '../adminGeneral/Sidebar'
 
@@ -58,19 +65,40 @@ import {
 	);
   }
 
+
+
 class SheetJSApp extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			data: [],
-			sucursalNoExiste:''
+			sucursalNoExiste:[],
+			deptoNoExiste:[],
+			puestoNoExiste:[],
+			sucursal:[],
+			depto:[],
+			puesto:[],	
+			message:[],
+			modal: false,
+			spinner:false,
+			empleadoExitoso:[],
+			empleadoNoExitoso:[],
+			empleadoRegistrado:[],
+			empleadoNoRegistrado:[]
 		};
 		this.handleFile = this.handleFile.bind(this);
 		this.exportFile = this.exportFile.bind(this);
 	};
 
     handleSubmit = async event => {
+		this.setState({spinner:true})
+		let array = []
+		let array2 = []
+		let array3 = []
 		let idSuperUsuario;
+		let arrayMessage=[];
+		let empleadoExitoso=[];
+		let empleadoNoRegistrado= [ ]
 		// const url = 'http://localhost:8000/graphql'
 		const idAdmin =  await localStorage.getItem("idAdmin")
 		await axios({
@@ -109,7 +137,7 @@ class SheetJSApp extends React.Component {
 		 })
 		 .then(datos => {		
 			 em =datos.data.data.verifyPackSuperUser.empleados
-		  console.log("exito no empleados",datos)
+		//   console.log("exito no empleados",datos)
  
 		 }).catch(err=>{
 			 console.log("error" , err.response)
@@ -132,7 +160,7 @@ class SheetJSApp extends React.Component {
 				 }
 			 })
 			 .then(datos => {		
-			 console.log("exito empleados registrados" , datos.data.data.authRegisterSingleEmployee[0].max)
+			//  console.log("exito empleados registrados" , datos.data.data.authRegisterSingleEmployee[0].max)
 			 max=datos.data.data.authRegisterSingleEmployee[0].max
 			 });
  
@@ -146,7 +174,7 @@ class SheetJSApp extends React.Component {
 			 
 				// const url  = 'http://localhost:8000/graphql'
 				var estado = this.state.data[i]	
-				console.log("el estado en la posicion de i " , estado)
+				// console.log("el estado en la posicion de i " , estado)
 				if(this.state.data[i].length==20){		
 				const query =  `
 				mutation {
@@ -157,11 +185,17 @@ class SheetJSApp extends React.Component {
 						valor1
 						valor2
 						valor3
+						nombre 
+						apellidoP
+						apellidoM
+						nombreExistente
+						apellidoPExistente
+						apellidoMExistente
 					}
 				}
 				`;
 				
-				axios({
+				await axios({
 				url:  API,
 				method: 'post',
 				data: {
@@ -170,59 +204,36 @@ class SheetJSApp extends React.Component {
 						data: `${estado}`
 					}
 				}
-					}).then( datos => {
+					}).then(function  ( datos) {
+						const valor1 = datos.data.data.registerEmployee.valor1
+						const valor2 = datos.data.data.registerEmployee.valor2
+						const valor3 = datos.data.data.registerEmployee.valor3
+						var message = datos.data.data.registerEmployee.message
+						var nombre = datos.data.data.registerEmployee.nombre
+						var apellidoM = datos.data.data.registerEmployee.apellidoM
+						var apellidoP = datos.data.data.registerEmployee.apellidoP
+						var nombreExistente = datos.data.data.registerEmployee.nombreExistente
+						var apellidoMExistente = datos.data.data.registerEmployee.apellidoMExistente
+						var apellidoPExistente = datos.data.data.registerEmployee.apellidoPExistente
 						
-						
-						console.log("datos de la inserion por excel" , datos)
-						if(datos.data.data.registerEmployee.message == 'correo existente'){
-							// DialogUtility.alert({
-							// 	animationSettings: { effect: 'Zoom' },           
-							// 	title:"Aviso!",
-							// 	content: "Uno de los correos  ya se encuentra registrado, por favor verifiquelo nuevamente !",
-							// 	position: "fixed"
-							// });
+							 array.push(valor1)
+							 array2.push(valor2)
+							 array3.push(valor3)
+							arrayMessage.push(message)
+							empleadoExitoso.push(nombre +" "+ apellidoP + " " +  apellidoM)
+							empleadoNoRegistrado.push(nombreExistente  +" "+   apellidoPExistente  +" "  +  apellidoMExistente)
 							
-						}else if(datos.data.data.registerEmployee.message == 'la sucursal no existe' ){
+							// console.log("la nombre ap am " , nombre,apellidoP,apellidoM)
+							// console.log("la nombre ape ame " , nombreExistente,apellidoMExistente,apellidoPExistente)
+
 						
-							// DialogUtility.alert({
-							// 	animationSettings: { effect: 'Zoom' },           
-							// 	title:"Aviso!",
-							// 	content:`Estimado usuario el centro de trabajo ${valor3} proporcionado en su excel no existe en su catálogo de centros de trabajo activos`,
-							// 	position: "fixed"
-							// });
-						}else if(datos.data.data.registerEmployee.message == 'el puesto no existe'){
-						
-							// DialogUtility.alert({
-							// 	animationSettings: { effect: 'Zoom' },           
-							// 	title:"Aviso!",
-							// 	content: `Estimado usuario el puesto ${valor2} proporcionado en su excel no existe en su catálogo de puestos activos`,
-							// 	position: "fixed"
-							// });
-						}else if(datos.data.data.registerEmployee.message == 'el departamento no existe'){
-							this.setState({sucursalNoExiste:'1'})
-						
-							// DialogUtility.alert({
-							// 	animationSettings: { effect: 'Zoom' },           
-							// 	title:"Aviso!",
-							// 	content: `Estimado usuario el departamento ${valor1} proporcionado en su excel no existe en su catálogo de departamentos activos`,
-							// 	position: "fixed"
-							// });
-						}else if(datos.data.data.registerEmployee.message == 'registro exitoso'){
-						
-							// DialogUtility.alert({
-							// 	animationSettings: { effect: 'Zoom' },           
-						
-							// 	title: "Datos Cargados Exitosamente!",
-							// 	position: "fixed"
-							// });
-						}
+					
 					})
 					 .catch((error) => {
 					 console.log(".cartch" , error.response)
 				});
-
+				
 				}else{
-			
 					DialogUtility.alert({
 					animationSettings: { effect: 'Zoom' },           
 					title: "Su archivo no cumple con los requisitos",
@@ -233,7 +244,18 @@ class SheetJSApp extends React.Component {
 
 		
 				};
+				this.setState({sucursalNoExiste:array3})
+				this.setState({deptoNoExiste:array2})
+				this.setState({puestoNoExiste:array})
+				this.setState({empleadoExitoso:empleadoExitoso})
+				this.setState({empleadoNoExitoso:empleadoNoRegistrado})
+				this.setState({message:arrayMessage})
 
+
+				
+				// console.log("array" , this.state.sucursalNoExiste,this.state.deptoNoExiste,this.state.puestoNoExiste)
+				// console.log("el estado message" , this.state.message)
+				
 			    }else{
 					DialogUtility.alert({
 						animationSettings: { effect: 'Zoom' },           
@@ -244,8 +266,6 @@ class SheetJSApp extends React.Component {
 					localStorage.removeItem("max")
 
 				}
-
-				
 		
 				}
 
@@ -281,26 +301,79 @@ class SheetJSApp extends React.Component {
         XLSX.writeFile(wb, "sheetjs.xlsx")
 
 	};
-	
+	toggle = () => {
+		this.setState({
+		  modal: !this.state.modal
+		});
+	  }
 	render() {
-		let modal;
-		if (this.state.sucursalNoExiste =='1' ){
-		modal = 	DialogUtility.alert({
-				animationSettings: { effect: 'Zoom' },           
-				title: "Esto es un modal",
-				position: "fixed"
-			});
-		}
 
+		let spinner;
+		let cargando;
+
+		console.log("mensaje" , this.state.message)
+	
+		this.state.message.map(rows =>{
+			if(rows == 'correo existente'){
+			
+				this.setState({empleadoNoRegistrado:this.state.empleadoNoExitoso})
+				this.setState({empleadoNoExitoso:[]})
+				this.toggle()
+				this.setState({spinner:false})	
+				
+			}
+			if(rows == 'el puesto no existe'){
+				
+				this.setState({puesto:this.state.puestoNoExiste})
+				this.setState({puestoNoExiste:[]})
+				this.toggle()
+				this.setState({spinner:false})	
+				
+			}
+			if(rows == 'el departamento no existe'){
+				
+				this.setState({depto:this.state.deptoNoExiste})
+				this.setState({deptoNoExiste:[]})
+	
+				this.toggle()
+				this.setState({spinner:false})	
+			}
+			if(rows== 'la sucursal no existe'){
+				this.setState({sucursal:this.state.sucursalNoExiste})
+				this.setState({sucursalNoExiste:[]})
+				this.toggle()
+				this.setState({spinner:false})	
+				
+			}
+			
+			else if(rows == 'registro exitoso'){	
+				this.setState({empleadoRegistrado:this.state.empleadoExitoso})
+				this.setState({empleadoExitoso:[]})
+				this.toggle()
+				this.setState({spinner:false})	
+			}
+			this.setState({message:[]})
+
+		})
+
+		
+
+			if(this.state.spinner== true){
+				spinner = <div className="spinner-border text-info" role="status"><strong className="sr-only">Espere un momento por favor ...</strong>
+					</div>
+		
+
+			}
 		return (
 			
 				<React.Fragment>
+					{spinner}
 			 	<DragDropFile handleFile={this.handleFile}>	
 				<div className="row"><div className="col-xs-12">
 					<DataInput handleFile={this.handleFile} />
                     <MDBCol className=" text-center mt-2 pt-2 " >
                     <MDBBtn className="boton" disabled={!this.state.data.length}  color="info" type="submit" onClick={this.handleSubmit } >Cargar </MDBBtn>
-                 
+					
 					</MDBCol> 		
 				</div> </div>
 				{/* <div className="row"><div className="col-xs-12">
@@ -310,8 +383,101 @@ class SheetJSApp extends React.Component {
 					<OutTable data={this.state.data} cols={this.state.cols} />
 				</div></div> */}
 			</DragDropFile>	
-			{modal}
+				<MDBContainer>
+			
+				<MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+				<MDBModalHeader toggle={this.toggle}>
+					Detalles en la carga de Empleados</MDBModalHeader>
+						<MDBModalBody>
+						<TableContainer component={Paper}>
+						<Table  style = {{width:450}} size="small" aria-label="a dense table">
+							<TableHead>
+							<TableRow>
+							<TableCell>Centros de T. no registrados en su catálogo :</TableCell>
+							</TableRow>
+							</TableHead>
+							<TableBody>
+							{this.state.sucursal.map((row) => (
+								<TableRow >
+								<TableCell component="th" scope="row">
+									{row.toUpperCase()}
+								</TableCell>
+							
+								</TableRow>
+							))}
+							</TableBody>
+							<TableHead>
+							<TableRow>
+								<TableCell>Departamentos no registrados en su catálogo :  </TableCell>
+							</TableRow>
+							</TableHead>
+							<TableBody>
+							{this.state.depto.map((row) => (
+								<TableRow >
+								<TableCell component="th" scope="row">
+									{row.toUpperCase()}
+								</TableCell>
+							
+								</TableRow>
+							))}
+							</TableBody>
+							<TableHead>
+							<TableRow>
+								<TableCell>Puestos no registrados  en su catálogo : </TableCell>
+							</TableRow>
+							</TableHead>
+							<TableBody>
+							{this.state.puesto.map((row) => (
+								<TableRow >
+								<TableCell component="th" scope="row">
+									{row.toUpperCase()}
+								</TableCell>
+							
+								</TableRow>
+							))}
+							</TableBody>
+							<TableHead>
+							<TableRow>
+								<TableCell>Empleados ya registrados con anterioridad  : </TableCell>
+							</TableRow>
+							</TableHead>
+							<TableBody>
+							{this.state.empleadoNoRegistrado.map((row) => (
+								<TableRow >
+								<TableCell component="th" scope="row">
+									{row.toUpperCase()}
+								</TableCell>
+							
+								</TableRow>
+							))}
+							</TableBody>
+							<TableHead>
+							<TableRow>
+								<TableCell>Empleados cargados Exitosamente  : </TableCell>
+							</TableRow>
+							</TableHead>
+							<TableBody>
+							{this.state.empleadoRegistrado.map((row) => (
+								<TableRow >
+								<TableCell component="th" scope="row">
+									{row.toUpperCase()}
+								</TableCell>
+							
+								</TableRow>
+							))}
+							</TableBody>
+						</Table>
+						</TableContainer>		
+						</MDBModalBody>
+						<MDBModalFooter>
+						<MDBBtn color="secondary" onClick={this.toggle}>Cerrar</MDBBtn>
+
+						</MDBModalFooter>
+					</MDBModal>
+					</MDBContainer>
+							
 			</React.Fragment>
+		
 		);
 	};
 };
@@ -484,6 +650,7 @@ class App extends React.Component {
 	}) 
 	}
 
+
  evaluar  =async (values) =>{
 
 		const Nombre = values.Nombre
@@ -496,7 +663,6 @@ class App extends React.Component {
 
 		const Estado_Civil= values.Estado_Civil
 		const CentroTrabajo= values.CentroTrabajo
-		const Correo = values.Correo
 		const area = values.area
 		const puesto = values.puesto
 		const tipoPuesto =  values.tipoPuesto
@@ -508,7 +674,12 @@ class App extends React.Component {
 		const experiencia_Laboral = values.experiencia_Laboral  
 		const rotacion = values.rotacion
 	  
-	  
+		const correos  = values.Correo
+
+		const Correo = correos.replace(/ /g, "")
+
+		console.log("correos" ,)
+
 		// const token = localStorage.getItem('elToken')
 	    let idSuperUsuario;
 		// const url = 'http://localhost:8000/graphql'
@@ -630,6 +801,12 @@ class App extends React.Component {
 			})
 			localStorage.removeItem("max")
 		}  
+	   }else{
+		DialogUtility.alert({
+			animationSettings: { effect: 'Zoom' },           
+			content: 'Por favor llene todos los campos',
+			position: "fixed",
+		})
 	   } 
   
 	  }
@@ -653,6 +830,7 @@ class App extends React.Component {
 		}
 		if (!values.Correo) {
 		  errors.Correo = 'Este campo es requerido';
+
 		}
 		
 		if(values.rfc){
@@ -663,17 +841,18 @@ class App extends React.Component {
 	
 		if(values.curp){
 			if(values.curp.length != 18){
-				errors.curp = 'El número de caracteres no es el correcto';
+				 errors.curp = 'El número de caracteres no es el correcto';
 			}
 		}
-	  
+ 
 		if (!values.area) {
 		  errors.area = 'Required';
 		}
 	  
 		return errors;
 	  };
-		  
+
+
  onSubmit (values) {
 		const vari = JSON.stringify(values,1,2)
 		};
