@@ -808,8 +808,8 @@ class TableEmployees extends React.Component {
                     </MDBCollapse>
                   </MDBNavbar>
                   </header>
-                <MDBContainer style={container} className="text-center mt-4 pt-5">
-            <MDBContainer style={container} className="text-center mt-2 pt-2">
+                <MDBContainer style={container} className="text-center pt-5">
+            <MDBContainer style={container} className="text-center pt-2">
             <ul>
             <MDBRow>
             <MDBCol> 
@@ -881,7 +881,7 @@ class TableEmployees extends React.Component {
               <MDBCol  sm="4"></MDBCol>  
              </MDBRow>
            
-               <Button  startIcon={<CheckCircleOutlineOutlinedIcon />} outline color="primary" onClick={(e)=>this.sendMailEEO(datosEmpleadosEEO,3)}>
+               <Button style={{marginBottom:60}}  startIcon={<CheckCircleOutlineOutlinedIcon />} outline color="primary" onClick={(e)=>this.sendMailEEO(datosEmpleadosEEO,3)}>
                   Enviar encuesta EEO
                </Button>
             </div> 

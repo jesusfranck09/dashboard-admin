@@ -16,6 +16,8 @@ import {Link} from 'react-router-dom'
 import EmojiTransportationIcon from '@material-ui/icons/EmojiTransportation';
 import DirectionsWalkOutlinedIcon from '@material-ui/icons/DirectionsWalkOutlined';
 import ComputerOutlinedIcon from '@material-ui/icons/ComputerOutlined';
+import SettingsIcon from '@material-ui/icons/Settings';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 
 const drawerWidth = 240;
 
@@ -168,7 +170,27 @@ const useStyles = makeStyles(theme => ({
             </ListItem>
           ))}
         </List>    
-        </Link>        
+        </Link>    
+        <Link to="/adminGral" style={{ textDecoration: 'none' }}>
+        <List >
+          {['Gestionar mi Empresa'].map((text) => (
+            <ListItem button key={text} >
+              <ListItemIcon> <SettingsIcon  /> </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>    
+        </Link>         
+        <Link to="/inicio" style={{ textDecoration: 'none' }}>
+        <List >
+          {['Página principal'].map((text) => (
+            <ListItem button key={text} >
+              <ListItemIcon> <HomeOutlinedIcon  /> </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>    
+        </Link>          
       </Drawer>
       <IconButton
             color="inherit"

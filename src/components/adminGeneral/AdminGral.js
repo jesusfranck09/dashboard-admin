@@ -2009,13 +2009,7 @@ class AdminGral extends React.Component {
                 </MDBNavbarBrand>
                 <MDBNavbarBrand>              
                 </MDBNavbarBrand>
-                <MDBNavbarNav right> 
-                <MDBNavbarBrand a href="./inicio">
-
-                <AppNavbarBrand full={{ src: inicio, width: 30, height: 25, alt: 'Inicio' }} />              
-                Página Principal  
-              </MDBNavbarBrand>
-              </MDBNavbarNav>
+                
                 <MDBNavbarToggler onClick={this.onClick} />
                 <MDBCollapse isOpen={this.state.collapse} navbar>
                 </MDBCollapse>

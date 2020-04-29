@@ -107,12 +107,6 @@ import diagnostico from '../images/diagnostico.png'
                     <MDBNavbarBrand >
                     <strong> Registrar Puestos</strong>
                     </MDBNavbarBrand>
-                    <MDBNavbarNav left>
-                  <MDBNavItem active>
-                    <MDBNavLink to="/adminGral">Administración general de mi Empresa</MDBNavLink>
-                  </MDBNavItem>
-                </MDBNavbarNav>
-
                     <MDBNavbarToggler onClick={this.onClick} />
                     <MDBCollapse isOpen={this.state.collapse} navbar>
       

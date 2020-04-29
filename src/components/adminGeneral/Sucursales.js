@@ -152,11 +152,6 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
                     <MDBNavbarBrand >
                     <strong> Registrar Centros de Trabajo</strong>
                     </MDBNavbarBrand>
-                    <MDBNavbarNav left>
-                  <MDBNavItem active>
-                    <MDBNavLink to="/adminGral">Administración general de mi Empresa</MDBNavLink>
-                  </MDBNavItem>
-                </MDBNavbarNav>
                     <MDBNavbarToggler onClick={this.onClick} />
                     <MDBCollapse isOpen={this.state.collapse} navbar>
                     </MDBCollapse>

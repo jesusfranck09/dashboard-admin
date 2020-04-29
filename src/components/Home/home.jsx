@@ -1528,7 +1528,6 @@ alerta3 =  (deadline) => {
    }
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 1000, height: 500 }
-    const container3={marginLeft:200}
     return (
 
 
@@ -1545,28 +1544,27 @@ alerta3 =  (deadline) => {
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav left>
                   <MDBNavItem >
-                  <a href="https://master.d14ylpne1awxxr.amplifyapp.com/">Resolver Encuesta</a>
+                  <a href="http://ats.diagnostico035.com/">Encuesta ATS &nbsp;&nbsp;   </a>
+                  </MDBNavItem>
+                  <MDBNavItem >
+                  <a href="http://rp.diagnostico035.com/"> Encuesta RP &nbsp;&nbsp; </a>
+                  </MDBNavItem>
+                  <MDBNavItem >
+                  <a href="http://eeo.diagnostico035.com/"> Encuesta EEO   </a>
                   </MDBNavItem>
                   
                 </MDBNavbarNav>
-              
                <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Versión 1.0.0
                 <MDBNavbarNav right>
-                              
-           
-                <MDBNavbarBrand>
-                
+                <MDBNavbarBrand>               
               <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
-              {this.state.nombre}
+              {this.state.nombre}         
               </MDBNavbarBrand>
-              <MDBNavbarBrand>
-              
-              <MDBNavItem>
-                
+              <MDBNavbarBrand>  
+              <MDBNavItem>   
               <MDBDropdown>
-                
                 <MDBDropdownToggle nav caret>
-               
                 </MDBDropdownToggle>
                 <MDBDropdownMenu className="dropdown-default">
                   <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
@@ -1591,21 +1589,21 @@ alerta3 =  (deadline) => {
         <MDBCard style={{ width: "25rem" ,marginTop:60}}>
           <MDBCardBody>        
           <strong>Empleados Evaluación ATS</strong>
-         <MDBCardHeader><strong>Realizada : {this.state.empleadosAts.length} </strong>  <IconButton onClick={this.toggle(16)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada : {this.state.empleadosAtsFalse.length}</strong><IconButton onClick={this.toggle(15)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                 
+         <MDBCardHeader><strong>Realizada: {this.state.empleadosAts.length} </strong>  <IconButton onClick={this.toggle(16)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada: {this.state.empleadosAtsFalse.length}</strong><IconButton onClick={this.toggle(15)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                 
        </MDBCardBody>
       </MDBCard>
 
       <MDBCard style={{ width: "25rem" ,marginTop:5}}>
           <MDBCardBody>        
           <strong>Empleados Evaluación RP</strong>
-         <MDBCardHeader><strong>Realizada : {this.state.empleadosRP.length} </strong>  <IconButton onClick={this.toggle(14)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada : {this.state.empleadosRPFalse.length} </strong><IconButton onClick={this.toggle(13)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
+         <MDBCardHeader><strong>Realizada: {this.state.empleadosRP.length} </strong>  <IconButton onClick={this.toggle(14)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada: {this.state.empleadosRPFalse.length} </strong><IconButton onClick={this.toggle(13)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
        </MDBCardBody>
       </MDBCard>
 
       <MDBCard style={{ width: "25rem" ,marginTop:5}}>
           <MDBCardBody>        
           <strong>Empleados Evaluación EEO</strong>
-         <MDBCardHeader><strong>Realizada : {this.state.empleadosEEO.length} </strong>  <IconButton onClick={this.toggle(11)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada : {this.state.empleadosEEOFalse.length} </strong><IconButton onClick={this.toggle(12)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
+         <MDBCardHeader><strong>Realizada: {this.state.empleadosEEO.length} </strong>  <IconButton onClick={this.toggle(11)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada: {this.state.empleadosEEOFalse.length} </strong><IconButton onClick={this.toggle(12)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
        </MDBCardBody>
       </MDBCard>
         {/* <MDBContainer className=" mt-5 pt-5" ><Alert color = "primary">Su licencia caduca en undefined dias</Alert>  <ProgressBar/></MDBContainer> */}
