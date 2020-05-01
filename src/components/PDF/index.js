@@ -205,8 +205,7 @@ pdfExportComponent
            <br/>
         
           <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font><br/><br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
-          <font face="arial" className = "mt-4 " >  <img ref={(image) => this.image = image} src="http://www.ads.com.mx/_Media/logotipo_ads_png_med.png" width="100px"
-                /></font>
+
                 <MDBContainer style={container}>
                   
                 <MDBTable component={Paper}  small borderless className="text-left mt-4 ">
