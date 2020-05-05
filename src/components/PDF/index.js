@@ -7,6 +7,7 @@ import {MDBContainer, MDBRow, MDBCol,MDBTable, MDBTableBody, MDBTableHead, MDBBt
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
+import MUIDataTable from "mui-datatables";
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import { DialogUtility } from '@syncfusion/ej2-popups';
@@ -111,7 +112,8 @@ pdfExportComponent
     this.setState({fecha:FechaCompleta})
   }
 
-    click(id){           
+    click(id){  
+      console.log("id",id)         
             const periodo  = localStorage.getItem("periodo")        
             // const url = 'http://localhost:8000/graphql'
             axios({
@@ -171,6 +173,68 @@ pdfExportComponent
 
     
   render() {
+    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Curp","Sexo","RFC","Respuestas"];
+    const data = this.state.datos.map(rows=>{
+      let boton =  <div><MDBBtn color ="danger" onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></div> 
+      console.log("rows", rows)
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Curp,rows.Sexo,rows.RFC,boton])
+    })
+    let datosEmpleados;
+    let filtro;
+  
+    const options = {
+        filterType: "dropdown",
+        responsive: "stacked",
+        filter: false,
+        download:false,
+        print:false,
+        viewColumns:false,
+        selectableRowsHeader:false,
+        selectableRows:false,
+        textLabels: {
+                   body: {
+                     noMatch: "Lo Siento ,No se han encontrado Resultados :(",
+                     toolTip: "Sort",
+                     columnHeaderTooltip: column => `Sort for ${column.label}`
+                   },
+                   pagination: {
+                     next: "Siguiente Página",
+                     previous: "Anterior Página",
+                     rowsPerPage: "Filas por Página:",
+                     displayRows: "de",
+                   },
+                   toolbar: {
+                     search: "Buscar",
+                     downloadCsv: "Descargar CSV",
+                     print: "Imprimir",
+                     viewColumns: "Ver Columnas",
+                     filterTable: "Filtrar Tabla",
+                   },
+                   filter: {
+                     all: "Todos",
+                     title: "Filtros",
+                     reset: "Deshacer",
+                   },
+                   viewColumns: {
+                     title: "Mostrar Columnas",
+                     titleAria: "Show/Hide Table Columns",
+                   },
+                   selectedRows: {
+                     text: "Filas Selecionadas",
+                     delete: "Borrar",
+                     deleteAria: "Eliminar Filas Seleccionadas",
+                   },
+                 },
+      
+        onTableChange: (action, tableState) => {
+        datosEmpleados = tableState.displayData
+        console.log("datosEmpleados " , datosEmpleados)
+        },
+        onFilterChange: (action, filtroTable) => {
+          filtro=filtroTable
+          console.log("filtro" , filtro) 
+          }     };
+
     
     const container = { marginLeft:20}
     let pdfView1;
@@ -599,10 +663,6 @@ pdfExportComponent
                                       <br/>
                                       <br/>
                                       <br/>
-                                      
-                                   
-                                     
- 
                         </div>
                     </PDFExport>
                 </div>
@@ -614,34 +674,14 @@ pdfExportComponent
     }
     // console.log(this.state);
     return (
-      <React.Fragment>
-
-       
+      <React.Fragment>   
       <Paper >
-      <Table bordered>
- 
-        <TableBody>
-          {this.state.datos.map(rows => {
-            return (
-              <TableRow >
-                <TableCell component="th" scope="row">
-                  {rows.id}
-                </TableCell>
-                <TableCell >{rows.nombre}</TableCell>
-                <TableCell  >{rows.ApellidoP}</TableCell>
-                <TableCell  >{rows.ApellidoM}</TableCell>
-                <TableCell  >{rows.Curp}</TableCell>
-                <TableCell  >{rows.Sexo}</TableCell>
-                <TableCell  >{rows.rfc} </TableCell>
-                <TableCell  ><MDBBtn color ="danger" onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></TableCell>
-              </TableRow>
-              
-            );
-          })}
-        </TableBody>
-
-
-      </Table>
+      <MUIDataTable
+                title={`Empleados  totales de ${localStorage.getItem("razonsocial")}`}
+                data={data}
+                columns={columns}
+                options={options}
+              />
       </Paper>
 
       {pdfView1}

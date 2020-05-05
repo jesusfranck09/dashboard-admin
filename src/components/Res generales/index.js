@@ -125,6 +125,7 @@ pdfExportComponent ;
   }
 
     componentWillMount(){
+      console.log("ya se esta montando")
       var Nombre = localStorage.getItem("nombre")
       var Apellidos = localStorage.getItem("apellidos")
 
@@ -2593,7 +2594,7 @@ ponderacion=<React.Fragment>
          <div
         
         style={{
-          marginLeft: "10%",
+          marginLeft: "5%",
           position: "absolute"
         }}
       >

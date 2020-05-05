@@ -3290,7 +3290,7 @@ ponderacion=<React.Fragment>
          <div
         
         style={{
-          marginLeft: "10%",
+          marginLeft: "5%",
           position: "absolute"
         }}
       >

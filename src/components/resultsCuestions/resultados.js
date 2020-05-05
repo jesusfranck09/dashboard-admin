@@ -205,7 +205,7 @@ ads(){
           <MDBContainer style={container} className="pt-5">
           <MDBRow>
               <MDBCol md="9">
-              <MDBContainer style={container2} className="  pt-5" >
+              <MDBContainer style={container2} className="  pt-2" >
             <h5 >Ejemplo de Ponderación</h5>
             <Bar  data={this.state.dataBar} options={this.state.barChartOptions} />
             {/* <span>{this.state.dias} {this.state.horas} {this.state.minutos} {this.state.segundos}</span> */}
@@ -263,7 +263,7 @@ ads(){
                     </div>
 
                 </Modal>
-        <MDBContainer className="text-center mt-5 pt-5">
+        <MDBContainer className="text-center mt-2 pt-5">
         <PDF></PDF>
        {/* {pdfComponente}
        <button onClick={this.change}>Prueba</button> */}

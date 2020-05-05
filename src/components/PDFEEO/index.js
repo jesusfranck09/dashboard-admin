@@ -20,6 +20,8 @@ import logotipo from '../images/logotipo.png'
 import diagnostico from '../images/diagnostico.png'
 import {Alert} from 'reactstrap'
 import { API} from '../utils/http'
+import MUIDataTable from "mui-datatables";
+
 
 class App extends Component {
   pdfExportComponent 
@@ -287,6 +289,72 @@ class App extends Component {
                     }
 
   render() {
+    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Curp","RFC","Respuestas","Resultados"];
+    const data = this.state.datos.map(rows=>{
+      let botonRespuestas = <div><MDBBtn color="danger"  onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></div>
+      let botonResultados =  <div><Button  color="secondary" onClick={(e) => this.getEvaluacion(rows.id)}>Resultados</Button></div> 
+      console.log("rows", rows)
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Curp,rows.RFC,botonRespuestas,botonResultados])
+    })
+    let datosEmpleados;
+    let filtro;
+  
+    const options = {
+        filterType: "dropdown",
+        responsive: "stacked",
+        filter: false,
+        download:false,
+        print:false,
+        viewColumns:false,
+        selectableRowsHeader:false,
+        selectableRows:false,
+        textLabels: {
+                   body: {
+                     noMatch: "Lo Siento ,No se han encontrado Resultados :(",
+                     toolTip: "Sort",
+                     columnHeaderTooltip: column => `Sort for ${column.label}`
+                   },
+                   pagination: {
+                     next: "Siguiente Página",
+                     previous: "Anterior Página",
+                     rowsPerPage: "Filas por Página:",
+                     displayRows: "de",
+                   },
+                   toolbar: {
+                     search: "Buscar",
+                     downloadCsv: "Descargar CSV",
+                     print: "Imprimir",
+                     viewColumns: "Ver Columnas",
+                     filterTable: "Filtrar Tabla",
+                   },
+                   filter: {
+                     all: "Todos",
+                     title: "Filtros",
+                     reset: "Deshacer",
+                   },
+                   viewColumns: {
+                     title: "Mostrar Columnas",
+                     titleAria: "Show/Hide Table Columns",
+                   },
+                   selectedRows: {
+                     text: "Filas Selecionadas",
+                     delete: "Borrar",
+                     deleteAria: "Eliminar Filas Seleccionadas",
+                   },
+                 },
+      
+        onTableChange: (action, tableState) => {
+        datosEmpleados = tableState.displayData
+        console.log("datosEmpleados " , datosEmpleados)
+        },
+        onFilterChange: (action, filtroTable) => {
+          filtro=filtroTable
+          console.log("filtro" , filtro) 
+          }     };
+
+
+
+
     const container = { marginLeft:65}
     let pdfView1;
     let pdfView2;
@@ -2285,30 +2353,14 @@ if(DominioDiez < 4){
 
     return (
       <React.Fragment>    
-      <TableContainer component={Paper}>
-      <Table bordered>
-        <TableBody>
-          {this.state.datos.map(rows => {
-            return (
-              <TableRow >
-                <TableCell component="th" scope="row">
-                  {rows.id}
-                </TableCell>
-                <TableCell >{rows.nombre}</TableCell>
-                <TableCell  >{rows.ApellidoP}</TableCell>
-                <TableCell  >{rows.ApellidoM}</TableCell>
-                <TableCell  >{rows.Curp}</TableCell>
-                <TableCell  >{rows.rfc} </TableCell>
-                <TableCell  ><MDBBtn color="danger"  onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></TableCell>
-                <TableCell  ><Button  color="secondary" onClick={(e) => this.getEvaluacion(rows.id)}>Resultados</Button></TableCell>
-              </TableRow>
-              
-            );
-          })}
-        </TableBody>
-          </Table>
-
-          </TableContainer>
+    <Paper >
+      <MUIDataTable
+                title={`Empleados  totales de ${localStorage.getItem("razonsocial")}`}
+                data={data}
+                columns={columns}
+                options={options}
+              />
+      </Paper>
 
           {pdfView1}
           {pdfView2}

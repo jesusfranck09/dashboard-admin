@@ -2,23 +2,20 @@ import '../src/App.scss';
 import { ApolloProvider } from 'react-apollo';
 import client from './Graphql';
 import checkToken from '../src/resolvers/checkToken';
- // import checkSurveyATS from '../src/resolvers/checkSurveyATS';
+// import checkSurveyATS from '../src/resolvers/checkSurveyATS';
 // import checkSurveyRP from '../src/resolvers/checkSurveyRP';
 // import checkSurveyEEO from '../src/resolvers/checkSurveyEEO';
 import {
   BrowserRouter as Router,
   Route,Redirect,Switch
 } from 'react-router-dom';
-import React, { Component } from 'react';
-
+import React, { Component } from 'react'; 
 import Login from './components/views/Login/LoginEmpresas';
 import Home from './components/Home/home';
 // import Company from './components/views/addCompany/addCompany';
 import Employees from './components/Upload/Employes';
 import Table from './components/Home/table';
-
 import AdminGral from './components/adminGeneral/AdminGral';
-
 import ProfileUser from './components/Home/ProfileUser';
 import Sucursales from './components/adminGeneral/Sucursales';
 import Puestos from './components/adminGeneral/Puestos';
@@ -29,7 +26,6 @@ import Apartments from './components/adminGeneral/Apartments';
 import IndexATS from './components/Res generales/indexATS';
 import Res from './components/resultsCuestions/resultados';
 import Estadisticas from './components/Estadisticas/estadisticas';
-
 import ResGral from './components/Res generales/index';
 
 class Routes extends Component{
@@ -48,15 +44,11 @@ class Routes extends Component{
               <Route exact path='/' component={Login}/>
                   {/* <Route exact path='/verify/:id' component={Verify}/> */}
                   {/* <PrivateRoute exact path='/result' component={Result}/> */}
-
                   <PrivateRoute exact path='/indexAts' component={IndexATS}/>
-
                   <PrivateRoute exact path='/inicio' component={Home}/>
                   {/* <PrivateRoute exact path='/company' component={Company}/> */}
                   <PrivateRoute exact path='/employees' component={Employees}/>
                   <PrivateRoute exact path='/table' component={Table}/>
-               
-         
                   <PrivateRoute exact path='/profile' component={ProfileUser}/>
                   {/* <PrivateRoute exact path='/result' component={Result}/> */}
                   {/* <PrivateRoute exact path='/pdf' component={PDF}/> */}
