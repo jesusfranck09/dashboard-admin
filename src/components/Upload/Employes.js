@@ -243,6 +243,15 @@ class SheetJSApp extends React.Component {
 				});
 				{ break; }
 				}
+				else if( this.state.data[i].length ==0 ) {
+					this.setState({spinner:false})	
+					DialogUtility.alert({
+					animationSettings: { effect: 'Zoom' },           
+					title: "Su archivo no contiene datos",
+					position: "fixed"
+				});
+				{ break; }
+				}
 
 		
 				};
