@@ -254,7 +254,7 @@ pdfExportComponent ;
               totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
               // console.log("totalEMpleados" , totalEmpleados)
               this.setState({peticion1:totalEmpleados})
-              console.log("estado",this.state.peticion1)
+              // console.log("estado",this.state.peticion1)
               })
               .catch(err => {
               });  
@@ -326,7 +326,7 @@ pdfExportComponent ;
     }
      
       this.setState({datosLength:datos.length})
-      console.log("datos enviados",datos[0].data[6])
+      // console.log("datos enviados",datos[0].data[6])
         }
 
   render() {   
@@ -337,13 +337,13 @@ pdfExportComponent ;
         if (rows[1].Respuestas == 'si'){
            accionSi = accionSi + 1
         }
-        console.log("accionSi" , accionSi)
+        // console.log("accionSi" , accionSi)
         if (rows[1].Respuestas == 'no'){
            accionNo = accionNo +1
         }
       }
     })   
-    console.log("accionNo" , accionNo)
+    // console.log("accionNo" , accionNo)
     const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo"];
     const data = this.state.empleados.map(rows=>{
       return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo])
@@ -399,7 +399,7 @@ pdfExportComponent ;
       const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 500, height: 400,marginLeft: "17%"}
     const container2 = { width: 500, height: 300 }
-
+    let array = []
     return (
       <React.Fragment>
       <div>
@@ -646,6 +646,7 @@ pdfExportComponent ;
                                       }if(rows[1].Respuestas =='no'){
                                         respuesta =  <TableCell  width="10px" style={{backgroundColor: "#9BE0F7 "}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">NO</font></TableCell>
                                       }
+                                      
                                       return (
                                         <TableRow >
                                       <td width="5px"  className="text-center"><font size="1" face="arial"color="black" >{i + 1} </font></td>
@@ -657,7 +658,8 @@ pdfExportComponent ;
                                       );
                                     }
                                 
-                                  })}
+                                  })
+                                  }
                                 </MDBTableBody>
                               </MDBTable>
                           

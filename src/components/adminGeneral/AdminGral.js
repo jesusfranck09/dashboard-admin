@@ -1901,18 +1901,54 @@ class AdminGral extends React.Component {
         </MDBContainer>  
        }
       
-       const columns = ["Nombre","Apellido P", "Apellido M.",  "Sexo","Correo","Editar","Eliminar"];
+       const columns = ["Nombre","Apellido P", "Apellido M.",  "Sexo", {
+        name: "Correo",
+        label: "Correo",
+        options: {
+         filter: false,
+         sort: true,
+        }
+       },"Centro de Trabajo", {
+        name: "boton1",
+        label: "Editar",
+        options: {
+         filter: false,
+         sort: true,
+        }
+       }, {
+        name: "boton2",
+        label: "Eliminar",
+        options: {
+         filter: false,
+         sort: true,
+        }
+       }];
 
        const data = this.state.datos.map((rows,i)=>{
+         
          const boton2 = <div><IconButton onClick={this.toggle(13,rows)}>
          <CreateOutlinedIcon />
        </IconButton></div>
          const boton = <div><IconButton onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } > <DeleteIcon /></IconButton> </div>
-         return([rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Sexo,rows.correo,boton2,boton])
+         return([rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Sexo,rows.correo,rows.CentroTrabajo,boton2,boton])
        })
 
 
-       const columnsCentro = ["Centro de Trabajo","Calle", "Colonia",  "Ciudad","Editar","Eliminar"];
+       const columnsCentro = ["Centro de Trabajo","Calle", "Colonia",  "Ciudad",{
+        name: "boton1",
+        label: "Editar",
+        options: {
+         filter: false,
+         sort: true,
+        }
+       }, {
+        name: "boton2",
+        label: "Eliminar",
+        options: {
+         filter: false,
+         sort: true,
+        }
+       }];
 
        const dataCentro = this.state.datosSucursales.map((rows,i)=>{
          const botonUno = <div> <IconButton onClick={this.toggleSucursales(14,rows)} >
@@ -1923,7 +1959,12 @@ class AdminGral extends React.Component {
        })
 
 
-       const columnsDeptos = ["Nombre de Departamento"," "," "," "," "," ", " "," "," ","Editar","Eliminar"];
+       const columnsDeptos = ["Nombre",{name:" ",label:"",options:{filter: false,sort: true,}},{name:" ",label:"",options:{filter: false,sort: true,}},{name:" ",label:"",options:{filter: false,sort: true,}},{name:" ",label:"",options:{filter: false,sort: true,}},{
+        name: "",label: "",options: {filter: false,sort: true,}}, {name:"",label:"",options:{filter: false,sort: true,}},
+        {name:" ",label:"",options:{filter: false,sort: true,}},{name: "",label: "",options: {filter: false,sort: true,}},
+        {name: "boton1",label: "Editar",options:{filter: false,sort: true,}},{name: "boton2",label: "Eliminar",options:{filter: false,sort: true,}}];
+
+       
 
        const dataDeptos = this.state.datosDeptos.map((rows,i)=>{
          const boton1Uno = <div><IconButton onClick={ this.toggleDeptos(15,rows)}  >
@@ -1933,7 +1974,10 @@ class AdminGral extends React.Component {
          return([rows.nombre," "," "," "," "," ", " "," "," ",boton1Uno,boton2Dos])
        })
 
-       const columnsPuestos = ["Nombre de Departamento"," "," "," "," " ," "," "," "," ","Editar","Eliminar"];
+       const columnsPuestos = ["Nombre",{name:" ",label:"",options:{filter: false,sort: true,}},{name:" ",label:"",options:{filter: false,sort: true,}},{name:" ",label:"",options:{filter: false,sort: true,}},{name:" ",label:"",options:{filter: false,sort: true,}},{
+        name: "",label: "",options: {filter: false,sort: true,}}, {name:"",label:"",options:{filter: false,sort: true,}},
+        {name:" ",label:"",options:{filter: false,sort: true,}},{name: "",label: "",options: {filter: false,sort: true,}},
+        {name: "boton1",label: "Editar",options:{filter: false,sort: true,}},{name: "boton2",label: "Eliminar",options:{filter: false,sort: true,}}];
 
        const dataPuestos = this.state.datosPuestos.map((rows,i)=>{
          const boton11 = <div><IconButton onClick={ this.togglePuestos(16,rows)}  >

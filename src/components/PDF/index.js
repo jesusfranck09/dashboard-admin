@@ -387,8 +387,6 @@ pdfExportComponent
                     <br/>
                    
                   </MDBTableBody>
-             
-
 
                   <MDBTableHead>
                     <tr>
@@ -427,12 +425,9 @@ pdfExportComponent
                   </MDBTable> 
                 {ATS}
                 </MDBContainer>
-         
           <div>
-                <div className="example-config">
-                  
+                <div className="example-config">    
                 </div>
-
                 <div style={{ position: "absolute", left: "-1000px", top: 0 }}>
                     <PDFExport
                         paperSize="letter"
@@ -442,7 +437,6 @@ pdfExportComponent
                         ref={(component) => this.pdfExportComponent = component}
                     >
                         <div style={{ width: "500px" }}>
-                      
                             <MDBRow> 
                             <MDBCol>
                             <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
@@ -458,9 +452,7 @@ pdfExportComponent
                             <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                             <font size="1"face="arial"color="black">{this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</font><br></br><br/>
                             <font size="3"face="arial"color="black">Diagnóstico de acontecimientos traumáticos severos</font><br></br>
-                            <font size="1"face="arial"color="black">{this.state.fecha}</font>
-                            
-                        
+                            <font size="1"face="arial"color="black">{this.state.fecha}</font>                     
                             </MDBTableBody>
                             </MDBTable>
 
@@ -475,8 +467,7 @@ pdfExportComponent
                               <br></br>
                               <br></br>
                               <br></br>
-                             
-                          
+                              <br></br>
                               <font size="1"
                               face="arial"
                               color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA I - 
@@ -491,7 +482,6 @@ pdfExportComponent
                                    <td width="50%"> <font size="1" face="arial"color="black" > {ATSReporte}</font></td>
                                    </tr>
                                    <tr></tr>
-                                  
                                    </MDBTableBody>
                                    
                                     </MDBTable>  

@@ -175,7 +175,8 @@ class SheetJSApp extends React.Component {
 				// const url  = 'http://localhost:8000/graphql'
 				var estado = this.state.data[i]	
 				// console.log("el estado en la posicion de i " , estado)
-				if(this.state.data[i].length==20){		
+				if(this.state.data[i].length==20  ){	
+					console.log("estado if" , this.state.data[i].length)	
 				const query =  `
 				mutation {
 					registerEmployee(
@@ -233,7 +234,8 @@ class SheetJSApp extends React.Component {
 					 console.log(".cartch" , error.response)
 				});
 				
-				}else{
+				}else if(( this.state.data[i].length < 20 || this.state.data[i].length > 20 ) && this.state.data[i].length !=0 ) {
+					console.log("estado else" , this.state.data[i].length)
 					DialogUtility.alert({
 					animationSettings: { effect: 'Zoom' },           
 					title: "Su archivo no cumple con los requisitos",
@@ -400,7 +402,7 @@ class SheetJSApp extends React.Component {
 							{this.state.sucursal.map((row) => (
 								<TableRow >
 								<TableCell component="th" scope="row">
-									{row.toUpperCase()}
+									{row}
 								</TableCell>
 							
 								</TableRow>
@@ -415,7 +417,7 @@ class SheetJSApp extends React.Component {
 							{this.state.depto.map((row) => (
 								<TableRow >
 								<TableCell component="th" scope="row">
-									{row.toUpperCase()}
+									{row}
 								</TableCell>
 							
 								</TableRow>
@@ -430,7 +432,7 @@ class SheetJSApp extends React.Component {
 							{this.state.puesto.map((row) => (
 								<TableRow >
 								<TableCell component="th" scope="row">
-									{row.toUpperCase()}
+									{row}
 								</TableCell>
 							
 								</TableRow>
@@ -445,7 +447,7 @@ class SheetJSApp extends React.Component {
 							{this.state.empleadoNoRegistrado.map((row) => (
 								<TableRow >
 								<TableCell component="th" scope="row">
-									{row.toUpperCase()}
+									{row}
 								</TableCell>
 							
 								</TableRow>
@@ -460,7 +462,7 @@ class SheetJSApp extends React.Component {
 							{this.state.empleadoRegistrado.map((row) => (
 								<TableRow >
 								<TableCell component="th" scope="row">
-									{row.toUpperCase()}
+									{row}
 								</TableCell>
 							
 								</TableRow>
@@ -602,7 +604,7 @@ class App extends React.Component {
 	})
 	.then(datos => {	
 		this.setState({deptos:datos.data.data.getDeptos})	
-		console.log("deptosExtraidas" , this.state.deptos)
+		// console.log("deptosExtraidas" , this.state.deptos)
 	}).catch(err=>{
 		console.log("este es el error get deptos" , err.response)
 	}) 
@@ -624,7 +626,7 @@ class App extends React.Component {
 	})
 	.then(datos => {	
 		this.setState({puestos:datos.data.data.getPuestos})	
-		console.log("puestosExtraidas" , this.state.puestos)
+		// console.log("puestosExtraidas" , this.state.puestos)
 	}).catch(err=>{
 		console.log("este es el error get deptos" , err.response)
 	}) 
@@ -644,7 +646,7 @@ class App extends React.Component {
 	})
 	.then(datos => {	
 		this.setState({sucursal:datos.data.data.getSucursales})	
-		console.log("sucursalExtraidas" , this.state.sucursal)
+		// console.log("sucursalExtraidas" , this.state.sucursal)
 	}).catch(err=>{
 		console.log("este es el error get deptos" , err.response)
 	}) 
@@ -678,7 +680,7 @@ class App extends React.Component {
 
 		const Correo = correos.replace(/ /g, "")
 
-		console.log("correos" ,)
+		// console.log("correos" ,)
 
 		// const token = localStorage.getItem('elToken')
 	    let idSuperUsuario;
@@ -724,7 +726,7 @@ class App extends React.Component {
 		})
 		.then(datos => {		
 			em =datos.data.data.verifyPackSuperUser.empleados
-		 console.log("exito no empleados",datos)
+		//  console.log("exito no empleados",datos)
 
 		}).catch(err=>{
 			console.log("error" , err.response)
@@ -746,7 +748,7 @@ class App extends React.Component {
 				}
 			})
 			.then(datos => {		
-			console.log("exito empleados registrados" , datos.data.data.authRegisterSingleEmployee[0].max)
+			// console.log("exito empleados registrados" , datos.data.data.authRegisterSingleEmployee[0].max)
 		    max=datos.data.data.authRegisterSingleEmployee[0].max
 			});
 
@@ -788,7 +790,7 @@ class App extends React.Component {
 				this.props.history.push("/adminGral")
 
 			}
-			console.log("los segundos datos" , datos)
+			// console.log("los segundos datos" , datos)
 			
 			
 			});   
