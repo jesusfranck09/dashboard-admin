@@ -62,6 +62,7 @@ pdfExportComponent ;
       datosLength:'',
       collapse: false,
       isOpen: false,
+      spinner:false,
       showModal2: false,  
       barChartOptions: {
         responsive: true,
@@ -202,6 +203,7 @@ pdfExportComponent ;
      }
 
    consultarDatosFiltrados = async (datos,filtro) =>{
+     this.setState({spinner:true})
       let array=[];
       let periodo;
       let totalEmpleados=[];
@@ -255,6 +257,7 @@ pdfExportComponent ;
               // console.log("totalEMpleados" , totalEmpleados)
               this.setState({peticion1:totalEmpleados})
               // console.log("estado",this.state.peticion1)
+              this.setState({spinner:false}) 
               })
               .catch(err => {
               });  
@@ -329,7 +332,14 @@ pdfExportComponent ;
       // console.log("datos enviados",datos[0].data[6])
         }
 
-  render() {   
+  render() {  
+    let spinner;
+    
+    if(this.state.spinner== true){
+      spinner = <div className="spinner-border text-info" role="status"><strong className="sr-only">Espere un momento por favor ...</strong>
+        </div>
+    }
+
     let accionSi = 0;
     let accionNo =0;
     this.state.peticion1.map(rows=>{
@@ -525,7 +535,9 @@ pdfExportComponent ;
               <MDBCol ><MDBBtn onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Resultados Globales</MDBBtn> </MDBCol>  
               <MDBCol>
               <MDBContainer >
+                {spinner}
                 { this.state.peticion1.map((rows,i) =>{ 
+                 
                 let respuesta;
                 if(rows[1]){
                 return (
@@ -680,6 +692,7 @@ pdfExportComponent ;
                       
                       )
                     } )
+                    
                   }
                 </MDBContainer>
                 </MDBCol>  

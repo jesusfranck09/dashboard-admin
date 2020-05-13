@@ -320,7 +320,7 @@ class SheetJSApp extends React.Component {
 	render() {
 
 		let spinner;
-		let cargando;
+
 
 		console.log("mensaje" , this.state.message)
 	

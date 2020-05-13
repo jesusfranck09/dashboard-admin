@@ -899,7 +899,7 @@ let categoria1Medio;
 let categoria1Alto;
 let categoria1MuyAlto;
 let colorCategoriaUno;
-let categoriaUno = (entero2+entero1+entero3);
+let categoriaUno = (entero2+entero1+entero3).toFixed(2);
 console.log("categoria1" , categoriaUno)
 if(categoriaUno < 3){
   colorCategoriaUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
@@ -924,7 +924,7 @@ let categoria2Medio;
 let categoria2Alto;
 let categoria2MuyAlto;
 let colorCategoriaDos;
-let categoriaDos = (entero4+entero9+entero5+entero6+entero7+entero8+entero41+entero42+entero43+entero10+entero11+entero12+entero13+entero20+entero21+entero22+entero18+entero19+entero26+entero27);
+let categoriaDos = (entero4+entero9+entero5+entero6+entero7+entero8+entero41+entero42+entero43+entero10+entero11+entero12+entero13+entero20+entero21+entero22+entero18+entero19+entero26+entero27).toFixed(2);
 if(categoriaDos < 10){
   colorCategoriaDos  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   categoria2Nulo= categoriaDos
@@ -947,7 +947,7 @@ let categoria3Medio;
 let categoria3Alto;
 let categoria3MuyAlto;
 let colorCategoriaTre;
-let categoriaTre = (entero14+entero15+entero16+entero17);
+let categoriaTre = (entero14+entero15+entero16+entero17).toFixed(2);
 if(categoriaTre < 4){
   colorCategoriaTre  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   categoria3Nulo= categoriaTre
@@ -971,7 +971,7 @@ let categoria4Medio;
 let categoria4Alto;
 let categoria4MuyAlto;
 let colorCategoriaCuatro;
-let categoriaCuatro = (entero23+entero24+entero25+entero28+entero29+entero30+entero31+entero32+entero33+entero34+entero35+entero36+entero37+entero38+entero39+entero40+entero44+entero45+entero46);
+let categoriaCuatro = (entero23+entero24+entero25+entero28+entero29+entero30+entero31+entero32+entero33+entero34+entero35+entero36+entero37+entero38+entero39+entero40+entero44+entero45+entero46).toFixed(2);
 if(categoriaCuatro < 10){
   colorCategoriaCuatro  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   categoria4Nulo= categoriaCuatro
@@ -996,7 +996,7 @@ let Dominio1Medio;
 let Dominio1Alto;
 let Dominio1MuyAlto;
 let colorDominioUno;
-let DominioUno = (entero2+entero1+entero3);
+let DominioUno = (entero2+entero1+entero3).toFixed(2);
 if(DominioUno < 3){
   colorDominioUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio1Nulo= DominioUno
@@ -1020,7 +1020,7 @@ let Dominio2Medio;
 let Dominio2Alto;
 let Dominio2MuyAlto;
 let colorDominioDos;
-let DominioDos = (entero4+entero9+entero5+entero6+entero7+entero8+entero41+entero42+entero43+entero10+entero11+entero12+entero13);
+let DominioDos = (entero4+entero9+entero5+entero6+entero7+entero8+entero41+entero42+entero43+entero10+entero11+entero12+entero13).toFixed(2);
 if(DominioDos < 12){
   colorDominioDos  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio2Nulo= DominioDos
@@ -1044,7 +1044,7 @@ let Dominio3Medio;
 let Dominio3Alto;
 let Dominio3MuyAlto;
 let colorDominioTres
-let DominioTres = (entero20+entero21+entero22+entero18+entero19+entero26+entero27);
+let DominioTres = (entero20+entero21+entero22+entero18+entero19+entero26+entero27).toFixed(2);
 if(DominioTres < 5){
   colorDominioTres  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio3Nulo= DominioTres
@@ -1068,7 +1068,7 @@ let Dominio4Medio;
 let Dominio4Alto;
 let Dominio4MuyAlto;
 let colorDominioCuatro;
-let DominioCuatro = (entero14+entero15);
+let DominioCuatro = (entero14+entero15).toFixed(2);
 if(DominioCuatro < 1){
   colorDominioCuatro  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio4Nulo= DominioCuatro
@@ -1092,7 +1092,7 @@ let Dominio5Medio;
 let Dominio5Alto;
 let Dominio5MuyAlto;
 let colorDominioCinco;
-let DominioCinco = (entero16+entero17);
+let DominioCinco = (entero16+entero17).toFixed(2);
 if(DominioCinco < 1){
   colorDominioCinco  = <TableCell width="15px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio5Nulo= DominioCinco
@@ -1116,7 +1116,7 @@ let Dominio6Medio;
 let Dominio6Alto;
 let Dominio6MuyAlto;
 let colorDominioSeis;
-let DominioSeis = (entero23+entero24+entero25+entero28+entero29);
+let DominioSeis = (entero23+entero24+entero25+entero28+entero29).toFixed(2);
 if(DominioSeis < 3){
   colorDominioSeis  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio6Nulo= DominioSeis
@@ -1140,7 +1140,7 @@ let Dominio7Medio;
 let Dominio7Alto;
 let Dominio7MuyAlto;
 let colorDominioSiete;
-let DominioSiete = (entero30+entero31+entero32+entero44+entero45+entero46);
+let DominioSiete = (entero30+entero31+entero32+entero44+entero45+entero46).toFixed(2);
 
 if(DominioSiete < 5){
   colorDominioSiete  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
@@ -1165,7 +1165,7 @@ let Dominio8Medio;
 let Dominio8Alto;
 let Dominio8MuyAlto;
 let colorDominioOcho;
-let DominioOcho = (entero33+entero34+entero35+entero36+entero37+entero38+entero39+entero40);
+let DominioOcho = (entero33+entero34+entero35+entero36+entero37+entero38+entero39+entero40).toFixed(2);
 if(DominioOcho < 7){
   colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio8Nulo= DominioOcho
@@ -1399,7 +1399,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >1.- Condiciones peligrosas e inseguras</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {entero1}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {entero1.toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1407,7 +1407,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >2.- Condiciones deficientes e insalubres</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {entero2}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {entero2.toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1416,7 +1416,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >3.- Trabajos peligrosos</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {entero3}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {entero3.toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1424,7 +1424,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >4.- Cargas cuantitativas</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero4+entero9)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero4+entero9).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1432,7 +1432,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >5.- Ritmos de trabajo acelerado</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero5+entero6)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero5+entero6).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1440,7 +1440,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >6.- Carga mental</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero7+entero8)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero7+entero8).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1448,7 +1448,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >7.- Cargas psicológicas emocionales</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero41+entero42+entero43)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero41+entero42+entero43).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1456,7 +1456,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >8.- Cargas de alta responsabilidad</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero10+entero11)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero10+entero11).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1464,7 +1464,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >9.- Cargas contradictorias o inconsistentes</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero12+entero13)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero12+entero13).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1472,7 +1472,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >10.- Falta de control y autonomía sobre el trabajo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero20+entero21+entero22)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero20+entero21+entero22).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1480,7 +1480,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >11.- Limitada o nula posibilidad de desarrollo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero18+entero19)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero18+entero19).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1488,7 +1488,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >12.- Limitada o inexistente capacitación</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero26+entero27)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero26+entero27).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1496,7 +1496,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >13.- Jornadas de trabajo extensas</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero14+entero15)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero14+entero15).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1504,7 +1504,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >14.- Influencia del trabajo fuera del centro laboral</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero16)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero16).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1512,7 +1512,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >15.- Influencia de las responsabilidades familiares</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero17)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero17).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1520,7 +1520,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >16.- Escasa claridad de funciones</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero23+entero24+entero25)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero23+entero24+entero25).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1528,7 +1528,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >17.- Características del liderazgo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero28+entero29)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero28+entero29).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1536,7 +1536,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >18.- Relaciones sociales en el trabajo</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero30+entero31+entero32)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero30+entero31+entero32).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1544,7 +1544,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >19.- Deficiente relación con los colaboradores que supervisa</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero44+entero45+entero46)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero44+entero45+entero46).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1552,7 +1552,7 @@ ponderacion =  <React.Fragment>
             <TableCell component="th" scope="row" >20.- Violencia laboral</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {(entero33+entero34+entero35+entero36+entero37+entero38+entero39+entero40)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {(entero33+entero34+entero35+entero36+entero37+entero38+entero39+entero40).toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -1794,100 +1794,100 @@ ponderacion =  <React.Fragment>
                                         <tr>           
                                         <td width="5px"><font size="1" face="arial"color="black" >1</font></td>
                                         <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Condiciones peligrosas e inseguras</font></td>
-                                        <td width="15px"><font size="1" face="arial"color="black">{entero1}</font></td>
+                                        <td width="15px"><font size="1" face="arial"color="black">{entero1.toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >2</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Condiciones deficientes e insalubres</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero2}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{entero2.toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >3</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero3}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{entero3.toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >4</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{(entero4+entero9)}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero4+entero9).toFixed(2)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero5+entero6}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero5+entero6).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >6</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Carga mental</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero7+entero8}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero7+entero8).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >7</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas psicológicas emocionales</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero41+entero42+entero43}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero41+entero42+entero43).toFixed(2)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >8</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas de alta responsabilidad</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero10+entero11}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero10+entero11).toFixed(2)}</font></td>
                                         </tr>
 
 
                                         <tr>           
                                         <td width="5px"><font size="1" face="arial"color="black" >9</font></td>
                                         <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Cargas contradictorias o inconsistentes</font></td>
-                                        <td width="15px"><font size="1" face="arial"color="black">{entero12+entero13}</font></td>
+                                        <td width="15px"><font size="1" face="arial"color="black">{(entero12+entero13).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >10</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Falta de control y autonomía sobre el trabajo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero20+entero21+entero22}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero20+entero21+entero22).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >11</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitada o nula posibilidad de desarrollo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero23+entero24}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero23+entero24).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >12</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitada o inexistente capacitación</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{(entero26+entero27)}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero26+entero27).toFixed(2)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >13</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Jornadas de trabajo extensas</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero14+entero15}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero14+entero15).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >14</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Influencia del trabajo fuera del centro laboral</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero16}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{entero16.toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >15</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Influencia de las responsabilidades familiares</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{(entero17)}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero17).toFixed(2)}</font></td>
                                           </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >16</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Escasa claridad de funciones</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero23+entero24+entero25}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero23+entero24+entero25).toFixed(2)}</font></td>
                                         </tr>
 
                                         <tr>           
                                         <td width="5px"><font size="1" face="arial"color="black" >17</font></td>
                                         <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Características del liderazgo</font></td>
-                                        <td width="15px"><font size="1" face="arial"color="black">{entero28+entero29}</font></td>
+                                        <td width="15px"><font size="1" face="arial"color="black">{(entero28+entero29).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >18</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Relaciones sociales en el trabajo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero30+entero31+entero32}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero30+entero31+entero32).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >19</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Deficiente relación con los colaboradores que Supervisa</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{entero44+entero45+entero46}</font></td>
+                                          <td width="15px"><font size="1" face="arial"color="black">{(entero44+entero45+entero46).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >20</font></td>
