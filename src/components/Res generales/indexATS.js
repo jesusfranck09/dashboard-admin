@@ -657,13 +657,13 @@ pdfExportComponent ;
                                 <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
                                   <MDBTableBody>                                    
                                     <tr >   
-                                    <td width="5px"><font size="1" face="arial"color="black" ><strong>#</strong></font></td>                           
-                                    <td width="30px" ><font size="1" face="arial"color="black"><strong>Apellido Paterno</strong></font></td>
-                                    <td width="20px"><font size="1" face="arial"color="black"><strong>Apellido Materno</strong></font></td>
-                                    <td width="30px"><font size="1" face="arial"color="black" ><strong>Nombre</strong></font></td>
-                                    <td width="10px"><font size="1" face="arial"color="black"><strong>Centro de Trabajo</strong></font></td>                                                                     
+                                    <td width="5%"><font size="1" face="arial"color="black" ><strong>#</strong></font></td>                           
+                                    <td width="19%" ><font size="1" face="arial"color="black"><strong>Apellido Paterno</strong></font></td>
+                                    <td width="19%"><font size="1" face="arial"color="black"><strong>Apellido Materno</strong></font></td>
+                                    <td width="18%"><font size="1" face="arial"color="black" ><strong>Nombre</strong></font></td>
+                                    <td width="27%"><font size="1" face="arial"color="black"><strong>Centro de Trabajo</strong></font></td>                                                                     
 
-                                    <td width="10px"><font size="1" face="arial"color="black"><strong>Accion Requerida</strong></font></td>                                                                     
+                                    <td width="12%"><font size="1" face="arial"color="black"><strong>Accion Requerida</strong></font></td>                                                                     
 
                                   </tr>
                                   { this.state.peticion1.sort().map((rows,i) => {
@@ -671,18 +671,18 @@ pdfExportComponent ;
                                     if(rows[1]){
                               
                                       if(rows[1].Respuestas =='si'){
-                                      respuesta =  <TableCell  width="10px" style={{backgroundColor: "#FF0000"}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">SI</font></TableCell>
+                                      respuesta =  <TableCell  width="12%" style={{backgroundColor: "#FF0000"}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">SI</font></TableCell>
                                       }if(rows[1].Respuestas =='no'){
-                                        respuesta =  <TableCell  width="10px" style={{backgroundColor: "#9BE0F7 "}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">NO</font></TableCell>
+                                        respuesta =  <TableCell  width="12%" style={{backgroundColor: "#9BE0F7 "}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">NO</font></TableCell>
                                       }
                                   
                                       return (
                                         <TableRow >
-                                      <td width="5px"  className="text-center"><font size="1" face="arial"color="black" >{i + 1} </font></td>
-                                      <td width="20px" className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoP  }</font></td>
-                                      <td width="20px"  className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoM}</font></td>
-                                      <td width="25px"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].nombre} </font></td>
-                                      <td width="30px"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].CentroTrabajo} </font></td>
+                                      <td width="5%"  className="text-center"><font size="1" face="arial"color="black" >{i + 1} </font></td>
+                                      <td width="19%" className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoP  }</font></td>
+                                      <td width="19%"  className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoM}</font></td>
+                                      <td width="18%"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].nombre} </font></td>
+                                      <td width="27%"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].CentroTrabajo} </font></td>
 
                                       {respuesta}
                                         </TableRow>                                
