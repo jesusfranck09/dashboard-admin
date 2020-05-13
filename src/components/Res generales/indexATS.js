@@ -170,6 +170,8 @@ pdfExportComponent ;
     this.setState({showModal2:true}) 
   }
   getGlobalEmployees   = async () => {
+    let datasort;
+    let order;
     var id  =  localStorage.getItem("idAdmin")       
     // const url = 'http://localhost:8000/graphql'
     
@@ -194,7 +196,12 @@ pdfExportComponent ;
           `
       }
           }).then((datos) => {
-          this.setState({empleados:datos.data.data.getEmployeesResolvesATS})       
+            datasort = datos.data.data.getEmployeesResolvesATS
+            datasort.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
+            this.setState({empleados:datasort})  
+
+            console.log("datasort",datasort)
+        
           }).catch(err=>{
             console.log("error" ,err)
           })
@@ -246,6 +253,7 @@ pdfExportComponent ;
               TiempoPuesto 
               ExperienciaLaboral 
               RotacionTurnos 
+              CentroTrabajo
               fk_administrador 
               fk_correos 
                   }
@@ -256,7 +264,8 @@ pdfExportComponent ;
               totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
               // console.log("totalEMpleados" , totalEmpleados)
               this.setState({peticion1:totalEmpleados})
-              // console.log("estado",this.state.peticion1)
+     
+               
               this.setState({spinner:false}) 
               })
               .catch(err => {
@@ -334,7 +343,9 @@ pdfExportComponent ;
 
   render() {  
     let spinner;
-    
+    let nombre;
+    let arrayNombre= []
+   
     if(this.state.spinner== true){
       spinner = <div className="spinner-border text-info" role="status"><strong className="sr-only">Espere un momento por favor ...</strong>
         </div>
@@ -356,6 +367,7 @@ pdfExportComponent ;
     // console.log("accionNo" , accionNo)
     const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo"];
     const data = this.state.empleados.map(rows=>{
+    
       return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo])
     })
 
@@ -364,6 +376,7 @@ pdfExportComponent ;
     const options = {
         filterType: "dropdown",
         responsive: "stacked",
+        sort:true,
         textLabels: {
                    body: {
                      noMatch: "Lo Siento ,No se han encontrado Resultados :(",
@@ -648,23 +661,29 @@ pdfExportComponent ;
                                     <td width="30px" ><font size="1" face="arial"color="black"><strong>Apellido Paterno</strong></font></td>
                                     <td width="20px"><font size="1" face="arial"color="black"><strong>Apellido Materno</strong></font></td>
                                     <td width="30px"><font size="1" face="arial"color="black" ><strong>Nombre</strong></font></td>
+                                    <td width="10px"><font size="1" face="arial"color="black"><strong>Centro de Trabajo</strong></font></td>                                                                     
+
                                     <td width="10px"><font size="1" face="arial"color="black"><strong>Accion Requerida</strong></font></td>                                                                     
+
                                   </tr>
-                                  { this.state.peticion1.map((rows,i) => {
+                                  { this.state.peticion1.sort().map((rows,i) => {
+                                    console.log("rows",rows)
                                     if(rows[1]){
-                                    
+                              
                                       if(rows[1].Respuestas =='si'){
                                       respuesta =  <TableCell  width="10px" style={{backgroundColor: "#FF0000"}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">SI</font></TableCell>
                                       }if(rows[1].Respuestas =='no'){
                                         respuesta =  <TableCell  width="10px" style={{backgroundColor: "#9BE0F7 "}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">NO</font></TableCell>
                                       }
-                                      
+                                  
                                       return (
                                         <TableRow >
                                       <td width="5px"  className="text-center"><font size="1" face="arial"color="black" >{i + 1} </font></td>
-                                      <td width="30px" className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoP  }</font></td>
-                                    <td width="25px"  className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoM}</font></td>
-                                    <td width="30px"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].nombre} </font></td>
+                                      <td width="20px" className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoP  }</font></td>
+                                      <td width="20px"  className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoM}</font></td>
+                                      <td width="25px"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].nombre} </font></td>
+                                      <td width="30px"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].CentroTrabajo} </font></td>
+
                                       {respuesta}
                                         </TableRow>                                
                                       );
