@@ -1,5 +1,5 @@
 import React from 'react';
-import {MDBRow, MDBContainer,MDBBadge, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol, MDBCardHeader} from 'mdbreact';
+import {MDBRow, MDBContainer,MDBBadge, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol, MDBCardHeader, MDBBtn} from 'mdbreact';
 import Sidebar from './sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
@@ -27,6 +27,8 @@ import IconButton from "@material-ui/core/IconButton";
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import RemoveRedEyeOutlinedIcon from '@material-ui/icons/RemoveRedEyeOutlined';
 import { API} from '../utils/http'
+import ModalVideo from 'react-modal-video'
+import "./styles.scss";
 
 
 // import ProgressBar from '../ProgressBar/index'
@@ -73,6 +75,8 @@ class Home extends React.Component {
     this.handleclick = this.handleclick.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.ads = this.ads.bind(this);
+    this.openModal = this.openModal.bind(this)
+
   }
 
   componentWillMount(){
@@ -1165,6 +1169,9 @@ alerta3 =  (deadline) => {
   }, 1000)
 };
 
+openModal () {
+  this.setState({isOpen: true})
+}
 
   render() {
     let Alerta;
@@ -1526,6 +1533,7 @@ alerta3 =  (deadline) => {
     }
 
    }
+
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 1000, height: 500 }
     return (
@@ -1582,7 +1590,7 @@ alerta3 =  (deadline) => {
           
           </header>
         <MDBContainer style={container} >
-         
+       
         {/* {this.state.nombre.nombre} */}
         <MDBRow>
         <MDBCol>
@@ -1592,14 +1600,14 @@ alerta3 =  (deadline) => {
          <MDBCardHeader><strong>Realizada: {this.state.empleadosAts.length} </strong>  <IconButton onClick={this.toggle(16)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada: {this.state.empleadosAtsFalse.length}</strong><IconButton onClick={this.toggle(15)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                 
        </MDBCardBody>
       </MDBCard>
-
+      
       <MDBCard style={{ width: "25rem" ,marginTop:5}}>
           <MDBCardBody>        
           <strong>Empleados Evaluación RP</strong>
          <MDBCardHeader><strong>Realizada: {this.state.empleadosRP.length} </strong>  <IconButton onClick={this.toggle(14)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada: {this.state.empleadosRPFalse.length} </strong><IconButton onClick={this.toggle(13)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
        </MDBCardBody>
       </MDBCard>
-
+   
       <MDBCard style={{ width: "25rem" ,marginTop:5}}>
           <MDBCardBody>        
           <strong>Empleados Evaluación EEO</strong>
@@ -1620,19 +1628,22 @@ alerta3 =  (deadline) => {
           <strong>Empleados Totales : {this.state.empleados}</strong>
           <br/>
           <br/>
-          <strong>Empleados Restantes : {(this.state.empleados-this.state.max)}</strong>
-        
-         
+          <strong>Empleados Restantes : {(this.state.empleados-this.state.max)}</strong><br/>
+
+          <strong style={{ color: 'rgba(4, 180, 174,0.5) ' }}>¿Como usar Diagnóstico035?</strong>
+          <IconButton onClick={this.openModal} color="secondary"> <RemoveRedEyeOutlinedIcon /></IconButton>
          </MDBCardHeader>      
-         
         {expiro}
        </MDBCardBody>
       </MDBCard >
+      
       <MDBCard style={{ width: "22rem",marginLeft:100,marginTop:5}}>
           <MDBCardBody>        
          <MDBCardHeader><strong>Acciones a Realizar </strong> <IconButton onClick={this.toggle(10)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
        </MDBCardBody>
+       
       </MDBCard>
+    
       {pues}
       </MDBCol>
       </MDBRow>
@@ -1646,9 +1657,11 @@ alerta3 =  (deadline) => {
         {Alerta}
         {dep}
         {suc}
+
         </MDBContainer>
       </div>
-
+      <div><ModalVideo channel='vimeo' isOpen={this.state.isOpen} videoId='392556343' onClose={() => this.setState({isOpen: false})} /></div>
+     
       <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
                     <div className="row">
                         <div className="col-md-12" item xs={12}>
@@ -1698,6 +1711,7 @@ alerta3 =  (deadline) => {
                     </div>
 
                 </Modal>
+
       </React.Fragment>
     );
   }

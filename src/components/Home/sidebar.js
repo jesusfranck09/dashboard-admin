@@ -158,7 +158,7 @@ export default function MiniDrawer() {
 
         <Link to="/table" style={{ textDecoration: 'none' }}>
         <List >
-          {['Enviar Encuestas'].map((text) => (
+          {['Enviar Evaluaciones'].map((text) => (
             <ListItem button key={text} >
               <ListItemIcon> <MailOutlineIcon /> </ListItemIcon>
               <ListItemText primary={text} />
@@ -169,7 +169,7 @@ export default function MiniDrawer() {
 
         <Link to="/res" style={{ textDecoration: 'none' }}>
         <List >
-          {['Res. EncuestaATS'].map((text) => (
+          {['Res.EvaluacionesATS'].map((text) => (
             <ListItem button key={text} >
               <ListItemIcon> <BarChartIcon /> </ListItemIcon>
               <ListItemText primary={text} />
@@ -179,7 +179,7 @@ export default function MiniDrawer() {
         </Link>
         <Link to="/resultRP" style={{ textDecoration: 'none' }}>
         <List >
-          {['Res. EncuestaRP'].map((text) => (
+          {['Res.EvaluacionesRP'].map((text) => (
             <ListItem button key={text} >
               <ListItemIcon> <EventNoteIcon /> </ListItemIcon>
               <ListItemText primary={text} />
@@ -189,7 +189,7 @@ export default function MiniDrawer() {
         </Link>
         <Link to="/resultEEO" style={{ textDecoration: 'none' }}>
         <List >
-          {['Res. EncuestaEEO'].map((text) => (
+          {['Res.EvaluacionesEEO'].map((text) => (
             <ListItem button key={text} >
               <ListItemIcon> <MenuBookIcon /> </ListItemIcon>
               <ListItemText primary={text} />
@@ -199,7 +199,7 @@ export default function MiniDrawer() {
         </Link>
         <Link to="/indexAts" style={{ textDecoration: 'none' }}>
         <List >
-          {['Res. Globales ATS'].map((text) => (
+          {['Res. GlobalesATS'].map((text) => (
             <ListItem button key={text} >
               <ListItemIcon> <TextFormatIcon /> </ListItemIcon>
               <ListItemText primary={text} />
@@ -210,7 +210,7 @@ export default function MiniDrawer() {
 
         <Link to="/resultGral" style={{ textDecoration: 'none' }}>
         <List >
-          {['Res. Globales RP'].map((text) => (
+          {['Res. GlobalesRP'].map((text) => (
             <ListItem button key={text} >
               <ListItemIcon> <TrendingUpRoundedIcon /> </ListItemIcon>
               <ListItemText primary={text} />
@@ -220,7 +220,7 @@ export default function MiniDrawer() {
         </Link>
         <Link to="/resultGralEEO" style={{ textDecoration: 'none' }}>
         <List >
-          {['Res. Globales EEO'].map((text) => (
+          {['Res. GlobalesEEO'].map((text) => (
             <ListItem button key={text} >
               <ListItemIcon> <ExplicitOutlinedIcon /> </ListItemIcon>
               <ListItemText primary={text} />
