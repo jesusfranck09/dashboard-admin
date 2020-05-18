@@ -60,7 +60,7 @@ import {
 		  <MDBBtn color="secondary" onClick={handleToggle}>Cerrar</MDBBtn>
 		</Modal>
 	  </div>
-	<Alert style = {{marginTop:40,width:400}} color ="success">Nota : Puede ver los requisitos de su excel desde este enlace<br/>   <a href="https://drive.google.com/open?id=1NSWrZqQ9ZbgUxUgUAGsYnsVqfbcBGC8t" target="_blank">Carga de empleados Excel Ejemplo </a></Alert>
+	<Alert style = {{marginTop:40,width:400}} color ="success">Nota : Puede ver los requisitos de su excel desde este enlace<br/>   <a href="https://drive.google.com/open?id=1Ooo_zRxkaHNSjjetliZGTanceA7tRsK1" target="_blank">Carga de empleados Excel Ejemplo </a></Alert>
 	  </React.Fragment>	
 	);
   }
