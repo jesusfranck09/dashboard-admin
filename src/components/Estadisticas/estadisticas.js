@@ -429,8 +429,9 @@ class Estadisticas extends React.Component {
                 ant25años.push(resultAnt25Año)
 
                 /////////////////////////////////////////////////////////////////////////////
+                console.log("arrayEstudios" , arrayEstudios)
                 const resultSinEstudios= arrayEstudios.filter(function(valor){
-                  return valor == "SIN FORMACIÓN"
+                  return valor == "SIN FORMACION"
                 })
                 sinEstudios.push(resultSinEstudios)
 
@@ -476,13 +477,14 @@ class Estadisticas extends React.Component {
                 mujer.push(resultSexoM)
 
                 //////////////////////////////////////////////////////////////777777
+                console.log("arraytipopuesto" , arrayTipoPuesto)
                 const resultOperativo= arrayTipoPuesto.filter(function(valor){
                   return valor == "OPERATIVO"
                 })
                 operativo.push(resultOperativo)
 
                 const resultProfesionalTecnico= arrayTipoPuesto.filter(function(valor){
-                  return valor == "PROFESIONAL O TÉCNICO"
+                  return valor == "PROFESIONAL O TECNICO"
                 })
                 profesionalTecnico.push(resultProfesionalTecnico)
 
@@ -702,13 +704,14 @@ class Estadisticas extends React.Component {
                                         </tr>                               
                                        
                                         <tr >                              
+                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Sin estudios</font></td>
+                                          <td width="70px" className="text-center"><font size="1" face="arial"color="black">{sinEstudios[0].length}</font></td>                                                                              
+                                        </tr>
+                                        <tr >                              
                                           <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Primaria</font></td>
                                           <td width="70px" className="text-center"><font size="1" face="arial"color="black">{primaria[0].length}</font></td>                                                                              
                                         </tr>
-                                        <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Secundaria</font></td>
-                                          <td width="70px" className="text-center"><font size="1" face="arial"color="black">{secundaria[0].length}</font></td>                                                                              
-                                        </tr>
+                                      
                                         
                                        
                                       </MDBTableBody>
@@ -717,7 +720,10 @@ class Estadisticas extends React.Component {
                                       <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
                                       <MDBTableBody>
                                           
-                                        
+                                      <tr >                              
+                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Secundaria</font></td>
+                                          <td width="70px" className="text-center"><font size="1" face="arial"color="black">{secundaria[0].length}</font></td>                                                                              
+                                        </tr>
                                         <tr >                              
                                           <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Preparatoria O Bachillerato</font></td>
                                           <td width="70px" className="text-center"><font size="1" face="arial"color="black">{preparatoria[0].length}</font></td>                                                                              

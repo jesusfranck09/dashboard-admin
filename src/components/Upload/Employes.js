@@ -1039,6 +1039,9 @@ render(){
 								<MenuItem value="30 a 34">30 a 34</MenuItem>
 								<MenuItem value="35 a 39">35 a 39</MenuItem>
 								<MenuItem value="40 a 44">40 a 44</MenuItem>
+								<MenuItem value="45 a 49">45 a 49</MenuItem>
+								<MenuItem value="50 a 54">50 a 54</MenuItem>
+								<MenuItem value="55 a 59">55 a 59</MenuItem>
 								<MenuItem value="60 a 64">60 a 64</MenuItem>
 								<MenuItem value="65 a 69">65 a 69</MenuItem>
 								<MenuItem value="70 o más">70 o más</MenuItem>
@@ -1070,8 +1073,6 @@ render(){
 								label="Seleccione el Tipo de Puesto"
 								formControlProps={{ fullWidth: true }}
 								>
-								
-								<MenuItem value="Sin formación">Sin Información</MenuItem>
 								<MenuItem value="Operativo">Operativo</MenuItem>
 								<MenuItem value="Profesional o Técnico">Profesional o Técnico</MenuItem>
 								<MenuItem value="Supervisor">Supervisor</MenuItem>
@@ -1091,12 +1092,12 @@ render(){
 								formControlProps={{ fullWidth: true }}
 								>
 			
-								<MenuItem value="Sin formación">Sin formación</MenuItem>
+								<MenuItem value="Sin formacion">Sin formación</MenuItem>
 								<MenuItem value="Primaria">Primaria</MenuItem>
 								<MenuItem value="Secundaria">Secundaria</MenuItem>
 								<MenuItem value="Preparatoria o Bachillerato">Preparatoria o Bachillerato</MenuItem>
 								<MenuItem value="Licenciatura">Licenciatura</MenuItem>
-								<MenuItem value="Maestría">Maestría</MenuItem>
+								<MenuItem value="Maestria">Maestría</MenuItem>
 								<MenuItem value="Doctorado">Doctorado</MenuItem>
 			
 								</Field>
@@ -1246,7 +1247,7 @@ render(){
 										name="stooge"
 										component={Radio}
 										type="radio"
-										value="hombre"
+										value="Masculino"
 										/>
 									}
 									/>
@@ -1258,7 +1259,7 @@ render(){
 										name="stooge"
 										component={Radio}
 										type="radio"
-										value="mujer"
+										value="Femenino"
 										/>
 									}
 									/>
