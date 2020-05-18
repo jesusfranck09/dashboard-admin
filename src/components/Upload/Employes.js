@@ -1033,15 +1033,15 @@ render(){
 								label="Rango de Edad"
 								formControlProps={{ fullWidth: true }}
 								>
-								<MenuItem value="1950">15-19</MenuItem>
-								<MenuItem value="1951">20-24</MenuItem>
-								<MenuItem value="1999">25-29</MenuItem>
-								<MenuItem value="2000">30-34</MenuItem>
-								<MenuItem value="2001">35-39</MenuItem>
-								<MenuItem value="1999">40-44</MenuItem>
-								<MenuItem value="2000">60-64</MenuItem>
-								<MenuItem value="2001">65-69</MenuItem>
-								<MenuItem value="2001">70 o más</MenuItem>
+								<MenuItem value="15 a 19">15 a 19</MenuItem>
+								<MenuItem value="20 a 24">20 a 24</MenuItem>
+								<MenuItem value="25 a 29">25 a 29</MenuItem>
+								<MenuItem value="30 a 34">30 a 34</MenuItem>
+								<MenuItem value="35 a 39">35 a 39</MenuItem>
+								<MenuItem value="40 a 44">40 a 44</MenuItem>
+								<MenuItem value="60 a 64">60 a 64</MenuItem>
+								<MenuItem value="65 a 69">65 a 69</MenuItem>
+								<MenuItem value="70 o más">70 o más</MenuItem>
 								</Field>
 								</Grid>
 			
@@ -1071,12 +1071,12 @@ render(){
 								formControlProps={{ fullWidth: true }}
 								>
 								
-								<MenuItem value="sinInfo">Sin Información</MenuItem>
-								<MenuItem value="operativo">Operativo</MenuItem>
-								<MenuItem value="profesionalTecnico">Profesional o Técnico</MenuItem>
-								<MenuItem value="supervisor">Supervisor</MenuItem>
-								<MenuItem value="gerencial">Gerencial</MenuItem>
-								<MenuItem value="directivo">Directivo</MenuItem>
+								<MenuItem value="Sin formación">Sin Información</MenuItem>
+								<MenuItem value="Operativo">Operativo</MenuItem>
+								<MenuItem value="Profesional o Técnico">Profesional o Técnico</MenuItem>
+								<MenuItem value="Supervisor">Supervisor</MenuItem>
+								<MenuItem value="Gerencial">Gerencial</MenuItem>
+								<MenuItem value="Directivo">Directivo</MenuItem>
 
 								</Field>
 							</Grid>
@@ -1125,7 +1125,7 @@ render(){
 								formControlProps={{ fullWidth: true }}
 								>
 								<MenuItem value="Fijo nocturno (entre las 20:00 y 6:00 hrs)">Fijo nocturno (entre las 20:00 y 6:00 hrs)</MenuItem>
-								<MenuItem value="Fijo diurno (entre las 6:00 y 20:00 hrs">Fijo diurno (entre las 6:00 y 20:00 hrs</MenuItem>
+								<MenuItem value="Fijo diurno (entre las 6:00 y 20:00 hrs)">Fijo diurno (entre las 6:00 y 20:00 hrs</MenuItem>
 								<MenuItem value="Fijo mixto (combinación de nocturno y diurno)">Fijo mixto (combinación de nocturno y diurno)</MenuItem>
 				
 								
@@ -1143,7 +1143,7 @@ render(){
 								>
 			
 								<MenuItem value="Por obra o proyecto">Por obra o proyecto</MenuItem>
-								<MenuItem value="por tiempo">Por tiempo determinado (temporal)</MenuItem>
+								<MenuItem value="por tiempo determinado (temporal)">Por tiempo determinado (temporal)</MenuItem>
 								<MenuItem value="Tiempo indeterminado">Tiempo indeterminado</MenuItem>
 								<MenuItem value="Honorarios">Honorarios</MenuItem>
 								</Field>
