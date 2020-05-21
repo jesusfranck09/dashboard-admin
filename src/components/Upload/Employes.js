@@ -205,7 +205,8 @@ class SheetJSApp extends React.Component {
 						data: `${estado}`
 					}
 				}
-					}).then(function  ( datos) {
+					}).then( datos =>  {
+						
 						const valor1 = datos.data.data.registerEmployee.valor1
 						const valor2 = datos.data.data.registerEmployee.valor2
 						const valor3 = datos.data.data.registerEmployee.valor3
@@ -221,14 +222,14 @@ class SheetJSApp extends React.Component {
 							 array2.push(valor2)
 							 array3.push(valor3)
 							arrayMessage.push(message)
-							empleadoExitoso.push(nombre +" "+ apellidoP + " " +  apellidoM)
-							empleadoNoRegistrado.push(nombreExistente  +" "+   apellidoPExistente  +" "  +  apellidoMExistente)
-							
+							if( nombre != null && apellidoP != null && apellidoM != null ){
+								empleadoExitoso.push(nombre +" "+ apellidoP + " " +  apellidoM)
+							}
+							if(nombreExistente != null && apellidoPExistente != null && apellidoMExistente != null ){
+								empleadoNoRegistrado.push(nombreExistente  +" "+   apellidoPExistente  +" "  +  apellidoMExistente)
+							}
 							// console.log("la nombre ap am " , nombre,apellidoP,apellidoM)
 							// console.log("la nombre ape ame " , nombreExistente,apellidoMExistente,apellidoPExistente)
-
-						
-					
 					})
 					 .catch((error) => {
 					 console.log(".cartch" , error.response)
@@ -243,18 +244,23 @@ class SheetJSApp extends React.Component {
 				});
 				{ break; }
 				}
-				else if( this.state.data[i].length ==0 ) {
+		
+				};
+
+				 if( this.state.data[2]== undefined ||  this.state.data[2].length== 0) {
+					
 					this.setState({spinner:false})	
 					DialogUtility.alert({
 					animationSettings: { effect: 'Zoom' },           
 					title: "Su archivo no contiene datos",
 					position: "fixed"
 				});
-				{ break; }
+			
 				}
+				
+				console.log("this.state",this.state.data[2])
 
-		
-				};
+				
 				this.setState({sucursalNoExiste:array3})
 				this.setState({deptoNoExiste:array2})
 				this.setState({puestoNoExiste:array})
@@ -299,7 +305,7 @@ class SheetJSApp extends React.Component {
 			// var correoAdmin  = pl.email
 			var idAdmin = localStorage.getItem("idAdmin")
 			// var passAdmin = pl.password 
-
+			console.log("data filas" , data)
 			//aqui podemos visualizar la data
             this.setState({ data: data });
 		};
@@ -322,7 +328,7 @@ class SheetJSApp extends React.Component {
 		let spinner;
 
 
-		console.log("mensaje" , this.state.message)
+
 	
 		this.state.message.map(rows =>{
 			if(rows == 'correo existente'){
@@ -372,9 +378,9 @@ class SheetJSApp extends React.Component {
 			if(this.state.spinner== true){
 				spinner = <div className="spinner-border text-info" role="status"><strong className="sr-only">Espere un momento por favor ...</strong>
 					</div>
-		
-
 			}
+		
+			// console.log("empleadoRegistrado" , empleadoRegistrado)
 		return (
 			
 				<React.Fragment>
@@ -408,14 +414,17 @@ class SheetJSApp extends React.Component {
 							</TableRow>
 							</TableHead>
 							<TableBody>
-							{this.state.sucursal.map((row) => (
+							{this.state.sucursal.map((row) => {
+								return(
 								<TableRow >
 								<TableCell component="th" scope="row">
 									{row}
 								</TableCell>
 							
 								</TableRow>
-							))}
+								)
+								
+								})}
 							</TableBody>
 							<TableHead>
 							<TableRow>
@@ -423,14 +432,15 @@ class SheetJSApp extends React.Component {
 							</TableRow>
 							</TableHead>
 							<TableBody>
-							{this.state.depto.map((row) => (
-								<TableRow >
-								<TableCell component="th" scope="row">
-									{row}
-								</TableCell>
-							
-								</TableRow>
-							))}
+							{this.state.depto.map((row) => {
+								return(
+									<TableRow >
+									<TableCell component="th" scope="row">
+										{row}
+									</TableCell>
+									</TableRow>
+									)
+								})}
 							</TableBody>
 							<TableHead>
 							<TableRow>
@@ -438,14 +448,15 @@ class SheetJSApp extends React.Component {
 							</TableRow>
 							</TableHead>
 							<TableBody>
-							{this.state.puesto.map((row) => (
-								<TableRow >
-								<TableCell component="th" scope="row">
-									{row}
-								</TableCell>
-							
-								</TableRow>
-							))}
+							{this.state.puesto.map((row) => {
+								return(
+									<TableRow >
+									<TableCell component="th" scope="row">
+										{row}
+									</TableCell>
+									</TableRow>
+									)
+								})}
 							</TableBody>
 							<TableHead>
 							<TableRow>
@@ -453,14 +464,18 @@ class SheetJSApp extends React.Component {
 							</TableRow>
 							</TableHead>
 							<TableBody>
-							{this.state.empleadoNoRegistrado.map((row) => (
-								<TableRow >
-								<TableCell component="th" scope="row">
-									{row}
-								</TableCell>
-							
-								</TableRow>
-							))}
+							{this.state.empleadoNoRegistrado.map((row) => {
+								return(
+									<TableRow >
+									<TableCell component="th" scope="row">
+										{row}
+									</TableCell>
+								
+									</TableRow>
+									)
+									
+								
+								})}
 							</TableBody>
 							<TableHead>
 							<TableRow>
@@ -468,14 +483,16 @@ class SheetJSApp extends React.Component {
 							</TableRow>
 							</TableHead>
 							<TableBody>
-							{this.state.empleadoRegistrado.map((row) => (
-								<TableRow >
-								<TableCell component="th" scope="row">
-									{row}
-								</TableCell>
-							
-								</TableRow>
-							))}
+							{this.state.empleadoRegistrado.map((row) => {
+								return(
+									<TableRow >
+									<TableCell component="th" scope="row">
+										{row}
+									</TableCell>
+									</TableRow>
+									)
+								
+									})}
 							</TableBody>
 						</Table>
 						</TableContainer>		

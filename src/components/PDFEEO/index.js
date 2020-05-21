@@ -2285,9 +2285,10 @@ if(DominioDiez < 4){
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >19</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black"></font>Relaciones sociales en el trabajo</td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Relaciones sociales en el trabajo</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{(entero42+entero43+entero44+entero45+entero46).toFixed(2)}</font></td>
                                         </tr>
+
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >20</font></td>
                                           <td width="80px" className="text-left"><font size="1" face="arial"color="black">Deficiente relación con los colaboradores que Supervisa</font></td>
