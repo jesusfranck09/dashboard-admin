@@ -160,7 +160,7 @@ pdfExportComponent
                 } if(datos.data.data.resultSingleSurvey.length <= 0){
                   DialogUtility.alert({
                     animationSettings: { effect: 'Zoom' },           
-                    title: "Su colaborador aun no responde la Encuesta",
+                    title: "Su colaborador aun no responde la evaluación",
                     // title: 'Aviso!',
                     position: "fixed"
                     });
@@ -256,7 +256,7 @@ pdfExportComponent
     }
 
     if(this.state.resultados.length>0){ 
-      pdfView1 = <MDBContainer > <Alert className ="mt-4" color ="primary ">Resultados de la Aplicación de la encuesta ATS </Alert>
+      pdfView1 = <MDBContainer > <Alert className ="mt-4" color ="primary ">Resultados de la Aplicación de la evaluación ATS </Alert>
 
        
         <React.Fragment>

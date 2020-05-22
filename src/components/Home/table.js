@@ -318,7 +318,7 @@ class TableEmployees extends React.Component {
               if(localStorage.getItem("ATSContestado") =='true'){
                 DialogUtility.alert({
                   animationSettings: { effect: 'Zoom' },           
-                  title: "Su colaborador ya ha respondido la encuesta",
+                  title: "Su colaborador ya ha respondido la evaluación",
                   // title: 'Aviso!',
                   position: "fixed"
                   });
@@ -332,7 +332,7 @@ class TableEmployees extends React.Component {
                  
                 DialogUtility.alert({
                   animationSettings: { effect: 'Zoom' },           
-                  content: `Su encuesta fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,
+                  content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,
                   title: 'Aviso!',
                   position: "fixed"
                   });
@@ -398,7 +398,7 @@ class TableEmployees extends React.Component {
               if(localStorage.getItem("RPContestado") =='true'){
                 DialogUtility.alert({
                   animationSettings: { effect: 'Zoom' },           
-                  title: "Su colaborador ya ha respondido la encuesta",
+                  title: "Su colaborador ya ha respondido la evaluación",
                   // title: 'Aviso!',
                   position: "fixed"
                   });
@@ -412,7 +412,7 @@ class TableEmployees extends React.Component {
                  
                 DialogUtility.alert({
                   animationSettings: { effect: 'Zoom' },           
-                  content: `Su encuesta fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,      
+                  content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,      
                   title: 'Aviso!',
                   position: "fixed"
                   });
@@ -477,7 +477,7 @@ class TableEmployees extends React.Component {
           if(localStorage.getItem("EEOContestado") =='true'){
             DialogUtility.alert({
               animationSettings: { effect: 'Zoom' },           
-              title: "Su colaborador ya ha respondido la encuesta",
+              title: "Su colaborador ya ha respondido la evaluación",
               // title: 'Aviso!',
               position: "fixed"
               });
@@ -492,7 +492,7 @@ class TableEmployees extends React.Component {
              
             DialogUtility.alert({
               animationSettings: { effect: 'Zoom' },           
-              content: `Su encuesta fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,      
+              content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,      
               title: 'Aviso!',
               position: "fixed"
               });
@@ -550,7 +550,7 @@ class TableEmployees extends React.Component {
       return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo])
     })
 
-    const columnss = ["Encuesta","Fecha", "Nombre",  "Apellido P.","Apellido M.","Curp"];
+    const columnss = ["Evaluación","Fecha", "Nombre",  "Apellido P.","Apellido M.","Curp"];
 
     const datas = this.state.correos.map(rows=>{
       return([rows.Encuesta,rows.fecha,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Curp])
@@ -772,7 +772,7 @@ class TableEmployees extends React.Component {
                         full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
                     </MDBNavbarBrand>
                     <MDBNavbarBrand>
-                      Enviar Encuestas a mis colaoradores
+                      Enviar evaluaciones a mis colaoradores
                     </MDBNavbarBrand>
                     <MDBNavbarToggler onClick={this.onClick} />
                     <MDBCollapse isOpen={this.state.collapse} navbar>
@@ -832,11 +832,11 @@ class TableEmployees extends React.Component {
          <Grow in={true}>
             <div >
             <Alert style={{marginTop:'55', width:'1075px'}}  color="secondary" isOpen={this.state.datos.length}>
-            <tr><td width="5%" ></td><td width="9%" ></td>Si desea puede enviar su encuesta a los colaboradores </tr>
+            <tr><td width="5%" ></td><td width="9%" ></td>Si desea puede enviar su evaluación a los colaboradores </tr>
             </Alert>  
            
               <MUIDataTable
-                title={`Empleados  totales de ${localStorage.getItem("razonsocial")}`}
+                title={`Empleados  totales de ${localStorage.getItem("razonsocial")} evaluación ATS`}
                 data={data}
                 columns={columns}
                 options={options}
@@ -845,7 +845,7 @@ class TableEmployees extends React.Component {
               <MDBCol  sm="4"></MDBCol>  
              </MDBRow>
              <Button  startIcon={<CheckOutlinedIcon />}  outline color="secondary" onClick={(e)=>this.sendMailATS(datosEmpleados,1)}>
-                  Enviar encuesta ATS
+                  Enviar evaluación ATS
                </Button>
              
             </div> 
@@ -854,7 +854,7 @@ class TableEmployees extends React.Component {
             <div >
 
               <MUIDataTable
-                title={`Empleados  totales de ${localStorage.getItem("razonsocial")}   Encuesta  RP`}
+                title={`Empleados  totales de ${localStorage.getItem("razonsocial")}   evaluación RP`}
                 data={dataRP}
                 columns={columns}
                 options={optionsRP}
@@ -864,7 +864,7 @@ class TableEmployees extends React.Component {
              </MDBRow>
            
                <Button  startIcon={<ThumbUpOutlinedIcon />} outline color="default" onClick={(e)=>this.sendMailRP(datosEmpleadosRP,2)}>
-                  Enviar encuesta RP
+                  Enviar evaluación RP
                </Button>
               
             </div> 
@@ -872,7 +872,7 @@ class TableEmployees extends React.Component {
           <Grow in={true}>
             <div >
               <MUIDataTable
-                title={`Empleados  totales de ${localStorage.getItem("razonsocial")}`}
+                title={`Empleados  totales de ${localStorage.getItem("razonsocial")} evaluación EEO`}
                 data={dataEEO}
                 columns={columns}
                 options={optionsEEO}
@@ -882,7 +882,7 @@ class TableEmployees extends React.Component {
              </MDBRow>
            
                <Button style={{marginBottom:60}}  startIcon={<CheckCircleOutlineOutlinedIcon />} outline color="primary" onClick={(e)=>this.sendMailEEO(datosEmpleadosEEO,3)}>
-                  Enviar encuesta EEO
+                  Enviar evaluación EEO
                </Button>
             </div> 
           </Grow>

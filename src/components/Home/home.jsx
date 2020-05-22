@@ -739,7 +739,7 @@ alerta1 =  (deadline) => {
             }).then((datos) => {
              ATS=datos.data.data.getEmployeesResolvesSurveyATSFalse
              const correo  = localStorage.getItem("correo")
-             const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta ATS por favor realice la actividad lo mas pronto posible "
+             const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación ATS por favor realice la actividad lo mas pronto posible "
              ATS.map(rows=>{
                 axios({
                  url:  API,
@@ -779,7 +779,7 @@ alerta1 =  (deadline) => {
           `
       }
           }).then((datos) => {
-          const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta RP por favor realice la actividad lo mas pronto posible "
+          const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación RP por favor realice la actividad lo mas pronto posible "
           RP=datos.data.data.getEmployeesResolvesSurveyRPFalse
           const correo  = localStorage.getItem("correo")
           RP.map(rows=>{
@@ -819,7 +819,7 @@ alerta1 =  (deadline) => {
             `
         }
             }).then((datos) => {
-            const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta EEO por favor realice la actividad lo mas pronto posible "
+            const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación EEO por favor realice la actividad lo mas pronto posible "
              EEO=datos.data.data.getEmployeesResolvesSurveyEEOFalse
              const correo  = localStorage.getItem("correo")
              EEO.map(rows=>{
@@ -901,7 +901,7 @@ alerta2 =  (deadline) => {
             }).then((datos) => {
              ATS=datos.data.data.getEmployeesResolvesSurveyATSFalse
              const correo  = localStorage.getItem("correo")
-             const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta ATS por favor realice la actividad lo mas pronto posible"
+             const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación ATS por favor realice la actividad lo mas pronto posible"
              ATS.map(rows=>{
                 axios({
                  url:  API,
@@ -941,7 +941,7 @@ alerta2 =  (deadline) => {
           `
       }
           }).then((datos) => {
-          const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta RP por favor realice la actividad lo mas pronto posible "
+          const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación RP por favor realice la actividad lo mas pronto posible "
           RP=datos.data.data.getEmployeesResolvesSurveyRPFalse
           const correo  = localStorage.getItem("correo")
           RP.map(rows=>{
@@ -981,7 +981,7 @@ alerta2 =  (deadline) => {
             `
         }
             }).then((datos) => {
-            const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su encuesta EEO por favor realice la actividad lo mas pronto posible "
+            const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación EEO por favor realice la actividad lo mas pronto posible "
              EEO=datos.data.data.getEmployeesResolvesSurveyEEOFalse
              const correo  = localStorage.getItem("correo")
              EEO.map(rows=>{
@@ -1062,7 +1062,7 @@ alerta3 =  (deadline) => {
             }).then((datos) => {
              ATS=datos.data.data.getEmployeesResolvesSurveyATSFalse
              const correo  = localStorage.getItem("correo")
-             const mensaje = "Estimado Colaborador el periodo de evaluación se cerrara pronto por favor responda su encuesta ATS lo antes posible"
+             const mensaje = "Estimado Colaborador el periodo de evaluación se cerrara pronto por favor responda su evaluación ATS lo antes posible"
              ATS.map(rows=>{
                 axios({
                  url:  API,
@@ -1102,7 +1102,7 @@ alerta3 =  (deadline) => {
           `
       }
           }).then((datos) => {
-            const mensaje = "Estimado Colaborador el periodo de evaluación se cerrara pronto por favor responda su encuesta RP lo antes posible"
+            const mensaje = "Estimado Colaborador el periodo de evaluación se cerrara pronto por favor responda su evaluación RP lo antes posible"
             RP=datos.data.data.getEmployeesResolvesSurveyRPFalse
           const correo  = localStorage.getItem("correo")
           RP.map(rows=>{
@@ -1142,7 +1142,7 @@ alerta3 =  (deadline) => {
             `
         }
             }).then((datos) => {
-              const mensaje = "Estimado Colaborador el periodo de evaluación se cerrara pronto por favor responda su encuesta EEO lo antes posible"
+              const mensaje = "Estimado Colaborador el periodo de evaluación se cerrara pronto por favor responda su evaluación EEO lo antes posible"
               EEO=datos.data.data.getEmployeesResolvesSurveyEEOFalse
              const correo  = localStorage.getItem("correo")
              EEO.map(rows=>{
@@ -1552,13 +1552,13 @@ openModal () {
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav left>
                   <MDBNavItem >
-                  <a href="http://ats.diagnostico035.com/">Encuesta ATS &nbsp;&nbsp;   </a>
+                  <a href="http://ats.diagnostico035.com/">evaluación ATS &nbsp;&nbsp;   </a>
                   </MDBNavItem>
                   <MDBNavItem >
-                  <a href="http://rp.diagnostico035.com/"> Encuesta RP &nbsp;&nbsp; </a>
+                  <a href="http://rp.diagnostico035.com/"> evaluación RP &nbsp;&nbsp; </a>
                   </MDBNavItem>
                   <MDBNavItem >
-                  <a href="http://eeo.diagnostico035.com/"> Encuesta EEO   </a>
+                  <a href="http://eeo.diagnostico035.com/"> evaluación EEO   </a>
                   </MDBNavItem>
                   
                 </MDBNavbarNav>

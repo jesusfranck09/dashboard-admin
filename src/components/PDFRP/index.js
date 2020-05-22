@@ -169,7 +169,7 @@ class App extends Component {
                 } if(datos.data.data.resultSingleSurveyRP.length <= 0){
                   DialogUtility.alert({
                     animationSettings: { effect: 'Zoom' },           
-                    title: "Su colaborador aun no responde la Encuesta",
+                    title: "Su colaborador aun no responde la evaluación",
                     // title: 'Aviso!',
                     position: "fixed"
                     });
@@ -231,7 +231,7 @@ class App extends Component {
           } if(datos.data.data.resultSingleSurveyRP.length <= 0){
             DialogUtility.alert({
               animationSettings: { effect: 'Zoom' },           
-              title: "Su colaborador aun no responde la Encuesta",
+              title: "Su colaborador aun no responde la evaluación",
               // title: 'Aviso!',
               position: "fixed"
               });
@@ -359,7 +359,7 @@ class App extends Component {
     let pdfView2;
     if(this.state.resultados[2]){ 
       console.log("este es lo que contiene el estado ")
-      pdfView1 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la Aplicación de la encuesta RP </Alert>
+      pdfView1 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la aplicación de la evaluación RP </Alert>
     
         <React.Fragment>
 

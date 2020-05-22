@@ -165,7 +165,7 @@ ads(){
                   full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
               </MDBNavbarBrand>
               <MDBNavbarBrand>
-                Resultados de la Encuesta ATS
+                Resultados de la evaluación ATS
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>

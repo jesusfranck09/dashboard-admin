@@ -2214,7 +2214,7 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                             
                                    <tr>
-                                   <td width="40%"><font size="1" face="arial"color="black">RESULTADO DEL NÚMERO DE ENCUESTAS :  </font></td>
+                                   <td width="40%"><font size="1" face="arial"color="black">RESULTADO DEL NÚMERO DE EVALUACIONES :  </font></td>
                                    <td width="20%"><font size="1" face="arial"color="black">{general}</font></td>
                                    <td width="20%"><font size="1" face="arial"color="black">Nivel de riesgo </font></td>
                                     {celda}
@@ -2502,7 +2502,7 @@ ponderacion=<React.Fragment>
                   full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
               </MDBNavbarBrand>
               <MDBNavbarBrand>
-                Resultados Globales de la Encuesta RP
+                Resultados globales de la evaluación RP
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>

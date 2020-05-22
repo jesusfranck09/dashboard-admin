@@ -2380,7 +2380,7 @@ ponderacion=<React.Fragment>
  <br/>
 
 <MDBContainer >
-<font face="arial" className = "mt-4" ><strong> ENCUESTA EEO. </strong><br/><strong>FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></strong></font><br/>
+<font face="arial" className = "mt-4" ><strong> Evaluacioón EEO. </strong><br/><strong>FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></strong></font><br/>
 <font face="arial " className = "mt-4 " ><strong>{localStorage.getItem("razonsocial")}</strong> </font>
 
 <Table   responsive small borderless className="text-left mt-4 ">
@@ -2867,7 +2867,7 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                             
                                    <tr>
-                                   <td width="40%"><font size="1" face="arial"color="black">RESULTADO DEL NÚMERO DE ENCUESTAS :  </font></td>
+                                   <td width="40%"><font size="1" face="arial"color="black">RESULTADO DEL NÚMERO DE EVALUACIONES :  </font></td>
                                    <td width="20%"><font size="1" face="arial"color="black">{general}</font></td>
                                    <td width="20%"><font size="1" face="arial"color="black">Nivel de riesgo </font></td>
                                     {celda}
