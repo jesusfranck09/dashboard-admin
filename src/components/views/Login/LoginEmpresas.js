@@ -77,6 +77,8 @@ localStorage.removeItem("empleadoActivo")
 localStorage.removeItem("DepartamentoActivo")
 localStorage.removeItem("SucursalActiva")
 localStorage.removeItem("PuestoActivo")
+localStorage.removeItem("urlLogo")
+
 }      
 handleInput = (e) => {
     const {id, value} = e.target

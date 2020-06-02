@@ -29,8 +29,8 @@ import RemoveRedEyeOutlinedIcon from '@material-ui/icons/RemoveRedEyeOutlined';
 import { API} from '../utils/http'
 import ModalVideo from 'react-modal-video'
 import "./styles.scss";
-
-
+import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined';
+import Upload from '../uploadImage/upload'
 // import ProgressBar from '../ProgressBar/index'
 import { MDBModal, MDBModalBody, MDBModalHeader, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 
@@ -56,6 +56,7 @@ class Home extends React.Component {
       modal10:false,
       modal11:false,
       modal12:false,
+      modal20:false,
       totalEmpleados:[],
       empleadosRP:[],
       empleadosRPFalse:[],
@@ -69,7 +70,8 @@ class Home extends React.Component {
       licencia:'',
       array:[],
       empleados:'',
-      max:''
+      max:'',
+      urlLogo:''
     };
     this.onClick = this.onClick.bind(this);
     this.handleclick = this.handleclick.bind(this);
@@ -129,6 +131,33 @@ class Home extends React.Component {
     this.countEmployees();
     this.verifyTables();
     this.sendMAilAlert1Survey();
+    this.getUrlLogo();
+  }
+  
+  getUrlLogo(){
+    let idAdmin = localStorage.getItem("idAdmin")
+     axios({
+      url:  API,
+      method:'post',
+      data:{
+      query:`
+       query{
+        getLogo(data:"${[idAdmin]}"){
+          url
+              }
+            }
+          `
+      }
+          }).then((datos) => {
+            console.log("datos urlLogo" , datos)
+            if(datos.data.data.getLogo.url){
+              localStorage.setItem("urlLogo",datos.data.data.getLogo.url)
+            }
+            this.setState({urlLogo:datos.data.data.getLogo.url})
+          }).catch(err=>{
+            console.log("datos error url " , err)
+          })
+
   }
    
   onClick() {
@@ -229,6 +258,7 @@ localStorage.removeItem("empleadoActivo")
 localStorage.removeItem("DepartamentoActivo")
 localStorage.removeItem("SucursalActiva")
 localStorage.removeItem("PuestoActivo")
+localStorage.removeItem("urlLogo")
 
 this.props.history.push("/")
 DialogUtility.alert({
@@ -1183,7 +1213,7 @@ openModal () {
     let AlertaDepartamento = localStorage.getItem("DepartamentoActivo")
    let empleadoAc=localStorage.getItem("empleadoActivo")
     if(empleadoAc=="false"){
-     Alerta =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 usuario Registrado </Alert>
+     Alerta =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Empleado Registrado </Alert>
     }if(AlertaDepartamento=="false"){
       dep =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Departamento Registrado</Alert>
     }if(alertaSucursal=="false"){
@@ -1534,6 +1564,29 @@ openModal () {
 
    }
 
+   let cargarLogo;
+   if(this.state.modal20){
+
+    cargarLogo  =  <MDBContainer >
+      <MDBModal isOpen={this.state.modal20} toggle={this.toggle(20)}  tabindex="-1"  size="md">
+        <MDBModalHeader toggle={this.toggle(20)}>
+          Cargar Logo
+        </MDBModalHeader>
+        <MDBModalBody>
+        <Upload/>
+        </MDBModalBody>   
+      </MDBModal>
+    </MDBContainer>
+
+   }
+
+   let logo;
+   if(!this.state.urlLogo){
+   logo = <div>
+    <strong style={{ color: '#FF5733  ' }}>Adjuntar logo de mi empresa</strong>
+    <IconButton onClick={this.toggle(20)} color="#FF5733"> <PublishOutlinedIcon /></IconButton>
+   </div>
+   }
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 1000, height: 500 }
     return (
@@ -1622,14 +1675,13 @@ openModal () {
           <MDBCardTitle>Información General:</MDBCardTitle>
          <MDBCardHeader>
           
-    <strong>Licencia de {this.state.empleados} Usuarios</strong>
+          <strong>Licencia de {this.state.empleados} Usuarios</strong>
           <br/>
           <br/>
           <strong>Empleados Totales : {this.state.empleados}</strong>
           <br/>
           <br/>
           <strong>Empleados Restantes : {(this.state.empleados-this.state.max)}</strong><br/>
-
           <strong style={{ color: 'rgba(4, 180, 174,0.5) ' }}>¿Como usar Diagnóstico035?</strong>
           <IconButton onClick={this.openModal} color="secondary"> <RemoveRedEyeOutlinedIcon /></IconButton>
          </MDBCardHeader>      
@@ -1637,9 +1689,12 @@ openModal () {
        </MDBCardBody>
       </MDBCard >
       
-      <MDBCard style={{ width: "22rem",marginLeft:100,marginTop:5}}>
-          <MDBCardBody>        
-         <MDBCardHeader><strong>Acciones a Realizar </strong> <IconButton onClick={this.toggle(10)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
+          <MDBCard style={{ width: "22rem",marginLeft:100,marginTop:5}}>
+          <MDBCardBody>  
+          <MDBCardTitle>Acciones a realizar</MDBCardTitle>      
+         <MDBCardHeader><strong>Detección de ATS</strong> <IconButton onClick={this.toggle(10)}> <RemoveRedEyeOutlinedIcon /></IconButton>               
+          {logo}
+         </MDBCardHeader>   
        </MDBCardBody>
        
       </MDBCard>
@@ -1657,7 +1712,8 @@ openModal () {
         {Alerta}
         {dep}
         {suc}
-
+        {pues}
+        {cargarLogo}
         </MDBContainer>
       </div>
       <div><ModalVideo channel='vimeo' isOpen={this.state.isOpen} videoId='392556343' onClose={() => this.setState({isOpen: false})} /></div>

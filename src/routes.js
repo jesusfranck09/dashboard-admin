@@ -27,6 +27,7 @@ import IndexATS from './components/Res generales/indexATS';
 import Res from './components/resultsCuestions/resultados';
 import Estadisticas from './components/Estadisticas/estadisticas';
 import ResGral from './components/Res generales/index';
+import Upload from './components/uploadImage/upload';
 
 class Routes extends Component{
   
@@ -43,7 +44,7 @@ class Routes extends Component{
               <main>
               <Route exact path='/' component={Login}/>
                   {/* <Route exact path='/verify/:id' component={Verify}/> */}
-                  {/* <PrivateRoute exact path='/result' component={Result}/> */}
+                  <PrivateRoute exact path='/upload' component={Upload}/>
                   <PrivateRoute exact path='/indexAts' component={IndexATS}/>
                   <PrivateRoute exact path='/inicio' component={Home}/>
                   {/* <PrivateRoute exact path='/company' component={Company}/> */}

@@ -382,7 +382,7 @@ class App extends Component {
           <MDBTable small borderless className="mt-4 text-center">
             <MDBTableBody>
               <tr>
-                <td width ="50%"> <img src={logotipo} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                <td width ="50%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
                 <td width ="50%">
                 <img src={diagnostico} alt="logo" style = {{width:100,marginBottom:30}}/>
 
@@ -1527,6 +1527,18 @@ if(DominioDiez < 4){
                         Descargar Resultados
                     </MDBBtn>
            </div>
+           <MDBTable small borderless className="mt-4 text-center">
+                <MDBTableBody>
+                  <tr>
+                    <td width ="50%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                    <td width ="50%">
+                    <img src={diagnostico} alt="logo" style = {{width:100,marginBottom:30}}/>
+
+                    </td>
+                  </tr>
+
+                </MDBTableBody>        
+                </MDBTable>
            <br/>
      
                     <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>

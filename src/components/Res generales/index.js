@@ -1799,8 +1799,9 @@ ponderacion=<React.Fragment>
  
 <MDBContainer >
 <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>&nbsp;&nbsp;
-
-<font face="arial " className = "mt-4 " ><strong>{localStorage.getItem("razonsocial")}</strong> </font>
+<br/>
+<font face="arial " className = "mt-4 " ><strong>{localStorage.getItem("razonsocial")}</strong> </font><br/>
+<img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20,marginTop:20}}/> 
 
 <Table   responsive small borderless className="text-left mt-4 ">
 <TableHead>

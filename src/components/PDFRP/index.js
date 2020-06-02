@@ -354,7 +354,7 @@ class App extends Component {
           }     };
 
     
-    const container = { marginLeft:60}
+    const container = { marginLeft:65}
     let pdfView1;
     let pdfView2;
     if(this.state.resultados[2]){ 
@@ -377,23 +377,25 @@ class App extends Component {
                     margin="2cm"
                     ref={(component) => this.pdfExportComponent = component}
                 >
-                          
-          <MDBTable small borderless className="mt-4 text-center" >
-            <MDBTableBody>
-              <tr>
-                <td width ="50%"> <img src={logotipo} alt="logo" style = {{width:100,marginBottom:20}}/></td>
-                <td width ="50%">
-                <img src={diagnostico} alt="logo" style = {{width:100,marginBottom:30}}/>
 
-                </td>
-              </tr>
-           
-            </MDBTableBody>        
-            </MDBTable>
-          <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font>
-          <font face="arial " className = "mt-4 " > {localStorage.getItem("razonsocial")}</font>
+                <MDBTable small borderless className="mt-4 text-center">
+                <MDBTableBody>
+                  <tr>
+                    <td width ="50%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                    <td width ="50%">
+                    <img src={diagnostico} alt="logo" style = {{width:100,marginBottom:30}}/>
+
+                    </td>
+                  </tr>
+
+                </MDBTableBody>        
+                </MDBTable>
+          
+              <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font>
+              <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
+
                 <MDBContainer style={container}>
-                <MDBTable responsive small borderless className="text-left mt-4 ">
+                <MDBTable responsive small borderless className="text-left mt-4">
        
                 <MDBTableBody>                  
                   <tr>
@@ -1192,11 +1194,24 @@ ponderacion =  <React.Fragment>
                     </MDBBtn>
            </div>
            <br/>
+           <MDBTable small borderless className="mt-4 text-center">
+                <MDBTableBody>
+                  <tr>
+                    <td width ="50%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                    <td width ="50%">
+                    <img src={diagnostico} alt="logo" style = {{width:100,marginBottom:30}}/>
+
+                    </td>
+                  </tr>
+
+                </MDBTableBody>        
+                </MDBTable>
 
           <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>
           <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
              
                 <MDBContainer style={container}>
+                  
                 <MDBTable responsive small borderless className="text-left mt-4 ">
        
                 <MDBTableBody>                  

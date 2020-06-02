@@ -15,6 +15,7 @@ import { PDFExport } from '@progress/kendo-react-pdf';
 import logo from '../images/logo.png'
 import logotipo from '../images/logotipo.png'
 import { API} from '../utils/http'
+import diagnostico from '../images/diagnostico.png'
 
 import {Alert} from 'reactstrap'
 class App extends Component {
@@ -266,10 +267,22 @@ pdfExportComponent
                         Descargar Resultados 
                     </MDBBtn>
            </div>
-           <br/>
-        
-          <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font><br/><br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
+      
+           <MDBTable small borderless className="mt-4 text-center">
+            <MDBTableBody>
+              <tr>
+                <td width ="50%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                <td width ="50%">
+                <img src={diagnostico} alt="logo" style = {{width:100,marginBottom:10}}/>
 
+                </td>
+              </tr>
+
+            </MDBTableBody>        
+            </MDBTable>
+        
+          <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font><br/><strong>{localStorage.getItem("razonsocial")}</strong>
+          <br/>
                 <MDBContainer style={container}>
                   
                 <MDBTable component={Paper}  small borderless className="text-left mt-4 ">
@@ -425,7 +438,7 @@ pdfExportComponent
                   </MDBTable> 
                 {ATS}
                 </MDBContainer>
-          <div>
+              <div>
                 <div className="example-config">    
                 </div>
                 <div style={{ position: "absolute", left: "-1000px", top: 0 }}>
@@ -442,7 +455,7 @@ pdfExportComponent
                             <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
                             </MDBCol>  
                             <MDBCol>
-                            {/* <img src={logotipo} alt="logo" style = {{width:100,marginBottom:30}}/> */}
+                            <img src={localStorage.getItem("urlLogo")}  style = {{width:100,marginBottom:30}}/>
                             </MDBCol>
                             </MDBRow> 
                             <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
