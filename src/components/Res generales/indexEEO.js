@@ -1964,7 +1964,7 @@ export default class App extends React.Component {
   +respuesta61+respuesta62+respuesta63+respuesta64+respuesta65+respuesta66+respuesta67+respuesta68+respuesta69+respuesta70+respuesta71+respuesta72)          
  
   let length =this.state.peticion1.length-1;
-  let general =total/length;
+  let general =total/length.toFixed(2);
 
 let celda;
 let criterios;

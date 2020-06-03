@@ -1455,7 +1455,7 @@ pdfExportComponent ;
                 +respuesta21+respuesta22+respuesta23+respuesta24+respuesta25+respuesta26+respuesta27+respuesta28+respuesta29+respuesta30+respuesta31+respuesta32+respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40
                 +respuesta41+respuesta42+respuesta43+respuesta44+respuesta45+respuesta46);
                 let length =this.state.peticion1.length-1;
-                let general =total/length;
+                let general =total/length.toFixed(2);
 let celda;
 let criterios;
 
