@@ -1688,7 +1688,6 @@ openModal () {
         {expiro}
        </MDBCardBody>
       </MDBCard >
-      
           <MDBCard style={{ width: "22rem",marginLeft:100,marginTop:5}}>
           <MDBCardBody>  
           <MDBCardTitle>Acciones a realizar</MDBCardTitle>      
@@ -1696,9 +1695,7 @@ openModal () {
           {logo}
          </MDBCardHeader>   
        </MDBCardBody>
-       
       </MDBCard>
-    
       {pues}
       </MDBCol>
       </MDBRow>

@@ -29,6 +29,8 @@ import Estadisticas from './components/Estadisticas/estadisticas';
 import ResGral from './components/Res generales/index';
 import Upload from './components/uploadImage/upload';
 
+import Prueba from './components/carpetaPruebas/PDFIG'
+
 class Routes extends Component{
   
   render(){
@@ -63,6 +65,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/resultGralEEO' component={IndexEEO}/>
                   <PrivateRoute exact path='/resultGral' component={ResGral}/>
                   <PrivateRoute exact path='/estadisticas' component={Estadisticas}/>
+                  <PrivateRoute exact path='/prueba' component={Prueba}/>
 
 
                   {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}

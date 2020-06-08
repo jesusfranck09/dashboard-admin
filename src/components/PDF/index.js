@@ -177,7 +177,6 @@ pdfExportComponent
     const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Curp","Sexo","RFC","Respuestas"];
     const data = this.state.datos.map(rows=>{
       let boton =  <div><MDBBtn color ="danger" onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></div> 
-      console.log("rows", rows)
       return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Curp,rows.Sexo,rows.RFC,boton])
     })
     let datosEmpleados;
