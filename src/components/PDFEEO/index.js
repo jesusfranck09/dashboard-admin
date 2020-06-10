@@ -936,7 +936,7 @@ class App extends Component {
       </MDBContainer>
     } 
  ///////////////////////////////////////////////////////////////////////////////////7
- let ponderacion 
+ let ponderacionIndividual 
 
 
 // console.log("esta es la validacion",this.state.getPonderacion,this.state.resultadosEvaluacion.length,this.state.resultadosQuery.length>0)
@@ -1521,7 +1521,7 @@ if(DominioDiez < 4){
   Dominio10MuyAlto= DominioDiez
 }
  
-    ponderacion =  <React.Fragment>
+ponderacionIndividual =  <React.Fragment>
              <div>
                     <MDBBtn  color="primary" className="k-button" onClick={() => { this.pdfExportComponent.save();}}>
                         Descargar Resultados
@@ -2380,7 +2380,7 @@ if(DominioDiez < 4){
           <MDBContainer  style = {{marginTop:"5%"}}>
          <MDBRow>
            <MDBCol>
-           {ponderacion}
+           {ponderacionIndividual}
            </MDBCol>
            </MDBRow> 
        

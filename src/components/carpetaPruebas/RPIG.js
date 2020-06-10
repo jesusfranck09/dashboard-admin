@@ -1629,7 +1629,7 @@ pdfExportComponent ;
 
               total =(respuesta1+respuesta2+respuesta3+respuesta4+respuesta5+respuesta6+respuesta7+respuesta8+respuesta9+respuesta10+respuesta11+respuesta12+respuesta13+respuesta14+respuesta15+respuesta16+respuesta17+respuesta18+respuesta19+respuesta20
                 +respuesta21+respuesta22+respuesta23+respuesta24+respuesta25+respuesta26+respuesta27+respuesta28+respuesta29+respuesta30+respuesta31+respuesta32+respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40
-                +respuesta41+respuesta42+respuesta43+respuesta44+respuesta45+respuesta46);
+                +respuesta41+respuesta42+respuesta43+respuesta44+respuesta45+respuesta46).toFixed(2)
                 let length =this.state.peticion1.length-1;
                 let general =total/length.toFixed(2);
 let celda;
@@ -1984,7 +1984,7 @@ ponderacion=<React.Fragment>
 <TableRow>
   <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>Resultados Generales</TableCell>
     {celda}
-  <TableCell width="6%"  > <strong>   TOTAL {general}  Puntos </strong></TableCell>
+  <TableCell width="6%"  > <strong>   TOTAL {general.toFixed(2)}  Puntos </strong></TableCell>
   <TableCell width="2%" ></TableCell>
   <TableCell width="1%"  ></TableCell>
  {criterios}
