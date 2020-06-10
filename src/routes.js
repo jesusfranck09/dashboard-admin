@@ -67,8 +67,8 @@ class Routes extends Component{
                   <PrivateRoute exact path='/resultGralEEO' component={IndexEEO}/>
                   <PrivateRoute exact path='/resultGral' component={ResGral}/>
                   <PrivateRoute exact path='/estadisticas' component={Estadisticas}/>
-                  <PrivateRoute exact path='/prueba' component={Prueba}/>
-                  <PrivateRoute exact path='/pruebaRP' component={PruebaRP}/>
+                  <PrivateRoute exact path='/atsDemoIG' component={Prueba}/>
+                  <PrivateRoute exact path='/rpDemoIG' component={PruebaRP}/>
 
 
                   {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}

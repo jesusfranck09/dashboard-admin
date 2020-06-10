@@ -4257,7 +4257,7 @@ ponderacionIndividual =  <React.Fragment>
     let botonCerrar;
     let botonResultadosGlobales;
     if(!this.state.botonDisabled){
-        botonCerrar=<MDBBtn color="danger" onClick={(e)=>{window.location.reload()}} >Cerrar resultados globales</MDBBtn>
+        botonCerrar=<MDBBtn color="danger" onClick={(e)=>{window.location.reload()}} >Cerrar resultados</MDBBtn>
     }
     if(this.state.botonDisabled){
         botonResultadosGlobales=<MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Ver Resultados Globales</MDBBtn>
