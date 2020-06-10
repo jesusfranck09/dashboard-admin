@@ -101,27 +101,26 @@ class App extends Component {
             }).then((datos) => {
             
               this.setState({ datos: datos.data.data.getUsersTableEmployeesthisPeriodo});
-             console.log("this.state.resultados" , this.state.resultados)
             }).catch(err=>{
               console.log("el error " , err.response)
             })     
-    }).catch(err=>{
-      console.log("err", err.response)
-    })
-    var LaFecha=new Date();
-        var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
-        var diasemana=LaFecha.getDay();
-        var FechaCompleta="";
-        var NumeroDeMes="";    
-        NumeroDeMes=LaFecha.getMonth();
-        FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
-        this.setState({fecha:FechaCompleta})
-  }
+          }).catch(err=>{
+            console.log("err", err.response)
+          })
+          var LaFecha=new Date();
+              var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+              var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
+              var diasemana=LaFecha.getDay();
+              var FechaCompleta="";
+              var NumeroDeMes="";    
+              NumeroDeMes=LaFecha.getMonth();
+              FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
+              this.setState({fecha:FechaCompleta})
+        }
 
-  click(id){ 
-    const periodo  = localStorage.getItem("periodo")        
-
+          click(id){ 
+          const periodo  = localStorage.getItem("periodo")        
+ 
           // const url = 'http://localhost:8000/graphql'
           axios({
             url:  API,
@@ -161,7 +160,6 @@ class App extends Component {
             }
                 }).then(datos => {   
                 
-                console.log("los resultados son " , datos.data.data.resultSingleSurveyRP)
                 if(datos.data.data.resultSingleSurveyRP.length > 0 ){
                   this.setState({resultados:''})
                   this.setState({resultados :datos.data.data.resultSingleSurveyRP })                
@@ -180,15 +178,15 @@ class App extends Component {
                 });  
         }
         
-  getEvaluacion(id){
-    const periodo  = localStorage.getItem("periodo")        
+    getEvaluacion(id){
+      const periodo  = localStorage.getItem("periodo")        
 
-    // const url = 'http://localhost:8000/graphql'
-    axios({
-      url:  API,
-      method:'post',
-      data:{
-      query:`
+      // const url = 'http://localhost:8000/graphql'
+      axios({
+        url:  API,
+        method:'post',
+        data:{
+        query:`
         query{
         resultSingleSurveyRP(data:"${[id,periodo]}"){
           id 
@@ -227,7 +225,6 @@ class App extends Component {
             this.setState({resultadosEvaluacion :datos.data.data.resultSingleSurveyRP })                
             this.setState({resultados:[]}) 
           
-        console.log("el estado en resultadosEvaluacion" , this.state.resultadosEvaluacion)
           } if(datos.data.data.resultSingleSurveyRP.length <= 0){
             DialogUtility.alert({
               animationSettings: { effect: 'Zoom' },           
@@ -288,28 +285,28 @@ class App extends Component {
                   });  
           }
     
-  render(){
+          render(){
 
-    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Curp","RFC","Respuestas","Resultados"];
-    const data = this.state.datos.map(rows=>{
-      let botonRespuestas = <div><MDBBtn color="danger"  onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></div>
-      let botonResultados =  <div><Button  color="secondary" onClick={(e) => this.getEvaluacion(rows.id)}>Resultados</Button></div> 
-      console.log("rows", rows)
-      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Curp,rows.RFC,botonRespuestas,botonResultados])
-    })
-    let datosEmpleados;
-    let filtro;
-  
-    const options = {
-        filterType: "dropdown",
-        responsive: "stacked",
-        filter: false,
-        download:false,
-        print:false,
-        viewColumns:false,
-        selectableRowsHeader:false,
-        selectableRows:false,
-        textLabels: {
+            const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Curp","RFC","Respuestas","Resultados"];
+            const data = this.state.datos.map(rows=>{
+              let botonRespuestas = <div><MDBBtn color="danger"  onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></div>
+              let botonResultados =  <div><Button  color="secondary" onClick={(e) => this.getEvaluacion(rows.id)}>Resultados</Button></div> 
+              console.log("rows", rows)
+              return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Curp,rows.RFC,botonRespuestas,botonResultados])
+            })
+            let datosEmpleados;
+            let filtro;
+          
+            const options = {
+                filterType: "dropdown",
+                responsive: "stacked",
+                filter: false,
+                download:false,
+                print:false,
+                viewColumns:false,
+                selectableRowsHeader:false,
+                selectableRows:false,
+                textLabels: {
                    body: {
                      noMatch: "Lo Siento ,No se han encontrado Resultados :(",
                      toolTip: "Sort",
@@ -356,7 +353,7 @@ class App extends Component {
     
     const container = { marginLeft:65}
     let pdfView1;
-    let pdfView2;
+
     if(this.state.resultados[2]){ 
       console.log("este es lo que contiene el estado ")
       pdfView1 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la aplicación de la evaluación RP </Alert>
@@ -1952,7 +1949,6 @@ ponderacion =  <React.Fragment>
               />
       </Paper>
         {pdfView1}
-        {pdfView2}
 
         <MDBContainer  style = {{marginTop:"5%"}}>
          <MDBRow>

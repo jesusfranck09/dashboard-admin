@@ -43,6 +43,7 @@ pdfExportComponent ;
       getPonderacion:[],
       datosGlobales:[],
       botonDescargar:'1',
+      botonDescargarIndividual:'1',
       peticion1:[],
       filtro1:'',
       filtro2:'',
@@ -213,7 +214,7 @@ pdfExportComponent ;
      }
 
    consultarDatosFiltrados = async (datos,filtro) =>{
-    this.setState({botonDescargar:''})
+    this.setState({botonDescargarIndividual:''})
      this.setState({spinner:true})
       let array=[];
       let periodo;
@@ -433,7 +434,7 @@ pdfExportComponent ;
     // console.log("accionNo" , accionNo)
     const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo","Respuestas"];
     const data = this.state.empleados.map(rows=>{
-        let boton =  <div><MDBBtn  disabled={!this.state.botonDescargar} color ="danger" onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></div> 
+        let boton =  <div><MDBBtn  disabled={!this.state.botonDescargarIndividual} color ="danger" onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></div> 
       return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo,boton])
     })
 
@@ -581,8 +582,8 @@ pdfExportComponent ;
                             <tr>
                             <td width="10px">1</td>
                             <td >¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los
-                                siguientes: Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
-                                grave? Asaltos? Actos violentos que derivaron en lesiones graves? Secuestro? Amenazas?, o Cualquier otro
+                                siguientes:<br/> Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
+                                grave? Asaltos? <br/>Actos violentos que derivaron en lesiones graves? <br/>Secuestro? Amenazas?, o Cualquier otro
                                 que ponga en riesgo su vida o salud, y/o la de otras personas?</td>
                             <td width="60px">{this.state.resultados[1].Respuestas}</td>
                             
@@ -1130,7 +1131,8 @@ pdfExportComponent ;
                               <MDBTableBody>
                               <font size="1"
                               face="arial"
-                              color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA I -
+                              color="black" 
+                              style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA I -
                               CUESTIONARIO PARA IDENTIFICAR LOS ACONTECIMIENTOS TRAUMÁTICOS SEVEROS EN LOS CENTROS DE TRABAJO</font>   <br/>  
                                 </MDBTableBody>
                                 </MDBTable>

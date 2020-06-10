@@ -30,6 +30,8 @@ import ResGral from './components/Res generales/index';
 import Upload from './components/uploadImage/upload';
 
 import Prueba from './components/carpetaPruebas/PDFIG'
+import PruebaRP from './components/carpetaPruebas/RPIG'
+
 
 class Routes extends Component{
   
@@ -66,6 +68,7 @@ class Routes extends Component{
                   <PrivateRoute exact path='/resultGral' component={ResGral}/>
                   <PrivateRoute exact path='/estadisticas' component={Estadisticas}/>
                   <PrivateRoute exact path='/prueba' component={Prueba}/>
+                  <PrivateRoute exact path='/pruebaRP' component={PruebaRP}/>
 
 
                   {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}
