@@ -4125,14 +4125,14 @@ ponderacion=<React.Fragment>
         criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</TableCell>
         color =<TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
         celda1 = <TableCell style={{backgroundColor: "#9BE0F7"}} align="right">{total}</TableCell>
-        }else if(total>=50 && total < 75){
+        }else if(total>=50 && total <= 75){
           criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align=" justify">Es necesario una mayor difusión de la política de prevención de riesgos
           psicosociales y programas para: la prevención de los factores de riesgo
           psicosocial, la promoción de un entorno organizacional favorable y la
           prevención de la violencia laboral.</font></TableCell>
           color= <TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black" >Bajo</font></TableCell>
           celda2 = <TableCell style={{backgroundColor: "#6BF56E"}} align="right">{total}</TableCell>
-        }else if(total>=75 && total < 99){
+        }else if(total>=75 && total <= 99){
           criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align=" justify">Se requiere revisar la política de prevención de riesgos psicosociales y
             programas para la prevención de los factores de riesgo psicosocial, la
             promoción de un entorno organizacional favorable y la prevención de la
@@ -4140,7 +4140,7 @@ ponderacion=<React.Fragment>
             Programa de intervención.</font></TableCell>
           color=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
           celda3 = <TableCell style={{backgroundColor: "#FFFF00"}} align="right">{total}</TableCell>
-        }else if(total>=99 && total < 140){
+        }else if(total>=99 && total <= 140){
           criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align=" justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
           se puedan determinar las acciones de intervención apropiadas a través de un
           Programa de intervención, que podrá incluir una evaluación específica y
@@ -5021,6 +5021,9 @@ ponderacion=<React.Fragment>
                                 </MDBTableBody>
                                 </MDBTable>
     
+                                  <br></br>
+                                  <br></br>
+                                  <br></br>
                                   <br></br>
                                   <br></br>
                                   <br></br>

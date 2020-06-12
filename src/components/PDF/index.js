@@ -16,7 +16,6 @@ import logo from '../images/logo.png'
 import logotipo from '../images/logotipo.png'
 import { API} from '../utils/http'
 import diagnostico from '../images/diagnostico.png'
-
 import {Alert} from 'reactstrap'
 class App extends Component {
 pdfExportComponent
@@ -101,6 +100,7 @@ pdfExportComponent
       console.log("err", err.response)
     }) 
 
+    
 
     var LaFecha=new Date();
     var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
@@ -111,8 +111,20 @@ pdfExportComponent
     NumeroDeMes=LaFecha.getMonth();
     FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
     this.setState({fecha:FechaCompleta})
+    this.download()
   }
 
+  download = () => {
+    var down = localStorage.getItem("urlLogo")
+    var element = document.createElement("a");
+    var file = new Blob(
+      ['https://firebasestorage.googleapis.com/v0/b/react-image-upload-6c21b.appspot.com/o/images%2FLogo%20Divanti.png?alt=media'],
+      { type: "image/*" }
+    );
+    element.href = URL.createObjectURL(file);
+    element.download = "image.jpg";
+    element.click();
+  };
     click(id){  
       console.log("id",id)         
             const periodo  = localStorage.getItem("periodo")        

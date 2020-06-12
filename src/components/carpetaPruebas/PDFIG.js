@@ -44,7 +44,9 @@ pdfExportComponent ;
       datosGlobales:[],
       botonDescargar:'1',
       botonDescargarIndividual:'1',
+      botonDescargaMasivo:'1',
       peticion1:[],
+      reporteImasivo:[],
       filtro1:'',
       filtro2:'',
       filtro3:'',
@@ -146,59 +148,59 @@ pdfExportComponent ;
       this.getGlobalEmployees()
     
     }
-    onClick() {
-      this.setState({
-        collapse: !this.state.collapse,
-      });
-    }
-  
-  handleclick(){
-  this.props.history.push("/profile")
-  }
-   
-  handleLogOut(){
-  localStorage.removeItem("elToken")
-  localStorage.removeItem("nombre")
-  localStorage.removeItem("apellidos")
-  localStorage.removeItem("rfc")
-  localStorage.removeItem("razonsocial")
-  localStorage.removeItem("usuario")
-  localStorage.removeItem("correo")
-  localStorage.removeItem("max")
-  this.props.history.push("/")
-  DialogUtility.alert({
-    animationSettings: { effect: 'Fade' },           
-    title: 'Hasta luego...!',
-    position: "fixed",})}
-  ads(){
-    this.setState({showModal2:true}) 
-  }
-  getGlobalEmployees   = async () => {
-    let datasort;
-    let order;
-    var id  =  localStorage.getItem("idAdmin")       
-    // const url = 'http://localhost:8000/graphql'
-    
-   await  axios({
-      url:  API,
-      method:'post',
-      data:{ 
-      query:`
-      query{
-        getEmployeesResolvesATS(data:"${[id]}"){
-          id
-          nombre
-          ApellidoP
-          ApellidoM
-          Sexo
-          AreaTrabajo
-          Puesto
-          CentroTrabajo
-          periodo
-            }
-          }
-          `
+      onClick() {
+        this.setState({
+          collapse: !this.state.collapse,
+        });
       }
+  
+      handleclick(){
+      this.props.history.push("/profile")
+      }
+   
+      handleLogOut(){
+      localStorage.removeItem("elToken")
+      localStorage.removeItem("nombre")
+      localStorage.removeItem("apellidos")
+      localStorage.removeItem("rfc")
+      localStorage.removeItem("razonsocial")
+      localStorage.removeItem("usuario")
+      localStorage.removeItem("correo")
+      localStorage.removeItem("max")
+      this.props.history.push("/")
+      DialogUtility.alert({
+        animationSettings: { effect: 'Fade' },           
+        title: 'Hasta luego...!',
+        position: "fixed",})}
+      ads(){
+        this.setState({showModal2:true}) 
+      }
+       getGlobalEmployees   = async () => {
+        let datasort;
+        let order;
+        var id  =  localStorage.getItem("idAdmin")       
+        // const url = 'http://localhost:8000/graphql'
+    
+        await  axios({
+          url:  API,
+          method:'post',
+          data:{ 
+          query:`
+          query{
+            getEmployeesResolvesATS(data:"${[id]}"){
+              id
+              nombre
+              ApellidoP
+              ApellidoM
+              Sexo
+              AreaTrabajo
+              Puesto
+              CentroTrabajo
+              periodo
+                }
+              }
+              `
+          }
           }).then((datos) => {
             datasort = datos.data.data.getEmployeesResolvesATS
             datasort.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
@@ -213,17 +215,18 @@ pdfExportComponent ;
          
      }
 
-   consultarDatosFiltrados = async (datos,filtro) =>{
-    this.setState({botonDescargarIndividual:''})
-     this.setState({spinner:true})
-      let array=[];
-      let periodo;
-      let totalEmpleados=[];
-      datos.map(rows=>{
-        periodo= rows.data[6]
-        array.push(rows.data[0])
-      })
-      for(var i=0; i<=array.length;i++){   
+      consultarDatosFiltrados = async (datos,filtro) =>{
+        this.setState({botonDescargaMasivo:''})
+        this.setState({botonDescargarIndividual:''})
+        this.setState({spinner:true})
+        let array=[];
+        let periodo;
+        let totalEmpleados=[];
+        datos.map(rows=>{
+          periodo= rows.data[6]
+          array.push(rows.data[0])
+        })
+        for(var i=0; i<=array.length;i++){   
         // console.log("array en la posicion  de i " , array[i])    
         // const url = 'http://localhost:8000/graphql'
 
@@ -276,135 +279,269 @@ pdfExportComponent ;
               .catch(err => {
               });  
            }
-       
-      if(filtro!= undefined){
-      if(filtro[0].length>0){
-        this.setState({nombre1:filtro[0][0]})
-        this.setState({filtro1:"ID"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre1:''})
-        this.setState({filtro1:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[1].length>0){
-        this.setState({nombre2:filtro[1][0]})
-        this.setState({filtro2:"NOMBRE"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre2:''})
-        this.setState({filtro2:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[2].length>0){
-        this.setState({nombre3:filtro[2][0]})
-        this.setState({filtro3:"SEXO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre3:''})
-        this.setState({filtro3:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[3].length>0){
-        this.setState({nombre4:filtro[3][0]})
-        this.setState({filtro4:"ÁREA DE TRABAJO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre4:''})
-        this.setState({filtro4:""})
-        this.setState({filtro6:""})
-      }if(filtro[4].length>0){
-        this.setState({nombre5:filtro[4][0]})
-        this.setState({filtro5:"PUESTO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre5:''})
-        this.setState({filtro5:""})
-        this.setState({filtro6:""})
-      }if(filtro[5].length>0){
-        this.setState({nombre6:filtro[5][0]})
-        this.setState({filtro7:"CENTRO DE TRABAJO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre6:''})
-        this.setState({filtro7:""})
-        this.setState({filtro6:""})
-      }if(filtro[6].length>0){
-        this.setState({nombre7:filtro[6][0]})
-        this.setState({filtro8:"PERIODO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre7:''})
-        this.setState({filtro8:""})
-        this.setState({filtro6:""})
-      }
-    }else{
-      this.setState({filtro6:"SIN FILTRO"})
-    }
-     
-      this.setState({datosLength:datos.length})
-      // console.log("datos enviados",datos[0].data[6])
-        }
+          
+            if(filtro!= undefined){
+            if(filtro[0].length>0){
+              this.setState({nombre1:filtro[0][0]})
+              this.setState({filtro1:"ID"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre1:''})
+              this.setState({filtro1:""})
+              this.setState({filtro6:""})
+            }
+            if(filtro[1].length>0){
+              this.setState({nombre2:filtro[1][0]})
+              this.setState({filtro2:"NOMBRE"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre2:''})
+              this.setState({filtro2:""})
+              this.setState({filtro6:""})
+            }
+            if(filtro[2].length>0){
+              this.setState({nombre3:filtro[2][0]})
+              this.setState({filtro3:"SEXO"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre3:''})
+              this.setState({filtro3:""})
+              this.setState({filtro6:""})
+            }
+            if(filtro[3].length>0){
+              this.setState({nombre4:filtro[3][0]})
+              this.setState({filtro4:"ÁREA DE TRABAJO"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre4:''})
+              this.setState({filtro4:""})
+              this.setState({filtro6:""})
+            }if(filtro[4].length>0){
+              this.setState({nombre5:filtro[4][0]})
+              this.setState({filtro5:"PUESTO"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre5:''})
+              this.setState({filtro5:""})
+              this.setState({filtro6:""})
+            }if(filtro[5].length>0){
+              this.setState({nombre6:filtro[5][0]})
+              this.setState({filtro7:"CENTRO DE TRABAJO"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre6:''})
+              this.setState({filtro7:""})
+              this.setState({filtro6:""})
+            }if(filtro[6].length>0){
+              this.setState({nombre7:filtro[6][0]})
+              this.setState({filtro8:"PERIODO"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre7:''})
+              this.setState({filtro8:""})
+              this.setState({filtro6:""})
+            }
+          }else{
+            this.setState({filtro6:"SIN FILTRO"})
+          }
+          
+          this.setState({datosLength:datos.length})
+        // console.log("datos enviados",datos[0].data[6])
+          }
+
+
+          reporteImasivo = async (datos,filtro) =>{
+        this.setState({botonDescargarIndividual:''})
+        this.setState({botonDescargar:''})   
+         this.setState({spinner:true})
+          let array=[];
+          let periodo;
+          let totalEmpleados=[];
+          datos.map(rows=>{
+            periodo= rows.data[6]
+            array.push(rows.data[0])
+          })
+          for(var i=0; i<=array.length;i++){   
+            // console.log("array en la posicion  de i " , array[i])    
+        // const url = 'http://localhost:8000/graphql'
+
+            await  axios({
+              url:  API,
+              method:'post',
+              data:{
+              query:`
+                query{
+                  getresultGlobalSurveyATS(data:"${[array[i],periodo]}"){
+                  id 
+                  Respuestas 
+                  fk_preguntasATS
+                  fk_Empleados 
+                  ponderacion
+                  nombre 
+                  ApellidoP 
+                  ApellidoM 
+                  Curp 
+                  RFC 
+                  FechaNacimiento 
+                  Sexo 
+                  EstadoCivil 
+                  correo 
+                  AreaTrabajo 
+                  Puesto 
+                  TipoPuesto 
+                  NivelEstudios 
+                  TipoPersonal 
+                  JornadaTrabajo 
+                  TipoContratacion 
+                  TiempoPuesto 
+                  ExperienciaLaboral 
+                  RotacionTurnos 
+                  CentroTrabajo
+                  fk_administrador 
+                  fk_correos 
+                      }
+                    }
+                  `
+              }
+              }).then(datos => {    
+              totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
+              // console.log("totalEMpleados" , totalEmpleados)
+              this.setState({reporteImasivo:totalEmpleados})
+              console.log("reporteImasivo" ,this.state.reporteImasivo )
+               
+              this.setState({spinner:false}) 
+              })
+              .catch(err => {
+              });  
+           }
+          
+            if(filtro!= undefined){
+            if(filtro[0].length>0){
+              this.setState({nombre1:filtro[0][0]})
+              this.setState({filtro1:"ID"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre1:''})
+              this.setState({filtro1:""})
+              this.setState({filtro6:""})
+            }
+            if(filtro[1].length>0){
+              this.setState({nombre2:filtro[1][0]})
+              this.setState({filtro2:"NOMBRE"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre2:''})
+              this.setState({filtro2:""})
+              this.setState({filtro6:""})
+            }
+            if(filtro[2].length>0){
+              this.setState({nombre3:filtro[2][0]})
+              this.setState({filtro3:"SEXO"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre3:''})
+              this.setState({filtro3:""})
+              this.setState({filtro6:""})
+            }
+            if(filtro[3].length>0){
+              this.setState({nombre4:filtro[3][0]})
+              this.setState({filtro4:"ÁREA DE TRABAJO"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre4:''})
+              this.setState({filtro4:""})
+              this.setState({filtro6:""})
+            }if(filtro[4].length>0){
+              this.setState({nombre5:filtro[4][0]})
+              this.setState({filtro5:"PUESTO"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre5:''})
+              this.setState({filtro5:""})
+              this.setState({filtro6:""})
+            }if(filtro[5].length>0){
+              this.setState({nombre6:filtro[5][0]})
+              this.setState({filtro7:"CENTRO DE TRABAJO"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre6:''})
+              this.setState({filtro7:""})
+              this.setState({filtro6:""})
+            }if(filtro[6].length>0){
+              this.setState({nombre7:filtro[6][0]})
+              this.setState({filtro8:"PERIODO"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre7:''})
+              this.setState({filtro8:""})
+              this.setState({filtro6:""})
+            }
+          }else{
+            this.setState({filtro6:"SIN FILTRO"})
+          }
+          
+         this.setState({datosLength:datos.length})
+        // console.log("datos enviados",datos[0].data[6])
+          }     
 
         click(id){  
-            this.setState({botonDescargar:''})
-            console.log("id",id)         
-                  const periodo  = localStorage.getItem("periodo")        
-                  // const url = 'http://localhost:8000/graphql'
-                  axios({
-                    url:  API,
-                    method:'post',
-                    data:{
-                    query:`
-                      query{
-                      resultSingleSurvey(data:"${[id,periodo]}"){
-                        id 
-                        Respuestas 
-                        fk_preguntasATS 
-                        fk_Empleados 
-                        nombre 
-                        ApellidoP 
-                        ApellidoM 
-                        Curp 
-                        RFC 
-                        FechaNacimiento 
-                        Sexo 
-                        EstadoCivil 
-                        correo 
-                        AreaTrabajo 
-                        Puesto 
-                        TipoPuesto 
-                        NivelEstudios 
-                        TipoPersonal 
-                        JornadaTrabajo 
-                        TipoContratacion 
-                        TiempoPuesto 
-                        ExperienciaLaboral 
-                        RotacionTurnos 
-                        fk_administrador 
-                        fk_correos 
-                            }
-                          }
-                        `
+          this.setState({botonDescargaMasivo:''})
+          this.setState({botonDescargar:''})        
+          const periodo  = localStorage.getItem("periodo")        
+          // const url = 'http://localhost:8000/graphql'
+          axios({
+            url:  API,
+            method:'post',
+            data:{
+            query:`
+              query{
+              resultSingleSurvey(data:"${[id,periodo]}"){
+                id 
+                Respuestas 
+                fk_preguntasATS 
+                fk_Empleados 
+                nombre 
+                ApellidoP 
+                ApellidoM 
+                Curp 
+                RFC 
+                FechaNacimiento 
+                Sexo 
+                EstadoCivil 
+                correo 
+                AreaTrabajo 
+                Puesto 
+                TipoPuesto 
+                NivelEstudios 
+                TipoPersonal 
+                JornadaTrabajo 
+                TipoContratacion 
+                TiempoPuesto 
+                ExperienciaLaboral 
+                RotacionTurnos 
+                fk_administrador 
+                fk_correos 
                     }
-                        }).then(datos => {   
-                          console.log("los datos son " ,  datos)
-                        if(datos.data.data.resultSingleSurvey.length > 0 ){
-                        this.setState({resultados:'' })  
-                        this.setState({resultados :datos.data.data.resultSingleSurvey })                
-                      } if(datos.data.data.resultSingleSurvey.length <= 0){
-                        DialogUtility.alert({
-                          animationSettings: { effect: 'Zoom' },           
-                          title: "Su colaborador aun no responde la evaluación",
-                          // title: 'Aviso!',
-                          position: "fixed"
-                          });
-                      }
-                      })
-                        .catch(err => {
-                          console.log("el error es  ",err.response)
-                        });  
-                }
+                  }
+                `
+            }
+                }).then(datos => {   
+                if(datos.data.data.resultSingleSurvey.length > 0 ){
+                this.setState({resultados:'' })  
+                this.setState({resultados :datos.data.data.resultSingleSurvey })                
+              } if(datos.data.data.resultSingleSurvey.length <= 0){
+                DialogUtility.alert({
+                  animationSettings: { effect: 'Zoom' },           
+                  title: "Su colaborador aun no responde la evaluación",
+                  // title: 'Aviso!',
+                  position: "fixed"
+                  });
+              }
+              })
+                .catch(err => {
+                  console.log("el error es  ",err.response)
+                });  
+              }
 
 
 
@@ -432,7 +569,7 @@ pdfExportComponent ;
       }
     })   
     // console.log("accionNo" , accionNo)
-    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo","Respuestas"];
+    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo",{name: "Respuestas",label: "Respuestas",options:{filter: false,sort: true,}}];
     const data = this.state.empleados.map(rows=>{
         let boton =  <div><MDBBtn  disabled={!this.state.botonDescargarIndividual} color ="danger" onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></div> 
       return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo,boton])
@@ -520,10 +657,10 @@ pdfExportComponent ;
                     <MDBTableBody>
                         
                     <tr>
-                        <td width ="50%">  <MDBBtn  color="primary" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                        <td width ="35%">  <MDBBtn  color="primary" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
                                  Resultados de {this.state.resultados[0].nombre } {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} 
                             </MDBBtn></td>
-                        <td width ="50%">
+                        <td width ="55%">
                         <MDBBtn color="danger" onClick={ (e)=> window.location.reload()}>Cerrar</MDBBtn>
                         </td>
                     </tr>
@@ -534,8 +671,8 @@ pdfExportComponent ;
                     <MDBTableBody>
                         
                     <tr>
-                        <td width ="50%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
-                        <td width ="50%">
+                        <td width ="35%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                        <td width ="65%">
                         <img src={diagnostico} alt="logo" style = {{width:100,marginBottom:10}}/>
 
                         </td>
@@ -544,23 +681,24 @@ pdfExportComponent ;
                     </MDBTableBody>        
                     </MDBTable>
                 
-                        <MDBContainer style  = {{marginLeft: "10%"}}>
-                        <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font><br/>
-                        <br/><strong>{localStorage.getItem("razonsocial")}</strong>
-
+                        <MDBContainer style  = {{marginLeft: "3%"}}>
+            
                         <MDBTable component={Paper}  small borderless className="text-left mt-4 ">
             
-                        <MDBTableBody>                  
+                        <MDBTableBody> 
+                        <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font><br/>
+                        <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
+                 
                         <tr>
-                        <td  >Nombre : {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} </td>
+                        <td width="55%" >Nombre : {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} </td>
                         <td >Puesto : {this.state.resultados[0].Puesto}</td>
-                                        </tr>
-                                        <tr>
-                        <td  >Departamento : {this.state.resultados[0].AreaTrabajo}</td>
+                        </tr>
+                        <tr>
+                        <td width="55%" >Departamento : {this.state.resultados[0].AreaTrabajo}</td>
                         <td  >Genero : {this.state.resultados[0].Sexo}</td> 
                                         </tr>
                                         <tr>
-                        <td  >Correo : {this.state.resultados[0].correo}</td>
+                        <td width="55%" >Correo : {this.state.resultados[0].correo}</td>
                         <td  >RFC : {this.state.resultados[0].RFC}</td>   
                         
                         </tr>
@@ -572,20 +710,20 @@ pdfExportComponent ;
                         <MDBTable small borderless className="text-left">
                         <MDBTableHead>
                             <tr>
-                            <th width="10px"></th>
-                            <th>I.- Acontecimiento traumático severo</th>    
-                            <td width="60px"></td>   
+                            <th width="1%"></th>
+                            <th width="80%">I.- Acontecimiento traumático severo</th>    
+                            <td width="19%"></td>   
                                                 
                             </tr>
                         </MDBTableHead>
                         <MDBTableBody>
                             <tr>
-                            <td width="10px">1</td>
-                            <td >¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los
+                            <td width="1%">1</td>
+                            <td width="80%">¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los
                                 siguientes:<br/> Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
                                 grave? Asaltos? <br/>Actos violentos que derivaron en lesiones graves? <br/>Secuestro? Amenazas?, o Cualquier otro
                                 que ponga en riesgo su vida o salud, y/o la de otras personas?</td>
-                            <td width="60px">{this.state.resultados[1].Respuestas}</td>
+                            <td width="19%">{this.state.resultados[1].Respuestas}</td>
                             
                             </tr>
                             <br/>
@@ -593,7 +731,7 @@ pdfExportComponent ;
                     
                         <MDBTableHead>
                             <tr>
-                            <th width="10px"></th>
+                            <th width="1%"></th>
                             <th>II.- Recuerdos persistentes sobre el acontecimiento (durante el último mes):</th>       
                             <td></td> 
                             </tr>
@@ -716,7 +854,7 @@ pdfExportComponent ;
                                     <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
                                     </MDBCol>  
                                     <MDBCol>
-                                    <img src={localStorage.getItem("urlLogo")}  style = {{width:100,marginBottom:30}}/>
+                                    {/* <img src={localStorage.getItem("urlLogo")}  style = {{width:100,marginBottom:30}}/> */}
                                     </MDBCol>
                                     </MDBRow> 
                                     <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
@@ -726,7 +864,7 @@ pdfExportComponent ;
                                     <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                                     <font size="1"face="arial"color="black">{this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</font><br></br><br/>
                                     <font size="3"face="arial"color="black">Diagnóstico de acontecimientos traumáticos severos</font><br></br>
-                                    <font size="1"face="arial"color="black">{this.state.fecha}</font>                     
+                                    <font size="1"face="arial"color="black">{this.state.date}</font>                     
                                     </MDBTableBody>
                                     </MDBTable>
 
@@ -865,6 +1003,7 @@ pdfExportComponent ;
                                             
                                             </MDBTableBody>
                                             </MDBTable>
+                                            <br/><br/>
                                             <MDBTable  component={Paper}  small  className="text-left mt-4 ">
                                             <MDBTableBody>
                                             <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV.- Afectación (durante el último mes)</font>
@@ -937,8 +1076,7 @@ pdfExportComponent ;
             </MDBContainer>
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
-  
-     
+
     let array = [];
 
     return (
@@ -956,12 +1094,9 @@ pdfExportComponent ;
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
-              &nbsp;&nbsp;&nbsp;
-              
+              &nbsp;&nbsp;&nbsp;          
                 <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
                 <MDBNavbarNav right>
-                              
-           
                 <MDBNavbarBrand>
                <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
               {this.state.nombre}
@@ -978,8 +1113,8 @@ pdfExportComponent ;
                   <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
                 </MDBDropdownMenu>
               </MDBDropdown>
-            </MDBNavItem>
-            </MDBNavbarBrand>
+              </MDBNavItem>
+              </MDBNavbarBrand>
                 </MDBNavbarNav>
               </MDBCollapse>
             </MDBNavbar>
@@ -1054,16 +1189,15 @@ pdfExportComponent ;
               />
               <MDBRow style={{marginTop:20}}>
         
-              <MDBCol ><MDBBtn  disabled={!this.state.botonDescargar}  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Resultados Globales</MDBBtn> </MDBCol>  
+              <MDBCol ><MDBBtn  disabled={!this.state.botonDescargar}  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Resultados Globales</MDBBtn> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<MDBBtn  disabled={!this.state.botonDescargaMasivo}  onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  outline color="success">Reporte Individual del total de empleados</MDBBtn> </MDBCol>  
               <MDBCol>
               <MDBContainer >
                 {spinner}
-                { this.state.peticion1.map((rows,i) =>{ 
-                 
+
+                { this.state.peticion1.map((rows,i) =>{          
                 let respuesta;
                 if(rows[1]){
                 return (
-               
                      <div>
                       <div className="example-config">
                       </div>
@@ -1085,7 +1219,7 @@ pdfExportComponent ;
                                 </MDBCol>
                                 </MDBRow> 
                                 <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
-                                <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
+                                <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left">
                               
                                         <MDBTableBody>     
                                 <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
@@ -1127,7 +1261,7 @@ pdfExportComponent ;
                                 <br/>
                                 <br/>
                                 <br/>
-                            <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-center mt-4 ">
+                            <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-center">
                               <MDBTableBody>
                               <font size="1"
                               face="arial"
@@ -1216,7 +1350,7 @@ pdfExportComponent ;
                         <MDBContainer>
                         <MDBRow>     
                         <MDBCol>   
-                        <MDBBtn  color="primary" size="3" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                        <MDBBtn  color="primary" size="3"  outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
                             Descargar Resultados
                         </MDBBtn>
                         </MDBCol>
@@ -1226,6 +1360,323 @@ pdfExportComponent ;
                         </MDBRow>  
                         </MDBContainer>
                       )
+                    } )
+                    
+                  }
+                  { this.state.reporteImasivo.map((rows) =>{        
+                  let respuesta;
+                  if(rows[0]){
+             
+                  return (
+                     <div>
+                      <div style={{ position: "absolute", left: "-1500px", top: 0 }}>
+                          <PDFExport
+                              paperSize="letter"
+                              margin="1cm"
+                              pageNum
+                              // pageTemplate={this.pdfExportComponent}
+                              ref={(component) => this.pdfExportComponent = component}
+                                 >
+                                <MDBRow> 
+                                  <MDBCol>
+                                  <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
+                                  </MDBCol>  
+                                  <MDBCol>
+                                  {/* <img src={localStorage.getItem("urlLogo")}  style = {{width:100,marginBottom:30}}/> */}
+                                  </MDBCol>
+                                  </MDBRow> 
+                                  <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
+                                  <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
+                                    
+                                   <MDBTableBody>     
+                                  <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
+                                  <font size="3"face="arial"color="black">Diagnóstico de acontecimientos traumáticos severos</font><br></br>
+                                  <font size="1"face="arial"color="black">{this.state.date}</font>  <br/> 
+                                  <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
+                                  <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>
+                 
+                                  </MDBTableBody>
+                                  </MDBTable>    
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <font size="1"
+                                    face="arial"
+                                    color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA I - 
+                                      CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON
+                                      SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font>   <br/> 
+                                  {this.state.reporteImasivo.map(rows=>{
+                                     let ATSReporteMasivo;
+                                    if(rows[0]){
+                                      if(rows[1].Respuestas=="si"){
+                                        ATSReporteMasivo= <font size="1"
+                                        face="arial"
+                                        color="red" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
+                                        ATS = <Alert className ="mt-4" color ="danger ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
+                                        }if(rows[1].Respuestas=="no"){
+                                          ATSReporteMasivo= <font size="1"
+                                          face="arial"
+                                          color="blue" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
+                                          ATS = <Alert className ="mt-4" color ="primary ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
+                                        }
+                                    }
+                                    if(rows[0]){
+                                    return(
+                                    <div style={{ width: "500px" }}>  
+                                       <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
+                                          <MDBTableBody>
+                                          <tr>
+                                            <td width="25%"><font size="1" face="arial"color="black"><strong>{rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</strong></font></td>
+                                          <td width="25%"><font size="1" face="arial"color="black">RESULTADO DE LA EVALUACIÓN : </font></td>
+                                         <td width="50%"> <font size="1" face="arial"color="black" > {ATSReporteMasivo}</font></td>
+                                         </tr>
+                                         <tr></tr>
+                                         </MDBTableBody>
+                                        </MDBTable>  
+                          
+                                      <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left  ">
+                                          <MDBTableBody>
+                                          <tr></tr>
+                                          <td ></td>
+                                          <td></td>
+                                         </MDBTableBody>                                       
+                                          </MDBTable>       
+                                         <MDBTable  component={Paper}  small  className="text-left ">
+                                           <MDBTableBody>
+                                          <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">I.- Acontecimiento traumático severo </font>
+                                          </MDBTableBody>                                                                            
+                                          </MDBTable>
+                                          <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left"> 
+                                            <MDBTableBody>                
+                                               <tr>           
+                                                <td >
+                                               <font size="1" face="arial"color="black" >¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los
+                                                    siguientes:<br></br> Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
+                                                    grave? Asaltos? Actos violentos que derivaron en lesiones graves? Secuestro? Amenazas?, o Cualquier otro
+                                                    que ponga en riesgo su vida o salud, y/o la de otras personas?</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{rows[1].Respuestas}</font></td>              
+                                              </tr>
+                     
+                                            </MDBTableBody>
+                                            </MDBTable>
+                                            <MDBTable  component={Paper}  small  className="text-left ">
+                                           <MDBTableBody>
+                                            <font color="red" style= {{marginTop:40,marginLeft:20}}   size="1">II.- Recuerdos persistentes sobre el acontecimiento (durante el último mes)</font>
+                                            </MDBTableBody>
+                                            </MDBTable>
+                                            <MDBTable style={{marginLeft:20}}  component={Paper}  small bordered className="text-left mt-4 ">
+                                            <MDBTableBody>
+                                            <tr>            
+                                              <td >
+                                            <font size="1" face="arial"color="black">¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</font></td>
+                                              <td width="60px"><font size="1" face="arial"color="black">{rows[2].Respuestas}</font></td>
+                                             </tr>
+                                             <tr>
+                                              <td >
+                                            <font size="1" face="arial"color="black">¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</font></td>
+                                              <td width="60px"><font size="1" face="arial"color="black">{rows[3].Respuestas}</font></td>
+                                               
+                                            </tr>
+                                           
+                                          </MDBTableBody>
+                                          </MDBTable>
+                                          <MDBTable  component={Paper}  small  className="text-left  ">
+                                           <MDBTableBody>
+                              
+                                            <font style= {{marginLeft:20}}  size="1" color="red" >III.- Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento</font>
+                                         </MDBTableBody>
+                                         </MDBTable>
+                                          <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
+                                            <MDBTableBody>
+                                              <tr>
+                                               
+                                                <td >
+                                              <font size="1" face="arial"color="black">¿Se ha esforzado por evitar todo tipo de sentimientos, conversaciones o situaciones que le puedan recordar el acontecimiento?</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{rows[4].Respuestas}</font></td></tr>
+                                               
+                                               <tr>
+                                                
+                                                <td >
+                                              <font size="1" face="arial"color="black">¿Se ha esforzado por evitar todo tipo de actividades, lugares o personas que motivan recuerdos del acontecimiento?</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{rows[5].Respuestas}</font></td>
+                                               </tr>
+      
+                                               <tr>
+                                                
+                                                <td >
+                                              <font size="1" face="arial"color="black">¿Ha tenido dificultad para recordar alguna parte importante del evento?</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{rows[6].Respuestas}</font></td>
+                                                </tr>
+      
+                                                <tr>
+                                                
+                                                <td >
+                                              <font size="1" face="arial"color="black">¿Ha disminuido su interés en sus actividades cotidianas?</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{rows[7].Respuestas}</font></td>
+                                               </tr>
+      
+                                               <tr>
+                                               
+                                                <td >
+                                              <font size="1" face="arial"color="black">  ¿Se ha sentido usted alejado o distante de los demás?</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{rows[8].Respuestas}</font></td>
+                                               </tr>
+      
+                                               <tr>
+                                                
+                                                <td >
+                                              <font size="1" face="arial"color="black"> ¿Ha tenido la impresión de que su vida se va a acortar, que va a morir antes que otras personas o que tiene un futuro limitado?</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{rows[9].Respuestas}</font></td>
+      
+                                              </tr>
+                                          
+                                            </MDBTableBody>
+                                            </MDBTable>
+                                            <br/>
+                                            <br/>
+                                            <MDBTable  component={Paper}  small  className="text-left mt-4 ">
+                                           <MDBTableBody>
+                                            <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV.- Afectación (durante el último mes)</font>
+                                           </MDBTableBody>
+                                           </MDBTable>
+                                            <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
+                                            <MDBTableBody>
+                                              <tr>
+                                               
+                                                <td >
+                                              <font size="1" face="arial"color="black">¿Ha tenido usted dificultades para dormir?</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{rows[10].Respuestas}</font></td></tr>
+                                               
+                                               <tr>
+                                                
+                                                <td >
+                                              <font size="1" face="arial"color="black">¿Ha estado particularmente irritable o le han dado arranques de coraje?</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{rows[11].Respuestas}</font></td>
+                                               </tr>
+      
+                                               <tr>
+                                                
+                                                <td >
+                                              <font size="1" face="arial"color="black">¿Ha tenido dificultad para concentrarse?</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{rows[12].Respuestas}</font></td>
+                                                </tr>
+      
+                                                <tr>
+                                               
+                                                <td >
+                                              <font size="1" face="arial"color="black">¿Ha estado nervioso o constantemente en alerta?</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{rows[13].Respuestas}</font></td>
+                                               </tr>
+      
+                                               <tr>
+                                                
+                                                <td >
+                                              <font size="1" face="arial"color="black">¿Se ha sobresaltado fácilmente por cualquier cosa?</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{rows[14].Respuestas}</font></td>
+                                               </tr>
+                                            
+                                              
+                                            </MDBTableBody>
+                                            </MDBTable>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                              </div>
+                                )
+                               }
+                              })}            
+                                 
+                                
+                              </PDFExport>
+                          </div>
+                        </div>       
+                        )       
+                       }
+                        return(
+                        <MDBContainer>
+                        <MDBRow>     
+                        <MDBCol>   
+                        <MDBBtn  color="primary" size="3" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                            Descargar Resultados
+                        </MDBBtn>
+                        </MDBCol>
+                        <MDBCol> 
+                        <MDBBtn color="danger" outline onClick= {(e) => window.location.reload()}>Cerrar</MDBBtn>
+                        </MDBCol> 
+                        </MDBRow>  
+                        </MDBContainer>
+                      )
+                      
                     } )
                     
                   }

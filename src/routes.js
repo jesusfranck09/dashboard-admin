@@ -32,7 +32,7 @@ import Upload from './components/uploadImage/upload';
 import Prueba from './components/carpetaPruebas/PDFIG'
 import PruebaRP from './components/carpetaPruebas/RPIG'
 import PruebaEEO from './components/carpetaPruebas/EEOIG'
-
+import PruebaDashboard from './components/carpetaPruebas/Dashboard'
 
 class Routes extends Component{
   
@@ -70,8 +70,8 @@ class Routes extends Component{
                   <PrivateRoute exact path='/estadisticas' component={Estadisticas}/>
                   <PrivateRoute exact path='/atsDemoIG' component={Prueba}/>
                   <PrivateRoute exact path='/rpDemoIG' component={PruebaRP}/>
-                  <PrivateRoute exact path='/EEODemoIG' component={PruebaEEO}/>
-
+                  <PrivateRoute exact path='/eeoDemoIG' component={PruebaEEO}/>
+                  <PrivateRoute exact path='/dashboardDemo' component={PruebaDashboard}/>
 
                   {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}
     

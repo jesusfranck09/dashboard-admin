@@ -35,8 +35,6 @@ import Upload from '../uploadImage/upload'
 import { MDBModal, MDBModalBody, MDBModalHeader, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 
 import { MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
-
-
 class Home extends React.Component {
   constructor(props) {
     super(props);
