@@ -350,7 +350,7 @@ pdfExportComponent ;
           }
 
 
-          reporteImasivo = async (datos,filtro) =>{
+        reporteImasivo = async (datos,filtro) =>{
         this.setState({botonDescargarIndividual:''})
         this.setState({botonDescargar:''})   
          this.setState({spinner:true})
@@ -880,11 +880,24 @@ pdfExportComponent ;
                                     <br></br>
                                     <br></br>
                                     <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
                                     <font size="1"
-                                    face="arial"
-                                    color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA I - 
-                                        CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON
-                                        SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font>   <br/>  
+                                  face="arial"
+                                  color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA I - 
+                                  CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE</font>   <br/>  
+                                  <font size="1"  face="arial"
+                                  color="black" style = {{marginLeft:35}}>FUERON
+                                  SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font>
+                                    
                                         
                                         <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
                                             <MDBTableBody>
@@ -1438,10 +1451,12 @@ pdfExportComponent ;
                                     <br></br>
                                     <br></br>
                                     <font size="1"
-                                    face="arial"
-                                    color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA I - 
-                                      CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON
-                                      SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font>   <br/> 
+                                  face="arial"
+                                  color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA I - 
+                                  CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE</font>   <br/>  
+                                  <font size="1"  face="arial"
+                                  color="black" style = {{marginLeft:35}}>FUERON
+                                  SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font>
                                   {this.state.reporteImasivo.map(rows=>{
                                      let ATSReporteMasivo;
                                     if(rows[0]){

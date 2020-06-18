@@ -619,12 +619,8 @@ pdfExportComponent ;
                     }, 5000);                  })
                   .catch(err => {
                     console.log("el error es  ",err)
-                  });  
-    
-    
+                  });    
                    }
-                  //  console.log("datosImasivo" , this.state.reporteImasivo)
-                  
                    let array3 = []
                    let array4=array3.push(array3)
         
@@ -692,9 +688,9 @@ pdfExportComponent ;
             }else{
               this.setState({filtro6:"SIN FILTRO"})
             }
-             
               this.setState({datosLength:datos.length})
                 }
+                
         
         click(id){ 
             this.setState({botonDisabled:''})
@@ -4294,15 +4290,19 @@ ponderacionIndividual =  <React.Fragment>
                               <br></br>
                               <br></br>
                               <br></br>
-                              <MDBTable>
-                                
-                              </MDBTable>
-                              <font size="1"
-                              face="arial"
-                              color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA II
-                             CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN
-                              LOS CENTROS DE TRABAJO</font>   <br/>  
-                                
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                     
+                               <font size="1"
+                                face="arial"
+                                color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA II
+                                CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</font>   <br/>  
+                                <font size="1"  face="arial"
+                                color="black" style = {{marginLeft:35}}>PSICOSOCIAL EN
+                                LOS CENTROS DE TRABAJO</font>
                                 <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
                                     <MDBTableBody>
                                     <tr>
@@ -4590,8 +4590,6 @@ ponderacionIndividual =  <React.Fragment>
 </React.Fragment>
 }
 
-
-
     let botonCerrar;
     let botonResultadosGlobales;
     if(!this.state.botonDisabled){  
@@ -4753,7 +4751,7 @@ ponderacionIndividual =  <React.Fragment>
                        </MDBTable>
                         <MDBContainer style={{marginLeft:"3%"}}>
                           
-                        <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>
+                        <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font>
                         <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
                             
                
@@ -5171,8 +5169,6 @@ ponderacionIndividual =  <React.Fragment>
                       </MDBContainer>
                     )
                     })}
-
-
                        {this.state.resultadosEvaluacionMasivo.map(rows=>{
                         if(rows[0]){
                           return(
@@ -5183,8 +5179,6 @@ ponderacionIndividual =  <React.Fragment>
                                 margin="1cm"
                                 ref={(component) => this.pdfExportComponent = component}
                             >
-            
-                      
                                  <div style={{ width: "500px" }}>
                                   
                                 <MDBRow> 
@@ -5203,12 +5197,9 @@ ponderacionIndividual =  <React.Fragment>
                                   <font size="3"face="arial"color="black">Diagnóstico Global de factores de riesgo psicosocial  en los centros de trabajo</font><br></br>
                                   <font size="1"face="arial"color="black">{this.state.date}</font><br/>
                                   <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
-                                  <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>
-
-                              
+                                  <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>                              
                                   </MDBTableBody>
                                   </MDBTable>
-      
                                     <br></br>
                                     <br></br>
                                     <br></br>
@@ -5256,14 +5247,13 @@ ponderacionIndividual =  <React.Fragment>
                                         <br/>
                                         <br/>
                                 
-                                    <font size="1"
-                                    face="arial"
-                                    color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA II
-                                  CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN
-                                    LOS CENTROS DE TRABAJO</font>   <br/>  
-                                      
-                              
-              
+                                        <font size="1"
+                                        face="arial"
+                                        color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA II
+                                        CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</font>   <br/>  
+                                        <font size="1"  face="arial"
+                                        color="black" style = {{marginLeft:35}}>PSICOSOCIAL EN
+                                        LOS CENTROS DE TRABAJO</font>
                                     {this.state.resultadosEvaluacionMasivo.map(rows=>{
                                       if(rows[0]){
                                         let valor1=rows[1].ponderacion;   
@@ -5425,7 +5415,7 @@ ponderacionIndividual =  <React.Fragment>
                                       }
                                       
                                       let categoria1Nulo;
-                                      let categoria1Bajo;
+                                      let categoria1Bajo; 
                                       let categoria1Medio;
                                       let categoria1Alto;
                                       let categoria1MuyAlto;
@@ -5519,7 +5509,6 @@ ponderacionIndividual =  <React.Fragment>
                                         colorCategoriaCuatro= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
                                         categoria4MuyAlto= categoriaCuatro
                                       }
-                                      
                                       
                                       let Dominio1Nulo;
                                       let Dominio1Bajo;
@@ -5920,8 +5909,6 @@ ponderacionIndividual =  <React.Fragment>
                                             <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas de alta responsabilidad</font></td>
                                             <td width="15px"><font size="1" face="arial"color="black">{(entero10+entero11).toFixed(2)}</font></td>
                                           </tr>
-  
-  
                                           <tr>           
                                           <td width="5px"><font size="1" face="arial"color="black" >9</font></td>
                                           <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Cargas contradictorias o inconsistentes</font></td>
@@ -5983,7 +5970,6 @@ ponderacionIndividual =  <React.Fragment>
                                             <td width="80px" className="text-left"><font size="1" face="arial"color="black">Violencia laboral</font></td>
                                             <td width="15px"><font size="1" face="arial"color="black">{entero33+entero34+entero35+entero36+entero37+entero38+entero39+entero40}</font></td>
                                             </tr>
-                                
                                         </MDBTableBody>
                                         </MDBTable>
                                         <br/>
@@ -6001,17 +5987,13 @@ ponderacionIndividual =  <React.Fragment>
                                         <br/>
                                         <br/>
                                         <br/>
-                                        <br/>
-  
-                                      
-                                      
+                                        <br/> 
                        {/* <Alert className ="mt-4" color ="primary ">INFORMACIÓN: LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert> */}
                        </MDBContainer> 
                          )}
                          })}
                        </div>  
                        </PDFExport>
-           
                 </div>  
                 </div>
                
@@ -6029,9 +6011,6 @@ ponderacionIndividual =  <React.Fragment>
                 </MDBContainer>
               )
                })}
-
-               
-               
               </MDBContainer>
               </MDBCol>  
              </MDBRow>
@@ -6044,9 +6023,7 @@ ponderacionIndividual =  <React.Fragment>
         </div>
       </div> 
      
-      </div>
-
-     
+      </div>   
       </React.Fragment>
       
     )
