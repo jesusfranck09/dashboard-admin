@@ -3284,7 +3284,7 @@ ponderacion=<React.Fragment>
                         paperSize="letter"
                         margin="1cm"
                         pageNum
-                        // pageTemplate={this.pdfExportComponent}
+                        fileName={`Resultados globales EEO ${new Date().getFullYear()}`}
                         ref={(component) => this.pdfExportComponent = component}
                     >
                         <div style={{ width: "500px" }}>
@@ -3693,7 +3693,7 @@ ponderacion=<React.Fragment>
           <section className="flex-column  bg-white  pa4 "  >
           <div>
                     <MDBBtn  color="primary" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-                        Descargar Respuestas 
+                        Descargar Respuestas de {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}
                     </MDBBtn>
            </div>
            <br/>
@@ -3703,6 +3703,7 @@ ponderacion=<React.Fragment>
                     margin="1cm"
                     ref={(component) => this.pdfExportComponent = component}
                     allPages= "true"
+                    fileName={`${this.state.resultados[0].nombre} ${this.state.resultados[0].ApellidoP} ${this.state.resultados[0].ApellidoM} Reporte EEO  ${new Date().getFullYear()}`}
                 >
           <MDBTable small borderless className="mt-4 text-center">
             <MDBTableBody>
@@ -4847,7 +4848,7 @@ ponderacion=<React.Fragment>
 
                  <div>
                         <MDBBtn  color="primary" className="k-button" onClick={() => { this.pdfExportComponent.save();}}>
-                            Descargar Resultados
+                            Descargar Resultados de {this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}
                         </MDBBtn>
                </div>
                <MDBTable small borderless className="mt-4 text-center">
@@ -5307,6 +5308,7 @@ ponderacion=<React.Fragment>
                             margin="1cm"
                             pageNum
                             // pageTemplate={this.pdfExportComponent}
+                            fileName={`${this.state.resultadosQuery[0].nombre} ${this.state.resultadosQuery[0].ApellidoP} ${this.state.resultadosQuery[0].ApellidoM} Reporte EEO ${new Date().getFullYear()}`}
                             ref={(component) => this.pdfExportComponent = component}
                         >
                             <div style={{ width: "500px" }}>
@@ -5822,7 +5824,8 @@ ponderacion=<React.Fragment>
                            paperSize="A4"
                            margin="1cm"
                            ref={(component) => this.pdfExportComponent = component}
-                       >
+                           fileName={`Respuestas del total de empleados ${new Date().getFullYear()}`}
+                           >
            
                        <MDBTable small borderless className="mt-4 text-center">
                        <MDBTableBody>
@@ -6450,6 +6453,7 @@ ponderacion=<React.Fragment>
                             paperSize="A4"
                             margin="1cm"
                             ref={(component) => this.pdfExportComponent = component}
+                            fileName={`Resultados del total de empleados ${new Date().getFullYear()}`}
                         >
                         <div style={{ width: "500px" }}>
                                   

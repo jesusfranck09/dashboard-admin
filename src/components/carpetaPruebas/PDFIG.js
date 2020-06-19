@@ -631,6 +631,7 @@ pdfExportComponent ;
             let ATS;
             let ATSReporte;
 
+            let a  = 1
 
             if(this.state.resultados.length!=0){
             if(this.state.resultados[1].Respuestas=="si"){
@@ -844,8 +845,7 @@ pdfExportComponent ;
                             <PDFExport
                                 paperSize="letter"
                                 margin="1cm"
-                                pageNum
-                                // pageTemplate={this.pdfExportComponent}
+                                fileName={`${this.state.resultados[0].nombre} ${this.state.resultados[0].ApellidoP} ${this.state.resultados[0].ApellidoM} Reporte ATS ${new Date().getFullYear()}`}
                                 ref={(component) => this.pdfExportComponent = component}
                             >
                                 <div style={{ width: "500px" }}>
@@ -871,6 +871,7 @@ pdfExportComponent ;
                                     <br></br>
                                     <br></br>
                                     <br></br>
+                                    <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                     <br></br>
                                     <br></br>
                                     <br></br>
@@ -1016,6 +1017,7 @@ pdfExportComponent ;
                                             
                                             </MDBTableBody>
                                             </MDBTable>
+                                            <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                             <br/><br/>
                                             <MDBTable  component={Paper}  small  className="text-left mt-4 ">
                                             <MDBTableBody>
@@ -1079,6 +1081,18 @@ pdfExportComponent ;
                                             <br/>
                                             <br/>
                                             <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                 </div>
                             </PDFExport>
                         </div>
@@ -1207,7 +1221,8 @@ pdfExportComponent ;
               <MDBContainer >
                 {spinner}
 
-                { this.state.peticion1.map((rows,i) =>{          
+                { this.state.peticion1.map((rows,i) =>{  
+                a=1          
                 let respuesta;
                 if(rows[1]){
                 return (
@@ -1219,6 +1234,7 @@ pdfExportComponent ;
                               paperSize="letter"
                               margin="1cm"
                               pageNum
+                              fileName={`Reporte global ATS ${new Date().getFullYear()}`}
                               // pageTemplate={this.pdfExportComponent}
                               ref={(component) => this.pdfExportComponent = component}
                                  >
@@ -1247,6 +1263,7 @@ pdfExportComponent ;
                                 <br/>
                                 <br/>
                                 <br/>
+                                <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                 <br/>
                                 <br/>
                                 <br/>
@@ -1350,8 +1367,30 @@ pdfExportComponent ;
                                   }
                                 </MDBTableBody>
                               </MDBTable>
-                          
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+
+                              <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                               </div>
+
                               </PDFExport>
                           </div>
                         </div>
@@ -1376,7 +1415,8 @@ pdfExportComponent ;
                     } )
                     
                   }
-                  { this.state.reporteImasivo.map((rows) =>{        
+                  { this.state.reporteImasivo.map((rows) =>{ 
+                    a=1       
                   let respuesta;
                   if(rows[0]){
              
@@ -1387,6 +1427,7 @@ pdfExportComponent ;
                               paperSize="letter"
                               margin="1cm"
                               pageNum
+                              fileName={`Reporte individual del total de empleados ATS ${new Date().getFullYear()}`}
                               // pageTemplate={this.pdfExportComponent}
                               ref={(component) => this.pdfExportComponent = component}
                                  >
@@ -1398,7 +1439,7 @@ pdfExportComponent ;
                                   {/* <img src={localStorage.getItem("urlLogo")}  style = {{width:100,marginBottom:30}}/> */}
                                   </MDBCol>
                                   </MDBRow> 
-                                  <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
+                                  <img src={logo} alt="logo" style = {{width:550}}/>
                                   <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
                                     
                                    <MDBTableBody>     
@@ -1415,6 +1456,7 @@ pdfExportComponent ;
                                     <br></br>
                                     <br></br>
                                     <br></br>
+                                    <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                     <br></br>
                                     <br></br>
                                     <br></br>
@@ -1584,6 +1626,7 @@ pdfExportComponent ;
                                           
                                             </MDBTableBody>
                                             </MDBTable>
+                                            <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                             <br/>
                                             <br/>
                                             <MDBTable  component={Paper}  small  className="text-left mt-4 ">
@@ -1659,6 +1702,7 @@ pdfExportComponent ;
                                             <br/>
                                             <br/>
                                             <br/>
+                                            <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                             <br/>
                                             <br/>
                                             <br/>
