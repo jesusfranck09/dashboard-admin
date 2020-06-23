@@ -3418,6 +3418,14 @@ ponderacion=<React.Fragment>
                                     <br/>  
                                     <br/>
                                     <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
                                     
                                   
                                     <font size="1"
@@ -5103,6 +5111,16 @@ ponderacionIndividual =  <React.Fragment>
                           <br></br>
                           <br></br>
                           <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
                         
                           <font size="1"
                           face="arial"
@@ -5496,6 +5514,16 @@ ponderacionIndividual =  <React.Fragment>
                                   <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>                              
                                   </MDBTableBody>
                                   </MDBTable>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
                                     <br></br>
                                     <br></br>
                                     <br></br>
