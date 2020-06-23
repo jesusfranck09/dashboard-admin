@@ -2688,6 +2688,14 @@ ponderacion=<React.Fragment>
                               <br/>
                               <br/>
                               <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
                               <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-center mt-4 ">
                               <MDBTableBody>
                               <font size="1"
@@ -3394,6 +3402,14 @@ ponderacion=<React.Fragment>
                                     <br/>  
                                     <br/>  
                                     <br/>  
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
                                     <br/>  
                                     <br/>
                                     <br/>
@@ -5047,6 +5063,15 @@ ponderacionIndividual =  <React.Fragment>
                           </MDBTableBody>
                           </MDBTable>
 
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
                           <br></br>
                           <br></br>
                           <br></br>
