@@ -871,7 +871,17 @@ pdfExportComponent ;
                                     <br></br>
                                     <br></br>
                                     <br></br>
-                                    <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                                    <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
                                     <br></br>
                                     <br></br>
                                     <br></br>
@@ -1017,7 +1027,7 @@ pdfExportComponent ;
                                             
                                             </MDBTableBody>
                                             </MDBTable>
-                                            <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                                            <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                             <br/><br/>
                                             <MDBTable  component={Paper}  small  className="text-left mt-4 ">
                                             <MDBTableBody>
@@ -1263,7 +1273,7 @@ pdfExportComponent ;
                                 <br/>
                                 <br/>
                                 <br/>
-                                <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                                <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                 <br/>
                                 <br/>
                                 <br/>
@@ -1388,7 +1398,7 @@ pdfExportComponent ;
                               <br/>
                               <br/>
 
-                              <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                              <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                               </div>
 
                               </PDFExport>
@@ -1456,7 +1466,7 @@ pdfExportComponent ;
                                     <br></br>
                                     <br></br>
                                     <br></br>
-                                    <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                                    <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                     <br></br>
                                     <br></br>
                                     <br></br>
@@ -1626,7 +1636,7 @@ pdfExportComponent ;
                                           
                                             </MDBTableBody>
                                             </MDBTable>
-                                            <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                                            <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                             <br/>
                                             <br/>
                                             <MDBTable  component={Paper}  small  className="text-left mt-4 ">
@@ -1702,7 +1712,7 @@ pdfExportComponent ;
                                             <br/>
                                             <br/>
                                             <br/>
-                                            <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                                            <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                             <br/>
                                             <br/>
                                             <br/>
