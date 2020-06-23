@@ -891,7 +891,24 @@ pdfExportComponent ;
                                     <br></br>
                                     <br></br>
                                     <br></br>
-        
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
                                     <font size="1"
                                   face="arial"
                                   color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA I - 
@@ -1251,6 +1268,19 @@ pdfExportComponent ;
                               <br/>
                               <br/>
                               <br/>
+                              <br/>  
+                              <br/>  
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>  
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>  
+                              <br/>
+                              <br/>
+                              <br/>
                               <br/>    
                               <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-center">
                               <MDBTableBody>
@@ -1404,6 +1434,21 @@ pdfExportComponent ;
                                   <br/>
                                   <br/>
                                   <br/>  
+                                  <br/>
+                                  <br/>
+                                  <br/>  
+                                  <br/>  
+                                  <br/>
+                                  <br/>
+                                  <br/>
+                                  <br/>  
+                                  <br/>
+                                  <br/>
+                                  <br/>
+                                  <br/>  
+                                  <br/>
+                                  <br/>
+                                  <br/>
                                   <font size="1"
                                   face="arial"
                                   color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA I - 
