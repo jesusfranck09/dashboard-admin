@@ -32,6 +32,8 @@ import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import { PDFExport }  from '@progress/kendo-react-pdf';
+import PageTemplate from './pageTemplate.jsx';
+
 
 class App extends React.Component {
 pdfExportComponent ;
@@ -845,6 +847,9 @@ pdfExportComponent ;
                             <PDFExport
                                 paperSize="letter"
                                 margin="1cm"
+                                pageTemplate={PageTemplate}
+                                forcePageBreak=".page-break"
+
                                 fileName={`${this.state.resultados[0].nombre} ${this.state.resultados[0].ApellidoP} ${this.state.resultados[0].ApellidoM} Reporte ATS ${new Date().getFullYear()}`}
                                 ref={(component) => this.pdfExportComponent = component}
                             >
@@ -860,7 +865,7 @@ pdfExportComponent ;
                                     <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
                                     <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
                                     
-                                            <MDBTableBody>     
+                                    <MDBTableBody>     
                                     <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                                     <font size="1"face="arial"color="black">{this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</font><br></br><br/>
                                     <font size="3"face="arial"color="black">Diagnóstico de acontecimientos traumáticos severos</font><br></br>
@@ -871,36 +876,13 @@ pdfExportComponent ;
                                     <br></br>
                                     <br></br>
                                     <br></br>
-                                    <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                     <br></br>
                                     <br></br>
                                     <br></br>
                                     <br></br>
                                     <br></br>
                                     <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
+        
                                     <font size="1"
                                   face="arial"
                                   color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA I - 
@@ -1027,8 +1009,7 @@ pdfExportComponent ;
                                             
                                             </MDBTableBody>
                                             </MDBTable>
-                                            <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                            <br/><br/>
+                                             <br/>
                                             <MDBTable  component={Paper}  small  className="text-left mt-4 ">
                                             <MDBTableBody>
                                             <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV.- Afectación (durante el último mes)</font>
@@ -1073,44 +1054,14 @@ pdfExportComponent ;
                                                 
                                             </MDBTableBody>
                                             </MDBTable>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                                        </div>
+                                    </PDFExport>
                                 </div>
-                            </PDFExport>
-                        </div>
-                    </div>
-                    </section>
-                </React.Fragment>
-            
-            </MDBContainer>
+                            </div>
+                          </section>
+                      </React.Fragment>
+                  
+                  </MDBContainer>
             }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1241,6 +1192,8 @@ pdfExportComponent ;
                       </div>
                       <div style={{ position: "absolute", left: "-1500px", top: 0 }}>
                           <PDFExport
+                              pageTemplate={PageTemplate}
+                              forcePageBreak=".page-break"
                               paperSize="letter"
                               margin="1cm"
                               pageNum
@@ -1270,38 +1223,11 @@ pdfExportComponent ;
                                 <br/><font size="1"face="arial"color="black">Total de empleados sin atención requerida : <strong>{accionNo}</strong></font>
                                 </MDBTableBody>
                                 </MDBTable>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                            <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-center">
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>  
+                              <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-center">
                               <MDBTableBody>
                               <font size="1"
                               face="arial"
@@ -1377,28 +1303,6 @@ pdfExportComponent ;
                                   }
                                 </MDBTableBody>
                               </MDBTable>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-                              <br/>
-
-                              <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                               </div>
 
                               </PDFExport>
@@ -1434,6 +1338,8 @@ pdfExportComponent ;
                      <div>
                       <div style={{ position: "absolute", left: "-1500px", top: 0 }}>
                           <PDFExport
+                              pageTemplate={PageTemplate}
+                              forcePageBreak=".page-break"
                               paperSize="letter"
                               margin="1cm"
                               pageNum
@@ -1461,48 +1367,19 @@ pdfExportComponent ;
                  
                                   </MDBTableBody>
                                   </MDBTable>    
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <font size="1"
+                                  <br/>
+                                  <br/>
+                                  <br/>
+                                  <br/>  
+                                  <br/>
+                                  <br/>
+                                  <br/>
+                                  <br/>  
+                                  <br/>
+                                  <br/>
+                                  <br/>
+                                  <br/>  
+                                  <font size="1"
                                   face="arial"
                                   color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA I - 
                                   CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE</font>   <br/>  
@@ -1636,9 +1513,10 @@ pdfExportComponent ;
                                           
                                             </MDBTableBody>
                                             </MDBTable>
-                                            <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                            <br/>
-                                            <br/>
+                                            <br/> 
+                                            <br/> 
+                                            <br/> 
+                                            <br/> 
                                             <MDBTable  component={Paper}  small  className="text-left mt-4 ">
                                            <MDBTableBody>
                                             <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV.- Afectación (durante el último mes)</font>
@@ -1678,9 +1556,7 @@ pdfExportComponent ;
                                                 <td >
                                               <font size="1" face="arial"color="black">¿Se ha sobresaltado fácilmente por cualquier cosa?</font></td>
                                                 <td width="60px"><font size="1" face="arial"color="black">{rows[14].Respuestas}</font></td>
-                                               </tr>
-                                            
-                                              
+                                               </tr> 
                                             </MDBTableBody>
                                             </MDBTable>
                                             <br/>
@@ -1710,22 +1586,11 @@ pdfExportComponent ;
                                             <br/>
                                             <br/>
                                             <br/>
-                                            <br/>
-                                            <br/>
-                                            <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                                            <br/>
-                              </div>
-                                )
-                               }
-                              })}            
-                                 
-                                
+                                          </div>
+                                            )
+                                          }
+                                        })}            
+
                               </PDFExport>
                           </div>
                         </div>       

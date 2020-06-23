@@ -32,6 +32,8 @@ import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import { PDFExport } from '@progress/kendo-react-pdf';
+import PageTemplate from './pageTemplate.jsx';
+
 
 class App extends React.Component {
 pdfExportComponent ;
@@ -2638,8 +2640,8 @@ ponderacion=<React.Fragment>
                     <PDFExport
                         paperSize="letter"
                         margin="1cm"
-                        pageNum
-                        // pageTemplate={this.pdfExportComponent}
+                        pageTemplate={PageTemplate}
+                        forcePageBreak=".page-break"
                         fileName={`Resultados globales RP ${new Date().getFullYear()}`}
                         ref={(component) => this.pdfExportComponent = component}
                     >
@@ -2656,7 +2658,7 @@ ponderacion=<React.Fragment>
                             <img src={logo} alt="logo" style = {{width:550}}/>
                             <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
                           
-                                    <MDBTableBody>     
+                            <MDBTableBody>     
                             <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                             <font size="3"face="arial"color="black">Diagnóstico Global de factores de riesgo psicosocial  en los centros de trabajo</font><br></br>
                             <font size="1"face="arial"color="black">{this.state.date}</font><br/>
@@ -2666,42 +2668,26 @@ ponderacion=<React.Fragment>
                         
                             </MDBTableBody>
                             </MDBTable>
-
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                              <br></br>
-                           
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
+                              <br/>
                               <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-center mt-4 ">
                               <MDBTableBody>
                               <font size="1"
@@ -2727,7 +2713,7 @@ ponderacion=<React.Fragment>
                             
                                    <tr>
                                    <td width="40%"><font size="1" face="arial"color="black">RESULTADO DEL NÚMERO DE EVALUACIONES :  </font></td>
-                                   <td width="20%"><font size="1" face="arial"color="black">{general}</font></td>
+                                   <td width="20%"><font size="1" face="arial"color="black">{general.toFixed(2)}</font></td>
                                    <td width="20%"><font size="1" face="arial"color="black">Nivel de riesgo </font></td>
                                     {celda}
                                    </tr>                                  
@@ -2786,27 +2772,6 @@ ponderacion=<React.Fragment>
                
                                       </MDBTableBody>
                                       </MDBTable>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                 
-                                      <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                 
-
                                       <MDBTable  component={Paper}  small  className="text-left ">
                                      <MDBTableBody>
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">II.- Resultados del dominio</font>
@@ -2875,32 +2840,6 @@ ponderacion=<React.Fragment>
                                         
                                       </MDBTableBody>
                                       </MDBTable>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                      <br/>
-                                      <br/>
 
                                       <MDBTable  component={Paper}  small  className="text-left ">
                                      <MDBTableBody>
@@ -3021,18 +2960,6 @@ ponderacion=<React.Fragment>
                               
                                       </MDBTableBody>
                                       </MDBTable>
-
-         
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                      <br/>
-                                      <br/>
                                       <br/>
                                       <br/>
                                       <br/>
@@ -3429,6 +3356,8 @@ ponderacion=<React.Fragment>
                             <PDFExport
                                 paperSize="letter"
                                 margin="1cm"
+                                pageTemplate={PageTemplate}
+                                forcePageBreak=".page-break"
                                 fileName={`${this.state.resultados[0].nombre} ${this.state.resultados[0].ApellidoP} ${this.state.resultados[0].ApellidoM} Reporte ATS ${new Date().getFullYear()}`}
                                 ref={(component) => this.pdfExportComponent = component}
                             >
@@ -3451,15 +3380,29 @@ ponderacion=<React.Fragment>
                                     <font size="1"face="arial"color="black">{this.state.date}</font>                     
                                     </MDBTableBody>
                                     </MDBTable>
-
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                   
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    
                                   
                                     <font size="1"
                                     face="arial"
@@ -3561,16 +3504,7 @@ ponderacion=<React.Fragment>
                                     </tr>
                                     </MDBTableBody>
                                     </MDBTable>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <strong style={{marginLeft:450}}><font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                   
+                          
                                     <MDBTable  component={Paper}  small  className="text-left">
                                     <MDBTableBody>
                                     <font style= {{marginLeft:20}}  size="1" color="red" >III. El tiempo destinado a su trabajo y sus responsabilidades familiares.</font>
@@ -3659,17 +3593,7 @@ ponderacion=<React.Fragment>
                                     </tr>
                                     </MDBTableBody>
                                     </MDBTable>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <strong style={{marginLeft:450}}><font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                    <br/>
-                                    <br/>
+                          
                                     <MDBTable  component={Paper}  small  className="text-left">
                                     <MDBTableBody>
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VI. Las relaciones con sus compañeros de trabajo y su jefe.</font>
@@ -3776,7 +3700,6 @@ ponderacion=<React.Fragment>
                                     </tr>
                                     </MDBTableBody>
                                     </MDBTable>
-                                    <strong style={{marginLeft:450}}><font size="1"face="arial"color="black">Página {a++}</font></strong>
                                 </div>
                             </PDFExport>
                         </div>
@@ -4643,7 +4566,8 @@ ponderacionIndividual =  <React.Fragment>
                         paperSize="letter"
                         margin="1cm"
                         pageNum
-                        // pageTemplate={this.pdfExportComponent}
+                        pageTemplate={PageTemplate}
+                        forcePageBreak=".page-break"
                         fileName={`${this.state.resultadosQuery[0].nombre} ${this.state.resultadosQuery[0].ApellidoP} ${this.state.resultadosQuery[0].ApellidoM} Resultados RP ${new Date().getFullYear()}`}
                         ref={(component) => this.pdfExportComponent = component}
                     >
@@ -4672,7 +4596,6 @@ ponderacionIndividual =  <React.Fragment>
                               <br></br>
                               <br></br>
                               <br></br>
-                              <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                               <br></br>
                               <br></br>
                               <br></br>
@@ -4807,11 +4730,6 @@ ponderacionIndividual =  <React.Fragment>
                                 </tr>  
                                 </MDBTableBody>
                                 </MDBTable>        
-                                <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong> 
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
                                 <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
                                 <MDBTableBody>
                                 <tr>         
@@ -4949,24 +4867,6 @@ ponderacionIndividual =  <React.Fragment>
                                 </tr>
                                 </MDBTableBody>
                                 </MDBTable>
-                                <br/>
-                                <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
                         </div>
                     </PDFExport>
                 </div>
@@ -5120,6 +5020,8 @@ ponderacionIndividual =  <React.Fragment>
                   <PDFExport
                            paperSize="A4"
                            margin="1cm"
+                           pageTemplate={PageTemplate}
+                           forcePageBreak=".page-break"
                            ref={(component) => this.pdfExportComponent = component}
                            fileName={`Repuestas del total de empleados ${new Date().getFullYear()}`}
                        >
@@ -5137,19 +5039,17 @@ ponderacionIndividual =  <React.Fragment>
                           
                           <MDBTableBody>     
                           <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-                          <font size="1"face="arial"color="black">{rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</font><br></br><br/>
                           <font size="2"face="arial"color="black">CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJOs</font><br></br>
-                          <font size="1"face="arial"color="black">{this.state.date}</font>                     
+                          <font size="1"face="arial"color="black">{this.state.date}</font>      
+                          <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
+                          <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>
+               
                           </MDBTableBody>
                           </MDBTable>
 
                           <br></br>
                           <br></br>
                           <br></br>
-                          <br></br>
-                          <br></br>
-                          <br></br>
-                          <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                           <br></br>
                           <br></br>
                           <br></br>
@@ -5282,21 +5182,7 @@ ponderacionIndividual =  <React.Fragment>
                         </tr>
                         </MDBTableBody>
                         </MDBTable>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <strong style={{marginLeft:450}}><font size="1"face="arial"color="black">Página {a++}</font></strong>
-                        <br/>
-                        <br/>    
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
+
                         <MDBTable  component={Paper}  small  className="text-left">
                         <MDBTableBody>
                         <font style= {{marginLeft:20}}  size="1" color="red" >III. El tiempo destinado a su trabajo y sus responsabilidades familiares.</font>
@@ -5324,7 +5210,7 @@ ponderacionIndividual =  <React.Fragment>
 
                         </MDBTableBody>
                         </MDBTable>
-
+                         <br/> 
                         <MDBTable  component={Paper}  small  className="text-left">
                         <MDBTableBody>
                         <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV. Las decisiones que puede tomar en su trabajo.</font>
@@ -5385,21 +5271,7 @@ ponderacionIndividual =  <React.Fragment>
                         </tr>
                         </MDBTableBody>
                         </MDBTable>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <strong style={{marginLeft:450}}><font size="1"face="arial"color="black">Página {a++}</font></strong>
-                        <br/>
-                        <br/>
+                  
                         <MDBTable  component={Paper}  small  className="text-left">
                         <MDBTableBody>
                         <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VI. Las relaciones con sus compañeros de trabajo y su jefe.</font>
@@ -5506,18 +5378,40 @@ ponderacionIndividual =  <React.Fragment>
                         </tr>
                         </MDBTableBody>
                         </MDBTable>
-                        <br/>
-                        <br/>
-                        <br/>
-                       
-                        <strong style={{marginLeft:450}}><font size="1"face="arial"color="black">Página {a++}</font></strong>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                                      {/* <Alert className ="mt-4" color ="primary ">INFORMACIÓN: LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert> */}
+                        <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                          <br></br>
+                     {/* <Alert className ="mt-4" color ="primary ">INFORMACIÓN: LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert> */}
                        </MDBContainer> 
                          )}
                          })}
@@ -5553,6 +5447,8 @@ ponderacionIndividual =  <React.Fragment>
                                 margin="1cm"
                                 ref={(component) => this.pdfExportComponent = component}
                                 fileName={`Resultados del total de empleados ${new Date().getFullYear()}`}
+                                pageTemplate={PageTemplate}
+                                forcePageBreak=".page-break"
                             >
                                  <div style={{ width: "500px" }}>
                                   
@@ -5581,7 +5477,6 @@ ponderacionIndividual =  <React.Fragment>
                                     <br></br>
                                     <br></br>
                                     <br></br>
-                                    <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
                                     <br></br>
                                     <br></br>
                                     <br></br>
@@ -5606,23 +5501,7 @@ ponderacionIndividual =  <React.Fragment>
                                     <br></br>
                                     <br></br>
                                     <br></br>
-                                    <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                
+                         
                                         <font size="1"
                                         face="arial"
                                         color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA II
@@ -6199,19 +6078,7 @@ ponderacionIndividual =  <React.Fragment>
                                           
                                         </MDBTableBody>
                                         </MDBTable>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <br/>
-                                        <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-
-                                        <br/>
-                                        <br/>
-                                        
-                                        <br/>
-                                       <br/>
-                                       <br/>
-                                       <br/>
+                  
                                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
                                         <MDBTableBody>
                                             <tr>         
@@ -6235,7 +6102,9 @@ ponderacionIndividual =  <React.Fragment>
                                       
                                         </MDBTableBody>
                                         </MDBTable>
-                                       
+                                        <br/>
+                                        <br/>
+                                        <br/>
                                         <MDBTable  component={Paper}  small  className="text-left ">
                                        <MDBTableBody>
                                       <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">III.- Resultados por Dimensión</font>
@@ -6356,8 +6225,14 @@ ponderacionIndividual =  <React.Fragment>
                                         <br/>
                                         <br/>
                                         <br/>
-                                        <strong style={{marginLeft:450}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
-                                  
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <br/>
                        {/* <Alert className ="mt-4" color ="primary ">INFORMACIÓN: LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert> */}
                        </MDBContainer> 
                          )}
