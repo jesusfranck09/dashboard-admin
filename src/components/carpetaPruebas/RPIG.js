@@ -3437,16 +3437,13 @@ ponderacion=<React.Fragment>
                                     <br/>  
                                     <br/>
                                     <br/>
-                                    
-                                  
                                     <font size="1"
-                                    face="arial"
-                                    color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA I - 
-                                    CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE</font>   <br/>  
-                                    <font size="1"  face="arial"
-                                    color="black" style = {{marginLeft:35}}>FUERON
-                                    SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font>
-                                      
+                                        face="arial"
+                                        color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA II
+                                        CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</font>   <br/>  
+                                        <font size="1"  face="arial"
+                                        color="black" style = {{marginLeft:35}}>PSICOSOCIAL EN
+                                        LOS CENTROS DE TRABAJO</font>
                                     <MDBTable responsive small borderless className="text-left mt-4" style = {{marginLeft:35}}>
         
                                     <MDBTableBody>  
@@ -4916,7 +4913,7 @@ ponderacionIndividual =  <React.Fragment>
         botonCerrar=<MDBBtn color="danger" onClick={(e)=>{window.location.reload()}} >Cerrar resultados</MDBBtn>
     }
     if(this.state.botonDisabled){
-        botonResultadosGlobales=<div><MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Resultados globales</MDBBtn> &nbsp;&nbsp;&nbsp;<MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  outline color="success">Respuestas totales</MDBBtn> &nbsp;&nbsp;&nbsp;<MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)}  outline color="success">Resultados totales</MDBBtn></div> 
+      botonResultadosGlobales=<MDBRow><MDBCol><MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Descarga del reporte Global</MDBBtn></MDBCol><MDBCol><MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  outline color="success"> Descarga masiva evaluaciones</MDBBtn></MDBCol><MDBCol><MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)}  outline color="success">Descarga masiva resultados</MDBBtn></MDBCol></MDBRow>
     }
     return (
       <React.Fragment>
@@ -5135,11 +5132,11 @@ ponderacionIndividual =  <React.Fragment>
                         
                           <font size="1"
                           face="arial"
-                          color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA I - 
-                          CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE</font>   <br/>  
+                          color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA II
+                          CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</font>   <br/>  
                           <font size="1"  face="arial"
-                          color="black" style = {{marginLeft:35}}>FUERON
-                          SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font>
+                          color="black" style = {{marginLeft:35}}>PSICOSOCIAL EN
+                          LOS CENTROS DE TRABAJO</font>
                             
                      {this.state.reporteImasivo.map(rows=>{
                        if(rows[0]){

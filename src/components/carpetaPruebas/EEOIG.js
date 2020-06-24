@@ -32,6 +32,8 @@ import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import { PDFExport } from '@progress/kendo-react-pdf';
+import PageTemplate from './pageTemplate.jsx';
+
 
 export default class App extends React.Component {
   pdfExportComponent;
@@ -3284,7 +3286,8 @@ ponderacion=<React.Fragment>
                     <PDFExport
                         paperSize="letter"
                         margin="1cm"
-                        pageNum
+                        pageTemplate={PageTemplate}
+                        forcePageBreak=".page-break"
                         fileName={`Resultados globales EEO ${new Date().getFullYear()}`}
                         ref={(component) => this.pdfExportComponent = component}
                     >
@@ -3315,7 +3318,17 @@ ponderacion=<React.Fragment>
                               <br></br>
                               <br></br>
                               <br></br>
-                              <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
                               <br></br>
                               <br></br>
                               <br></br>
@@ -3437,16 +3450,7 @@ ponderacion=<React.Fragment>
                
                                       </MDBTableBody>
                                       </MDBTable>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                           
                                       <MDBTable  component={Paper}  small  className="text-left ">
                                      <MDBTableBody>
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">II.- Resultados del dominio</font>
@@ -3525,27 +3529,7 @@ ponderacion=<React.Fragment>
                                        
                                       </MDBTableBody>
                                       </MDBTable>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <br/>
-                                      <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                     
                                       <MDBTable  component={Paper}  small  className="text-left ">
                                      <MDBTableBody>
                                     </MDBTableBody>                                                                            
@@ -3689,7 +3673,33 @@ ponderacion=<React.Fragment>
                                         </tr>
                                       </MDBTableBody>
                                       </MDBTable>           
-                                      <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+                                      <br/>
+
                         </div>
                     </PDFExport>
                 </div>
@@ -3713,14 +3723,7 @@ ponderacion=<React.Fragment>
                     </MDBBtn>
            </div>
            <br/>
-           <PDFExport
-                    scale={0.6}
-                    paperSize="A4"
-                    margin="1cm"
-                    ref={(component) => this.pdfExportComponent = component}
-                    allPages= "true"
-                    fileName={`${this.state.resultados[0].nombre} ${this.state.resultados[0].ApellidoP} ${this.state.resultados[0].ApellidoM} Reporte EEO  ${new Date().getFullYear()}`}
-                >
+     
           <MDBTable small borderless className="mt-4 text-center">
             <MDBTableBody>
               <tr>
@@ -3757,7 +3760,7 @@ ponderacion=<React.Fragment>
                 </MDBContainer>
                 
                 <MDBContainer style={{marginLeft:20}} >
-                <MDBTable small borderless className="mt-4 text-left ml-4">
+                <MDBTable small borderless className="mt-4 text-left">
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
@@ -3922,11 +3925,8 @@ ponderacion=<React.Fragment>
                     </tr>
                   </MDBTableBody>
                   </MDBTable>
-                  <strong style={{marginLeft:500}}>  <font size="1"face="arial"color="black">Página {a++}</font></strong>
 
-                  <br/>
-
-                  <MDBTable small borderless className="mt-4 text-center">
+                  <MDBTable small borderless className="mt-4 text-left">
                   <MDBTableHead >
                     <tr>
                       <th  width="5%"></th>
@@ -3972,7 +3972,7 @@ ponderacion=<React.Fragment>
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th width="70%">VII. Cualquier tipo de cambio que ocurra en su trabajo (considere los últimos cambios realizados).</th>       
+                      <th width="70%">VII.Cualquier tipo de cambio que ocurra en su trabajo (considere los últimos cambios realizados).</th>       
                       <td width="25%"> </td> 
                     </tr>
                   </MDBTableHead>
@@ -4276,7 +4276,580 @@ ponderacion=<React.Fragment>
                   </MDBTableBody>
                 </MDBTable> 
                 </MDBContainer>  
-                </PDFExport>
+                <div>
+                        <div className="example-config">    
+                        </div>
+                        <div style={{ position: "absolute", left: "-1000px", top: 0 }}>
+                            <PDFExport
+                                paperSize="letter"
+                                margin="1cm"
+                                pageTemplate={PageTemplate}
+                                forcePageBreak=".page-break"
+                                fileName={`${this.state.resultados[0].nombre} ${this.state.resultados[0].ApellidoP} ${this.state.resultados[0].ApellidoM} Reporte ATS ${new Date().getFullYear()}`}
+                                ref={(component) => this.pdfExportComponent = component}
+                            >
+                                <div style={{ width: "500px" }}>
+                                    <MDBRow> 
+                                    <MDBCol>
+                                    <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
+                                    </MDBCol>  
+                                    <MDBCol>
+                                    {/* <img src={localStorage.getItem("urlLogo")}  style = {{width:100,marginBottom:30}}/> */}
+                                    </MDBCol>
+                                    </MDBRow> 
+                                    <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
+                                    <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
+                                    
+                                    <MDBTableBody>     
+                                    <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
+                                    <font size="1"face="arial"color="black">{this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</font><br></br><br/>
+                                    <font size="2"face="arial"color="black">CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font><br></br>
+                                    <font size="1"face="arial"color="black">{this.state.date}</font>                     
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <font size="1"
+                                        face="arial"
+                                        color="black" style = {{marginLeft:35}}>GUÍA DE REFERENCIA II
+                                        CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</font>   <br/>  
+                                        <font size="1"  face="arial"
+                                        color="black" style = {{marginLeft:35}}>PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN
+                                        LOS CENTROS DE TRABAJO</font>
+                                    <MDBTable responsive small borderless className="text-left mt-4" style = {{marginLeft:35}}>
+        
+                                    <MDBTableBody>  
+                                                        
+                                      <tr>
+                                      <td width="6%" ><font size="1" face="arial"color="black" >Nombre : {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</font> </td>
+                                      <td width="6%" ><font size="1" face="arial"color="black" >Puesto : {this.state.resultados[0].Puesto}</font></td>
+                                                    </tr>
+                                                    <tr>
+                                      <td width="6%" ><font size="1" face="arial"color="black" >Departamento : {this.state.resultados[0].AreaTrabajo}</font></td>
+                                      <td width="6%" ><font size="1" face="arial"color="black" >Genero : {this.state.resultados[0].Sexo}</font></td> 
+                                                    </tr>
+                                                    <tr>
+                                      <td width="6%" ><font size="1" face="arial"color="black" >Correo : {this.state.resultados[0].correo}</font></td>
+                                      <td width="6%" ><font size="1" face="arial"color="black" >RFC : {this.state.resultados[0].RFC}</font></td>            
+                                      </tr>
+                                    </MDBTableBody>
+                                    </MDBTable>
+             
+
+                                    <MDBTable  component={Paper}  small  className="text-left ">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginLeft:20}}  size="1">I. Condiciones ambientales de su centro de trabajo.</font>
+                                    </MDBTableBody>                                                                            
+                                    </MDBTable>
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left"> 
+                                    <MDBTableBody>
+                                        
+                                    <tr>
+                                    <td><font size="1" face="arial"color="black" >El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</font></td>
+                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[1].Respuestas}</font></td> 
+                                  </tr>
+                                  <tr>
+                                    <td><font size="1" face="arial"color="black" >Mi trabajo me exige hacer mucho esfuerzo físico</font></td>
+                                    <td width="90px" ><font size="1" face="arial"color="black" >{this.state.resultados[2].Respuestas}</font></td> 
+                                  </tr>
+                                  <tr>
+                                    <td><font size="1" face="arial"color="black" >Me preocupa sufrir un accidente en mi trabajo</font></td>
+                                    <td  width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[3].Respuestas}</font></td> 
+                                  </tr>                    
+                                  <tr>
+                                    <td><font size="1" face="arial"color="black" >Considero que en mi trabajo se aplican las normas de seguridad y salud en el trabajo</font></td>
+                                    <td  width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[4].Respuestas}</font></td> 
+                                  </tr>
+                                  <tr>
+                                    <td><font size="1" face="arial"color="black" >Considero que las actividades que realizo son peligrosas</font></td>
+                                    <td  width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[5].Respuestas}</font></td> 
+                                  </tr>
+                                  
+          
+                                    </MDBTableBody>
+                                   </MDBTable>
+                                    <MDBTable  component={Paper}  small  className="text-left ">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}   size="1">II. La cantidad y ritmo de trabajo que tiene.</font>
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <MDBTable style={{marginLeft:20}}  component={Paper}  small bordered className="text-left mt-4 ">
+                                    <MDBTableBody>
+                                    <tr>
+                                    <td><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</font></td>
+                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[6].Respuestas}</font></td> 
+                                  </tr>
+                                  <tr>
+                                    <td><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo trabajar sin parar</font></td>
+                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[7].Respuestas} </font></td> 
+                                  </tr>
+                                  <tr>
+                                    <td><font size="1" face="arial"color="black" >Considero que es necesario mantener un ritmo de trabajo acelerado</font></td>
+                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[8].Respuestas}</font></td> 
+                                  </tr>
+                                  
+                                    </MDBTableBody>
+                                    </MDBTable>
+                          
+                                    <MDBTable  component={Paper}  small  className="text-left">
+                                    <MDBTableBody>
+                                    <font style= {{marginLeft:20}}  size="1" color="red" >III. El esfuerzo mental que le exige su trabajo.</font>
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                            
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
+                                    <MDBTableBody>
+                                    <tr>
+                                    <td><font size="1" face="arial"color="black" >Mi trabajo exige que esté muy concentrado</font></td>
+                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[9].Respuestas}</font></td> 
+                                  </tr>
+                                    <tr>
+                                    <td><font size="1" face="arial"color="black" >Mi trabajo requiere que memorice mucha información</font></td>   
+                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[10].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >En mi trabajo tengo que tomar decisiones difíciles muy rápido</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[11].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >Mi trabajo exige que atienda varios asuntos al mismo tiempo</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[12].Respuestas}</font></td> 
+                                    </tr>
+                                   
+                   
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <br/>  
+                                    <MDBTable  component={Paper}  small  className="text-left">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV. Trabajo y las responsabilidades que tiene.</font>
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
+                                    <MDBTableBody>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >En mi trabajo soy responsable de cosas de mucho valor</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[13].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                    <td><font size="1" face="arial"color="black" >Respondo ante mi jefe por los resultados de toda mi área de trabajo</font></td>   
+                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[14].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >En el trabajo me dan órdenes contradictorias</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[15].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >Considero que en mi trabajo me piden hacer cosas innecesarias</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[16].Respuestas}</font></td> 
+                                    </tr>
+                                   
+                                    </MDBTableBody>
+                                    </MDBTable>
+
+                                    <MDBTable  component={Paper}  small  className="text-left">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >V. Jornada de trabajo.</font>
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
+                                    <MDBTableBody>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >Trabajo horas extras más de tres veces a la semana</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[17].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                    <td><font size="1" face="arial"color="black" >Mi trabajo me exige laborar en días de descanso, festivos o fines de semana</font></td>   
+                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[18].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[19].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >Debo atender asuntos de trabajo cuando estoy en casa</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[20].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >Pienso en las actividades familiares o personales cuando estoy en mi trabajo</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[21].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >Pienso que mis responsabilidades familiares afectan mi trabajo</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[22].Respuestas}</font></td> 
+                                    </tr>
+                                    </MDBTableBody>
+                                    </MDBTable>
+                          
+                                    <MDBTable  component={Paper}  small  className="text-left">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VI. Decisiones que puede tomar en su trabajo.</font>
+                                    </MDBTableBody>
+                                    </MDBTable>
+
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
+                                    <MDBTableBody>
+                                            
+                                    <tr>
+                                    <td><font size="1" face="arial"color="black" >Mi trabajo permite que desarrolle nuevas habilidades</font></td>   
+                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[23].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >En mi trabajo puedo aspirar a un mejor puesto</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[24].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[25].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1" face="arial"color="black" >Puedo decidir cuánto trabajo realizo durante la jornada laboral</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[26].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td ><font size="1" face="arial"color="black" >Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</font></td>   
+                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[27].Respuestas}</font></td> 
+                                    </tr>
+                            
+                                    <tr>
+                                    <td><font size="1"face="arial"color="black">Puedo cambiar el orden de las actividades que realizo en mi trabajo</font></td>   
+                                    <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[28].Respuestas}</font></td> 
+                                    </tr>
+                                    
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <MDBTable  component={Paper}  small  className="text-left">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VII.Cualquier tipo de cambio que ocurra en su trabajo</font><br/>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >(considere los últimos cambios realizados).	</font>
+
+                                    </MDBTableBody>
+                                    </MDBTable>
+
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
+                                    <MDBTableBody>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Los cambios que se presentan en mi trabajo dificultan mi labor</font></td>   
+                                      <td width="90px" ><font size="1"face="arial"color="black">{this.state.resultados[29].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[30].Respuestas}</font></td> 
+                                    </tr>
+                                    
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <MDBTable  component={Paper}  small  className="text-left">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VIII. capacitación e información que se le proporciona sobre su trabajo.</font>
+                                    </MDBTableBody>
+                                    </MDBTable>
+
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                                    <MDBTableBody>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Me informan con claridad cuáles son mis funciones</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[31].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Me explican claramente los resultados que debo obtener en mi trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[32].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Me explican claramente los objetivos de mi trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[33].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Me informan con quién puedo resolver problemas o asuntos de trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[34].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Me permiten asistir a capacitaciones relacionadas con mi trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[35].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Recibo capacitación útil para hacer mi trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[36].Respuestas}</font></td> 
+                                    </tr>
+                                    
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <MDBTable  component={Paper}  small  className="text-left">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IX. Jefes con quien tiene contacto.</font>
+                                    </MDBTableBody>
+                                    </MDBTable>
+
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                                    <MDBTableBody>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Mi jefe ayuda a organizar mejor el trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[37].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Mi jefe tiene en cuenta mis puntos de vista y opiniones</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[38].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Mi jefe me comunica a tiempo la información relacionada con el trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[39].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">La orientación que me da mi jefe me ayuda a realizar mejor mi trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[40].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[41].Respuestas}</font></td> 
+                                    </tr>
+                                                                 
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <MDBTable  component={Paper}  small  className="text-left">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >X. Relaciones con sus compañeros.</font>
+                                    </MDBTableBody>
+                                    </MDBTable>
+
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                                    <MDBTableBody>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Puedo confiar en mis compañeros de trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[42].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Entre compañeros solucionamos los problemas de trabajo de forma respetuosa</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[43].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">En mi trabajo me hacen sentir parte del grupo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[44].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Cuando tenemos que realizar trabajo de equipo los compañeros colaboran</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[45].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Mis compañeros de trabajo me ayudan cuando tengo dificultades</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[46].Respuestas}</font></td> 
+                                    </tr>
+                                                                 
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <br/>
+                                    <br/>  
+                                    <MDBTable  component={Paper}  small  className="text-left">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento</font><br/>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</font>
+
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                   
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                                    <MDBTableBody>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Me informan sobre lo que hago bien en mi trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[47].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">La forma como evalúan mi trabajo en mi centro de trabajo me ayuda a mejorar mi desempeño</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[48].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">En mi centro de trabajo me pagan a tiempo mi salario</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[49].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">El pago que recibo es el que merezco por el trabajo que realizo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[50].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Si obtengo los resultados esperados en mi trabajo me recompensan o reconocen</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[51].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Las personas que hacen bien el trabajo pueden crecer laboralmente</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[52].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Considero que mi trabajo es estable</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[53].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">En mi trabajo existe continua rotación de personal</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[54].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Siento orgullo de laborar en este centro de trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[55].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Me siento comprometido con mi trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[56].Respuestas}</font></td> 
+                                    </tr>
+                                                                 
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <MDBTable  component={Paper}  small  className="text-left">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</font>
+                                    </MDBTableBody>
+                                    </MDBTable>
+
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                                    <MDBTableBody>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">En mi trabajo puedo expresarme libremente sin interrupciones</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[57].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Recibo críticas constantes a mi persona y/o trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[58].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[59].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[60].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[61].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[62].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[63].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">He presenciado actos de violencia en mi centro de trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[64].Respuestas}</font></td> 
+                                    </tr>
+                                                                                                  
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>  
+                                    <MDBTable  component={Paper}  small  className="text-left">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XIII. Atención a clientes y usuarios.</font>
+                                    </MDBTableBody>
+                                    </MDBTable>
+
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                                    <MDBTableBody>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Atiendo clientes o usuarios muy enojados</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[65].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[66].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Para hacer mi trabajo debo demostrar sentimientos distintos a los míos</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[67].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Mi trabajo me exige atender situaciones de violencia</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[68].Respuestas}</font></td> 
+                                    </tr>
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <MDBTable  component={Paper}  small  className="text-left">
+                                    <MDBTableBody>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >Las actitudes de las personas que supervisa.</font>
+                                    </MDBTableBody>
+                                    </MDBTable>
+
+                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                                    <MDBTableBody>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Comunican tarde los asuntos de trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[69].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Dificultan el logro de los resultados del trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[70].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Cooperan poco cuando se necesita</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[71].Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td><font size="1"face="arial"color="black">Ignoran las sugerencias para mejorar su trabajo</font></td>   
+                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[72].Respuestas}</font></td> 
+                                    </tr>
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                </div>
+                            </PDFExport>
+                        </div>
+                    </div>
+
           </section>
         </React.Fragment>
    
@@ -5329,7 +5902,8 @@ ponderacion=<React.Fragment>
                             paperSize="letter"
                             margin="1cm"
                             pageNum
-                            // pageTemplate={this.pdfExportComponent}
+                            pageTemplate={PageTemplate}
+                            forcePageBreak=".page-break"
                             fileName={`${this.state.resultadosQuery[0].nombre} ${this.state.resultadosQuery[0].ApellidoP} ${this.state.resultadosQuery[0].ApellidoM} Reporte EEO ${new Date().getFullYear()}`}
                             ref={(component) => this.pdfExportComponent = component}
                         >
@@ -5713,7 +6287,7 @@ ponderacion=<React.Fragment>
          botonCerrar=<MDBBtn color="danger" onClick={(e)=>{window.location.reload()}} >Cerrar resultados</MDBBtn>
      }
      if(this.state.botonDisabled){
-         botonResultadosGlobales=<div><MDBBtn onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Ver Resultados Globales</MDBBtn>&nbsp;&nbsp;&nbsp;<MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  outline color="success">Respuestas totales</MDBBtn>&nbsp;&nbsp;&nbsp;<MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)}  outline color="success">Resultados totales</MDBBtn></div>
+         botonResultadosGlobales=<MDBRow><MDBCol><MDBBtn onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Descarga del reporte Global</MDBBtn></MDBCol><MDBCol><MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  outline color="success"> Descarga masiva evaluaciones</MDBBtn></MDBCol><MDBCol><MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)}  outline color="success">Descarga masiva resultados</MDBBtn></MDBCol></MDBRow>
      }
     return (
       <React.Fragment>
@@ -5842,610 +6416,636 @@ ponderacion=<React.Fragment>
                  <div style={{ position: "absolute", left: "-2000px", top: 0 }}>
                  <section className="flex-column  bg-white  pa4 "  >
                   <PDFExport
-                           scale={0.7}
+                          pageTemplate={PageTemplate}
+                          forcePageBreak=".page-break"
                            paperSize="A4"
                            margin="1cm"
                            ref={(component) => this.pdfExportComponent = component}
                            fileName={`Respuestas del total de empleados ${new Date().getFullYear()}`}
                            >
            
-                       <MDBTable small borderless className="mt-4 text-center">
-                       <MDBTableBody>
-                         <tr>
-                           <td width ="50%">
-                           <img src={diagnostico} alt="logo" style = {{width:100,marginBottom:30}}/>
-           
-                           </td>
-                         </tr>
-           
-                       </MDBTableBody>        
-                       </MDBTable>
-                        <MDBContainer style={{marginLeft:"7%"}}>
-                          
-                        <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL   EN LOS CENTROS DE TRABAJO</font>
-                        <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
-                            
-               
-                        </MDBContainer>
-           
+                   <div style={{ width: "500px" }}>
+                      <MDBRow> 
+                      <MDBCol>
+                      <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
+                      </MDBCol>  
+                      <MDBCol>
+                      {/* <img src={localStorage.getItem("urlLogo")}  style = {{width:100,marginBottom:30}}/> */}
+                      </MDBCol>
+                      </MDBRow> 
+                      <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
+                      <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
+                      
+                      <MDBTableBody>     
+                      <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
+                      <font size="1"face="arial"color="black">{rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</font><br></br><br/>
+                      <font size="2"face="arial"color="black">CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font><br></br>
+                      <font size="1"face="arial"color="black">{this.state.date}</font>    
+                      <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
+                          <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>                                               
+                      </MDBTableBody>
+                      </MDBTable>
+                      <br/>  
+                      <br/>  
+                      <br/>  
+                      <br/>  
+                      <br/>
+                      <br/>
+                      <br/>
+                      <br/>
+                      <br/>  
+                      <br/>
+                      <br/>
+                      <br/>  
+                      <br/>  
+                      <br/>  
+                      <br/>  
+                      <br/>
+                      <br/>
+                      <br/>
+                      <br/>
+                      <br/>  
+                      <br/>
+                      <br/>
+                      <br/>  
+                      <br/>
+                      <br/>
+                      <br/>
+                      <br/>
+                      <br/>  
+                      <br/>
+                      <br/>
+                      <br/>  
+                      <br/>
+                      <br/>
+                      <br/>
+                      <br/>
+                      <br/>  
+                      <br/>
+                      <br/>
+                      <font size="1"
+                      face="arial"
+                      color="black" style = {{marginLeft:35}}>GUÍA DE REFERENCIA II
+                      CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</font>   <br/>  
+                      <font size="1"  face="arial"
+                      color="black" style = {{marginLeft:35}}>PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN
+                      LOS CENTROS DE TRABAJO</font>           
                      {this.state.reporteImasivo.map(rows=>{
                        if(rows[0]){
                        return(
+                        <div> 
                          
-                     
-                        <MDBContainer style={{marginLeft:20}} >
-                        <MDBTable responsive small borderless className="text-left mt-4 "  style={{marginLeft:30}}>
-                      <MDBTableBody>                  
-                        <tr>
-                        <td  >Nombre : {rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM} </td>
-                        <td >Puesto : {rows[0].Puesto}</td>
-                                      </tr>
-                                      <tr>
-                        <td >Departamento : {rows[0].AreaTrabajo}</td>
-                        <td >Genero : {rows[0].Sexo}</td> 
-                                      </tr>
-                                      <tr>
-                        <td >Correo : {rows[0].correo}</td>
-                        <td >RFC : {rows[0].RFC}</td>   
-                        </tr>
-                      </MDBTableBody>
-                      </MDBTable>
-                      <MDBTable small borderless className="mt-4 text-left ml-4">
-                        <MDBTableHead>
-                          <tr>
-                            <th width="5%"></th>
-                            <th width="70%">I. Condiciones ambientales de su centro de trabajo.</th>    
-                            <td width="25%"></td>   
-                          </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
-                          <tr>
-                            <td width="5%">1</td>
-                            <td width="70%">El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</td>
-                            <td width="25%" >{rows[1].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td >2</td>
-                            <td>Mi trabajo me exige hacer mucho esfuerzo físico</td>
-                            <td>{rows[2].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>Me preocupa sufrir un accidente en mi trabajo</td>
-                            <td>{rows[3].Respuestas}</td> 
-                          </tr>                    
-                          <tr>
-                            <td>4</td>
-                            <td>Considero que en mi trabajo se aplican las normas de seguridad y salud en el trabajo</td>
-                            <td>{rows[4].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>5</td>
-                            <td>Considero que las actividades que realizo son peligrosas</td>
-                            <td >{rows[5].Respuestas}</td> 
-                          </tr>
-                          <br/>
-      
-                        </MDBTableBody>
-            
-                        <MDBTableHead>
-                          <tr>
-                          <td></td>
-                            <th >II. La cantidad y ritmo de trabajo que tiene.</th>       
-                            <td></td>
-                          </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
-                          <tr>
-                            <td>6</td>
-                            <td>Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</td>   
-                            <td >{rows[6].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>7</td>
-                            <td>Por la cantidad de trabajo que tengo debo trabajar sin parar</td>   
-                            <td >{rows[7].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>8</td>
-                            <td>Considero que es necesario mantener un ritmo de trabajo acelerado</td>   
-                            <td >{rows[8].Respuestas}</td> 
-                          </tr>
-                          <br/>
-                        </MDBTableBody>
+                        <MDBTable responsive small borderless className="text-left mt-4" style = {{marginLeft:35}}>
         
-                        <MDBTableHead>
+                        <MDBTableBody>  
+                                            
                           <tr>
-                            <th width="5%"></th>
-                            <th width="70%">III. El esfuerzo mental que le exige su trabajo.</th>       
-                            <td width="25%"></td> 
+                          <td width="6%" ><font size="1" face="arial"color="black" >Nombre : {rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</font> </td>
+                          <td width="6%" ><font size="1" face="arial"color="black" >Puesto : {rows[0].Puesto}</font></td>
+                                        </tr>
+                                        <tr>
+                          <td width="6%" ><font size="1" face="arial"color="black" >Departamento : {rows[0].AreaTrabajo}</font></td>
+                          <td width="6%" ><font size="1" face="arial"color="black" >Genero : {rows[0].Sexo}</font></td> 
+                                        </tr>
+                                        <tr>
+                          <td width="6%" ><font size="1" face="arial"color="black" >Correo : {rows[0].correo}</font></td>
+                          <td width="6%" ><font size="1" face="arial"color="black" >RFC : {rows[0].RFC}</font></td>            
                           </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
-                          <tr>
-                            <td width="5%">9</td>
-                            <td width="70%">Mi trabajo exige que esté muy concentrado</td> 
-                            <td width="25%" >{rows[9].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>10</td>
-                            <td>Mi trabajo requiere que memorice mucha información</td>   
-                            <td >{rows[10].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>11</td>
-                            <td>En mi trabajo tengo que tomar decisiones difíciles muy rápido</td>   
-                            <td>{rows[11].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>12</td>
-                            <td>Mi trabajo exige que atienda varios asuntos al mismo tiempo</td>   
-                            <td >{rows[12].Respuestas}</td> 
-                          </tr>
-                        <br/>
                         </MDBTableBody>
+                        </MDBTable>
+ 
 
-                        <MDBTableHead>
-                          <tr>
-                            <th width="5%"></th>
-                            <th width="70%">IV. Trabajo y las responsabilidades que tiene.</th>       
-                            <td width="25%" ></td> 
-                          </tr>
-                        </MDBTableHead>
+                        <MDBTable  component={Paper}  small  className="text-left ">
                         <MDBTableBody>
-                          <tr>
-                            <td width="5%">13</td>
-                            <td width="70%">En mi trabajo soy responsable de cosas de mucho valor</td>   
-                            <td width="25%" >{rows[13].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>14</td>
-                            <td>Respondo ante mi jefe por los resultados de toda mi área de trabajo</td>   
-                            <td>{rows[14].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>15</td>
-                            <td>En el trabajo me dan órdenes contradictorias</td>   
-                            <td>{rows[15].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>16</td>
-                            <td>Considero que en mi trabajo me piden hacer cosas innecesarias</td>   
-                            <td>{rows[16].Respuestas}</td> 
-                          </tr>
-                          <br/>
-                        </MDBTableBody>
-                        <MDBTableHead>
-                          <tr>
-                            <th width="5%"></th>
-                            <th width="70%">V. Jornada de trabajo.</th>       
-                            <td width="25%"></td> 
-                          </tr>
-                        </MDBTableHead>
+                        <font color="red" style= {{marginLeft:20}}  size="1">I. Condiciones ambientales de su centro de trabajo.</font>
+                        </MDBTableBody>                                                                            
+                        </MDBTable>
+
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left"> 
                         <MDBTableBody>
-                          <tr>
-                            <td width="5%">17</td>
-                            <td width="70%">Trabajo horas extras más de tres veces a la semana</td>   
-                            <td width="25%">{rows[17].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>18</td>
-                            <td>Mi trabajo me exige laborar en días de descanso, festivos o fines de semana</td>   
-                            <td>{rows[18].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>19</td>
-                            <td>Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales</td>   
-                            <td>{rows[19].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>20</td>
-                            <td>Debo atender asuntos de trabajo cuando estoy en casa</td>   
-                            <td>{rows[20].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>21</td>
-                            <td>Pienso en las actividades familiares o personales cuando estoy en mi trabajo</td>   
-                            <td>{rows[21].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>22</td>
-                            <td>Pienso que mis responsabilidades familiares afectan mi trabajo</td>   
-                            <td>{rows[22].Respuestas}</td> 
-                          </tr>
+                            
+                        <tr>
+                        <td><font size="1" face="arial"color="black" >El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</font></td>
+                        <td width="90px"><font size="1" face="arial"color="black" >{rows[1].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Mi trabajo me exige hacer mucho esfuerzo físico</font></td>
+                          <td width="90px" ><font size="1" face="arial"color="black" >{rows[2].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Me preocupa sufrir un accidente en mi trabajo</font></td>
+                          <td  width="90px"><font size="1" face="arial"color="black" >{rows[3].Respuestas}</font></td> 
+                        </tr>                    
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Considero que en mi trabajo se aplican las normas de seguridad y salud en el trabajo</font></td>
+                          <td  width="90px"><font size="1" face="arial"color="black" >{rows[4].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Considero que las actividades que realizo son peligrosas</font></td>
+                          <td  width="90px"><font size="1" face="arial"color="black" >{rows[5].Respuestas}</font></td> 
+                      </tr>
                         </MDBTableBody>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <MDBTableHead >
-                          <tr>
-                            <th  width="5%"></th>
-                            <th  width="70%">VI. Decisiones que puede tomar en su trabajo.</th>       
-                            <td  width="25%"></td> 
-                          </tr>
-                        </MDBTableHead>
+                       </MDBTable>
+                        <MDBTable  component={Paper}  small  className="text-left ">
                         <MDBTableBody>
-                          <tr>
-                            <td width="5%">23</td>
-                            <td width="70%">Mi trabajo permite que desarrolle nuevas habilidades</td>   
-                            <td width="25%">{rows[23].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>24</td>
-                            <td>En mi trabajo puedo aspirar a un mejor puesto</td>   
-                            <td >{rows[24].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>25</td>
-                            <td>Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</td>   
-                            <td>{rows[25].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td >26</td>
-                            <td >Puedo decidir cuánto trabajo realizo durante la jornada laboral</td>   
-                            <td >{rows[26].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>27</td>
-                            <td>Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</td>   
-                            <td >{rows[27].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>28</td>
-                            <td>Puedo cambiar el orden de las actividades que realizo en mi trabajo</td>   
-                            <td>{rows[28].Respuestas}</td> 
-                          </tr>
-                          <br/>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}   size="1">II. La cantidad y ritmo de trabajo que tiene.</font>
                         </MDBTableBody>
+                        </MDBTable>
+                        <MDBTable style={{marginLeft:20}}  component={Paper}  small bordered className="text-left mt-4 ">
+                        <MDBTableBody>
+                        <tr>
+                        <td><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</font></td>
+                        <td width="90px"><font size="1" face="arial"color="black" >{rows[6].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo trabajar sin parar</font></td>
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[7].Respuestas} </font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Considero que es necesario mantener un ritmo de trabajo acelerado</font></td>
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[8].Respuestas}</font></td> 
+                        </tr>
+                      
+                        </MDBTableBody>
+                        </MDBTable>
+              
+                        <MDBTable  component={Paper}  small  className="text-left">
+                        <MDBTableBody>
+                        <font style= {{marginLeft:20}}  size="1" color="red" >III. El esfuerzo mental que le exige su trabajo.</font>
+                        </MDBTableBody>
+                        </MDBTable>
+                                
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
+                        <MDBTableBody>
+                        <tr>
+                        <td><font size="1" face="arial"color="black" >Mi trabajo exige que esté muy concentrado</font></td>
+                        <td width="90px"><font size="1" face="arial"color="black" >{rows[9].Respuestas}</font></td> 
+                      </tr>
+                        <tr>
+                        <td><font size="1" face="arial"color="black" >Mi trabajo requiere que memorice mucha información</font></td>   
+                        <td width="90px"><font size="1" face="arial"color="black" >{rows[10].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >En mi trabajo tengo que tomar decisiones difíciles muy rápido</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[11].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Mi trabajo exige que atienda varios asuntos al mismo tiempo</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[12].Respuestas}</font></td> 
+                        </tr>
+                        </MDBTableBody>
+                        </MDBTable>
+                        <br/>  
+                        <br/>  
+                        <br/>  
+                        <br/>  
+                        <br/>  
+                        <br/>  
+                        <br/>  
+                        <br/>  
+                        <MDBTable  component={Paper}  small  className="text-left">
+                        <MDBTableBody>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV. Trabajo y las responsabilidades que tiene.</font>
+                        </MDBTableBody>
+                        </MDBTable>
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
+                        <MDBTableBody>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >En mi trabajo soy responsable de cosas de mucho valor</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[13].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                        <td><font size="1" face="arial"color="black" >Respondo ante mi jefe por los resultados de toda mi área de trabajo</font></td>   
+                        <td width="90px"><font size="1" face="arial"color="black" >{rows[14].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >En el trabajo me dan órdenes contradictorias</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[15].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Considero que en mi trabajo me piden hacer cosas innecesarias</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[16].Respuestas}</font></td> 
+                        </tr>
+                       
+                        </MDBTableBody>
+                        </MDBTable>
+
+                        <MDBTable  component={Paper}  small  className="text-left">
+                        <MDBTableBody>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >V. Jornada de trabajo.</font>
+                        </MDBTableBody>
+                        </MDBTable>
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
+                        <MDBTableBody>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Trabajo horas extras más de tres veces a la semana</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[17].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                        <td><font size="1" face="arial"color="black" >Mi trabajo me exige laborar en días de descanso, festivos o fines de semana</font></td>   
+                        <td width="90px"><font size="1" face="arial"color="black" >{rows[18].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[19].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Debo atender asuntos de trabajo cuando estoy en casa</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[20].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Pienso en las actividades familiares o personales cuando estoy en mi trabajo</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[21].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Pienso que mis responsabilidades familiares afectan mi trabajo</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[22].Respuestas}</font></td> 
+                        </tr>
+                        </MDBTableBody>
+                        </MDBTable>
+              
+                        <MDBTable  component={Paper}  small  className="text-left">
+                        <MDBTableBody>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VI. Decisiones que puede tomar en su trabajo.</font>
+                        </MDBTableBody>
+                        </MDBTable>
+
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
+                        <MDBTableBody>
+                                
+                        <tr>
+                        <td><font size="1" face="arial"color="black" >Mi trabajo permite que desarrolle nuevas habilidades</font></td>   
+                        <td width="90px"><font size="1" face="arial"color="black" >{rows[23].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >En mi trabajo puedo aspirar a un mejor puesto</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[24].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[25].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1" face="arial"color="black" >Puedo decidir cuánto trabajo realizo durante la jornada laboral</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[26].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td ><font size="1" face="arial"color="black" >Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</font></td>   
+                          <td width="90px"><font size="1" face="arial"color="black" >{rows[27].Respuestas}</font></td> 
+                        </tr>
+                
+                        <tr>
+                        <td><font size="1"face="arial"color="black">Puedo cambiar el orden de las actividades que realizo en mi trabajo</font></td>   
+                        <td width="90px"><font size="1"face="arial"color="black">{rows[28].Respuestas}</font></td> 
+                        </tr>
                         
-                        <MDBTableHead>
-                          <tr>
-                            <th width="5%"></th>
-                            <th width="70%">VII. Cualquier tipo de cambio que ocurra en su trabajo (considere los últimos cambios realizados).</th>       
-                            <td width="25%"> </td> 
-                          </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
-                          <tr>
-                            <td  width="5%">29</td>
-                            <td  width="70%">Los cambios que se presentan en mi trabajo dificultan mi labor</td>   
-                            <td  width="25%">{rows[29].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>30</td>
-                            <td>Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</td>   
-                            <td >{rows[30].Respuestas}</td> 
-                          </tr>
-                          <br/>
                         </MDBTableBody>
-                        <MDBTableHead>
-                          <tr>
-                            <th width="5%"></th>
-                            <th width="70%">VIII. capacitación e información que se le proporciona sobre su trabajo.</th>       
-                            <td width="25%"></td> 
-                          </tr>
-                        </MDBTableHead>
+                        </MDBTable>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <MDBTable  component={Paper}  small  className="text-left">
                         <MDBTableBody>
-                          <tr>
-                            <td width="5%">31</td>
-                            <td width="70%">Me informan con claridad cuáles son mis funciones</td>   
-                            <td width="25%">{rows[31].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>32</td>
-                            <td>Me explican claramente los resultados que debo obtener en mi trabajo</td>   
-                            <td >{rows[32].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>33</td>
-                            <td>Me explican claramente los objetivos de mi trabajo</td>   
-                            <td >{rows[33].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>34</td>
-                            <td>Me informan con quién puedo resolver problemas o asuntos de trabajo</td>   
-                            <td>{rows[34].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>35</td>
-                            <td>Me permiten asistir a capacitaciones relacionadas con mi trabajo</td>   
-                            <td>{rows[35].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>36</td>
-                            <td>Recibo capacitación útil para hacer mi trabajo</td>   
-                            <td>{rows[36].Respuestas}</td> 
-                          </tr>
-                          <br/>
-                        </MDBTableBody>
-
-                        <MDBTableHead>
-                          <tr>
-                            <th width="5%"></th>
-                            <th width="70%">IX. Jefes con quien tiene contacto.</th>       
-                            <td width="25%"></td> 
-                          </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
-                          <tr>
-                            <td width="5%">37</td>
-                            <td width="70%">Mi jefe ayuda a organizar mejor el trabajo</td>   
-                            <td width="25%">{rows[37].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>38</td>
-                            <td>Mi jefe tiene en cuenta mis puntos de vista y opiniones</td>   
-                            <td>{rows[38].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>39</td>
-                            <td>Mi jefe me comunica a tiempo la información relacionada con el trabajo</td>   
-                            <td>{rows[39].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>40</td>
-                            <td>La orientación que me da mi jefe me ayuda a realizar mejor mi trabajo</td>   
-                            <td>{rows[40].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>41</td>
-                            <td>Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo</td>   
-                            <td>{rows[41].Respuestas}</td> 
-                          </tr>                  
-                          <br/>
-                        </MDBTableBody>
-
-                        <MDBTableHead>
-                          <tr>
-                            <th width="5%"></th>
-                            <th width="70%">X. Relaciones con sus compañeros.</th>       
-                            <td width="25%"></td> 
-                          </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
-                        <tr>
-                            <td width="5%">42</td>
-                            <td width="70%">Puedo confiar en mis compañeros de trabajo</td>   
-                            <td width="25%">{rows[42].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>43</td>
-                            <td>Entre compañeros solucionamos los problemas de trabajo de forma respetuosa</td>   
-                            <td>{rows[43].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>44</td>
-                            <td>En mi trabajo me hacen sentir parte del grupo</td>   
-                            <td>{rows[44].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>45</td>
-                            <td>Cuando tenemos que realizar trabajo de equipo los compañeros colaboran</td>   
-                            <td >{rows[45].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>46</td>
-                            <td>Mis compañeros de trabajo me ayudan cuando tengo dificultades</td>   
-                            <td>{rows[46].Respuestas}</td> 
-                          </tr>
-                          <br/>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VII.Cualquier tipo de cambio que ocurra en su trabajo</font><br/>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >(considere los últimos cambios realizados).	</font>
 
                         </MDBTableBody>
-                        <MDBTableHead>
-                          <tr>
-                            <th  width="5px"></th>
-                            <th  width="70px">XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento, el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</th>       
-                            <td  width="25px"></td> 
-                          </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
-                        <tr>
-                            <td width="5%">47</td>
-                            <td width="70%">Me informan sobre lo que hago bien en mi trabajo</td>   
-                            <td width="25%">{rows[47].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>48</td>
-                            <td>La forma como evalúan mi trabajo en mi centro de trabajo me ayuda a mejorar mi desempeño</td>   
-                            <td>{rows[48].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>49</td>
-                            <td>En mi centro de trabajo me pagan a tiempo mi salario</td>   
-                            <td>{rows[49].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>50</td>
-                            <td>El pago que recibo es el que merezco por el trabajo que realizo</td>   
-                            <td>{rows[50].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>51</td>
-                            <td>Si obtengo los resultados esperados en mi trabajo me recompensan o reconocen</td>   
-                            <td>{rows[51].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>52</td>
-                            <td>Las personas que hacen bien el trabajo pueden crecer laboralmente</td>   
-                            <td >{rows[52].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>53</td>
-                            <td>Considero que mi trabajo es estable</td>   
-                            <td >{rows[53].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>54</td>
-                            <td>En mi trabajo existe continua rotación de personal</td>   
-                            <td>{rows[54].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>55</td>
-                            <td>Siento orgullo de laborar en este centro de trabajo</td>   
-                            <td>{rows[55].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>56</td>
-                            <td>Me siento comprometido con mi trabajo</td>   
-                            <td>{rows[56].Respuestas}</td> 
-                          </tr>
-                    
-                        </MDBTableBody>
+                        </MDBTable>
 
-                        <MDBTableHead>
-                          <tr>
-                            <th width="5%"></th>
-                            <th width="70%">XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</th>       
-                            <td width="25%"></td> 
-                          </tr>
-                        </MDBTableHead>
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
                         <MDBTableBody>
                         <tr>
-                            <td width="5%">57</td>
-                            <td width="70%">En mi trabajo puedo expresarme libremente sin interrupciones</td>   
-                            <td width="25%">{rows[57].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>58</td>
-                            <td>Recibo críticas constantes a mi persona y/o trabajo</td>   
-                            <td>{rows[58].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>59</td>
-                            <td>Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones</td>   
-                            <td>{rows[59].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>60</td>
-                            <td>Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones</td>   
-                            <td>{rows[60].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>61</td>
-                            <td>Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador</td>   
-                            <td>{rows[61].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>62</td>
-                            <td>Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores</td>   
-                            <td>{rows[62].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>63</td>
-                            <td>Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo</td>   
-                            <td>{rows[63].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>64</td>
-                            <td>He presenciado actos de violencia en mi centro de trabajo</td>   
-                            <td >{rows[64].Respuestas}</td> 
-                          </tr>
-                          <br/>
-                        </MDBTableBody>
-                        <MDBTableHead>
-                          <tr>
-                            <th width="5%"></th>
-                            <th width="70%">XIII. Atención a clientes y usuarios.</th>       
-                            <td width="25%"></td> 
-                          </tr>
-                        </MDBTableHead>
-                        <MDBTableBody>
+                          <td><font size="1"face="arial"color="black">Los cambios que se presentan en mi trabajo dificultan mi labor</font></td>   
+                          <td width="90px" ><font size="1"face="arial"color="black">{rows[29].Respuestas}</font></td> 
+                        </tr>
                         <tr>
-                            <td width="5%">65</td>
-                            <td width="70%">Atiendo clientes o usuarios muy enojados</td>   
-                            <td width="25%">{rows[65].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>66</td>
-                            <td>Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas</td>   
-                            <td>{rows[66].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>67</td>
-                            <td>Para hacer mi trabajo debo demostrar sentimientos distintos a los míos</td>   
-                            <td>{rows[67].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>68</td>
-                            <td>Mi trabajo me exige atender situaciones de violencia</td>   
-                            <td>{rows[68].Respuestas}</td> 
-                          </tr> 
-                          <br/>                   
+                          <td><font size="1"face="arial"color="black">Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[30].Respuestas}</font></td> 
+                        </tr>
+                        
                         </MDBTableBody>
+                        </MDBTable>
+                        <MDBTable  component={Paper}  small  className="text-left">
+                        <MDBTableBody>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VIII. capacitación e información que se le proporciona sobre su trabajo.</font>
+                        </MDBTableBody>
+                        </MDBTable>
 
-                        <MDBTableHead>
-                          <tr>
-                            <th width="5%"></th>
-                            <th width="70%">XIV.  Las actitudes de las personas que supervisa.</th>       
-                            <td width="25%"></td> 
-                          </tr>
-                        </MDBTableHead>
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
                         <MDBTableBody>
                         <tr>
-                            <td width="5%">69</td>
-                            <td width="70%"> Comunican tarde los asuntos de trabajo</td>   
-                            <td width="25%">{rows[69].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>70</td>
-                            <td>Dificultan el logro de los resultados del trabajo</td>   
-                            <td>{rows[70].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>71</td>
-                            <td>Cooperan poco cuando se necesita</td>   
-                            <td >{rows[71].Respuestas}</td> 
-                          </tr>
-                          <tr>
-                            <td>72</td>
-                            <td>Ignoran las sugerencias para mejorar su trabajo</td>   
-                            <td>{rows[72].Respuestas}</td> 
-                          </tr>
-                          
+                          <td><font size="1"face="arial"color="black">Me informan con claridad cuáles son mis funciones</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[31].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Me explican claramente los resultados que debo obtener en mi trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[32].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Me explican claramente los objetivos de mi trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[33].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Me informan con quién puedo resolver problemas o asuntos de trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[34].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Me permiten asistir a capacitaciones relacionadas con mi trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[35].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Recibo capacitación útil para hacer mi trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[36].Respuestas}</font></td> 
+                        </tr>
+                        
+                        </MDBTableBody>
+                        </MDBTable>
+                        <MDBTable  component={Paper}  small  className="text-left">
+                        <MDBTableBody>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IX. Jefes con quien tiene contacto.</font>
+                        </MDBTableBody>
+                        </MDBTable>
+
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                        <MDBTableBody>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Mi jefe ayuda a organizar mejor el trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[37].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Mi jefe tiene en cuenta mis puntos de vista y opiniones</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[38].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Mi jefe me comunica a tiempo la información relacionada con el trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[39].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">La orientación que me da mi jefe me ayuda a realizar mejor mi trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[40].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[41].Respuestas}</font></td> 
+                        </tr>
+                                                     
+                        </MDBTableBody>
+                        </MDBTable>
+                        <MDBTable  component={Paper}  small  className="text-left">
+                        <MDBTableBody>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >X. Relaciones con sus compañeros.</font>
+                        </MDBTableBody>
+                        </MDBTable>
+
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                        <MDBTableBody>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Puedo confiar en mis compañeros de trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[42].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Entre compañeros solucionamos los problemas de trabajo de forma respetuosa</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[43].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">En mi trabajo me hacen sentir parte del grupo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[44].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Cuando tenemos que realizar trabajo de equipo los compañeros colaboran</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[45].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Mis compañeros de trabajo me ayudan cuando tengo dificultades</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[46].Respuestas}</font></td> 
+                        </tr>
+                                                     
+                        </MDBTableBody>
+                        </MDBTable>
+                        <br/>
+                        <br/>  
+                        <br/>
+                        <br/>  
+                        <br/>
+                        <br/>  
+                        <br/>
+                        <br/>  
+                        <MDBTable  component={Paper}  small  className="text-left">
+                        <MDBTableBody>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento</font><br/>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</font>
+
+                        </MDBTableBody>
+                        </MDBTable>
+                       
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                        <MDBTableBody>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Me informan sobre lo que hago bien en mi trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[47].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">La forma como evalúan mi trabajo en mi centro de trabajo me ayuda a mejorar mi desempeño</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[48].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">En mi centro de trabajo me pagan a tiempo mi salario</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[49].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">El pago que recibo es el que merezco por el trabajo que realizo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[50].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Si obtengo los resultados esperados en mi trabajo me recompensan o reconocen</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[51].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Las personas que hacen bien el trabajo pueden crecer laboralmente</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[52].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Considero que mi trabajo es estable</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[53].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">En mi trabajo existe continua rotación de personal</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[54].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Siento orgullo de laborar en este centro de trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[55].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Me siento comprometido con mi trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[56].Respuestas}</font></td> 
+                        </tr>
+                                                     
+                        </MDBTableBody>
+                        </MDBTable>
+                        <MDBTable  component={Paper}  small  className="text-left">
+                        <MDBTableBody>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</font>
+                        </MDBTableBody>
+                        </MDBTable>
+
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                        <MDBTableBody>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">En mi trabajo puedo expresarme libremente sin interrupciones</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[57].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Recibo críticas constantes a mi persona y/o trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[58].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[59].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[60].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[61].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[62].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[63].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">He presenciado actos de violencia en mi centro de trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[64].Respuestas}</font></td> 
+                        </tr>
+                                                                                      
+                        </MDBTableBody>
+                        </MDBTable>
+                        <br/>
+                        <br/>
+                        <br/>  
+                        <br/>
+                        <br/>  
+                        <br/>
+                        <br/>  
+                        <br/>
+                        <br/>
+                        <br/>  
+                        <br/>
+                        <br/>  
+                        <br/>
+                        <br/>  
+                        <br/>
+                        <br/>
+                        <br/>  
+                        <br/>
+                        <br/>  
+                        <br/>
+                        <br/>  
+                        <MDBTable  component={Paper}  small  className="text-left">
+                        <MDBTableBody>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XIII. Atención a clientes y usuarios.</font>
+                        </MDBTableBody>
+                        </MDBTable>
+
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                        <MDBTableBody>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Atiendo clientes o usuarios muy enojados</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[65].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[66].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Para hacer mi trabajo debo demostrar sentimientos distintos a los míos</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[67].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Mi trabajo me exige atender situaciones de violencia</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[68].Respuestas}</font></td> 
+                        </tr>
+                        </MDBTableBody>
+                        </MDBTable>
+                        <MDBTable  component={Paper}  small  className="text-left">
+                        <MDBTableBody>
+                        <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XIV. Las actitudes de las personas que supervisa.</font>
+                        </MDBTableBody>
+                        </MDBTable>
+
+                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
+                        <MDBTableBody>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Comunican tarde los asuntos de trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[69].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Dificultan el logro de los resultados del trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[70].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Cooperan poco cuando se necesita</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[71].Respuestas}</font></td> 
+                        </tr>
+                        <tr>
+                          <td><font size="1"face="arial"color="black">Ignoran las sugerencias para mejorar su trabajo</font></td>   
+                          <td width="90px"><font size="1"face="arial"color="black">{rows[72].Respuestas}</font></td> 
+                        </tr>
                         </MDBTableBody>
                         </MDBTable> 
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                          <br/>
-                           {/* <Alert className ="mt-4" color ="primary ">INFORMACIÓN: LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert> */}
-                       </MDBContainer> 
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        </div>
                          )}
                          })}
+                       </div>
                        </PDFExport>
                 
                       </section>
@@ -6466,6 +7066,7 @@ ponderacion=<React.Fragment>
                       </MDBContainer>
                     )
                     })}
+                    
                          {this.state.resultadosEvaluacionMasivo.map(rows=>{
                         if(rows[0]){
                           return(
@@ -6474,6 +7075,8 @@ ponderacion=<React.Fragment>
                          <PDFExport
                             paperSize="A4"
                             margin="1cm"
+                            pageTemplate={PageTemplate}
+                            forcePageBreak=".page-break"
                             ref={(component) => this.pdfExportComponent = component}
                             fileName={`Resultados del total de empleados ${new Date().getFullYear()}`}
                         >

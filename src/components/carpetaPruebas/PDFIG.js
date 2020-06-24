@@ -1202,8 +1202,8 @@ pdfExportComponent ;
                 options={options}
               />
               <MDBRow style={{marginTop:20}}>
-        
-              <MDBCol ><MDBBtn  disabled={!this.state.botonDescargar}  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Resultados Globales</MDBBtn> &nbsp;&nbsp;&nbsp;&nbsp;<MDBBtn  disabled={!this.state.botonDescargaMasivo}  onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  outline color="success">Respuestas totales</MDBBtn> </MDBCol>  
+
+              <MDBCol ><MDBBtn  disabled={!this.state.botonDescargar}  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Descarga del reporte Global</MDBBtn> &nbsp;&nbsp;&nbsp;&nbsp;<MDBBtn  disabled={!this.state.botonDescargaMasivo}  onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  outline color="success">Descarga masiva evaluaciones</MDBBtn> </MDBCol>  
               <MDBCol>
               <MDBContainer >
                 {spinner}
