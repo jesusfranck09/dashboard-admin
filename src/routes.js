@@ -33,7 +33,6 @@ import Prueba from './components/carpetaPruebas/PDFIG'
 import PruebaRP from './components/carpetaPruebas/RPIG'
 import PruebaEEO from './components/carpetaPruebas/EEOIG'
 import PruebaDashboard from './components/carpetaPruebas/Dashboard'
-import Up from './components/uploadasw/upload'
 
 class Routes extends Component{
   
