@@ -14,6 +14,7 @@ const ReactFirebaseFileUpload = () => {
   const [progress, setProgress] = useState(0);
   const [cargando,setCargando]= useState("");
   const [mensaje,setMensaje] = useState("")
+  const [mensaje2,setMensaje2] = useState("")
   const [disabledButton,setDisabledButton] = useState("disabled")
   const handleChange = e => {
     if (e.target.files[0]) {
@@ -33,7 +34,7 @@ const ReactFirebaseFileUpload = () => {
         setProgress(progress);
       },
       error => {
-        // console.log(error);
+         console.log("error" , error);
       },
       () => {
         storage
@@ -41,6 +42,7 @@ const ReactFirebaseFileUpload = () => {
           .child(image.name)
           .getDownloadURL()
           .then(url => {
+            console.log("hay url" , url)
              if(url){
                  setCargando("")
             
@@ -61,12 +63,16 @@ const ReactFirebaseFileUpload = () => {
                 .then(datos => {	
                     console.log("datos",datos)
                 }).catch(err=>{
-                    // console.log("error" , err)
+                     console.log("error" , err)
                 })
                 setUrl(url);
-                setMensaje("Su logo ha sido cargado con éxito") 
-                setDisabledButton("")     
+                setMensaje(`Su logo ha sido cargado con éxito`) 
+                setMensaje2(` ... Actualizando por favor espere ... `) 
+
+                setDisabledButton("")
+                setTimeout(()=>{
                 window.location.reload()
+                },5000)     
         }
           });
       }
@@ -76,7 +82,7 @@ const ReactFirebaseFileUpload = () => {
   return (
     <div>
       <progress style = {{width: 460}} value={progress} max="100" /><br/>
-      <strong style={{marginLeft:20}}>{cargando}  {mensaje}</strong>
+      <strong style={{marginLeft:20}}>{cargando}  {mensaje}<br/><br/>&nbsp;&nbsp;&nbsp;{mensaje2}</strong>
       <br />
       <input type="file"  accept="image/x-png,image/gif,image/jpeg/,image/png" onChange={handleChange} />
       <MDBBtn disabled={!disabledButton} color ="success" onClick={handleUpload}>Cargar</MDBBtn>

@@ -153,7 +153,7 @@ class Home extends React.Component {
             }
             this.setState({urlLogo:datos.data.data.getLogo.url})
           }).catch(err=>{
-            console.log("datos error url " , err)
+            console.log("datos error url " , err.response)
           })
 
   }
