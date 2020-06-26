@@ -33,6 +33,7 @@ import Prueba from './components/carpetaPruebas/PDFIG'
 import PruebaRP from './components/carpetaPruebas/RPIG'
 import PruebaEEO from './components/carpetaPruebas/EEOIG'
 import PruebaDashboard from './components/carpetaPruebas/Dashboard'
+import Up from './components/uploadasw/upload'
 
 class Routes extends Component{
   
@@ -48,6 +49,7 @@ class Routes extends Component{
           <Switch>
               <main>
               <Route exact path='/' component={Login}/>
+              <PrivateRoute exact path='/up' component={Up}/>
                   {/* <Route exact path='/verify/:id' component={Verify}/> */}
                   <PrivateRoute exact path='/upload' component={Upload}/>
                   <PrivateRoute exact path='/indexAts' component={IndexATS}/>

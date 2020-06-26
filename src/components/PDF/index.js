@@ -111,20 +111,8 @@ pdfExportComponent
     NumeroDeMes=LaFecha.getMonth();
     FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
     this.setState({fecha:FechaCompleta})
-    this.download()
   }
 
-  download = () => {
-    var down = localStorage.getItem("urlLogo")
-    var element = document.createElement("a");
-    var file = new Blob(
-      ['https://firebasestorage.googleapis.com/v0/b/react-image-upload-6c21b.appspot.com/o/images%2FLogo%20Divanti.png?alt=media'],
-      { type: "image/*" }
-    );
-    element.href = URL.createObjectURL(file);
-    element.download = "image.jpg";
-    element.click();
-  };
     click(id){  
       console.log("id",id)         
             const periodo  = localStorage.getItem("periodo")        

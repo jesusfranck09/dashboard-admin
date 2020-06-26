@@ -32,6 +32,7 @@ import Table from '@material-ui/core/Table';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import { PDFExport } from '@progress/kendo-react-pdf';
+import firebase from 'firebase'
 
 class App extends React.Component {
 pdfExportComponent ;
@@ -59,6 +60,7 @@ pdfExportComponent ;
       nombre6:'',
       nombre7:'',
       nombre8:'',
+      url:'',
       datosLength:'',
       collapse: false,
       isOpen: false,
@@ -140,14 +142,13 @@ pdfExportComponent ;
       this.setState({nombre:Nombre}) 
       this.setState({apellidos:Apellidos}) 
       this.getGlobalEmployees()
-    
     }
     onClick() {
       this.setState({
         collapse: !this.state.collapse,
       });
     }
-  
+
   handleclick(){
   this.props.history.push("/profile")
   }
@@ -567,14 +568,13 @@ pdfExportComponent ;
                               ref={(component) => this.pdfExportComponent = component}
                                  >
                                 <div style={{ width: "500px" }}>
-                                <MDBRow> 
+                                <MDBRow style={{marginBottom:10}}> 
                                 <MDBCol>
-                                <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
-                                </MDBCol>  
-                                <MDBCol>
-                                {/* <img src={logotipo} alt="logo" style = {{width:100,marginBottom:30}}/> */}
-                                </MDBCol>
-                                </MDBRow> 
+                                <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
+                        
+                                <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                                </MDBCol> 
+                                </MDBRow>  
                                 <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
                                 <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
                               

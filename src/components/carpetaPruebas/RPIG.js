@@ -2300,19 +2300,32 @@ if(DominioOcho < 7){
 
  a = 1
 ponderacion=<React.Fragment>
-<MDBContainer style={{marginTop:20}}>
 
-          <MDBBtn  color="primary" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-              Descargar Resultados
-          </MDBBtn>
+<MDBContainer style={{marginTop:20}}>
+  <table>
+    <tr>
+      <td width="33%">
+      <MDBBtn  color="primary" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+      Descargar resultados globales
+      </MDBBtn>
+      </td>
+      <td>
+
+      </td>
+      <td width="33%">
+      <font  face="arial" className = "mt-4" ><strong> Evaluacioón RP. </strong><br/><strong>FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></strong><br/><strong>{localStorage.getItem("razonsocial")}</strong> </font>
+      </td>
+      <td width="34%">
+      <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100}}/> 
+      </td>
+    </tr>
+  </table>
+
+
  </MDBContainer>
  <br/>
  
 <MDBContainer >
-<font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>&nbsp;&nbsp;
-<br/>
-<font face="arial " className = "mt-4 " ><strong>{localStorage.getItem("razonsocial")}</strong> </font><br/>
-<img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20,marginTop:20}}/> 
 
 <Table   responsive small borderless className="text-left mt-4 ">
 <TableHead>
@@ -2647,13 +2660,12 @@ ponderacion=<React.Fragment>
                     >
                         <div style={{ width: "500px" }}>
                       
-                            <MDBRow> 
+                            <MDBRow style={{marginBottom:10}}> 
                             <MDBCol>
-                            <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
-                            </MDBCol>  
-                            <MDBCol>
-                            {/* <img src={logotipo} alt="logo" style = {{width:100,marginBottom:30}}/> */}
-                            </MDBCol>
+                            <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
+                    
+                            <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                            </MDBCol> 
                             </MDBRow> 
                             <img src={logo} alt="logo" style = {{width:550}}/>
                             <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
@@ -3015,41 +3027,36 @@ ponderacion=<React.Fragment>
                     </MDBBtn>
            </div>
            <br/>
-                <MDBTable small borderless className=" text-center">
-                <MDBTableBody>
-                  <tr>
-                    <td width ="50%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
-                    <td width ="50%">
-                    <img src={diagnostico} alt="logo" style = {{width:100}}/>
+ 
+           <MDBContainer style={{marginLeft:"6%"}}>
+                <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL<br/>EN LOS CENTROS DE TRABAJO</font>
+                 <br/><br/> <strong>{localStorage.getItem("razonsocial")}</strong><br/>
+                <MDBTable small borderless className="text-left mt-4 ">
+       
+                <MDBTableBody>   
+                <tr>
+                <td width="65%" > <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                <td width="35%" >
+                <img src={diagnostico} alt="logo" style = {{width:150}}/>
 
-                    </td>
+                </td>
+                </tr>
+               
+                  <tr>
+                  <td width="65%"  >Nombre : {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} </td>
+                  <td width="35%"  >Puesto : {this.state.resultados[0].Puesto}</td>
                   </tr>
-
-                </MDBTableBody>        
-                </MDBTable>
-
-                <MDBContainer style={{marginLeft:"10%"}}>
-                <font face="arial" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font>
-              <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
-
-                <MDBTable responsive small borderless className="text-left mt-4">       
-                <MDBTableBody>                       
                   <tr>
-                  <td width="6%" >Nombre : {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} </td>
-                  <td width="6%" >Puesto : {this.state.resultados[0].Puesto}</td>
-                                </tr>
-                                <tr>
-                  <td width="6%" >Departamento : {this.state.resultados[0].AreaTrabajo}</td>
-                  <td width="6%" >Genero : {this.state.resultados[0].Sexo}</td> 
-                                </tr>
-                                <tr>
-                  <td width="6%" >Correo : {this.state.resultados[0].correo}</td>
-                  <td width="6%" >RFC : {this.state.resultados[0].RFC}</td>            
+                  <td width="65%"  >Departamento : {this.state.resultados[0].AreaTrabajo}</td>
+                  <td width="35%" >Genero : {this.state.resultados[0].Sexo}</td> 
+                  </tr>
+                  <tr>
+                  <td width="65%" >Correo : {this.state.resultados[0].correo}</td>
+                  <td width="35%" >RFC : {this.state.resultados[0].RFC}</td>   
                   </tr>
                 </MDBTableBody>
                 </MDBTable>
                 </MDBContainer>
-                
                 <MDBContainer style={{marginLeft:20}}>
                 <MDBTable component={Paper}  small borderless className="text-left mt-4 ml-4 " responsive className="mt-4 text-left">
                   <MDBTableHead>
@@ -3381,13 +3388,12 @@ ponderacion=<React.Fragment>
                                 ref={(component) => this.pdfExportComponent = component}
                             >
                                 <div style={{ width: "500px" }}>
-                                    <MDBRow> 
+                                    <MDBRow style={{marginBottom:10}}> 
                                     <MDBCol>
-                                    <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
-                                    </MDBCol>  
-                                    <MDBCol>
-                                    {/* <img src={localStorage.getItem("urlLogo")}  style = {{width:100,marginBottom:30}}/> */}
-                                    </MDBCol>
+                                    <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
+                            
+                                    <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                                    </MDBCol> 
                                     </MDBRow> 
                                     <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
                                     <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
@@ -4204,43 +4210,36 @@ ponderacionIndividual =  <React.Fragment>
                     </MDBBtn>
            </div>
            <br/>
-           <MDBTable small borderless className="mt-4 text-center">
-                <MDBTableBody>
-                  <tr>
-                    <td width ="50%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
-                    <td width ="50%">
-                    <img src={diagnostico} alt="logo" style = {{width:100,marginBottom:30}}/>
+           <MDBContainer  style={{marginLeft:"5%",marginTop:20}}>
+            <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>
+            <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
+      
+            <MDBTable responsive small borderless className="text-left mt-4 ">
+    
+            <MDBTableBody>  
+            <tr>
+                <td width ="65%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                <td width ="35%">
+                <img src={diagnostico} alt="logo" style = {{width:150,marginBottom:20}}/>
 
-                    </td>
-                  </tr>
-
-                </MDBTableBody>        
-                </MDBTable>
-
-                <MDBContainer style={{marginLeft:"10%"}}>
-                  
-                <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>
-                <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
-                    
-                <MDBTable responsive small borderless className="text-left mt-4 ">
-       
-                <MDBTableBody>                  
-                  <tr>
-                  <td  >Nombre : {this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM} </td>
-                  <td >Puesto : {this.state.resultadosQuery[0].Puesto}</td>
-                                </tr>
-                                <tr>
-                  <td >Departamento : {this.state.resultadosQuery[0].AreaTrabajo}</td>
-                  <td >Genero : {this.state.resultadosQuery[0].Sexo}</td> 
-                                </tr>
-                                <tr>
-                  <td >Correo : {this.state.resultadosQuery[0].correo}</td>
-                  <td >RFC : {this.state.resultadosQuery[0].RFC}</td>   
-                  </tr>
-                </MDBTableBody>
-                </MDBTable>
-                </MDBContainer>
-
+                </td>
+              </tr>                
+              <tr>
+              <td width ="65%" >Nombre : {this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM} </td>
+              <td width ="35%">Puesto : {this.state.resultadosQuery[0].Puesto}</td>
+                            </tr>
+                            <tr>
+              <td width ="65%">Departamento : {this.state.resultadosQuery[0].AreaTrabajo}</td>
+              <td width ="35%">Genero : {this.state.resultadosQuery[0].Sexo}</td> 
+                            </tr>
+                            <tr>
+              <td width ="65%">Correo : {this.state.resultadosQuery[0].correo}</td>
+              <td width ="35%">RFC : {this.state.resultadosQuery[0].RFC}</td>   
+              </tr>
+            </MDBTableBody>
+            </MDBTable>
+            </MDBContainer>
+    
 
 <TableContainer component={Paper} style={{marginBottom:30}}>
       <Table  size="small" aria-label="a dense table" >
@@ -4605,13 +4604,12 @@ ponderacionIndividual =  <React.Fragment>
                     >
                         <div style={{ width: "500px" }}>
                       
-                            <MDBRow> 
+                            <MDBRow style={{marginBottom:10}}> 
                             <MDBCol>
-                            <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
-                            </MDBCol>  
-                            <MDBCol>
-                            {/* <img src={logotipo} alt="logo" style = {{width:100,marginBottom:30}}/> */}
-                            </MDBCol>
+                            <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
+                    
+                            <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                            </MDBCol> 
                             </MDBRow> 
                             <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
                             <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
@@ -4620,7 +4618,7 @@ ponderacionIndividual =  <React.Fragment>
                             <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                             <font size="1"face="arial"color="black">{this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}</font><br></br><br/>
                             <font size="3"face="arial"color="black">Diagnóstico individual de factores de riesgo psicosocial en el trabajo</font><br></br>
-                            <font size="1"face="arial"color="black">{this.state.fecha}</font>
+                            <font size="1"face="arial"color="black">{this.state.date}</font>
                             </MDBTableBody>
                             </MDBTable>
                               <br></br>
@@ -5058,13 +5056,12 @@ ponderacionIndividual =  <React.Fragment>
                            fileName={`Repuestas del total de empleados ${new Date().getFullYear()}`}
                        >
                           <div style={{ width: "500px" }}>
-                          <MDBRow> 
+                          <MDBRow style={{marginBottom:10}}> 
                           <MDBCol>
-                          <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
-                          </MDBCol>  
-                          <MDBCol>
-                          {/* <img src={localStorage.getItem("urlLogo")}  style = {{width:100,marginBottom:30}}/> */}
-                          </MDBCol>
+                          <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
+                  
+                          <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                          </MDBCol> 
                           </MDBRow> 
                           <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
                           <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
@@ -5072,7 +5069,7 @@ ponderacionIndividual =  <React.Fragment>
                           <MDBTableBody>     
                           <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                           <font size="2"face="arial"color="black">CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJOs</font><br></br>
-                          <font size="1"face="arial"color="black">{this.state.date}</font>      
+                          <font size="1"face="arial"color="black">{this.state.date}</font><br/>      
                           <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
                           <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>
                
@@ -5478,7 +5475,7 @@ ponderacionIndividual =  <React.Fragment>
                       <MDBRow>     
                       <MDBCol>   
                       <MDBBtn  color="primary" size="3" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-                          Descargar respuestas
+                          Descargar evaluaciones
                       </MDBBtn>
                       </MDBCol>
                       <MDBCol> 
@@ -5503,14 +5500,13 @@ ponderacionIndividual =  <React.Fragment>
                             >
                                  <div style={{ width: "500px" }}>
                                   
-                                <MDBRow> 
-                                  <MDBCol>
-                                  <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
-                                  </MDBCol>  
-                                  <MDBCol>
-                                  {/* <img src={logotipo} alt="logo" style = {{width:100,marginBottom:30}}/> */}
-                                  </MDBCol>
-                                  </MDBRow> 
+                                 <MDBRow style={{marginBottom:10}}> 
+                                <MDBCol>
+                                <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
+                        
+                                <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                                </MDBCol> 
+                                </MDBRow>  
                                   <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
                                   <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
                           

@@ -670,45 +670,36 @@ pdfExportComponent ;
 
                     </MDBTableBody>        
                     </MDBTable>
-                <MDBTable small borderless className="mt-4 mb-4 text-center">
-                    <MDBTableBody>
-                        
-                    <tr>
-                        <td width ="35%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
-                        <td width ="65%">
-                        <img src={diagnostico} alt="logo" style = {{width:100,marginBottom:10}}/>
+                        <MDBContainer style={{marginLeft:"6%"}}>
+                        <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL<br/>EN LOS CENTROS DE TRABAJO</font>
+                        <br/><br/> <strong>{localStorage.getItem("razonsocial")}</strong><br/>
+                        <MDBTable small borderless className="text-left mt-4 ">
+              
+                        <MDBTableBody>   
+                        <tr>
+                        <td width="65%" > <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                        <td width="35%" >
+                        <img src={diagnostico} alt="logo" style = {{width:150}}/>
 
                         </td>
-                    </tr>
-
-                    </MDBTableBody>        
-                    </MDBTable>
-                
-                        <MDBContainer style  = {{marginLeft: "3%"}}>
-            
-                        <MDBTable component={Paper}  small borderless className="text-left mt-4 ">
-            
-                        <MDBTableBody> 
-                        <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font><br/>
-                        <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
-                 
-                        <tr>
-                        <td width="55%" >Nombre : {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} </td>
-                        <td >Puesto : {this.state.resultados[0].Puesto}</td>
                         </tr>
-                        <tr>
-                        <td width="55%" >Departamento : {this.state.resultados[0].AreaTrabajo}</td>
-                        <td  >Genero : {this.state.resultados[0].Sexo}</td> 
-                                        </tr>
-                                        <tr>
-                        <td width="55%" >Correo : {this.state.resultados[0].correo}</td>
-                        <td  >RFC : {this.state.resultados[0].RFC}</td>   
-                        
-                        </tr>
+                      
+                          <tr>
+                          <td width="65%"  >Nombre : {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} </td>
+                          <td width="35%"  >Puesto : {this.state.resultados[0].Puesto}</td>
+                          </tr>
+                          <tr>
+                          <td width="65%"  >Departamento : {this.state.resultados[0].AreaTrabajo}</td>
+                          <td width="35%" >Genero : {this.state.resultados[0].Sexo}</td> 
+                          </tr>
+                          <tr>
+                          <td width="65%" >Correo : {this.state.resultados[0].correo}</td>
+                          <td width="35%" >RFC : {this.state.resultados[0].RFC}</td>   
+                          </tr>
                         </MDBTableBody>
                         </MDBTable>
                         </MDBContainer>
-                        
+                                
                         <MDBContainer>
                         <MDBTable small borderless className="text-left">
                         <MDBTableHead>
@@ -854,13 +845,12 @@ pdfExportComponent ;
                                 ref={(component) => this.pdfExportComponent = component}
                             >
                                 <div style={{ width: "500px" }}>
-                                    <MDBRow> 
+                                    <MDBRow style={{marginBottom:10}}> 
                                     <MDBCol>
-                                    <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
-                                    </MDBCol>  
-                                    <MDBCol>
-                                    {/* <img src={localStorage.getItem("urlLogo")}  style = {{width:100,marginBottom:30}}/> */}
-                                    </MDBCol>
+                                    <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
+                            
+                                    <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                                    </MDBCol> 
                                     </MDBRow> 
                                     <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
                                     <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
@@ -1228,13 +1218,12 @@ pdfExportComponent ;
                               ref={(component) => this.pdfExportComponent = component}
                                  >
                                 <div style={{ width: "500px" }}>
-                                <MDBRow> 
+                                <MDBRow style={{marginBottom:10}}> 
                                 <MDBCol>
-                                <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
-                                </MDBCol>  
-                                <MDBCol>
-                                {/* <img src={logotipo} alt="logo" style = {{width:100,marginBottom:30}}/> */}
-                                </MDBCol>
+                                <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
+                        
+                                <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                                </MDBCol> 
                                 </MDBRow> 
                                 <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
                                 <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left">
@@ -1402,13 +1391,12 @@ pdfExportComponent ;
                               // pageTemplate={this.pdfExportComponent}
                               ref={(component) => this.pdfExportComponent = component}
                                  >
-                                <MDBRow> 
+                                  <MDBRow style={{marginBottom:10}}> 
                                   <MDBCol>
-                                  <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
-                                  </MDBCol>  
-                                  <MDBCol>
-                                  {/* <img src={localStorage.getItem("urlLogo")}  style = {{width:100,marginBottom:30}}/> */}
-                                  </MDBCol>
+                                  <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
+                          
+                                  <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                                  </MDBCol> 
                                   </MDBRow> 
                                   <img src={logo} alt="logo" style = {{width:550}}/>
                                   <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
