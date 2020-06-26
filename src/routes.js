@@ -48,7 +48,6 @@ class Routes extends Component{
           <Switch>
               <main>
               <Route exact path='/' component={Login}/>
-              <PrivateRoute exact path='/up' component={Up}/>
                   {/* <Route exact path='/verify/:id' component={Verify}/> */}
                   <PrivateRoute exact path='/upload' component={Upload}/>
                   <PrivateRoute exact path='/indexAts' component={IndexATS}/>
