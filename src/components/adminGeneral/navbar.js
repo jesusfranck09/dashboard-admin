@@ -1,6 +1,6 @@
 import React from 'react'
 import {MDBRow, MDBContainer,MDBBadge, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol, MDBCardHeader, MDBBtn} from 'mdbreact';
-import Sidebar from './sidebar'
+import Sidebar from './sidebarAdminGral'
 import diagnostico from '../images/diagnostico.png'
 import { AppNavbarBrand } from '@coreui/react';
 import { MDBModal, MDBModalBody, MDBModalHeader, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
