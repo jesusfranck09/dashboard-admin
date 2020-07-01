@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
-import PDF from '../PDF/index'
+// import PDF from '../PDF/index'
 import { Bar } from "react-chartjs-2";
 import { MDBBadge} from "mdbreact";
 import {Alert,Badge} from 'reactstrap'
@@ -33,7 +33,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import { PDFExport } from '@progress/kendo-react-pdf';
 import PageTemplate from './pageTemplate.jsx';
-
+import Navbar from '../Home/navbar'
 
 export default class App extends React.Component {
   pdfExportComponent;
@@ -831,7 +831,7 @@ export default class App extends React.Component {
     </button>
     }
 
-    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo","Respuestas","Resultados"];
+    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
     const data = this.state.empleados.map(rows=>{
         let botonRespuestas = <div><MDBBtn disabled={!this.state.botonResultados} color="danger"  onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></div>
       let botonResultados =  <div><Button  disabled={!this.state.botonResultados} color="secondary" onClick={(e) => this.getEvaluacion(rows.id)}>Resultados</Button></div> 
@@ -2426,25 +2426,58 @@ export default class App extends React.Component {
 let celda;
 let criterios;
 
+let celdaPrev;
+let criteriosPrev;
+
 if(general<50){
-celda = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="1" face="arial"color="black">Nulo o Despreciable</font></TableCell>
-criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
+celda = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="1" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
+celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="3" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
+
+criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
+criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
+
 }else if(general>=50 && general < 75){
-  celda = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black">Es necesario una mayor difusión de la política de prevención de riesgos
+  celda = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">BAJO</font></TableCell>
+  celdaPrev = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="3" face="arial"color="black" align="justify">BAJO</font></TableCell>
+
+  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
+  psicosociales y programas para: la prevención de los factores de riesgo
+  psicosocial, la promoción de un entorno organizacional favorable y la
+  prevención de la violencia laboral.</font></TableCell>
+  
+  criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
   psicosociales y programas para: la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
   prevención de la violencia laboral.</font></TableCell>
 }else if(general>=75 && general < 99){
-  celda = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="1" face="arial"color="black">Medio</font></TableCell>
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black">Se requiere revisar la política de prevención de riesgos psicosociales y
+  celda = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">MEDIO</font></TableCell>
+  celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="3" face="arial"color="black" align="justify">MEDIO</font></TableCell>
+
+  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
   programas para la prevención de los factores de riesgo psicosocial, la
   promoción de un entorno organizacional favorable y la prevención de la
   violencia laboral, así como reforzar su aplicación y difusión, mediante un
   Programa de intervención.</font></TableCell>
+  criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
+  programas para la prevención de los factores de riesgo psicosocial, la
+  promoción de un entorno organizacional favorable y la prevención de la
+  violencia laboral, así como reforzar su aplicación y difusión, mediante un
+  Programa de intervención.</font></TableCell>
+
 }else if(general>=99 && general < 140){
- celda = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="1" face="arial"color="black">Alto</font></TableCell>
- criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black">Se requiere realizar un análisis de cada categoría y dominio, de manera que
+ celda = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="1" face="arial"color="black" align="justify">ALTO</font></TableCell>
+ celdaPrev = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="3" face="arial"color="black" align="justify">ALTO</font></TableCell>
+
+ criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
+ se puedan determinar las acciones de intervención apropiadas a través de un
+ Programa de intervención, que podrá incluir una evaluación específica y
+ deberá incluir una campaña de sensibilización, revisar la política de
+ prevención de riesgos psicosociales y programas para la prevención de los
+ factores de riesgo psicosocial, la promoción de un entorno organizacional
+ favorable y la prevención de la violencia laboral, así como reforzar su
+ aplicación y difusión.</font></TableCell>
+ 
+ criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
  se puedan determinar las acciones de intervención apropiadas a través de un
  Programa de intervención, que podrá incluir una evaluación específica y
  deberá incluir una campaña de sensibilización, revisar la política de
@@ -2454,8 +2487,18 @@ criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face=
  aplicación y difusión.</font></TableCell>
 }
 else if( general > 140){
-  celda  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black">Se requiere realizar el análisis de cada categoría y dominio para establecer
+  celda  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="1" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
+  celdaPrev  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="3" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
+ 
+ criterios= <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
+  las acciones de intervención apropiadas, mediante un Programa de
+  intervención que deberá incluir evaluaciones específicas, y contemplar
+  campañas de sensibilización, revisar la política de prevención de riesgos
+  psicosociales y programas para la prevención de los factores de riesgo
+  psicosocial, la promoción de un entorno organizacional favorable y la
+  prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
+
+  criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="3" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
   las acciones de intervención apropiadas, mediante un Programa de
   intervención que deberá incluir evaluaciones específicas, y contemplar
   campañas de sensibilización, revisar la política de prevención de riesgos
@@ -2857,11 +2900,11 @@ ponderacion=<React.Fragment>
 <TableHead>
 <TableRow>
   <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>Resultados Generales</TableCell>
-    {celda}
+    {celdaPrev}
   <TableCell width="6%"  > <strong>   TOTAL {general}  Puntos </strong></TableCell>
   <TableCell width="2%" ></TableCell>
   <TableCell width="1%"  ></TableCell>
- {criterios}
+ {criteriosPrev}
 </TableRow>
 </TableHead>
 </Table>
@@ -2872,16 +2915,16 @@ ponderacion=<React.Fragment>
         <TableHead>
           <TableRow>
             <TableCell width="50%" ></TableCell>
-            <TableCell align="right" style={{backgroundColor: "#9BE0F7"}}>Nulo</TableCell>
-            <TableCell align="right" style={{backgroundColor: "#6BF56E"}}>Bajo&nbsp;</TableCell>
-            <TableCell align="right" style={{backgroundColor: "#FFFF00"}}>Medio&nbsp;</TableCell>
-            <TableCell align="right" style={{backgroundColor: "#FFC000"}}>Alto&nbsp;</TableCell>
-            <TableCell align="right" style={{backgroundColor: "#FF0000"}}>Muy Alto&nbsp;</TableCell>
+            <TableCell align="right" style={{backgroundColor: "#9BE0F7"}}>NULO</TableCell>
+            <TableCell align="right" style={{backgroundColor: "#6BF56E"}}>BAJO&nbsp;</TableCell>
+            <TableCell align="right" style={{backgroundColor: "#FFFF00"}}>MEDIO&nbsp;</TableCell>
+            <TableCell align="right" style={{backgroundColor: "#FFC000"}}>ALTO&nbsp;</TableCell>
+            <TableCell align="right" style={{backgroundColor: "#FF0000"}}>MUY ALTO&nbsp;</TableCell>
           </TableRow>
         </TableHead>
         <TableBody  style={{marginTop:20}}>       
             <TableRow>
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados de la Categoría</strong></TableCell>              
+              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>RESULTADOS DE LA CATEGORIA</strong></TableCell>              
               <TableCell component="th" scope="row"></TableCell>
               <TableCell component="th" scope="row" ></TableCell>
               <TableCell component="th" scope="row" ></TableCell>
@@ -2931,7 +2974,7 @@ ponderacion=<React.Fragment>
                 </TableRow>
                
                 <TableRow>
-                  <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados del Dominio</strong></TableCell>              
+                  <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>RESULTADOS DEL DOMINIO</strong></TableCell>              
                   <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
                   <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
                   <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
@@ -3022,7 +3065,7 @@ ponderacion=<React.Fragment>
                 <TableCell component="th" scope="row" align="center">{Dominio10MuyAlto}</TableCell>        
                 </TableRow>
                 <TableRow>
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados Por Dimensión</strong></TableCell>              
+              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>RESULTADOS POR DIMENSIÓN</strong></TableCell>              
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
@@ -3349,7 +3392,7 @@ ponderacion=<React.Fragment>
                             
                                    <tr>
                                    <td width="40%"><font size="1" face="arial"color="black">RESULTADO DEL NÚMERO DE EVALUACIONES :  </font></td>
-                                   <td width="20%"><font size="1" face="arial"color="black">{general}</font></td>
+                                   <td width="20%"><font size="1" face="arial"color="black">{general.toFixed(2)}</font></td>
                                    <td width="20%"><font size="1" face="arial"color="black">Nivel de riesgo </font></td>
                                     {celda}
                                    </tr>                                  
@@ -5438,7 +5481,7 @@ ponderacion=<React.Fragment>
         <TableContainer  component={Paper} style={{marginBottom:30}}>
               <Table  borderless  size="small" aria-label="a dense table" >
               <TableRow>
-                      <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}} width="50%"><strong>Resultados Generales</strong></TableCell>              
+                      <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}} width="50%"><strong>RESULTADOS GENERALES</strong></TableCell>              
                       <TableCell component="th" scope="row"></TableCell>
                       <TableCell component="th" scope="row" ></TableCell>
                       <TableCell component="th" scope="row" ></TableCell>
@@ -5448,11 +5491,11 @@ ponderacion=<React.Fragment>
                 <TableHead>
                   <TableRow>
                     <TableCell width ="10%"></TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#9BE0F7"}}>Nulo</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#6BF56E"}}>Bajo&nbsp;</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#FFFF00"}}>Medio&nbsp;</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#FFC000"}}>Alto&nbsp;</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#FF0000"}}>Muy Alto&nbsp;</TableCell>
+                    <TableCell align="right" style={{backgroundColor: "#9BE0F7"}}>NULO</TableCell>
+                    <TableCell align="right" style={{backgroundColor: "#6BF56E"}}>BAJO&nbsp;</TableCell>
+                    <TableCell align="right" style={{backgroundColor: "#FFFF00"}}>MEDIO&nbsp;</TableCell>
+                    <TableCell align="right" style={{backgroundColor: "#FFC000"}}>ALTO&nbsp;</TableCell>
+                    <TableCell align="right" style={{backgroundColor: "#FF0000"}}>MUY alto&nbsp;</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody  style={{marginTop:20}}>
@@ -5479,16 +5522,16 @@ ponderacion=<React.Fragment>
                 <TableHead>
                   <TableRow>
                     <TableCell width="50%" ></TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#9BE0F7"}}>Nulo</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#6BF56E"}}>Bajo&nbsp;</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#FFFF00"}}>Medio&nbsp;</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#FFC000"}}>Alto&nbsp;</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#FF0000"}}>Muy Alto&nbsp;</TableCell>
+                    <TableCell align="right" style={{backgroundColor: "#9BE0F7"}}>NULO</TableCell>
+                    <TableCell align="right" style={{backgroundColor: "#6BF56E"}}>BAJO&nbsp;</TableCell>
+                    <TableCell align="right" style={{backgroundColor: "#FFFF00"}}>MEDIO&nbsp;</TableCell>
+                    <TableCell align="right" style={{backgroundColor: "#FFC000"}}>ALTO&nbsp;</TableCell>
+                    <TableCell align="right" style={{backgroundColor: "#FF0000"}}>MUY ALTO&nbsp;</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody  style={{marginTop:20}}>       
                     <TableRow>
-                      <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados de la Categoría</strong></TableCell>              
+                      <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>RESULTADOS DE LA CATEGORÍA</strong></TableCell>              
                       <TableCell component="th" scope="row"align="center"></TableCell>
                       <TableCell component="th" scope="row" align="center"></TableCell>
                       <TableCell component="th" scope="row" align="center"></TableCell>
@@ -5538,7 +5581,7 @@ ponderacion=<React.Fragment>
                     </TableRow>
                    
                     <TableRow>
-                      <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados del Dominio</strong></TableCell>              
+                      <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>RESULTADOS DEL DOMINIO</strong></TableCell>              
                       <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
                       <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
                       <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
@@ -5629,7 +5672,7 @@ ponderacion=<React.Fragment>
                     <TableCell component="th" scope="row" align="center">{Dominio10MuyAlto}</TableCell>        
                     </TableRow>
                     <TableRow>
-                  <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados Por Dimensión</strong></TableCell>              
+                  <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>RESULTADOS POR DIMENSIÓN</strong></TableCell>              
                   <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
                   <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
                   <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
@@ -6243,48 +6286,7 @@ ponderacion=<React.Fragment>
     return (
       <React.Fragment>
       <div>
-          <header>
-          <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
-            <Sidebar/>
-              <MDBNavbarBrand a href="./inicio">
-              <AppNavbarBrand
-                  full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
-              </MDBNavbarBrand>
-              <MDBNavbarBrand>
-                Resultados Globales EEO
-              </MDBNavbarBrand>
-              <MDBNavbarToggler onClick={this.onClick} />
-              <MDBCollapse isOpen={this.state.collapse} navbar>
-              &nbsp;&nbsp;&nbsp;
-                <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
-                <MDBNavbarNav right>
-                <MDBNavbarBrand>
-                 <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
-              {this.state.nombre}
-              </MDBNavbarBrand>
-              <MDBNavbarBrand>
-              
-              <MDBNavItem>
-                
-              <MDBDropdown>
-                
-                <MDBDropdownToggle nav caret>
-               
-                </MDBDropdownToggle>
-                <MDBDropdownMenu className="dropdown-default">
-                  <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Configuración</MDBDropdownItem>
-                  <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
-                  <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
-
-                </MDBDropdownMenu>
-              </MDBDropdown>
-            </MDBNavItem>
-            </MDBNavbarBrand>
-                </MDBNavbarNav>
-              </MDBCollapse>
-            </MDBNavbar>
-          </header>
+          <Navbar/>
           <MDBContainer className="pt-5">
      
 
@@ -6350,7 +6352,7 @@ ponderacion=<React.Fragment>
             
            
               <MUIDataTable
-                title={`Empledos  totales de ${localStorage.getItem("razonsocial")}`}
+                title={`Resultados EEO`}
                 data={data}
                 columns={columns}
                 options={options}

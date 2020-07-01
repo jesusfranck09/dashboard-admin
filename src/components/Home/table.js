@@ -13,7 +13,7 @@ import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import '../Home/index.css'
-import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import TrendingUpOutlinedIcon from '@material-ui/icons/TrendingUpOutlined';
 // import Paper from '@material-ui/core/Paper';
 import { MDBRow,MDBCol} from 'mdbreact'
@@ -21,17 +21,17 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import { DialogUtility } from '@syncfusion/ej2-popups';
 // import TableBody from '@material-ui/core/TableBody';
-import { Alert } from 'reactstrap';
 // import TableHead from '@material-ui/core/TableHead';
 import FormatColorTextIcon from '@material-ui/icons/FormatColorText';
 import ExplicitOutlinedIcon from '@material-ui/icons/ExplicitOutlined';
-
+import Navbar from './navbar'
 import usuario from '../images/usuario.png'
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import Modal from 'react-modal';
 import {
   Grid    
 } from '@material-ui/core';
+
 
 class TableEmployees extends React.Component {
   constructor(props) {
@@ -762,53 +762,10 @@ class TableEmployees extends React.Component {
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
     return (
-              <React.Fragment>
-              <div>
-                  <header>
-                  <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
-                  <Sidebar/>
-                    <MDBNavbarBrand a href="./inicio">
-                    <AppNavbarBrand
-                        full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
-                    </MDBNavbarBrand>
-                    <MDBNavbarBrand>
-                      Enviar evaluaciones a mis colaoradores
-                    </MDBNavbarBrand>
-                    <MDBNavbarToggler onClick={this.onClick} />
-                    <MDBCollapse isOpen={this.state.collapse} navbar>
-                    &nbsp;&nbsp;&nbsp;
-                    
-                      <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
-                      <MDBNavbarNav right>
-                                    
-                
-                      <MDBNavbarBrand>
-                    <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
-                    {this.state.nombre}
-                    </MDBNavbarBrand>
-                    <MDBNavbarBrand>
-                    
-                    <MDBNavItem>
-                      
-                    <MDBDropdown>
-                      
-                      <MDBDropdownToggle nav caret>
-                    
-                      </MDBDropdownToggle>
-                      <MDBDropdownMenu className="dropdown-default">
-                        <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
-                        <MDBDropdownItem href="#!">Configuración</MDBDropdownItem>
-                        <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
-                        <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
-                          </MDBDropdownMenu>
-                        </MDBDropdown>
-                      </MDBNavItem>
-                      </MDBNavbarBrand>
-                      </MDBNavbarNav>
-                    </MDBCollapse>
-                  </MDBNavbar>
-                  </header>
-                <MDBContainer style={container} className="text-center pt-5">
+       <React.Fragment>
+          <div>
+              <Navbar/>
+             <MDBContainer style={container} className="text-center pt-5">
             <MDBContainer style={container} className="text-center pt-2">
             <ul>
             <MDBRow>
@@ -831,20 +788,19 @@ class TableEmployees extends React.Component {
     
          <Grow in={true}>
             <div >
-            <Alert style={{marginTop:'55', width:'1075px'}}  color="secondary" isOpen={this.state.datos.length}>
-            <tr><td width="5%" ></td><td width="9%" ></td>Si desea puede enviar su evaluación a los colaboradores </tr>
-            </Alert>  
-           
+            {/* <Alert variant="outlined" severity="warning">
+              This is a warning alert — check it out!
+            </Alert> */}
               <MUIDataTable
-                title={`Empleados  totales de ${localStorage.getItem("razonsocial")} evaluación ATS`}
+                title={`Enviar evaluación ATS`}
                 data={data}
                 columns={columns}
                 options={options}
               />
-              <MDBRow style={{marginTop:20}}>
+              <MDBRow style={{marginTop:10}}>
               <MDBCol  sm="4"></MDBCol>  
              </MDBRow>
-             <Button  startIcon={<CheckOutlinedIcon />}  outline color="secondary" onClick={(e)=>this.sendMailATS(datosEmpleados,1)}>
+             <Button style={{marginBottom:40}} startIcon={<CheckOutlinedIcon />}  outline color="secondary" onClick={(e)=>this.sendMailATS(datosEmpleados,1)}>
                   Enviar evaluación ATS
                </Button>
              
@@ -854,16 +810,16 @@ class TableEmployees extends React.Component {
             <div >
 
               <MUIDataTable
-                title={`Empleados  totales de ${localStorage.getItem("razonsocial")}   evaluación RP`}
+                title={`Enviar evaluación RP`}
                 data={dataRP}
                 columns={columns}
                 options={optionsRP}
               />
-              <MDBRow style={{marginTop:20}}>
+              <MDBRow style={{marginTop:10}}>
               <MDBCol  sm="4"></MDBCol>  
              </MDBRow>
            
-               <Button  startIcon={<ThumbUpOutlinedIcon />} outline color="default" onClick={(e)=>this.sendMailRP(datosEmpleadosRP,2)}>
+               <Button style={{marginBottom:40}}  startIcon={<ArrowForwardIcon />} outline color="default" onClick={(e)=>this.sendMailRP(datosEmpleadosRP,2)}>
                   Enviar evaluación RP
                </Button>
               
@@ -872,12 +828,12 @@ class TableEmployees extends React.Component {
           <Grow in={true}>
             <div >
               <MUIDataTable
-                title={`Empleados  totales de ${localStorage.getItem("razonsocial")} evaluación EEO`}
+                title={`Enviar evaluación EEO`}
                 data={dataEEO}
                 columns={columns}
                 options={optionsEEO}
               />
-              <MDBRow style={{marginTop:20}}>
+              <MDBRow style={{marginTop:10}}>
               <MDBCol  sm="4"></MDBCol>  
              </MDBRow>
            

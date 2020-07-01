@@ -11,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
-import MiniDrawer from './Sidebar'
+// import MiniDrawer from './Sidebar'
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
@@ -19,7 +19,7 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
 import { Form, Field } from 'react-final-form';
 import { TextField ,Select} from 'final-form-material-ui';
 import MUIDataTable from "mui-datatables";
-
+import Navbar from './navbar'
 import {
 	MenuItem,
   } from '@material-ui/core';
@@ -42,6 +42,7 @@ import {
   import esLocale from "date-fns/locale/es";
 import BorderColorOutlinedIcon from '@material-ui/icons/BorderColorOutlined';
 import AccessTimeOutlinedIcon from '@material-ui/icons/AccessTimeOutlined';
+import HomeIcon from '@material-ui/icons/Home';
 class AdminGral extends React.Component {
     constructor(props) {
       super(props);
@@ -2041,94 +2042,74 @@ class AdminGral extends React.Component {
       return (
         <React.Fragment>
         <div>
-            <header>
-              <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
-               <MiniDrawer/>
-                <MDBNavbarBrand a href="./inicio">
-                <AppNavbarBrand
-                    full={{ src: diagnostico, width: 100, height: 33, alt: 'DIAGNOSTICO' }} />               
-                </MDBNavbarBrand>
-                <MDBNavbarBrand>
-                <strong> Administración general de  Mi Empresa </strong>
-                </MDBNavbarBrand>
-                <MDBNavbarBrand>              
-                </MDBNavbarBrand>
-                
-                <MDBNavbarToggler onClick={this.onClick} />
-                <MDBCollapse isOpen={this.state.collapse} navbar>
-                </MDBCollapse>
-              </MDBNavbar>
-              </header>
-                <MDBContainer style={{marginTop:60}} >
-              <Alert  color="primary">Nota : El periodo de Evaluación debe ser Registrado para que su sistema funcione de manera correcta, si desea Agregar o desactivar Periodos de evaluacion puede hacerlo mediante el botón de abajo</Alert>    
-              <Button  startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({registrarPeriodo:"1",editarPeriodo:'',misPeriodos:'0'}) } style={{marginBottom:20}}>
-                  Agregar o Desactivar Periodo
+               <Navbar/>
+               <Alert  style={{marginTop:60}} color="primary" ><strong>Administración general </strong>
+               <Button style={{marginLeft:100}} startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({registrarPeriodo:"1",editarPeriodo:'',misPeriodos:'0'}) } >Agregar o Desactivar Periodo
                </Button>
-               {/* <div>
-          <input type="file" onChange={this.handleImageChange} />
-          <button  onClick={this.handleSubmit}>Cargar imagen</button>
-      
-        {imagePreview}
-      </div> */}
-               <Button  startIcon={<BorderColorOutlinedIcon />} color="primary" onClick={(e)=>this.setState({editarPeriodo:"1",registrarPeriodo:'',misPeriodos:'0'}) } style={{marginBottom:20}}>
+               <Button  startIcon={<BorderColorOutlinedIcon />} color="primary" onClick={(e)=>this.setState({editarPeriodo:"1",registrarPeriodo:'',misPeriodos:'0'}) } >
                   Editar Periodo
                </Button>
-               <Button  startIcon={<AccessTimeOutlinedIcon />} color="default" onClick={(e)=>this.setState({misPeriodos:'1',editarPeriodo:'',registrarPeriodo:''}) } style={{marginBottom:20}}>
-                Mis periodos
+               <Button  startIcon={<AccessTimeOutlinedIcon />} color="default" onClick={(e)=>this.setState({misPeriodos:'1',editarPeriodo:'',registrarPeriodo:''}) }>
+                  Mis periodos
                </Button>
-               <Button  startIcon={<CloseOutlinedIcon />} outlined color="secondary" onClick={(e)=>this.setState({misPeriodos:'',editarPeriodo:'',registrarPeriodo:''}) } style={{marginBottom:20}}>
-                Cerrar 
+               <Button  startIcon={<CloseOutlinedIcon />} outlined color="secondary" onClick={(e)=>this.setState({misPeriodos:'',editarPeriodo:'',registrarPeriodo:''}) }>
+                  Cerrar 
                </Button>
-                 {registrarPeriodo} 
-                 {editarPeriodo}
-                  {periodo}
-                  {misPeriodos}
-                  <MDBRow>
-                                      <MDBContainer>
-                                      
-                                       <MUIDataTable
-                                        title={`Empleados de ${localStorage.getItem("razonsocial")}`}
-                                        data={data}
-                                        columns={columns}
-                                        options={options}
-                                       
-                                      />
-                                      
-                                      </MDBContainer>
-                                      <MDBContainer style={{marginTop:40}}>
-                                          <MUIDataTable
-                                        title={`Centros de trabajo de ${localStorage.getItem("razonsocial")}`}
-                                        data={dataCentro}
-                                        columns={columnsCentro}
-                                        options={options}
-                                        
-                                      />
-                                   
-                                   </MDBContainer>
-                                   <MDBContainer style={{marginTop:40}}>
-                                         <MUIDataTable
-                                        title={`Departamentos de ${localStorage.getItem("razonsocial")}`}
-                                        data={dataDeptos}
-                                        columns={columnsDeptos}
-                                        options={options}
-                                        
-                                      />
-                                   </MDBContainer>
-                                      <MDBContainer style={{marginTop:40}}>
-                                      <MUIDataTable
-                                        title={`Puestos de ${localStorage.getItem("razonsocial")}`}
-                                        data={dataPuestos}
-                                        columns={columnsPuestos}
-                                        options={options}
-                                       
-                                      />
-                                </MDBContainer>
-                                </MDBRow> 
-                      {modal}
-                      {modalSucursales}
-                      {modalDeptos}
-                      {modalPuestos}
-                 </MDBContainer>
+               <Button style={{marginLeft:100}} startIcon={<HomeIcon/>}  color="primary" onClick={(e)=>this.props.history.push("/inicio")}>Inicio </Button>
+               </Alert>
+            <MDBContainer style={{marginTop:20}} >
+               
+              
+                {registrarPeriodo} 
+                {editarPeriodo}
+                {periodo}
+                {misPeriodos}
+                <MDBRow>
+            <MDBContainer >
+            
+              <MUIDataTable
+              title={`Empleados de ${localStorage.getItem("razonsocial")}`}
+              data={data}
+              columns={columns}
+              options={options}
+              
+            />
+            
+            </MDBContainer>
+            <MDBContainer style={{marginTop:40}}>
+              <MUIDataTable
+              title={`Centros de trabajo de ${localStorage.getItem("razonsocial")}`}
+              data={dataCentro}
+              columns={columnsCentro}
+              options={options}
+              
+            />
+          
+            </MDBContainer>
+            <MDBContainer style={{marginTop:40}}>
+              <MUIDataTable
+              title={`Departamentos de ${localStorage.getItem("razonsocial")}`}
+              data={dataDeptos}
+              columns={columnsDeptos}
+              options={options}
+              
+            />
+            </MDBContainer>
+            <MDBContainer style={{marginTop:40}}>
+            <MUIDataTable
+              title={`Puestos de ${localStorage.getItem("razonsocial")}`}
+              data={dataPuestos}
+              columns={columnsPuestos}
+              options={options}
+              
+            />
+            </MDBContainer>
+          </MDBRow> 
+            {modal}
+            {modalSucursales}
+            {modalDeptos}
+            {modalPuestos}
+         </MDBContainer>
         </div>
         </React.Fragment>
       );

@@ -15,8 +15,9 @@ import { Form, Field } from 'react-final-form';
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import { TextField, Radio, Select } from 'final-form-material-ui';
-import MiniDrawer from './Sidebar'
+// import MiniDrawer from './Sidebar'
 import { DialogUtility } from '@syncfusion/ej2-popups';
+import Navbar from './navbar'
 
  function onSubmit (values) {
 	};
@@ -142,22 +143,10 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
           return (
             <React.Fragment>
             <div>
-                <header>
-                  <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
-                   <MiniDrawer/>
-                    <MDBNavbarBrand a href="./inicio">
-                    <AppNavbarBrand
-                    full={{ src: diagnostico, width: 100, height: 33, alt: 'DIAGNOSTICO' }} />             
-                    </MDBNavbarBrand>
-                    <MDBNavbarBrand >
-                    <strong> Registrar Centros de Trabajo</strong>
-                    </MDBNavbarBrand>
-                    <MDBNavbarToggler onClick={this.onClick} />
-                    <MDBCollapse isOpen={this.state.collapse} navbar>
-                    </MDBCollapse>
-                  </MDBNavbar>   
-                </header>
-                <MDBContainer style={{marginTop:40}}>
+            <Alert  style={{marginTop:60}} color="primary" ><strong>Registrar centros de trabajo</strong></Alert>
+
+                <Navbar/>
+                <MDBContainer>
                  <MDBRow>
                  <div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
                   <Form
@@ -165,7 +154,6 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
                     validate={validate}
                     render={({ handleSubmit, submitting,values }) => (
                       <form onSubmit={handleSubmit}>
-                      <Alert color="dark">Datos generales</Alert>
                         <Paper style={{ padding: 16} }>
                           <Grid container alignItems="flex-start" spacing={2} >
                             <Grid item xs={6}>

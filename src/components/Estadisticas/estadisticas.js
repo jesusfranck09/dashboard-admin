@@ -27,6 +27,7 @@ import Modal from 'react-modal';
 import {
   Grid    
 } from '@material-ui/core';
+import Navbar from '../Home/navbar'
 
 class Estadisticas extends React.Component {
   pdfExportComponent ;
@@ -154,9 +155,9 @@ class Estadisticas extends React.Component {
     }
   render() {
    
-    const columns = ["Nombre", "Apellido P.",  "Apellido M.","Experiencia lab.","Edad","Estudios","Antiguedad","Jornada","Sexo","Puesto"];
+    const columns = ["Nombre", "Apellido P.",  "Apellido M.","Experiencia lab.","Edad","Estudios","Antiguedad","Sexo","Puesto"];
     const data = this.state.datos.map(rows=>{
-      return([rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.ExperienciaLaboral,rows.FechaNacimiento,rows.NivelEstudios,rows.TiempoPuesto,rows.JornadaTrabajo,rows.Sexo,rows.TipoPuesto])
+      return([rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.ExperienciaLaboral,rows.FechaNacimiento,rows.NivelEstudios,rows.TiempoPuesto,rows.Sexo,rows.TipoPuesto])
     })
     
     let datosEmpleados;
@@ -1127,69 +1128,19 @@ class Estadisticas extends React.Component {
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
     return (
-              <React.Fragment>
-              <div>
-                  <header>
-                  <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
-                  <Sidebar/>
-                    <MDBNavbarBrand a href="./inicio">
-                    <AppNavbarBrand
-                        full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
-                    </MDBNavbarBrand>
-                    <MDBNavbarBrand>
-                      Estadísticas de mi Empresa
-                    </MDBNavbarBrand>
-                    <MDBNavbarToggler onClick={this.onClick} />
-                    <MDBCollapse isOpen={this.state.collapse} navbar>
-                    &nbsp;&nbsp;&nbsp;
-                    
-                      <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
-                      <MDBNavbarNav right>
-                                    
-                
-                      <MDBNavbarBrand>
-                    <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
-                    {this.state.nombre}
-                    </MDBNavbarBrand>
-                    <MDBNavbarBrand>
-                    
-                    <MDBNavItem>
-                      
-                    <MDBDropdown>
-                      
-                      <MDBDropdownToggle nav caret>
-                    
-                      </MDBDropdownToggle>
-                      <MDBDropdownMenu className="dropdown-default">
-                        <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
-                        <MDBDropdownItem href="#!">Configuración</MDBDropdownItem>
-                        <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
-                        <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
-                          </MDBDropdownMenu>
-                        </MDBDropdown>
-                      </MDBNavItem>
-                      </MDBNavbarBrand>
-                      </MDBNavbarNav>
-                    </MDBCollapse>
-                  </MDBNavbar>
-                  </header>
-                <MDBContainer style={container} className="text-center mt-4 pt-5">
-            <MDBContainer style={container} className="text-center mt-2 pt-2">
-            <ul>
-            <MDBRow>
-            <MDBCol> 
-           </MDBCol>
-            </MDBRow>   
-            </ul>
-
-        
+     <React.Fragment>
+      <div>
+        <Navbar/>  
+        <MDBContainer style={container} className="text-center mt-4 pt-5">
+          <MDBContainer style={container} className="text-center mt-2 pt-2">
+      
         <div style={{ height: "110%"}}>
 
          <Grow in={true}>
             <div >
  
               <MUIDataTable
-                title={`Empleados  totales de ${localStorage.getItem("razonsocial")}`}
+                title={`Guía V (Estadísticas generales)`}
                 data={data}
                 columns={columns}
                 options={options}

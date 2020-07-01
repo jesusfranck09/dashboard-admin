@@ -20,8 +20,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withRouter } from 'react-router-dom';
-import MiniDrawer from '../adminGeneral/Sidebar'
-
+// import MiniDrawer from '../adminGeneral/Sidebar'
+import Navbar from '../adminGeneral/navbar'
 import {
 	Paper,
 	Grid,
@@ -60,7 +60,7 @@ import {
 		  <MDBBtn color="secondary" onClick={handleToggle}>Cerrar</MDBBtn>
 		</Modal>
 	  </div>
-	<Alert style = {{marginTop:40,width:400}} color ="success">Nota : Puede ver los requisitos de su excel desde este enlace<br/>   <a href="https://drive.google.com/open?id=1Ooo_zRxkaHNSjjetliZGTanceA7tRsK1" target="_blank">Carga de empleados Excel Ejemplo </a></Alert>
+	<Alert style = {{marginTop:40,width:350}} color ="success">Nota : Puede ver los requisitos de su excel desde este enlace<br/>   <a href="https://drive.google.com/open?id=1Ooo_zRxkaHNSjjetliZGTanceA7tRsK1" target="_blank">Carga de empleados Excel Ejemplo </a></Alert>
 	  </React.Fragment>	
 	);
   }
@@ -890,41 +890,17 @@ render(){
 	  const container = { width: 2500, height: 1300 }
 	return (
 		<React.Fragment>
-
-			<header>
-			  <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
-			   <MiniDrawer/>
-				<MDBNavbarBrand a href="./inicio">
-				<AppNavbarBrand
-                    full={{ src: diagnostico, width: 100, height: 33, alt: 'DIAGNOSTICO' }} />               
-				</MDBNavbarBrand>
-				<MDBNavbarBrand >
-				<strong> Registrar Empleados</strong>
-				</MDBNavbarBrand>
-				<MDBNavbarNav left>
-			  <MDBNavItem active>
-				<MDBNavLink to="/adminGral">Administración general de mi Empresa</MDBNavLink>
-			  </MDBNavItem>
-			</MDBNavbarNav>
-
-				<MDBNavbarToggler onClick={this.onClick} />
-				<MDBCollapse isOpen={this.state.collapse} navbar>
-  
-				</MDBCollapse>
-			  </MDBNavbar>
-			
-			</header>
-				<MDBContainer style = {{marginTop:60}}>
+			<Alert style={{marginTop:60}} color="primary"><strong>Registrar empleados</strong></Alert>	
+				<Navbar/>
+				<MDBContainer style = {{marginTop:20}}>
 				<MDBRow><MDBCol>
-					
-				<div style={{ padding: 16, margin: 'auto', maxWidth: 600 }}>
+				<div style={{ margin: 'auto', maxWidth: 600 }}>
 					<Form
 					onSubmit={this.onSubmit}
 					
 					validate={this.validate}
 					render={({ handleSubmit, submitting,values }) => (
 						<form onSubmit={handleSubmit}>
-						<Alert color="primary">Información general</Alert>
 						<Paper style={{ padding: 16 }}>
 							<Grid container alignItems="flex-start" spacing={2}>
 							<Grid item xs={6}>

@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
-import PDF from '../PDF/index'
+// import PDF from '../PDF/index'
 import { Bar } from "react-chartjs-2";
 import { MDBBadge} from "mdbreact";
 import {Alert,Badge} from 'reactstrap'
@@ -33,7 +33,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import { PDFExport } from '@progress/kendo-react-pdf';
 import PageTemplate from './pageTemplate.jsx';
-
+import Navbar from '../Home/navbar'
 
 class App extends React.Component {
 pdfExportComponent ;
@@ -876,7 +876,7 @@ pdfExportComponent ;
    
     }
 
-    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo","Respuestas","Resultados"];
+    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
 
     const data = this.state.empleados.map(rows=>{
         let botonRespuestas = <div><MDBBtn  disabled={!this.state.botonResultados} color="danger"  onClick={(e) => this.click(rows.id)}>Respuestas</MDBBtn></div>
@@ -1969,43 +1969,80 @@ pdfExportComponent ;
                 let general =total/length.toFixed(2);
 let celda;
 let criterios;
-
+let celdaPrev;
+let criteriosPrev;
 if(general<20){
-celda = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7 "}}><font size="1" face="arial"color="black">Nulo o Despreciable</font></TableCell>
-criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
+celda = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7 "}}><font size="2" face="arial"color="black" align="justify"><p>NULO O DESPRECIABLE</p></font></TableCell>
+criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify"><p>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</p></font></TableCell>
 }else if(general>=20 && general < 45){
-  celda = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}} ><font size="1" face="arial"color="black">Bajo</font></TableCell>
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black"> Es necesario una mayor difusión de la política de prevención de riesgos
+  celda = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}} ><font size="1" face="arial"color="black" align="justify">BAJO</font></TableCell>
+  celdaPrev = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}} ><font size="3" face="arial"color="black" align="justify">BAJO</font></TableCell>
+
+ criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify"><p> Es necesario una mayor difusión de la política de prevención de riesgos
   psicosociales y programas para: la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
-  prevención de la violencia laboral.</font></TableCell>
+  prevención de la violencia laboral.</p></font></TableCell>
+
+  criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify"><p> Es necesario una mayor difusión de la política de prevención de riesgos
+  psicosociales y programas para: la prevención de los factores de riesgo
+  psicosocial, la promoción de un entorno organizacional favorable y la
+  prevención de la violencia laboral.</p></font></TableCell>
+
 }else if(general>=45 && general < 70){
-  celda = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}} ><font size="1" face="arial"color="black">Medio</font></TableCell>
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black">Se requiere revisar la política de prevención de riesgos psicosociales y
+  celda = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}} ><font size="1" face="arial"color="black" align="justify">MEDIO</font></TableCell>
+  celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}} ><font size="3" face="arial"color="black" align="justify">MEDIO</font></TableCell>
+
+  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify"><p>Se requiere revisar la política de prevención de riesgos psicosociales y
   programas para la prevención de los factores de riesgo psicosocial, la
   promoción de un entorno organizacional favorable y la prevención de la
   violencia laboral, así como reforzar su aplicación y difusión, mediante un
-  Programa de intervención.</font></TableCell>
+  Programa de intervención.</p></font></TableCell>
+
+   criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify"><p>Se requiere revisar la política de prevención de riesgos psicosociales y
+   programas para la prevención de los factores de riesgo psicosocial, la
+   promoción de un entorno organizacional favorable y la prevención de la
+   violencia laboral, así como reforzar su aplicación y difusión, mediante un
+   Programa de intervención.</p></font></TableCell>
 }else if(general>=70 && general < 90){
- celda = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} ><font size="1" face="arial"color="black">Alto</font></TableCell>
- criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black">Se requiere realizar un análisis de cada categoría y dominio, de manera que
+ celda = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} ><font size="1" face="arial"color="black" align="justify">ALTO</font></TableCell>
+ celdaPrev = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} ><font size="3" face="arial"color="black" align="justify">ALTO</font></TableCell>
+
+criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify"><p>Se requiere realizar un análisis de cada categoría y dominio, de manera que
  se puedan determinar las acciones de intervención apropiadas a través de un
  Programa de intervención, que podrá incluir una evaluación específica y
  deberá incluir una campaña de sensibilización, revisar la política de
  prevención de riesgos psicosociales y programas para la prevención de los
  factores de riesgo psicosocial, la promoción de un entorno organizacional
  favorable y la prevención de la violencia laboral, así como reforzar su
- aplicación y difusión.</font></TableCell>
+ aplicación y difusión.</p></font></TableCell>
+
+ criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify"><p>Se requiere realizar un análisis de cada categoría y dominio, de manera que
+ se puedan determinar las acciones de intervención apropiadas a través de un
+ Programa de intervención, que podrá incluir una evaluación específica y
+ deberá incluir una campaña de sensibilización, revisar la política de
+ prevención de riesgos psicosociales y programas para la prevención de los
+ factores de riesgo psicosocial, la promoción de un entorno organizacional
+ favorable y la prevención de la violencia laboral, así como reforzar su
+ aplicación y difusión.</p></font></TableCell>
 }
 else if( general > 90){
-  celda  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}}><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
-  criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black">Se requiere realizar el análisis de cada categoría y dominio para establecer
+  celda  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}}><font size="1" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
+  celdaPrev  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}}><font size="3" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
+ 
+ criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align="justify"><p>Se requiere realizar el análisis de cada categoría y dominio para establecer
   las acciones de intervención apropiadas, mediante un Programa de
   intervención que deberá incluir evaluaciones específicas, y contemplar
   campañas de sensibilización, revisar la política de prevención de riesgos
   psicosociales y programas para la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
-  prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
+  prevención de la violencia laboral, así como reforzar su aplicación y difusión.</p></font></TableCell>
+  criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="3" face="arial"color="black" align="justify"><p>Se requiere realizar el análisis de cada categoría y dominio para establecer
+  las acciones de intervención apropiadas, mediante un Programa de
+  intervención que deberá incluir evaluaciones específicas, y contemplar
+  campañas de sensibilización, revisar la política de prevención de riesgos
+  psicosociales y programas para la prevención de los factores de riesgo
+  psicosocial, la promoción de un entorno organizacional favorable y la
+  prevención de la violencia laboral, así como reforzar su aplicación y difusión.</p></font></TableCell>
 }
 
 
@@ -2313,7 +2350,7 @@ ponderacion=<React.Fragment>
 
       </td>
       <td width="33%">
-      <font  face="arial" className = "mt-4" ><strong> Evaluacioón RP. </strong><br/><strong>FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></strong><br/><strong>{localStorage.getItem("razonsocial")}</strong> </font>
+      <font  face="arial" className = "mt-4" ><strong> EVALUACIÓN RP. </strong><br/><strong>FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></strong><br/><strong>{localStorage.getItem("razonsocial")}</strong> </font>
       </td>
       <td width="34%">
       <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100}}/> 
@@ -2330,12 +2367,12 @@ ponderacion=<React.Fragment>
 <Table   responsive small borderless className="text-left mt-4 ">
 <TableHead>
 <TableRow>
-  <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>Resultados Generales</TableCell>
-    {celda}
-  <TableCell width="6%"  > <strong>   TOTAL {general.toFixed(2)}  Puntos </strong></TableCell>
+  <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>RESULTADOS GENERALES</TableCell>
+    {celdaPrev}
+  <TableCell width="6%"  > <strong>   TOTAL {general.toFixed(2)}  PUNTOS </strong></TableCell>
   <TableCell width="2%" ></TableCell>
   <TableCell width="1%"  ></TableCell>
- {criterios}
+ {criteriosPrev}
 </TableRow>
 </TableHead>
 </Table>
@@ -2346,16 +2383,16 @@ ponderacion=<React.Fragment>
         <TableHead>
           <TableRow>
             <TableCell width="50%" ></TableCell>
-            <TableCell align="center" style={{backgroundColor: "#9BE0F7"}}>Nulo</TableCell>
-            <TableCell align="center" style={{backgroundColor: "#6BF56E"}}>Bajo&nbsp;</TableCell>
-            <TableCell align="center" style={{backgroundColor: "#FFFF00"}}>Medio&nbsp;</TableCell>
-            <TableCell align="center" style={{backgroundColor: "#FFC000"}}>Alto&nbsp;</TableCell>
-            <TableCell align="center" style={{backgroundColor: "#FF0000"}}>Muy Alto&nbsp;</TableCell>
+            <TableCell align="center" style={{backgroundColor: "#9BE0F7"}}>NULO</TableCell>
+            <TableCell align="center" style={{backgroundColor: "#6BF56E"}}>BAJO&nbsp;</TableCell>
+            <TableCell align="center" style={{backgroundColor: "#FFFF00"}}>MEDIO&nbsp;</TableCell>
+            <TableCell align="center" style={{backgroundColor: "#FFC000"}}>ALTO&nbsp;</TableCell>
+            <TableCell align="center" style={{backgroundColor: "#FF0000"}}>MUY ALTO&nbsp;</TableCell>
           </TableRow>
         </TableHead>
         <TableBody  style={{marginTop:20}}>       
             <TableRow>
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados de la Categoría</strong></TableCell>              
+              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>RESULTADOS DE LA CATEGORÍA</strong></TableCell>              
               <TableCell component="th" scope="row"></TableCell>
               <TableCell component="th" scope="row" ></TableCell>
               <TableCell component="th" scope="row" ></TableCell>
@@ -2396,7 +2433,7 @@ ponderacion=<React.Fragment>
             </TableRow>
            
             <TableRow>
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados del Dominio</strong></TableCell>              
+              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>RESULTADOS DEL DOMÍNIO</strong></TableCell>              
               <TableCell component="th" scope="row" align="center" style={{backgroundColor: "#E6E7E8"}}></TableCell>              
               <TableCell component="th" scope="row" align="center" style={{backgroundColor: "#E6E7E8"}}></TableCell>              
               <TableCell component="th" scope="row" align="center" style={{backgroundColor: "#E6E7E8"}}></TableCell>              
@@ -2471,7 +2508,7 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" >{Dominio8MuyAlto}</TableCell>        
             </TableRow>       
             <TableRow>
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Resultados Por Dimensión</strong></TableCell>              
+              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>RESULTADOS POR DIMENSIÓN</strong></TableCell>              
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
@@ -3216,7 +3253,7 @@ ponderacion=<React.Fragment>
                   <MDBTableHead>
                     <tr>
                       <th  width="5%"></th>
-                      <th width="75%">V. La capacitación e información que recibe sobre su trabajo.</th>       
+                      <th width="70%">V. La capacitación e información que recibe sobre su trabajo.</th>       
                       <td  width="25%"></td> 
                     </tr>
                   </MDBTableHead>
@@ -3868,43 +3905,43 @@ let criterios;
 let color;
 if(total<20){
 color =<TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
-criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</TableCell>
+criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify"><p>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</p></font></TableCell>
 celda1 = <TableCell style={{backgroundColor: "#9BE0F7"}} align="right">{total}</TableCell>
 }else if(total>=20 && total <= 45){
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align=" justify">Es necesario una mayor difusión de la política de prevención de riesgos
+  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify"><p>Es necesario una mayor difusión de la política de prevención de riesgos
   psicosociales y programas para: la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
-  prevención de la violencia laboral.</font></TableCell>
+  prevención de la violencia laboral.</p></font></TableCell>
   color= <TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black" >Bajo</font></TableCell>
   celda2 = <TableCell style={{backgroundColor: "#6BF56E"}} align="right">{total}</TableCell>
 }else if(total>=45 && total <= 70){
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align=" justify">Se requiere revisar la política de prevención de riesgos psicosociales y
+  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify"><p>Se requiere revisar la política de prevención de riesgos psicosociales y
   programas para la prevención de los factores de riesgo psicosocial, la
   promoción de un entorno organizacional favorable y la prevención de la
   violencia laboral, así como reforzar su aplicación y difusión, mediante un
-  Programa de intervención.</font></TableCell>
+  Programa de intervención.</p></font></TableCell>
 color=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   celda3 = <TableCell style={{backgroundColor: "#FFFF00"}} align="right">{total}</TableCell>
 }else if(total>=70 && total <= 90){
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align=" justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
+  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align=" justify"><p>Se requiere realizar un análisis de cada categoría y dominio, de manera que
   se puedan determinar las acciones de intervención apropiadas a través de un
   Programa de intervención, que podrá incluir una evaluación específica y
   deberá incluir una campaña de sensibilización, revisar la política de
   prevención de riesgos psicosociales y programas para la prevención de los
   factores de riesgo psicosocial, la promoción de un entorno organizacional
   favorable y la prevención de la violencia laboral, así como reforzar su
-  aplicación y difusión.</font></TableCell>
+  aplicación y difusión.</p></font></TableCell>
   color = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black" >Alto</font></TableCell>
  celda4 = <TableCell style={{backgroundColor: "#FFC000"}} align="right">{total}</TableCell>
 }
 else if( total > 90){
-  criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align=" justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
+  criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align=" justify"><p>Se requiere realizar el análisis de cada categoría y dominio para establecer
   las acciones de intervención apropiadas, mediante un Programa de
   intervención que deberá incluir evaluaciones específicas, y contemplar
   campañas de sensibilización, revisar la política de prevención de riesgos
   psicosociales y programas para la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
-  prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
+  prevención de la violencia laboral, así como reforzar su aplicación y difusión.</p></font>font></TableCell>
  color = <TableCell style={ {backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   celda5  = <TableCell style={{backgroundColor: "#FF0000"}} align="right">{total}</TableCell>
 }
@@ -4916,51 +4953,7 @@ ponderacionIndividual =  <React.Fragment>
     return (
       <React.Fragment>
       <div>
-          <header>
-          <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
-            <Sidebar/>
-              <MDBNavbarBrand a href="./inicio">
-              <AppNavbarBrand
-                  full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
-              </MDBNavbarBrand>
-              <MDBNavbarBrand>
-                Resultados globales de la evaluación RP
-              </MDBNavbarBrand>
-              <MDBNavbarToggler onClick={this.onClick} />
-              <MDBCollapse isOpen={this.state.collapse} navbar>
-              &nbsp;&nbsp;&nbsp;
-              
-                <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
-                <MDBNavbarNav right>
-                              
-           
-                <MDBNavbarBrand>
-               <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
-              {this.state.nombre}
-              </MDBNavbarBrand>
-              <MDBNavbarBrand>
-              
-              <MDBNavItem>
-                
-              <MDBDropdown>
-                
-                <MDBDropdownToggle nav caret>
-               
-                </MDBDropdownToggle>
-                <MDBDropdownMenu className="dropdown-default">
-                  <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Configuración</MDBDropdownItem>
-                  <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
-                  <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
-
-                </MDBDropdownMenu>
-              </MDBDropdown>
-            </MDBNavItem>
-            </MDBNavbarBrand>
-                </MDBNavbarNav>
-              </MDBCollapse>
-            </MDBNavbar>
-          </header>
+          <Navbar/>
           <MDBContainer className="pt-5">
           <MDBRow>
               <MDBCol md="9">
@@ -5030,7 +5023,7 @@ ponderacionIndividual =  <React.Fragment>
             
            
               <MUIDataTable
-                title={`Empledos  totales de ${localStorage.getItem("razonsocial")}`}
+                title={`Resultados RP`}
                 data={data}
                 columns={columns}
                 options={options}
@@ -5684,44 +5677,44 @@ ponderacionIndividual =  <React.Fragment>
                                       let criterios;
                                       let color;
                                       if(total<20){
-                                      color =<TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+                                      color =<TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black" align="justify">Nulo</font></TableCell>
                                       criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</TableCell>
                                       celda1 = <TableCell style={{backgroundColor: "#9BE0F7"}} align="right">{total}</TableCell>
                                       }else if(total>=20 && total <= 45){
-                                        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align=" justify">Es necesario una mayor difusión de la política de prevención de riesgos
+                                        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify"><p>Es necesario una mayor difusión de la política de prevención de riesgos
                                         psicosociales y programas para: la prevención de los factores de riesgo
                                         psicosocial, la promoción de un entorno organizacional favorable y la
-                                        prevención de la violencia laboral.</font></TableCell>
+                                        prevención de la violencia laboral.</p></font></TableCell>
                                         color= <TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black" >Bajo</font></TableCell>
                                         celda2 = <TableCell style={{backgroundColor: "#6BF56E"}} align="right">{total}</TableCell>
                                       }else if(total>=45 && total <= 70){
-                                        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align=" justify">Se requiere revisar la política de prevención de riesgos psicosociales y
+                                        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify"><p>Se requiere revisar la política de prevención de riesgos psicosociales y
                                         programas para la prevención de los factores de riesgo psicosocial, la
                                         promoción de un entorno organizacional favorable y la prevención de la
                                         violencia laboral, así como reforzar su aplicación y difusión, mediante un
-                                        Programa de intervención.</font></TableCell>
-                                      color=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+                                        Programa de intervención.</p></font></TableCell>
+                                      color=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black" align="justify">Medio</font></TableCell>
                                         celda3 = <TableCell style={{backgroundColor: "#FFFF00"}} align="right">{total}</TableCell>
                                       }else if(total>=70 && total <= 90){
-                                        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align=" justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
+                                        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align=" justify"><p>Se requiere realizar un análisis de cada categoría y dominio, de manera que
                                         se puedan determinar las acciones de intervención apropiadas a través de un
                                         Programa de intervención, que podrá incluir una evaluación específica y
                                         deberá incluir una campaña de sensibilización, revisar la política de
                                         prevención de riesgos psicosociales y programas para la prevención de los
                                         factores de riesgo psicosocial, la promoción de un entorno organizacional
                                         favorable y la prevención de la violencia laboral, así como reforzar su
-                                        aplicación y difusión.</font></TableCell>
+                                        aplicación y difusión.</p></font></TableCell>
                                         color = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black" >Alto</font></TableCell>
                                         celda4 = <TableCell style={{backgroundColor: "#FFC000"}} align="right">{total}</TableCell>
                                       }
                                       else if( total > 90){
-                                        criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align=" justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
+                                        criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align=" justify"><p>Se requiere realizar el análisis de cada categoría y dominio para establecer
                                         las acciones de intervención apropiadas, mediante un Programa de
                                         intervención que deberá incluir evaluaciones específicas, y contemplar
                                         campañas de sensibilización, revisar la política de prevención de riesgos
                                         psicosociales y programas para la prevención de los factores de riesgo
                                         psicosocial, la promoción de un entorno organizacional favorable y la
-                                        prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
+                                        prevención de la violencia laboral, así como reforzar su aplicación y difusión.</p></font></TableCell>
                                         color = <TableCell style={ {backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
                                         celda5  = <TableCell style={{backgroundColor: "#FF0000"}} align="right">{total}</TableCell>
                                       }

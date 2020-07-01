@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
-import PDF from '../PDF/index'
+// import PDF from '../PDF/index'
 import { Bar } from "react-chartjs-2";
 import { MDBBadge} from "mdbreact";
 import {Alert,Badge} from 'reactstrap'
@@ -33,7 +33,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import { PDFExport }  from '@progress/kendo-react-pdf';
 import PageTemplate from './pageTemplate.jsx';
-
+import Navbar from '../Home/navbar'
 
 class App extends React.Component {
 pdfExportComponent ;
@@ -1086,43 +1086,7 @@ pdfExportComponent ;
     return (
       <React.Fragment>
       <div>
-          <header>
-          <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
-            <Sidebar/>
-              <MDBNavbarBrand a href="./inicio">
-              <AppNavbarBrand
-                  full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
-              </MDBNavbarBrand>
-              <MDBNavbarBrand>
-                Resultados globales de la evaluación ATS
-              </MDBNavbarBrand>
-              <MDBNavbarToggler onClick={this.onClick} />
-              <MDBCollapse isOpen={this.state.collapse} navbar>
-              &nbsp;&nbsp;&nbsp;          
-                <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
-                <MDBNavbarNav right>
-                <MDBNavbarBrand>
-               <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
-              {this.state.nombre}
-              </MDBNavbarBrand>
-              <MDBNavbarBrand>
-              <MDBNavItem> 
-              <MDBDropdown> 
-                <MDBDropdownToggle nav caret>
-                </MDBDropdownToggle>
-                <MDBDropdownMenu className="dropdown-default">
-                  <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Configuración</MDBDropdownItem>
-                  <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
-                  <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
-                </MDBDropdownMenu>
-              </MDBDropdown>
-              </MDBNavItem>
-              </MDBNavbarBrand>
-                </MDBNavbarNav>
-              </MDBCollapse>
-            </MDBNavbar>
-          </header>
+          <Navbar/>
           <MDBContainer className="pt-5">
          
                   <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
@@ -1186,7 +1150,7 @@ pdfExportComponent ;
                 <Grow in={true}>
                   <div style={{ margin: "30px 56px" }}>
               <MUIDataTable
-                title={`Empledos  totales de ${localStorage.getItem("razonsocial")}`}
+                title={`Resultados ATS`}
                 data={data}
                 columns={columns}
                 options={options}

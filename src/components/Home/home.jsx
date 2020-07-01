@@ -4,7 +4,6 @@ import Sidebar from './sidebar'
 import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logotipo.png'
 import diagnostico from '../images/diagnostico.png'
-import './index.css'
 import usuario from '../images/usuario.png'
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
@@ -35,17 +34,14 @@ import Upload from '../uploadImage/upload'
 import { MDBModal, MDBModalBody, MDBModalHeader, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 
 import { MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
+import {ProgressBar} from 'react-bootstrap' 
+import Navbar from './navbar'
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapse: false,
-      isOpen: false,
       selection : 1,
-      date:'',
       showModal2: false,
-      nombre:'',
-      apellidos:'',
       empleadosAts:[],
       empleadosAtsFalse:[],
       modal16: false,
@@ -71,9 +67,7 @@ class Home extends React.Component {
       max:'',
       urlLogo:''
     };
-    this.onClick = this.onClick.bind(this);
-    this.handleclick = this.handleclick.bind(this);
-    this.handleLogOut = this.handleLogOut.bind(this);
+
     this.ads = this.ads.bind(this);
     this.openModal = this.openModal.bind(this)
 
@@ -107,23 +101,6 @@ class Home extends React.Component {
       })
 
     this.handleFront();
-    var Nombre = localStorage.getItem("nombre")
-    var Apellidos = localStorage.getItem("apellidos")
-
-
-    var LaFecha=new Date();
-    var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-    var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
-    var diasemana=LaFecha.getDay();
-    var FechaCompleta="";
-    var NumeroDeMes="";    
-    NumeroDeMes=LaFecha.getMonth();
-    FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
-
-    this.setState({date:FechaCompleta}) 
-    this.setState({nombre:Nombre}) 
-    this.setState({apellidos:Apellidos}) 
-
 
     this.getMaxEmployees();
     this.countEmployees();
@@ -153,23 +130,12 @@ class Home extends React.Component {
             }
             this.setState({urlLogo:datos.data.data.getLogo.url})
           }).catch(err=>{
-            console.log("datos error url " , err.response)
+            console.log("datos error url " , err)
           })
 
   }
-   
-  onClick() {
-    this.setState({
-      collapse: !this.state.collapse,
-    });
-  }
 
-handleclick(){
-this.props.history.push("/profile")
-
-}
-
-handleFront = async () =>{
+  handleFront = async () =>{
   
   let em;
   let idSuperUsuario;
@@ -235,36 +201,6 @@ handleFront = async () =>{
     }) 
    
  
-}
-
-
-
-handleLogOut(){
-localStorage.removeItem("elToken")
-localStorage.removeItem("nombre")
-localStorage.removeItem("apellidos")
-localStorage.removeItem("rfc")
-localStorage.removeItem("razonsocial")
-localStorage.removeItem("usuario")
-localStorage.removeItem("correo")
-localStorage.removeItem("max")
-localStorage.removeItem("idAdmin")
-localStorage.removeItem("fechaRegistro")
-localStorage.removeItem("fechaRegistroSuperusuario")
-localStorage.removeItem("ok")
-localStorage.removeItem("empleadoActivo")
-localStorage.removeItem("DepartamentoActivo")
-localStorage.removeItem("SucursalActiva")
-localStorage.removeItem("PuestoActivo")
-localStorage.removeItem("urlLogo")
-
-this.props.history.push("/")
-DialogUtility.alert({
-  animationSettings: { effect: 'Fade' },           
-  title: 'Hasta luego...!',
-  position: "fixed",
-}
-)
 }
 
 
@@ -1321,14 +1257,6 @@ openModal () {
           </MDBModalBody>   
         </MDBModal>
       </MDBContainer>
-      }else{
-        DialogUtility.alert({
-          animationSettings: { effect: 'Fade' },           
-          content: 'Sus colaboradores aún no han Realizado la evaluación',
-          position: "fixed",
-        
-        }
-        )
       }
 
      }
@@ -1413,14 +1341,6 @@ openModal () {
         </MDBModalBody>   
       </MDBModal>
     </MDBContainer>
-    }else{
-      DialogUtility.alert({
-        animationSettings: { effect: 'Fade' },           
-        content: 'Sus colaboradores aún no han Realizado la evaluación',
-        position: "fixed",
-      
-      }
-      )
     }
 
    }
@@ -1507,14 +1427,6 @@ openModal () {
         </MDBModalBody>   
       </MDBModal>
     </MDBContainer>
-    }else{
-      DialogUtility.alert({
-        animationSettings: { effect: 'Fade' },           
-        content: 'Sus colaboradores aún no han Realizado la evaluación',
-        position: "fixed",
-      
-      }
-      )
     }
 
    }
@@ -1585,6 +1497,49 @@ openModal () {
     <IconButton onClick={this.toggle(20)} color="#FF5733"> <PublishOutlinedIcon /></IconButton>
    </div>
    }
+
+   let totalAts = this.state.empleadosAts.length + this.state.empleadosAtsFalse.length
+   var porcentajeATS= (this.state.empleadosAts.length / totalAts)*100;
+   var intPorcentajeATS= Math.round( porcentajeATS);
+
+   var porcentajeATSFalse= (this.state.empleadosAtsFalse.length / totalAts)*100;
+   var intPorcentajeATSFalse= Math.round( porcentajeATSFalse);
+
+   
+   let totalRP = this.state.empleadosRP.length + this.state.empleadosRPFalse.length
+   var porcentajeRP= (this.state.empleadosRP.length / totalRP)*100;
+   var intPorcentajeRP= Math.round( porcentajeRP);
+
+   var porcentajeRPFalse= (this.state.empleadosRPFalse.length / totalRP)*100;
+   var intPorcentajeRPFalse= Math.round( porcentajeRPFalse);
+
+   let totalEEO = this.state.empleadosEEO.length + this.state.empleadosEEOFalse.length
+   var porcentajeEEO= (this.state.empleadosEEO.length / totalEEO)*100;
+   var intPorcentajeEEO= Math.round( porcentajeEEO);
+
+   var porcentajeEEOFalse= (this.state.empleadosEEOFalse.length / totalEEO)*100;
+   var intPorcentajeEEOFalse= Math.round( porcentajeEEOFalse);
+
+   let progressInstanceATS;
+   let progressInstanceRP;
+   let progressInstanceEEO;
+   if(intPorcentajeATS || intPorcentajeATSFalse ){
+    progressInstanceATS =<ProgressBar> <ProgressBar variant="primary" animated now={intPorcentajeATS}  label={`${intPorcentajeATS}%`} /><ProgressBar variant="danger" animated now={intPorcentajeATSFalse}  label={`${intPorcentajeATSFalse}%`} /></ProgressBar>;
+   }else{
+    progressInstanceATS =<ProgressBar> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
+   }
+   if(intPorcentajeRP || intPorcentajeRPFalse ){
+    progressInstanceRP=<ProgressBar> <ProgressBar variant="primary" animated now={intPorcentajeRP}  label={`${intPorcentajeRP}%`} /><ProgressBar variant="danger" animated now={intPorcentajeRPFalse}  label={`${intPorcentajeRPFalse}%`} /></ProgressBar>;
+   }else{
+    progressInstanceRP =<ProgressBar> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
+   }
+   if(intPorcentajeEEO || intPorcentajeEEOFalse ){
+    progressInstanceEEO=<ProgressBar> <ProgressBar variant="primary" animated now={intPorcentajeEEO}  label={`${intPorcentajeEEO}%`} /><ProgressBar variant="danger" animated now={intPorcentajeEEOFalse}  label={`${intPorcentajeEEOFalse}%`} /></ProgressBar>;
+   }else{
+    progressInstanceEEO =<ProgressBar> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
+   }
+
+
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 1000, height: 500 }
     return (
@@ -1592,54 +1547,7 @@ openModal () {
 
       <React.Fragment>
       <div>
-          <header>
-            <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
-            <Sidebar/>
-              <MDBNavbarBrand a href="./inicio">
-              <AppNavbarBrand
-                  full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico' }} />               
-              </MDBNavbarBrand>
-              <MDBNavbarToggler onClick={this.onClick} />
-              <MDBCollapse isOpen={this.state.collapse} navbar>
-                <MDBNavbarNav left>
-                  <MDBNavItem >
-                  <a href="http://ats.diagnostico035.com/">evaluación ATS &nbsp;&nbsp;   </a>
-                  </MDBNavItem>
-                  <MDBNavItem >
-                  <a href="http://rp.diagnostico035.com/"> evaluación RP &nbsp;&nbsp; </a>
-                  </MDBNavItem>
-                  <MDBNavItem >
-                  <a href="http://eeo.diagnostico035.com/"> evaluación EEO   </a>
-                  </MDBNavItem>
-                  
-                </MDBNavbarNav>
-               <strong>{localStorage.getItem("razonsocial")} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {this.state.date}</strong> 
-               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Versión 1.0.0
-                <MDBNavbarNav right>
-                <MDBNavbarBrand>               
-              <AppNavbarBrand full={{ src: usuario, width: 30, height: 25, alt: 'ADS' }} />               
-              {this.state.nombre}         
-              </MDBNavbarBrand>
-              <MDBNavbarBrand>  
-              <MDBNavItem>   
-              <MDBDropdown>
-                <MDBDropdownToggle nav caret>
-                </MDBDropdownToggle>
-                <MDBDropdownMenu className="dropdown-default">
-                  <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Configuración</MDBDropdownItem>
-                  <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
-                  <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
-
-                </MDBDropdownMenu>
-              </MDBDropdown>
-            </MDBNavItem>
-            </MDBNavbarBrand>
-                </MDBNavbarNav>
-              </MDBCollapse>
-            </MDBNavbar>
-          
-          </header>
+        <Navbar/>
         <MDBContainer style={container} >
        
         {/* {this.state.nombre.nombre} */}
@@ -1649,6 +1557,7 @@ openModal () {
           <MDBCardBody>        
           <strong>Empleados Evaluación ATS</strong>
          <MDBCardHeader><strong>Realizada: {this.state.empleadosAts.length} </strong>  <IconButton onClick={this.toggle(16)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada: {this.state.empleadosAtsFalse.length}</strong><IconButton onClick={this.toggle(15)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                 
+         {progressInstanceATS}  
        </MDBCardBody>
       </MDBCard>
       
@@ -1656,6 +1565,7 @@ openModal () {
           <MDBCardBody>        
           <strong>Empleados Evaluación RP</strong>
          <MDBCardHeader><strong>Realizada: {this.state.empleadosRP.length} </strong>  <IconButton onClick={this.toggle(14)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada: {this.state.empleadosRPFalse.length} </strong><IconButton onClick={this.toggle(13)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
+         {progressInstanceRP}  
        </MDBCardBody>
       </MDBCard>
    
@@ -1663,6 +1573,7 @@ openModal () {
           <MDBCardBody>        
           <strong>Empleados Evaluación EEO</strong>
          <MDBCardHeader><strong>Realizada: {this.state.empleadosEEO.length} </strong>  <IconButton onClick={this.toggle(11)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada: {this.state.empleadosEEOFalse.length} </strong><IconButton onClick={this.toggle(12)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
+         {progressInstanceEEO}
        </MDBCardBody>
       </MDBCard>
         {/* <MDBContainer className=" mt-5 pt-5" ><Alert color = "primary">Su licencia caduca en undefined dias</Alert>  <ProgressBar/></MDBContainer> */}
@@ -1707,7 +1618,6 @@ openModal () {
         {Alerta}
         {dep}
         {suc}
-        {pues}
         {cargarLogo}
         </MDBContainer>
       </div>

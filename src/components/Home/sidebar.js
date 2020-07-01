@@ -27,7 +27,16 @@ import TimelineIcon from '@material-ui/icons/Timeline';
 import TextFormatIcon from '@material-ui/icons/TextFormat';
 import ExplicitOutlinedIcon from '@material-ui/icons/ExplicitOutlined';
 import DonutSmallOutlinedIcon from '@material-ui/icons/DonutSmallOutlined';
-const drawerWidth = 240;
+import SpellcheckIcon from '@material-ui/icons/Spellcheck';
+import DoneIcon from '@material-ui/icons/Done';
+import AssignmentTurnedInOutlinedIcon from '@material-ui/icons/AssignmentTurnedInOutlined';
+import HowToRegOutlinedIcon from '@material-ui/icons/HowToRegOutlined';
+import EmojiTransportationIcon from '@material-ui/icons/EmojiTransportation';
+import DirectionsWalkOutlinedIcon from '@material-ui/icons/DirectionsWalkOutlined';
+import ComputerOutlinedIcon from '@material-ui/icons/ComputerOutlined';
+import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
+
+const drawerWidth = 290;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -61,7 +70,7 @@ const useStyles = makeStyles(theme => ({
     overflowX: 'hidden',
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9) + 1,
+      width: theme.spacing(0) + 1,
     },
   },
   toolbar: {
@@ -144,18 +153,6 @@ export default function MiniDrawer() {
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
-        {/* <Divider /> */}
-        {/* <Link to="/company" style={{ textDecoration: 'none' }}>
-        <List >
-          {[' Sucursal Principal'].map((text) => (
-            <ListItem button key={text} >
-              <ListItemIcon> <ApartmentIcon /> </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        </Link> */}
-
         <Link to="/table" style={{ textDecoration: 'none' }}>
         <List >
           {['Enviar Evaluaciones'].map((text) => (
@@ -167,81 +164,48 @@ export default function MiniDrawer() {
         </List>    
         </Link>
 
-        <Link to="/res" style={{ textDecoration: 'none' }}>
+        <Link to="/resultsATSIGRM" style={{ textDecoration: 'none' }}>
         <List >
-          {['Evaluaciones ATS'].map((text) => (
+          {['Evaluación ATS'].map((text) => (
             <ListItem button key={text} >
-              <ListItemIcon> <BarChartIcon /> </ListItemIcon>
+              <ListItemIcon> <SpellcheckIcon /> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>    
         </Link>
-        <Link to="/resultRP" style={{ textDecoration: 'none' }}>
+        <Link to="/resultsRPIGRM" style={{ textDecoration: 'none' }}>
         <List >
-          {['Evaluaciones RP'].map((text) => (
+          {['Evaluacion RP'].map((text) => (
             <ListItem button key={text} >
-              <ListItemIcon> <EventNoteIcon /> </ListItemIcon>
+              <ListItemIcon> <DoneIcon /> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>    
         </Link>
-        <Link to="/resultEEO" style={{ textDecoration: 'none' }}>
+        <Link to="/resultsEEOIGRM" style={{ textDecoration: 'none' }}>
         <List >
-          {['Evaluaciones EEO'].map((text) => (
+          {['Evaluación EEO'].map((text) => (
             <ListItem button key={text} >
-              <ListItemIcon> <MenuBookIcon /> </ListItemIcon>
+              <ListItemIcon> <HowToRegOutlinedIcon /> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>    
         </Link>
-        <Link to="/indexAts" style={{ textDecoration: 'none' }}>
-        <List >
-          {['Globales ATS'].map((text) => (
-            <ListItem button key={text} >
-              <ListItemIcon> <TextFormatIcon /> </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>    
-        </Link>
-
-        <Link to="/resultGral" style={{ textDecoration: 'none' }}>
-        <List >
-          {['Globales RP'].map((text) => (
-            <ListItem button key={text} >
-              <ListItemIcon> <TrendingUpRoundedIcon /> </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>    
-        </Link>
-        <Link to="/resultGralEEO" style={{ textDecoration: 'none' }}>
-        <List >
-          {['Globales EEO'].map((text) => (
-            <ListItem button key={text} >
-              <ListItemIcon> <ExplicitOutlinedIcon /> </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>    
-        </Link>
-
-        <Divider />
-
         <Link to="/estadisticas" style={{ textDecoration: 'none' }}>
         <List >
           {['Guia V'].map((text) => (
             <ListItem button key={text} >
-              <ListItemIcon> <DonutSmallOutlinedIcon  /> </ListItemIcon>
+              <ListItemIcon> <AssignmentTurnedInOutlinedIcon  /> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>    
         </Link>
-
+        <Divider />        
+ 
         <Link to="/adminGral" style={{ textDecoration: 'none' }}>
         <List >
           {['Gestionar mi Empresa'].map((text) => (

@@ -18,21 +18,21 @@ import Table from './components/Home/table';
 import AdminGral from './components/adminGeneral/AdminGral';
 import ProfileUser from './components/Home/ProfileUser';
 import Sucursales from './components/adminGeneral/Sucursales';
-import Puestos from './components/adminGeneral/Puestos';
-import IndexEEO from './components/Res generales/indexEEO';
-import ResultRP from './components/resultsCuestionsRP/resultRP';
-import ResultEEO from './components/resultsCuestionsEEO/resultEEO';
-import Apartments from './components/adminGeneral/Apartments';
-import IndexATS from './components/Res generales/indexATS';
-import Res from './components/resultsCuestions/resultados';
+import PuestosDeptos from './components/adminGeneral/PuestosDeptos';
+// import IndexEEO from './components/Res generales/indexEEO';
+// import ResultRP from './components/resultsCuestionsRP/resultRP';
+// import ResultEEO from './components/resultsCuestionsEEO/resultEEO';
+// import Apartments from './components/adminGeneral/Apartments';
+// import IndexATS from './components/Res generales/indexATS';
+// import Res from './components/resultsCuestions/resultados';
 import Estadisticas from './components/Estadisticas/estadisticas';
-import ResGral from './components/Res generales/index';
+// import ResGral from './components/Res generales/index';
 import Upload from './components/uploadImage/upload';
 
-import Prueba from './components/carpetaPruebas/PDFIG'
-import PruebaRP from './components/carpetaPruebas/RPIG'
-import PruebaEEO from './components/carpetaPruebas/EEOIG'
-import PruebaDashboard from './components/carpetaPruebas/Dashboard'
+import ATS from './components/Res generales/PDFIG'
+import RP from './components/Res generales/RPIG'
+import EEO from './components/Res generales/EEOIG'
+// import PruebaDashboard from './components/carpetaPruebas/Dashboard'
 
 class Routes extends Component{
   
@@ -50,7 +50,7 @@ class Routes extends Component{
               <Route exact path='/' component={Login}/>
                   {/* <Route exact path='/verify/:id' component={Verify}/> */}
                   <PrivateRoute exact path='/upload' component={Upload}/>
-                  <PrivateRoute exact path='/indexAts' component={IndexATS}/>
+                  {/* <PrivateRoute exact path='/indexAts' component={IndexATS}/> */}
                   <PrivateRoute exact path='/inicio' component={Home}/>
                   {/* <PrivateRoute exact path='/company' component={Company}/> */}
                   <PrivateRoute exact path='/employees' component={Employees}/>
@@ -58,20 +58,20 @@ class Routes extends Component{
                   <PrivateRoute exact path='/profile' component={ProfileUser}/>
                   {/* <PrivateRoute exact path='/result' component={Result}/> */}
                   {/* <PrivateRoute exact path='/pdf' component={PDF}/> */}
-                  <PrivateRoute exact path='/resultRP' component={ResultRP}/>
+                  {/* <PrivateRoute exact path='/resultRP' component={ResultRP}/>
                   <PrivateRoute exact path='/resultEEO' component={ResultEEO}/>
-                  <PrivateRoute exact path='/res' component={Res}/>
+                  <PrivateRoute exact path='/res' component={Res}/> */}
                   <PrivateRoute exact path='/adminGral' component={AdminGral}/>
                   <PrivateRoute exact path='/sucursales' component={Sucursales}/>
-                  <PrivateRoute exact path='/apartments' component={Apartments}/>
-                  <PrivateRoute exact path='/puestos' component={Puestos}/>
-                  <PrivateRoute exact path='/resultGralEEO' component={IndexEEO}/>
-                  <PrivateRoute exact path='/resultGral' component={ResGral}/>
+                  {/* <PrivateRoute exact path='/apartments' component={Apartments}/> */}
+                  <PrivateRoute exact path='/puestosDeptos' component={PuestosDeptos}/>
+                  {/* <PrivateRoute exact path='/resultGralEEO' component={IndexEEO}/>
+                  <PrivateRoute exact path='/resultGral' component={ResGral}/> */}
                   <PrivateRoute exact path='/estadisticas' component={Estadisticas}/>
-                  <PrivateRoute exact path='/atsDemoIG' component={Prueba}/>
-                  <PrivateRoute exact path='/rpDemoIG' component={PruebaRP}/>
-                  <PrivateRoute exact path='/eeoDemoIG' component={PruebaEEO}/>
-                  <PrivateRoute exact path='/dashboardDemo' component={PruebaDashboard}/>
+                  <PrivateRoute exact path='/resultsATSIGRM' component={ATS}/>
+                  <PrivateRoute exact path='/resultsRPIGRM' component={RP}/>
+                  <PrivateRoute exact path='/resultsEEOIGRM' component={EEO}/>
+                  {/* <PrivateRoute exact path='/dashboardDemo' component={PruebaDashboard}/> */}
 
                   {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}
     
