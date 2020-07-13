@@ -271,14 +271,15 @@ class Estadisticas extends React.Component {
           if(this.state.reporteEstadisticas[0]){
            console.log("estadisticas" , this.state.reporteEstadisticas)
               {this.state.reporteEstadisticas.map(rows =>{
-                console.log("las rows" , rows.data[0])
+
+                console.log("las rows" , rows.data)
                 array.push(rows.data[4])
 
                 arrayExpLab.push(rows.data[3])
                 arrayAnt.push(rows.data[6])
                 arrayEstudios.push(rows.data[5])
-                arraySexo.push(rows.data[8])
-                arrayTipoPuesto.push(rows.data[9])
+                arraySexo.push(rows.data[7])
+                arrayTipoPuesto.push(rows.data[8])
               })}
 
                 const result1519 = array.filter(function(valor){
@@ -566,6 +567,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajedoctorado= Math.round( porcentajedoctorado);
                 //////////////////////////////////////////////////////////////////
 
+                console.log("arraySexo" , arraySexo)
                 const resultSexoH= arraySexo.filter(function(valor){
                   return valor == "MASCULINO"
                 })
@@ -643,14 +645,13 @@ class Estadisticas extends React.Component {
                     >
                         <div style={{ width: "500px" }}>
                       
-                            <MDBRow> 
-                            <MDBCol>
-                            <img src={logotipo} alt="logo" style = {{width:150,marginBottom:20}}/>
-                            </MDBCol>  
-                            <MDBCol>
-                            {/* <img src={logotipo} alt="logo" style = {{width:100,marginBottom:30}}/> */}
-                            </MDBCol>
-                            </MDBRow> 
+                        <MDBRow style={{marginBottom:10}}> 
+                        <MDBCol>
+                        <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
+                
+                        <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                        </MDBCol> 
+                        </MDBRow> 
                             <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
                             <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
                           
