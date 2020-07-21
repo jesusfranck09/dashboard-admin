@@ -309,7 +309,6 @@ class TableEmployees extends React.Component {
             `
         }
             }).then(datos => {  
-              console.log("datod" , datos)
               DialogUtility.alert({
                 animationSettings: { effect: 'Zoom' },           
                 content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,
@@ -344,7 +343,6 @@ class TableEmployees extends React.Component {
               `
           }
               }).then(datos => {  
-                console.log("datos" , datos)
                 DialogUtility.alert({
                   animationSettings: { effect: 'Zoom' },           
                   content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,      
@@ -461,7 +459,6 @@ class TableEmployees extends React.Component {
         },
         onFilterChange: (action, filtroTable) => {
           filtro=filtroTable
-          console.log("filtro" , filtro) 
           }     };
 
           const optionsRP = {
@@ -552,7 +549,6 @@ class TableEmployees extends React.Component {
                 },
                 onFilterChange: (action, filtroTable) => {
                   filtroEEO=filtroTable
-                  console.log("filtro" , filtro) 
                   }     };
 
           const options2 = {
