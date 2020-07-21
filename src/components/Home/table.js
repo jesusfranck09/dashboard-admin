@@ -159,7 +159,6 @@ class TableEmployees extends React.Component {
         }
             }).then((datos) => {
               this.setState({ datos: datos.data.data.getUsersTableEmployees});
-             console.log("estos son los id" , datos.data.data.getUsersTableEmployees)
             })
             .catch((error) => {
               console.log(".cartch" , error.response)
@@ -184,7 +183,6 @@ class TableEmployees extends React.Component {
             }
           })
           .then(datos => {	
-            console.log("exito datos",datos)
           this.setState({correos:datos.data.data.getCorreos})
           }).catch(err=>{
             console.log("error",err)
@@ -210,7 +208,6 @@ class TableEmployees extends React.Component {
               }
           })
           .then(datos => {	
-            console.log("exito datos",datos)
           this.setState({empleadosATS:datos.data.data.getEmployeesResolvesSurveyATSFalse})
           }).catch(err=>{
             console.log("error",err)
@@ -235,7 +232,6 @@ class TableEmployees extends React.Component {
               }
           })
           .then(datos => {	
-            console.log("exito datos",datos)
           this.setState({empleadosRP:datos.data.data.getEmployeesResolvesSurveyRPFalse})
           }).catch(err=>{
             console.log("error",err)
@@ -260,7 +256,6 @@ class TableEmployees extends React.Component {
               }
           })
           .then(datos => {	
-            console.log("exito datos",datos)
           this.setState({empleadosEEO:datos.data.data.getEmployeesResolvesSurveyEEOFalse})
           }).catch(err=>{
             console.log("error",err)
@@ -294,122 +289,62 @@ class TableEmployees extends React.Component {
       
     }
 
-     sendMailATS =  async  (datosEmpleados,valor) =>{
-         console.log("datos" , datosEmpleados.length)
+     sendMailATS =  (datosEmpleados) =>{
+      const idAdmin = localStorage.getItem("idAdmin")
+      let array=[]
         datosEmpleados.map(rows=>{
-            console.log("rows" ,rows.data)
-            axios({
-                url:  API,
-                method:'post',
-                data:{
-                query:`
-                query{
-                  verifiEmailSurveyATS(data:"${[rows.data[0],rows.data[4]]}"){
-                      ATSContestado
-                        }
-                      }
-                    `
-                }
-             }).then(datos => {  
-           
-              //  this.setState({ATSContestado:datos.data.data.verifiEmailSurveyATS[0].ATSContestado})
-              var contestado = datos.data.data.verifiEmailSurveyATS[0].ATSContestado
-              localStorage.setItem("ATSContestado" ,contestado )
-              if(localStorage.getItem("ATSContestado") =='true'){
-                DialogUtility.alert({
-                  animationSettings: { effect: 'Zoom' },           
-                  title: "Su colaborador ya ha respondido la evaluación",
-                  // title: 'Aviso!',
-                  position: "fixed"
-                  });
-                  localStorage.removeItem("ATSContestado")
-                  setTimeout(() => {
-                    window.location.reload()
-                  }, 1000);
-
-               }
-               else if (localStorage.getItem("ATSContestado")=='false' && this.state.periodoActivo > 0){
-                 
-                DialogUtility.alert({
-                  animationSettings: { effect: 'Zoom' },           
-                  content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,
-                  title: 'Aviso!',
-                  position: "fixed"
-                  });
-
-                  setTimeout(() => {
-                    window.location.reload()
-                  }, 2000);
-
-                  axios({
-                  url:  API,
-                  method:'post',
-                  data:{
-                  query:` 
-                  mutation{
-                    sendMail(data:"${[rows.data[4],rows.data[0],1]}"){
-                        message
-                          }
-                        }
-                      `
-                  }
-                      }).then(datos => {  
-                        localStorage.removeItem("ATSContestado")
-                      });
-        
-               } else{
-                DialogUtility.alert({
-                  animationSettings: { effect: 'Zoom' },           
-                  content: " Su evaluación no fue enviada ya que no cuenta con un periodo Registrado!",
-                  title: 'Aviso!',
-                  position: "fixed"
-                  });
-                  setTimeout(() => {
-                    window.location.reload()
-                  }, 1000);
-
-               }       
-             }).catch(err =>{
-               console.log(err.response)
-             })             
+         array.push(rows.data[0],[rows.data[4]])
         })
-        // const url = 'http://localhost:8000/graphql' 
+        if ( this.state.periodoActivo > 0){
+        axios({
+        url:  API,
+        method:'post',
+        data:{
+        query:` 
+        mutation{
+          sendMail(data:"${[array,1,idAdmin]}"){
+              message
+                }
+              }
+            `
+        }
+            }).then(datos => {  
+              console.log("datod" , datos)
+              DialogUtility.alert({
+                animationSettings: { effect: 'Zoom' },           
+                content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,
+                title: 'Aviso!',
+                position: "fixed"
+                });
+                  setTimeout(() => {
+                    window.location.reload()
+                  },1000);
+            });
+      }
     }    
         ///////////////////////////////////////////////////////////////////////////////////////
 
-     sendMailRP =  async  (datosEmpleados) =>{
-       console.log("datosEmpleados" , datosEmpleados.length)
+     sendMailRP =(datosEmpleados) =>{
+      const idAdmin = localStorage.getItem("idAdmin")
+        let array=[]
         datosEmpleados.map(rows=>{
-            axios({
-                url:  API,
-                method:'post',
-                data:{
-                query:`
-                query{
-                  verifiEmailSurveyRP(data:"${[rows.data[0]]}"){
-                      RPContestado
-                        }
-                      }
-                    `
+        array.push(rows.data[0],[rows.data[4]])
+        })
+      if ( this.state.periodoActivo > 0){
+          axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+          mutation{
+            sendMail(data:"${[array,2,idAdmin]}"){
+                message
+                  }
                 }
-             }).then(datos => {  
-              var contestado = datos.data.data.verifiEmailSurveyRP[0].RPContestado
-              localStorage.setItem("RPContestado" ,contestado )
-              if(localStorage.getItem("RPContestado") =='true'){
-                DialogUtility.alert({
-                  animationSettings: { effect: 'Zoom' },           
-                  title: "Su colaborador ya ha respondido la evaluación",
-                  // title: 'Aviso!',
-                  position: "fixed"
-                  });
-                  localStorage.removeItem("RPContestado")
-                  setTimeout(() => {
-                    window.location.reload()
-                  }, 1000);
-
-               }
-               else if (localStorage.getItem("RPContestado")=='false' && this.state.periodoActivo > 0){
-                 
+              `
+          }
+              }).then(datos => {  
+                console.log("datos" , datos)
                 DialogUtility.alert({
                   animationSettings: { effect: 'Zoom' },           
                   content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,      
@@ -419,127 +354,48 @@ class TableEmployees extends React.Component {
                   setTimeout(() => {
                     window.location.reload()
                   }, 1000);
-
-                  axios({
-                  url:  API,
-                  method:'post',
-                  data:{
-                  query:`
-                  mutation{
-                    sendMail(data:"${[rows.data[4],rows.data[0],2]}"){
-                        message
-                          }
-                        }
-                      `
+              });    
+        }           
+        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+     sendMailEEO =  async  (datosEmpleados) =>{
+      const idAdmin = localStorage.getItem("idAdmin")
+      let array=[]
+      datosEmpleados.map(rows=>{
+      array.push(rows.data[0],[rows.data[4]])
+      })
+      if (this.state.periodoActivo > 0){
+      
+          axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+          mutation{
+            sendMail(data:"${[array,3,idAdmin]}"){
+                message
                   }
-                      }).then(datos => {  
-                        localStorage.removeItem("RPContestado")
-                      });
-               }else{
+                }
+              `
+          }
+              }).then(datos => {  
                 DialogUtility.alert({
                   animationSettings: { effect: 'Zoom' },           
-                  content: " Su evaluación no fue enviada ya que no cuenta con un periodo Registrado!",
+                  content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,      
                   title: 'Aviso!',
                   position: "fixed"
                   });
                   setTimeout(() => {
                     window.location.reload()
                   }, 1000);
-
-               }        
-             }).catch(err =>{
-               console.log(err.response)
-             })          
-        })
-            // const url = 'http://localhost:8000/graphql'
-           
-        }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-     sendMailEEO =  async  (datosEmpleados) =>{
-       console.log("datosEmpleados" , datosEmpleados)
-        datosEmpleados.map(rows=>{
-            // const url = 'http://localhost:8000/graphql'
-            axios({
-            url:  API,
-            method:'post',
-            data:{
-            query:`
-            query{
-              verifiEmailSurveyEEO(data:"${[rows.data[0]]}"){
-                  EEOContestado
-                    }
-                  }
-                `
-            }
-         }).then(datos => {  
-          var contestado = datos.data.data.verifiEmailSurveyEEO[0].EEOContestado
-          localStorage.setItem("EEOContestado" ,contestado )
-          if(localStorage.getItem("EEOContestado") =='true'){
-            DialogUtility.alert({
-              animationSettings: { effect: 'Zoom' },           
-              title: "Su colaborador ya ha respondido la evaluación",
-              // title: 'Aviso!',
-              position: "fixed"
               });
-              console.log("datalencth resuelto" , datos)
-              setTimeout(() => {
-                window.location.reload()
-              }, 1000);
-              localStorage.removeItem("EEOContestado")
-           }
-           else if (localStorage.getItem("EEOContestado")=='false' && this.state.periodoActivo > 0){
-            console.log("datalength no resuelto" , datos)
-             
-            DialogUtility.alert({
-              animationSettings: { effect: 'Zoom' },           
-              content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,      
-              title: 'Aviso!',
-              position: "fixed"
-              });
-              setTimeout(() => {
-                window.location.reload()
-              }, 1000);
-              axios({
-              url:  API,
-              method:'post',
-              data:{
-              query:`
-              mutation{
-                sendMail(data:"${[rows.data[4],rows.data[0],3]}"){
-                    message
-                      }
-                    }
-                  `
-              }
-                  }).then(datos => {  
-                    localStorage.removeItem("EEOContestado")
-                  });
-           }else{
-            DialogUtility.alert({
-              animationSettings: { effect: 'Zoom' },           
-              content: " Su evaluación no fue enviada ya que no cuenta con un periodo Registrado!",
-              title: 'Aviso!',
-              position: "fixed"
-              });
-            
-              setTimeout(() => {
-                window.location.reload()
-              }, 1000);
-
-           }        
-         }).catch(err =>{
-           console.log(err.response)
-         })          
-
-        })
-     
+           }     
       }
 
   render() {
     const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Correo","Centro de trabajo"];
 
     const data = this.state.empleadosATS.map(rows=>{
-      console.log("rows", rows)
       return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo])
     })
 
@@ -602,7 +458,6 @@ class TableEmployees extends React.Component {
       
         onTableChange: (action, tableState) => {
         datosEmpleados = tableState.displayData
-        console.log("datosEmpleados " , datosEmpleados)
         },
         onFilterChange: (action, filtroTable) => {
           filtro=filtroTable
@@ -649,7 +504,6 @@ class TableEmployees extends React.Component {
           
             onTableChange: (action, tableState) => {
             datosEmpleadosRP = tableState.displayData
-            console.log("datosEmpleados " , datosEmpleados)
             },
             onFilterChange: (action, filtroTable) => {
               filtroRP=filtroTable
@@ -695,7 +549,6 @@ class TableEmployees extends React.Component {
               
                 onTableChange: (action, tableState) => {
                 datosEmpleadosEEO = tableState.displayData
-                console.log("datosEmpleados " , datosEmpleados)
                 },
                 onFilterChange: (action, filtroTable) => {
                   filtroEEO=filtroTable
@@ -745,8 +598,7 @@ class TableEmployees extends React.Component {
 
                       let correosEnviados;
                       if(this.state.correosEnviados=='1'){
-                        console.log("mis periodos2 ")
-                        correosEnviados =<MDBContainer>
+                        correosEnviados =<MDBContainer style={{marginBottom:20}}>
                           <MUIDataTable
                             title={`Mis Correos`}
                             data={datas}
@@ -800,7 +652,7 @@ class TableEmployees extends React.Component {
               <MDBRow style={{marginTop:10}}>
               <MDBCol  sm="4"></MDBCol>  
              </MDBRow>
-             <Button style={{marginBottom:40}} startIcon={<CheckOutlinedIcon />}  outline color="secondary" onClick={(e)=>this.sendMailATS(datosEmpleados,1)}>
+             <Button style={{marginBottom:40}} startIcon={<CheckOutlinedIcon />}  outline color="secondary" onClick={(e)=>this.sendMailATS(datosEmpleados)}>
                   Enviar evaluación ATS
                </Button>
              
@@ -819,7 +671,7 @@ class TableEmployees extends React.Component {
               <MDBCol  sm="4"></MDBCol>  
              </MDBRow>
            
-               <Button style={{marginBottom:40}}  startIcon={<ArrowForwardIcon />} outline color="default" onClick={(e)=>this.sendMailRP(datosEmpleadosRP,2)}>
+               <Button style={{marginBottom:40}}  startIcon={<ArrowForwardIcon />} outline color="default" onClick={(e)=>this.sendMailRP(datosEmpleadosRP)}>
                   Enviar evaluación RP
                </Button>
               
@@ -837,7 +689,7 @@ class TableEmployees extends React.Component {
               <MDBCol  sm="4"></MDBCol>  
              </MDBRow>
            
-               <Button style={{marginBottom:60}}  startIcon={<CheckCircleOutlineOutlinedIcon />} outline color="primary" onClick={(e)=>this.sendMailEEO(datosEmpleadosEEO,3)}>
+               <Button style={{marginBottom:60}}  startIcon={<CheckCircleOutlineOutlinedIcon />} outline color="primary" onClick={(e)=>this.sendMailEEO(datosEmpleadosEEO)}>
                   Enviar evaluación EEO
                </Button>
             </div> 
