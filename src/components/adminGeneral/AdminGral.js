@@ -687,13 +687,6 @@ class AdminGral extends React.Component {
                         this.setState({modal13:false})
                       }else  if(datos.data.data.updateEmployees.message == 'actualizacion exitosa'){
 
-                      this.setState({
-                      [modalNumber]: !this.state[modalNumber]
-                      });   
-                    
-                      let modalNumber = 'modal' + 13
-                      
-                      this.setState({modal13:false})
                       DialogUtility.alert({
                         animationSettings: { effect: 'Fade' },        
                         title:"AVISO!",   
@@ -701,7 +694,7 @@ class AdminGral extends React.Component {
                         position: "fixed", 
                       }
                       )
-                     
+                      this.setState({modal13:false})
                       }
                     })
                    
