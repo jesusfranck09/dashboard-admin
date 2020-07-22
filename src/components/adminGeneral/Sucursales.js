@@ -83,16 +83,16 @@ import Navbar from './navbar'
         evaluar  = (values) =>{
 
           const Nombre = values.Nombre
-          const calle = values.calle
+          const calle = values.calle.replace(/,/g, "");
           const NumExt = values.NumExt
           const numInt = values.numInt
-          const colonia =  values.colonia
+          const colonia =  values.colonia.replace(/,/g, "");
           const cp = values.cp
-          const city= values.city
-          const estado = values.estado
-          const actividad = values.actividad
+          const city= values.city.replace(/,/g, "");
+          const estado = values.estado.replace(/,/g, "");
+          const actividad = values.actividad.replace(/,/g, "");
           const telefono = values.telefono
-          const actividades =  values.actividades
+          const actividades =  values.actividades.replace(/,/g, "");
   
           const correo = localStorage.getItem('correo')
   
@@ -184,7 +184,7 @@ import Navbar from './navbar'
                                 required
                                 name="NumExt"
                                 component={TextField}
-                                type="text"
+                                type="number"
                                 label="Número Exterior"
                               />
                             </Grid>
@@ -196,7 +196,7 @@ import Navbar from './navbar'
                                 required
                                 name="numInt"
                                 component={TextField}
-                                type="text"
+                                type="number"
                                 label="Número Interior  /  ejemplo. 0"
                               
                               />
@@ -218,7 +218,7 @@ import Navbar from './navbar'
                                 required
                                 name="cp"
                                 component={TextField}
-                                type="text"
+                                type="number"
                                 label="Código Postal"
                               />
                               </Grid>
@@ -295,7 +295,7 @@ import Navbar from './navbar'
                                 name="telefono"
                                 component={TextField}
                                 label="Teléfono"
-                                type = "text"
+                                type = "number"
                               >
                                 </Field>
                                 </Grid>

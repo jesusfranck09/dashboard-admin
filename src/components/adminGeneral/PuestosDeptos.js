@@ -60,7 +60,7 @@ import Navbar from './navbar'
 
         evaluar  = (values) =>{
 
-          const puesto = values.puesto
+          const puesto = values.puesto.replace(/,/g, "");
           
           const correo = localStorage.getItem('correo')
   
@@ -105,7 +105,7 @@ import Navbar from './navbar'
 
         evaluarDepto  = (values) =>{
 
-          const departamento = values.departamento
+          const departamento = values.departamento.replace(/,/g, "");
           
           const correo = localStorage.getItem('correo')
   

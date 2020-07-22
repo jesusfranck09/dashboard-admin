@@ -24,15 +24,15 @@ import PuestosDeptos from './components/adminGeneral/PuestosDeptos';
 // import ResultEEO from './components/resultsCuestionsEEO/resultEEO';
 // import Apartments from './components/adminGeneral/Apartments';
 // import IndexATS from './components/Res generales/indexATS';
-// import Res from './components/resultsCuestions/resultados';
+import Donut from './components/carpetaPrueba/donut';
 import Estadisticas from './components/Estadisticas/estadisticas';
 // import ResGral from './components/Res generales/index';
 import Upload from './components/uploadImage/upload';
 
-import ATS from './components/Res generales/PDFIG'
-import RP from './components/Res generales/RPIG'
-import EEO from './components/Res generales/EEOIG'
-// import PruebaDashboard from './components/carpetaPruebas/Dashboard'
+import ATS from './components/ResGenerales/PDFIG'
+import RP from './components/ResGenerales/RPIG'
+import EEO from './components/ResGenerales/EEOIG'
+// import Paypal from './components/paypalCheckout.js/index'
 
 class Routes extends Component{
   
@@ -71,6 +71,9 @@ class Routes extends Component{
                   <PrivateRoute exact path='/resultsATSIGRM' component={ATS}/>
                   <PrivateRoute exact path='/resultsRPIGRM' component={RP}/>
                   <PrivateRoute exact path='/resultsEEOIGRM' component={EEO}/>
+                  <PrivateRoute exact path='/donut' component={Donut}/>
+                  {/* <PrivateRoute exact path='/paypal' component={Paypal}/> */}
+
                   {/* <PrivateRoute exact path='/dashboardDemo' component={PruebaDashboard}/> */}
 
                   {/* <PrivateRoute exact path='/progressbar' component={ProgressBar}/> */}

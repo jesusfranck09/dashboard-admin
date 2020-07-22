@@ -681,7 +681,7 @@ class App extends React.Component {
 
  evaluar  =async (values) =>{
 
-		const Nombre = values.Nombre
+		const Nombre = values.Nombre.replace(/,/g, "");
 		const ApellidoP = values.ApellidoP
 		const ApellidoM = values.ApellidoM
 		const curp = values.curp
@@ -690,10 +690,10 @@ class App extends React.Component {
 		const sexo = values.stooge
 
 		const Estado_Civil= values.Estado_Civil
-		const CentroTrabajo= values.CentroTrabajo
-		const area = values.area
-		const puesto = values.puesto
-		const tipoPuesto =  values.tipoPuesto
+		const CentroTrabajo= values.CentroTrabajo.replace(/,/g, "");
+		const area = values.area.replace(/,/g, "");
+		const puesto = values.puesto.replace(/,/g, "");
+		const tipoPuesto =  values.tipoPuesto.replace(/,/g, "");
 		const estudios = values.estudios
 		const personal =  values.personal
 		const Jornada = values.Jornada
