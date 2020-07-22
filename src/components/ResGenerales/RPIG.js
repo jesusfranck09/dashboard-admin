@@ -527,7 +527,7 @@ pdfExportComponent ;
               })
               for(var i=0; i<=array.length;i++){
       
-                    axios({
+                   await axios({
                     url:  API,
                     method:'post',
                     data:{
@@ -573,7 +573,7 @@ pdfExportComponent ;
                     console.log("el error es  ",err)
                   });  
 
-                  axios({
+                  await axios({
                   url:  API,
                   method:'post',
                   data:{

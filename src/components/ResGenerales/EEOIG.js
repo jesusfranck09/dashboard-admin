@@ -530,7 +530,7 @@ export default class App extends React.Component {
     })
     for(var i=0; i<=array.length;i++){
 
-          axios({
+         await axios({
           url:  API,
           method:'post',
           data:{
@@ -575,7 +575,7 @@ export default class App extends React.Component {
           console.log("el error es  ",err)
         });  
 
-        axios({
+       await axios({
         url:  API,
         method:'post',
         data:{
