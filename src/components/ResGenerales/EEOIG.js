@@ -902,7 +902,7 @@ export default class App extends React.Component {
         filterType: "dropdown",
         responsive: "stacked", textLabels: {
           body: {
-            noMatch: "Lo Siento ,No se han encontrado Resultados :(",
+            noMatch: "Consultando información",
             toolTip: "Sort",
             columnHeaderTooltip: column => `Sort for ${column.label}`
           },

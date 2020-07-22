@@ -421,7 +421,7 @@ class TableEmployees extends React.Component {
         responsive: "stacked",
         textLabels: {
                    body: {
-                     noMatch: "Lo Siento ,No se han encontrado Resultados :(",
+                     noMatch: "Consultando información",
                      toolTip: "Sort",
                      columnHeaderTooltip: column => `Sort for ${column.label}`
                    },
@@ -466,7 +466,7 @@ class TableEmployees extends React.Component {
             responsive: "stacked",
             textLabels: {
                        body: {
-                         noMatch: "Lo Siento ,No se han encontrado Resultados :(",
+                         noMatch: "Consultando información",
                          toolTip: "Sort",
                          columnHeaderTooltip: column => `Sort for ${column.label}`
                        },
@@ -511,7 +511,7 @@ class TableEmployees extends React.Component {
                 responsive: "stacked",
                 textLabels: {
                            body: {
-                             noMatch: "Lo Siento ,No se han encontrado Resultados :(",
+                             noMatch: "Consultando información",
                              toolTip: "Sort",
                              columnHeaderTooltip: column => `Sort for ${column.label}`
                            },
@@ -556,7 +556,7 @@ class TableEmployees extends React.Component {
             responsive: "stacked",
             textLabels: {
                        body: {
-                         noMatch: "Lo Siento ,No se han encontrado Resultados :(",
+                         noMatch: "Consultando información",
                          toolTip: "Sort",
                          columnHeaderTooltip: column => `Sort for ${column.label}`
                        },
