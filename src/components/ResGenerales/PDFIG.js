@@ -1,21 +1,16 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
 import Grow from "@material-ui/core/Grow";
-import {MDBRow,MDBCol,MDBBtn,MDBTableHead, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav,MDBTable, MDBTableBody, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink} from 'mdbreact';
+import {MDBRow,MDBCol,MDBBtn,MDBTableHead, MDBContainer,MDBTable, MDBTableBody} from 'mdbreact';
 import logo from '../images/logo.png'
-import logotipo from '../images/logotipo.png'
 import diagnostico from '../images/diagnostico.png'
 import { API} from '../utils/http'
 import {Spinner,Button as BotonReactstrap} from 'react-bootstrap'
 import '../Home/index.css'
-import usuario from '../images/usuario.png'
 import Button from '@material-ui/core/Button';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
-// import PDF from '../PDF/index'
-import { Bar } from "react-chartjs-2";
-import { MDBBadge} from "mdbreact";
-import {Alert,Badge} from 'reactstrap'
+import {Alert} from 'reactstrap'
 import {
   Grid,
   
@@ -23,11 +18,7 @@ import {
 import axios from 'axios'
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import TableBody from '@material-ui/core/TableBody';
 import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import { PDFExport }  from '@progress/kendo-react-pdf';
 import PageTemplate from './pageTemplate.jsx';
 import Navbar from '../Home/navbar'
@@ -49,7 +40,6 @@ pdfExportComponent ;
       botonDescargaMasivo:'1',
       peticion1:[],
       reporteImasivo:[],
-      resultadosInicio:[],
       filtro1:'',
       filtro2:'',
       filtro3:'',
@@ -68,99 +58,19 @@ pdfExportComponent ;
       nombre8:'',
       datosLength:'',
       resultados:[],
-      fecha:'',
       collapse: false,
-      isOpen: false,
       spinner:false,
       showModal2: false,  
-      barChartOptions: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          xAxes: [
-            {
-              barPercentage: 1,
-              gridLines: {
-                display: true,
-                color: "rgba(0, 0, 0, 0.1)"
-              }
-            }
-          ],
-          yAxes: [
-            {
-              gridLines: {
-                display: true,
-                color: "rgba(0, 0, 0, 0.1)"
-              },
-              ticks: {
-                beginAtZero: true
-              }
-            }
-          ]
-        }
-      },
-      dataBar: {
-        labels: ["Nulo", "Bajo", "Medio", "Alto", "Muy Alto"],
-        datasets: [
-          {
-            label: "% Resultados",
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              "rgba(155,224,247)",
-              "rgba(107,245,110)",
-              "rgba(255, 500,0)",
-              "rgba(255, 192, 0)",
-              "rgba(255, 0,0)",
-            ],
-            borderWidth: 2,
-            borderColor: [
-              // "rgba(255, 134, 159, 1)",
-              // "rgba(98,  182, 239, 1)",
-              // "rgba(255, 218, 128, 1)",
-              // "rgba(113, 205, 205, 1)",
-              // "rgba(170, 128, 252, 1)",
-              // "rgba(255, 177, 101, 1)"
-            ]
-          }
-        ]
-      } 
     };
-    this.onClick = this.onClick.bind(this);
-    this.handleclick = this.handleclick.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.ads = this.ads.bind(this);
     
   }
 
-    componentWillMount(){
-      var Nombre = localStorage.getItem("nombre")
-      var Apellidos = localStorage.getItem("apellidos")
-
-      var LaFecha=new Date();
-      var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-      var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
-      var diasemana=LaFecha.getDay();
-      var FechaCompleta="";
-      var NumeroDeMes="";    
-      NumeroDeMes=LaFecha.getMonth();
-      FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
-  
-      this.setState({date:FechaCompleta}) 
-      this.setState({nombre:Nombre}) 
-      this.setState({apellidos:Apellidos}) 
-      this.getGlobalEmployees()
-    
+     componentWillMount(){
+      this.getGlobalEmployees()    
     }
-      onClick() {
-        this.setState({
-          collapse: !this.state.collapse,
-        });
-      }
-  
-      handleclick(){
-      this.props.history.push("/profile")
-      }
-   
+
       handleLogOut(){
       localStorage.removeItem("elToken")
       localStorage.removeItem("nombre")
@@ -178,14 +88,11 @@ pdfExportComponent ;
       ads(){
         this.setState({showModal2:true}) 
       }
-       getGlobalEmployees   = async () => {
+       getGlobalEmployees = async () =>{
         let totalEmpleados = [];
         let datasort;
-        let order;
         var id  =  localStorage.getItem("idAdmin")       
-        // const url = 'http://localhost:8000/graphql'
-    
-        await  axios({
+         await axios({
           url:  API,
           method:'post',
           data:{ 
@@ -201,69 +108,19 @@ pdfExportComponent ;
               Puesto
               CentroTrabajo
               periodo
+              ATSDetectado
                 }
               }
               `
           }
-          }).then((datos) => {
-            datasort = datos.data.data.getEmployeesResolvesATS
+          }).then(datos => {
+            datasort =  datos.data.data.getEmployeesResolvesATS
             datasort.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
             this.setState({empleados:datasort}) 
-
-
-            datasort.map(rows=>{
-                axios({
-                url:  API,
-                method:'post',
-                data:{
-                query:`
-                  query{
-                    getresultGlobalSurveyATS(data:"${[rows.id,rows.periodo]}"){
-                    id 
-                    Respuestas 
-                    fk_preguntasATS
-                    fk_Empleados 
-                    ponderacion
-                    nombre 
-                    ApellidoP 
-                    ApellidoM 
-                    Curp 
-                    RFC 
-                    FechaNacimiento 
-                    Sexo 
-                    EstadoCivil 
-                    correo 
-                    AreaTrabajo 
-                    Puesto 
-                    TipoPuesto 
-                    NivelEstudios 
-                    TipoPersonal 
-                    JornadaTrabajo 
-                    TipoContratacion 
-                    TiempoPuesto 
-                    ExperienciaLaboral 
-                    RotacionTurnos 
-                    CentroTrabajo
-                    fk_administrador 
-                    fk_correos 
-                        }
-                      }
-                    `
-                }
-                    }).then(datos => {    
-                    totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS) 
-                    this.setState({resultadosInicio:totalEmpleados})  
-                    })
-                    .catch(err => {
-                    });  
-              
-            })
-        
+          
           }).catch(err=>{
             console.log("error" ,err)
-          })
-
-         
+          }) 
      }
 
       consultarDatosFiltrados = async (datos,filtro) =>{
@@ -327,7 +184,7 @@ pdfExportComponent ;
               });  
            }
            this.setState({spinner:false}) 
-            if(filtro!= undefined){
+            if(filtro!== undefined){
             if(filtro[0].length>0){
               this.setState({nombre1:filtro[0][0]})
               this.setState({filtro1:"ID"})
@@ -409,9 +266,6 @@ pdfExportComponent ;
             array.push(rows.data[0])
           })
           for(var i=0; i<=array.length;i++){   
-            // console.log("array en la posicion  de i " , array[i])    
-        // const url = 'http://localhost:8000/graphql'
-
             await  axios({
               url:  API,
               method:'post',
@@ -465,7 +319,7 @@ pdfExportComponent ;
 
 
           
-            if(filtro!= undefined){
+            if(filtro!== undefined){
             if(filtro[0].length>0){
               this.setState({nombre1:filtro[0][0]})
               this.setState({filtro1:"ID"})
@@ -601,7 +455,7 @@ pdfExportComponent ;
     let nombre;
     let arrayNombre= []
    
-    if(this.state.spinner== true){
+    if(this.state.spinner=== true){
       spinner = <div><BotonReactstrap variant="warning" disabled>
       <Spinner
         as="span"
@@ -630,11 +484,11 @@ pdfExportComponent ;
     let accionNo =0;
     this.state.peticion1.map(rows=>{
       if(rows[1]){
-        if (rows[1].Respuestas == 'si'){
+        if (rows[1].Respuestas === 'si'){
            accionSi = accionSi + 1
         }
         // console.log("accionSi" , accionSi)
-        if (rows[1].Respuestas == 'no'){
+        if (rows[1].Respuestas === 'no'){
            accionNo = accionNo +1
         }
       }
@@ -694,23 +548,19 @@ pdfExportComponent ;
           filtro=filtroTable
           }     };
 
-///////////////////////////////////////////////////////////////////////////////////////////////
-            const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
-            const container = { width: 500, height: 400,marginLeft: "17%"}
-            const container2 = { width: 500, height: 300 }
             let pdfView1;
             let ATS;
             let ATSReporte;
 
             let a  = 1
 
-            if(this.state.resultados.length!=0){
-            if(this.state.resultados[1].Respuestas=="si"){
+            if(this.state.resultados.length!==0){
+            if(this.state.resultados[1].Respuestas==="si"){
                 ATSReporte= <font size="1"
                 face="arial"
                 color="red" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
                 ATS = <Alert className ="mt-4" color ="danger ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
-            }if(this.state.resultados[1].Respuestas=="no"){
+            }if(this.state.resultados[1].Respuestas==="no"){
                 ATSReporte= <font size="1"
                 face="arial"
                 color="blue" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
@@ -1160,27 +1010,28 @@ pdfExportComponent ;
       charts(FusionCharts);
 
         
-    if(this.state.resultadosInicio[0]){
+      if(this.state.empleados[0]){
     
       
-      this.state.resultadosInicio.map(rows=>{
-        mapeo.push(rows[1])
+        this.state.empleados.map(rows=>{
+          mapeo.push(rows.ATSDetectado)
+            // console.log("mapeo" , mapeo)
+            filtrar =  mapeo.filter(function(hero) {
+              console.log("hero" , hero)
+            return hero==='true';
+            });
   
-          filtrar =  mapeo.filter(function(hero) {
-          return hero.Respuestas ==='si';
-          });
-
-          filtrar1 =  mapeo.filter(function(hero) {
-            return hero.Respuestas ==='no';
-          });   
-      }) 
-      let total = filtrar1.length+filtrar.length
-      
-      var porcentaje= (filtrar.length / total)*100;
-      var intPorcentaje= Math.round( porcentaje);
-
-      var porcentaje2= (filtrar1.length / total)*100;
-      var intPorcentaje2= Math.round(porcentaje2);
+            filtrar1 =  mapeo.filter(function(hero) {
+              return hero ==='false';
+            });   
+  
+        }) 
+        let total = filtrar1.length+filtrar.length
+        var porcentaje= (filtrar.length / total)*100;
+        var intPorcentaje= Math.round( porcentaje);
+  
+        var porcentaje2= (filtrar1.length / total)*100;
+        var intPorcentaje2= Math.round(porcentaje2);
        dataSource = {
         chart: {
           caption: "Gráfica de previsualización de ATS detectado",
@@ -1195,7 +1046,7 @@ pdfExportComponent ;
           data: [
             {
               label: filtrar.length +" " + "Empleados con ATS"  ,
-              value:  porcentaje,
+              value:  intPorcentaje,
               color: "#FF0000",
               labelFontSize:12
               // link:"www.google.com"
@@ -1203,7 +1054,7 @@ pdfExportComponent ;
  
             {
               label:filtrar1.length  + " "+ "Empleados sin ATS" ,
-              value: porcentaje2,
+              value: intPorcentaje2,
               color: "#9BE0F7",
               labelFontSize:12,
        
@@ -1270,20 +1121,13 @@ pdfExportComponent ;
                     </Modal>
                 </MDBContainer> 
 
-              <div
-              
-              style={{
-                marginLeft: "5%",
-                position: "absolute"
-              }}
-              >
-                <div style={{ height: "110%"}}>
+                           <div>
                
                   <Grow in={true}>
-                  <div style={{ margin: "60px 56px" }}>
+                  <div style={{ margin: "50px 40px" }}>
                   <ReactFusioncharts
                   type="pie3d"
-                  width="100%"
+                  width="99%"
                   height="80%"
                   dataFormat="JSON"
                   dataSource={dataSource}
@@ -1423,13 +1267,12 @@ pdfExportComponent ;
                                     <td width="12%"><font size="1" face="arial"color="black"><strong>Accion Requerida</strong></font></td>                                                                     
 
                                   </tr>
-                                  { this.state.peticion1.sort().map((rows,i) => {
+                                  { this.state.peticion1.map((rows,i) => {
                                     console.log("rows",rows)
                                     if(rows[1]){
-                              
-                                      if(rows[1].Respuestas =='si'){
+                                      if(rows[1].Respuestas ==='si'){
                                       respuesta =  <TableCell  width="12%" style={{backgroundColor: "#FF0000"}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">SI</font></TableCell>
-                                      }if(rows[1].Respuestas =='no'){
+                                      }if(rows[1].Respuestas ==='no'){
                                         respuesta =  <TableCell  width="12%" style={{backgroundColor: "#9BE0F7 "}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">NO</font></TableCell>
                                       }
                                   
@@ -1566,12 +1409,12 @@ pdfExportComponent ;
                                   {this.state.reporteImasivo.map(rows=>{
                                      let ATSReporteMasivo;
                                     if(rows[0]){
-                                      if(rows[1].Respuestas=="si"){
+                                      if(rows[1].Respuestas==="si"){
                                         ATSReporteMasivo= <font size="1"
                                         face="arial"
                                         color="red" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
                                         ATS = <Alert className ="mt-4" color ="danger ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
-                                        }if(rows[1].Respuestas=="no"){
+                                        }if(rows[1].Respuestas==="no"){
                                           ATSReporteMasivo= <font size="1"
                                           face="arial"
                                           color="blue" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
@@ -1800,8 +1643,7 @@ pdfExportComponent ;
               </Grow>  
             </div>
           </div>
-          </div>
-
+        
       </React.Fragment>
         
       )
