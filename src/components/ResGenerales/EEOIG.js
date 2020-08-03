@@ -1,25 +1,16 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
 import Grow from "@material-ui/core/Grow";
-import {MDBRow,MDBCol,MDBBtn,MDBTable, MDBTableBody, MDBContainer,MDBTableHead, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink} from 'mdbreact';
-import Sidebar from '../Home/sidebar'
-import { AppNavbarBrand } from '@coreui/react';
+import {MDBRow,MDBCol,MDBBtn,MDBTable, MDBTableBody, MDBContainer,MDBTableHead} from 'mdbreact';
 import logo from '../images/logo.png'
-import logotipo from '../images/logotipo.png'
 import diagnostico from '../images/diagnostico.png'
 import { API} from '../utils/http'
 import {Spinner,Button as BotonReactstrap} from 'react-bootstrap'
-
 import '../Home/index.css'
-import usuario from '../images/usuario.png'
 import Button from '@material-ui/core/Button';
-import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
-// import PDF from '../PDF/index'
-import { Bar } from "react-chartjs-2";
-import { MDBBadge} from "mdbreact";
-import {Alert,Badge} from 'reactstrap'
+import {Alert} from 'reactstrap'
 import {
   Grid,
   
@@ -74,53 +65,23 @@ export default class App extends React.Component {
       resultadosQueryMasivo:[],
       resultadosEvaluacionMasivo:[],
       reporteImasivo:[],
-      fecha:'',
       datosLength:'',
       totalEmpleadosFiltrados:'',
       resultadosInicio:[],
-      collapse: false,
-      isOpen: false,
       showModal2: false,  
       spinner:false,
 
       // componentepdf:'0'
     };
-    this.onClick = this.onClick.bind(this);
-    this.handleclick = this.handleclick.bind(this);
+
     this.handleLogOut = this.handleLogOut.bind(this);
     this.ads = this.ads.bind(this);
     
   }
 
     componentWillMount(){
-      var Nombre = localStorage.getItem("nombre")
-      var Apellidos = localStorage.getItem("apellidos")
-  
-  
-      var LaFecha=new Date();
-      var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-      var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
-      var diasemana=LaFecha.getDay();
-      var FechaCompleta="";
-      var NumeroDeMes="";    
-      NumeroDeMes=LaFecha.getMonth();
-      FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
-  
-      this.setState({date:FechaCompleta}) 
-      this.setState({nombre:Nombre}) 
-      this.setState({apellidos:Apellidos}) 
       this.getGlobalEmployees()
-    
     }
-    onClick() {
-      this.setState({
-        collapse: !this.state.collapse,
-      });
-    }
-  
-  handleclick(){
-  this.props.history.push("/profile")
-  }
    
   handleLogOut(){
   localStorage.removeItem("elToken")
@@ -160,12 +121,15 @@ export default class App extends React.Component {
           Puesto
           CentroTrabajo
           periodo
+          Respuestas 
+          fk_preguntasEEO
+          ponderacion
             }
           }
           `
-      }
-          }).then((datos) => {
-            console.log("exito" , datos)
+       }
+       }).then((datos) => {
+          console.log("exito" , datos.data.data.getEmployeesResolvesEEO)
           this.setState({empleados:datos.data.data.getEmployeesResolvesEEO})       
           datos.data.data.getEmployeesResolvesEEO.map(rows=>{
             axios({
@@ -175,43 +139,19 @@ export default class App extends React.Component {
             query:`
               query{
                 getresultGlobalSurveyEEO(data:"${[rows.id,rows.periodo]}"){
-                id 
                 Respuestas 
                 fk_preguntasEEO
-                fk_Empleados
                 ponderacion
-                nombre 
-                ApellidoP 
-                ApellidoM 
-                Curp 
-                RFC 
-                FechaNacimiento 
-                Sexo 
-                EstadoCivil 
-                correo 
-                AreaTrabajo 
-                Puesto 
-                TipoPuesto 
-                NivelEstudios 
-                TipoPersonal 
-                JornadaTrabajo 
-                TipoContratacion 
-                TiempoPuesto 
-                ExperienciaLaboral 
-                RotacionTurnos 
-                fk_administrador 
-                fk_correos 
                     }
                   }
                 `
             }
-                }).then(datos => {    
-                  totalEmpleados.push(datos.data.data.getresultGlobalSurveyEEO)  
-                  // console.log("rows data" , totalEmpleados)
-                  this.setState({resultadosInicio:totalEmpleados})
-                })
-                .catch(err => {
-                }); 
+            }).then(datos => {    
+              totalEmpleados.push(datos.data.data.getresultGlobalSurveyEEO)  
+              this.setState({resultadosInicio:totalEmpleados})
+            })
+            .catch(err => {
+            }); 
         })
           }).catch(err=>{
             console.log("error" ,err.response)
@@ -235,19 +175,17 @@ export default class App extends React.Component {
                   }
                 `
             }
-                }).then(datos => { 
-                 this.setState({getPonderacion: datos.data.data.getPonderacionEEO})
-                  // console.log("ponderaciones",datos.data.data.getPonderacion)
-                })
-                .catch(err => {
-                  console.log("el error es  ",err.response)
-                }); 
-     }
-
-     
+            }).then(datos => { 
+              this.setState({getPonderacion: datos.data.data.getPonderacionEEO})
+              // console.log("ponderaciones",datos.data.data.getPonderacion)
+            })
+            .catch(err => {
+              console.log("el error es  ",err.response)
+            }); 
+         }
      consultarDatosFiltrados = async (datos,filtro) =>{
-        this.setState({botonDisabled:''})
-        this.setState({botonResultados:''})
+      this.setState({botonDisabled:''})
+      this.setState({botonResultados:''})
       this.setState({spinner:true})
       let array=[];
       let periodo;
@@ -305,11 +243,8 @@ export default class App extends React.Component {
               });  
            }
            this.setState({spinner:false});
-
-           let array3 = []
-           let array4=array3.push(array3)
            
-      if(filtro!= undefined){
+      if(filtro !== undefined){
         
         if(filtro[0].length>0){
          
@@ -380,8 +315,8 @@ export default class App extends React.Component {
     }
 
     reporteImasivo = async (datos,filtro) =>{
-      this.setState({botonDisabled:''})
-      this.setState({botonResultados:''})
+    this.setState({botonDisabled:''})
+    this.setState({botonResultados:''})
     this.setState({spinner:true})
     let array=[];
     let periodo;
@@ -443,7 +378,7 @@ export default class App extends React.Component {
          let array3 = []
          let array4=array3.push(array3)
          
-    if(filtro!= undefined){
+    if(filtro!== undefined){
       
       if(filtro[0].length>0){
        
@@ -522,8 +457,6 @@ export default class App extends React.Component {
     let periodo;
     let resultadosEvaluacion=[];
     let resultadosQuery=[];
-
-    let totalEmpleados=[];
     datos.map(rows=>{
       periodo= rows.data[6]
       array.push(rows.data[0])
@@ -622,11 +555,9 @@ export default class App extends React.Component {
           console.log("el error es  ",err.response)
         });  
          }
-         let array3 = []
-         let array4=array3.push(array3)
          this.setState({spinner:false});
 
-    if(filtro!= undefined){
+    if(filtro!== undefined){
     if(filtro[0].length>0){
       this.setState({nombre1:filtro[0][0]})
       this.setState({filtro1:"ID"})
@@ -864,7 +795,7 @@ export default class App extends React.Component {
     let spinner;
     let a;
     
-    if(this.state.spinner== true){
+    if(this.state.spinner=== true){
       spinner = <div><BotonReactstrap variant="warning" disabled>
       <Spinner
         as="span"
@@ -3771,9 +3702,7 @@ ponderacion=<React.Fragment>
 
 </React.Fragment>
    } 
-      const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
-    const container = { width: 500, height: 400,marginLeft: "17%"}
-    const container2 = { width: 500, height: 300 }
+
     let pdfView1;
     if(this.state.resultados[2]){ 
       a = 1

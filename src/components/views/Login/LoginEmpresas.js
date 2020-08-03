@@ -1,8 +1,6 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 import { BrowserRouter as Router } from "react-router-dom";
 import { InputGroup, InputGroupAddon, InputGroupText,Input } from 'reactstrap';
-import logo from '../../images/logotipo.png'
 import { AppNavbarBrand } from '@coreui/react';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import diagnostico from '../../images/diagnostico.png'
@@ -96,11 +94,9 @@ handleInput = (e) => {
     }});
   }
   
-  handleData = (data) => {
-
-console.log(data)
+  handleData = async (data) => {
     console.log("data del dash" , data)
-    if (data.loginEmpresas.token === 'no hay token' && data.loginEmpresas.message=="ningun dato"){
+    if (data.loginEmpresas.token === 'no hay token' && data.loginEmpresas.message==="ningun dato"){
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
         title: 'Por favor no deje espacios en blanco',
@@ -111,7 +107,7 @@ console.log(data)
     }, 2000); 
 
   }
- if(data.loginEmpresas.token=='no hay token' && data.loginEmpresas.message=='usuario y contraseña incorrectos'){
+ if(data.loginEmpresas.token==='no hay token' && data.loginEmpresas.message==='usuario y contraseña incorrectos'){
     DialogUtility.alert({
       animationSettings: { effect: 'Zoom' },           
       title: 'USUARIO Y CONTRASEÑA INCORRECTOS',
@@ -121,7 +117,7 @@ console.log(data)
     window.location.reload();
   }, 2000); 
   }
-   if(data.loginEmpresas.message=='Login exitoso' && data.loginEmpresas.token){
+   if(data.loginEmpresas.message==='Login exitoso' && data.loginEmpresas.token){
         localStorage.setItem('nombre', data.loginEmpresas.nombre)
         localStorage.setItem('elToken', data.loginEmpresas.token)  
         localStorage.setItem('apellidos', data.loginEmpresas.Apellidos) 
@@ -130,15 +126,14 @@ console.log(data)
         localStorage.setItem('correo',data.loginEmpresas.correo)
         localStorage.setItem('idAdmin', data.loginEmpresas.id) 
         localStorage.setItem('fechaRegistro', data.loginEmpresas.fechaRegistro) 
-      DialogUtility.alert({
-        animationSettings: { effect: 'Zoom' },           
-        title: 'Sesión iniciada  BIENVENIDO  '+ data.loginEmpresas.nombre,
-        position: "fixed",
-    })
-
-    this.props.history.push("/inicio")    
+        this.props.history.push("/inicio")  
+        DialogUtility.alert({
+          animationSettings: { effect: 'Zoom' },           
+          title: 'Sesión iniciada  BIENVENIDO  '+ data.loginEmpresas.nombre,
+          position: "fixed",
+      })  
   }
-  if(data.loginEmpresas.activo=='false'){
+  if(data.loginEmpresas.activo==='false'){
 
     DialogUtility.alert({
       animationSettings: { effect: 'Zoom' },           
@@ -200,20 +195,6 @@ console.log(data)
                       <MDBNavLink to="#!">Profile</MDBNavLink>
                     </MDBNavItem>
                   </MDBNavbarNav>
-                  {/* <MDBNavbarNav right>
-                    <MDBNavItem>
-                      <MDBFormInline waves>
-                        <div className="md-form my-0">
-                          <input
-                            className="form-control mr-sm-2"
-                            type="text"
-                            placeholder="Search"
-                            aria-label="Search"
-                          />
-                        </div>
-                      </MDBFormInline>
-                    </MDBNavItem>
-                  </MDBNavbarNav> */}
                 </MDBCollapse>
               </MDBContainer>
             </MDBNavbar>

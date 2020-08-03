@@ -3,21 +3,15 @@ import {
 	Paper,
 	Grid,
 	Button,
-	MenuItem,
   } from '@material-ui/core';
 
 import axios from 'axios';
 import {Alert } from 'reactstrap'
-import {MDBRow, MDBNavItem,MDBNavbarNav, MDBNavLink, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarToggler, MDBCollapse, MDBCol, MDBBtn} from 'mdbreact';
+import {MDBRow, MDBContainer} from 'mdbreact';
 import { Form, Field } from 'react-final-form';
-import { AppNavbarBrand } from '@coreui/react';
-import logo from '../images/logotipo.png'
-import { TextField, Radio, Select } from 'final-form-material-ui';
-// import MiniDrawer from './Sidebar'
+import { TextField} from 'final-form-material-ui';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import { API} from '../utils/http'
-
-import diagnostico from '../images/diagnostico.png'
 import Navbar from './navbar'
 
  function onSubmit (values) { 
@@ -151,9 +145,6 @@ import Navbar from './navbar'
         }
   
         render() {     
-          // const { children} = this.props;
-          const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
-          const container = { width: 2500, height: 1300 }
           return (
             <React.Fragment>
             <div>

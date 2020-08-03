@@ -16,25 +16,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 // import MailIcon from '@material-ui/icons/Mail';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import {Link} from 'react-router-dom'
-import ApartmentIcon from '@material-ui/icons/Apartment';
-// import AssessmentIcon from '@material-ui/icons/Assessment';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import EventNoteIcon from '@material-ui/icons/EventNote';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
 import SettingsIcon from '@material-ui/icons/Settings';
-import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
-import TimelineIcon from '@material-ui/icons/Timeline';
-import TextFormatIcon from '@material-ui/icons/TextFormat';
-import ExplicitOutlinedIcon from '@material-ui/icons/ExplicitOutlined';
-import DonutSmallOutlinedIcon from '@material-ui/icons/DonutSmallOutlined';
 import SpellcheckIcon from '@material-ui/icons/Spellcheck';
 import DoneIcon from '@material-ui/icons/Done';
 import AssignmentTurnedInOutlinedIcon from '@material-ui/icons/AssignmentTurnedInOutlined';
 import HowToRegOutlinedIcon from '@material-ui/icons/HowToRegOutlined';
-import EmojiTransportationIcon from '@material-ui/icons/EmojiTransportation';
-import DirectionsWalkOutlinedIcon from '@material-ui/icons/DirectionsWalkOutlined';
-import ComputerOutlinedIcon from '@material-ui/icons/ComputerOutlined';
-import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
 
 const drawerWidth = 290;
 

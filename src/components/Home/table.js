@@ -1,10 +1,6 @@
 import React from 'react';
 
-import { MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
-import Sidebar from '../Home/sidebar'
-import { AppNavbarBrand } from '@coreui/react';
-import logo from '../images/logotipo.png'
-import diagnostico from '../images/diagnostico.png'
+import { MDBContainer} from 'mdbreact';
 import { API} from '../utils/http'
 import MenuIcon from '@material-ui/icons/Menu';
 import MUIDataTable from "mui-datatables";
@@ -14,19 +10,11 @@ import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import '../Home/index.css'
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import TrendingUpOutlinedIcon from '@material-ui/icons/TrendingUpOutlined';
-// import Paper from '@material-ui/core/Paper';
 import { MDBRow,MDBCol} from 'mdbreact'
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import { DialogUtility } from '@syncfusion/ej2-popups';
-// import TableBody from '@material-ui/core/TableBody';
-// import TableHead from '@material-ui/core/TableHead';
-import FormatColorTextIcon from '@material-ui/icons/FormatColorText';
-import ExplicitOutlinedIcon from '@material-ui/icons/ExplicitOutlined';
 import Navbar from './navbar'
-import usuario from '../images/usuario.png'
-import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import Modal from 'react-modal';
 import {
   Grid    
@@ -593,7 +581,7 @@ class TableEmployees extends React.Component {
     
 
                       let correosEnviados;
-                      if(this.state.correosEnviados=='1'){
+                      if(this.state.correosEnviados==='1'){
                         correosEnviados =<MDBContainer style={{marginBottom:20}}>
                           <MUIDataTable
                             title={`Mis Correos`}
@@ -603,11 +591,7 @@ class TableEmployees extends React.Component {
                           />
                       </MDBContainer>  
                       }
-
-
-         
-    // const { children, ...attributes } = this.props;
-    const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
+                      
     const container = { width: 2500, height: 1300 }
     return (
        <React.Fragment>

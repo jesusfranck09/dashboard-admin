@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { render } from "react-dom";
 import { storage } from "./firebase";
-import CircularProgress from '@material-ui/core/CircularProgress';
 import {MDBBtn} from 'mdbreact'
 import axios from 'axios'
 import {API} from '../utils/http'
-import { createHashHistory } from "history";
 
 
 const ReactFirebaseFileUpload = () => {

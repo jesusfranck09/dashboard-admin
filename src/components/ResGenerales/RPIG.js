@@ -1,25 +1,18 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
 import Grow from "@material-ui/core/Grow";
-import {MDBRow,MDBCol,MDBBtn, MDBContainer, MDBNavbar, MDBNavbarBrand,MDBTableHead ,MDBNavbarNav,MDBTable, MDBTableBody, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink} from 'mdbreact';
-import Sidebar from '../Home/sidebar'
-import { AppNavbarBrand } from '@coreui/react';
+import {MDBRow,MDBCol,MDBBtn, MDBContainer,MDBTableHead ,MDBTable, MDBTableBody} from 'mdbreact';
 import logo from '../images/logo.png'
-import logotipo from '../images/logotipo.png'
 import diagnostico from '../images/diagnostico.png'
 import { API} from '../utils/http'
 import {Spinner,Button as BotonReactstrap} from 'react-bootstrap'
 
 import '../Home/index.css'
-import usuario from '../images/usuario.png'
 import Button from '@material-ui/core/Button';
-import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
 // import PDF from '../PDF/index'
-import { Bar } from "react-chartjs-2";
-import { MDBBadge} from "mdbreact";
-import {Alert,Badge} from 'reactstrap'
+import {Alert} from 'reactstrap'
 import {
   Grid,
   
@@ -305,7 +298,7 @@ pdfExportComponent ;
            let array3 = []
            let array4=array3.push(array3)
 
-      if(filtro!= undefined){
+      if(filtro!== undefined){
       if(filtro[0].length>0){
         this.setState({nombre1:filtro[0][0]})
         this.setState({filtro1:"ID"})
@@ -443,7 +436,7 @@ pdfExportComponent ;
                let array3 = []
                let array4=array3.push(array3)
     
-          if(filtro!= undefined){
+          if(filtro!== undefined){
           if(filtro[0].length>0){
             this.setState({nombre1:filtro[0][0]})
             this.setState({filtro1:"ID"})
@@ -3057,9 +3050,6 @@ ponderacion=<React.Fragment>
             </div>
 </React.Fragment>
    } 
-      const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
-    const container = { width: 500, height: 400,marginLeft: "17%"}
-    const container2 = { width: 500, height: 300 }
 
     let pdfView1;
 

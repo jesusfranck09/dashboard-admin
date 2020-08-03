@@ -3,15 +3,10 @@ import XLSX from 'xlsx'
 import {MDBCol} from "mdbreact";
 import axios from 'axios';
 import { Alert } from 'reactstrap';
-import payload from '../../resolvers/payload';
 import { Button as Boton, Modal, ModalBody} from 'reactstrap';
-
-import {MDBRow,MDBTable, MDBTableBody, MDBTableHead,  MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter ,MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
-import { AppNavbarBrand } from '@coreui/react';
-import logo from '../images/logotipo.png'
+import {MDBRow,  MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter ,MDBContainer, MDBBtn} from 'mdbreact';
 import '../Home/index.css'
 import { DialogUtility } from '@syncfusion/ej2-popups';
-import diagnostico from '../images/diagnostico.png'
 import { API} from '../utils/http'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -175,7 +170,7 @@ class SheetJSApp extends React.Component {
 				// const url  = 'http://localhost:8000/graphql'
 				var estado = this.state.data[i]	
 				// console.log("el estado en la posicion de i " , estado)
-				if(this.state.data[i].length==20  ){	
+				if(this.state.data[i].length===20  ){	
 					console.log("estado if" , this.state.data[i].length)	
 				const query =  `
 				mutation {
@@ -300,13 +295,6 @@ class SheetJSApp extends React.Component {
 			const ws = wb.Sheets[wsname];
 
 			const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
-			// const token = localStorage.getItem('elToken')
-			// let pl = payload(token);
-			// var correoAdmin  = pl.email
-			var idAdmin = localStorage.getItem("idAdmin")
-			// var passAdmin = pl.password 
-			console.log("data filas" , data)
-			//aqui podemos visualizar la data
             this.setState({ data: data });
 		};
 		if (rABS) reader.readAsBinaryString(file); else reader.readAsArrayBuffer(file);
@@ -331,7 +319,7 @@ class SheetJSApp extends React.Component {
 
 	
 		this.state.message.map(rows =>{
-			if(rows == 'correo existente'){
+			if(rows === 'correo existente'){
 			
 				this.setState({empleadoNoRegistrado:this.state.empleadoNoExitoso})
 				this.setState({empleadoNoExitoso:[]})
@@ -339,7 +327,7 @@ class SheetJSApp extends React.Component {
 				this.setState({spinner:false})	
 				
 			}
-			if(rows == 'el puesto no existe'){
+			if(rows === 'el puesto no existe'){
 				
 				this.setState({puesto:this.state.puestoNoExiste})
 				this.setState({puestoNoExiste:[]})
@@ -347,7 +335,7 @@ class SheetJSApp extends React.Component {
 				this.setState({spinner:false})	
 				
 			}
-			if(rows == 'el departamento no existe'){
+			if(rows === 'el departamento no existe'){
 				
 				this.setState({depto:this.state.deptoNoExiste})
 				this.setState({deptoNoExiste:[]})
@@ -355,7 +343,7 @@ class SheetJSApp extends React.Component {
 				this.toggle()
 				this.setState({spinner:false})	
 			}
-			if(rows== 'la sucursal no existe'){
+			if(rows=== 'la sucursal no existe'){
 				this.setState({sucursal:this.state.sucursalNoExiste})
 				this.setState({sucursalNoExiste:[]})
 				this.toggle()
@@ -363,7 +351,7 @@ class SheetJSApp extends React.Component {
 				
 			}
 			
-			else if(rows == 'registro exitoso'){	
+			else if(rows === 'registro exitoso'){	
 				this.setState({empleadoRegistrado:this.state.empleadoExitoso})
 				this.setState({empleadoExitoso:[]})
 				this.toggle()
@@ -375,12 +363,11 @@ class SheetJSApp extends React.Component {
 
 		
 
-			if(this.state.spinner== true){
+			if(this.state.spinner === true){
 				spinner = <div className="spinner-border text-info" role="status"><strong className="sr-only">Espere un momento por favor ...</strong>
 					</div>
 			}
-		
-			// console.log("empleadoRegistrado" , empleadoRegistrado)
+
 		return (
 			
 				<React.Fragment>
@@ -393,12 +380,6 @@ class SheetJSApp extends React.Component {
 					
 					</MDBCol> 		
 				</div> </div>
-				{/* <div className="row"><div className="col-xs-12">
-					<button disabled={!this.state.data.length} className="btn btn-success" onClick={this.exportFile}>Export</button>
-				</div></div> */}
-				{/* <div className="row"><div className="col-xs-12">
-					<OutTable data={this.state.data} cols={this.state.cols} />
-				</div></div> */}
 			</DragDropFile>	
 				<MDBContainer>
 			
@@ -558,41 +539,9 @@ class DataInput extends React.Component {
 	};
 }
 
-	// class OutTable extends React.Component {
-	// 	constructor(props) { super(props) }
-
-	// 	render() {
-	// 		return (
-	// 			<div className="table-responsive">
-	// 				<table className="table table-striped">
-	// 					<thead>
-	// 						<tr>{this.props.cols.map((c) => <th key={c.key}>{c.name}</th>)}</tr>
-	// 					</thead>
-	// 					<tbody>
-	// 						{this.props.data.map((r, i) => <tr key={i}>
-
-
-	// 							{this.props.cols.map(c => <td key={c.key}>{r[c.key]}</td>)}
-	// 						</tr>)}
-	// 					</tbody>
-	// 				</table>
-	// 			</div>
-
-	// 		);
-	// 	}
-	// };
-
 const SheetJSFT = [
 	"xlsx", "xlsb", "xlsm", "xls", "xml", "csv", "txt", "ods", "fods", "uos", "sylk", "dif", "dbf", "prn", "qpw", "123", "wb*", "wq*", "html", "htm"
 ].map(function (x) { return "." + x; }).join(",");
-
-
-// const make_cols = refstr => {
-// 	let o = [], C = XLSX.utils.decode_range(refstr).e.c + 1;
-// 	for (var i = 0; i < C; ++i) o[i] = { name: XLSX.utils.encode_col(i), key: i }
-// 	return o; 
-
-// };
 
 class App extends React.Component {
 	constructor(props) {
@@ -602,10 +551,7 @@ class App extends React.Component {
 			puestos:[],
 			sucursal:[],
 			datos:[],
-			deptos:[],	
 		};
-	   
-		
 	  }
 
 	componentWillMount(){
@@ -705,12 +651,7 @@ class App extends React.Component {
 		const correos  = values.Correo
 
 		const Correo = correos.replace(/ /g, "")
-
-		// console.log("correos" ,)
-
-		// const token = localStorage.getItem('elToken')
 	    let idSuperUsuario;
-		// const url = 'http://localhost:8000/graphql'
 		const idAdmin =  localStorage.getItem("idAdmin")
 		await axios({
 			url:  API,
@@ -774,7 +715,6 @@ class App extends React.Component {
 				}
 			})
 			.then(datos => {		
-			// console.log("exito empleados registrados" , datos.data.data.authRegisterSingleEmployee[0].max)
 		    max=datos.data.data.authRegisterSingleEmployee[0].max
 			});
 
@@ -799,14 +739,14 @@ class App extends React.Component {
 			
 			.then((datos )=> {
 
-			if(datos.data.data.registerEmployee.message == 'correo existente'){
+			if(datos.data.data.registerEmployee.message === 'correo existente'){
 				DialogUtility.alert({
 					animationSettings: { effect: 'Zoom' },           
 					content: "El correo proporcionado ya está en uso por favor ingrese uno diferente",
 					title: 'Aviso!',
 					position: "fixed"
 				});
-			}else if(datos.data.data.registerEmployee.message == 'registro exitoso')	{
+			}else if(datos.data.data.registerEmployee.message === 'registro exitoso')	{
 				DialogUtility.alert({
 					animationSettings: { effect: 'Zoom' },           
 					content: "Colaborador Registrado exitosamente",
@@ -816,9 +756,6 @@ class App extends React.Component {
 				this.props.history.push("/adminGral")
 
 			}
-			// console.log("los segundos datos" , datos)
-			
-			
 			});   
 		} else{
 	
@@ -868,7 +805,7 @@ class App extends React.Component {
 		}
 	
 		if(values.curp){
-			if(values.curp.length != 18){
+			if(values.curp.length !== 18){
 				 errors.curp = 'El número de caracteres no es el correcto';
 			}
 		}
@@ -882,12 +819,9 @@ class App extends React.Component {
 
 
  onSubmit (values) {
-		const vari = JSON.stringify(values,1,2)
 		};
 
 render(){
-	const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
-	  const container = { width: 2500, height: 1300 }
 	return (
 		<React.Fragment>
 			<Alert style={{marginTop:60}} color="primary"><strong>Registrar empleados</strong></Alert>	

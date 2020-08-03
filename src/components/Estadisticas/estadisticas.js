@@ -1,10 +1,7 @@
 import React from 'react';
 
-import { MDBContainer, MDBNavbar, MDBNavbarBrand,MDBTable, MDBTableBody , MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBBtn} from 'mdbreact';
+import { MDBContainer,MDBTable, MDBTableBody, MDBBtn} from 'mdbreact';
 import Paper from '@material-ui/core/Paper';
-
-import Sidebar from '../Home/sidebar'
-import { AppNavbarBrand } from '@coreui/react';
 import logo from '../images/logo.png'
 import diagnostico from '../images/diagnostico.png'
 import { API} from '../utils/http'
@@ -12,17 +9,11 @@ import MUIDataTable from "mui-datatables";
 import Grow from "@material-ui/core/Grow";
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 import '../Home/index.css'
-// import Paper from '@material-ui/core/Paper';
 import { MDBRow,MDBCol} from 'mdbreact'
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import { DialogUtility } from '@syncfusion/ej2-popups';
-import logotipo from '../images/logotipo.png'
-// import TableHead from '@material-ui/core/TableHead';
 import { PDFExport } from '@progress/kendo-react-pdf';
-
-import usuario from '../images/usuario.png'
-import { MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import Modal from 'react-modal';
 import {
   Grid    
@@ -68,8 +59,6 @@ class Estadisticas extends React.Component {
         this.setState({date:FechaCompleta}) 
         this.setState({nombre:Nombre}) 
         this.setState({apellidos:Apellidos}) 
-
-        let idAdmin = localStorage.getItem("idAdmin")
       }
       onClick() {
         this.setState({
@@ -162,7 +151,6 @@ class Estadisticas extends React.Component {
     
     let datosEmpleados;
     let filtro;
-    let length;
     const options = {
         filterType: "dropdown",
         responsive: "stacked",
@@ -272,7 +260,6 @@ class Estadisticas extends React.Component {
            console.log("estadisticas" , this.state.reporteEstadisticas)
               {this.state.reporteEstadisticas.map(rows =>{
 
-                console.log("las rows" , rows.data)
                 array.push(rows.data[4])
 
                 arrayExpLab.push(rows.data[3])
@@ -283,7 +270,7 @@ class Estadisticas extends React.Component {
               })}
 
                 const result1519 = array.filter(function(valor){
-                  return valor == "15 A 19"
+                  return valor === "15 A 19"
                 })
                 edad1519.push(result1519)
                 
@@ -291,7 +278,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeedad1519= Math.round( porcentajeedad1519 );
 
                 const result2024 = array.filter(function(valor){
-                  return valor == "20 A 24"
+                  return valor === "20 A 24"
                 })
                 edad2024.push(result2024)
 
@@ -299,7 +286,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeedad2024= Math.round( porcentajeedad2024 );
 
                 const result2529 = array.filter(function(valor){
-                  return valor == "25 A 29"
+                  return valor === "25 A 29"
                 })
                 edad2529.push(result2529)
 
@@ -307,7 +294,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeedad2529= Math.round( porcentajeedad2529 );
 
                 const result3034 = array.filter(function(valor){
-                  return valor == "30 A 34"
+                  return valor === "30 A 34"
                 })
                 edad3034.push(result3034)
 
@@ -315,7 +302,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeedad3034= Math.round( porcentajeedad3034 );
 
                 const result3539 = array.filter(function(valor){
-                  return valor == "35 A 39"
+                  return valor === "35 A 39"
                 })
                 edad3539.push(result3539)
 
@@ -323,7 +310,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeedad3539= Math.round( porcentajeedad3539 );
 
                 const result4044 = array.filter(function(valor){
-                  return valor == "40 A 44"
+                  return valor === "40 A 44"
                 })
                 edad4044.push(result4044)
 
@@ -331,7 +318,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeedad4044= Math.round( porcentajeedad4044 );
 
                 const result4549 = array.filter(function(valor){
-                  return valor == "45 A 49"
+                  return valor === "45 A 49"
                 })
                 edad4549.push(result4549)
 
@@ -339,7 +326,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeedad4549= Math.round( porcentajeedad4549 );
 
                 const result5054 = array.filter(function(valor){
-                  return valor == "50 A 54"
+                  return valor === "50 A 54"
                 })
                 edad5054.push(result5054)
 
@@ -347,7 +334,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeedad5054= Math.round( porcentajeedad5054);
 
                 const result5559 = array.filter(function(valor){
-                  return valor == "55 A 59"
+                  return valor === "55 A 59"
                 })
                 edad5559.push(result5559)
 
@@ -355,7 +342,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeedad5559= Math.round( porcentajeedad5559);
 
                 const result6064 = array.filter(function(valor){
-                  return valor == "60 A 64"
+                  return valor === "60 A 64"
                 })
                 edad6064.push(result6064)
 
@@ -363,7 +350,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeedad6064= Math.round( porcentajeedad6064);
 
                 const result6569 = array.filter(function(valor){
-                  return valor == "65 A 69"
+                  return valor === "65 A 69"
                 })
                 edad6569.push(result6569)
          
@@ -371,7 +358,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeedad6569= Math.round( porcentajeedad6569);
 
                 const result70omas = array.filter(function(valor){
-                  return valor == "70 0 mas"
+                  return valor === "70 0 mas"
                 })
                 edad70omas.push(result70omas)
 
@@ -381,7 +368,7 @@ class Estadisticas extends React.Component {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
                 
                 const resultExpLab6Meses= arrayExpLab.filter(function(valor){
-                  return valor == "MENOS DE 6 MESES"
+                  return valor === "MENOS DE 6 MESES"
                 })
                 expLab6Meses.push(resultExpLab6Meses)
 
@@ -389,7 +376,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeexpLab6Meses= Math.round( porcentajeexpLab6Meses);
 
                 const resultExpLab1Año= arrayExpLab.filter(function(valor){
-                  return valor == "ENTRE 6 MESES Y 1 AÑO"
+                  return valor === "ENTRE 6 MESES Y 1 AÑO"
                 })
                 expLab6Meses1Año.push(resultExpLab1Año)
 
@@ -397,7 +384,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeexpLab6Meses1Año= Math.round( porcentajeexpLab6Meses1Año);
 
                 const resultExpLab4Año= arrayExpLab.filter(function(valor){
-                  return valor == "ENTRE 1 A 4 AÑOS"
+                  return valor === "ENTRE 1 A 4 AÑOS"
                 })
                 expLab1a4años.push(resultExpLab4Año)
 
@@ -405,7 +392,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeexpLab1a4años= Math.round( porcentajeexpLab1a4años);
 
                 const resultExpLab9Año= arrayExpLab.filter(function(valor){
-                  return valor == "ENTRE 5 A 9 AÑOS"
+                  return valor === "ENTRE 5 A 9 AÑOS"
                 })
                 expLab5a9años.push(resultExpLab9Año)
 
@@ -413,7 +400,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeexpLab5a9años= Math.round( porcentajeexpLab5a9años);
 
                 const resultExpLab14Año= arrayExpLab.filter(function(valor){
-                  return valor == "ENTRE 10 A 14 AÑOS"
+                  return valor === "ENTRE 10 A 14 AÑOS"
                 })
                 expLab10a14años.push(resultExpLab14Año)
                 
@@ -421,7 +408,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeexpLab10a14años= Math.round( porcentajeexpLab10a14años);
 
                 const resultExpLab19Año= arrayExpLab.filter(function(valor){
-                  return valor == "ENTRE 15 A 19 AÑOS"
+                  return valor === "ENTRE 15 A 19 AÑOS"
                 })
                 expLab15a19años.push(resultExpLab19Año)
 
@@ -429,7 +416,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeexpLab15a19años= Math.round( porcentajeexpLab15a19años);
 
                 const resultExpLab24Año= arrayExpLab.filter(function(valor){
-                  return valor == "ENTRE 20 A 24 AÑOS"
+                  return valor === "ENTRE 20 A 24 AÑOS"
                 })
                 expLab20a24años.push(resultExpLab24Año)
 
@@ -437,7 +424,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeexpLab20a24años= Math.round( porcentajeexpLab20a24años);
 
                 const resultExpLab25Año= arrayExpLab.filter(function(valor){
-                  return valor == "25 AÑOS O MAS"
+                  return valor === "25 AÑOS O MAS"
                 })
                 expLab25años.push(resultExpLab25Año)
 
@@ -447,7 +434,7 @@ class Estadisticas extends React.Component {
                 ////////////////////////////////////////////////////////////////////////////
 
                 const resultAnt6Meses= arrayAnt.filter(function(valor){
-                  return valor == "MENOS DE 6 MESES"
+                  return valor === "MENOS DE 6 MESES"
                 })
                 ant6Meses.push(resultAnt6Meses)
 
@@ -455,7 +442,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeant6Meses= Math.round( porcentajeant6Meses);
 
                 const resultAnt1Año= arrayAnt.filter(function(valor){
-                  return valor == "ENTRE 6 MESES Y 1 AÑO"
+                  return valor === "ENTRE 6 MESES Y 1 AÑO"
                 })
                 ant6Meses1Año.push(resultAnt1Año)
 
@@ -463,7 +450,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeant6Meses1Año= Math.round( porcentajeant6Meses1Año);
 
                 const resultAnt4Año= arrayAnt.filter(function(valor){
-                  return valor == "ENTRE 1 A 4 AÑOS"
+                  return valor === "ENTRE 1 A 4 AÑOS"
                 })
                 ant1a4años.push(resultAnt4Año)
 
@@ -471,7 +458,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeant1a4años= Math.round( porcentajeant1a4años);
 
                 const resultAnt9Año= arrayAnt.filter(function(valor){
-                  return valor == "ENTRE 5 A 9 AÑOS"
+                  return valor === "ENTRE 5 A 9 AÑOS"
                 })
                 ant5a9años.push(resultAnt9Año)
 
@@ -479,7 +466,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeant5a9años= Math.round( porcentajeant5a9años);
 
                 const resultAnt14Año= arrayAnt.filter(function(valor){
-                  return valor == "ENTRE 10 A 14 AÑOS"
+                  return valor=== "ENTRE 10 A 14 AÑOS"
                 })
                 ant10a14años.push(resultAnt14Año)
                 
@@ -487,7 +474,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeant10a14años= Math.round( porcentajeant10a14años);
 
                 const resultAnt19Año= arrayAnt.filter(function(valor){
-                  return valor == "ENTRE 15 A 19 AÑOS"
+                  return valor === "ENTRE 15 A 19 AÑOS"
                 })
                 ant15a19años.push(resultAnt19Año)
 
@@ -495,7 +482,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeant15a19años= Math.round( porcentajeant15a19años);
 
                 const resultAnt24Año= arrayAnt.filter(function(valor){
-                  return valor == "ENTRE 20 A 24 AÑOS"
+                  return valor === "ENTRE 20 A 24 AÑOS"
                 })
                 ant20a24años.push(resultAnt24Año)
 
@@ -503,7 +490,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeant20a24años= Math.round( porcentajeant20a24años);
 
                 const resultAnt25Año= arrayAnt.filter(function(valor){
-                  return valor == "25 AÑOS O MAS"
+                  return valor === "25 AÑOS O MAS"
                 })
                 ant25años.push(resultAnt25Año)
 
@@ -511,7 +498,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeant25años= Math.round( porcentajeant25años);
                 /////////////////////////////////////////////////////////////////////////////
                 const resultSinEstudios= arrayEstudios.filter(function(valor){
-                  return valor == "SIN FORMACION"
+                  return valor === "SIN FORMACION"
                 })
                 sinEstudios.push(resultSinEstudios)
 
@@ -519,7 +506,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajesinEstudios= Math.round( porcentajesinEstudios );
 
                 const resultPrimaria= arrayEstudios.filter(function(valor){
-                  return valor == "PRIMARIA"
+                  return valor === "PRIMARIA"
                 })
                 primaria.push(resultPrimaria)
 
@@ -527,7 +514,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeprimaria= Math.round( porcentajeprimaria );
 
                 const resultSecundaria= arrayEstudios.filter(function(valor){
-                  return valor == "SECUNDARIA"
+                  return valor === "SECUNDARIA"
                 })
                 secundaria.push(resultSecundaria)
 
@@ -535,7 +522,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajesecundaria= Math.round( porcentajesecundaria );
 
                 const resultPreparatoria= arrayEstudios.filter(function(valor){
-                  return valor == "PREPARATORIA O BACHILLERATO"
+                  return valor === "PREPARATORIA O BACHILLERATO"
                 })
                 preparatoria.push(resultPreparatoria)
 
@@ -543,7 +530,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajepreparatoria= Math.round( porcentajepreparatoria );
 
                 const resultLicenciatura= arrayEstudios.filter(function(valor){
-                  return valor == "LICENCIATURA"
+                  return valor=== "LICENCIATURA"
                 })
                 licenciatura.push(resultLicenciatura)
 
@@ -551,7 +538,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajelicenciatura= Math.round( porcentajelicenciatura);
 
                 const resultMaestria= arrayEstudios.filter(function(valor){
-                  return valor == "MAESTRIA"
+                  return valor === "MAESTRIA"
                 })
                 maestria.push(resultMaestria)
 
@@ -559,7 +546,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajemaestria= Math.round( porcentajemaestria);
 
                 const resultDoctorado= arrayEstudios.filter(function(valor){
-                  return valor == "DOCTORADO"
+                  return valor === "DOCTORADO"
                 })
                 doctorado.push(resultDoctorado)
 
@@ -569,12 +556,12 @@ class Estadisticas extends React.Component {
 
                 console.log("arraySexo" , arraySexo)
                 const resultSexoH= arraySexo.filter(function(valor){
-                  return valor == "MASCULINO"
+                  return valor === "MASCULINO"
                 })
                 hombre.push(resultSexoH)
 
                 const resultSexoM= arraySexo.filter(function(valor){
-                  return valor == "FEMENINO"
+                  return valor === "FEMENINO"
                 })
                 mujer.push(resultSexoM)
 
@@ -588,7 +575,7 @@ class Estadisticas extends React.Component {
                 //////////////////////////////////////////////////////////////777777
      
                 const resultOperativo= arrayTipoPuesto.filter(function(valor){
-                  return valor == "OPERATIVO"
+                  return valor === "OPERATIVO"
                 })
                 operativo.push(resultOperativo)
 
@@ -596,7 +583,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeoperativo= Math.round( porcentajeoperativo);
             
                 const resultProfesionalTecnico= arrayTipoPuesto.filter(function(valor){
-                  return valor == "PROFESIONAL O TECNICO"
+                  return valor === "PROFESIONAL O TECNICO"
                 })
                 profesionalTecnico.push(resultProfesionalTecnico)
 
@@ -604,7 +591,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajeprofesionalTecnico= Math.round( porcentajeprofesionalTecnico);
             
                 const resultSupervisor= arrayTipoPuesto.filter(function(valor){
-                  return valor == "SUPERVISOR"
+                  return valor === "SUPERVISOR"
                 })
                 supervisor.push(resultSupervisor)
 
@@ -612,7 +599,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajesupervisor= Math.round( porcentajesupervisor);
 
                 const resultGerencial= arrayTipoPuesto.filter(function(valor){
-                  return valor == "GERENCIAL"
+                  return valor === "GERENCIAL"
                 })
                 gerencial.push(resultGerencial)
 
@@ -620,7 +607,7 @@ class Estadisticas extends React.Component {
                 var intPorcentajegerencial= Math.round( porcentajegerencial);
 
                 const resultDirectivo= arrayTipoPuesto.filter(function(valor){
-                  return valor == "DIRECTIVO"
+                  return valor === "DIRECTIVO"
                 })
                 directivo.push(resultDirectivo)
                 
@@ -1125,8 +1112,6 @@ class Estadisticas extends React.Component {
             </React.Fragment> 
           }
 
-    // const { children, ...attributes } = this.props;
-    const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
     const container = { width: 2500, height: 1300 }
     return (
      <React.Fragment>

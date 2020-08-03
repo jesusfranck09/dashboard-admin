@@ -1,9 +1,8 @@
 import React from 'react'
-import {MDBRow, MDBContainer,MDBBadge, MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol, MDBCardHeader, MDBBtn} from 'mdbreact';
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem} from 'mdbreact';
 import Sidebar from './sidebar'
 import diagnostico from '../images/diagnostico.png'
 import { AppNavbarBrand } from '@coreui/react';
-import { MDBModal, MDBModalBody, MDBModalHeader, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import "./styles.scss";
 import { withRouter } from 'react-router-dom';
@@ -81,7 +80,6 @@ class Navbar extends React.Component {
         
     render(){
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
-    const container = { width: 1000, height: 500 }
         return(
       
                 <header>

@@ -1,10 +1,7 @@
-import React, { useState, useCallback } from 'react';
-import {MDBRow,MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBContainer, MDBNavbar,MDBNavbarNav, MDBNavbarBrand, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, MDBCol, MDBCardHeader, MDBTable} from 'mdbreact';
-import { AppNavbarBrand } from '@coreui/react';
-import logo from '../images/logotipo.png'
+import React from 'react';
+import {MDBRow,MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBContainer, MDBCol} from 'mdbreact';
 import '../Home/index.css'
 import Paper from '@material-ui/core/Paper';
-import inicio from '../images/house.png'
 import { API} from '../utils/http'
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import TableRow from '@material-ui/core/TableRow';
@@ -31,7 +28,6 @@ import {
   Button,
 
 } from '@material-ui/core';
-import diagnostico from '../images/diagnostico.png'
 import axios from 'axios'
 import {Alert} from 'reactstrap';
 import { MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
@@ -502,7 +498,7 @@ class AdminGral extends React.Component {
                 }
 
                 if(values.Curp){
-                  if(values.Curp.length != 18){
+                  if(values.Curp.length !== 18){
                     errors.Curp = 'El número de caracteres no es el correcto';
                   }
                 }
@@ -658,7 +654,7 @@ class AdminGral extends React.Component {
                       }
                     })
                     .then(datos => {	
-                      if(datos.data.data.updateEmployees.message == 'Sucursal no encontrada'){
+                      if(datos.data.data.updateEmployees.message === 'Sucursal no encontrada'){
                         DialogUtility.alert({
                           animationSettings: { effect: 'Fade' },        
                           title:"AVISO!",   
@@ -667,7 +663,7 @@ class AdminGral extends React.Component {
                         }
                         )
                         this.setState({modal13:false})
-                      } else  if(datos.data.data.updateEmployees.message == 'departamento no encontrado'){
+                      } else  if(datos.data.data.updateEmployees.message === 'departamento no encontrado'){
                         DialogUtility.alert({
                           animationSettings: { effect: 'Fade' },        
                           title:"AVISO!",   
@@ -676,7 +672,7 @@ class AdminGral extends React.Component {
                         }
                         )
                         this.setState({modal13:false})
-                      }else  if(datos.data.data.updateEmployees.message == 'puesto no encontrado'){
+                      }else  if(datos.data.data.updateEmployees.message === 'puesto no encontrado'){
                         DialogUtility.alert({
                           animationSettings: { effect: 'Fade' },        
                           title:"AVISO!",   
@@ -685,7 +681,7 @@ class AdminGral extends React.Component {
                         }
                         )
                         this.setState({modal13:false})
-                      }else  if(datos.data.data.updateEmployees.message == 'actualizacion exitosa'){
+                      }else  if(datos.data.data.updateEmployees.message === 'actualizacion exitosa'){
 
                       DialogUtility.alert({
                         animationSettings: { effect: 'Fade' },        
@@ -863,7 +859,7 @@ class AdminGral extends React.Component {
             })
             .then(datos => {
               console.log("message",datos.data.data.getEventos.message)	
-              if(datos.data.data.getEventos.message=="evento encontrado"){
+              if(datos.data.data.getEventos.message==="evento encontrado"){
                 DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },        
                   title:"AVISO!",   
@@ -871,7 +867,7 @@ class AdminGral extends React.Component {
                   position: "fixed",
                 }
                 )
-              }else if(datos.data.data.getEventos.message=="exito"){
+              }else if(datos.data.data.getEventos.message==="exito"){
                 
             axios({
               url:  API,
@@ -887,7 +883,7 @@ class AdminGral extends React.Component {
               }
             })
             .then(datos => {	
-              if(datos.data.data.addPeriodo.message=='registro exitoso'){
+              if(datos.data.data.addPeriodo.message==='registro exitoso'){
                 console.log("exito",datos)
                 DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },        
@@ -897,7 +893,7 @@ class AdminGral extends React.Component {
                 }
                 )
                   window.location.reload();
-              }else if(datos.data.data.addPeriodo.message=='periodo existente' ){
+              }else if(datos.data.data.addPeriodo.message==='periodo existente' ){
                 DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },        
                   title:"AVISO!",   
@@ -940,7 +936,7 @@ class AdminGral extends React.Component {
               }
             })
             .then(datos => {	
-              if(datos.data.data.updatePeriodo.message=='evento existente'){
+              if(datos.data.data.updatePeriodo.message==='evento existente'){
                 DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },        
                   title:"AVISO!",   
@@ -948,7 +944,7 @@ class AdminGral extends React.Component {
                   position: "fixed",
                 }
                 )
-              }else if (datos.data.data.updatePeriodo.message=='no hay eventos'){
+              }else if (datos.data.data.updatePeriodo.message==='no hay eventos'){
                 DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },        
                   title:"AVISO!",   
@@ -956,7 +952,7 @@ class AdminGral extends React.Component {
                   position: "fixed",
                 }
                 )
-              }else if ( datos.data.data.updatePeriodo.message=='evento Actualizdo'){
+              }else if ( datos.data.data.updatePeriodo.message==='evento Actualizdo'){
                 DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },        
                   title:"AVISO!",   
@@ -1043,55 +1039,8 @@ class AdminGral extends React.Component {
                 };  
 
                 handleSubmit() {
-                  // var fd = new FormData();
- 
-                  // fd.append('file', this.state.file);
-                  // const idAdmin=localStorage.getItem("idAdmin")
-                  // const url = 'http://localhost:8000/graphql'
-                  // // axios({
-                  // //   url:  url,
-                  // //   method:'post',
-                  // //   data:{
-                  // //   query:`
-                  // //   mutation{
-                  // //     loadLogo(data:"${[idAdmin]}"){
-                  // //         IMAGE
-                  // //           }
-                  // //         }
-                  // //       `
-                  // //   }
-                  // // })
-                  // // .then(datos => {	
-                  // //   // console.log("exito",datos)
-                  // //  
-                  // // console.log("exito " ,datos)}).catch(err=>{
-                  // //   console.log("error" , err.response)
-                  // // })
-
-
-                  // axios({
-                  //   url:  url,
-                  //   method:'post',
-                  //   data:{
-                  //   query:`
-                  //   query{
-                  //     getImage(data:"${[idAdmin]}"){
-                  //         image
-                  //           }
-                  //         }
-                  //       `
-                  //   }
-                  // })
-                  // .then(datos => {	
-                   
-                  // console.log("exito " ,datos)}).catch(err=>{
-                  //   console.log("error" , err.response)
-                  // })
-                  // TODO: do something with -> this.state.file
                 }
-              handleImageChange(e) {
-                // e.preventDefault();
-            
+              handleImageChange(e) {          
                 let reader = new FileReader();
                 let file = e.target.files[0];
             
@@ -1103,19 +1052,11 @@ class AdminGral extends React.Component {
                 }
                 reader.readAsDataURL(file)
                 console.log("file" , file)
-
-                // console.log("image" , this.state.imagePreviewUrl)
               }
             
-    render() {
-      let {imagePreviewUrl} = this.state;
-      let imagePreview = null;
-      if (imagePreviewUrl) {
-        imagePreview = (<img src={imagePreviewUrl} />);
-      }
-
+    render() {  
       let editarPeriodo;
-      if(this.state.editarPeriodo=='1'){
+      if(this.state.editarPeriodo==='1'){
        
         editarPeriodo =<Paper style={{ width: "70rem" }}>
             <MDBCard style={{ width: "70rem" }} >
@@ -1234,7 +1175,7 @@ class AdminGral extends React.Component {
 
         let registrarPeriodo ;
 
-        if(this.state.registrarPeriodo=='1'){
+        if(this.state.registrarPeriodo==='1'){
           
           registrarPeriodo =  <Paper style={{ width: "70rem" }}>
             <MDBCard style={{ width: "70rem" }} >
@@ -1410,7 +1351,7 @@ class AdminGral extends React.Component {
           const locale = "es";
 
       let periodo;
-      if(this.state.periodo.length == 0){
+      if(this.state.periodo.length === 0){
        periodo = <Alert color="danger"> AVISO! : Por favor Registre otro periodo antes de salir, "Su sistema podria funcionar de manera Incorrecta". </Alert> 
 
       }
@@ -1854,7 +1795,7 @@ class AdminGral extends React.Component {
        }
        let misPeriodos;
       
-       if(this.state.misPeriodos=='1'){
+       if(this.state.misPeriodos==='1'){
          console.log("mis periodos2 ")
         misPeriodos =<MDBContainer><Paper >
         <MDBCard >
@@ -2029,9 +1970,7 @@ class AdminGral extends React.Component {
              filtro=filtroTable
              console.log("filtro" , filtro) 
              }     };
-      // const { children} = this.props;
-      const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
-      const container = { width:1000, height: 800 }
+
       return (
         <React.Fragment>
         <div>
