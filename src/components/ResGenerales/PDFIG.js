@@ -180,7 +180,7 @@ pdfExportComponent ;
 
       consultarDatosFiltrados ( datos,filtro){
         // console.log("entro")
-        this.setState({spinnerReporte:true})
+        // this.setState({spinnerReporte:true})
         this.setState({botonDescargaMasivo:''})
         this.setState({botonDescargarIndividual:''})
         var array=[];
