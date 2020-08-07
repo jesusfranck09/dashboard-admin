@@ -28,7 +28,7 @@ import Donut from './components/carpetaPrueba/donut';
 import Estadisticas from './components/Estadisticas/estadisticas';
 // import ResGral from './components/Res generales/index';
 import Upload from './components/uploadImage/upload';
-
+import PDFPrueba from './components/ResGenerales/pdfPrueba'
 import ATS from './components/ResGenerales/PDFIG'
 import RP from './components/ResGenerales/RPIG'
 import EEO from './components/ResGenerales/EEOIG'
@@ -50,6 +50,8 @@ class Routes extends Component{
               <Route exact path='/' component={Login}/>
                   {/* <Route exact path='/verify/:id' component={Verify}/> */}
                   <PrivateRoute exact path='/upload' component={Upload}/>
+                  <PrivateRoute exact path='/atsDemoIG' component={PDFPrueba}/>
+
                   {/* <PrivateRoute exact path='/indexAts' component={IndexATS}/> */}
                   <PrivateRoute exact path='/inicio' component={Home}/>
                   {/* <PrivateRoute exact path='/company' component={Company}/> */}

@@ -6,6 +6,11 @@ import { AppNavbarBrand } from '@coreui/react';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import "./styles.scss";
 import { withRouter } from 'react-router-dom';
+import {
+    Grid,
+    Button,
+  } from '@material-ui/core';
+import Modal from 'react-modal';
 class Navbar extends React.Component {
     constructor(props){
         super(props)
@@ -81,7 +86,7 @@ class Navbar extends React.Component {
     render(){
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
         return(
-      
+                <React.Fragment>
                 <header>
                 <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
                     <Sidebar/>
@@ -131,9 +136,56 @@ class Navbar extends React.Component {
                         </MDBNavbarNav>
                      </MDBCollapse>
                 </MDBNavbar>
+                <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
+                    <div className="row">
+                        <div className="col-md-12" item xs={12}>
+                            <center><br/>
+                                <br/>
+                                <br/>
+                                <font size="4">
+                                El Distribuidor Asociado Master de CONTPAQi® que ha recibido el reconocimiento como el
+                                <br/>
+                                 Primer Lugar en Ventas por 15 Años Consecutivos en la Ciudad de México.
+                                
+                                <br/>
+                                <br/>
+                                Alfa Diseño de Sistemas: 
+                               
+                                Somos un distribuidor asociado master de CONTPAQi®, 
+                                <br/>
+                                 una casa desarrolladora de software, que además es PAC (Proveedor Autorizado de Certificación) y PCRDD 
+                                <br/>
+                                (Proveedor de Certificación y Recepción de Documentos Digitales) por parte del SAT.
+                                {/* <img src={Ok} alt="ok" className="img-fluid"/><br/><br/> */}
+                                <br/>
+                                <br/>
+                                Conoce más sobre nosotros en 
+                                <br></br>
+                                  <a href="www.ads.com.mx">www.ads.com.mx</a>
+                                </font>
 
+                                <br/>
+                                <br/>
+                                <br/>
+                                {/* <Alert color="secondary" style={{fontSize: 24}}>Su encuesta ha finalizado, Gracias por su colaboración</Alert> */}
+                                <br/>
+                                <br/>
+                                <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
+                                <Button 
+                                  variant="outlined"
+                                    color="primary"
+                                    type = "submit"
+                                     onClick={()=>{this.setState({showModal2:false})}}
+                                  >
+                                   Cerrar
+                                  </Button>
+                                  </Grid>
+                            </center>
+                            </div>
+                        </div>
+                    </Modal>
                 </header>
-      
+                </React.Fragment>
         )
     }
 }
