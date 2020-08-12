@@ -66,7 +66,7 @@ pdfExportComponent ;
       spinnerReporte:false,
     };
     this.handleLogOut = this.handleLogOut.bind(this);
-    this.ads = this.ads.bind(this);    
+    this.ads = this.ads.bind(this);  
   }
 
      componentWillMount(){
@@ -162,8 +162,8 @@ pdfExportComponent ;
                   totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
                   // console.log("totalEMpleados" , totalEmpleados)    
                   this.setState({peticion:totalEmpleados})   
-                  console.log("peticion1",this.state.peticion.length)
-                  console.log("peticion2",this.state.empleados.length)
+                  // console.log("peticion1",this.state.peticion.length)
+                  // console.log("peticion2",this.state.empleados.length)
 
                   if(this.state.peticion.length == this.state.empleados.length){
                     this.setState({spinner:false})
@@ -178,31 +178,30 @@ pdfExportComponent ;
 
      }
 
-      consultarDatosFiltrados ( datos,filtro){
+
+      async consultarDatosFiltrados ( datos,filtro){
         // console.log("entro")
-        // this.setState({spinnerReporte:true})
         this.setState({botonDescargaMasivo:''})
         this.setState({botonDescargarIndividual:''})
         var array=[];
-        datos.map(rows=>{
+        datos.forEach(rows=>{
           array.push(rows.data[0])
-          return array
         })
         let arrayFilter = []
         let filter;
-       
-        array.map(rows=>{
-          this.state.peticion.map(row=>{
 
-            filter =row.filter(function(hero){
-              return hero.fk_Empleados == rows
-            })
-              arrayFilter.push(filter)
-          })
+          this.state.peticion.forEach(row=>{
+            console.log("roe" , row)
+            array.forEach(element => {
+              filter =row.filter(function(hero){
+                return hero.fk_Empleados === element
+              })
+                arrayFilter.push(filter)
+              }); 
         })
        
-          
-          this.setState({peticion1:arrayFilter}) 
+        this.setState({peticion1:arrayFilter}) 
+
      
             if(filtro!== undefined){
             if(filtro[0].length>0){
@@ -271,7 +270,7 @@ pdfExportComponent ;
           
           this.setState({datosLength:datos.length})
            
-          console.log("datos enviados",datos[0].data[6])
+          // console.log("datos enviados",datos[0].data[6])
           }
 
         reporteImasivo(datos,filtro){
@@ -279,20 +278,16 @@ pdfExportComponent ;
         this.setState({botonDescargaMasivo:''})
         this.setState({botonDescargarIndividual:''})
         var array=[];
-        datos.map(rows=>{
+        datos.forEach(rows=>{
           array.push(rows.data[0])
-          return array
         })
         let arrayFilter = []
         let filter;
-       
-      
 
-        array.map(rows=>{
-          this.state.peticion.map(row=>{
-
+          this.state.peticion.forEach(row=>{
+            array.forEach(rows=>{
             filter =row.filter(function(hero){
-              return hero.fk_Empleados == rows
+              return hero.fk_Empleados === rows
             })
              return arrayFilter.push(filter)
           })
@@ -1274,7 +1269,7 @@ pdfExportComponent ;
     let reporteImasivo;
 
     if(this.state.reporteImasivo[0]){
-      console.log("filtrado" , this.state.reporteImasivo[0])
+      // console.log("filtrado" , this.state.reporteImasivo[0])
 
       let estado  = this.state.reporteImasivo;
       function array_equals(a, b){

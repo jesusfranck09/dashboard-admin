@@ -1,16 +1,22 @@
+
 import React from "react";
 import MUIDataTable from "mui-datatables";
 import Grow from "@material-ui/core/Grow";
-import {MDBRow,MDBCol,MDBBtn,MDBTableHead, MDBContainer,MDBTable, MDBTableBody} from 'mdbreact';
+import {MDBRow,MDBCol,MDBBtn,MDBTableHead, MDBContainer, MDBNavbar, MDBNavbarBrand, MDBNavbarNav,MDBTable, MDBTableBody, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink} from 'mdbreact';
 import logo from '../images/logo.png'
+import logotipo from '../images/logotipo.png'
 import diagnostico from '../images/diagnostico.png'
 import { API} from '../utils/http'
 import {Spinner,Button as BotonReactstrap} from 'react-bootstrap'
 import '../Home/index.css'
+import usuario from '../images/usuario.png'
 import Button from '@material-ui/core/Button';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
-import {Alert} from 'reactstrap'
+// import PDF from '../PDF/index'
+import { Bar } from "react-chartjs-2";
+import { MDBBadge} from "mdbreact";
+import {Alert,Badge} from 'reactstrap'
 import {
   Grid,
   
@@ -18,7 +24,11 @@ import {
 import axios from 'axios'
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import TableBody from '@material-ui/core/TableBody';
 import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
 import { PDFExport }  from '@progress/kendo-react-pdf';
 import PageTemplate from './pageTemplate.jsx';
 import Navbar from '../Home/navbar'
@@ -39,8 +49,8 @@ pdfExportComponent ;
       botonDescargarIndividual:'1',
       botonDescargaMasivo:'1',
       peticion1:[],
-      peticion:[],
       reporteImasivo:[],
+      resultadosInicio:[],
       filtro1:'',
       filtro2:'',
       filtro3:'',
@@ -59,21 +69,99 @@ pdfExportComponent ;
       nombre8:'',
       datosLength:'',
       resultados:[],
-      empleadosRecibidos:'',
-      empleadosTotales:'',
+      fecha:'',
+      collapse: false,
+      isOpen: false,
       spinner:false,
       showModal2: false,  
-      spinnerReporte:false,
+      barChartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [
+            {
+              barPercentage: 1,
+              gridLines: {
+                display: true,
+                color: "rgba(0, 0, 0, 0.1)"
+              }
+            }
+          ],
+          yAxes: [
+            {
+              gridLines: {
+                display: true,
+                color: "rgba(0, 0, 0, 0.1)"
+              },
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        }
+      },
+      dataBar: {
+        labels: ["Nulo", "Bajo", "Medio", "Alto", "Muy Alto"],
+        datasets: [
+          {
+            label: "% Resultados",
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+              "rgba(155,224,247)",
+              "rgba(107,245,110)",
+              "rgba(255, 500,0)",
+              "rgba(255, 192, 0)",
+              "rgba(255, 0,0)",
+            ],
+            borderWidth: 2,
+            borderColor: [
+              // "rgba(255, 134, 159, 1)",
+              // "rgba(98,  182, 239, 1)",
+              // "rgba(255, 218, 128, 1)",
+              // "rgba(113, 205, 205, 1)",
+              // "rgba(170, 128, 252, 1)",
+              // "rgba(255, 177, 101, 1)"
+            ]
+          }
+        ]
+      } 
     };
+    this.onClick = this.onClick.bind(this);
+    this.handleclick = this.handleclick.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.ads = this.ads.bind(this);
     
   }
 
-     componentWillMount(){
-      this.getGlobalEmployees()    
-    }
+    componentWillMount(){
+      var Nombre = localStorage.getItem("nombre")
+      var Apellidos = localStorage.getItem("apellidos")
 
+      var LaFecha=new Date();
+      var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+      var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
+      var diasemana=LaFecha.getDay();
+      var FechaCompleta="";
+      var NumeroDeMes="";    
+      NumeroDeMes=LaFecha.getMonth();
+      FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
+  
+      this.setState({date:FechaCompleta}) 
+      this.setState({nombre:Nombre}) 
+      this.setState({apellidos:Apellidos}) 
+      this.getGlobalEmployees()
+    
+    }
+      onClick() {
+        this.setState({
+          collapse: !this.state.collapse,
+        });
+      }
+  
+      handleclick(){
+      this.props.history.push("/profile")
+      }
+   
       handleLogOut(){
       localStorage.removeItem("elToken")
       localStorage.removeItem("nombre")
@@ -91,12 +179,14 @@ pdfExportComponent ;
       ads(){
         this.setState({showModal2:true}) 
       }
-       getGlobalEmployees = async () =>{
-        this.setState({spinner:true})
-        var totalEmpleados = [];
-        var datasort;
+       getGlobalEmployees   = async () => {
+        let totalEmpleados = [];
+        let datasort;
+        let order;
         var id  =  localStorage.getItem("idAdmin")       
-          await axios({
+        // const url = 'http://localhost:8000/graphql'
+    
+        await  axios({
           url:  API,
           method:'post',
           data:{ 
@@ -112,102 +202,138 @@ pdfExportComponent ;
               Puesto
               CentroTrabajo
               periodo
-              ATSDetectado
                 }
               }
               `
           }
-          }).then(datos => {
-             datasort =  datos.data.data.getEmployeesResolvesATS
+          }).then((datos) => {
+            datasort = datos.data.data.getEmployeesResolvesATS
             datasort.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
             this.setState({empleados:datasort}) 
-           
-             datasort.map(rows=>{
-             axios({
-              url:  API,
-              method:'post',
-              data:{
-              query:`
-                query{
-                  getresultGlobalSurveyATS(data:"${[rows.id,rows.periodo]}"){
-                  id 
-                  Respuestas 
-                  fk_preguntasATS
-                  fk_Empleados 
-                  nombre 
-                  ApellidoP 
-                  ApellidoM 
-                  Curp 
-                  RFC 
-                  FechaNacimiento 
-                  Sexo 
-                  EstadoCivil 
-                  AreaTrabajo 
-                  Puesto 
-                  TipoPuesto 
-                  NivelEstudios 
-                  TipoPersonal 
-                  JornadaTrabajo 
-                  TipoContratacion 
-                  TiempoPuesto 
-                  ExperienciaLaboral 
-                  RotacionTurnos 
-                  CentroTrabajo
-                  fk_administrador 
-                  fk_correos 
-                      }
-                    }
-                  `
-              }
-                  }).then(datos => {    
-                  totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
-                  // console.log("totalEMpleados" , totalEmpleados)    
-                  this.setState({peticion:totalEmpleados})   
-                  console.log("peticion1",this.state.peticion.length)
-                  console.log("peticion2",this.state.empleados.length)
 
-                  if(this.state.peticion.length == this.state.empleados.length){
-                    this.setState({spinner:false})
-                  }
-                  })
-                  .catch(err => {
-                  });  
-          })
+
+            datasort.map(rows=>{
+                axios({
+                url:  API,
+                method:'post',
+                data:{
+                query:`
+                  query{
+                    getresultGlobalSurveyATS(data:"${[rows.id,rows.periodo]}"){
+                    id 
+                    Respuestas 
+                    fk_preguntasATS
+                    fk_Empleados 
+                    ponderacion
+                    nombre 
+                    ApellidoP 
+                    ApellidoM 
+                    Curp 
+                    RFC 
+                    FechaNacimiento 
+                    Sexo 
+                    EstadoCivil 
+                    correo 
+                    AreaTrabajo 
+                    Puesto 
+                    TipoPuesto 
+                    NivelEstudios 
+                    TipoPersonal 
+                    JornadaTrabajo 
+                    TipoContratacion 
+                    TiempoPuesto 
+                    ExperienciaLaboral 
+                    RotacionTurnos 
+                    CentroTrabajo
+                    fk_administrador 
+                    fk_correos 
+                        }
+                      }
+                    `
+                }
+                    }).then(datos => {    
+                    totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS) 
+                    this.setState({resultadosInicio:totalEmpleados})  
+                    })
+                    .catch(err => {
+                    });  
+              
+            })
+        
           }).catch(err=>{
             console.log("error" ,err)
-          }) 
+          })
 
+         
      }
 
-      consultarDatosFiltrados( datos,filtro){
-        // console.log("entro")
+      consultarDatosFiltrados = async (datos,filtro) =>{
         this.setState({botonDescargaMasivo:''})
         this.setState({botonDescargarIndividual:''})
-        var array=[];
+        this.setState({spinner:true})
+        let array=[];
+        let periodo;
+        let totalEmpleados=[];
         datos.map(rows=>{
+          periodo= rows.data[6]
           array.push(rows.data[0])
-          return array
         })
-        let arrayFilter = []
-        let filter;
-       
-      
 
+   
         array.map(rows=>{
-          this.state.peticion.map(row=>{
-
-            filter =row.filter(function(hero){
-              return hero.fk_Empleados == rows
-            })
-              arrayFilter.push(filter)
-          })
+            
         })
-       
-         this.setState({peticion1:arrayFilter})
+        for(var i=0; i<=array.length;i++){   
 
-         this.setState({peticion1:arrayFilter})
-
-            if(filtro!== undefined){
+       await  axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+            query{
+              getresultGlobalSurveyATS(data:"${[array[i],periodo]}"){
+              id 
+              Respuestas 
+              fk_preguntasATS
+              fk_Empleados 
+              ponderacion
+              nombre 
+              ApellidoP 
+              ApellidoM 
+              Curp 
+              RFC 
+              FechaNacimiento 
+              Sexo 
+              EstadoCivil 
+              correo 
+              AreaTrabajo 
+              Puesto 
+              TipoPuesto 
+              NivelEstudios 
+              TipoPersonal 
+              JornadaTrabajo 
+              TipoContratacion 
+              TiempoPuesto 
+              ExperienciaLaboral 
+              RotacionTurnos 
+              CentroTrabajo
+              fk_administrador 
+              fk_correos 
+                  }
+                }
+              `
+          }
+              }).then(datos => {    
+              totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
+              // console.log("totalEMpleados" , totalEmpleados)
+              this.setState({peticion1:totalEmpleados})
+    
+              })
+              .catch(err => {
+              });  
+           }
+           this.setState({spinner:false}) 
+            if(filtro!= undefined){
             if(filtro[0].length>0){
               this.setState({nombre1:filtro[0][0]})
               this.setState({filtro1:"ID"})
@@ -273,47 +399,79 @@ pdfExportComponent ;
           }
           
           this.setState({datosLength:datos.length})
-           
-          console.log("datos enviados",datos[0].data[6])
+        // console.log("datos enviados",datos[0].data[6])
           }
 
-        reporteImasivo  = async (datos,filtro) => {
-              // console.log("entro")
-        this.setState({botonDescargaMasivo:''})
+
+        reporteImasivo = async (datos,filtro) =>{
         this.setState({botonDescargarIndividual:''})
-        var array=[];
-        datos.map(rows=>{
-          array.push(rows.data[0])
-          return array
-        })
-        let arrayFilter = []
-        let filter;
-       
-      
-
-        array.map(rows=>{
-          this.state.peticion.map(row=>{
-
-            filter =row.filter(function(hero){
-              return hero.fk_Empleados == rows
-            })
-              arrayFilter.push(filter)
+        this.setState({botonDescargar:''})   
+         this.setState({spinner:true})
+          let array=[];
+          let periodo;
+          let totalEmpleados=[];
+          datos.map(rows=>{
+            periodo= rows.data[6]
+            array.push(rows.data[0])
           })
-        })
+          for(var i=0; i<=array.length;i++){   
+            // console.log("array en la posicion  de i " , array[i])    
+        // const url = 'http://localhost:8000/graphql'
 
-        function array_equals(a, b){
-          return a.length === b.length && a.every((item,idx) => item === b[idx])
-         }
-         let tag = []
-         var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
+            await  axios({
+              url:  API,
+              method:'post',
+              data:{
+              query:`
+                query{
+                  getresultGlobalSurveyATS(data:"${[array[i],periodo]}"){
+                  id 
+                  Respuestas 
+                  fk_preguntasATS
+                  fk_Empleados 
+                  ponderacion
+                  nombre 
+                  ApellidoP 
+                  ApellidoM 
+                  Curp 
+                  RFC 
+                  FechaNacimiento 
+                  Sexo 
+                  EstadoCivil 
+                  correo 
+                  AreaTrabajo 
+                  Puesto 
+                  TipoPuesto 
+                  NivelEstudios 
+                  TipoPersonal 
+                  JornadaTrabajo 
+                  TipoContratacion 
+                  TiempoPuesto 
+                  ExperienciaLaboral 
+                  RotacionTurnos 
+                  CentroTrabajo
+                  fk_administrador 
+                  fk_correos 
+                      }
+                    }
+                  `
+              }
+              }).then(datos => {    
+              totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
+              // console.log("totalEMpleados" , totalEmpleados)
+              this.setState({reporteImasivo:totalEmpleados})
 
-        this.setState({reporteImasivo:filtrado})
+              console.log("reporteImasivo" ,this.state.reporteImasivo )
+               
+              })
+              .catch(err => {
+              });  
+           }
+           this.setState({spinner:false})
 
 
-            
-            this.setState({reporteImasivo:arrayFilter})
-
-            if(filtro!== undefined){
+          
+            if(filtro!= undefined){
             if(filtro[0].length>0){
               this.setState({nombre1:filtro[0][0]})
               this.setState({filtro1:"ID"})
@@ -379,7 +537,6 @@ pdfExportComponent ;
           }
           
          this.setState({datosLength:datos.length})
-           
         // console.log("datos enviados",datos[0].data[6])
           }     
 
@@ -425,7 +582,7 @@ pdfExportComponent ;
                 `
             }
                 }).then(datos => {   
-                  // console.log("datos" , datos)
+                  console.log("datos" , datos)
                 if(datos.data.data.resultSingleSurvey.length > 0 ){
                 this.setState({resultados:'' })  
                 this.setState({resultados :datos.data.data.resultSingleSurvey })                
@@ -447,23 +604,11 @@ pdfExportComponent ;
 
   render() {  
     let spinner;
-    let spinnerReporte;
     let nombre;
     let arrayNombre= []
    
-    if(this.state.spinner=== true){
-      spinner = <div><BotonReactstrap variant="danger" disabled>
-      <Spinner
-        as="span"
-        outline
-        animation="border"
-        size="sm"
-        role="status"
-        aria-hidden="true"
-      />
-      
-    </BotonReactstrap>{''}
-    <BotonReactstrap outline variant="primary" disabled>
+    if(this.state.spinner== true){
+      spinner = <div><BotonReactstrap variant="warning" disabled>
       <Spinner
         as="span"
         outlined
@@ -472,34 +617,18 @@ pdfExportComponent ;
         role="status"
         aria-hidden="true"
       />
-      Validando información por favor espere ...
-    </BotonReactstrap>{''}
-    </div>
-    }
-
-    if(this.state.spinnerReporte=== true){
-      spinnerReporte = <div><BotonReactstrap variant="warning" disabled>
-      <Spinner
-        as="span"
-        outline
-        animation="border"
-        size="sm"
-        role="status"
-        aria-hidden="true"
-      />
       
     </BotonReactstrap>{''}
-    <BotonReactstrap outline variant="warning" disabled>
+    <BotonReactstrap variant="warning" disabled>
       <Spinner
         as="span"
-        outlined
-        animation="border"
+        animation="grow"
         size="sm"
         role="status"
         aria-hidden="true"
       />
-      Generando reporte por favor espere ...
-    </BotonReactstrap>{''}
+      Generando reporte por favor espere...
+    </BotonReactstrap>
     </div>
     }
 
@@ -507,11 +636,11 @@ pdfExportComponent ;
     let accionNo =0;
     this.state.peticion1.map(rows=>{
       if(rows[1]){
-        if (rows[1].Respuestas === 'si'){
+        if (rows[1].Respuestas == 'si'){
            accionSi = accionSi + 1
         }
         // console.log("accionSi" , accionSi)
-        if (rows[1].Respuestas === 'no'){
+        if (rows[1].Respuestas == 'no'){
            accionNo = accionNo +1
         }
       }
@@ -566,25 +695,28 @@ pdfExportComponent ;
       
         onTableChange: (action, tableState) => {
         datosEmpleados=tableState.displayData
-        
         },
         onFilterChange: (action, filtroTable) => {
           filtro=filtroTable
           }     };
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+            const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
+            const container = { width: 500, height: 400,marginLeft: "17%"}
+            const container2 = { width: 500, height: 300 }
             let pdfView1;
             let ATS;
             let ATSReporte;
 
             let a  = 1
 
-            if(this.state.resultados.length!==0){
-            if(this.state.resultados[1].Respuestas==="si"){
+            if(this.state.resultados.length!=0){
+            if(this.state.resultados[1].Respuestas=="si"){
                 ATSReporte= <font size="1"
                 face="arial"
                 color="red" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
                 ATS = <Alert className ="mt-4" color ="danger ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
-            }if(this.state.resultados[1].Respuestas==="no"){
+            }if(this.state.resultados[1].Respuestas=="no"){
                 ATSReporte= <font size="1"
                 face="arial"
                 color="blue" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
@@ -593,7 +725,7 @@ pdfExportComponent ;
             }
 
             if(this.state.resultados.length>0){ 
-            // console.log("state",this.state.resultados)
+            console.log("state",this.state.resultados)
             pdfView1 = <MDBContainer > <Alert className ="mt-4" color ="primary ">Resultados individuales de la Aplicación de la evaluación ATS </Alert>
 
             
@@ -1034,26 +1166,27 @@ pdfExportComponent ;
       charts(FusionCharts);
 
         
-      if(this.state.empleados[0]){
-        this.state.empleados.map(rows=>{
-          mapeo.push(rows.ATSDetectado)
-            // console.log("mapeo" , mapeo)
-            filtrar =  mapeo.filter(function(hero) {
-              // console.log("hero" , hero)
-            return hero==='true';
-            });
+    if(this.state.resultadosInicio[0]){
+    
+      
+      this.state.resultadosInicio.map(rows=>{
+        mapeo.push(rows[1])
   
-            filtrar1 =  mapeo.filter(function(hero) {
-              return hero ==='false';
-            });   
-  
-        }) 
-        let total = filtrar1.length+filtrar.length
-        var porcentaje= (filtrar.length / total)*100;
-        var intPorcentaje= Math.round( porcentaje);
-  
-        var porcentaje2= (filtrar1.length / total)*100;
-        var intPorcentaje2= Math.round(porcentaje2);
+          filtrar =  mapeo.filter(function(hero) {
+          return hero.Respuestas ==='si';
+          });
+
+          filtrar1 =  mapeo.filter(function(hero) {
+            return hero.Respuestas ==='no';
+          });   
+      }) 
+      let total = filtrar1.length+filtrar.length
+      
+      var porcentaje= (filtrar.length / total)*100;
+      var intPorcentaje= Math.round( porcentaje);
+
+      var porcentaje2= (filtrar1.length / total)*100;
+      var intPorcentaje2= Math.round(porcentaje2);
        dataSource = {
         chart: {
           caption: "Gráfica de previsualización de ATS detectado",
@@ -1068,7 +1201,7 @@ pdfExportComponent ;
           data: [
             {
               label: filtrar.length +" " + "Empleados con ATS"  ,
-              value:  intPorcentaje,
+              value:  porcentaje,
               color: "#FF0000",
               labelFontSize:12
               // link:"www.google.com"
@@ -1076,7 +1209,7 @@ pdfExportComponent ;
  
             {
               label:filtrar1.length  + " "+ "Empleados sin ATS" ,
-              value: intPorcentaje2,
+              value: porcentaje2,
               color: "#9BE0F7",
               labelFontSize:12,
        
@@ -1084,44 +1217,104 @@ pdfExportComponent ;
           ]
         };
     }      
-
-    let reporteGlobal;
-
-    if(this.state.peticion1[0]){
-      let estado  = this.state.peticion1;
-      function array_equals(a, b){
-        return a.length === b.length && a.every((item,idx) => item === b[idx])
-        }
-        let tag = []
-        var filtrado = estado.filter(item => !array_equals(item, tag))
-        if(filtrado[0]){
-          console.log("filtrado" , filtrado)
-
-        reporteGlobal =
-        <MDBContainer>
-        <div className="example-config">
+     
+    
+    return (
+      <React.Fragment>
+      <div>
+          <Navbar/>
+        
           <MDBContainer>
-            <MDBRow>     
-              <MDBCol>   
-                <MDBBtn  color="primary" size="3" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-                    Descargar Resultados
-                </MDBBtn>
-              </MDBCol>
-              <MDBCol> 
-               <MDBBtn color="danger" outline onClick= {(e) => window.location.reload()}>Cerrar</MDBBtn>
-              </MDBCol> 
-            </MDBRow>  
-          </MDBContainer>
-         </div>
-        {filtrado.map((rows,i) =>{          
-            let botonDescargar;
-            a=1          
-            let respuesta;
-            if(rows[1]){
+  
+                  <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
+                    <div className="row">
+                        <div className="col-md-12" item xs={12}>
+                            <center><br/>
+                                <br/>
+                                <br/>
+                                <font size="4">
+                                El Distribuidor Asociado Master de CONTPAQi® que ha recibido el reconocimiento como el
+                                <br/>
+                                 Primer Lugar en Ventas por 15 Años Consecutivos en la Ciudad de México.
+                                
+                                <br/>
+                                <br/>
+                                Alfa Diseño de Sistemas: 
+                               
+                                Somos un distribuidor asociado master de CONTPAQi®, 
+                                <br/>
+                                 una casa desarrolladora de software, que además es PAC (Proveedor Autorizado de Certificación) y PCRDD 
+                                <br/>
+                                (Proveedor de Certificación y Recepción de Documentos Digitales) por parte del SAT.
+                                {/* <img src={Ok} alt="ok" className="img-fluid"/><br/><br/> */}
+                                <br/>
+                                <br/>
+                                Conoce más sobre nosotros en 
+                                <br></br>
+                                  <a href="www.ads.com.mx">www.ads.com.mx</a>
+                                </font>
+
+                                <br/>
+                                <br/>
+                                <br/>
+                                {/* <Alert color="secondary" style={{fontSize: 24}}>Su encuesta ha finalizado, Gracias por su colaboración</Alert> */}
+                                <br/>
+                                <br/>
+                                <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
+                                <Button 
+                                  variant="outlined"
+                                    color="primary"
+                                    type = "submit"
+                                     onClick={()=>{this.setState({showModal2:false})}}
+                                  >
+                                   Cerrar
+                                  </Button>
+                                  </Grid>
+                            </center>
+                            </div>
+                        </div>
+                    </Modal>
+                </MDBContainer> 
+
+              <div
+              
+              style={{
+                marginLeft: "5%",
+                position: "absolute"
+              }}
+              >
+                <div style={{ height: "110%"}}>
+               
+                  <Grow in={true}>
+                  <div style={{ margin: "60px 56px" }}>
+                  <ReactFusioncharts
+                  type="pie3d"
+                  width="100%"
+                  height="80%"
+                  dataFormat="JSON"
+                  dataSource={dataSource}
+                  /> 
+                  <MUIDataTable
+                  title={`Resultados ATS`}
+                  data={data}
+                  columns={columns}
+                  options={options}
+                />
+              <MDBRow style={{marginTop:20}}>
+
+              <MDBCol ><MDBBtn  disabled={!this.state.botonDescargar}  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Descarga del reporte Global</MDBBtn> &nbsp;&nbsp;&nbsp;&nbsp;<MDBBtn  disabled={!this.state.botonDescargaMasivo}  onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  outline color="success">Descarga masiva evaluaciones</MDBBtn> </MDBCol>  
+              <MDBCol>
+              <MDBContainer >
+                {spinner}
+
+                { this.state.peticion1.map((rows,i) =>{  
+                a=1          
+                let respuesta;
+                if(rows[1]){
                 return (
-                 <div>
                      <div>
-                     
+                      <div className="example-config">
+                      </div>
                       <div style={{ position: "absolute", left: "-1500px", top: 0 }}>
                           <PDFExport
                               pageTemplate={PageTemplate}
@@ -1236,12 +1429,13 @@ pdfExportComponent ;
                                     <td width="12%"><font size="1" face="arial"color="black"><strong>Accion Requerida</strong></font></td>                                                                     
 
                                   </tr>
-                                  { this.state.peticion1.map((rows,i) => {
-                                    // console.log("rows",rows)
+                                  { this.state.peticion1.sort().map((rows,i) => {
+                                    console.log("rows",rows)
                                     if(rows[1]){
-                                      if(rows[1].Respuestas ==='si'){
+                              
+                                      if(rows[1].Respuestas =='si'){
                                       respuesta =  <TableCell  width="12%" style={{backgroundColor: "#FF0000"}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">SI</font></TableCell>
-                                      }if(rows[1].Respuestas ==='no'){
+                                      }if(rows[1].Respuestas =='no'){
                                         respuesta =  <TableCell  width="12%" style={{backgroundColor: "#9BE0F7 "}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">NO</font></TableCell>
                                       }
                                   
@@ -1268,50 +1462,32 @@ pdfExportComponent ;
                               </PDFExport>
                           </div>
                         </div>
+                               
+                        )       
+                      }
 
-                    </div>          
-                        )   
-                      }                      
+                        return(
+                        <MDBContainer>
+                        <MDBRow>     
+                        <MDBCol>   
+                        <MDBBtn  color="primary" size="3"  outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                            Descargar Resultados
+                        </MDBBtn>
+                        </MDBCol>
+                        <MDBCol> 
+                        <MDBBtn color="danger" onClick= {(e) => window.location.reload()}>Cerrar</MDBBtn>
+                        </MDBCol> 
+                        </MDBRow>  
+                        </MDBContainer>
+                      )
                     } )
                     
                   }
-    </MDBContainer>
-        }
-    }
-
-    let reporteImasivo;
-
-    if(this.state.reporteImasivo[0]){
-      console.log("filtrado" , this.state.reporteImasivo[0])
-
-      let estado  = this.state.reporteImasivo;
-      function array_equals(a, b){
-        return a.length === b.length && a.every((item,idx) => item === b[idx])
-        }
-        let tag = []
-        var filtrado = estado.filter(item => !array_equals(item, tag))
-        if(filtrado[0]){
-
-          reporteImasivo = 
-          <MDBContainer>
-              <div className="example-config">
-                <MDBContainer>
-                  <MDBRow>     
-                    <MDBCol>   
-                      <MDBBtn  color="primary" size="3" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-                          Descargar Resultados
-                      </MDBBtn>
-                    </MDBCol>
-                    <MDBCol> 
-                      <MDBBtn color="danger" outline onClick= {(e) => window.location.reload()}>Cerrar</MDBBtn>
-                    </MDBCol> 
-                  </MDBRow>  
-                </MDBContainer>
-              </div>
-           { filtrado.map((rows) =>{ 
+                  { this.state.reporteImasivo.map((rows) =>{ 
                     a=1       
                   let respuesta;
                   if(rows[0]){
+             
                   return (
                      <div>
                       <div style={{ position: "absolute", left: "-1500px", top: 0 }}>
@@ -1396,12 +1572,12 @@ pdfExportComponent ;
                                   {this.state.reporteImasivo.map(rows=>{
                                      let ATSReporteMasivo;
                                     if(rows[0]){
-                                      if(rows[1].Respuestas==="si"){
+                                      if(rows[1].Respuestas=="si"){
                                         ATSReporteMasivo= <font size="1"
                                         face="arial"
                                         color="red" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
                                         ATS = <Alert className ="mt-4" color ="danger ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
-                                        }if(rows[1].Respuestas==="no"){
+                                        }if(rows[1].Respuestas=="no"){
                                           ATSReporteMasivo= <font size="1"
                                           face="arial"
                                           color="blue" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
@@ -1603,48 +1779,24 @@ pdfExportComponent ;
                         </div>       
                         )       
                        }
-                    } )  
-            }
-          </MDBContainer>
-    }
-
-  } 
-
-    return (
-      <React.Fragment>
-      <div>
-          <Navbar/>
-        
-          <MDBContainer> 
-                </MDBContainer>        
-                  <div>
-                  <Grow in={true}>
-
-                  <div style={{ margin: "50px 40px" }}>
-                  <ReactFusioncharts
-                  type="pie3d"
-                  width="99%"
-                  height="80%"
-                  dataFormat="JSON"
-                  dataSource={dataSource}
-                  />{spinner}
-                  <MUIDataTable
-                  title={`Resultados ATS`}
-                  data={data}
-                  columns={columns}
-                  options={options}
-                />
-              <MDBRow style={{marginTop:20}}>
-              <MDBCol ><MDBBtn  disabled={!this.state.botonDescargar}  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Descarga del reporte Global</MDBBtn> &nbsp;&nbsp;&nbsp;&nbsp;<MDBBtn  disabled={!this.state.botonDescargaMasivo}  onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  outline color="success">Descarga masiva evaluaciones</MDBBtn> </MDBCol>  
-              <MDBCol>
-              <MDBContainer >
-                {spinnerReporte}
-                {reporteGlobal}
-                {reporteImasivo}
-               {/* {botonDescargar} */}
-                
-                  {/* {botonDescargar} */}
-                
+                        return(
+                        <MDBContainer>
+                        <MDBRow>     
+                        <MDBCol>   
+                        <MDBBtn  color="primary" size="3" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                            Descargar Resultados
+                        </MDBBtn>
+                        </MDBCol>
+                        <MDBCol> 
+                        <MDBBtn color="danger" outline onClick= {(e) => window.location.reload()}>Cerrar</MDBBtn>
+                        </MDBCol> 
+                        </MDBRow>  
+                        </MDBContainer>
+                      )
+                      
+                    } )
+                    
+                  }
                 </MDBContainer>
                 </MDBCol> 
                 {pdfView1} 
@@ -1654,7 +1806,8 @@ pdfExportComponent ;
               </Grow>  
             </div>
           </div>
-        
+          </div>
+
       </React.Fragment>
         
       )
