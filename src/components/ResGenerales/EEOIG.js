@@ -580,7 +580,7 @@ export default class App extends React.Component {
                 id 
                 Respuestas 
                 fk_preguntasEEO
-                fk_Empleados
+                fk_empleados
                 nombre 
                 ApellidoP 
                 ApellidoM 
@@ -638,7 +638,7 @@ export default class App extends React.Component {
                   id 
                   Respuestas 
                   fk_preguntasEEO
-                  fk_Empleados
+                  fk_empleados
                   ponderacion
                   nombre 
                   ApellidoP 
@@ -696,7 +696,7 @@ export default class App extends React.Component {
                   id 
                   Respuestas 
                   fk_preguntasEEO
-                  fk_Empleados
+                  fk_empleados
                   nombre 
                   ApellidoP 
                   ApellidoM 

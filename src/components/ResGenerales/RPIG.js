@@ -579,7 +579,7 @@ pdfExportComponent ;
                   id 
                   Respuestas 
                   fk_preguntasRP
-                  fk_EmpleadosRP 
+                  fk_empleadosRP 
                   nombre 
                   ApellidoP 
                   ApellidoM 
@@ -621,7 +621,7 @@ pdfExportComponent ;
                   }
                 })
                   .catch(err => {
-                    console.log("el error es  ",err)
+                    console.log("el error es  ",err.response)
                   });  
           }
           
@@ -640,7 +640,7 @@ pdfExportComponent ;
             id 
             Respuestas 
             fk_preguntasRP
-            fk_EmpleadosRP 
+            fk_empleadosRP 
             ponderacion
             nombre 
             ApellidoP 
@@ -683,7 +683,7 @@ pdfExportComponent ;
             }
           })
             .catch(err => {
-              console.log("el error es  ",err)
+              console.log("el error es  ",err.response)
             });  
   
               axios({
@@ -696,7 +696,7 @@ pdfExportComponent ;
                     id 
                     Respuestas 
                     fk_preguntasRP
-                    fk_EmpleadosRP
+                    fk_empleadosRP
                     ponderacion
                     nombre 
                     ApellidoP 
@@ -729,7 +729,7 @@ pdfExportComponent ;
                       // console.log("los resultadosQuery",this.state.resultadosQuery )
                     })
                     .catch(err => {
-                      console.log("el error es  ",err)
+                      console.log("el error es  ",err.response)
                     });  
             }      
 
