@@ -140,14 +140,13 @@ class SheetJSApp extends React.Component {
 	   
 		 let empleadosPack = parseInt(em)
 		 let max;
-		const correoA = localStorage.getItem("correo")
 		 await axios({
 				 url:  API,
 				 method:'post',
 				 data:{
 				 query:`
 				 mutation{
-					 authRegisterSingleEmployee(data:"${[correoA]}"){
+					 authRegisterSingleEmployee(data:"${[idAdmin]}"){
 					 max
 						 }
 					 }
