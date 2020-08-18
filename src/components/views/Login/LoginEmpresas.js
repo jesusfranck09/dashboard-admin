@@ -55,6 +55,7 @@ class Login extends React.Component {
         this.state = {
             rfc: '',
             password: '',
+            isPasswordShown: false
         
         }
       }
@@ -84,6 +85,12 @@ handleInput = (e) => {
         [id]:value
     });
   }
+
+  togglePasswordVisiblity = () => {
+    const { isPasswordShown } = this.state;
+    this.setState({ isPasswordShown: !isPasswordShown });
+  };
+
 
   handleForm = (e, login) => { 
     e.preventDefault();
@@ -146,6 +153,8 @@ handleInput = (e) => {
   }
   }
   render() {
+    const { isPasswordShown } = this.state;
+
     const overlay = (
       <div
         id="sidenav-overlay"
@@ -179,7 +188,7 @@ handleInput = (e) => {
                 <MDBNavbarBrand>
                 <AppNavbarBrand
                     full={{ src: diagnostico, width: 140, height: 45, alt: 'DIAGNOSTICO' }} />
-                  <strong className="white-text">Bienvenido  Login Empresas</strong>
+                  <strong className="white-text">Bienvenido</strong>
                 </MDBNavbarBrand>
      
                 <MDBNavbarToggler />
@@ -236,7 +245,14 @@ handleInput = (e) => {
                           <MDBIcon icon="lock" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input id="password" onChange={this.handleInput} type="password" placeholder="Contraseña"/>
+                        <Input id="password" onChange={this.handleInput} type={isPasswordShown ? "text" : "password"} placeholder="Contraseña"/>
+                        <InputGroupText>
+                        <i
+                          className="fa fa-eye password-icon"
+                          onClick={this.togglePasswordVisiblity}
+                        />
+                        </InputGroupText>
+                         
                       </InputGroup>
 
                            
