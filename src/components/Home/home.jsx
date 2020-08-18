@@ -24,6 +24,8 @@ import ModalVideo from 'react-modal-video'
 import "./styles.scss";
 import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined';
 import Upload from '../uploadImage/upload'
+import UpdateLogo from '../uploadImage/updateLogo'
+
 import { MDBModal, MDBModalBody, MDBModalHeader} from "mdbreact";
 
 import { MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
@@ -50,6 +52,7 @@ class Home extends React.Component {
       modal11:false,
       modal12:false,
       modal20:false,
+      modal21:false,
       totalEmpleados:'',
       empleadosRP:[],
       empleadosRPFalse:[],
@@ -1444,10 +1447,25 @@ openModal () {
     cargarLogo  =  <MDBContainer >
       <MDBModal isOpen={this.state.modal20} toggle={this.toggle(20)}  tabindex="-1"  size="md">
         <MDBModalHeader toggle={this.toggle(20)}>
-          Cargar Logo
+          Cargar logo
         </MDBModalHeader>
         <MDBModalBody>
         <Upload/>
+        </MDBModalBody>   
+      </MDBModal>
+    </MDBContainer>
+
+   }
+   let updateLogo;
+   if(this.state.modal21){
+
+    updateLogo  =  <MDBContainer >
+      <MDBModal isOpen={this.state.modal21} toggle={this.toggle(21)}  tabindex="-1"  size="md">
+        <MDBModalHeader toggle={this.toggle(21)}>
+          Modificar logo
+        </MDBModalHeader>
+        <MDBModalBody>
+        <UpdateLogo/>
         </MDBModalBody>   
       </MDBModal>
     </MDBContainer>
@@ -1459,6 +1477,14 @@ openModal () {
    logo = <div>
     <strong style={{ color: '#FF5733  ' }}>Adjuntar logo de mi empresa</strong>
     <IconButton onClick={this.toggle(20)} color="#FF5733"> <PublishOutlinedIcon /></IconButton>
+   </div>
+   }
+
+   let modificarLogo;
+   if(this.state.urlLogo){
+    logo = <div>
+    <strong style={{ color: '#FF5733  ' }}>Modificar mi logo</strong>
+    <IconButton onClick={this.toggle(21)} color="#FF5733"> <PublishOutlinedIcon /></IconButton>
    </div>
    }
 
@@ -1565,6 +1591,7 @@ openModal () {
           <MDBCardTitle>Acciones a realizar</MDBCardTitle>      
          <MDBCardHeader><strong>Detección de ATS : {this.state.AtsDetectado.length}</strong> <IconButton onClick={this.toggle(10)}> <RemoveRedEyeOutlinedIcon /></IconButton>               
           {logo}
+          {updateLogo}
          </MDBCardHeader>   
        </MDBCardBody>
       </MDBCard>
@@ -1582,6 +1609,7 @@ openModal () {
         {dep}
         {suc}
         {cargarLogo}
+        {modificarLogo}
         </MDBContainer>
       </div>
       <div><ModalVideo channel='vimeo' isOpen={this.state.isOpen} videoId='392556343' onClose={() => this.setState({isOpen: false})} /></div>

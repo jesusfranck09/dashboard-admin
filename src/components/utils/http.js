@@ -7,6 +7,3 @@ export {
 	API
 }
 
-//hlkhlkjlkjlk
-let a = "deploy "
-

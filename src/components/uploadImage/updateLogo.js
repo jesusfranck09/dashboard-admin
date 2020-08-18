@@ -3,9 +3,10 @@ import { storage } from "./firebase";
 import {MDBBtn} from 'mdbreact'
 import axios from 'axios'
 import {API} from '../utils/http'
+import Button from '@material-ui/core/Button'
 
 
-const ReactFirebaseFileUpload = () => {
+const ReactFirebaseFileUpdate = () => {
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState("");
   const [progress, setProgress] = useState(0);
@@ -50,7 +51,7 @@ const ReactFirebaseFileUpload = () => {
                     data:{
                     query:`
                     mutation{
-                    loadLogo(data:"${[idAdmin,url]}"){
+                    updateLogo(data:"${[idAdmin,url]}"){
                     message
                             }
                         }
@@ -82,7 +83,7 @@ const ReactFirebaseFileUpload = () => {
       <strong style={{marginLeft:20}}>{cargando}  {mensaje}<br/><br/>&nbsp;&nbsp;&nbsp;{mensaje2}</strong>
       <br />
       <input type="file"  accept="image/x-png,image/gif,image/jpeg/,image/png" onChange={handleChange} />
-      <MDBBtn disabled={!image} color ="success" onClick={handleUpload}>Cargar</MDBBtn>
+      <MDBBtn style={{marginLeft:20}} disabled={!image} color ="primary " onClick={(e) => { if (window.confirm('Su logo será remplazado por la imagen actual , ¿Desea continuar?')) handleUpload()} }>Actualizar logo</MDBBtn>
       <br />
       <br />
       <img width="400" height="400" src={url || "https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png"}  alt="firebase-image" />
@@ -90,4 +91,5 @@ const ReactFirebaseFileUpload = () => {
   );
 };
 
-export default ReactFirebaseFileUpload
+export default ReactFirebaseFileUpdate
+
