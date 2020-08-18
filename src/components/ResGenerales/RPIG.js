@@ -1298,7 +1298,7 @@ pdfExportComponent ;
               arr21Int.forEach (function(numero){
                 respuesta21 += numero;
               });
-              console.log("respuesta21" , respuesta21)
+              // console.log("respuesta21" , respuesta21)
               })
               var filtrar22 ;
               var array22Int;
@@ -1320,7 +1320,7 @@ pdfExportComponent ;
               arr22Int.forEach (function(numero){
                 respuesta22 += numero;
               });
-              console.log("respuesta22" , respuesta22)
+              // console.log("respuesta22" , respuesta22)
               })
               var filtrar23 ;
               var array23Int;
@@ -1342,7 +1342,7 @@ pdfExportComponent ;
               arr23Int.forEach (function(numero){
                 respuesta23 += numero;
               });
-              console.log("respuesta23" , respuesta23)
+              // console.log("respuesta23" , respuesta23)
               })
               var filtrar24 ;
               var array24Int;
@@ -1364,7 +1364,7 @@ pdfExportComponent ;
               arr24Int.forEach (function(numero){
                 respuesta24 += numero;
               });
-              console.log("respuesta24" , respuesta24)
+              // console.log("respuesta24" , respuesta24)
               })
               var filtrar25 ;
               var array25Int;
@@ -1386,7 +1386,7 @@ pdfExportComponent ;
               arr25Int.forEach (function(numero){
                 respuesta25 += numero;
               });
-              console.log("respuesta25" , respuesta1)
+              // console.log("respuesta25" , respuesta1)
               })
               var filtrar26 ;
               var array26Int;
@@ -1408,7 +1408,7 @@ pdfExportComponent ;
               arr26Int.forEach (function(numero){
                 respuesta26 += numero;
               });
-              console.log("respuesta26" , respuesta26)
+              // console.log("respuesta26" , respuesta26)
               })
               var filtrar27 ;
               var array27Int;
@@ -1430,7 +1430,7 @@ pdfExportComponent ;
               arr27Int.forEach (function(numero){
                 respuesta27 += numero;
               });
-              console.log("respuesta27" , respuesta27)
+              // console.log("respuesta27" , respuesta27)
               })
               var filtrar28 ;
               var array28Int;
@@ -1452,7 +1452,7 @@ pdfExportComponent ;
               arr28Int.forEach (function(numero){
                 respuesta28 += numero;
               });
-              console.log("respuesta28" , respuesta28)
+              // console.log("respuesta28" , respuesta28)
               })
               var filtrar29 ;
               var array29Int;
@@ -1474,7 +1474,7 @@ pdfExportComponent ;
               arr29Int.forEach (function(numero){
                 respuesta29 += numero;
               });
-              console.log("respuesta29" , respuesta29)
+              // console.log("respuesta29" , respuesta29)
               })
               var filtrar30 ;
               var array30Int;
@@ -1496,7 +1496,7 @@ pdfExportComponent ;
               arr30Int.forEach (function(numero){
                 respuesta30 += numero;
               });
-              console.log("respuesta30" , respuesta30)
+              // console.log("respuesta30" , respuesta30)
               })
               var filtrar31 ;
               var array31Int;
@@ -1518,7 +1518,7 @@ pdfExportComponent ;
               arr31Int.forEach (function(numero){
                 respuesta31 += numero;
               });
-              console.log("respuesta31" , respuesta31)
+              // console.log("respuesta31" , respuesta31)
               })
               var filtrar32 ;
               var array32Int;
@@ -1540,7 +1540,7 @@ pdfExportComponent ;
               arr32Int.forEach (function(numero){
                 respuesta32 += numero;
               });
-              console.log("respuesta32" , respuesta32)
+              // console.log("respuesta32" , respuesta32)
               })
               var filtrar33 ;
               var array33Int;
@@ -1562,7 +1562,7 @@ pdfExportComponent ;
               arr33Int.forEach (function(numero){
                 respuesta33 += numero;
               });
-              console.log("respuesta33" , respuesta33)
+              // console.log("respuesta33" , respuesta33)
               })
               var filtrar34 ;
               var array34Int;
@@ -1584,7 +1584,7 @@ pdfExportComponent ;
               arr34Int.forEach (function(numero){
                 respuesta34 += numero;
               });
-              console.log("respuesta34" , respuesta34)
+              // console.log("respuesta34" , respuesta34)
               })
               var filtrar35 ;
               var array35Int;
@@ -1606,7 +1606,7 @@ pdfExportComponent ;
               arr35Int.forEach (function(numero){
                 respuesta35 += numero;
               });
-              console.log("respuesta35" , respuesta35)
+              // console.log("respuesta35" , respuesta35)
               })
               var filtrar36 ;
               var array36Int;
@@ -1628,7 +1628,7 @@ pdfExportComponent ;
               arr36Int.forEach (function(numero){
                 respuesta36 += numero;
               });
-              console.log("respuesta36" , respuesta36)
+              // console.log("respuesta36" , respuesta36)
               })
               var filtrar37 ;
               var array37Int;
@@ -1650,7 +1650,7 @@ pdfExportComponent ;
               arr37Int.forEach (function(numero){
                 respuesta37 += numero;
               });
-              console.log("respuesta37" , respuesta37)
+              // console.log("respuesta37" , respuesta37)
               })
               var filtrar38 ;
               var array38Int;
@@ -1672,7 +1672,7 @@ pdfExportComponent ;
               arr38Int.forEach (function(numero){
                 respuesta38 += numero;
               });
-              console.log("respuesta38" , respuesta38)
+              // console.log("respuesta38" , respuesta38)
               })
               var filtrar39 ;
               var array39Int;
@@ -1694,7 +1694,7 @@ pdfExportComponent ;
               arr39Int.forEach (function(numero){
                 respuesta39 += numero;
               });
-              console.log("respuesta39" , respuesta39)
+              // console.log("respuesta39" , respuesta39)
               })
               var filtrar40 ;
               var array40Int;
@@ -1716,7 +1716,7 @@ pdfExportComponent ;
               arr40Int.forEach (function(numero){
                 respuesta40 += numero;
               });
-              console.log("respuesta40" , respuesta40)
+              // console.log("respuesta40" , respuesta40)
               })
               var filtrar41 ;
               var array41Int;
@@ -1724,7 +1724,7 @@ pdfExportComponent ;
               var respuesta41;
               this.state.peticion1.map(rows=>{
               filtrar41 =  rows.filter(function(hero) {
-                return hero.fk_preguntasRP == 42;
+                return hero.fk_preguntasRP == 41;
               });
               array41.push(filtrar41)
               let valor41=[];    
@@ -1738,7 +1738,7 @@ pdfExportComponent ;
               arr41Int.forEach (function(numero){
                 respuesta41 += numero;
               });
-              console.log("respuesta41" , respuesta41)
+              // console.log("respuesta41" , respuesta41)
               })
               var filtrar42 ;
               var array42Int;
@@ -1760,7 +1760,7 @@ pdfExportComponent ;
               arr42Int.forEach (function(numero){
                 respuesta42 += numero;
               });
-              console.log("respuesta42" , respuesta42)
+              // console.log("respuesta42" , respuesta42)
               })
               var filtrar43 ;
               var array43Int;
@@ -1782,7 +1782,7 @@ pdfExportComponent ;
               arr43Int.forEach (function(numero){
                 respuesta43 += numero;
               });
-              console.log("respuesta43" , respuesta43)
+              // console.log("respuesta43" , respuesta43)
               })
               var filtrar44 ;
               var array44Int;
@@ -1804,7 +1804,7 @@ pdfExportComponent ;
               arr44Int.forEach (function(numero){
                 respuesta44 += numero;
               });
-              console.log("respuesta44" , respuesta44)
+              // console.log("respuesta44" , respuesta44)
               })
               var filtrar45 ;
               var array45Int;
@@ -1826,7 +1826,7 @@ pdfExportComponent ;
               arr45Int.forEach (function(numero){
                 respuesta45 += numero;
               });
-              console.log("respuesta45" , respuesta45)
+              // console.log("respuesta45" , respuesta45)
               })
               var filtrar46 ;
               var array46Int;
@@ -1848,14 +1848,17 @@ pdfExportComponent ;
               arr46Int.forEach (function(numero){
                 respuesta46 += numero;
               });
-              console.log("respuesta46" , respuesta46)
+              // console.log("respuesta46" , respuesta46)
               })
 
               total =(respuesta1+respuesta2+respuesta3+respuesta4+respuesta5+respuesta6+respuesta7+respuesta8+respuesta9+respuesta10+respuesta11+respuesta12+respuesta13+respuesta14+respuesta15+respuesta16+respuesta17+respuesta18+respuesta19+respuesta20
                 +respuesta21+respuesta22+respuesta23+respuesta24+respuesta25+respuesta26+respuesta27+respuesta28+respuesta29+respuesta30+respuesta31+respuesta32+respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40
                 +respuesta41+respuesta42+respuesta43+respuesta44+respuesta45+respuesta46).toFixed(2)
-                let length =this.state.peticion1.length-1;
+                let length =this.state.peticion1.length;
+                // console.log("length2" , length)
+
                 let general =total/length.toFixed(2);
+                
 let celda;
 let criterios;
 let celdaPrev;
@@ -1942,6 +1945,7 @@ let categoria1Alto;
 let categoria1MuyAlto;
 let colorCategoriaUno;
 let categoriaUno = ((respuesta2+respuesta1+respuesta3)/length).toFixed(2);
+
 if(categoriaUno < 3){
   colorCategoriaUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   categoria1Nulo=categoriaUno
@@ -4840,7 +4844,7 @@ ponderacionIndividual =  <React.Fragment>
     charts(FusionCharts);
 
 
-    if(this.state.resultadosInicio[0]){
+    if(this.state.resultadosInicio.length>0){
 
       let total;
     
@@ -5704,7 +5708,7 @@ ponderacionIndividual =  <React.Fragment>
               var respuesta41;
               this.state.resultadosInicio.map(rows=>{
               filtrar41 =  rows.filter(function(hero) {
-                return hero.fk_preguntasRP == 42;
+                return hero.fk_preguntasRP == 41;
               });
               array41.push(filtrar41)
               let valor41=[];    
@@ -5829,11 +5833,13 @@ ponderacionIndividual =  <React.Fragment>
                 +respuesta21+respuesta22+respuesta23+respuesta24+respuesta25+respuesta26+respuesta27+respuesta28+respuesta29+respuesta30+respuesta31+respuesta32+respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40
                 +respuesta41+respuesta42+respuesta43+respuesta44+respuesta45+respuesta46).toFixed(2)
                 let length =this.state.resultadosInicio.length;
+                // console.log("length" , length)
                 let general =total/length.toFixed(2);
                 
                 let colorCategoriaUno;
                 let textoCategoriaUno;
                 let categoriaUno = ((respuesta2+respuesta1+respuesta3)/length).toFixed(2);
+
                 if(categoriaUno < 3){
                   colorCategoriaUno  = "#9BE0F7"
                   textoCategoriaUno = "Nulo o despreciable"
