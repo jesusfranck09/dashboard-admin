@@ -340,52 +340,6 @@ countEmployees = async()=>{
 
 }
 
-// datosEEO = async ( ) => {
-//   let totalEmpleados=[];
-//   var id  =localStorage.getItem("idAdmin")       
-//   await axios({
-//     url:  API,
-//     method:'post',
-//     data:{
-//     query:`
-//     query{
-//       getEmployeesResolvesEEO(data:"${id}"){
-//         id
-//         periodo
-//           }
-//         }
-//         `
-//      }
-//      }).then((datos) => {
-//        console.log("hay datos" , datos)
-//         datos.data.data.getEmployeesResolvesEEO.map(rows=>{
-//           axios({
-//           url:  API,
-//           method:'post',
-//           data:{
-//           query:`
-//             query{
-//               getresultGlobalSurveyEEO(data:"${[rows.id,rows.periodo]}"){
-//               nombre  
-//               Respuestas 
-//               fk_preguntasEEO
-//               ponderacion
-//                   }
-//                 }
-//               `
-//           }
-//           }).then(datos => {  
-//             totalEmpleados.push(datos.data.data.getresultGlobalSurveyEEO)  
-//             console.log("totalEmpleados" , totalEmpleados)
-//             this.setState({resultadosInicio:totalEmpleados})
-//           })
-//           .catch(err => {
-//           }); 
-//       })
-//       }).catch(err=>{
-//         console.log("error" ,err.response)
-//       })
-//  }
 
  getEmployees(){
    let array = [];

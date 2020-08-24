@@ -61,16 +61,16 @@ const ReactFirebaseFileUpdate = () => {
                 .then(datos => {	
                     console.log("datos",datos)
                 }).catch(err=>{
-                     console.log("error" , err)
+                     console.log("error" , err.response)
                 })
                 setUrl(url);
                 setMensaje(`Su logo ha sido cargado con éxito`) 
                 setMensaje2(` ... Actualizando por favor espere ... `) 
 
                 setDisabledButton("")
-                setTimeout(()=>{
-                window.location.reload()
-                },5000)     
+                // setTimeout(()=>{
+                // window.location.reload()
+                // },5000)     
         }
           });
       }
