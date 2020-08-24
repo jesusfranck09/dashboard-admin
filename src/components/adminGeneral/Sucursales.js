@@ -234,15 +234,15 @@ import Navbar from './navbar'
                                 formControlProps={{ fullWidth: true }}
                               >
             
-                              <MenuItem value=" Aguascalientes"> Aguascalientes</MenuItem>
-                              <MenuItem value=" Baja California"> Baja California</MenuItem>
-                              <MenuItem value=" Baja California Sur"> Baja California Sur</MenuItem>
-                              <MenuItem value=" Campeche"> Campeche</MenuItem>
+                              <MenuItem value=" Aguascalientes">Aguascalientes</MenuItem>
+                              <MenuItem value=" Baja California">Baja California</MenuItem>
+                              <MenuItem value=" Baja California Sur">Baja California Sur</MenuItem>
+                              <MenuItem value=" Campeche">Campeche</MenuItem>
                               <MenuItem value=" Chiapas">Chiapas</MenuItem>
                               <MenuItem value=" Chihuahua">Chihuahua</MenuItem>
                               <MenuItem value=" Ciudad de México">Ciudad de México</MenuItem>
                               <MenuItem value=" Coahuila de Zaragoza">Coahuila de Zaragoza</MenuItem>
-                              <MenuItem value=" Durango"> Durango</MenuItem>
+                              <MenuItem value=" Durango">Durango</MenuItem>
                               <MenuItem value=" Estado de México">Estado de México</MenuItem>
                               <MenuItem value=" Guanajuato">Guanajuato</MenuItem>
                               <MenuItem value=" Guerrero">Guerrero</MenuItem>
