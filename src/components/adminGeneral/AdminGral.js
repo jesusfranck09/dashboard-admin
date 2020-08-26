@@ -75,56 +75,57 @@ class AdminGral extends React.Component {
       this.handleSubmit = this.handleSubmit.bind(this);
     }
   
-    componentWillMount(){
-        this.getEmployees()
-        const idAdmin = localStorage.getItem("idAdmin")
-        // const url = 'http://localhost:8000/graphql'
-        axios({
-          url:  API,
-          method:'post',
-          data:{
-          query:`
-           query{
-            getPeriodo(data:"${[idAdmin]}"){
-              idEventos
-              fk_administrador
-              Descripcion
+    async componentWillMount(){
 
-                  }
-                }
-              `
-          }
-        })
-        .then(datos => {	
-          console.log("exito eventos",datos)
-          this.setState({periodo:datos.data.data.getPeriodo})
-        }).catch(err=>{
-          console.log("error",err.response)
-        })
-        axios({
-          url:  API,
-          method:'post',
-          data:{
-          query:`
-           query{
-            getallPeriodo(data:"${[idAdmin]}"){
-             evento
-             eventoFinal
-             alerta1
-             alerta2
-             alerta3
-             Descripcion
-                  }
-                }
-              `
-          }
-        })
-        .then(datos => {	
-          console.log("exito datos",datos)
-          this.setState({allperiodo:datos.data.data.getallPeriodo})
-        }).catch(err=>{
-          console.log("error",err.response)
-        })
+      await axios({
+       url:  API,
+       method:'post',
+       data:{
+       query:`
+       query{
+         getPeriodo(data:"${[localStorage.getItem("idAdmin")]}"){
+           idEventos
+           fk_administrador
+           Descripcion
+ 
+               }
+             }
+           `
+       }
+     })
+     .then(datos => {	
+       console.log("exito eventos",datos)
+       this.setState({periodo:datos.data.data.getPeriodo})
+     }).catch(err=>{
+       console.log("error",err)
+     })
+     await axios({
+      url:  API,
+      method:'post',
+      data:{
+      query:`
+      query{
+        getallPeriodo(data:"${[localStorage.getItem("idAdmin")]}"){
+        evento
+        eventoFinal
+        alerta1
+        alerta2
+        alerta3
+        Descripcion
+              }
+            }
+          `
+      }
+    })
+    .then(datos => {	
+      console.log("exito datos",datos)
+      this.setState({allperiodo:datos.data.data.getallPeriodo})
+    }).catch(err=>{
+      console.log("error",err.response)
+    })
+       
+    await this.getEmployees()
+        
 
     }
     onClick() {
@@ -133,11 +134,12 @@ class AdminGral extends React.Component {
       });
     }
 
-    getEmployees(){
-        var correo  =localStorage.getItem("correo") 
-        const idAdmin= localStorage.getItem("idAdmin") 
+    getEmployees  = async() =>{
+      const idAdmin= await localStorage.getItem("idAdmin") 
+
+    
         // const url = 'http://localhost:8000/graphql'
-        axios({
+       await axios({
           url:  API,
           method:'post',
           data:{
@@ -185,13 +187,13 @@ class AdminGral extends React.Component {
                 console.log(".cartch" , error.response)
             });  
 
-              axios({
+             await axios({
               url:  API,
               method:'post',
               data:{
               query:`
               query{
-                getSucursales(data:"${correo}"){
+                getSucursales(data:"${idAdmin}"){
                   id
                   nombreSucursal
                   calle
@@ -221,13 +223,13 @@ class AdminGral extends React.Component {
                 console.log(".cartch" , error.response)
             });  
 
-            axios({
+           await axios({
               url:  API,
               method:'post',
               data:{
               query:`
               query{
-                getDeptos(data:"${correo}"){
+                getDeptos(data:"${idAdmin}"){
                   id
                   nombre
                   fk_Administrador                 
@@ -248,13 +250,13 @@ class AdminGral extends React.Component {
                     console.log(".cartch" , error.response)
                 });  
 
-                axios({
+               await axios({
                   url:  API,
                   method:'post',
                   data:{
                   query:`
                   query{
-                    getPuestos(data:"${correo}"){
+                    getPuestos(data:"${idAdmin}"){
                       id
                       nombre
                       fk_Administrador                 
@@ -271,6 +273,7 @@ class AdminGral extends React.Component {
                         //console.log("errores" ,error.response.data.errors[0].message)
                         console.log(".cartch" , error.response)
                     });  
+
     }
 
 

@@ -77,8 +77,6 @@ class Home extends React.Component {
   }
 
   async componentWillMount(){
-
-    let idAdmin = localStorage.getItem("idAdmin")
       // const url = 'http://localhost:8000/graphql'
       // console.log("el tiempo es " , t )
      await  axios({
@@ -87,7 +85,7 @@ class Home extends React.Component {
         data:{
         query:`
          query{
-          getPeriodo(data:"${[idAdmin]}"){
+          getPeriodo(data:"${[localStorage.getItem("idAdmin")]}"){
             idEventos
             fk_administrador
             Descripcion
@@ -102,21 +100,21 @@ class Home extends React.Component {
       }).catch(err=>{
         // console.log("error",err.response)
       })
+    await this.getUrlLogo();
+    await this.handleFront();
+    await this.verifyTables();
+    await this.getEmployees();
+    await this.countEmployees();
 
-    this.handleFront();
-    this.countEmployees();
-    this.verifyTables();
-    this.getUrlLogo();
-    this.getEmployees();
     // this.datosEEO()
   }
   
   componentDidMount(){
     this.sendMAilAlert1Survey();
   }
-  getUrlLogo(){
-    let idAdmin = localStorage.getItem("idAdmin")
-     axios({
+  getUrlLogo   = async () =>{
+    let idAdmin = await localStorage.getItem("idAdmin")
+     await axios({
       url:  API,
       method:'post',
       data:{
@@ -135,17 +133,16 @@ class Home extends React.Component {
             }
             this.setState({urlLogo:datos.data.data.getLogo.url})
           }).catch(err=>{
-            console.log("datos error url " , err)
+            console.log("datos error url " , err.response)
           })
 
   }
 
   handleFront = async () =>{
-  
+  let idAdmin = await localStorage.getItem("idAdmin")
   let em;
   let idSuperUsuario;
   let max;
-  let idAdmin = localStorage.getItem("idAdmin")
   // const url = 'http://localhost:8000/graphql'
   await axios({
     url:  API,
@@ -165,7 +162,7 @@ class Home extends React.Component {
         this.setState({max:max})
   });
 
-   axios({
+   await axios({
     url:  API,
     method:'post',
     data:{
@@ -341,7 +338,7 @@ countEmployees = async()=>{
 }
 
 
- getEmployees(){
+ getEmployees = async ( ) => {
    let array = [];
    let array2 = [];
    let array3 = [];
@@ -350,45 +347,45 @@ countEmployees = async()=>{
    let array6 = [];
    let array7 = [];
 
-  const idAdmin= localStorage.getItem("idAdmin") 
+  const idAdmin= await localStorage.getItem("idAdmin") 
   // const url = 'http://localhost:8000/graphql'
-  axios({
-    url:  API,
-    method:'post',
-    data:{
-    query:`
-    query{
-      getUsersTableEmployees(data:"${idAdmin}"){
-        id
-        nombre
-        ApellidoP
-        ApellidoM
-        Curp
-        RFC
-        FechaNacimiento
-        Sexo
-        CentroTrabajo
-        EstadoCivil
-        correo
-        AreaTrabajo
-        Puesto
-        TipoPuesto
-        NivelEstudios
-        TipoPersonal
-        JornadaTrabajo
-        TipoContratacion
-        TiempoPuesto
-        ExperienciaLaboral
-        RotacionTurnos
-        fk_administrador
-        ATSContestado
-        RPContestado
-        EEOContestado
-        ATSDetectado
+  await axios({
+      url:  API,
+      method:'post',
+      data:{
+      query:`
+      query{
+        getUsersTableEmployees(data:"${idAdmin}"){
+          id
+          nombre
+          ApellidoP
+          ApellidoM
+          Curp
+          RFC
+          FechaNacimiento
+          Sexo
+          CentroTrabajo
+          EstadoCivil
+          correo
+          AreaTrabajo
+          Puesto
+          TipoPuesto
+          NivelEstudios
+          TipoPersonal
+          JornadaTrabajo
+          TipoContratacion
+          TiempoPuesto
+          ExperienciaLaboral
+          RotacionTurnos
+          fk_administrador
+          ATSContestado
+          RPContestado
+          EEOContestado
+          ATSDetectado
+            }
           }
-        }
-        `
-    }
+          `
+      }
         }).then((datos) => {
           let datosEmpleados = datos.data.data.getUsersTableEmployees;
           let resultados1 = datosEmpleados.filter(function(hero) {
@@ -451,7 +448,7 @@ toggle = (nr) => () => {
   });
 }
 
-sendMAilAlert1Survey  = async () => {
+sendMAilAlert1Survey(){
 
   let eventoFinal;
   let alerta1;
@@ -459,7 +456,7 @@ sendMAilAlert1Survey  = async () => {
   let alerta3; 
  let idAdmin = localStorage.getItem("idAdmin")
   // const url = 'http://localhost:8000/graphql'
-      await axios({
+       axios({
         url:  API,
         method:'post',
         data:{

@@ -74,13 +74,13 @@ class Navbar extends React.Component {
         localStorage.removeItem("PuestoActivo")
         localStorage.removeItem("urlLogo")
         
-        this.props.history.push("/")
         DialogUtility.alert({
             animationSettings: { effect: 'Fade' },           
             title: 'Hasta luego...!',
             position: "fixed",
         }
         )
+        this.props.history.push("/")
         }
         
     render(){

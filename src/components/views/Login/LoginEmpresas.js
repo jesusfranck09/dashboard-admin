@@ -77,6 +77,7 @@ localStorage.removeItem("DepartamentoActivo")
 localStorage.removeItem("SucursalActiva")
 localStorage.removeItem("PuestoActivo")
 localStorage.removeItem("urlLogo")
+localStorage.removeItem("periodo")
 
 }      
 handleInput = (e) => {

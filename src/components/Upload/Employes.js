@@ -697,7 +697,6 @@ class App extends React.Component {
 		}).catch(err=>{
 			console.log("error" , err.response)
 		}) 
-		let correoAdmin = localStorage.getItem("correo")
 	    let empleadosPack = parseInt(em)
 		let max;
 		  await axios({
@@ -706,7 +705,7 @@ class App extends React.Component {
 				data:{
 				query:`
 				mutation{
-					authRegisterSingleEmployee(data:"${[correoAdmin]}"){
+					authRegisterSingleEmployee(data:"${[idAdmin]}"){
 					max
 						}
 					}
@@ -718,7 +717,6 @@ class App extends React.Component {
 			});
 
 			let empleadosRegistrados=parseInt(max)
-			let idAdmin = localStorage.getItem("idAdmin")
 			
 			if(empleadosRegistrados < empleadosPack ){
 
@@ -755,7 +753,9 @@ class App extends React.Component {
 				this.props.history.push("/adminGral")
 
 			}
-			});   
+			}).catch(err=>{
+				console.log(err.response)
+			})   
 		} else{
 	
 			DialogUtility.alert({
