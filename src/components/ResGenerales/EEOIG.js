@@ -792,7 +792,7 @@ export default class App extends React.Component {
     const data = this.state.empleados.map(rows=>{
         let botonRespuestas = <div><MDBBtn disabled={!this.state.botonResultados}  size="md" color="danger"  onClick={(e) => this.click(rows.id,rows.periodo)}>Respuestas</MDBBtn></div>
       let botonResultados =  <div><MDBBtn  disabled={!this.state.botonResultados} color="secondary" size="md" onClick={(e) => this.getEvaluacion(rows.id,rows.periodo)}>Resultados</MDBBtn></div> 
-      return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoP,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
+      return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
     })
 
     let datosEmpleados;
