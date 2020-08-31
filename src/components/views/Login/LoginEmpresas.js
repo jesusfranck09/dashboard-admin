@@ -4,7 +4,9 @@ import { InputGroup, InputGroupAddon, InputGroupText,Input } from 'reactstrap';
 import { AppNavbarBrand } from '@coreui/react';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import diagnostico from '../../images/diagnostico.png'
-
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
 
 import {
   MDBNavbar,
@@ -23,7 +25,8 @@ import {
   MDBCardBody,
   MDBIcon,
   MDBNavItem,
-  MDBNavLink
+  MDBNavLink,
+  MDBCardHeader
 } from "mdbreact";
 import "./index.css";
 import { Mutation } from 'react-apollo';
@@ -226,10 +229,13 @@ handleInput = (e) => {
                 <MDBCol md="6" className="mb-8">
                   <MDBAnimation type="fadeInRight" delay=".3s">
                     <MDBCard id="classic-card"  >
-                      <MDBCardBody className="white-text">
+                  
+                      <MDBCardHeader>  
                         <h3 className="text-center">
-                             Ingresar:
-                        </h3>
+                            <i> Iniciar sesión:</i>
+                        </h3></MDBCardHeader>  
+                      <MDBCardBody className="white-text">
+                       
                         <hr className="hr-light" />
 
                         <InputGroup   className="mb-3">
@@ -259,7 +265,7 @@ handleInput = (e) => {
                            
                       <MDBRow>
                         <MDBCol md="8">
-                          <MDBBtn  color="success" className="px-4" type='submit'>Entrar</MDBBtn>
+                          <MDBBtn gradient="aqua" className="px-4" type='submit'>Entrar</MDBBtn>
                         </MDBCol>
                       </MDBRow>
                     

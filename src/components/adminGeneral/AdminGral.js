@@ -1155,7 +1155,8 @@ class AdminGral extends React.Component {
                    
                               <MDBBtn
                               // variant="contained"
-                              color="success"                             
+                              color="success"  
+                              size="md"                           
                               style={{marginTop:25}}
                               onClick={ e => this.editarPeriodo(values)}
                             >
@@ -1232,7 +1233,7 @@ class AdminGral extends React.Component {
                               </MuiPickersUtilsProvider>                                 
                           </Grid>
                           <MDBBtn
-                              // variant="contained"
+                              size="md"    
                               color="primary"
                               type="submit"
                               disabled={submitting}
@@ -1324,6 +1325,7 @@ class AdminGral extends React.Component {
                           <MDBBtn
                               style={{marginTop:14}}
                               color="danger"
+                              size="md"
                               type="submit"
                               disabled={submitting}
                               onClick={(e) => { if (window.confirm('Si desactiva el periodo no podrá habilitarlo nuevamente, Desea Continuar?')) this.DesactivarPeriodo(values)} }
@@ -1507,16 +1509,15 @@ class AdminGral extends React.Component {
                       </Grid>
 
 	                      <Grid item >
-                        <Button
-                         variant="outlined"
-                          color="primary"
+                        <MDBBtn
+                         color="secondary" size="md"
                           type="submit"
                           disabled={submitting}
                           onClick={(e) =>this.evaluar(values,this.state.updateRows.id)}
                         >
                           Actualizar Empleado
-                        </Button>
-                        <MDBBtn outlined color="danger" onClick={this.toggle(13)} style={{margin:60}} >
+                        </MDBBtn>
+                        <MDBBtn  color="danger" size="md" onClick={this.toggle(13)}  >
                           Cerrar
                         </MDBBtn>
                       </Grid>
@@ -1656,16 +1657,15 @@ class AdminGral extends React.Component {
                         />
                       </Grid>
 	                      <Grid item >
-                        <Button
-                         variant="outlined"
-                          color="primary"
+                        <MDBBtn
+                         color="secondary" size="md"
                           type="submit"
                           disabled={submitting}
                           onClick={(e) =>this.evaluarSucursales(values,this.state.updateRowsSucursales.id)}
                         >
                           Actualizar Centro
-                        </Button>
-                        <MDBBtn outlined color="success" onClick={this.toggleSucursales(14)} style={{margin:60}} >
+                        </MDBBtn>
+                        <MDBBtn  color="danger" size="md"  onClick={this.toggleSucursales(14)} >
                           Cerrar
                         </MDBBtn>
                       </Grid>
@@ -1713,16 +1713,15 @@ class AdminGral extends React.Component {
                       </Grid>
                      
 	                      <Grid item >
-                        <Button
-                         variant="outlined"
-                          color="default"
+                        <MDBBtn
+                         color="secondary" size="md"
                           type="submit"
                           disabled={submitting}
                           onClick={(e) =>this.evaluarDeptos(values,this.state.updateRowsDeptos.id)}
                         >
                           Actualizar
-                        </Button>
-                        <MDBBtn outlined color="primary" onClick={this.toggleDeptos(15)} style={{margin:60}} >
+                        </MDBBtn>
+                        <MDBBtn color="danger" size="md" onClick={this.toggleDeptos(15)}  >
                           Cerrar
                         </MDBBtn>
                       </Grid>
@@ -1769,16 +1768,15 @@ class AdminGral extends React.Component {
                        </Grid>
                       
                          <Grid item >
-                         <Button
-                          variant="outlined"
-                           color="secondary"
+                         <MDBBtn
+                          color="secondary" size="md" 
                            type="submit"
                            disabled={submitting}
                            onClick={(e) =>this.evaluarPuestos(values,this.state.updateRowsPuestos.id)}
                          >
                            Actualizar Puestos
-                         </Button>
-                         <MDBBtn outlined color="info" onClick={this.togglePuestos(16)} style={{margin:60}} >
+                         </MDBBtn>
+                         <MDBBtn color="danger" size="md"  onClick={this.togglePuestos(16)}>
                            Cerrar
                          </MDBBtn>
                        </Grid>

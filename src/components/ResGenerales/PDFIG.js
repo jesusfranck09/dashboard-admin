@@ -442,7 +442,7 @@ pdfExportComponent ;
     let arrayNombre= []
    
     if(this.state.spinner=== true){
-      spinner = <div><BotonReactstrap variant="danger" disabled>
+      spinner = <div><MDBBtn size="md" color="danger" disabled>
       <Spinner
         as="span"
         outline
@@ -452,8 +452,8 @@ pdfExportComponent ;
         aria-hidden="true"
       />
       
-    </BotonReactstrap>{''}
-    <BotonReactstrap outline variant="primary" disabled>
+    </MDBBtn>{''}
+    <MDBBtn size="md" color="secondary" disabled>
       <Spinner
         as="span"
         outlined
@@ -463,7 +463,7 @@ pdfExportComponent ;
         aria-hidden="true"
       />
       Validando información por favor espere ...
-    </BotonReactstrap>{''}
+    </MDBBtn>{''}
     </div>
     }
 
@@ -509,7 +509,7 @@ pdfExportComponent ;
     // console.log("accionNo" , accionNo)
     const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo",{name: "Respuestas",label: "Respuestas",options:{filter: false,sort: true,}}];
     const data = this.state.empleados.map(rows=>{
-        let boton =  <div><MDBBtn  disabled={!this.state.botonDescargarIndividual} color ="danger" onClick={(e) => this.click(rows.id,rows.periodo)}>Respuestas</MDBBtn></div> 
+        let boton =  <div><MDBBtn  disabled={!this.state.botonDescargarIndividual} size ="md" color ="danger" onClick={(e) => this.click(rows.id,rows.periodo)}>Respuestas</MDBBtn></div> 
       return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo,boton])
     })
 
@@ -594,11 +594,11 @@ pdfExportComponent ;
                     <MDBTableBody>
                         
                     <tr>
-                        <td width ="35%">  <MDBBtn  color="primary" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                        <td width ="35%">  <MDBBtn  size="md" color="secondary" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
                                  Resultados de {this.state.resultados[0].nombre } {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} 
                             </MDBBtn></td>
                         <td width ="55%">
-                        <MDBBtn color="danger" onClick={ (e)=> window.location.reload()}>Cerrar</MDBBtn>
+                        <MDBBtn color="danger" size="md" onClick={ (e)=> window.location.reload()}>Cerrar</MDBBtn>
                         </td>
                     </tr>
 
@@ -1091,12 +1091,12 @@ pdfExportComponent ;
           <MDBContainer>
             <MDBRow>     
               <MDBCol>   
-                <MDBBtn  color="primary" size="3" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                <MDBBtn  gradient="purple" size="md" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
                     Descargar Resultados
                 </MDBBtn>
               </MDBCol>
               <MDBCol> 
-               <MDBBtn color="danger" outline onClick= {(e) => window.location.reload()}>Cerrar</MDBBtn>
+               <MDBBtn color="danger"  size="md"  onClick= {(e) => window.location.reload()}>Cerrar</MDBBtn>
               </MDBCol> 
             </MDBRow>  
           </MDBContainer>
@@ -1285,12 +1285,12 @@ pdfExportComponent ;
                 <MDBContainer>
                   <MDBRow>     
                     <MDBCol>   
-                      <MDBBtn  color="primary" size="3" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                      <MDBBtn   gradient="purple" size="md"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
                           Descargar Resultados
                       </MDBBtn>
                     </MDBCol>
                     <MDBCol> 
-                      <MDBBtn color="danger" outline onClick= {(e) => window.location.reload()}>Cerrar</MDBBtn>
+                      <MDBBtn color="danger" size="md"   onClick= {(e) => window.location.reload()}>Cerrar</MDBBtn>
                     </MDBCol> 
                   </MDBRow>  
                 </MDBContainer>
@@ -1622,7 +1622,7 @@ pdfExportComponent ;
                   options={options}
                 />
               <MDBRow style={{marginTop:20}}>
-              <MDBCol ><MDBBtn  disabled={!this.state.botonDescargar}  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)}  outline color="success">Descarga del reporte Global</MDBBtn> &nbsp;&nbsp;&nbsp;&nbsp;<MDBBtn  disabled={!this.state.botonDescargaMasivo}  onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  outline color="success">Descarga masiva evaluaciones</MDBBtn> </MDBCol>  
+              <MDBCol ><MDBBtn color="success" size="md" disabled={!this.state.botonDescargar}  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} >Descarga del reporte Global</MDBBtn> &nbsp;&nbsp;&nbsp;&nbsp;<MDBBtn  color="success" size="md" disabled={!this.state.botonDescargaMasivo}  onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  >Descarga masiva evaluaciones</MDBBtn> </MDBCol>  
               <MDBCol>
               <MDBContainer >
                 {spinnerReporte}

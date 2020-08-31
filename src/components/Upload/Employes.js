@@ -47,7 +47,7 @@ import {
 	return (
 	<React.Fragment>
 	  <div>
-		<Boton  color="primary" onClick={toggle}>{buttonLabel}Cargar Empleados</Boton>
+		<Boton size="md"  color="success" onClick={toggle}>{buttonLabel}Cargar Empleados</Boton>
 		<Modal isOpen={modal} toggle={toggle} className={className} tabindex="-1" >
 		  <ModalBody>
 		  <SheetJSApp/>
@@ -1196,15 +1196,15 @@ render(){
 							</Grid>
 			
 							<Grid item style={{ marginTop: 16 ,marginLeft:160 }}>
-								<Button
-								variant="outlined"
-								color="secondary"
+								<MDBBtn
+								size="md" 
+								color="purple"
 								type="submit"
 								disabled={submitting}
 								onClick={(e) =>this.evaluar(values)}
 								>
 								Registrar Empleado
-								</Button>
+								</MDBBtn>
 							</Grid>
 							</Grid>
 						</Paper>
@@ -1215,7 +1215,7 @@ render(){
 				</div>		
 				</MDBCol>
 									
-						<MDBCol  md="3" className="white-text text-center text-md-left mt-xl-5 mb-5"><strong>¿Desea cargar por csv o xls?</strong> <ModalPrueba/></MDBCol> 
+						<MDBCol  md="3" className="black-text text-center text-md-left mt-xl-5 mb-5"><strong>¿Desea cargar por csv o xls?</strong> <ModalPrueba/></MDBCol> 
 					
 						</MDBRow>
 						</MDBContainer>

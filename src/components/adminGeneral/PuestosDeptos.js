@@ -7,7 +7,7 @@ import {
 
 import axios from 'axios';
 import {Alert } from 'reactstrap'
-import {MDBRow, MDBContainer} from 'mdbreact';
+import {MDBRow, MDBContainer,MDBBtn} from 'mdbreact';
 import { Form, Field } from 'react-final-form';
 import { TextField} from 'final-form-material-ui';
 import { DialogUtility } from '@syncfusion/ej2-popups';
@@ -175,15 +175,15 @@ import Navbar from './navbar'
                             </Grid>
 
                             <Grid item style={{ marginTop: 16 ,marginLeft:160 }}>
-                              <Button
-                              variant="outlined"
-                                color="primary"
+                              <MDBBtn
+                              color="secondary"
+                              size="md"
                                 type="submit"
                                 disabled={submitting}
                                 onClick={(e) =>this.evaluar(values)}
                               >
                                 Registrar nuevo puesto
-                              </Button>
+                              </MDBBtn>
                             </Grid>
                           </Grid>
                         </Paper>
@@ -217,16 +217,16 @@ import Navbar from './navbar'
                                 />
                               </Grid>
 
-                              <Grid item style={{ marginTop: 16 ,marginLeft:150 }}>
-                                <Button
-                                variant="outlined"
-                                  color="secondary"
+                              <Grid item style={{ marginTop: 16 ,marginLeft:140 }}>
+                                  <MDBBtn
+                                  color="success"
+                                  size="md"
                                   type="submit"
                                   disabled={submitting}
                                   onClick={(e) =>this.evaluarDepto(values)}
                                 >
                                   Registrar nuevo departamento
-                                </Button>
+                                </MDBBtn>
                               </Grid>
                             </Grid>
                           </Paper>

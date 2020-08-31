@@ -8,7 +8,7 @@ import {
   import { API} from '../utils/http'
 import axios from 'axios';
 import {Alert } from 'reactstrap'
-import {MDBRow,MDBContainer} from 'mdbreact';
+import {MDBRow,MDBContainer,MDBBtn} from 'mdbreact';
 import { Form, Field } from 'react-final-form';
 import { TextField, Select } from 'final-form-material-ui';
 import { DialogUtility } from '@syncfusion/ej2-popups';
@@ -307,16 +307,16 @@ import Navbar from './navbar'
                                 </Grid>
 
             
-                            <Grid item style={{ marginTop: 16 ,marginLeft:160 }}>
-                              <Button
-                              variant="outlined"
-                                color="inherit"
+                            <Grid item style={{ marginTop: 16 ,marginLeft:150 }}>
+                              <MDBBtn
+                              color="secondary"
+                               size="md"
                                 type="submit"
                                 disabled={submitting}
                                 onClick={(e) =>this.evaluar(values)}
                               >
                                 Registrar Centro de Trabajo
-                              </Button>
+                              </MDBBtn>
                             </Grid>
                           </Grid>
                         </Paper>
