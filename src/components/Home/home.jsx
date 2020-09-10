@@ -68,7 +68,8 @@ class Home extends React.Component {
       array:[],
       empleados:'',
       max:'',
-      urlLogo:''
+      urlLogo:'',
+      periodo:''
     };
 
     this.ads = this.ads.bind(this);
@@ -98,7 +99,9 @@ class Home extends React.Component {
         }
       })
       .then(datos => {	
+        let periodo = datos.data.data.getPeriodo[0].Descripcion ;
         localStorage.setItem("periodo" ,datos.data.data.getPeriodo[0].Descripcion )
+        this.setState({periodo:periodo})
       }).catch(err=>{
         // console.log("error",err.response)
       })
@@ -1429,16 +1432,16 @@ openModal () {
    let logo;
    if(!this.state.urlLogo){
    logo = <div>
-    <strong style={{ color: '#FF5733  ' }}>Adjuntar logo de mi empresa</strong>
-    <IconButton onClick={this.toggle(20)} color="#FF5733"> <PublishOutlinedIcon /></IconButton>
+    <strong style={{ color: '#BC71F3'}}>Adjuntar logo de mi empresa</strong>
+    <IconButton onClick={this.toggle(20)} color="#BC71F3"> <PublishOutlinedIcon /></IconButton>
    </div>
    }
 
    let modificarLogo;
    if(this.state.urlLogo){
     logo = <div>
-    <strong style={{ color: '#FF5733  ' }}>Modificar mi logo</strong>
-    <IconButton onClick={this.toggle(21)} color="#FF5733"> <PublishOutlinedIcon /></IconButton>
+    <strong style={{ color: '#BC71F3' }}>Modificar mi logo</strong>
+    <IconButton onClick={this.toggle(21)} color="#BC71F3"> <PublishOutlinedIcon /></IconButton>
    </div>
    }
 
@@ -1483,6 +1486,14 @@ openModal () {
     progressInstanceEEO =<ProgressBar> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
    }
 
+   let periodoActivo;
+
+   if(this.state.periodo){
+     periodoActivo= <font size="2" face="arial"color="#58BC8D">{this.state.periodo}</font>
+   }
+   else{
+     periodoActivo= <font size="2" face="arial"color="#F7251B">Su periodo ha finalizado</font>
+   }
 
     const container = { width: 1000, height: 500 }
     return (
@@ -1534,8 +1545,9 @@ openModal () {
           <br/>
           <br/>
           <strong>Empleados Restantes : {(this.state.empleados-this.state.max)}</strong><br/>
-          <strong style={{ color: 'rgba(4, 180, 174,0.5) ' }}>¿Como usar Diagnóstico035?</strong>
-          <IconButton onClick={this.openModal} color="secondary"> <RemoveRedEyeOutlinedIcon /></IconButton>
+          <strong style={{ color: '#BC71F3' }}>¿Como usar Diagnóstico035?</strong>
+          <IconButton onClick={this.openModal} color="secondary"> <RemoveRedEyeOutlinedIcon /></IconButton><br/>
+          <i>Periodo actual :</i>{periodoActivo} 
          </MDBCardHeader>      
         {expiro}
        </MDBCardBody>
