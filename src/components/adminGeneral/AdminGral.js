@@ -1514,6 +1514,7 @@ class AdminGral extends React.Component {
                           type="submit"
                           disabled={submitting}
                           onClick={(e) =>this.evaluar(values,this.state.updateRows.id)}
+                          className="text-white"
                         >
                           Actualizar Empleado
                         </MDBBtn>
@@ -1662,6 +1663,7 @@ class AdminGral extends React.Component {
                           type="submit"
                           disabled={submitting}
                           onClick={(e) =>this.evaluarSucursales(values,this.state.updateRowsSucursales.id)}
+                          className="text-white"
                         >
                           Actualizar Centro
                         </MDBBtn>
@@ -1718,6 +1720,7 @@ class AdminGral extends React.Component {
                           type="submit"
                           disabled={submitting}
                           onClick={(e) =>this.evaluarDeptos(values,this.state.updateRowsDeptos.id)}
+                          className="text-white"
                         >
                           Actualizar
                         </MDBBtn>
@@ -1773,6 +1776,7 @@ class AdminGral extends React.Component {
                            type="submit"
                            disabled={submitting}
                            onClick={(e) =>this.evaluarPuestos(values,this.state.updateRowsPuestos.id)}
+                           className="text-white"
                          >
                            Actualizar Puestos
                          </MDBBtn>

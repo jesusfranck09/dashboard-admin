@@ -181,6 +181,7 @@ import Navbar from './navbar'
                                 type="submit"
                                 disabled={submitting}
                                 onClick={(e) =>this.evaluar(values)}
+                                className="text-white"
                               >
                                 Registrar nuevo puesto
                               </MDBBtn>
@@ -224,6 +225,7 @@ import Navbar from './navbar'
                                   type="submit"
                                   disabled={submitting}
                                   onClick={(e) =>this.evaluarDepto(values)}
+                                  className="text-white"
                                 >
                                   Registrar nuevo departamento
                                 </MDBBtn>

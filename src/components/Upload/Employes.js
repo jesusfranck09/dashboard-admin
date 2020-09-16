@@ -1198,10 +1198,11 @@ render(){
 							<Grid item style={{ marginTop: 16 ,marginLeft:160 }}>
 								<MDBBtn
 								size="md" 
-								color="purple"
+								color="secondary"
 								type="submit"
 								disabled={submitting}
 								onClick={(e) =>this.evaluar(values)}
+								className="text-white"
 								>
 								Registrar Empleado
 								</MDBBtn>

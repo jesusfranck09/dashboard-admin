@@ -314,6 +314,7 @@ import Navbar from './navbar'
                                 type="submit"
                                 disabled={submitting}
                                 onClick={(e) =>this.evaluar(values)}
+                                className="text-white"
                               >
                                 Registrar Centro de Trabajo
                               </MDBBtn>
