@@ -629,6 +629,7 @@ class Estadisticas extends React.Component {
                         pageNum
                         // pageTemplate={this.pdfExportComponent}
                         ref={(component) => this.pdfExportComponent = component}
+                        fileName={`Guía V ${new Date().getFullYear()}`}
                     >
                         <div style={{ width: "500px" }}>
                       
@@ -1134,66 +1135,14 @@ class Estadisticas extends React.Component {
               <MDBRow style={{marginTop:20}}>
               <MDBCol  sm="4"></MDBCol>  
              </MDBRow>
-             <Button  startIcon={<CheckOutlinedIcon />}  outline color="primary" onClick={(e)=>this.setState({reporteEstadisticas:datosEmpleados})}>
+               <MDBBtn  startIcon={<CheckOutlinedIcon />} size="md" className = "text-white"  color="success" onClick={(e)=>this.setState({reporteEstadisticas:datosEmpleados})}>
                   Consultar
-               </Button>
+               </MDBBtn>
              
             </div> 
           </Grow>  
          {pdf}
         </div>
-
-        
-   
-            <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
-              <div className="row">
-                  <div className="col-md-12" item xs={12}>
-                      <center><br/>
-                          <br/>
-                          <br/>
-                          <font size="4">
-                          El Distribuidor Asociado Master de CONTPAQi® que ha recibido el reconocimiento como el
-                          <br/>
-                           Primer Lugar en Ventas por 15 Años Consecutivos en la Ciudad de México.
-                          
-                          <br/>
-                          <br/>
-                          Alfa Diseño de Sistemas: 
-                         
-                          Somos un distribuidor asociado master de CONTPAQi®, 
-                          <br/>
-                           una casa desarrolladora de software, que además es PAC (Proveedor Autorizado de Certificación) y PCRDD 
-                          <br/>
-                          (Proveedor de Certificación y Recepción de Documentos Digitales) por parte del SAT.
-                          {/* <img src={Ok} alt="ok" className="img-fluid"/><br/><br/> */}
-                          <br/>
-                          <br/>
-                          Conoce más sobre nosotros en 
-                          <br></br>
-                            <a href="www.ads.com.mx">www.ads.com.mx</a>
-                          </font>
-
-                          <br/>
-                          <br/>
-                          <br/>
-                          {/* <Alert color="secondary" style={{fontSize: 24}}>Su encuesta ha finalizado, Gracias por su colaboración</Alert> */}
-                          <br/>
-                          <br/>
-                          <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
-                          <Button 
-                            variant="outlined"
-                              color="primary"
-                              type = "submit"
-                               onClick={()=>{this.setState({showModal2:false})}}
-                            >
-                             Cerrar
-                            </Button>
-                            </Grid>
-                      </center>
-                  </div>
-              </div>
-
-          </Modal>
             </MDBContainer >
 
   </MDBContainer>

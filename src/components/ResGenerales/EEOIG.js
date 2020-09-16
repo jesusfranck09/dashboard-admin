@@ -739,7 +739,7 @@ export default class App extends React.Component {
     let arrayNombre= []
     let a;
     if(this.state.spinner=== true){
-      spinner = <div><MDBBtn size="md" color="danger" disabled>
+      spinner = <div><MDBBtn className = "text-white"  size="md" color="danger" disabled>
       <Spinner
         as="span"
         outline
@@ -750,7 +750,7 @@ export default class App extends React.Component {
       />
       
     </MDBBtn>{''}
-    <MDBBtn size="md" color="secondary" disabled>
+    <MDBBtn className = "text-white"  size="md" color="secondary" disabled>
       <Spinner
         as="span"
         outlined
@@ -790,8 +790,8 @@ export default class App extends React.Component {
 
     const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
     const data = this.state.empleados.map(rows=>{
-        let botonRespuestas = <div><MDBBtn disabled={!this.state.botonResultados}  size="md" color="danger"  onClick={(e) => this.click(rows.id,rows.periodo)}>Respuestas</MDBBtn></div>
-      let botonResultados =  <div><MDBBtn  disabled={!this.state.botonResultados} color="secondary" size="md" onClick={(e) => this.getEvaluacion(rows.id,rows.periodo)}>Resultados</MDBBtn></div> 
+        let botonRespuestas = <div><MDBBtn className = "text-white"  disabled={!this.state.botonResultados}  size="md" color="danger"  onClick={(e) => this.click(rows.id,rows.periodo)}>Respuestas</MDBBtn></div>
+      let botonResultados =  <div><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} color="secondary" size="md" onClick={(e) => this.getEvaluacion(rows.id,rows.periodo)}>Resultados</MDBBtn></div> 
       return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
     })
 
@@ -2831,7 +2831,7 @@ ponderacion=<React.Fragment>
   <table>
     <tr>
       <td width="33%">
-      <MDBBtn  gradient="purple" size="md"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+      <MDBBtn className = "text-white"  gradient="purple" size="md"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
       Descargar resultados globales
       </MDBBtn>
       </td>
@@ -3679,7 +3679,7 @@ ponderacion=<React.Fragment>
         <React.Fragment>
           <section className="flex-column  bg-white  pa4 "  >
           <div>
-                    <MDBBtn  size="md" color="secondary"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                    <MDBBtn className = "text-white"  size="md" color="secondary"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
                         Descargar Respuestas de {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}
                     </MDBBtn>
            </div>
@@ -5398,7 +5398,7 @@ ponderacion=<React.Fragment>
             <Alert className ="mt-4" color ="primary ">Resultados de la aplicación de la evaluación EEO </Alert>
 
                  <div>
-                        <MDBBtn  size="md" color="secondary" className="k-button" onClick={() => { this.pdfExportComponent.save();}}>
+                        <MDBBtn  className = "text-white"  size="md" color="secondary" className="k-button" onClick={() => { this.pdfExportComponent.save();}}>
                             Descargar Resultados de {this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}
                         </MDBBtn>
                </div>
@@ -6233,10 +6233,10 @@ ponderacion=<React.Fragment>
      let botonCerrar;
      let botonResultadosGlobales;
      if(!this.state.botonDisabled){
-         botonCerrar=<MDBBtn size="md" color="danger" onClick={(e)=>{window.location.reload()}} >Cerrar resultados</MDBBtn>
+         botonCerrar=<MDBBtn className = "text-white"  size="md" color="danger" onClick={(e)=>{window.location.reload()}} >Cerrar resultados</MDBBtn>
      }
      if(this.state.botonDisabled){
-         botonResultadosGlobales=<MDBRow><MDBCol><MDBBtn onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Descarga del reporte Global</MDBBtn></MDBCol><MDBCol><MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)} color="success" size="md">Evaluaciones masivas</MDBBtn></MDBCol><MDBCol><MDBBtn disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)} color="success" size="md">Resultados masivos</MDBBtn></MDBCol></MDBRow>
+         botonResultadosGlobales=<MDBRow><MDBCol><MDBBtn className = "text-white"  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Descarga del reporte Global</MDBBtn></MDBCol><MDBCol><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)} color="success" size="md">Evaluaciones masivas</MDBBtn></MDBCol><MDBCol><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)} color="success" size="md">Resultados masivos</MDBBtn></MDBCol></MDBRow>
      }
 
      let dataSource;
@@ -7950,7 +7950,7 @@ ponderacion=<React.Fragment>
         <MDBContainer>
           <MDBRow>     
             <MDBCol>   
-              <MDBBtn   gradient="purple" size="md" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+              <MDBBtn   gradient="purple" size="md" outline className="k-button text-white" onClick={() => { this.pdfExportComponent.save(); }}>
                   Descargar respuestas
               </MDBBtn>
             </MDBCol>
@@ -8994,7 +8994,7 @@ ponderacion=<React.Fragment>
           <MDBContainer>
           <MDBRow>     
             <MDBCol>   
-              <MDBBtn    gradient="purple"  size="md" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+              <MDBBtn    gradient="purple"  className = "text-white"  size="md" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
                   Descargar respuestas
               </MDBBtn>
             </MDBCol>

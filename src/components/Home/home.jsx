@@ -393,6 +393,7 @@ countEmployees = async()=>{
         `
     }
         }).then((datos) => {
+          console.log("datos" , datos.data.data.getUsersTableEmployees)
           let datosEmpleados = datos.data.data.getUsersTableEmployees;
           let resultados1 = datosEmpleados.filter(function(hero) {
             return hero.ATSContestado == 'true';
