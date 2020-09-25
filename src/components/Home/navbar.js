@@ -113,7 +113,7 @@ class Navbar extends React.Component {
                             <strong>{this.state.date}</strong> 
                         <MDBNavbarNav right>
                         </MDBNavbarNav>
-                            <strong>Versión 1.1.1</strong> 
+                            <strong>Versión 1.1.2</strong> 
                         <MDBNavbarNav right>
                         <MDBNavbarBrand>  
                                      
