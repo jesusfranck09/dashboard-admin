@@ -97,13 +97,13 @@ class Navbar extends React.Component {
                     <MDBCollapse isOpen={this.state.collapse} navbar>
                         <MDBNavbarNav left>
                            <MDBNavItem >
-                            <a href="http://ats.diagnostico035.com/">evaluación ATS &nbsp;&nbsp;   </a>
+                            <a href="https://eval.diagnostico035.com/ATS">evaluación ATS &nbsp;&nbsp;   </a>
                            </MDBNavItem>
                            <MDBNavItem >
-                            <a href="http://rp.diagnostico035.com/"> evaluación RP &nbsp;&nbsp; </a>
+                            <a href="https://eval.diagnostico035.com/RP"> evaluación RP &nbsp;&nbsp; </a>
                            </MDBNavItem>
                            <MDBNavItem >
-                            <a href="http://eeo.diagnostico035.com/"> evaluación EEO   </a>
+                            <a href="https://eval.diagnostico035.com/EEO"> evaluación EEO   </a>
                            </MDBNavItem>
                             
                         </MDBNavbarNav>
