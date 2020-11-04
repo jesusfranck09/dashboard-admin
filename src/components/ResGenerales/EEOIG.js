@@ -102,14 +102,14 @@ export default class App extends React.Component {
   ads(){
     this.setState({showModal2:true}) 
   }
-  getGlobalEmployees(){
+  getGlobalEmployees = async ( ) => {
     this.setState({spinner:true})
     let totalEmpleados=[];
     let totalEmpleadosResultados=[];
     var id  =localStorage.getItem("idAdmin")       
     // const url = 'http://localhost:8000/graphql'
     // console.log("entro")
-    axios({
+    await axios({
       url:  API,
       method:'post',
       data:{
@@ -3673,17 +3673,320 @@ ponderacion=<React.Fragment>
 
     let pdfView1;
     if(this.state.resultados[2]){ 
+      console.log("estado",this.state.resultados)
+      let filtrar1;
+      filtrar1 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 1;
+      });
+
+      let filtrar2;
+      filtrar2 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 2;
+      });
+
+      let filtrar3;
+      filtrar3 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 3;
+      });
+
+      let filtrar4;
+      filtrar4 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 4;
+      });
+
+      let filtrar5;
+      filtrar5 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 5;
+      });
+
+      let filtrar6;
+      filtrar6 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 6;
+      });
+
+      let filtrar7;
+      filtrar7 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 7;
+      });
+
+      let filtrar8;
+      filtrar8 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 8;
+      });
+
+      let filtrar9;
+      filtrar9 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 9;
+      });
+
+      let filtrar10;
+      filtrar10 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 10;
+      });
+
+      let filtrar11;
+      filtrar11 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 11;
+      });
+
+      let filtrar12;
+      filtrar12 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 12;
+      });
+      let filtrar13;
+      filtrar13 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 13;
+      });
+      let filtrar14;
+      filtrar14 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 14;
+      });
+      let filtrar15;
+      filtrar15 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 15;
+      });
+      let filtrar16;
+      filtrar16 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 16;
+      });
+      let filtrar17;
+      filtrar17 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 17;
+      });
+
+      let filtrar18;
+      filtrar18 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 18;
+      });
+      let filtrar19;
+      filtrar19 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 19;
+      });
+
+      let filtrar20;
+      filtrar20=  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 20;
+      });
+      let filtrar21;
+      filtrar21 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 21;
+      });
+        let filtrar22;
+      filtrar22 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 22;
+      });
+      let filtrar23;
+      filtrar23 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 23;
+      });
+      let filtrar24;
+      filtrar24=  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 24;
+      });
+      let filtrar25;
+      filtrar25 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 25;
+      });
+      let filtrar26;
+      filtrar26 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 26;
+      });
+      let filtrar27;
+      filtrar27 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 27;
+      });     
+      let filtrar28;
+      filtrar28 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 28;
+      });
+      let filtrar29;
+      filtrar29 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 29;
+      });    
+      let filtrar30;
+      filtrar30 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 30;
+      });
+      let filtrar31;
+      filtrar31 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 31;
+      });
+      let filtrar32;
+      filtrar32 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 32;
+      });
+      let filtrar33;
+      filtrar33 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 33;
+      });
+      let filtrar34;
+      filtrar34 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 34;
+      });
+      let filtrar35;
+      filtrar35 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 35;
+      });
+      let filtrar36;
+      filtrar36 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 36;
+      });
+      let filtrar37;
+      filtrar37 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 37;
+      });
+      let filtrar38;
+      filtrar38 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 38;
+      });
+       let filtrar39;
+      filtrar39 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 39;
+      });
+      let filtrar40;
+      filtrar40 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 40;
+      });      
+      let filtrar41;
+      filtrar41 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 41;
+      });      
+      let filtrar42;
+      filtrar42 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 42;
+      });      
+      let filtrar43;
+      filtrar43 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 43;
+      });      
+      let filtrar44;
+      filtrar44 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 44;
+      });
+      let filtrar45;
+      filtrar45 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 45;
+      });
+       let filtrar46;
+      filtrar46 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 46;
+      });
+      let filtrar47;
+      filtrar47 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 47;
+      });
+      let filtrar48;
+      filtrar48 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 48;
+      });
+      let filtrar49;
+      filtrar49 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 49;
+      });      
+      let filtrar50;
+      filtrar50 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 50;
+      });
+      let filtrar51;
+      filtrar51 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 51;
+      });
+      let filtrar52;
+      filtrar52 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 52;
+      });
+      let filtrar53;
+      filtrar53 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 53;
+      });
+      let filtrar54;
+      filtrar54 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 54;
+      });
+      let filtrar55;
+      filtrar55 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 55;
+      });
+      let filtrar56;
+      filtrar56 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 56;
+      });
+      let filtrar57;
+      filtrar57 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 57;
+      });  
+      let filtrar58;
+      filtrar58 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 58;
+      });
+      let filtrar59;
+      filtrar59 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 59;
+      });
+      let filtrar60;
+      filtrar60 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 60;
+      });
+      let filtrar61;
+      filtrar61 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 61;
+      });  
+      let filtrar62;
+      filtrar62 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 62;
+      });
+      let filtrar63;
+      filtrar63 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 63;
+      });
+      let filtrar64;
+      filtrar64 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 64;
+      });
+      let filtrar65;
+      filtrar65 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 65;
+      });
+      let filtrar66;
+      filtrar66 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 66;
+      });
+      let filtrar67;
+      filtrar67 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 67;
+      });
+      let filtrar68;
+      filtrar68 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 68;
+      });
+      let filtrar69;
+      filtrar69 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 69;
+      });
+      let filtrar70;
+      filtrar70 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 70;
+      });
+      let filtrar71;
+      filtrar71 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 71;
+      });
+      let filtrar72;
+      filtrar72 =  this.state.resultados.filter(function(hero) {
+        return hero.fk_preguntasEEO == 72;
+      });  
+
       a = 1
       // console.log("este es lo que contiene el estado ")
       pdfView1 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la Aplicación de la evaluación EEO </Alert>
         <React.Fragment>
-          <section className="flex-column  bg-white  pa4 "  >
-          <div>
-                    <MDBBtn className = "text-white"  size="md" color="secondary"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-                        Descargar Respuestas de {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}
-                    </MDBBtn>
-           </div>
-           <br/>
+            <section className="flex-column  bg-white  pa4 "  >
+                <div>
+                      <MDBBtn className = "text-white"  size="md" color="secondary"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                          Descargar Respuestas de {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}
+                      </MDBBtn>
+                </div>
+                <br/>
   
                 <MDBContainer style={{marginLeft:"6%"}}>
                 <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL<br/>EN LOS CENTROS DE TRABAJO</font>
@@ -3728,32 +4031,31 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td width="5%">1</td>
                       <td width="70%">El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</td>
-                      <td width="25%" >{this.state.resultados[1].Respuestas}</td> 
+                      <td width="25%" >{filtrar1[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td >2</td>
                       <td>Mi trabajo me exige hacer mucho esfuerzo físico</td>
-                      <td>{this.state.resultados[2].Respuestas}</td> 
+                      <td>{filtrar2[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>3</td>
                       <td>Me preocupa sufrir un accidente en mi trabajo</td>
-                      <td>{this.state.resultados[3].Respuestas}</td> 
+                      <td>{filtrar3[0].Respuestas}</td> 
                     </tr>                    
                     <tr>
                       <td>4</td>
                       <td>Considero que en mi trabajo se aplican las normas de seguridad y salud en el trabajo</td>
-                      <td>{this.state.resultados[4].Respuestas}</td> 
+                      <td>{filtrar4[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>5</td>
                       <td>Considero que las actividades que realizo son peligrosas</td>
-                      <td >{this.state.resultados[5].Respuestas}</td> 
+                      <td >{filtrar5[0].Respuestas}</td> 
                     </tr>
                     <br/>
  
                   </MDBTableBody>
-      
                   <MDBTableHead>
                     <tr>
                     <td></td>
@@ -3765,17 +4067,17 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td>6</td>
                       <td>Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</td>   
-                      <td >{this.state.resultados[6].Respuestas}</td> 
+                      <td >{filtrar6[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>7</td>
                       <td>Por la cantidad de trabajo que tengo debo trabajar sin parar</td>   
-                      <td >{this.state.resultados[7].Respuestas}</td> 
+                      <td >{filtrar7[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>8</td>
                       <td>Considero que es necesario mantener un ritmo de trabajo acelerado</td>   
-                      <td >{this.state.resultados[8].Respuestas}</td> 
+                      <td >{filtrar8[0].Respuestas}</td> 
                     </tr>
                     <br/>
                   </MDBTableBody>
@@ -3791,22 +4093,22 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td width="5%">9</td>
                       <td width="70%">Mi trabajo exige que esté muy concentrado</td> 
-                      <td width="25%" >{this.state.resultados[9].Respuestas}</td> 
+                      <td width="25%" >{filtrar9[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>10</td>
                       <td>Mi trabajo requiere que memorice mucha información</td>   
-                      <td >{this.state.resultados[10].Respuestas}</td> 
+                      <td >{filtrar10[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>11</td>
                       <td>En mi trabajo tengo que tomar decisiones difíciles muy rápido</td>   
-                      <td>{this.state.resultados[11].Respuestas}</td> 
+                      <td>{filtrar11[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>12</td>
                       <td>Mi trabajo exige que atienda varios asuntos al mismo tiempo</td>   
-                      <td >{this.state.resultados[12].Respuestas}</td> 
+                      <td >{filtrar12[0].Respuestas}</td> 
                     </tr>
                    <br/>
                   </MDBTableBody>
@@ -3822,22 +4124,22 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td width="5%">13</td>
                       <td width="70%">En mi trabajo soy responsable de cosas de mucho valor</td>   
-                      <td width="25%" >{this.state.resultados[13].Respuestas}</td> 
+                      <td width="25%" >{filtrar13[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>14</td>
                       <td>Respondo ante mi jefe por los resultados de toda mi área de trabajo</td>   
-                      <td>{this.state.resultados[14].Respuestas}</td> 
+                      <td>{filtrar14[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>15</td>
                       <td>En el trabajo me dan órdenes contradictorias</td>   
-                      <td>{this.state.resultados[15].Respuestas}</td> 
+                      <td>{filtrar15[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>16</td>
                       <td>Considero que en mi trabajo me piden hacer cosas innecesarias</td>   
-                      <td>{this.state.resultados[16].Respuestas}</td> 
+                      <td>{filtrar16[0].Respuestas}</td> 
                     </tr>
                     <br/>
                   </MDBTableBody>
@@ -3852,32 +4154,32 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td width="5%">17</td>
                       <td width="70%">Trabajo horas extras más de tres veces a la semana</td>   
-                      <td width="25%">{this.state.resultados[17].Respuestas}</td> 
+                      <td width="25%">{filtrar17[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>18</td>
                       <td>Mi trabajo me exige laborar en días de descanso, festivos o fines de semana</td>   
-                      <td>{this.state.resultados[18].Respuestas}</td> 
+                      <td>{filtrar18[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>19</td>
                       <td>Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales</td>   
-                      <td>{this.state.resultados[19].Respuestas}</td> 
+                      <td>{filtrar19[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>20</td>
                       <td>Debo atender asuntos de trabajo cuando estoy en casa</td>   
-                      <td>{this.state.resultados[20].Respuestas}</td> 
+                      <td>{filtrar20[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>21</td>
                       <td>Pienso en las actividades familiares o personales cuando estoy en mi trabajo</td>   
-                      <td>{this.state.resultados[21].Respuestas}</td> 
+                      <td>{filtrar21[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>22</td>
                       <td>Pienso que mis responsabilidades familiares afectan mi trabajo</td>   
-                      <td>{this.state.resultados[22].Respuestas}</td> 
+                      <td>{filtrar22[0].Respuestas}</td> 
                     </tr>
                   </MDBTableBody>
                   </MDBTable>
@@ -3895,32 +4197,32 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td width="5%">23</td>
                       <td width="70%">Mi trabajo permite que desarrolle nuevas habilidades</td>   
-                      <td width="25%">{this.state.resultados[23].Respuestas}</td> 
+                      <td width="25%">{filtrar23[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>24</td>
                       <td>En mi trabajo puedo aspirar a un mejor puesto</td>   
-                      <td >{this.state.resultados[24].Respuestas}</td> 
+                      <td >{filtrar24[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>25</td>
                       <td>Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</td>   
-                      <td>{this.state.resultados[25].Respuestas}</td> 
+                      <td>{filtrar25[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td >26</td>
                       <td >Puedo decidir cuánto trabajo realizo durante la jornada laboral</td>   
-                      <td >{this.state.resultados[26].Respuestas}</td> 
+                      <td >{filtrar26[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>27</td>
                       <td>Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</td>   
-                      <td >{this.state.resultados[27].Respuestas}</td> 
+                      <td >{filtrar27[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>28</td>
                       <td>Puedo cambiar el orden de las actividades que realizo en mi trabajo</td>   
-                      <td>{this.state.resultados[28].Respuestas}</td> 
+                      <td>{filtrar28[0].Respuestas}</td> 
                     </tr>
                     <br/>
                   </MDBTableBody>
@@ -3936,12 +4238,12 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td  width="5%">29</td>
                       <td  width="70%">Los cambios que se presentan en mi trabajo dificultan mi labor</td>   
-                      <td  width="25%">{this.state.resultados[29].Respuestas}</td> 
+                      <td  width="25%">{filtrar29[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>30</td>
                       <td>Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</td>   
-                      <td >{this.state.resultados[30].Respuestas}</td> 
+                      <td >{filtrar30[0].Respuestas}</td> 
                     </tr>
                     <br/>
                   </MDBTableBody>
@@ -3956,32 +4258,32 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td width="5%">31</td>
                       <td width="70%">Me informan con claridad cuáles son mis funciones</td>   
-                      <td width="25%">{this.state.resultados[31].Respuestas}</td> 
+                      <td width="25%">{filtrar31[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>32</td>
                       <td>Me explican claramente los resultados que debo obtener en mi trabajo</td>   
-                      <td >{this.state.resultados[32].Respuestas}</td> 
+                      <td >{filtrar32[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>33</td>
                       <td>Me explican claramente los objetivos de mi trabajo</td>   
-                      <td >{this.state.resultados[33].Respuestas}</td> 
+                      <td >{filtrar33[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>34</td>
                       <td>Me informan con quién puedo resolver problemas o asuntos de trabajo</td>   
-                      <td>{this.state.resultados[34].Respuestas}</td> 
+                      <td>{filtrar34[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>35</td>
                       <td>Me permiten asistir a capacitaciones relacionadas con mi trabajo</td>   
-                      <td>{this.state.resultados[35].Respuestas}</td> 
+                      <td>{filtrar35[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>36</td>
                       <td>Recibo capacitación útil para hacer mi trabajo</td>   
-                      <td>{this.state.resultados[36].Respuestas}</td> 
+                      <td>{filtrar36[0].Respuestas}</td> 
                     </tr>
                     <br/>
                   </MDBTableBody>
@@ -3997,27 +4299,27 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td width="5%">37</td>
                       <td width="70%">Mi jefe ayuda a organizar mejor el trabajo</td>   
-                      <td width="25%">{this.state.resultados[37].Respuestas}</td> 
+                      <td width="25%">{filtrar37[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>38</td>
                       <td>Mi jefe tiene en cuenta mis puntos de vista y opiniones</td>   
-                      <td>{this.state.resultados[38].Respuestas}</td> 
+                      <td>{filtrar38[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>39</td>
                       <td>Mi jefe me comunica a tiempo la información relacionada con el trabajo</td>   
-                      <td>{this.state.resultados[39].Respuestas}</td> 
+                      <td>{filtrar39[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>40</td>
                       <td>La orientación que me da mi jefe me ayuda a realizar mejor mi trabajo</td>   
-                      <td>{this.state.resultados[40].Respuestas}</td> 
+                      <td>{filtrar40[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>41</td>
                       <td>Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo</td>   
-                      <td>{this.state.resultados[41].Respuestas}</td> 
+                      <td>{filtrar41[0].Respuestas}</td> 
                     </tr>                  
                     <br/>
                   </MDBTableBody>
@@ -4033,27 +4335,27 @@ ponderacion=<React.Fragment>
                   <tr>
                       <td width="5%">42</td>
                       <td width="70%">Puedo confiar en mis compañeros de trabajo</td>   
-                      <td width="25%">{this.state.resultados[42].Respuestas}</td> 
+                      <td width="25%">{filtrar42[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>43</td>
                       <td>Entre compañeros solucionamos los problemas de trabajo de forma respetuosa</td>   
-                      <td>{this.state.resultados[43].Respuestas}</td> 
+                      <td>{filtrar43[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>44</td>
                       <td>En mi trabajo me hacen sentir parte del grupo</td>   
-                      <td>{this.state.resultados[44].Respuestas}</td> 
+                      <td>{filtrar44[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>45</td>
                       <td>Cuando tenemos que realizar trabajo de equipo los compañeros colaboran</td>   
-                      <td >{this.state.resultados[45].Respuestas}</td> 
+                      <td >{filtrar45[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>46</td>
                       <td>Mis compañeros de trabajo me ayudan cuando tengo dificultades</td>   
-                      <td>{this.state.resultados[46].Respuestas}</td> 
+                      <td>{filtrar46[0].Respuestas}</td> 
                     </tr>
                     <br/>
 
@@ -4069,52 +4371,52 @@ ponderacion=<React.Fragment>
                   <tr>
                       <td width="5%">47</td>
                       <td width="70%">Me informan sobre lo que hago bien en mi trabajo</td>   
-                      <td width="25%">{this.state.resultados[47].Respuestas}</td> 
+                      <td width="25%">{filtrar47[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>48</td>
                       <td>La forma como evalúan mi trabajo en mi centro de trabajo me ayuda a mejorar mi desempeño</td>   
-                      <td>{this.state.resultados[48].Respuestas}</td> 
+                      <td>{filtrar48[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>49</td>
                       <td>En mi centro de trabajo me pagan a tiempo mi salario</td>   
-                      <td>{this.state.resultados[49].Respuestas}</td> 
+                      <td>{filtrar49[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>50</td>
                       <td>El pago que recibo es el que merezco por el trabajo que realizo</td>   
-                      <td>{this.state.resultados[50].Respuestas}</td> 
+                      <td>{filtrar50[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>51</td>
                       <td>Si obtengo los resultados esperados en mi trabajo me recompensan o reconocen</td>   
-                      <td>{this.state.resultados[51].Respuestas}</td> 
+                      <td>{filtrar51[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>52</td>
                       <td>Las personas que hacen bien el trabajo pueden crecer laboralmente</td>   
-                      <td >{this.state.resultados[52].Respuestas}</td> 
+                      <td >{filtrar52[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>53</td>
                       <td>Considero que mi trabajo es estable</td>   
-                      <td >{this.state.resultados[53].Respuestas}</td> 
+                      <td >{filtrar53[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>54</td>
                       <td>En mi trabajo existe continua rotación de personal</td>   
-                      <td>{this.state.resultados[54].Respuestas}</td> 
+                      <td>{filtrar54[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>55</td>
                       <td>Siento orgullo de laborar en este centro de trabajo</td>   
-                      <td>{this.state.resultados[55].Respuestas}</td> 
+                      <td>{filtrar55[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>56</td>
                       <td>Me siento comprometido con mi trabajo</td>   
-                      <td>{this.state.resultados[56].Respuestas}</td> 
+                      <td>{filtrar56[0].Respuestas}</td> 
                     </tr>
                
                   </MDBTableBody>
@@ -4130,42 +4432,42 @@ ponderacion=<React.Fragment>
                   <tr>
                       <td width="5%">57</td>
                       <td width="70%">En mi trabajo puedo expresarme libremente sin interrupciones</td>   
-                      <td width="25%">{this.state.resultados[57].Respuestas}</td> 
+                      <td width="25%">{filtrar57[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>58</td>
                       <td>Recibo críticas constantes a mi persona y/o trabajo</td>   
-                      <td>{this.state.resultados[58].Respuestas}</td> 
+                      <td>{filtrar58[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>59</td>
                       <td>Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones</td>   
-                      <td>{this.state.resultados[59].Respuestas}</td> 
+                      <td>{filtrar59[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>60</td>
                       <td>Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones</td>   
-                      <td>{this.state.resultados[60].Respuestas}</td> 
+                      <td>{filtrar60[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>61</td>
                       <td>Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador</td>   
-                      <td>{this.state.resultados[61].Respuestas}</td> 
+                      <td>{filtrar61[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>62</td>
                       <td>Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores</td>   
-                      <td>{this.state.resultados[62].Respuestas}</td> 
+                      <td>{filtrar62[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>63</td>
                       <td>Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo</td>   
-                      <td>{this.state.resultados[63].Respuestas}</td> 
+                      <td>{filtrar63[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>64</td>
                       <td>He presenciado actos de violencia en mi centro de trabajo</td>   
-                      <td >{this.state.resultados[64].Respuestas}</td> 
+                      <td >{filtrar64[0].Respuestas}</td> 
                     </tr>
                     <br/>
                   </MDBTableBody>
@@ -4180,22 +4482,22 @@ ponderacion=<React.Fragment>
                   <tr>
                       <td width="5%">65</td>
                       <td width="70%">Atiendo clientes o usuarios muy enojados</td>   
-                      <td width="25%">{this.state.resultados[65].Respuestas}</td> 
+                      <td width="25%">{filtrar65[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>66</td>
                       <td>Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas</td>   
-                      <td>{this.state.resultados[66].Respuestas}</td> 
+                      <td>{filtrar66[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>67</td>
                       <td>Para hacer mi trabajo debo demostrar sentimientos distintos a los míos</td>   
-                      <td>{this.state.resultados[67].Respuestas}</td> 
+                      <td>{filtrar67[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>68</td>
                       <td>Mi trabajo me exige atender situaciones de violencia</td>   
-                      <td>{this.state.resultados[68].Respuestas}</td> 
+                      <td>{filtrar68[0].Respuestas}</td> 
                     </tr> 
                     <br/>                   
                   </MDBTableBody>
@@ -4211,22 +4513,22 @@ ponderacion=<React.Fragment>
                   <tr>
                       <td width="5%">69</td>
                       <td width="70%"> Comunican tarde los asuntos de trabajo</td>   
-                      <td width="25%">{this.state.resultados[69].Respuestas}</td> 
+                      <td width="25%">{filtrar69[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>70</td>
                       <td>Dificultan el logro de los resultados del trabajo</td>   
-                      <td>{this.state.resultados[70].Respuestas}</td> 
+                      <td>{filtrar70[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>71</td>
                       <td>Cooperan poco cuando se necesita</td>   
-                      <td >{this.state.resultados[71].Respuestas}</td> 
+                      <td >{filtrar71[0].Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>72</td>
                       <td>Ignoran las sugerencias para mejorar su trabajo</td>   
-                      <td>{this.state.resultados[72].Respuestas}</td> 
+                      <td>{filtrar72[0].Respuestas}</td> 
                     </tr>
                     
                   </MDBTableBody>
@@ -4338,23 +4640,23 @@ ponderacion=<React.Fragment>
                                         
                                     <tr>
                                     <td><font size="1" face="arial"color="black" >El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</font></td>
-                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[1].Respuestas}</font></td> 
+                                    <td width="90px"><font size="1" face="arial"color="black" >{filtrar1[0].Respuestas}</font></td> 
                                   </tr>
                                   <tr>
                                     <td><font size="1" face="arial"color="black" >Mi trabajo me exige hacer mucho esfuerzo físico</font></td>
-                                    <td width="90px" ><font size="1" face="arial"color="black" >{this.state.resultados[2].Respuestas}</font></td> 
+                                    <td width="90px" ><font size="1" face="arial"color="black" >{filtrar2[0].Respuestas}</font></td> 
                                   </tr>
                                   <tr>
                                     <td><font size="1" face="arial"color="black" >Me preocupa sufrir un accidente en mi trabajo</font></td>
-                                    <td  width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[3].Respuestas}</font></td> 
+                                    <td  width="90px"><font size="1" face="arial"color="black" >{filtrar3[0].Respuestas}</font></td> 
                                   </tr>                    
                                   <tr>
                                     <td><font size="1" face="arial"color="black" >Considero que en mi trabajo se aplican las normas de seguridad y salud en el trabajo</font></td>
-                                    <td  width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[4].Respuestas}</font></td> 
+                                    <td  width="90px"><font size="1" face="arial"color="black" >{filtrar4[0].Respuestas}</font></td> 
                                   </tr>
                                   <tr>
                                     <td><font size="1" face="arial"color="black" >Considero que las actividades que realizo son peligrosas</font></td>
-                                    <td  width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[5].Respuestas}</font></td> 
+                                    <td  width="90px"><font size="1" face="arial"color="black" >{filtrar5[0].Respuestas}</font></td> 
                                   </tr>
                                   
           
@@ -4369,15 +4671,15 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                                     <tr>
                                     <td><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</font></td>
-                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[6].Respuestas}</font></td> 
+                                    <td width="90px"><font size="1" face="arial"color="black" >{filtrar6[0].Respuestas}</font></td> 
                                   </tr>
                                   <tr>
                                     <td><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo trabajar sin parar</font></td>
-                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[7].Respuestas} </font></td> 
+                                    <td width="90px"><font size="1" face="arial"color="black" >{filtrar7[0].Respuestas} </font></td> 
                                   </tr>
                                   <tr>
                                     <td><font size="1" face="arial"color="black" >Considero que es necesario mantener un ritmo de trabajo acelerado</font></td>
-                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[8].Respuestas}</font></td> 
+                                    <td width="90px"><font size="1" face="arial"color="black" >{filtrar8[0].Respuestas}</font></td> 
                                   </tr>
                                   
                                     </MDBTableBody>
@@ -4393,32 +4695,25 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                                     <tr>
                                     <td><font size="1" face="arial"color="black" >Mi trabajo exige que esté muy concentrado</font></td>
-                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[9].Respuestas}</font></td> 
+                                    <td width="90px"><font size="1" face="arial"color="black" >{filtrar9[0].Respuestas}</font></td> 
                                   </tr>
                                     <tr>
                                     <td><font size="1" face="arial"color="black" >Mi trabajo requiere que memorice mucha información</font></td>   
-                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[10].Respuestas}</font></td> 
+                                    <td width="90px"><font size="1" face="arial"color="black" >{filtrar10[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >En mi trabajo tengo que tomar decisiones difíciles muy rápido</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[11].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar11[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >Mi trabajo exige que atienda varios asuntos al mismo tiempo</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[12].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar12[0].Respuestas}</font></td> 
                                     </tr>
                                    
                    
                                     </MDBTableBody>
                                     </MDBTable>
-                                    <br/>  
-                                    <br/>  
-                                    <br/>  
-                                    <br/>  
-                                    <br/>  
-                                    <br/>  
-                                    <br/>  
-                                    <br/>  
+                               
                                     <MDBTable  component={Paper}  small  className="text-left">
                                     <MDBTableBody>
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV. Trabajo y las responsabilidades que tiene.</font>
@@ -4428,19 +4723,19 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >En mi trabajo soy responsable de cosas de mucho valor</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[13].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar13[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                     <td><font size="1" face="arial"color="black" >Respondo ante mi jefe por los resultados de toda mi área de trabajo</font></td>   
-                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[14].Respuestas}</font></td> 
+                                    <td width="90px"><font size="1" face="arial"color="black" >{filtrar14[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >En el trabajo me dan órdenes contradictorias</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[15].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar15[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >Considero que en mi trabajo me piden hacer cosas innecesarias</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[16].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar16[0].Respuestas}</font></td> 
                                     </tr>
                                    
                                     </MDBTableBody>
@@ -4455,27 +4750,27 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >Trabajo horas extras más de tres veces a la semana</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[17].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar17[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                     <td><font size="1" face="arial"color="black" >Mi trabajo me exige laborar en días de descanso, festivos o fines de semana</font></td>   
-                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[18].Respuestas}</font></td> 
+                                    <td width="90px"><font size="1" face="arial"color="black" >{filtrar18[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[19].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar19[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >Debo atender asuntos de trabajo cuando estoy en casa</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[20].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar20[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >Pienso en las actividades familiares o personales cuando estoy en mi trabajo</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[21].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar21[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >Pienso que mis responsabilidades familiares afectan mi trabajo</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[22].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar22[0].Respuestas}</font></td> 
                                     </tr>
                                     </MDBTableBody>
                                     </MDBTable>
@@ -4491,41 +4786,33 @@ ponderacion=<React.Fragment>
                                             
                                     <tr>
                                     <td><font size="1" face="arial"color="black" >Mi trabajo permite que desarrolle nuevas habilidades</font></td>   
-                                    <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[23].Respuestas}</font></td> 
+                                    <td width="90px"><font size="1" face="arial"color="black" >{filtrar23[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >En mi trabajo puedo aspirar a un mejor puesto</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[24].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar24[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[25].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar25[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1" face="arial"color="black" >Puedo decidir cuánto trabajo realizo durante la jornada laboral</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[26].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar26[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td ><font size="1" face="arial"color="black" >Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{this.state.resultados[27].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1" face="arial"color="black" >{filtrar27[0].Respuestas}</font></td> 
                                     </tr>
                             
                                     <tr>
                                     <td><font size="1"face="arial"color="black">Puedo cambiar el orden de las actividades que realizo en mi trabajo</font></td>   
-                                    <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[28].Respuestas}</font></td> 
+                                    <td width="90px"><font size="1"face="arial"color="black">{filtrar28[0].Respuestas}</font></td> 
                                     </tr>
                                     
                                     </MDBTableBody>
                                     </MDBTable>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
+                                 
                                     <MDBTable  component={Paper}  small  className="text-left">
                                     <MDBTableBody>
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VII.Cualquier tipo de cambio que ocurra en su trabajo</font><br/>
@@ -4538,11 +4825,11 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Los cambios que se presentan en mi trabajo dificultan mi labor</font></td>   
-                                      <td width="90px" ><font size="1"face="arial"color="black">{this.state.resultados[29].Respuestas}</font></td> 
+                                      <td width="90px" ><font size="1"face="arial"color="black">{filtrar29[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[30].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar30[0].Respuestas}</font></td> 
                                     </tr>
                                     
                                     </MDBTableBody>
@@ -4557,27 +4844,27 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Me informan con claridad cuáles son mis funciones</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[31].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar31[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Me explican claramente los resultados que debo obtener en mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[32].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar32[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Me explican claramente los objetivos de mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[33].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar33[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Me informan con quién puedo resolver problemas o asuntos de trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[34].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar34[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Me permiten asistir a capacitaciones relacionadas con mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[35].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar35[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Recibo capacitación útil para hacer mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[36].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar36[0].Respuestas}</font></td> 
                                     </tr>
                                     
                                     </MDBTableBody>
@@ -4592,23 +4879,23 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Mi jefe ayuda a organizar mejor el trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[37].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar37[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Mi jefe tiene en cuenta mis puntos de vista y opiniones</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[38].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar38[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Mi jefe me comunica a tiempo la información relacionada con el trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[39].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar39[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">La orientación que me da mi jefe me ayuda a realizar mejor mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[40].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar40[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[41].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar41[0].Respuestas}</font></td> 
                                     </tr>
                                                                  
                                     </MDBTableBody>
@@ -4623,23 +4910,23 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Puedo confiar en mis compañeros de trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[42].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar42[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Entre compañeros solucionamos los problemas de trabajo de forma respetuosa</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[43].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar43[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">En mi trabajo me hacen sentir parte del grupo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[44].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar44[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Cuando tenemos que realizar trabajo de equipo los compañeros colaboran</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[45].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar45[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Mis compañeros de trabajo me ayudan cuando tengo dificultades</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[46].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar46[0].Respuestas}</font></td> 
                                     </tr>
                                                                  
                                     </MDBTableBody>
@@ -4658,43 +4945,43 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Me informan sobre lo que hago bien en mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[47].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar47[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">La forma como evalúan mi trabajo en mi centro de trabajo me ayuda a mejorar mi desempeño</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[48].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar48[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">En mi centro de trabajo me pagan a tiempo mi salario</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[49].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar49[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">El pago que recibo es el que merezco por el trabajo que realizo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[50].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar50[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Si obtengo los resultados esperados en mi trabajo me recompensan o reconocen</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[51].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar51[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Las personas que hacen bien el trabajo pueden crecer laboralmente</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[52].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar52[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Considero que mi trabajo es estable</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[53].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar53[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">En mi trabajo existe continua rotación de personal</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[54].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar54[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Siento orgullo de laborar en este centro de trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[55].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar55[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Me siento comprometido con mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[56].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar56[0].Respuestas}</font></td> 
                                     </tr>
                                                                  
                                     </MDBTableBody>
@@ -4709,46 +4996,40 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">En mi trabajo puedo expresarme libremente sin interrupciones</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[57].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar57[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Recibo críticas constantes a mi persona y/o trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[58].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar58[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[59].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar59[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[60].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar60[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[61].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar61[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[62].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar62[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[63].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar63[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">He presenciado actos de violencia en mi centro de trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[64].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar64[0].Respuestas}</font></td> 
                                     </tr>
                                                                                                   
                                     </MDBTableBody>
                                     </MDBTable>
-                                    <br/>
-                                    <br/>
-                                    <br/>  
-                                    <br/>
-                                    <br/>  
-                                    <br/>
-                                    <br/>  
+                                  
                                     <MDBTable  component={Paper}  small  className="text-left">
                                     <MDBTableBody>
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XIII. Atención a clientes y usuarios.</font>
@@ -4759,19 +5040,19 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Atiendo clientes o usuarios muy enojados</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[65].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar65[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[66].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar66[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Para hacer mi trabajo debo demostrar sentimientos distintos a los míos</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[67].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar67[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Mi trabajo me exige atender situaciones de violencia</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[68].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar68[0].Respuestas}</font></td> 
                                     </tr>
                                     </MDBTableBody>
                                     </MDBTable>
@@ -4785,19 +5066,19 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Comunican tarde los asuntos de trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[69].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar69[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Dificultan el logro de los resultados del trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[70].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar70[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Cooperan poco cuando se necesita</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[71].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar71[0].Respuestas}</font></td> 
                                     </tr>
                                     <tr>
                                       <td><font size="1"face="arial"color="black">Ignoran las sugerencias para mejorar su trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{this.state.resultados[72].Respuestas}</font></td> 
+                                      <td width="90px"><font size="1"face="arial"color="black">{filtrar72[0].Respuestas}</font></td> 
                                     </tr>
                                     </MDBTableBody>
                                     </MDBTable>
@@ -9081,6 +9362,309 @@ ponderacion=<React.Fragment>
              {this.state.reporteImasivo.map(rows=>{
                console.log("rows" , rows)
                if(rows[0]){
+                 
+                let filtrar1;
+                filtrar1 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 1;
+                });
+          
+                let filtrar2;
+                filtrar2 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 2;
+                });
+          
+                let filtrar3;
+                filtrar3 = rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 3;
+                });
+          
+                let filtrar4;
+                filtrar4 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 4;
+                });
+          
+                let filtrar5;
+                filtrar5 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 5;
+                });
+          
+                let filtrar6;
+                filtrar6 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 6;
+                });
+          
+                let filtrar7;
+                filtrar7 = rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 7;
+                });
+          
+                let filtrar8;
+                filtrar8 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 8;
+                });
+          
+                let filtrar9;
+                filtrar9 = rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 9;
+                });
+          
+                let filtrar10;
+                filtrar10 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 10;
+                });
+          
+                let filtrar11;
+                filtrar11 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 11;
+                });
+          
+                let filtrar12;
+                filtrar12 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 12;
+                });
+                let filtrar13;
+                filtrar13 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 13;
+                });
+                let filtrar14;
+                filtrar14 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 14;
+                });
+                let filtrar15;
+                filtrar15 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 15;
+                });
+                let filtrar16;
+                filtrar16 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 16;
+                });
+                let filtrar17;
+                filtrar17 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 17;
+                });
+          
+                let filtrar18;
+                filtrar18 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 18;
+                });
+                let filtrar19;
+                filtrar19 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 19;
+                });
+          
+                let filtrar20;
+                filtrar20=  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 20;
+                });
+                let filtrar21;
+                filtrar21 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 21;
+                });
+                  let filtrar22;
+                filtrar22 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 22;
+                });
+                let filtrar23;
+                filtrar23 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 23;
+                });
+                let filtrar24;
+                filtrar24=  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 24;
+                });
+                let filtrar25;
+                filtrar25 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 25;
+                });
+                let filtrar26;
+                filtrar26 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 26;
+                });
+                let filtrar27;
+                filtrar27 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 27;
+                });     
+                let filtrar28;
+                filtrar28 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 28;
+                });
+                let filtrar29;
+                filtrar29 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 29;
+                });    
+                let filtrar30;
+                filtrar30 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 30;
+                });
+                let filtrar31;
+                filtrar31 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 31;
+                });
+                let filtrar32;
+                filtrar32 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 32;
+                });
+                let filtrar33;
+                filtrar33 = rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 33;
+                });
+                let filtrar34;
+                filtrar34 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 34;
+                });
+                let filtrar35;
+                filtrar35 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 35;
+                });
+                let filtrar36;
+                filtrar36 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 36;
+                });
+                let filtrar37;
+                filtrar37 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 37;
+                });
+                let filtrar38;
+                filtrar38 = rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 38;
+                });
+                 let filtrar39;
+                filtrar39 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 39;
+                });
+                let filtrar40;
+                filtrar40 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 40;
+                });      
+                let filtrar41;
+                filtrar41 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 41;
+                });      
+                let filtrar42;
+                filtrar42 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 42;
+                });      
+                let filtrar43;
+                filtrar43 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 43;
+                });      
+                let filtrar44;
+                filtrar44 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 44;
+                });
+                let filtrar45;
+                filtrar45 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 45;
+                });
+                 let filtrar46;
+                filtrar46 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 46;
+                });
+                let filtrar47;
+                filtrar47 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 47;
+                });
+                let filtrar48;
+                filtrar48 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 48;
+                });
+                let filtrar49;
+                filtrar49 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 49;
+                });      
+                let filtrar50;
+                filtrar50 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 50;
+                });
+                let filtrar51;
+                filtrar51 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 51;
+                });
+                let filtrar52;
+                filtrar52 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 52;
+                });
+                let filtrar53;
+                filtrar53 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 53;
+                });
+                let filtrar54;
+                filtrar54 = rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 54;
+                });
+                let filtrar55;
+                filtrar55 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 55;
+                });
+                let filtrar56;
+                filtrar56 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 56;
+                });
+                let filtrar57;
+                filtrar57 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 57;
+                });  
+                let filtrar58;
+                filtrar58 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 58;
+                });
+                let filtrar59;
+                filtrar59 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 59;
+                });
+                let filtrar60;
+                filtrar60 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 60;
+                });
+                let filtrar61;
+                filtrar61 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 61;
+                });  
+                let filtrar62;
+                filtrar62 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 62;
+                });
+                let filtrar63;
+                filtrar63 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 63;
+                });
+                let filtrar64;
+                filtrar64 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 64;
+                });
+                let filtrar65;
+                filtrar65 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 65;
+                });
+                let filtrar66;
+                filtrar66 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 66;
+                });
+                let filtrar67;
+                filtrar67 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 67;
+                });
+                let filtrar68;
+                filtrar68 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 68;
+                });
+                let filtrar69;
+                filtrar69 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 69;
+                });
+                let filtrar70;
+                filtrar70 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 70;
+                });
+                let filtrar71;
+                filtrar71 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 71;
+                });
+                let filtrar72;
+                filtrar72 =  rows.filter(function(hero) {
+                  return hero.fk_preguntasEEO == 72;
+                });  
+
                return(
                 <div> 
                  
@@ -9115,23 +9699,23 @@ ponderacion=<React.Fragment>
                     
                 <tr>
                 <td><font size="1" face="arial"color="black" >El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</font></td>
-                <td width="90px"><font size="1" face="arial"color="black" >{rows[1].Respuestas}</font></td> 
+                <td width="90px"><font size="1" face="arial"color="black" >{filtrar1[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Mi trabajo me exige hacer mucho esfuerzo físico</font></td>
-                  <td width="90px" ><font size="1" face="arial"color="black" >{rows[2].Respuestas}</font></td> 
+                  <td width="90px" ><font size="1" face="arial"color="black" >{filtrar2[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Me preocupa sufrir un accidente en mi trabajo</font></td>
-                  <td  width="90px"><font size="1" face="arial"color="black" >{rows[3].Respuestas}</font></td> 
+                  <td  width="90px"><font size="1" face="arial"color="black" >{filtrar3[0].Respuestas}</font></td> 
                 </tr>                    
                 <tr>
                   <td><font size="1" face="arial"color="black" >Considero que en mi trabajo se aplican las normas de seguridad y salud en el trabajo</font></td>
-                  <td  width="90px"><font size="1" face="arial"color="black" >{rows[4].Respuestas}</font></td> 
+                  <td  width="90px"><font size="1" face="arial"color="black" >{filtrar4[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Considero que las actividades que realizo son peligrosas</font></td>
-                  <td  width="90px"><font size="1" face="arial"color="black" >{rows[5].Respuestas}</font></td> 
+                  <td  width="90px"><font size="1" face="arial"color="black" >{filtrar5[0].Respuestas}</font></td> 
               </tr>
                 </MDBTableBody>
                </MDBTable>
@@ -9144,15 +9728,15 @@ ponderacion=<React.Fragment>
                 <MDBTableBody>
                 <tr>
                 <td><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</font></td>
-                <td width="90px"><font size="1" face="arial"color="black" >{rows[6].Respuestas}</font></td> 
+                <td width="90px"><font size="1" face="arial"color="black" >{filtrar6[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo trabajar sin parar</font></td>
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[7].Respuestas} </font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar7[0].Respuestas} </font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Considero que es necesario mantener un ritmo de trabajo acelerado</font></td>
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[8].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar8[0].Respuestas}</font></td> 
                 </tr>
               
                 </MDBTableBody>
@@ -9168,30 +9752,23 @@ ponderacion=<React.Fragment>
                 <MDBTableBody>
                 <tr>
                 <td><font size="1" face="arial"color="black" >Mi trabajo exige que esté muy concentrado</font></td>
-                <td width="90px"><font size="1" face="arial"color="black" >{rows[9].Respuestas}</font></td> 
+                <td width="90px"><font size="1" face="arial"color="black" >{filtrar9[0].Respuestas}</font></td> 
               </tr>
                 <tr>
                 <td><font size="1" face="arial"color="black" >Mi trabajo requiere que memorice mucha información</font></td>   
-                <td width="90px"><font size="1" face="arial"color="black" >{rows[10].Respuestas}</font></td> 
+                <td width="90px"><font size="1" face="arial"color="black" >{filtrar10[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >En mi trabajo tengo que tomar decisiones difíciles muy rápido</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[11].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar11[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Mi trabajo exige que atienda varios asuntos al mismo tiempo</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[12].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar12[0].Respuestas}</font></td> 
                 </tr>
                 </MDBTableBody>
                 </MDBTable>
-                <br/>  
-                <br/>  
-                <br/>  
-                <br/>  
-                <br/>  
-                <br/>  
-                <br/>  
-                <br/>  
+             
                 <MDBTable  component={Paper}  small  className="text-left">
                 <MDBTableBody>
                 <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV. Trabajo y las responsabilidades que tiene.</font>
@@ -9201,19 +9778,19 @@ ponderacion=<React.Fragment>
                 <MDBTableBody>
                 <tr>
                   <td><font size="1" face="arial"color="black" >En mi trabajo soy responsable de cosas de mucho valor</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[13].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar13[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                 <td><font size="1" face="arial"color="black" >Respondo ante mi jefe por los resultados de toda mi área de trabajo</font></td>   
-                <td width="90px"><font size="1" face="arial"color="black" >{rows[14].Respuestas}</font></td> 
+                <td width="90px"><font size="1" face="arial"color="black" >{filtrar14[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >En el trabajo me dan órdenes contradictorias</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[15].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar15[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Considero que en mi trabajo me piden hacer cosas innecesarias</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[16].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar16[0].Respuestas}</font></td> 
                 </tr>
                
                 </MDBTableBody>
@@ -9228,27 +9805,27 @@ ponderacion=<React.Fragment>
                 <MDBTableBody>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Trabajo horas extras más de tres veces a la semana</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[17].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar17[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                 <td><font size="1" face="arial"color="black" >Mi trabajo me exige laborar en días de descanso, festivos o fines de semana</font></td>   
-                <td width="90px"><font size="1" face="arial"color="black" >{rows[18].Respuestas}</font></td> 
+                <td width="90px"><font size="1" face="arial"color="black" >{filtrar18[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[19].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar19[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Debo atender asuntos de trabajo cuando estoy en casa</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[20].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar20[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Pienso en las actividades familiares o personales cuando estoy en mi trabajo</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[21].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar21[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Pienso que mis responsabilidades familiares afectan mi trabajo</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[22].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar22[0].Respuestas}</font></td> 
                 </tr>
                 </MDBTableBody>
                 </MDBTable>
@@ -9264,46 +9841,33 @@ ponderacion=<React.Fragment>
                         
                 <tr>
                 <td><font size="1" face="arial"color="black" >Mi trabajo permite que desarrolle nuevas habilidades</font></td>   
-                <td width="90px"><font size="1" face="arial"color="black" >{rows[23].Respuestas}</font></td> 
+                <td width="90px"><font size="1" face="arial"color="black" >{filtrar23[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >En mi trabajo puedo aspirar a un mejor puesto</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[24].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar24[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[25].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar25[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1" face="arial"color="black" >Puedo decidir cuánto trabajo realizo durante la jornada laboral</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[26].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar26[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td ><font size="1" face="arial"color="black" >Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{rows[27].Respuestas}</font></td> 
+                  <td width="90px"><font size="1" face="arial"color="black" >{filtrar27[0].Respuestas}</font></td> 
                 </tr>
         
                 <tr>
                 <td><font size="1"face="arial"color="black">Puedo cambiar el orden de las actividades que realizo en mi trabajo</font></td>   
-                <td width="90px"><font size="1"face="arial"color="black">{rows[28].Respuestas}</font></td> 
+                <td width="90px"><font size="1"face="arial"color="black">{filtrar28[0].Respuestas}</font></td> 
                 </tr>
                 
                 </MDBTableBody>
                 </MDBTable>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+             
                 <MDBTable  component={Paper}  small  className="text-left">
                 <MDBTableBody>
                 <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VII.Cualquier tipo de cambio que ocurra en su trabajo</font><br/>
@@ -9316,11 +9880,11 @@ ponderacion=<React.Fragment>
                 <MDBTableBody>
                 <tr>
                   <td><font size="1"face="arial"color="black">Los cambios que se presentan en mi trabajo dificultan mi labor</font></td>   
-                  <td width="90px" ><font size="1"face="arial"color="black">{rows[29].Respuestas}</font></td> 
+                  <td width="90px" ><font size="1"face="arial"color="black">{filtrar29[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[30].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar30[0].Respuestas}</font></td> 
                 </tr>
                 
                 </MDBTableBody>
@@ -9335,27 +9899,27 @@ ponderacion=<React.Fragment>
                 <MDBTableBody>
                 <tr>
                   <td><font size="1"face="arial"color="black">Me informan con claridad cuáles son mis funciones</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[31].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar31[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Me explican claramente los resultados que debo obtener en mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[32].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar32[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Me explican claramente los objetivos de mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[33].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar33[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Me informan con quién puedo resolver problemas o asuntos de trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[34].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar34[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Me permiten asistir a capacitaciones relacionadas con mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[35].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar35[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Recibo capacitación útil para hacer mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[36].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar36[0].Respuestas}</font></td> 
                 </tr>
                 
                 </MDBTableBody>
@@ -9370,23 +9934,23 @@ ponderacion=<React.Fragment>
                 <MDBTableBody>
                 <tr>
                   <td><font size="1"face="arial"color="black">Mi jefe ayuda a organizar mejor el trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[37].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar37[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Mi jefe tiene en cuenta mis puntos de vista y opiniones</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[38].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar38[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Mi jefe me comunica a tiempo la información relacionada con el trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[39].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar39[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">La orientación que me da mi jefe me ayuda a realizar mejor mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[40].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar40[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[41].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar41[0].Respuestas}</font></td> 
                 </tr>
                                              
                 </MDBTableBody>
@@ -9401,35 +9965,28 @@ ponderacion=<React.Fragment>
                 <MDBTableBody>
                 <tr>
                   <td><font size="1"face="arial"color="black">Puedo confiar en mis compañeros de trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[42].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar42[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Entre compañeros solucionamos los problemas de trabajo de forma respetuosa</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[43].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar43[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">En mi trabajo me hacen sentir parte del grupo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[44].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar44[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Cuando tenemos que realizar trabajo de equipo los compañeros colaboran</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[45].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar45[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Mis compañeros de trabajo me ayudan cuando tengo dificultades</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[46].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar46[0].Respuestas}</font></td> 
                 </tr>
                                              
                 </MDBTableBody>
                 </MDBTable>
-                <br/>
-                <br/>  
-                <br/>
-                <br/>  
-                <br/>
-                <br/>  
-                <br/>
-                <br/>  
+               
                 <MDBTable  component={Paper}  small  className="text-left">
                 <MDBTableBody>
                 <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento</font><br/>
@@ -9442,43 +9999,43 @@ ponderacion=<React.Fragment>
                 <MDBTableBody>
                 <tr>
                   <td><font size="1"face="arial"color="black">Me informan sobre lo que hago bien en mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[47].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar47[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">La forma como evalúan mi trabajo en mi centro de trabajo me ayuda a mejorar mi desempeño</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[48].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar48[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">En mi centro de trabajo me pagan a tiempo mi salario</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[49].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar49[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">El pago que recibo es el que merezco por el trabajo que realizo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[50].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar50[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Si obtengo los resultados esperados en mi trabajo me recompensan o reconocen</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[51].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar51[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Las personas que hacen bien el trabajo pueden crecer laboralmente</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[52].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar52[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Considero que mi trabajo es estable</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[53].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar53[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">En mi trabajo existe continua rotación de personal</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[54].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar54[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Siento orgullo de laborar en este centro de trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[55].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar55[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Me siento comprometido con mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[56].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar56[0].Respuestas}</font></td> 
                 </tr>
                                              
                 </MDBTableBody>
@@ -9493,35 +10050,35 @@ ponderacion=<React.Fragment>
                 <MDBTableBody>
                 <tr>
                   <td><font size="1"face="arial"color="black">En mi trabajo puedo expresarme libremente sin interrupciones</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[57].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar57[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Recibo críticas constantes a mi persona y/o trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[58].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar58[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[59].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar59[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[60].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar60[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[61].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar61[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[62].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar62[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[63].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar63[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">He presenciado actos de violencia en mi centro de trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[64].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar64[0].Respuestas}</font></td> 
                 </tr>
                                                                               
                 </MDBTableBody>
@@ -9557,19 +10114,19 @@ ponderacion=<React.Fragment>
                 <MDBTableBody>
                 <tr>
                   <td><font size="1"face="arial"color="black">Atiendo clientes o usuarios muy enojados</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[65].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar65[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[66].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar66[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Para hacer mi trabajo debo demostrar sentimientos distintos a los míos</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[67].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar67[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Mi trabajo me exige atender situaciones de violencia</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[68].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar68[0].Respuestas}</font></td> 
                 </tr>
                 </MDBTableBody>
                 </MDBTable>
@@ -9583,19 +10140,19 @@ ponderacion=<React.Fragment>
                 <MDBTableBody>
                 <tr>
                   <td><font size="1"face="arial"color="black">Comunican tarde los asuntos de trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[69].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar69[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Dificultan el logro de los resultados del trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[70].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar70[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Cooperan poco cuando se necesita</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[71].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar71[0].Respuestas}</font></td> 
                 </tr>
                 <tr>
                   <td><font size="1"face="arial"color="black">Ignoran las sugerencias para mejorar su trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{rows[72].Respuestas}</font></td> 
+                  <td width="90px"><font size="1"face="arial"color="black">{filtrar72[0].Respuestas}</font></td> 
                 </tr>
                 </MDBTableBody>
                 </MDBTable> 
