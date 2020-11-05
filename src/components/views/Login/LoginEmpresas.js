@@ -91,9 +91,6 @@ handleInput = (e) => {
     var yyyy = date.getFullYear();
 
     date = mm + '/' + dd + '/' + yyyy;
-
-    console.log("datos" , rfc,pass,IP,date,hours)
-
         axios({
           url:  API,
           method:'post',
@@ -164,8 +161,6 @@ handleInput = (e) => {
   }
   
   render() {
-    const { isPasswordShown } = this.state;
-
     return ( 
     <React.Fragment>
      <form onSubmit={e => this.handleForm(e)}>
