@@ -586,80 +586,98 @@ pdfExportComponent ;
             }
 
             if(this.state.resultados.length>0){ 
+              console.log("estado",this.state.resultados)
+              let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value12,value13,value14,value15,value16;
+              
               let filtrar1;
               filtrar1 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 1;
               });
-
+              value1 = filtrar1.pop()
+              
               let filtrar2;
               filtrar2 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 2;
               });
+              value2 = filtrar2.pop()  
 
               let filtrar3;
               filtrar3 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 3;
               });
+               value3 = filtrar3.pop()
 
               let filtrar4;
               filtrar4 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 4;
               });
+              value4 = filtrar4.pop()
 
               let filtrar5;
               filtrar5 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 5;
               });
+              value5 = filtrar5.pop()
 
               let filtrar6;
               filtrar6 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 6;
               });
+              value6 = filtrar6.pop()
 
               let filtrar7;
               filtrar7 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 7;
               });
+              value7 = filtrar7.pop()
 
               let filtrar8;
               filtrar8 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 8;
               });
+              value8 = filtrar8.pop()
 
               let filtrar9;
               filtrar9 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 9;
               });
+              value9 = filtrar9.pop()
 
               let filtrar10;
               filtrar10 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 10;
               });
+              value10 = filtrar10.pop()
 
-              let filtrar11;
-              filtrar11 =  this.state.resultados.filter(function(hero) {
-                return hero.fk_preguntasATS == 11;
-              });
               let filtrar12;
               filtrar12 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 12;
               });
+              value12 = filtrar12.pop()
+
               let filtrar13;
               filtrar13 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 13;
               });
+              value13 = filtrar13.pop()
+
               let filtrar14;
               filtrar14 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 14;
               });
+              value14 = filtrar14.pop()
+
               let filtrar15;
               filtrar15 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 15;
               });
+              value15 = filtrar15.pop()
+
               let filtrar16;
               filtrar16 =  this.state.resultados.filter(function(hero) {
                 return hero.fk_preguntasATS == 16;
               });
+              value16 = filtrar16.pop()
 
             pdfView1 = <MDBContainer > <Alert className ="mt-4" color ="primary ">Resultados individuales de la Aplicación de la evaluación ATS </Alert>
 
@@ -728,7 +746,7 @@ pdfExportComponent ;
                                 siguientes:<br/> Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
                                 grave? Asaltos? <br/>Actos violentos que derivaron en lesiones graves? <br/>Secuestro? Amenazas?, o Cualquier otro
                                 que ponga en riesgo su vida o salud, y/o la de otras personas?</td>
-                            <td width="19%">{filtrar1[0].Respuestas}</td>
+                            <td width="19%">{value1.Respuestas}</td>
                             
                             </tr>
                             <br/>
@@ -746,13 +764,13 @@ pdfExportComponent ;
                             <tr>
                             <td>2</td>
                             <td>¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</td>   
-                            <td >{filtrar2[0].Respuestas}</td> 
+                            <td >{value2.Respuestas}</td> 
                             </tr>
                         
                             <tr>
                             <td>3</td>
                             <td>¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</td>   
-                            <td >{filtrar3[0].Respuestas}</td> 
+                            <td >{value3.Respuestas}</td> 
                             </tr>
                             <br/>
                         </MDBTableBody>
@@ -769,41 +787,41 @@ pdfExportComponent ;
                             <tr>
                             <td>4</td>
                             <td>¿Se ha esforzado por evitar todo tipo de sentimientos, conversaciones o situaciones que le puedan recordar el acontecimiento?</td>   
-                            <td>{filtrar4[0].Respuestas}</td> 
+                            <td>{value4.Respuestas}</td> 
                             </tr>
                         
                             <tr>
                             <td>5</td>
                             <td>¿Se ha esforzado por evitar todo tipo de actividades, lugares o personas que motivan recuerdos del acontecimiento?</td>   
-                            <td >{filtrar5[0].Respuestas}</td> 
+                            <td >{value5.Respuestas}</td> 
                             </tr>
                         
                             <tr>
                             <td>6</td>
                             <td>¿Ha tenido dificultad para recordar alguna parte importante del evento?</td>   
-                            <td >{filtrar6[0].Respuestas}</td> 
+                            <td >{value6.Respuestas}</td> 
                             </tr>
                             
                             <tr>
                             <td>7</td>
                             <td>¿Ha disminuido su interés en sus actividades cotidianas?</td>   
-                            <td >{filtrar7[0].Respuestas}</td> 
+                            <td >{value7.Respuestas}</td> 
                             </tr>
                         
                             <tr>
                             <td>8</td>
                             <td>¿Se ha sentido usted alejado o distante de los demás?</td>   
-                            <td >{filtrar8[0].Respuestas}</td> 
+                            <td >{value8.Respuestas}</td> 
                             </tr>
                             <tr>
                             <td>9</td>
                             <td>¿Ha notado que tiene dificultad para expresar sus sentimientos?</td>   
-                            <td >{filtrar9[0].Respuestas}</td> 
+                            <td >{value9.Respuestas}</td> 
                             </tr>
                             <tr>
                             <td>10</td>
                             <td>¿Ha tenido la impresión de que su vida se va a acortar, que va a morir antes que otras personas o que tiene un futuro limitado?</td>   
-                            <td >{filtrar10[0].Respuestas}</td> 
+                            <td >{value10.Respuestas}</td> 
                             </tr>
                             <br/>
                         
@@ -820,27 +838,27 @@ pdfExportComponent ;
                             <tr>
                             <td>11</td>
                             <td>¿Ha tenido usted dificultades para dormir?</td>   
-                            <td >{filtrar12[0].Respuestas}</td> 
+                            <td >{value12.Respuestas}</td> 
                             </tr>
                             <tr>
                             <td>12</td>
                             <td>¿Ha estado particularmente irritable o le han dado arranques de coraje?</td>   
-                            <td >{filtrar13[0].Respuestas}</td> 
+                            <td >{value13.Respuestas}</td> 
                             </tr>
                             <tr>
                             <td>13</td>
                             <td>¿Ha tenido dificultad para concentrarse?</td>   
-                            <td >{filtrar14[0].Respuestas}</td> 
+                            <td >{value14.Respuestas}</td> 
                             </tr>
                             <tr>
                             <td>14</td>
                             <td>¿Ha estado nervioso o constantemente en alerta?</td>   
-                            <td >{filtrar15[0].Respuestas}</td> 
+                            <td >{value15.Respuestas}</td> 
                             </tr>
                             <tr>
                             <td>15</td>
                             <td>¿Se ha sobresaltado fácilmente por cualquier cosa?</td>   
-                            <td >{filtrar16[0].Respuestas}</td> 
+                            <td >{value16.Respuestas}</td> 
                             </tr>
                         </MDBTableBody>
                         </MDBTable> 
@@ -961,7 +979,7 @@ pdfExportComponent ;
                                                     siguientes:<br></br> Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
                                                     grave? Asaltos? Actos violentos que derivaron en lesiones graves? Secuestro? Amenazas?, o Cualquier otro
                                                     que ponga en riesgo su vida o salud, y/o la de otras personas?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar1[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value1.Respuestas}</font></td>
                                                 
                                                 </tr>
                     
@@ -977,12 +995,12 @@ pdfExportComponent ;
                                             <tr>            
                                                 <td >
                                             <font size="1" face="arial"color="black">¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar2[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value2.Respuestas}</font></td>
                                             </tr>
                                             <tr>
                                                 <td >
                                             <font size="1" face="arial"color="black">¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar3[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value3.Respuestas}</font></td>
                                                 
                                             </tr>
                                             
@@ -1000,46 +1018,46 @@ pdfExportComponent ;
                                                 
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Se ha esforzado por evitar todo tipo de sentimientos, conversaciones o situaciones que le puedan recordar el acontecimiento?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar4[0].Respuestas}</font></td></tr>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value4.Respuestas}</font></td></tr>
                                                 
                                                 <tr>
                                                 
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Se ha esforzado por evitar todo tipo de actividades, lugares o personas que motivan recuerdos del acontecimiento?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar5[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value5.Respuestas}</font></td>
                                                 </tr>
 
                                                 <tr>
                                                 
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Ha tenido dificultad para recordar alguna parte importante del evento?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar6[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value6.Respuestas}</font></td>
                                                 </tr>
 
                                                 <tr>
                                                 
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Ha disminuido su interés en sus actividades cotidianas?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar7[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value7.Respuestas}</font></td>
                                                 </tr>
 
                                                 <tr>
                                                 
                                                 <td >
                                                 <font size="1" face="arial"color="black">  ¿Se ha sentido usted alejado o distante de los demás?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar8[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value8.Respuestas}</font></td>
                                                 </tr>
 
                                                 <tr>
                                                 <td >
                                                 <font size="1" face="arial"color="black"> ¿Ha notado que tiene dificultad para expresar sus sentimientos?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar9[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value9.Respuestas}</font></td>
                                                 </tr>
 
                                                 <tr>
                                                 <td >
                                                 <font size="1" face="arial"color="black"> ¿Ha tenido la impresión de que su vida se va a acortar, que va a morir antes que otras personas o que tiene un futuro limitado?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar10[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value10.Respuestas}</font></td>
                                                 </tr>
                                             
                                             </MDBTableBody>
@@ -1056,34 +1074,34 @@ pdfExportComponent ;
                                                 
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Ha tenido usted dificultades para dormir?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar12[0].Respuestas}</font></td></tr>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value12.Respuestas}</font></td></tr>
                                                 
                                                 <tr>
                                                 
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Ha estado particularmente irritable o le han dado arranques de coraje?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar13[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value13.Respuestas}</font></td>
                                                 </tr>
 
                                                 <tr>
                                                 
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Ha tenido dificultad para concentrarse?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar14[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value14.Respuestas}</font></td>
                                                 </tr>
 
                                                 <tr>
                                                 
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Ha estado nervioso o constantemente en alerta?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar15[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value15.Respuestas}</font></td>
                                                 </tr>
 
                                                 <tr>
                                                 
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Se ha sobresaltado fácilmente por cualquier cosa?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar16[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value16.Respuestas}</font></td>
                                                 </tr>
                                             
                                                 
@@ -1482,112 +1500,114 @@ pdfExportComponent ;
                                     }
                                     if(rows[0]){
                                       console.log("rows masivos" , rows )
+                                      let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16;
                                       let array1= [];
                                       let filtrar1;
                                       filtrar1 =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 1;
                                       });
+                                      value1 = filtrar1.pop()
                         
                                       let array2= [];
                                       let filtrar2;
                                       filtrar2 =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 2;
                                       });
+                                      value2 = filtrar2.pop()
+
                         
                                       let array3= [];
                                       let filtrar3;
                                       filtrar3 =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 3;
                                       });
-                        
+                                      value3 = filtrar3.pop()
+
+
                                       let array4= [];
                                       let filtrar4;
                                       filtrar4 = rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 4;
                                       });
-                        
+                                      value4 = filtrar4.pop()
+
                                       let array5= [];
                                       let filtrar5;
                                       filtrar5 =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 5;
                                       });
-                        
+                                      value5 = filtrar5.pop()
+
                                       let array6= [];
                                       let filtrar6;
                                       filtrar6 =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 6;
                                       });
-                        
+                                      value6 = filtrar6.pop()
+
                                       let array7= [];
                                       let filtrar7;
                                       filtrar7 =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 7;
                                       });
-                        
+                                      value7 = filtrar7.pop()
+
                                       let array8= [];
                                       let filtrar8;
                                       filtrar8 = rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 8;
                                       });
-                        
+                                      value8 = filtrar8.pop()
+
                                       let array9= [];
                                       let filtrar9;
                                       filtrar9 =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 9;
                                       });
+                                      value9 = filtrar9.pop()
                         
                                       let array10= [];
                                       let filtrar10;
                                       filtrar10 =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 10;
                                       });
-                        
-                                      let array11= [];
-                                      let filtrar11;
-                                      filtrar11 =  rows.filter(function(hero) {
-                                        return hero.fk_preguntasATS == 11;
-                                      });
+                                      value10 = filtrar10.pop()
+
                                       let array12= [];
                                       let filtrar12;
                                       filtrar12 =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 12;
                                       });
+                                      value12 = filtrar12.pop()
+
                                       let array13= [];
                                       let filtrar13;
                                       filtrar13 = rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 13;
                                       });
+                                      value13 = filtrar13.pop()
+
                                       let array14= [];
                                       let filtrar14;
                                       filtrar14 =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 14;
                                       });
+                                      value14 = filtrar14.pop()
+
                                       let array15= [];
                                       let filtrar15;
                                       filtrar15 =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 15;
                                       });
+                                      value15 = filtrar15.pop()
+
                                       let filtrar16;
                                       filtrar16 =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 16;
 
                                       });
-                                      console.log("filtrar1" , filtrar1[0].Respuestas)
-                                      console.log("filtrar2" , filtrar2)
-                                      console.log("filtrar3" , filtrar3)
-                                      console.log("filtrar4" , filtrar4)
-                                      console.log("filtrar5" , filtrar5)
-                                      console.log("filtrar6" , filtrar6)
-                                      console.log("filtrar7" , filtrar7)
-                                      console.log("filtrar8" , filtrar8)
-                                      console.log("filtrar9" , filtrar9)
-                                      console.log("filtrar10" , filtrar10)
-                                      console.log("filtrar11" , filtrar11)
-                                      console.log("filtrar12" , filtrar12)
-                                      console.log("filtrar13" , filtrar13)
-                                      console.log("filtrar14" , filtrar14)
-                                      console.log("filtrar15" , filtrar15)
-                                      console.log("filtrar16" , filtrar16)
+                                      value16 = filtrar16.pop()
+
                                     return(
                                     <div style={{ width: "500px" }}>  
                                        <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
@@ -1621,7 +1641,7 @@ pdfExportComponent ;
                                                     siguientes:<br></br> Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
                                                     grave? Asaltos? Actos violentos que derivaron en lesiones graves? Secuestro? Amenazas?, o Cualquier otro
                                                     que ponga en riesgo su vida o salud, y/o la de otras personas?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar1[0].Respuestas}</font></td>              
+                                                <td width="60px"><font size="1" face="arial"color="black">{value1.Respuestas}</font></td>              
                                               </tr>
                      
                                             </MDBTableBody>
@@ -1636,12 +1656,12 @@ pdfExportComponent ;
                                             <tr>            
                                               <td >
                                             <font size="1" face="arial"color="black">¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</font></td>
-                                              <td width="60px"><font size="1" face="arial"color="black">{filtrar2[0].Respuestas}</font></td>
+                                              <td width="60px"><font size="1" face="arial"color="black">{value2.Respuestas}</font></td>
                                              </tr>
                                              <tr>
                                               <td >
                                             <font size="1" face="arial"color="black">¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</font></td>
-                                              <td width="60px"><font size="1" face="arial"color="black">{filtrar3[0].Respuestas}</font></td>
+                                              <td width="60px"><font size="1" face="arial"color="black">{value3.Respuestas}</font></td>
                                                
                                             </tr>
                                            
@@ -1659,47 +1679,47 @@ pdfExportComponent ;
                                                
                                                 <td >
                                               <font size="1" face="arial"color="black">¿Se ha esforzado por evitar todo tipo de sentimientos, conversaciones o situaciones que le puedan recordar el acontecimiento?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar4[0].Respuestas}</font></td></tr>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value4.Respuestas}</font></td></tr>
                                                
                                                <tr>
                                                 
                                                 <td >
                                               <font size="1" face="arial"color="black">¿Se ha esforzado por evitar todo tipo de actividades, lugares o personas que motivan recuerdos del acontecimiento?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar5[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value5.Respuestas}</font></td>
                                                </tr>
       
                                                <tr>
                                                 
                                                 <td >
                                               <font size="1" face="arial"color="black">¿Ha tenido dificultad para recordar alguna parte importante del evento?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar6[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value6.Respuestas}</font></td>
                                                 </tr>
       
                                                 <tr>
                                                 
                                                 <td >
                                               <font size="1" face="arial"color="black">¿Ha disminuido su interés en sus actividades cotidianas?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar7[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value7.Respuestas}</font></td>
                                                </tr>
       
                                                <tr>
                                                
                                                 <td >
                                               <font size="1" face="arial"color="black">  ¿Se ha sentido usted alejado o distante de los demás?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar8[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value8.Respuestas}</font></td>
                                                </tr>
       
                                                <tr>
                                                 <td >
                                               <font size="1" face="arial"color="black">¿Ha notado que tiene dificultad para expresar sus sentimientos?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar9[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value9.Respuestas}</font></td>
       
                                               </tr>
 
                                                <tr>
                                                 <td >
                                               <font size="1" face="arial"color="black"> ¿Ha tenido la impresión de que su vida se va a acortar, que va a morir antes que otras personas o que tiene un futuro limitado?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar10[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value10.Respuestas}</font></td>
       
                                               </tr>
                                           
@@ -1720,33 +1740,33 @@ pdfExportComponent ;
                                                
                                                 <td >
                                               <font size="1" face="arial"color="black">¿Ha tenido usted dificultades para dormir?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar12[0].Respuestas}</font></td></tr>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value12.Respuestas}</font></td></tr>
                                                
                                                <tr>
                                                 
                                                 <td >
                                               <font size="1" face="arial"color="black">¿Ha estado particularmente irritable o le han dado arranques de coraje?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar13[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value13.Respuestas}</font></td>
                                                </tr>
       
                                                <tr>
                                                 
                                                 <td >
                                               <font size="1" face="arial"color="black">¿Ha tenido dificultad para concentrarse?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar14[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value14.Respuestas}</font></td>
                                                 </tr>
       
                                                 <tr>
                                                 <td >
                                               <font size="1" face="arial"color="black">¿Ha estado nervioso o constantemente en alerta?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar15[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value15.Respuestas}</font></td>
                                                </tr>
       
                                                <tr>
                                                 
                                                 <td >
                                               <font size="1" face="arial"color="black">¿Se ha sobresaltado fácilmente por cualquier cosa?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{filtrar16[0].Respuestas}</font></td>
+                                                <td width="60px"><font size="1" face="arial"color="black">{value16.Respuestas}</font></td>
                                                </tr> 
                                             </MDBTableBody>
                                             </MDBTable>

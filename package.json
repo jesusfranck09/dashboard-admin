@@ -38,7 +38,7 @@
     "install": "^0.13.0",
     "match-sorter": "^4.0.2",
     "material-ui": "^0.20.2",
-    "mdbreact": "^4.21.1",
+    "mdbreact": "git+https://oauth2:yFHQ3x-9njQJsTmAsHrA@git.mdbootstrap.com/mdb/react/re-pro.git",
     "mui-datatables": "^2.14.0",
     "namor": "^2.0.2",
     "node-sass": "^4.12.0",

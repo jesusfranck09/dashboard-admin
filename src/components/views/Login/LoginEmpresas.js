@@ -1,56 +1,25 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import { InputGroup, InputGroupAddon, InputGroupText,Input } from 'reactstrap';
-import { AppNavbarBrand } from '@coreui/react';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import diagnostico from '../../images/diagnostico.png'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
-
 import {
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarNav,
-  MDBNavbarToggler,
-  MDBCollapse,
+  MDBInput,
   MDBMask,
   MDBRow,
-  MDBCol,
   MDBBtn,
   MDBView,
   MDBContainer,
   MDBAnimation,
   MDBCard,
-  MDBCardBody,
-  MDBIcon,
-  MDBNavItem,
-  MDBNavLink,
-  MDBCardHeader
+  MDBCardBody
 } from "mdbreact";
 import "./index.css";
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
 import { DialogUtility } from '@syncfusion/ej2-popups';
+import axios from 'axios'
+import {API} from  '../../utils/http'
 
-const LOGINEMPRESAS = gql`
-    mutation LOGINEMPRESAS($rfc: String!, $password: String!){
-        loginEmpresas(rfc: $rfc, password: $password){
-          activo
-          message 
-          token 
-          id
-          nombre
-          Apellidos
-          RFC
-          RazonSocial
-          correo
-          activo 
-      fechaRegistro
-        
-        }
-    }
-`
 
 class Login extends React.Component {
     constructor(props){
@@ -63,7 +32,7 @@ class Login extends React.Component {
         }
       }
 componentWillMount(){
-  localStorage.removeItem("elToken")
+sessionStorage.removeItem("elToken")
 localStorage.removeItem("nombre")
 localStorage.removeItem("apellidos")
 localStorage.removeItem("rfc")
@@ -84,6 +53,7 @@ localStorage.removeItem("periodo")
 
 }      
 handleInput = (e) => {
+  console.log("esta es la e" , e)
     const {id, value} = e.target
      this.setState({
         [id]:value
@@ -96,195 +66,150 @@ handleInput = (e) => {
   };
 
 
-  handleForm = (e, login) => { 
+  handleForm = async (e) => { 
     e.preventDefault();
+    console.log("event" , this.state.rfc,this.state.password)
+    if(this.state.rfc && this.state.password){
+    let IP;
+    
+    var findIP = new Promise(r=>{var w=window,a=new (w.RTCPeerConnection||w.mozRTCPeerConnection||w.webkitRTCPeerConnection)({iceServers:[]}),b=()=>{};a.createDataChannel("");a.createOffer(c=>a.setLocalDescription(c,b,b),b);a.onicecandidate=c=>{try{c.candidate.candidate.match(/([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g).forEach(r)}catch(e){}}})
 
-    console.log('Enviando formulario...');
-    login({variables: { 
-        ...this.state
-    }});
-  }
-  
-  handleData = async (data) => {
-    console.log("data del dash" , data)
-    if (data.loginEmpresas.token === 'no hay token' && data.loginEmpresas.message==="ningun dato"){
-      DialogUtility.alert({
-        animationSettings: { effect: 'Zoom' },           
-        title: 'Por favor no deje espacios en blanco',
-        position: "fixed",
+/*Ejemplo de uso*/
+    await findIP.then(ip => {
+      IP = ip
+    }).catch(err=>{
+      console.log("error al obtener ip" , err)
     })
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000); 
 
-  }
- if(data.loginEmpresas.token==='no hay token' && data.loginEmpresas.message==='usuario y contraseña incorrectos'){
-    DialogUtility.alert({
-      animationSettings: { effect: 'Zoom' },           
-      title: 'USUARIO Y CONTRASEÑA INCORRECTOS',
-      position: "fixed",
-  })  
-  setTimeout(() => {
-    window.location.reload();
-  }, 2000); 
-  }
-   if(data.loginEmpresas.message==='Login exitoso' && data.loginEmpresas.token){
-        localStorage.setItem('nombre', data.loginEmpresas.nombre)
-        localStorage.setItem('elToken', data.loginEmpresas.token)  
-        localStorage.setItem('apellidos', data.loginEmpresas.Apellidos) 
-        localStorage.setItem('rfc',data.loginEmpresas.RFC) 
-        localStorage.setItem('razonsocial', data.loginEmpresas.RazonSocial) 
-        localStorage.setItem('correo',data.loginEmpresas.correo)
-        localStorage.setItem('idAdmin', data.loginEmpresas.id) 
-        localStorage.setItem('fechaRegistro', data.loginEmpresas.fechaRegistro) 
-        this.props.history.push("/inicio")  
+    var rfc   = this.state.rfc;
+    var pass  = this.state.password
+
+    var date = new Date();
+    var hours = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    var dd = String(date.getDate()).padStart(2, '0');
+    var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = date.getFullYear();
+
+    date = mm + '/' + dd + '/' + yyyy;
+
+    console.log("datos" , rfc,pass,IP,date,hours)
+
+        axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+          mutation{
+            loginEmpresas(data:"${[date,hours,IP,rfc,pass]}"){
+              message
+              token
+              id
+              nombre
+              Apellidos
+              RFC
+              RazonSocial
+              telefono
+              correo
+              activo
+              fechaRegistro
+              fk_superusuario
+                }
+              }
+              `
+          }
+          }).then((datos) => {
+            if(datos.data.data.loginEmpresas.token==='no hay token' && datos.data.data.loginEmpresas.message==='usuario y contraseña incorrectos'){
+              DialogUtility.alert({
+                animationSettings: { effect: 'Zoom' },           
+                title: 'USUARIO Y CONTRASEÑA INCORRECTOS',
+                position: "fixed",
+            })  
+            }
+            else if(datos.data.data.loginEmpresas.message==='Login exitoso' && datos.data.data.loginEmpresas.token){
+              localStorage.setItem('nombre', datos.data.data.loginEmpresas.nombre)
+              sessionStorage.setItem('elToken', datos.data.data.loginEmpresas.token)  
+              localStorage.setItem('apellidos', datos.data.data.loginEmpresas.Apellidos) 
+              localStorage.setItem('rfc',datos.data.data.loginEmpresas.RFC) 
+              localStorage.setItem('razonsocial',datos.data.data.loginEmpresas.RazonSocial) 
+              localStorage.setItem('correo',datos.data.data.loginEmpresas.correo)
+              localStorage.setItem('idAdmin', datos.data.data.loginEmpresas.id) 
+              localStorage.setItem('fechaRegistro', datos.data.data.loginEmpresas.fechaRegistro) 
+              localStorage.setItem('fk_superusuario', datos.data.data.loginEmpresas.fk_superusuario) 
+
+              this.props.history.push("/inicio")  
+              DialogUtility.alert({
+                animationSettings: { effect: 'Zoom' },           
+                title: 'Sesión iniciada  BIENVENIDO  '+ datos.data.data.loginEmpresas.nombre,
+                position: "fixed",
+               })  
+        }else if (datos.data.data.loginEmpresas.message == 'RFC no encontrado'){
+              DialogUtility.alert({
+                title: "AVISO !",
+                animationSettings: { effect: 'Zoom' },           
+                content: 'Estimado usuario su RFC no ha sido encontrado',
+                position: "fixed",
+              })  
+        }
+          })
+          .catch((error) => {
+            console.log(".cartch" , error.response)
+        });
+      }else{
         DialogUtility.alert({
           animationSettings: { effect: 'Zoom' },           
-          title: 'Sesión iniciada  BIENVENIDO  '+ data.loginEmpresas.nombre,
+          title: 'No deje espacios en blanco',
           position: "fixed",
-      })  
+         })  
+      }
   }
-  if(data.loginEmpresas.activo==='false'){
-
-    DialogUtility.alert({
-      animationSettings: { effect: 'Zoom' },           
-      title: 'Su licencia ha Expirado',
-      content: `Estimado cliente por el momento no puede iniciar sesión en el sistema de evaluaciones por favor contáctese con su Asesor de ADS para renovar su Suscripción`, 
-     
-      position: "fixed",
-  })
-
-  }
-  }
+  
   render() {
     const { isPasswordShown } = this.state;
 
-    const overlay = (
-      <div
-        id="sidenav-overlay"
-        style={{ backgroundColor: "transparent" }}
-        onClick={this.handleTogglerClick}
-      />
-    );
-    return (
-        <Mutation mutation={LOGINEMPRESAS}>
-        {
-
-    (login, {data, error}) => {
-    if (data){
-      this.handleData(data)
-    } 
     return ( 
-        <React.Fragment>
-    <form onSubmit={e => this.handleForm(e, login)}>
-      <div id="apppage">
-        <Router>
-          <div>
-            <MDBNavbar
-              color="primary-color"
-              dark
-              expand="md"
-              fixed="top"
-              scrolling
-              transparent
-            >
-              <MDBContainer>
-                <MDBNavbarBrand>
-                <AppNavbarBrand
-                    full={{ src: diagnostico, width: 140, height: 45, alt: 'DIAGNOSTICO' }} />
-                  <strong className="white-text">Bienvenido</strong>
-                </MDBNavbarBrand>
-     
-                <MDBNavbarToggler />
-                <MDBCollapse >
-                  <MDBNavbarNav left>
-                    <MDBNavItem active>
-                      <MDBNavLink to="#!">Home</MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem>
-                      <MDBNavLink to="#!">Link</MDBNavLink>
-                    </MDBNavItem>
-                    <MDBNavItem>
-                      <MDBNavLink to="#!">Profile</MDBNavLink>
-                    </MDBNavItem>
-                  </MDBNavbarNav>
-                </MDBCollapse>
-              </MDBContainer>
-            </MDBNavbar>
-            {this.state.collapsed && overlay}
-          </div>
-        </Router>
-        
+    <React.Fragment>
+     <form onSubmit={e => this.handleForm(e)}>
+      <div id="apppage">        
         <MDBView>
-          <MDBMask className="d-flex justify-content-center align-items-center gradient">
+          <MDBMask >
             <MDBContainer>
-              <MDBRow>
-
-                <MDBCol
-                  md="6"
-                  className="white-text text-center text-md-left mt-xl-5 mb-5"
-                >
-                </MDBCol>
-                <MDBRow>
-                <MDBCol md="6" className="mb-8">
-                  <MDBAnimation type="fadeInRight" delay=".3s">
-                    <MDBCard id="classic-card"  >
-                  
-                      <MDBCardHeader>  
-                        <h3 className="text-center">
-                            <i> Iniciar sesión:</i>
-                        </h3></MDBCardHeader>  
-                      <MDBCardBody className="white-text">
-                       
-                        <hr className="hr-light" />
-
-                        <InputGroup   className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText><MDBIcon icon="user" /></InputGroupText>
-                        </InputGroupAddon>
-                        <Input id="rfc" onChange={this.handleInput} type="text"  placeholder="RFC/Empresa" />
-                      </InputGroup>
-  
-
-                      <InputGroup className="mb-4">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                          <MDBIcon icon="lock" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input id="password" onChange={this.handleInput} type={isPasswordShown ? "text" : "password"} placeholder="Contraseña"/>
-                        <InputGroupText>
-                        <i
-                          className="fa fa-eye password-icon"
-                          onClick={this.togglePasswordVisiblity}
-                        />
-                        </InputGroupText>
-                         
-                      </InputGroup>
-
-                           
-                      <MDBRow>
-                        <MDBCol md="8">
-                          <MDBBtn gradient="aqua" className="px-4" type='submit'>Entrar</MDBBtn>
-                        </MDBCol>
-                      </MDBRow>
-                    
-                      </MDBCardBody>
-                    
-
-                    </MDBCard>
-                  </MDBAnimation>
-                </MDBCol>
-                <MDBCol md="6" xl="5" className="mt-xl-5">
-                  <MDBAnimation type="fadeInRight" delay=".3s">
-                    <img
-                      src="https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png"
-                      alt=""
-                      className="img-fluid"
+              <MDBRow  >
+              <img src = {diagnostico} style={{width:250,marginTop:"38%",marginLeft:"28%",height:90}}/>
+              <MDBAnimation type="fadeInRight" delay=".3s">
+              <MDBCard style={{width:"100%",marginTop:"2%",marginLeft:"70%"}} >
+                <div className="header pt-3 grey lighten-2">
+                  <MDBRow className="d-flex justify-content-center">
+                    <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">
+                      Iniciar sesión
+                    </h3>
+                  </MDBRow>
+                </div>
+                  <MDBCardBody className="mx-4 mt-4">
+                    <MDBInput label="Ingrese su RFC" group type="text" validate   id="rfc" onChange={this.handleInput} />
+                    <MDBInput
+                      id="password" 
+                      label="Contraseña"
+                      group
+                      type="password"
+                      validate
+                      containerClass="mb-0"
+                      onChange={this.handleInput} 
                     />
-                  </MDBAnimation>
-                </MDBCol>
-                </MDBRow>
+                    <div className="text-center mb-4 mt-5">
+                    <MDBBtn
+                      color='success'
+                      rounded
+                      type='submit'
+                      className='btn-block z-depth-1'
+                    >
+                      Ingresar
+                    </MDBBtn>
+                    </div>
+                  
+                  </MDBCardBody>
+                </MDBCard>
+                </MDBAnimation>   
+|
               </MDBRow>          
             </MDBContainer>
           </MDBMask>
@@ -292,10 +217,7 @@ handleInput = (e) => {
       </div>
       </form>
       </React.Fragment>
-                 )
-            }
-        }
-      </Mutation>
+
     );
   }
 }

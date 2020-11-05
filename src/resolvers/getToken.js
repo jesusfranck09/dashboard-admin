@@ -1,1 +1,1 @@
-export default () => localStorage.getItem('elToken')
+export default () => sessionStorage.getItem('elToken')

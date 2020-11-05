@@ -25,9 +25,7 @@ import "./styles.scss";
 import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined';
 import Upload from '../uploadImage/upload'
 import UpdateLogo from '../uploadImage/updateLogo'
-
 import { MDBModal, MDBModalBody, MDBModalHeader} from "mdbreact";
-
 import { MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
 import {ProgressBar} from 'react-bootstrap' 
 import Navbar from './navbar'
@@ -37,6 +35,7 @@ class Home extends React.Component {
     this.state = {
       selection : 1,
       showModal2: false,
+      totalEmpleados : '',
       ATSContestado:'',
       ATSNoContestado:'',
       RPContestado:'',
@@ -53,7 +52,6 @@ class Home extends React.Component {
       modal12:false,
       modal20:false,
       modal21:false,
-      totalEmpleados:'',
       empleadosRP:[],
       empleadosRPFalse:[],
       AtsDetectado:[],
@@ -67,9 +65,9 @@ class Home extends React.Component {
       licencia:'',
       array:[],
       empleados:'',
-      max:'',
       urlLogo:'',
-      periodo:''
+      periodo:'',
+      datosEventos:[]
     };
 
     this.ads = this.ads.bind(this);
@@ -78,7 +76,6 @@ class Home extends React.Component {
   }
 
   async componentWillMount(){
-
     let idAdmin = localStorage.getItem("idAdmin")
       // const url = 'http://localhost:8000/graphql'
       // console.log("el tiempo es " , t )
@@ -91,8 +88,16 @@ class Home extends React.Component {
           getPeriodo(data:"${[idAdmin]}"){
             idEventos
             fk_administrador
+            evento
+            eventoFinal
+            alerta1
+            alerta2
+            alerta3
             Descripcion
             EventoActivo
+            Alerta1Enviada
+            Alerta2Enviada
+            Alerta3Enviada
                 }
               }
             `
@@ -102,46 +107,160 @@ class Home extends React.Component {
         let periodo = datos.data.data.getPeriodo[0].Descripcion ;
         localStorage.setItem("periodo" ,datos.data.data.getPeriodo[0].Descripcion )
         this.setState({periodo:periodo})
+        this.setState({datosEventos:datos.data.data.getPeriodo[0]})
+        
+        let eventoFinal;
+        let alerta1;
+        let alerta2;
+        let alerta3; 
+        // console.log("eventos",datos.data.data.getPeriodo[0])
+        eventoFinal = datos.data.data.getPeriodo[0].eventoFinal
+        alerta1  = datos.data.data.getPeriodo[0].alerta1
+        alerta2  = datos.data.data.getPeriodo[0].alerta2
+        alerta3  =  datos.data.data.getPeriodo[0].alerta3
+        var alert3;
+        var alert2;
+        var alert1;
+        var fechaFinal;
+        if(alerta1){
+          alert1= alerta1.substring(4,34)       
+        } 
+        if (alerta2){
+          alert2=alerta2.substring(4,34)
+        } 
+        if (alerta3){
+          alert3=alerta3.substring(4,34)
+        }
+        if (eventoFinal){
+          fechaFinal = eventoFinal.substring(4,34)
+          // console.log("alerta",fechaFinal) 
+        }
+
+        console.log("valores" , fechaFinal,alert1,alert2,alert3)
+        this.countdown(fechaFinal)
+        this.alerta1(alert1)
+        this.alerta2(alert2)
+        this.alerta3(alert3)
       }).catch(err=>{
-        // console.log("error",err.response)
+        console.log("error",err.response)
       })
+        await this.getEmployees();
+        await this.handleFront();
+        await this.verifyTables();
+        await this.getUrlLogo();
+  }
 
-    this.handleFront();
-    this.countEmployees();
-    this.verifyTables();
-    this.getUrlLogo();
-    this.getEmployees();
-    // this.datosEEO()
-  }
-  
-  componentDidMount(){
-    this.sendMAilAlert1Survey();
-  }
-  getUrlLogo(){
-    let idAdmin = localStorage.getItem("idAdmin")
-     axios({
-      url:  API,
-      method:'post',
-      data:{
+  getEmployees(){
+    let array = [];
+    let array2 = [];
+    let array3 = [];
+    let array4 = [];
+    let array5 = [];
+    let array6 = [];
+    let array7 = [];
+ 
+   const idAdmin= localStorage.getItem("idAdmin") 
+   // const url = 'http://localhost:8000/graphql'
+   axios({
+     url:  API,
+     method:'post',
+     data:{
       query:`
-       query{
-        getLogo(data:"${[idAdmin]}"){
-          url
+          query{
+            getUsersTableEmployees(data:"${idAdmin}"){
+              id
+              nombre
+              ApellidoP
+              ApellidoM
+              Curp
+              RFC
+              FechaNacimiento
+              Sexo
+              CentroTrabajo
+              EstadoCivil
+              correo
+              AreaTrabajo
+              Puesto
+              TipoPuesto
+              NivelEstudios
+              TipoPersonal
+              JornadaTrabajo
+              TipoContratacion
+              TiempoPuesto
+              ExperienciaLaboral
+              RotacionTurnos
+              fk_administrador
+              ATSContestado
+              RPContestado
+              EEOContestado
+              ATSDetectado
+                }
               }
-            }
-          `
-      }
-          }).then((datos) => {
-            console.log("datos urlLogo" , datos)
-            if(datos.data.data.getLogo.url){
-              localStorage.setItem("urlLogo",datos.data.data.getLogo.url)
-            }
-            this.setState({urlLogo:datos.data.data.getLogo.url})
-          }).catch(err=>{
-            console.log("datos error url " , err)
-          })
+              `
+          }
+         }).then((datos) => {
 
-  }
+           let datosEmpleados = datos.data.data.getUsersTableEmployees;
+           if( datos.data.data.getUsersTableEmployees.length>0){
+            localStorage.setItem("empleadoActivo","true")
+           }else{
+             localStorage.setItem("empleadoActivo","false")
+           }
+           this.setState({totalEmpleados  : datosEmpleados.length})  
+
+           let resultados1 = datosEmpleados.filter(function(hero) {
+             return hero.ATSContestado == 'true';
+           });
+           array.push(resultados1)
+           this.setState({empleadosAts:array[0]})
+           this.setState({ATSContestado:array[0].length})
+           let resultados2 = datosEmpleados.filter(function(hero) {
+             return hero.ATSContestado == 'false';
+           });
+           array2.push(resultados2)
+           this.setState({empleadosAtsFalse:array2[0]})
+           this.setState({ATSNoContestado:array2[0].length})
+ 
+           let resultados3 = datosEmpleados.filter(function(hero) {
+             return hero.RPContestado == 'true';
+           });
+           array3.push(resultados3)
+           this.setState({empleadosRP:array3[0]})
+           this.setState({RPContestado:array3[0].length})
+ 
+           let resultados4 = datosEmpleados.filter(function(hero) {
+             return hero.RPContestado == 'false';
+           });
+           array4.push(resultados4)
+           this.setState({empleadosRPFalse:array4[0]})
+           this.setState({RPNoContestado:array4[0].length})
+ 
+           let resultados5 = datosEmpleados.filter(function(hero) {
+             return hero.EEOContestado == 'true';
+           });
+           array5.push(resultados5)
+           this.setState({empleadosEEO:array5[0]})
+           this.setState({EEOContestado:array5[0].length})
+ 
+           let resultados6 = datosEmpleados.filter(function(hero) {
+             return hero.EEOContestado == 'false';
+           });
+           array6.push(resultados6)
+           this.setState({empleadosEEOFalse:array6[0]})
+           this.setState({EEONoContestado:array6[0].length})
+ 
+           let resultados7 = datosEmpleados.filter(function(hero) {
+             return hero.ATSDetectado == 'true';
+           });
+           array7.push(resultados7)
+           this.setState({AtsDetectado:array7[0]})
+
+          
+         })
+ 
+         .catch((error) => {
+       });  
+    }
 
   handleFront = async () =>{
   
@@ -150,46 +269,14 @@ class Home extends React.Component {
   let max;
   let idAdmin = localStorage.getItem("idAdmin")
   // const url = 'http://localhost:8000/graphql'
-  await axios({
-    url:  API,
-    method:'post',
-    data:{
-    query:`
-    mutation{
-      authRegisterSingleEmployee(data:"${[idAdmin]}"){
-      max
-        }
-      }
-      `
-    }
-  })
-  .then(datos => {		
-        max=datos.data.data.authRegisterSingleEmployee[0].max;
-        this.setState({max:max})
-  });
-
-   axios({
-    url:  API,
-    method:'post',
-    data:{
-    query:`
-     query{
-      getAdminDashboard(data:"${[idAdmin]}"){
-        fk_superusuario
-        }
-        }
-      `
-    }
-    })
-    .then(datos => {		
-    idSuperUsuario = datos.data.data.getAdminDashboard.fk_superusuario;
+  idSuperUsuario =localStorage.getItem("fk_superusuario")
     axios({
 		  url:  API,
 		  method:'post',
 		  data:{
 		  query:`
 		   query{
-			verifyPackSuperUser(data:"${[idSuperUsuario]}"){
+		  	verifyPackSuperUser(data:"${[idSuperUsuario]}"){
 				empleados
 				  }
 				}
@@ -203,46 +290,11 @@ class Home extends React.Component {
 		}).catch(err=>{
 			// console.log("error" , err.response)
 		}) 
-    }).catch(err=>{
-      // console.log("error" , err.response)
-    }) 
-   
- 
-}
+  }
 
-
-ads(){
-  this.setState({showModal2:true})
-}
-
-verifyTables=async () =>{
+  verifyTables = async () =>{
   const idAdmin   = await localStorage.getItem('idAdmin')
   // const url = 'http://localhost:8000/graphql'
-  await axios({
-    url:  API,
-    method:'post',
-    data:{
-    query:`
-     query{
-      employeeActive(data:"${[idAdmin]}"){
-        id
-        EmpleadoActivo
-            }
-          }
-        `
-    }
-        }).then((datos) => {
-          // console.log("em activo",datos.data.data.employeeActive.length)
-          if(datos.data.data.employeeActive.length>0){
-           localStorage.setItem("empleadoActivo","true")
-          }else{
-            localStorage.setItem("empleadoActivo","false")
-          }
-      
-        }).catch(err=>{
-          // console.log("este es el error " , err.response)
-        })
-        
   await axios({
     url:  API,
     method:'post',
@@ -267,569 +319,366 @@ verifyTables=async () =>{
     }).catch(err=>{
       // console.log("este es el error " , err.response)
     })
-  await axios({
-    url:  API,
-    method:'post',
-    data:{
-    query:`
-      query{
-      sucActive(data:"${[idAdmin]}"){
-        id
-        SucursalActiva
+    await axios({
+      url:  API,
+      method:'post',
+      data:{
+      query:`
+        query{
+        sucActive(data:"${[idAdmin]}"){
+          id
+          SucursalActiva
+              }
             }
-          }
-        `
-    }
-    }).then((datos) => {
-        // console.log("depto activo",datos.data.data.sucActive)
-      if(datos.data.data.sucActive.length>0){
-        localStorage.setItem("SucursalActiva","true")
-      }else{
-        localStorage.setItem("SucursalActiva","false")
+          `
       }
-  
-    }).catch(err=>{
-      // console.log("este es el error " , err.response)
-    })
-  await axios({
-    url:  API,
-    method:'post',
-    data:{
-    query:`
-      query{
-      puestoActive(data:"${[idAdmin]}"){
-        id
-        PuestoActivo
-            }
-          }
-        `
-    }
-    }).then((datos) => {
-        // console.log("depto activo",datos.data.data.puestoActive)
-      if(datos.data.data.puestoActive.length>0){
-        localStorage.setItem("PuestoActivo","true")
-      }else{
-        localStorage.setItem("PuestoActivo","false")
-      }
-  
-    }).catch(err=>{
-      // console.log("este es el error " , err.response)
-    })
-}
-
-countEmployees = async()=>{
-  
-  const idAdmin   = localStorage.getItem('idAdmin')
-  // const url = 'http://localhost:8000/graphql'
-  await axios({
-    url:  API,
-    method:'post',
-    data:{
-    query:`
-     query{
-      countEmployees(data:"${[idAdmin]}"){
-           id
-            }
-          }
-        `
-    }
-    }).then((datos) => {
-      // console.log("los datos son ",datos.data.data.countEmployees[0].id)
-      this.setState({totalEmpleados:datos.data.data.countEmployees[0].id})
+      }).then((datos) => {
+          // console.log("depto activo",datos.data.data.sucActive)
+        if(datos.data.data.sucActive.length>0){
+          localStorage.setItem("SucursalActiva","true")
+        }else{
+          localStorage.setItem("SucursalActiva","false")
+        }
     
-    }).catch(err=>{
-      // console.log("este es el error " , err.response)
-    })
-
-}
-
-
- getEmployees(){
-   let array = [];
-   let array2 = [];
-   let array3 = [];
-   let array4 = [];
-   let array5 = [];
-   let array6 = [];
-   let array7 = [];
-
-  const idAdmin= localStorage.getItem("idAdmin") 
-  // const url = 'http://localhost:8000/graphql'
-  axios({
-    url:  API,
-    method:'post',
-    data:{
-    query:`
-    query{
-      getUsersTableEmployees(data:"${idAdmin}"){
-        id
-        nombre
-        ApellidoP
-        ApellidoM
-        Curp
-        RFC
-        FechaNacimiento
-        Sexo
-        CentroTrabajo
-        EstadoCivil
-        correo
-        AreaTrabajo
-        Puesto
-        TipoPuesto
-        NivelEstudios
-        TipoPersonal
-        JornadaTrabajo
-        TipoContratacion
-        TiempoPuesto
-        ExperienciaLaboral
-        RotacionTurnos
-        fk_administrador
-        ATSContestado
-        RPContestado
-        EEOContestado
-        ATSDetectado
-          }
-        }
-        `
-    }
-        }).then((datos) => {
-          console.log("datos" , datos.data.data.getUsersTableEmployees)
-          let datosEmpleados = datos.data.data.getUsersTableEmployees;
-          let resultados1 = datosEmpleados.filter(function(hero) {
-            return hero.ATSContestado == 'true';
-          });
-          array.push(resultados1)
-          this.setState({empleadosAts:array[0]})
-          this.setState({ATSContestado:array[0].length})
-          let resultados2 = datosEmpleados.filter(function(hero) {
-            return hero.ATSContestado == 'false';
-          });
-          array2.push(resultados2)
-          this.setState({empleadosAtsFalse:array2[0]})
-          this.setState({ATSNoContestado:array2[0].length})
-
-          let resultados3 = datosEmpleados.filter(function(hero) {
-            return hero.RPContestado == 'true';
-          });
-          array3.push(resultados3)
-          this.setState({empleadosRP:array3[0]})
-          this.setState({RPContestado:array3[0].length})
-
-          let resultados4 = datosEmpleados.filter(function(hero) {
-            return hero.RPContestado == 'false';
-          });
-          array4.push(resultados4)
-          this.setState({empleadosRPFalse:array4[0]})
-          this.setState({RPNoContestado:array4[0].length})
-
-          let resultados5 = datosEmpleados.filter(function(hero) {
-            return hero.EEOContestado == 'true';
-          });
-          array5.push(resultados5)
-          this.setState({empleadosEEO:array5[0]})
-          this.setState({EEOContestado:array5[0].length})
-
-          let resultados6 = datosEmpleados.filter(function(hero) {
-            return hero.EEOContestado == 'false';
-          });
-          array6.push(resultados6)
-          this.setState({empleadosEEOFalse:array6[0]})
-          this.setState({EEONoContestado:array6[0].length})
-
-          let resultados7 = datosEmpleados.filter(function(hero) {
-            return hero.ATSDetectado == 'true';
-          });
-          array7.push(resultados7)
-          this.setState({AtsDetectado:array7[0]})
-        })
-
-        .catch((error) => {
-      });  
-
- }
-
-toggle = (nr) => () => {  
-  let modalNumber = 'modal' + nr
-  this.setState({
-    [modalNumber]: !this.state[modalNumber]
-  });
-}
-
-sendMAilAlert1Survey  = async () => {
-
-  let eventoFinal;
-  let alerta1;
-  let alerta2;
-  let alerta3; 
- let idAdmin = localStorage.getItem("idAdmin")
-  // const url = 'http://localhost:8000/graphql'
-      await axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:`
-        query{
-          getEventos(data:"${[idAdmin]}"){
-           message
-           eventoFinal
-            alerta1
-             alerta2,
-             alerta3
-                }
-              }
-            `
-        }
-            }).then((datos) => {
-                eventoFinal = datos.data.data.getEventos.eventoFinal;
-                alerta1=datos.data.data.getEventos.alerta1;
-                alerta2=datos.data.data.getEventos.alerta2;
-                alerta3=datos.data.data.getEventos.alerta3;
-            }).catch(err=>{
-            })       
-            
-            var alert3;
-            var alert2;
-            var alert1;
-            var fechaFinal;
-            if(alerta1){
-              alert1= alerta1.substring(4,34)       
-            } 
-            if (alerta2){
-              alert2=alerta2.substring(4,34)
-            } 
-            if (alerta3){
-              alert3=alerta3.substring(4,34)
-            }
-            if (eventoFinal){
-              fechaFinal = eventoFinal.substring(4,34)
-              // console.log("alerta",fechaFinal) 
-            }
-            this.countdown(fechaFinal)
-            this.alerta1(alert1)
-            this.alerta2(alert2)
-            this.alerta3(alert3)
-
-          }
-countdown =  (deadline) => {
-  const timerUpdate = setInterval( async () => {
-    let t = this.getRemainingTime(deadline);
-    let descripcion;
-    if(t.remainTime <= 1) {
-      clearInterval(timerUpdate);
-      let idAdmin = localStorage.getItem("idAdmin")
-      await axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:`
-         query{
-          getPeriodo(data:"${[idAdmin]}"){
-            idEventos
-            fk_administrador
-            Descripcion
-            EventoActivo
-                }
-              }
-            `
-        }
-      })
-      .then(datos => {	
-      descripcion = datos.data.data.getPeriodo[0].Descripcion
       }).catch(err=>{
+        // console.log("este es el error " , err.response)
       })
-      axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:`
-         mutation{
-          deletePeriodo(data:"${[descripcion,idAdmin]}"){
-              message
-                }
+    await axios({
+      url:  API,
+      method:'post',
+      data:{
+      query:`
+        query{
+        puestoActive(data:"${[idAdmin]}"){
+          id
+          PuestoActivo
               }
-            `
+            }
+          `
+      }
+      }).then((datos) => {
+          // console.log("depto activo",datos.data.data.puestoActive)
+        if(datos.data.data.puestoActive.length>0){
+          localStorage.setItem("PuestoActivo","true")
+        }else{
+          localStorage.setItem("PuestoActivo","false")
         }
+    
+      }).catch(err=>{
+        // console.log("este es el error " , err.response)
       })
-      .then(datos => {	
-        DialogUtility.alert({
-          animationSettings: { effect: 'Fade' },        
-          title:"AVISO!",   
-          content: 'Su periodo está Desactivado por favor Registre uno nuevo',
-          position: "fixed",
-        }
-        ) 
-      })
-    }
-  }, 1000)
-};
-
-getRemainingTime = deadline => {
-  let now = new Date(),
-      remainTime = (new Date(deadline) - now + 1000) / 1000,
-      remainSeconds = ('0' + Math.floor(remainTime % 60)).slice(-2),
-      remainMinutes = ('0' + Math.floor(remainTime / 60 % 60)).slice(-2),
-      remainHours = ('0' + Math.floor(remainTime / 3600 % 24)).slice(-2),
-      remainDays = Math.floor(remainTime / (3600 * 24));
-
-  return {
-    remainSeconds,
-    remainMinutes,
-    remainHours,
-    remainDays,
-    remainTime
   }
-};
 
-alerta1 =  (deadline) => {
-  const timerUpdate = setInterval( async () => {
-    let t = this.getRemainingTime(deadline);
-    const idAdmin  = localStorage.getItem("idAdmin")
-    let alerta1Enviada;
-    let ATS;
-    let RP;
-    let EEO;
-    let Eventos;
-    await axios({
-      url:  API,
-      method:'post',
-      data:{
-      query:`
-       query{
-        getPeriodo(data:"${[idAdmin]}"){
-          idEventos
-          fk_administrador
-          Descripcion
-          Alerta1Enviada
-              }
-            }
-          `
-      }
-    })
-    .then(datos => {	
-    Eventos = datos.data.data.getPeriodo[0].idEventos
-    alerta1Enviada = datos.data.data.getPeriodo[0].Alerta1Enviada
-    }).catch(err=>{
-    })
-    if(t.remainTime <= 1 && alerta1Enviada==='false') {
-      clearInterval(timerUpdate);
-      let idAdmin = localStorage.getItem("idAdmin")
-      await axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:`
+
+      getUrlLogo(){
+        let idAdmin = localStorage.getItem("idAdmin")
+        axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
           query{
-          getEmployeesResolvesSurveyATSFalse(data:"${[idAdmin]}"){
-                nombre
-                ApellidoP
-                ApellidoM
-                correo
-                ATSContestado
+            getLogo(data:"${[idAdmin]}"){
+              url
+                  }
                 }
-              }
-            `
-        }
-            }).then((datos) => {
-             ATS=datos.data.data.getEmployeesResolvesSurveyATSFalse
-             const correo  = localStorage.getItem("correo")
-             const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación ATS por favor realice la actividad lo mas pronto posible "
-             ATS.map(rows=>{
-                axios({
-                 url:  API,
-                 method:'post',
-                 data:{
-                 query:`
-                  mutation{
-                   alert1(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
-                     message
-                         }
-                       }
-                     `
-                 }
-               })
-               .then(datos => {	
-               }).catch(err=>{
-               })
- 
-             })
-            }).catch(err=>{
-            })  
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-    await axios({
-      url:  API,
-      method:'post',
-      data:{
-      query:`
-        query{
-        getEmployeesResolvesSurveyRPFalse(data:"${[idAdmin]}"){
-              nombre
-              ApellidoP
-              ApellidoM
-              correo
-              }
-            }
-          `
-      }
+              `
+          }
           }).then((datos) => {
-          const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación RP por favor realice la actividad lo mas pronto posible "
-          RP=datos.data.data.getEmployeesResolvesSurveyRPFalse
-          const correo  = localStorage.getItem("correo")
-          RP.map(rows=>{
-              axios({
-              url:  API,
-              method:'post',
-              data:{
-              query:`
-              mutation{
-                alert1(data:"${[rows.correo , correo , mensaje,Eventos]}"){
-                  message
-                      }
-                    }
-                  `
-              }
-            })
-            .then(datos => {	
-            }).catch(err=>{
-            })
-          })
+            if(datos.data.data.getLogo.url){
+              localStorage.setItem("urlLogo",datos.data.data.getLogo.url)
+            }
+            this.setState({urlLogo:datos.data.data.getLogo.url})
           }).catch(err=>{
-          }) 
-      ///////////////////////////////////////////////////////////////////////////////////////////
-      await axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:`
-          query{
-          getEmployeesResolvesSurveyEEOFalse(data:"${[idAdmin]}"){
-                nombre
-                ApellidoP
-                ApellidoM
-                correo
-                }
-              }
-            `
-        }
-            }).then((datos) => {
-            const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación EEO por favor realice la actividad lo mas pronto posible "
-             EEO=datos.data.data.getEmployeesResolvesSurveyEEOFalse
-             const correo  = localStorage.getItem("correo")
-             EEO.map(rows=>{
-                axios({
-                 url:  API,
-                 method:'post',
-                 data:{
-                 query:`
-                 mutation{
-                   alert1(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
-                     message
-                         }
-                       }
-                     `
-                 }
-               })
-               .then(datos => {	
-               }).catch(err=>{
-               })
-             })
-            }).catch(err=>{
-            })  
-    }
-  }, 1000)
-};
+            console.log("datos error url " , err)
+          })
+      }
 
-alerta2 =  (deadline) => {
-  const timerUpdate = setInterval( async () => {
-    let t = this.getRemainingTime(deadline);
-    const idAdmin  = await localStorage.getItem("idAdmin")
-    let alerta2Enviada;
-    let ATS;
-    let RP;
-    let EEO;
-    let Eventos;
-    await axios({
-      url:  API,
-      method:'post',
-      data:{
-      query:`
-       query{
-        getPeriodo(data:"${[idAdmin]}"){
-          idEventos
-          fk_administrador
-          Descripcion
-          Alerta2Enviada
-              }
-            }
-          `
-      }
-    })
-    .then(datos => {	
-    Eventos = datos.data.data.getPeriodo[0].idEventos
-    alerta2Enviada = datos.data.data.getPeriodo[0].Alerta2Enviada
-    }).catch(err=>{
-      // console.log("error" , err)
-    })
-    if(t.remainTime <= 1 && alerta2Enviada=='false') {
-      clearInterval(timerUpdate);
-      let idAdmin = localStorage.getItem("idAdmin")
-      await axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:`
-          query{
-          getEmployeesResolvesSurveyATSFalse(data:"${[idAdmin]}"){
-                nombre
-                ApellidoP
-                ApellidoM
-                correo
-                ATSContestado
-                }
-              }
-            `
-        }
-            }).then((datos) => {
-             ATS=datos.data.data.getEmployeesResolvesSurveyATSFalse
-             const correo  = localStorage.getItem("correo")
-             const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación ATS por favor realice la actividad lo mas pronto posible"
-             ATS.map(rows=>{
-                axios({
-                 url:  API,
-                 method:'post',
-                 data:{
-                 query:`
-                  mutation{
-                   alert2(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
-                     message
-                         }
-                       }
-                     `
-                 }
-               })
-               .then(datos => {	
-               // descripcion = datos.data.data.getPeriodo[0].Descripcion
-               }).catch(err=>{
-               })
+    ads(){
+      this.setState({showModal2:true})
+    }
+
+
  
-             })
+
+    toggle = (nr) => () => {  
+      let modalNumber = 'modal' + nr
+      this.setState({
+        [modalNumber]: !this.state[modalNumber]
+      });
+    }
+
+    countdown =  (deadline) => {
+      const timerUpdate = setInterval( async () => {
+        let t = this.getRemainingTime(deadline);
+        let descripcion;
+        if(t.remainTime <= 1) {
+          clearInterval(timerUpdate);
+          let idAdmin = localStorage.getItem("idAdmin")
+          descripcion = this.state.periodo
+          axios({
+            url:  API,
+            method:'post',
+            data:{
+            query:`
+            mutation{
+              deletePeriodo(data:"${[descripcion,idAdmin]}"){
+                  message
+                    }
+                  }
+                `
+            }
+          })
+          .then(datos => {	
+            DialogUtility.alert({
+              animationSettings: { effect: 'Fade' },        
+              title:"AVISO!",   
+              content: 'Su periodo está Desactivado por favor Registre uno nuevo',
+              position: "fixed",
+            }
+            ) 
+          })
+        }
+      }, 1000)
+    };
+
+
+      alerta1 =  (deadline) => {
+        const timerUpdate = setInterval( async () => {
+        let t = this.getRemainingTime(deadline);
+        let alerta1Enviada;
+        let ATS;
+        let RP;
+        let EEO;
+        let Eventos;
+
+        Eventos = this.state.datosEventos.idEventos;
+        alerta1Enviada = this.state.datosEventos.Alerta1Enviada;
+
+        if(t.remainTime <= 1 && alerta1Enviada==='false') {
+          clearInterval(timerUpdate);
+          let idAdmin = localStorage.getItem("idAdmin")
+          await axios({
+            url:  API,
+            method:'post',
+            data:{
+            query:`
+              query{
+              getEmployeesResolvesSurveyATSFalse(data:"${[idAdmin]}"){
+                    nombre
+                    ApellidoP
+                    ApellidoM
+                    correo
+                    ATSContestado
+                    }
+                  }
+                `
+            }
+            }).then((datos) => {
+              ATS=datos.data.data.getEmployeesResolvesSurveyATSFalse
+              const correo  = localStorage.getItem("correo")
+              const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación ATS por favor realice la actividad lo mas pronto posible "
+              ATS.map(rows=>{
+                axios({
+                  url:  API,
+                  method:'post',
+                  data:{
+                  query:`
+                  mutation{
+                    alert1(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
+                      message
+                          }
+                        }
+                      `
+                  }
+                })
+                .then(datos => {	
+                }).catch(err=>{
+                })
+  
+              })
             }).catch(err=>{
             })  
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
-    await axios({
-      url:  API,
-      method:'post',
-      data:{
-      query:`
-        query{
-        getEmployeesResolvesSurveyRPFalse(data:"${[idAdmin]}"){
-              nombre
-              ApellidoP
-              ApellidoM
-              correo
-              }
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+          await axios({
+            url:  API,
+            method:'post',
+            data:{
+            query:`
+              query{
+              getEmployeesResolvesSurveyRPFalse(data:"${[idAdmin]}"){
+                    nombre
+                    ApellidoP
+                    ApellidoM
+                    correo
+                    }
+                  }
+                `
             }
-          `
+            }).then((datos) => {
+            const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación RP por favor realice la actividad lo mas pronto posible "
+            RP=datos.data.data.getEmployeesResolvesSurveyRPFalse
+            const correo  = localStorage.getItem("correo")
+            RP.map(rows=>{
+                axios({
+                url:  API,
+                method:'post',
+                data:{
+                query:`
+                mutation{
+                  alert1(data:"${[rows.correo , correo , mensaje,Eventos]}"){
+                    message
+                        }
+                      }
+                    `
+                }
+              })
+              .then(datos => {	
+              }).catch(err=>{
+              })
+            })
+            }).catch(err=>{
+            }) 
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        await axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+            query{
+            getEmployeesResolvesSurveyEEOFalse(data:"${[idAdmin]}"){
+                  nombre
+                  ApellidoP
+                  ApellidoM
+                  correo
+                  }
+                }
+              `
+          }
+          }).then((datos) => {
+          const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación EEO por favor realice la actividad lo mas pronto posible "
+            EEO=datos.data.data.getEmployeesResolvesSurveyEEOFalse
+            const correo  = localStorage.getItem("correo")
+            EEO.map(rows=>{
+              axios({
+                url:  API,
+                method:'post',
+                data:{
+                query:`
+                mutation{
+                  alert1(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
+                    message
+                        }
+                      }
+                    `
+                }
+              })
+              .then(datos => {	
+              }).catch(err=>{
+              })
+            })
+          }).catch(err=>{
+          })  
+          }
+        }, 1000)
+      };
+
+          
+
+
+    getRemainingTime = deadline => {
+      let now = new Date(),
+          remainTime = (new Date(deadline) - now + 1000) / 1000,
+          remainSeconds = ('0' + Math.floor(remainTime % 60)).slice(-2),
+          remainMinutes = ('0' + Math.floor(remainTime / 60 % 60)).slice(-2),
+          remainHours = ('0' + Math.floor(remainTime / 3600 % 24)).slice(-2),
+          remainDays = Math.floor(remainTime / (3600 * 24));
+
+      return {
+        remainSeconds,
+        remainMinutes,
+        remainHours,
+        remainDays,
+        remainTime
       }
+    };
+
+
+    alerta2 =  (deadline) => {
+    const timerUpdate = setInterval( async () => {
+      let t = this.getRemainingTime(deadline);
+      const idAdmin  = await localStorage.getItem("idAdmin")
+      let alerta2Enviada;
+      let ATS;
+      let RP;
+      let EEO;
+      let Eventos;
+
+      Eventos = this.state.datosEventos.idEventos;
+      alerta2Enviada = this.state.datosEventos.Alerta2Enviada;
+
+
+      if(t.remainTime <= 1 && alerta2Enviada=='false') {
+        clearInterval(timerUpdate);
+        let idAdmin = localStorage.getItem("idAdmin")
+        await axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+            query{
+            getEmployeesResolvesSurveyATSFalse(data:"${[idAdmin]}"){
+                  nombre
+                  ApellidoP
+                  ApellidoM
+                  correo
+                  ATSContestado
+                  }
+                }
+              `
+          }
+              }).then((datos) => {
+              ATS=datos.data.data.getEmployeesResolvesSurveyATSFalse
+              const correo  = localStorage.getItem("correo")
+              const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación ATS por favor realice la actividad lo mas pronto posible"
+              ATS.map(rows=>{
+                  axios({
+                  url:  API,
+                  method:'post',
+                  data:{
+                  query:`
+                    mutation{
+                    alert2(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
+                      message
+                          }
+                        }
+                      `
+                  }
+                })
+                .then(datos => {	
+                // descripcion = datos.data.data.getPeriodo[0].Descripcion
+                }).catch(err=>{
+                })
+  
+              })
+              }).catch(err=>{
+              })  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+        await axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+            query{
+            getEmployeesResolvesSurveyRPFalse(data:"${[idAdmin]}"){
+                  nombre
+                  ApellidoP
+                  ApellidoM
+                  correo
+                  }
+                }
+              `
+          }
           }).then((datos) => {
           const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación RP por favor realice la actividad lo mas pronto posible "
           RP=datos.data.data.getEmployeesResolvesSurveyRPFalse
@@ -894,9 +743,9 @@ alerta2 =  (deadline) => {
              })
             }).catch(err=>{
             })  
-    }
-  }, 1000)
-};
+        }
+      }, 1000)
+    };
 
 alerta3 =  (deadline) => {
   // const url = 'http://localhost:8000/graphql'
@@ -908,28 +757,10 @@ alerta3 =  (deadline) => {
     let RP;
     let EEO;
     let Eventos;
-    await axios({
-      url:  API,
-      method:'post',
-      data:{
-      query:`
-       query{
-        getPeriodo(data:"${[idAdmin]}"){
-          idEventos
-          fk_administrador
-          Descripcion
-          Alerta3Enviada
-              }
-            }
-          `
-      }
-    })
-    .then(datos => {	
-    Eventos = datos.data.data.getPeriodo[0].idEventos
-    alerta3Enviada = datos.data.data.getPeriodo[0].Alerta3Enviada
-    }).catch(err=>{
-      // console.log("error" , err)
-    })
+   
+    Eventos = this.state.datosEventos.idEventos;
+    alerta3Enviada = this.state.datosEventos.Alerta3Enviada;
+
     if(t.remainTime <= 1 && alerta3Enviada==='false') {
       clearInterval(timerUpdate);
       let idAdmin = localStorage.getItem("idAdmin")
@@ -1072,8 +903,9 @@ openModal () {
     let alertaPuesto = localStorage.getItem("PuestoActivo")
     let alertaSucursal=localStorage.getItem("SucursalActiva")
     let AlertaDepartamento = localStorage.getItem("DepartamentoActivo")
-   let empleadoAc=localStorage.getItem("empleadoActivo")
+    let empleadoAc=localStorage.getItem("empleadoActivo")
     if(empleadoAc==="false"){
+     console.log("entro empleado activo false") 
      Alerta =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Empleado Registrado </Alert>
     }if(AlertaDepartamento==="false"){
       dep =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Departamento Registrado</Alert>
@@ -1539,13 +1371,13 @@ openModal () {
           <MDBCardTitle>Información General:</MDBCardTitle>
          <MDBCardHeader>
           
-          <strong>Licencia de {this.state.empleados} Usuarios</strong>
+          <strong>Licencia de {this.state.empleados} Empleados</strong>
           <br/>
           <br/>
-          <strong>Empleados Totales : {this.state.totalEmpleados}</strong>
+          <strong>Empleados registrados : {this.state.totalEmpleados}</strong>
           <br/>
           <br/>
-          <strong>Empleados Restantes : {(this.state.empleados-this.state.max)}</strong><br/>
+          <strong>Empleados por registrar : {(this.state.empleados-this.state.totalEmpleados)}</strong><br/>
           <strong style={{ color: '#BC71F3' }}>¿Como usar Diagnóstico035?</strong>
           <IconButton onClick={this.openModal} color="secondary"> <RemoveRedEyeOutlinedIcon /></IconButton><br/>
           <i>Periodo actual :</i>{periodoActivo} 

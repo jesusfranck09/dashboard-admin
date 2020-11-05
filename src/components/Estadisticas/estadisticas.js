@@ -258,7 +258,7 @@ class Estadisticas extends React.Component {
           let directivo = []
           if(this.state.reporteEstadisticas[0]){
            console.log("estadisticas" , this.state.reporteEstadisticas)
-              {this.state.reporteEstadisticas.map(rows =>{
+              this.state.reporteEstadisticas.map(rows =>{
 
                 array.push(rows.data[4])
 
@@ -267,7 +267,7 @@ class Estadisticas extends React.Component {
                 arrayEstudios.push(rows.data[5])
                 arraySexo.push(rows.data[7])
                 arrayTipoPuesto.push(rows.data[8])
-              })}
+              })
 
                 const result1519 = array.filter(function(valor){
                   return valor === "15 A 19"
