@@ -67,6 +67,7 @@ handleInput = (e) => {
 
 
   handleForm = async (e) => { 
+    e.preventDefault();
     console.log("event" , this.state.rfc,this.state.password)
     if(this.state.rfc && this.state.password){
     let IP;
