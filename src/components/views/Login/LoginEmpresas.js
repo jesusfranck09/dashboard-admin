@@ -18,6 +18,7 @@ import {
 import "./index.css";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import axios from 'axios'
+import {API} from  '../../utils/http'
 
 
 class Login extends React.Component {
@@ -66,7 +67,6 @@ handleInput = (e) => {
 
 
   handleForm = async (e) => { 
-    e.preventDefault();
     console.log("event" , this.state.rfc,this.state.password)
     if(this.state.rfc && this.state.password){
     let IP;
@@ -90,7 +90,8 @@ handleInput = (e) => {
     var yyyy = date.getFullYear();
 
     date = mm + '/' + dd + '/' + yyyy;
-    const API =  'https://backenddiagnostico035.herokuapp.com/graphql'
+
+    console.log("datos" , rfc,pass,IP,date,hours)
 
         axios({
           url:  API,
