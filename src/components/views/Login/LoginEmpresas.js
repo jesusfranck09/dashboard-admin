@@ -171,16 +171,16 @@ handleInput = async (e) => {
   }
    if(data.loginEmpresas.message==='Login exitoso' && data.loginEmpresas.token){
 
-    let IP;
+    let IP  = "000000";
     
-    var findIP = new Promise(r=>{var w=window,a=new (w.RTCPeerConnection||w.mozRTCPeerConnection||w.webkitRTCPeerConnection)({iceServers:[]}),b=()=>{};a.createDataChannel("");a.createOffer(c=>a.setLocalDescription(c,b,b),b);a.onicecandidate=c=>{try{c.candidate.candidate.match(/([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g).forEach(r)}catch(e){}}})
+    // var findIP = new Promise(r=>{var w=window,a=new (w.RTCPeerConnection||w.mozRTCPeerConnection||w.webkitRTCPeerConnection)({iceServers:[]}),b=()=>{};a.createDataChannel("");a.createOffer(c=>a.setLocalDescription(c,b,b),b);a.onicecandidate=c=>{try{c.candidate.candidate.match(/([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g).forEach(r)}catch(e){}}})
 
 /*Ejemplo de uso*/
-   await findIP.then(ip => {
-      IP = ip
-    }).catch(err=>{
-      console.log("error al obtener ip" , err)
-    })
+  //  await findIP.then(ip => {
+  //     IP = ip
+  //   }).catch(err=>{
+  //     console.log("error al obtener ip" , err)
+  //   })
 
     let rfc = data.loginEmpresas.RFC
     let idEmpresa = data.loginEmpresas.id
