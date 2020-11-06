@@ -1,4 +1,7 @@
+  
 import '../src/App.scss';
+import { ApolloProvider } from 'react-apollo';
+import client from './Graphql';
 import checkToken from '../src/resolvers/checkToken';
 import {
   BrowserRouter as Router,
@@ -30,12 +33,14 @@ class Routes extends Component{
       )
 
       return(
+        <ApolloProvider client={client}>
           <Router>
           <Switch>
               <main>
               <Route exact path='/' component={Login}/>
                   <PrivateRoute exact path='/upload' component={Upload}/>
                   <PrivateRoute exact path='/atsDemoIG' component={PDFPrueba}/>
+
                   <PrivateRoute exact path='/inicio' component={Home}/>
                   <PrivateRoute exact path='/employees' component={Employees}/>
                   <PrivateRoute exact path='/table' component={Table}/>
@@ -51,11 +56,9 @@ class Routes extends Component{
               </main>
               </Switch>
           </Router>
+          </ApolloProvider>
       )
   }
 }
 export default Routes;
-
-
-
 

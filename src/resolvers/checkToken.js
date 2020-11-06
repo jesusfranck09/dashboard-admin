@@ -1,5 +1,6 @@
+  
 export default () => {
-    if(sessionStorage.getItem('elToken') !== null){
+    if(localStorage.getItem('elToken') !== null){
         return true;
     }else{
         return false;

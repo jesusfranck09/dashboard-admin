@@ -1,25 +1,58 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { InputGroup, InputGroupAddon, InputGroupText,Input } from 'reactstrap';
+import { AppNavbarBrand } from '@coreui/react';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import diagnostico from '../../images/diagnostico.png'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
+import axios from 'axios'
 import {
   MDBInput,
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarNav,
+  MDBNavbarToggler,
+  MDBCollapse,
   MDBMask,
   MDBRow,
+  MDBCol,
   MDBBtn,
   MDBView,
   MDBContainer,
   MDBAnimation,
   MDBCard,
-  MDBCardBody
+  MDBCardBody,
+  MDBIcon,
+  MDBNavItem,
+  MDBNavLink,
+  MDBCardHeader
 } from "mdbreact";
 import "./index.css";
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
 import { DialogUtility } from '@syncfusion/ej2-popups';
-import axios from 'axios'
-import {API} from  '../../utils/http'
-
+import {API} from '../../utils/http'
+const LOGINEMPRESAS = gql`
+    mutation LOGINEMPRESAS($rfc: String!, $password: String!){
+        loginEmpresas(rfc: $rfc, password: $password){
+          activo
+          message 
+          token 
+          id
+          nombre
+          Apellidos
+          RFC
+          RazonSocial
+          correo
+          activo 
+          fechaRegistro
+          fk_superusuario
+        
+        }
+    }
+`
 
 class Login extends React.Component {
     constructor(props){
@@ -27,12 +60,11 @@ class Login extends React.Component {
         this.state = {
             rfc: '',
             password: '',
-            isPasswordShown: false
-        
+            isPasswordShown: false,
         }
       }
 componentWillMount(){
-sessionStorage.removeItem("elToken")
+  localStorage.removeItem("elToken")
 localStorage.removeItem("nombre")
 localStorage.removeItem("apellidos")
 localStorage.removeItem("rfc")
@@ -50,14 +82,16 @@ localStorage.removeItem("SucursalActiva")
 localStorage.removeItem("PuestoActivo")
 localStorage.removeItem("urlLogo")
 localStorage.removeItem("periodo")
-
+localStorage.removeItem("fk_superusuario")
 }      
-handleInput = (e) => {
-  console.log("esta es la e" , e)
-    const {id, value} = e.target
-     this.setState({
-        [id]:value
-    });
+handleInput = async (e) => {
+  const {id, value} = e.target
+  this.setState({
+    [id]:value,
+   });
+
+
+
   }
 
   togglePasswordVisiblity = () => {
@@ -66,23 +100,90 @@ handleInput = (e) => {
   };
 
 
-  handleForm = async (e) => { 
+  handleForm = (e, login) => { 
     e.preventDefault();
-    console.log("event" , this.state.rfc,this.state.password)
-    if(this.state.rfc && this.state.password){
-    let IP;
+
+    console.log('Enviando formulario...');
+    login({variables: { 
+        ...this.state
+    }});
+  }
+  
+  handleData = async (data) => {
+    if (data.loginEmpresas.token === 'no hay token' && data.loginEmpresas.message==="ningun dato"){
+      DialogUtility.alert({
+        animationSettings: { effect: 'Zoom' },           
+        title: 'Por favor no deje espacios en blanco',
+        position: "fixed",
+    })
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000); 
+
+  }
+ if(data.loginEmpresas.token==='no hay token' && data.loginEmpresas.message==='usuario y contraseña incorrectos'){
+  console.log("data del dash" , data)
+
+  let rfc = data.loginEmpresas.RFC
+  var date = new Date();
+  var hours = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+  var dd = String(date.getDate()).padStart(2, '0');
+  var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = date.getFullYear();
+
+  date = mm + '/' + dd + '/' + yyyy;
+  let IP;
     
     var findIP = new Promise(r=>{var w=window,a=new (w.RTCPeerConnection||w.mozRTCPeerConnection||w.webkitRTCPeerConnection)({iceServers:[]}),b=()=>{};a.createDataChannel("");a.createOffer(c=>a.setLocalDescription(c,b,b),b);a.onicecandidate=c=>{try{c.candidate.candidate.match(/([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g).forEach(r)}catch(e){}}})
 
-/*Ejemplo de uso*/
     await findIP.then(ip => {
       IP = ip
     }).catch(err=>{
       console.log("error al obtener ip" , err)
     })
+    await axios({
+      url:  API,
+      method:'post',
+      data:{
+      query:`
+      mutation{
+        transactions(data:"${[date,hours,IP,rfc]}"){
+          message
+            }
+          }
+          `
+      }
+      }).then((datos) => {
+          console.log("datatransaccions" , datos.data.data.transactions.message)
+      }).catch(err=>{
+        console.log("error" , err.response)
+        console.log("err" , err)
 
-    var rfc   = this.state.rfc;
-    var pass  = this.state.password
+      })  
+    DialogUtility.alert({
+      animationSettings: { effect: 'Zoom' },           
+      title: 'USUARIO Y CONTRASEÑA INCORRECTOS',
+      position: "fixed",
+  })  
+  setTimeout(() => {
+    window.location.reload();
+  }, 2000); 
+  }
+   if(data.loginEmpresas.message==='Login exitoso' && data.loginEmpresas.token){
+
+    let IP;
+    
+    var findIP = new Promise(r=>{var w=window,a=new (w.RTCPeerConnection||w.mozRTCPeerConnection||w.webkitRTCPeerConnection)({iceServers:[]}),b=()=>{};a.createDataChannel("");a.createOffer(c=>a.setLocalDescription(c,b,b),b);a.onicecandidate=c=>{try{c.candidate.candidate.match(/([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g).forEach(r)}catch(e){}}})
+
+/*Ejemplo de uso*/
+   await findIP.then(ip => {
+      IP = ip
+    }).catch(err=>{
+      console.log("error al obtener ip" , err)
+    })
+
+    let rfc = data.loginEmpresas.RFC
+    let idEmpresa = data.loginEmpresas.id
 
     var date = new Date();
     var hours = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
@@ -92,81 +193,92 @@ handleInput = (e) => {
 
     date = mm + '/' + dd + '/' + yyyy;
 
-    console.log("datos" , rfc,pass,IP,date,hours)
-
-        axios({
-          url:  API,
-          method:'post',
-          data:{
-          query:`
-          mutation{
-            loginEmpresas(data:"${[date,hours,IP,rfc,pass]}"){
-              message
-              token
-              id
-              nombre
-              Apellidos
-              RFC
-              RazonSocial
-              telefono
-              correo
-              activo
-              fechaRegistro
-              fk_superusuario
-                }
+      await axios({
+        url:  API,
+        method:'post',
+        data:{
+        query:`
+        mutation{
+          transactions(data:"${[date,hours,IP,rfc,idEmpresa]}"){
+            message
               }
-              `
-          }
-          }).then((datos) => {
-            if(datos.data.data.loginEmpresas.token==='no hay token' && datos.data.data.loginEmpresas.message==='usuario y contraseña incorrectos'){
-              DialogUtility.alert({
-                animationSettings: { effect: 'Zoom' },           
-                title: 'USUARIO Y CONTRASEÑA INCORRECTOS',
-                position: "fixed",
-            })  
             }
-            else if(datos.data.data.loginEmpresas.message==='Login exitoso' && datos.data.data.loginEmpresas.token){
-              localStorage.setItem('nombre', datos.data.data.loginEmpresas.nombre)
-              sessionStorage.setItem('elToken', datos.data.data.loginEmpresas.token)  
-              localStorage.setItem('apellidos', datos.data.data.loginEmpresas.Apellidos) 
-              localStorage.setItem('rfc',datos.data.data.loginEmpresas.RFC) 
-              localStorage.setItem('razonsocial',datos.data.data.loginEmpresas.RazonSocial) 
-              localStorage.setItem('correo',datos.data.data.loginEmpresas.correo)
-              localStorage.setItem('idAdmin', datos.data.data.loginEmpresas.id) 
-              localStorage.setItem('fechaRegistro', datos.data.data.loginEmpresas.fechaRegistro) 
-              localStorage.setItem('fk_superusuario', datos.data.data.loginEmpresas.fk_superusuario) 
-
-              this.props.history.push("/inicio")  
-              DialogUtility.alert({
-                animationSettings: { effect: 'Zoom' },           
-                title: 'Sesión iniciada  BIENVENIDO  '+ datos.data.data.loginEmpresas.nombre,
-                position: "fixed",
-               })  
-        }else if (datos.data.data.loginEmpresas.message == 'RFC no encontrado'){
-              DialogUtility.alert({
-                title: "AVISO !",
-                animationSettings: { effect: 'Zoom' },           
-                content: 'Estimado usuario su RFC no ha sido encontrado',
-                position: "fixed",
-              })  
+            `
         }
-          })
-          .catch((error) => {
-            console.log(".cartch" , error.response)
-        });
-      }else{
-        DialogUtility.alert({
-          animationSettings: { effect: 'Zoom' },           
-          title: 'No deje espacios en blanco',
-          position: "fixed",
-         })  
-      }
+        }).then((datos) => {
+            console.log("datatransaccions" , datos.data.data.transactions.message)
+        }).catch(err=>{
+          console.log("error" , err.response)
+          console.log("err" , err)
+
+        })  
+
+        localStorage.setItem('nombre', data.loginEmpresas.nombre)
+        localStorage.setItem('elToken', data.loginEmpresas.token)  
+        localStorage.setItem('apellidos', data.loginEmpresas.Apellidos) 
+        localStorage.setItem('rfc',data.loginEmpresas.RFC) 
+        localStorage.setItem('razonsocial', data.loginEmpresas.RazonSocial) 
+        localStorage.setItem('correo',data.loginEmpresas.correo)
+        localStorage.setItem('idAdmin', data.loginEmpresas.id) 
+        localStorage.setItem('fechaRegistro', data.loginEmpresas.fechaRegistro) 
+        localStorage.setItem('fk_superusuario', data.loginEmpresas.fk_superusuario) 
+
+        this.props.history.push("/inicio")  
+
+        var texto = "";
+        var ahora=new Date(); 
+        var hora=ahora.getHours();
+        console.log("hora" , hora)
+        if (hora>=6 && hora<13) {
+            texto="Buenos días";  
+        } else if (hora>=13 && hora<21) { 
+            texto="Buenas tardes";
+        } else { 
+            texto="Buenas noches";
+        }
+
+      DialogUtility.alert({
+        animationSettings: { effect: 'Zoom' },           
+        title: `Hola ${texto} ${data.loginEmpresas.nombre}`,
+        content:"Su sesón ha iniciado exitosamente" , 
+        position: "fixed",
+        
+    })
+        
   }
-  
+  if(data.loginEmpresas.activo==='false'){
+
+    DialogUtility.alert({
+      animationSettings: { effect: 'Zoom' },           
+      title: 'Su licencia ha Expirado',
+      content: `Estimado cliente por el momento no puede iniciar sesión en el sistema de evaluaciones por favor contáctese con su Asesor de ADS para renovar su Suscripción`, 
+     
+      position: "fixed",
+  })
+
+  }
+  }
   render() {
+    const { isPasswordShown } = this.state;
+
+    const overlay = (
+      <div
+        id="sidenav-overlay"
+        style={{ backgroundColor: "transparent" }}
+        onClick={this.handleTogglerClick}
+      />
+    );
+    return (
+        <Mutation mutation={LOGINEMPRESAS}>
+        {
+
+    (login, {data, error}) => {
+    if (data){
+      this.handleData(data)
+    } 
     return ( 
-    <React.Fragment>
-     <form onSubmit={e => this.handleForm(e)}>
+        <React.Fragment>
+      <form onSubmit={e => this.handleForm(e,login)}>
       <div id="apppage">        
         <MDBView>
           <MDBMask >
@@ -215,7 +327,10 @@ handleInput = (e) => {
       </div>
       </form>
       </React.Fragment>
-
+                 )
+            }
+        }
+      </Mutation>
     );
   }
 }
