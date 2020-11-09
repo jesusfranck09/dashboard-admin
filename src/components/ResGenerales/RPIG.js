@@ -48,6 +48,8 @@ pdfExportComponent ;
       resultadosEvaluacionMasivo:[],
       resultadosQuery:[],
       reporteImasivo:[],
+      reporteEjecutivo:[],
+      resultadosInicio:[],
       filtro1:'',
       filtro2:'',
       filtro3:'',
@@ -71,7 +73,6 @@ pdfExportComponent ;
       isOpen: false,
       showModal2: false,  
       spinner:false,
-      resultadosInicio:[]
 
     };
     this.handleLogOut = this.handleLogOut.bind(this);
@@ -293,8 +294,7 @@ pdfExportComponent ;
         return a.length === b.length && a.every((item,idx) => item === b[idx])
        }
       var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
-      
-      this.setState({peticion1:filtrado}) 
+       this.setState({peticion1:filtrado}) 
        this.setState({spinner:false});
 
       if(filtro!== undefined){
@@ -630,9 +630,7 @@ pdfExportComponent ;
           }
           
       getEvaluacion(id,periodo){
-          this.setState({botonDisabled:''})
-
-  
+          this.setState({botonDisabled:''})  
         // const url = 'http://localhost:8000/graphql'
         axios({
           url:  API,
@@ -735,8 +733,166 @@ pdfExportComponent ;
                     .catch(err => {
                       console.log("el error es  ",err.response)
                     });  
-            }      
 
+                      axios({
+                      url:  API,
+                      method:'post',
+                      data:{
+                      query:`
+                      query{
+                      resultSingleSurveyRP(data:"${[id,periodo]}"){
+                        id 
+                        Respuestas 
+                        fk_preguntasRP
+                        fk_empleadosRP 
+                        ponderacion
+                        nombre 
+                        ApellidoP 
+                        ApellidoM 
+                        Curp 
+                        RFC 
+                        FechaNacimiento 
+                        Sexo 
+                        EstadoCivil 
+                        correo 
+                        AreaTrabajo 
+                        Puesto 
+                        TipoPuesto 
+                        NivelEstudios 
+                        TipoPersonal 
+                        JornadaTrabajo 
+                        TipoContratacion 
+                        TiempoPuesto 
+                        ExperienciaLaboral 
+                        RotacionTurnos 
+                        fk_administrador 
+                        fk_correos 
+                            }
+                          }
+                        `
+                    }
+                   }).then(datos => {   
+              if(datos.data.data.resultSingleSurveyRP.length > 0 ){
+                this.setState({resultadosEvaluacion:''})
+              this.setState({resultadosEvaluacion :datos.data.data.resultSingleSurveyRP })                
+              this.setState({resultados:[]}) 
+            
+            } if(datos.data.data.resultSingleSurveyRP.length <= 0){
+              DialogUtility.alert({
+                animationSettings: { effect: 'Zoom' },           
+                title: "Su colaborador aun no responde la evaluación",
+                // title: 'Aviso!',
+                position: "fixed"
+                });
+            }
+          })
+            .catch(err => {
+              console.log("el error es  ",err.response)
+            });  
+  
+            }      
+      //    reporteEjecutivo = async (datos,filtro) => {
+      //     // console.log("algo", datos,filtro) 
+      //     this.setState({botonDisabled:''})
+      //     this.setState({botonResultados:''})
+      //     this.setState({spinner:true})
+      //     let array=[];
+      //     let periodo;
+      //     let totalEmpleados=[];
+      //     datos.map(rows=>{
+      //       periodo= rows.data[6]
+      //       array.push(rows.data[0])
+      //     })
+      //     // console.log("datos" , array , "periodo",periodo)
+
+      //     let arrayFilter = []
+      //     let filter;
+      //     await this.state.resultadosInicio.forEach(row=>{
+      //         array.forEach(element => {
+      //           filter  = row.filter(function(hero){
+      //             return hero.fk_empleadosRP === element
+      //           })
+      //             arrayFilter.push(filter)
+      //           //  console.log("arrayFilter" , element)
+      //           }); 
+      //     })
+      //     // console.log("arrayFilter" , arrayFilter)
+      //     let tag = []
+      //     function array_equals(a, b){
+      //       return a.length === b.length && a.every((item,idx) => item === b[idx])
+      //     }
+      //     var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
+      //     // console.log("filtrado" , filtrado)
+      //     this.setState({reporteEjecutivo:filtrado})  
+      //     this.setState({spinner:false});
+
+      //     if(filtro!== undefined){
+      //     if(filtro[0].length>0){
+      //       this.setState({nombre1:filtro[0][0]})
+      //       this.setState({filtro1:"ID"})
+      //       this.setState({filtro6:""})
+      //     }else{
+      //       this.setState({nombre1:''})
+      //       this.setState({filtro1:""})
+      //       this.setState({filtro6:""})
+      //     }
+      //     if(filtro[1].length>0){
+      //       this.setState({nombre2:filtro[1][0]})
+      //       this.setState({filtro2:"NOMBRE"})
+      //       this.setState({filtro6:""})
+      //     }else{
+      //       this.setState({nombre2:''})
+      //       this.setState({filtro2:""})
+      //       this.setState({filtro6:""})
+      //     }
+      //     if(filtro[2].length>0){
+      //       this.setState({nombre3:filtro[2][0]})
+      //       this.setState({filtro3:"SEXO"})
+      //       this.setState({filtro6:""})
+      //     }else{
+      //       this.setState({nombre3:''})
+      //       this.setState({filtro3:""})
+      //       this.setState({filtro6:""})
+      //     }
+      //     if(filtro[3].length>0){
+      //       this.setState({nombre4:filtro[3][0]})
+      //       this.setState({filtro4:"ÁREA DE TRABAJO"})
+      //       this.setState({filtro6:""})
+      //     }else{
+      //       this.setState({nombre4:''})
+      //       this.setState({filtro4:""})
+      //       this.setState({filtro6:""})
+      //     }if(filtro[4].length>0){
+      //       this.setState({nombre5:filtro[4][0]})
+      //       this.setState({filtro5:"PUESTO"})
+      //       this.setState({filtro6:""})
+      //     }else{
+      //       this.setState({nombre5:''})
+      //       this.setState({filtro5:""})
+      //       this.setState({filtro6:""})
+      //     }if(filtro[5].length>0){
+      //       this.setState({nombre6:filtro[5][0]})
+      //       this.setState({filtro7:"CENTRO DE TRABAJO"})
+      //       this.setState({filtro6:""})
+      //     }else{
+      //       this.setState({nombre6:''})
+      //       this.setState({filtro7:""})
+      //       this.setState({filtro6:""})
+      //     }if(filtro[6].length>0){
+      //       this.setState({nombre7:filtro[6][0]})
+      //       this.setState({filtro8:"PERIODO"})
+      //       this.setState({filtro6:""})
+      //     }else{
+      //       this.setState({nombre7:''})
+      //       this.setState({filtro8:""})
+      //       this.setState({filtro6:""})
+      //     }
+      //   }else{
+      //     this.setState({filtro6:"SIN FILTRO"})
+      //   }
+     
+      // this.setState({datosLength:datos.length})
+      //     }
   render() {
     
     let a ;
@@ -822,19 +978,55 @@ pdfExportComponent ;
           filtro=filtroTable
           }     };
 
+          // if(this.state.reporteEjecutivo.length>0){
+          //   let arrayPrueba = [];
+          //   // console.log("reporte ejecutivo" , this.state.reporteEjecutivo)  
+          //   var filtrar1 ;
+          //   //   console.log("array1",array1)
+          //   var array100Int;
+          //   var arr100Int;
+          //   var respuesta100;
+
+          //   this.state.reporteEjecutivo.map(rows=>{
+          //     // console.log("rows" , rows)
+            
+          //        filtrar1 =  rows.filter(function(hero) {
+          //         return hero.fk_preguntasRP == 1;
+          //       });
+          //       arrayPrueba.push(filtrar1)
+                  
+          //       let valor1=[];    
+          //       arrayPrueba.map(rows=>{
+          //         if(rows[0]){
+          //           valor1.push(rows[0].ponderacion)
+          //         } 
+          //       })
+          //       console.log("valor1" , valor1)
+          //       // array100Int = valor1.map(x => Number.parseInt(x, 10)); 
+          //       // respuesta100=0;
+          //       // arr100Int.forEach (function(numero){
+          //       //   respuesta100 += numero;
+          //       // });
+          //       // console.log("respuesta100" , respuesta100)
+            
+          //   })
+          //   console.log("arrayPrueba" , arrayPrueba) 
+
+          // }
+
           
           let ponderacion;
           // console.log("dataPeticion1" , this.state.peticion1) 
 
           if(this.state.peticion1.length>0){
           let total;
-    
           let array1=[], array2=[], array3=[], array4=[], array5=[], array6=[], array7=[], array8=[], array9=[], array10=[]      
           let array11=[], array12=[], array13=[], array14=[], array15=[], array16=[], array17=[], array18=[], array19=[], array20=[]      
           let array21=[], array22=[], array23=[], array24=[], array25=[], array26=[], array27=[], array28=[], array29=[], array30=[]      
           let array31=[], array32=[], array33=[], array34=[], array35=[], array36=[], array37=[], array38=[], array39=[], array40=[]      
           let array41=[], array42=[], array43=[], array44=[], array45=[], array46=[];  
           var filtrar1 ;
+       //   console.log("array1",array1)
           var array1Int;
           var arr1Int;
           var respuesta1;
@@ -1860,9 +2052,7 @@ pdfExportComponent ;
                 +respuesta41+respuesta42+respuesta43+respuesta44+respuesta45+respuesta46).toFixed(2)
                 let length =this.state.peticion1.length;
                 // console.log("length2" , length)
-
                 let general =total/length.toFixed(2);
-                
 let celda;
 let criterios;
 let celdaPrev;
@@ -5138,11 +5328,21 @@ ponderacionIndividual =  <React.Fragment>
 
     let botonCerrar;
     let botonResultadosGlobales;
+    let botonReporteEjecutivo;
     if(!this.state.botonDisabled){  
         botonCerrar=<MDBBtn className = "text-white"  size="md" color="danger" onClick={(e)=>{window.location.reload()}} >Cerrar</MDBBtn>
     }
     if(this.state.botonDisabled){
-      botonResultadosGlobales=<MDBRow><MDBCol><MDBBtn  className = "text-white" disabled={!this.state.botonResultados} onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Descarga del reporte Global</MDBBtn></MDBCol><MDBCol><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  color="success" size="md"> Evaluaciones Masivas</MDBBtn></MDBCol><MDBCol><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)} color="success" size="md">Resultados masivos</MDBBtn></MDBCol></MDBRow>
+      botonResultadosGlobales=
+      
+      
+      <MDBCol><MDBBtn  className = "text-white" disabled={!this.state.botonResultados} onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Reporte Global</MDBBtn>
+      <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  color="success" size="md"> Evaluaciones Masivas</MDBBtn>
+      <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)} color="success" size="md">Resultados masivos</MDBBtn> 
+      {/* <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteEjecutivo(datosEmpleados,filtro)} color="success" size="md">Reporte ejecutivo</MDBBtn>  */}
+
+      </MDBCol>
+    
     }
     let dataSource;
     charts(FusionCharts);
@@ -7843,17 +8043,11 @@ ponderacionIndividual =  <React.Fragment>
                 columns={columns}
                 options={options}
               />
-              
               <MDBRow style={{marginTop:20}}>
-              <MDBCol >{botonCerrar}{botonResultadosGlobales}</MDBCol> 
-              <MDBCol >
-              <MDBContainer>
+              {botonCerrar}{botonResultadosGlobales}
               {spinner}
               {PDFRespuestasMasivos}
               {PDFResultadosMasivos}
-
-              </MDBContainer>
-              </MDBCol>  
              </MDBRow>
                {pdfView1}
                {ponderacionIndividual}
