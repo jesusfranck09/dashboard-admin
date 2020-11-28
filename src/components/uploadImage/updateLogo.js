@@ -40,7 +40,6 @@ const ReactFirebaseFileUpdate = () => {
           .child(image.name)
           .getDownloadURL()
           .then(url => {
-            console.log("hay url" , url)
              if(url){
                  setCargando("")
             
@@ -59,7 +58,6 @@ const ReactFirebaseFileUpdate = () => {
                     }
                 })
                 .then(datos => {	
-                    console.log("datos",datos)
                 }).catch(err=>{
                      console.log("error" , err.response)
                 })

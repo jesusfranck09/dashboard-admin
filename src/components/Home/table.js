@@ -71,7 +71,6 @@ class TableEmployees extends React.Component {
 
         let idAdmin = localStorage.getItem("idAdmin")
         // const url = 'http://localhost:8000/graphql'
-        // console.log("el tiempo es " , t )
          axios({
           url:  API,
           method:'post',
@@ -107,7 +106,6 @@ class TableEmployees extends React.Component {
     
   getEmployees = async event => {
     var idAdmin  = localStorage.getItem("idAdmin")  
-    console.log(idAdmin)     
     // const url = 'http://localhost:8000/graphql'
      await axios({
         url:  API,

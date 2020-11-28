@@ -39,7 +39,6 @@ const ReactFirebaseFileUpload = () => {
           .child(image.name)
           .getDownloadURL()
           .then(url => {
-            console.log("hay url" , url)
              if(url){
                  setCargando("")
             
@@ -58,7 +57,6 @@ const ReactFirebaseFileUpload = () => {
                     }
                 })
                 .then(datos => {	
-                    console.log("datos",datos)
                 }).catch(err=>{
                      console.log("error" , err)
                 })

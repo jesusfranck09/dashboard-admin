@@ -97,7 +97,6 @@ export default function RecipeReviewCard() {
           `
       }
           }).then((datos) => {
-           console.log("datos " , datos.data.data.getAdmin)
            var resultado = Object.keys(datos.data.data.getAdmin).length
            setdatosAdmin(resultado);
 

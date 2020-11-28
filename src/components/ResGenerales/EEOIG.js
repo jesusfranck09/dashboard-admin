@@ -29,6 +29,8 @@ import Navbar from '../Home/navbar'
 import FusionCharts from "fusioncharts";
 import charts from "fusioncharts/fusioncharts.charts";
 import ReactFusioncharts from "react-fusioncharts";
+
+
 export default class App extends React.Component {
   pdfExportComponent;
 
@@ -40,6 +42,7 @@ export default class App extends React.Component {
       getPonderacion:[],
       datosGlobales:[],
       peticion1:[],
+      reporteEjecutivo:[],
       botonResultados:'1',
       botonDisabled:'1',
       filtro1:'',
@@ -72,12 +75,86 @@ export default class App extends React.Component {
       spinner:false,
       evaluacionMasivoResultados:[],
       respuestasInicio:[],
+      valor1:[],
+      valor2:[],
+      valor3:[],
+      valor4:[],
+      valor5:[],
+      valor6:[],
+      valor7:[],
+      valor8:[],
+      valor9:[],
+      valor10:[],
+      valor11:[],
+      valor12:[],
+      valor13:[],
+      valor14:[],
+      valor15:[],
+      valor16:[],
+      valor17:[],
+      valor18:[],
+      valor19:[],
+      valor20:[],
+      valor21:[],
+      valor22:[],
+      valor23:[],
+      valor24:[],
+      valor25:[],
+      valor26:[],
+      valor27:[],
+      valor28:[],
+      valor29:[],
+      valor30:[],
+      valor31:[],
+      valor32:[],
+      valor33:[],
+      valor34:[],
+      valor35:[],
+      valor36:[],
+      valor37:[],
+      valor38:[],
+      valor39:[],
+      valor40:[],
+      valor41:[],
+      valor42:[],
+      valor43:[],
+      valor44:[],
+      valor45:[],
+      valor46:[],
+      volor47:[],
+      valor48:[],
+      valor49:[],
+      valor50:[],
+      valor51:[],
+      valor52:[],
+      valor53:[],
+      valor54:[],
+      valor55:[],
+      valor56:[],
+      valor57:[],
+      valor58:[],
+      valor59:[],
+      valor60:[],
+      valor61:[],
+      valor62:[],
+      valor63:[],
+      valor64:[],
+      valor65:[],
+      valor66:[],
+      valor67:[],
+      valor68:[],
+      valor69:[],
+      valor70:[],
+      valor71:[],
+      valor72:[],
+
 
       // componentepdf:'0'
     };
 
     this.handleLogOut = this.handleLogOut.bind(this);
     this.ads = this.ads.bind(this);
+    this.reporteEjecutivo = this.reporteEjecutivo.bind(this);  
     
   }
 
@@ -108,7 +185,6 @@ export default class App extends React.Component {
     let totalEmpleadosResultados=[];
     var id  =localStorage.getItem("idAdmin")       
     // const url = 'http://localhost:8000/graphql'
-    // console.log("entro")
     await axios({
       url:  API,
       method:'post',
@@ -133,7 +209,7 @@ export default class App extends React.Component {
           `
        }
        }).then((datos) => {
-          // console.log("exito" , datos.data.data.getEmployeesResolvesEEO)
+         
           this.setState({empleados:datos.data.data.getEmployeesResolvesEEO})       
           datos.data.data.getEmployeesResolvesEEO.map(rows=>{
             axios({
@@ -175,7 +251,7 @@ export default class App extends React.Component {
             }
             }).then(datos => {    
               totalEmpleados.push(datos.data.data.getresultGlobalSurveyEEO)  
-              // console.log("totalEmpleados" , totalEmpleados.length)
+              
               this.setState({resultadosInicio:totalEmpleados})
               if(this.state.resultadosInicio.length == this.state.empleados.length){
                 this.setState({spinner:false})
@@ -255,7 +331,6 @@ export default class App extends React.Component {
             }
             }).then(datos => { 
               this.setState({getPonderacion: datos.data.data.getPonderacionEEO})
-              // console.log("ponderaciones",datos.data.data.getPonderacion)
             })
             .catch(err => {
               console.log("el error es  ",err.response)
@@ -274,7 +349,7 @@ export default class App extends React.Component {
       })
       let arrayFilter = []
       let filter;
-      // console.log("estado" , this.state.resultadosInicio)
+      
       await this.state.resultadosInicio.forEach(row=>{
            array.forEach(element => {
             filter  = row.filter(function(hero){
@@ -289,8 +364,6 @@ export default class App extends React.Component {
         return a.length === b.length && a.every((item,idx) => item === b[idx])
        }
       var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
-
-      // console.log("arrayFilter" , filtrado)
 
       this.setState({peticion1:filtrado}) 
        this.setState({spinner:false});
@@ -494,8 +567,7 @@ export default class App extends React.Component {
      }
      let tag = []
      var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
-    //  console.log("arrayFilter" , filtrado)
-
+   
       this.setState({resultadosEvaluacionMasivo:filtrado})
       this.setState({spinner:false});
 
@@ -568,7 +640,7 @@ export default class App extends React.Component {
       }
     click(id,periodo){
         this.setState({botonDisabled:''})
-        // console.log("el id es " , id)
+       
           // const url = 'http://localhost:8000/graphql'
           axios({
             url:  API,
@@ -610,7 +682,6 @@ export default class App extends React.Component {
                 
                 if(datos.data.data.resultSingleSurveyEEO.length > 0 ){
                   this.setState({resultados :datos.data.data.resultSingleSurveyEEO })                
-                  // console.log("resultados getsingle survey" ,this.state.resultados)
                   this.setState({getPonderacion:[]})
                 } if(datos.data.data.resultSingleSurveyEEO.length <= 0){
                   DialogUtility.alert({
@@ -666,12 +737,10 @@ export default class App extends React.Component {
                   `
               }
                   }).then(datos => {   
-                    // console.log("el estado en resultadosEvaluacion" , datos.data.data.resultSingleSurveyEEO)
                     if(datos.data.data.resultSingleSurveyEEO.length > 0 ){
                       this.setState({resultadosEvaluacion:''})
                     this.setState({resultadosEvaluacion :datos.data.data.resultSingleSurveyEEO })                
                     this.setState({resultados:[]}) 
-                    // console.log("el estado en resultadosEvaluacion" , this.state.resultadosEvaluacion)
                   } if(datos.data.data.resultSingleSurveyEEO.length <= 0){
                     DialogUtility.alert({
                       animationSettings: { effect: 'Zoom' },           
@@ -723,7 +792,6 @@ export default class App extends React.Component {
                   `
               }
                   }).then(datos => {    
-                    // console.log("datos recibidos" ,datos.data.data.resultSingleSurveyEEO )
                     this.setState({resultadosQuery:''})              
                     this.setState({resultadosQuery :datos.data.data.resultSingleSurveyEEO })                
         
@@ -732,6 +800,991 @@ export default class App extends React.Component {
                     console.log("el error es  ",err)
                   });  
                     }
+                  reporteEjecutivo = async (datos,filtro)=>{
+                    this.setState({botonDisabled:''})
+                    this.setState({botonResultados:''})
+                    this.setState({spinner:true})
+                    let array=[];
+                    let periodo;
+                    let totalEmpleados=[];
+                    let array1=[], array2=[], array3=[], array4=[], array5=[], array6=[], array7=[], array8=[], array9=[], array10=[]      
+                    let array11=[], array12=[], array13=[], array14=[], array15=[], array16=[], array17=[], array18=[], array19=[], array20=[]      
+                    let array21=[], array22=[], array23=[], array24=[], array25=[], array26=[], array27=[], array28=[], array29=[], array30=[]      
+                    let array31=[], array32=[], array33=[], array34=[], array35=[], array36=[], array37=[], array38=[], array39=[], array40=[]      
+                    let array41=[], array42=[], array43=[], array44=[], array45=[], array46=[], array47=[], array48=[], array49=[], array50=[]      
+                    let array51=[], array52=[], array53=[], array54=[], array55=[], array56=[], array57=[], array58=[], array59=[], array60=[]      
+                    let array61=[], array62=[], array63=[], array64=[], array65=[], array66=[], array67=[], array68=[], array69=[], array70=[]
+                    let array71=[],array72=[];
+          
+                    let filtrar1, filtrar2, filtrar3, filtrar4, filtrar5, filtrar6, filtrar7, filtrar8, filtrar9, filtrar10
+                    let filtrar11, filtrar12, filtrar13, filtrar14, filtrar15, filtrar16, filtrar17, filtrar18, filtrar19, filtrar20
+                    let filtrar21, filtrar22, filtrar23, filtrar24, filtrar25, filtrar26, filtrar27, filtrar28, filtrar29, filtrar30
+                    let filtrar31, filtrar32, filtrar33, filtrar34, filtrar35, filtrar36, filtrar37, filtrar38, filtrar39, filtrar40
+                    let filtrar41, filtrar42, filtrar43, filtrar44, filtrar45, filtrar46, filtrar47, filtrar48, filtrar49, filtrar50
+                    let filtrar51, filtrar52, filtrar53, filtrar54, filtrar55, filtrar56, filtrar57, filtrar58, filtrar59, filtrar60
+                    let filtrar61, filtrar62, filtrar63, filtrar64, filtrar65, filtrar66, filtrar67, filtrar68, filtrar69, filtrar70
+                    let filtrar71, filtrar72;
+
+                    datos.map(rows=>{
+                      periodo= rows.data[6]
+                      array.push(rows.data[0])
+                    })
+                              
+                    let arrayFilter = []
+                    let filter;
+                    await this.state.resultadosInicio.forEach(row=>{
+                        array.forEach(element => {
+                          filter  = row.filter(function(hero){
+                            return hero.fk_empleados === element
+                          })
+                            arrayFilter.push(filter)
+                          }); 
+                    })
+                    let tag = []
+                    function array_equals(a, b){
+                      return a.length === b.length && a.every((item,idx) => item === b[idx])
+                    }
+                    var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
+                    
+                    var array1Int;
+                    var arr1Int;
+                    var respuesta1;
+                 
+                    filtrado.map(rows=>{
+                    filtrar1 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 1;
+                    });
+                    array1.push(filtrar1)
+                    
+                      let valor1=[];    
+                      array1.map(rows=>{
+                          valor1.push(rows[0].ponderacion)           
+                   })
+                   this.setState({valor1:valor1})          
+                       }) 
+                       
+                    filtrado.map(rows=>{
+                    filtrar2 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 2;
+                    });
+                    array2.push(filtrar2)
+                      let valor2=[];    
+                      array2.map(rows=>{
+                            valor2.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor2:valor2})
+                             }) 
+          
+                    filtrado.map(rows=>{
+                    filtrar3 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 3;
+                    });
+                    array3.push(filtrar3)
+                      let valor3=[];    
+                      array3.map(rows=>{
+                            valor3.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor3:valor3})
+                             })
+          
+                    filtrado.map(rows=>{
+                    filtrar4 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 4;
+                    });
+                    array4.push(filtrar4)
+                      let valor4=[];    
+                      array4.map(rows=>{
+                            valor4.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor4:valor4})
+                             })
+          
+                    filtrado.map(rows=>{
+                    filtrar5 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 5;
+                    });
+                    array5.push(filtrar5)
+                      let valor5=[];    
+                      array5.map(rows=>{                        
+                            valor5.push(rows[0].ponderacion)        
+                    })
+                    this.setState({valor5:valor5})
+                             })
+          
+                    filtrado.map(rows=>{
+                    filtrar6 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 6;
+                    });
+                    array6.push(filtrar6)
+                      let valor6=[];    
+                      array6.map(rows=>{
+                            valor6.push(rows[0].ponderacion)
+                    })
+                    this.setState({valor6:valor6})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar7 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 7;
+                    });
+                    array7.push(filtrar7)
+                     let valor7=[];    
+                      array7.map(rows=>{
+                            valor7.push(rows[0].ponderacion)          
+                    })
+                    this.setState({valor7:valor7})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar8 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 8;
+                    });
+                    array8.push(filtrar8)
+                      let valor8=[];    
+                      array8.map(rows=>{
+                            valor8.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor8:valor8})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar9 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 9;
+                    });
+                    array9.push(filtrar9)
+                      let valor9=[];    
+                      array9.map(rows=>{
+                            valor9.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor9:valor9})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar10 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 10;
+                    });
+                    array10.push(filtrar10)
+                      let valor10=[];    
+                      array10.map(rows=>{
+                            valor10.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor10:valor10})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar11 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 11;
+                    });
+                    array11.push(filtrar11)
+                      let valor11=[];    
+                      array11.map(rows=>{
+                            valor11.push(rows[0].ponderacion)             
+                    })
+                    this.setState({valor11:valor11})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar12 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 12;
+                    });
+                    array12.push(filtrar12)
+                      let valor12=[];    
+                      array12.map(rows=>{
+                            valor12.push(rows[0].ponderacion)          
+                    })
+                    this.setState({valor12:valor12})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar13 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 13;
+                    });
+                    array13.push(filtrar13)
+                      let valor13=[];    
+                      array13.map(rows=>{
+                            valor13.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor13:valor13})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar14 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 14;
+                    });
+                    array14.push(filtrar14)
+                    let valor14=[];    
+                      array14.map(rows=>{
+                            valor14.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor14:valor14})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar15 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 15;
+                    });
+                    array15.push(filtrar15)
+                     let valor15=[];    
+                      array15.map(rows=>{
+                            valor15.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor15:valor15})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar16 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 16;
+                    });
+                    array16.push(filtrar16)
+                     let valor16=[];    
+                      array16.map(rows=>{
+                            valor16.push(rows[0].ponderacion)          
+                    })
+                    this.setState({valor16:valor16})
+                              })
+                    
+                    filtrado.map(rows=>{
+                    filtrar17 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 17;
+                    });
+                    array17.push(filtrar17)
+                    let valor17=[];    
+                      array17.map(rows=>{
+                            valor17.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor17:valor17})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar18 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 18 ;
+                    });
+                    array18.push(filtrar18)
+                     let valor18=[];    
+                      array18.map(rows=>{
+                            valor18.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor18:valor18})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar19 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 19;
+                    });
+                    array19.push(filtrar19)
+                    let valor19=[];    
+                      array19.map(rows=>{
+                            valor19.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor19:valor19})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar20 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 20;
+                    });
+                    array20.push(filtrar20)
+                    let valor20=[];    
+                      array20.map(rows=>{
+                            valor20.push(rows[0].ponderacion)             
+                    })
+                    this.setState({valor20:valor20})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar21 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 21;
+                    });
+                    array21.push(filtrar21)
+                    let valor21=[];    
+                      array21.map(rows=>{
+                            valor21.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor21:valor21})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar22 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 22;
+                    });
+                    array22.push(filtrar22)
+                      let valor22=[];    
+                      array22.map(rows=>{
+                            valor22.push(rows[0].ponderacion)          
+                    })
+                    this.setState({valor22:valor22})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar23 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 23;
+                    });
+                    array23.push(filtrar23)
+                     let valor23=[];    
+                      array23.map(rows=>{
+                            valor23.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor23:valor23})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar24 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 24;
+                    });
+                    array24.push(filtrar24)
+                    let valor24=[];    
+                      array24.map(rows=>{
+                            valor24.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor24:valor24})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar25=  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 25;
+                    });
+                    array25.push(filtrar25)
+                    let valor25=[];    
+                      array25.map(rows=>{
+                            valor25.push(rows[0].ponderacion)
+                    })
+                    this.setState({valor25:valor25})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar26 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 26;
+                    });
+                    array26.push(filtrar26)
+                    let valor26=[];    
+                      array26.map(rows=>{
+                            valor26.push(rows[0].ponderacion)
+                    })
+                    this.setState({valor26:valor26})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar27 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 27;
+                    });
+                    array27.push(filtrar27)
+                     let valor27=[];    
+                      array27.map(rows=>{
+                            valor27.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor27:valor27})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar28 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 28;
+                    });
+                    array28.push(filtrar28)
+                     let valor28=[];    
+                      array28.map(rows=>{
+                            valor28.push(rows[0].ponderacion)             
+                    })
+                    this.setState({valor28:valor28})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar29 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 29;
+                    });
+                    array29.push(filtrar29)
+                     let valor29=[];    
+                      array29.map(rows=>{
+                            valor29.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor29:valor29})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar30 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 30;
+                    });
+                    array30.push(filtrar30)
+                    let valor30=[];    
+                      array30.map(rows=>{
+                            valor30.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor30:valor30})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar31 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 31;
+                    });
+                    array31.push(filtrar31)
+                     let valor31=[];    
+                      array31.map(rows=>{
+                            valor31.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor31:valor31})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar32 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 32;
+                    });
+                    array32.push(filtrar32)
+                     let valor32=[];    
+                      array32.map(rows=>{
+                            valor32.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor32:valor32})
+                              }) 
+          
+                    filtrado.map(rows=>{
+                    filtrar33 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 33;
+                    });
+                    array33.push(filtrar33)
+                     let valor33=[];    
+                      array33.map(rows=>{
+                            valor33.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor33:valor33})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar34=  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 34;
+                    });
+                    array34.push(filtrar34)
+                    let valor34=[];    
+                      array34.map(rows=>{
+                            valor34.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor34:valor34})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar35 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 35;
+                    });
+                    array35.push(filtrar35)
+                    let valor35=[];    
+                      array35.map(rows=>{          
+                    })
+                    this.setState({valor35:valor35})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar36 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 36;
+                    });
+                    array36.push(filtrar36)
+                    let valor36=[];    
+                      array36.map(rows=>{
+                            valor36.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor36:valor36})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar37 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 37;
+                    });
+                    array37.push(filtrar37)
+                    let valor37=[];    
+                      array37.map(rows=>{
+                            valor37.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor37:valor37})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar38 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 38;
+                    });
+                    array38.push(filtrar38)
+                    let valor38= []    
+                      array38.map(rows=>{
+                            valor38.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor38:valor38})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar39 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 39;
+                    });
+                    array39.push(filtrar39)
+                    let valor39=[];    
+                      array39.map(rows=>{
+                            valor39.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor39:valor39})
+                              })
+            
+                    filtrado.map(rows=>{
+                    filtrar40 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 40;
+                    });
+                    array40.push(filtrar40)
+                     let valor40=[];    
+                      array40.map(rows=>{
+                            valor40.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor40:valor40})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar41 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 41;
+                    });
+                    array41.push(filtrar41)
+                     let valor41=[];    
+                      array41.map(rows=>{
+                            valor41.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor41:valor41})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar42 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 42;
+                    });
+                    array42.push(filtrar42)
+                     let valor42=[];    
+                      array42.map(rows=>{
+                            valor42.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor42:valor42})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar43 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 43;
+                    });
+                    array43.push(filtrar43)
+                    let valor43=[];    
+                      array43.map(rows=>{
+                            valor43.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor43:valor43})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar44 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 44;
+                    });
+                    array44.push(filtrar44)
+                    let valor44=[];    
+                      array44.map(rows=>{
+                            valor44.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor44:valor44})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar45 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 45;
+                    });
+                    array45.push(filtrar45)
+                    let valor45=[];    
+                      array45.map(rows=>{
+                            valor45.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor45:valor45})
+                              })
+          
+                    filtrado.map(rows=>{
+                    filtrar46 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 46;
+                    });
+                    array46.push(filtrar46)
+                    let valor46=[];    
+                      array46.map(rows=>{
+                            valor46.push(rows[0].ponderacion)
+                    })
+                    this.setState({valor46:valor46})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar47 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 47;
+                    });
+                    array47.push(filtrar47)
+                    let valor47=[];    
+                      array47.map(rows=>{
+                            valor47.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor47:valor47})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar48 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 48;
+                    });
+                    array48.push(filtrar48)
+                     let valor48=[];    
+                      array48.map(rows=>{
+                            valor48.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor48:valor48})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar49 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 49;
+                    });
+                    array49.push(filtrar49)
+                     let valor49=[];    
+                      array49.map(rows=>{
+                            valor49.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor49:valor49})
+                              })
+                                      
+                    filtrado.map(rows=>{
+                    filtrar50 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 50;
+                    });
+                    array50.push(filtrar50)
+                    let valor50=[];    
+                      array50.map(rows=>{
+                            valor50.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor50:valor50})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar51 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 51;
+                    });
+                    array51.push(filtrar51)
+                      let valor51=[];    
+                      array51.map(rows=>{
+                            valor51.push(rows[0].ponderacion)
+                    })
+                    this.setState({valor51:valor51})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar52 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 52;
+                    });
+                    array52.push(filtrar52)
+                    let valor52=[];    
+                      array52.map(rows=>{
+                            valor52.push(rows[0].ponderacion)     
+                    })
+                    this.setState({valor52:valor52})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar53 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 53;
+                    });
+                    array53.push(filtrar53)
+                    let valor53=[];    
+                      array53.map(rows=>{
+                            valor53.push(rows[0].ponderacion)         
+                    })
+                    this.setState({valor53:valor53})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar54 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 54;
+                    });
+                    array54.push(filtrar54)
+                    let valor54=[];    
+                      array54.map(rows=>{
+                            valor54.push(rows[0].ponderacion)         
+                    })
+                    this.setState({valor54:valor54})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar55 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 55;
+                    });
+                    array55.push(filtrar55)
+                    let valor55=[];    
+                      array55.map(rows=>{
+                            valor55.push(rows[0].ponderacion)         
+                    })
+                    this.setState({valor55:valor55})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar56 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 56;
+                    });
+                    array56.push(filtrar56)
+                    let valor56=[];    
+                      array56.map(rows=>{
+                            valor56.push(rows[0].ponderacion)        
+                    })
+                    this.setState({valor56:valor56})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar57 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 57;
+                    });
+                    array57.push(filtrar57)
+                    let valor57=[];    
+                      array57.map(rows=>{
+                            valor57.push(rows[0].ponderacion)
+                    })
+                      this.setState({valor57:valor57})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar58 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 58;
+                    });
+                    array58.push(filtrar58)
+                    let valor58=[];    
+                      array58.map(rows=>{
+                            valor58.push(rows[0].ponderacion)      
+                    })
+                    this.setState({valor58:valor58})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar59 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 59;
+                    });
+                    array59.push(filtrar59)
+                    let valor59=[];    
+                      array59.map(rows=>{
+                            valor59.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor59:valor59})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar60 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 60;
+                    });
+                    array60.push(filtrar60)
+                     let valor60=[];    
+                      array60.map(rows=>{
+                            valor60.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor60:valor60})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar61 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 61;
+                    });
+                    array61.push(filtrar61)
+                     let valor61=[];    
+                      array61.map(rows=>{
+                            valor61.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor61:valor61})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar62 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 62;
+                    });
+                    array62.push(filtrar62)
+                    let valor62=[];    
+                      array62.map(rows=>{
+                            valor62.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor62:valor62})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar63 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 63;
+                    });
+                    array63.push(filtrar63)
+                    let valor63=[];    
+                      array63.map(rows=>{
+                            valor63.push(rows[0].ponderacion)          
+                    })
+                    this.setState({valor63:valor63})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar64 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 64;
+                    });
+                    array64.push(filtrar64)
+                    let valor64=[];    
+                      array64.map(rows=>{
+                            valor64.push(rows[0].ponderacion)             
+                    })
+                    this.setState({valor64:valor64})
+                              })
+
+
+                    filtrado.map(rows=>{
+                    filtrar65 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 65;
+                    });
+                    array65.push(filtrar65)
+                     let valor65=[];    
+                      array65.map(rows=>{
+                            valor65.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor65:valor65})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar66 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 66;
+                    });
+                    array66.push(filtrar66)
+                    let valor66=[];    
+                      array66.map(rows=>{
+                            valor66.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor66:valor66})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar67 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 67;
+                    });
+                    array67.push(filtrar67)
+                     let valor67=[];    
+                      array67.map(rows=>{
+                            valor67.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor67:valor67})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar68 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 68;
+                    });
+                    array68.push(filtrar68)
+                    let valor68=[];    
+                      array68.map(rows=>{
+                            valor68.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor68:valor68})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar69 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 69;
+                    });
+                    array69.push(filtrar69)
+                    let valor69=[];    
+                      array69.map(rows=>{
+                            valor69.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor69:valor69})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar70 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 70;
+                    });
+                    array70.push(filtrar70)
+                    let valor70=[];    
+                      array70.map(rows=>{
+                            valor70.push(rows[0].ponderacion)            
+                    })
+                    this.setState({valor70:valor70})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar71 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 71;
+                    });
+                    array71.push(filtrar71)
+                    let valor71=[];    
+                      array71.map(rows=>{
+                            valor71.push(rows[0].ponderacion)          
+                    })
+                    this.setState({valor71:valor71})
+                              })
+
+                    filtrado.map(rows=>{
+                    filtrar72 =  rows.filter(function(hero) {
+                      return hero.fk_preguntasEEO == 72;
+                    });
+                    array72.push(filtrar72)
+                     let valor72=[];    
+                      array72.map(rows=>{
+                            valor72.push(rows[0].ponderacion)           
+                    })
+                    this.setState({valor72:valor72})
+                              })
+                    
+                      this.setState({spinner:false});    
+                      if(filtro!== undefined){
+                        if(filtro[0].length>0){
+                          this.setState({nombre1:filtro[0][0]})
+                          this.setState({filtro1:"ID"})
+                          this.setState({filtro6:""})
+                        }else{
+                          this.setState({nombre1:''})
+                          this.setState({filtro1:""})
+                          this.setState({filtro6:""})
+                        }
+                        if(filtro[1].length>0){
+                          this.setState({nombre2:filtro[1][0]})
+                          this.setState({filtro2:"NOMBRE"})
+                          this.setState({filtro6:""})
+                        }else{
+                          this.setState({nombre2:''})
+                          this.setState({filtro2:""})
+                          this.setState({filtro6:""})
+                        }
+                        if(filtro[2].length>0){
+                          this.setState({nombre3:filtro[2][0]})
+                          this.setState({filtro3:"SEXO"})
+                          this.setState({filtro6:""})
+                        }else{
+                          this.setState({nombre3:''})
+                          this.setState({filtro3:""})
+                          this.setState({filtro6:""})
+                        }
+                        if(filtro[3].length>0){
+                          this.setState({nombre4:filtro[3][0]})
+                          this.setState({filtro4:"ÁREA DE TRABAJO"})
+                          this.setState({filtro6:""})
+                        }else{
+                          this.setState({nombre4:''})
+                          this.setState({filtro4:""})
+                          this.setState({filtro6:""})
+                        }if(filtro[4].length>0){
+                          this.setState({nombre5:filtro[4][0]})
+                          this.setState({filtro5:"PUESTO"})
+                          this.setState({filtro6:""})
+                        }else{
+                          this.setState({nombre5:''})
+                          this.setState({filtro5:""})
+                          this.setState({filtro6:""})
+                        }if(filtro[5].length>0){
+                          this.setState({nombre6:filtro[5][0]})
+                          this.setState({filtro7:"CENTRO DE TRABAJO"})
+                          this.setState({filtro6:""})
+                        }else{
+                          this.setState({nombre6:''})
+                          this.setState({filtro7:""})
+                          this.setState({filtro6:""})
+                        }if(filtro[6].length>0){
+                          this.setState({nombre7:filtro[6][0]})
+                          this.setState({filtro8:"PERIODO"})
+                          this.setState({filtro6:""})
+                        }else{
+                          this.setState({nombre7:''})
+                          this.setState({filtro8:""})
+                          this.setState({filtro6:""})
+                        }
+                      }else{
+                        this.setState({filtro6:"SIN FILTRO"})
+                      }
+                       
+                        this.setState({datosLength:datos.length})
+                          }
+                                 
+                  
   render() {
     let spinner;
     let spinnerReporte;
@@ -840,8 +1893,16 @@ export default class App extends React.Component {
   
         onFilterChange: (action, filtroTable) => {
           filtro=filtroTable
-          }
+          }          
       };
+      let reporteEjecutivo;
+      if(this.state.valor1[0] && this.state.valor72[0]){
+        reporteEjecutivo = 
+        <div>
+          hola mundo
+        </div>
+      }
+
       let ponderacion;
       if(this.state.peticion1.length>0){
       let total;
@@ -852,7 +1913,8 @@ export default class App extends React.Component {
       let array31=[], array32=[], array33=[], array34=[], array35=[], array36=[], array37=[], array38=[], array39=[], array40=[]      
       let array41=[], array42=[], array43=[], array44=[], array45=[], array46=[], array47=[], array48=[], array49=[], array50=[]      
       let array51=[], array52=[], array53=[], array54=[], array55=[], array56=[], array57=[], array58=[], array59=[], array60=[]      
-      let array61=[], array62=[], array63=[], array64=[], array65=[], array66=[], array67=[], array68=[], array69=[], array70=[],array71=[],array72=[];
+      let array61=[], array62=[], array63=[], array64=[], array65=[], array66=[], array67=[], array68=[], array69=[], array70=[]
+      let array71=[],array72=[];
 
       var filtrar1 ;
       var array1Int;
@@ -3679,7 +4741,6 @@ ponderacion=<React.Fragment>
       let value47,value48,value49,value50,value51,value52,value53,value54,value55,value56,value57,value58,value59,value60,value61,value62,value63,value64,value65,value66,value67,value68;
       let value69,value70,value71,value72;
 
-      console.log("estado",this.state.resultados)
       let filtrar1;
       filtrar1 =  this.state.resultados.filter(function(hero) {
         return hero.fk_preguntasEEO == 1;
@@ -4122,7 +5183,6 @@ ponderacion=<React.Fragment>
  
 
       a = 1
-      // console.log("este es lo que contiene el estado ")
       pdfView1 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la Aplicación de la evaluación EEO </Alert>
         <React.Fragment>
             <section className="flex-column  bg-white  pa4 "  >
@@ -5238,154 +6298,599 @@ ponderacion=<React.Fragment>
       </MDBContainer>
     } 
     let ponderacionIndividual 
-    // console.log("esta es la validacion",this.state.getPonderacion,this.state.resultadosEvaluacion.length,this.state.resultadosQuery.length>0)
+      let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16,value17,value18,value19,value20,value21,value22,value23,value24;
+      let value25,value26,value27,value28,value29,value30,value31,value32,value33,value34,value35,value36,value37,value38,value39,value40,value41,value42,value43,value44,value45,value46;
+      let value47,value48,value49,value50,value51,value52,value53,value54,value55,value56,value57,value58,value59,value60,value61,value62,value63,value64,value65,value66,value67,value68;
+      let value69,value70,value71,value72;
+
      if( this.state.resultadosEvaluacion.length > 0 && this.state.resultadosQuery.length>0){
     
-      let respuesta1=this.state.resultadosEvaluacion[1].Respuestas;
-      let respuesta2=this.state.resultadosEvaluacion[2].Respuestas;
-      let respuesta3=this.state.resultadosEvaluacion[3].Respuestas;
-      let respuesta4=this.state.resultadosEvaluacion[4].Respuestas;
-      let respuesta5=this.state.resultadosEvaluacion[5].Respuestas;
-      let respuesta6=this.state.resultadosEvaluacion[6].Respuestas;
-      let respuesta7=this.state.resultadosEvaluacion[7].Respuestas;
-      let respuesta8=this.state.resultadosEvaluacion[8].Respuestas;
-      let respuesta9=this.state.resultadosEvaluacion[9].Respuestas;
-      let respuesta10=this.state.resultadosEvaluacion[10].Respuestas;
-      let respuesta11=this.state.resultadosEvaluacion[11].Respuestas;
-      let respuesta12=this.state.resultadosEvaluacion[12].Respuestas;
-      let respuesta13=this.state.resultadosEvaluacion[13].Respuestas;
-      let respuesta14=this.state.resultadosEvaluacion[14].Respuestas;
-      let respuesta15=this.state.resultadosEvaluacion[15].Respuestas;
-      let respuesta16=this.state.resultadosEvaluacion[16].Respuestas;
-      let respuesta17=this.state.resultadosEvaluacion[17].Respuestas;
-      let respuesta18=this.state.resultadosEvaluacion[18].Respuestas;
-      let respuesta19=this.state.resultadosEvaluacion[19].Respuestas;
-      let respuesta20=this.state.resultadosEvaluacion[20].Respuestas;
-      let respuesta21=this.state.resultadosEvaluacion[21].Respuestas;
-      let respuesta22=this.state.resultadosEvaluacion[22].Respuestas;
-      let respuesta23=this.state.resultadosEvaluacion[23].Respuestas;
-      let respuesta24=this.state.resultadosEvaluacion[24].Respuestas;
-      let respuesta25=this.state.resultadosEvaluacion[25].Respuestas;
-      let respuesta26=this.state.resultadosEvaluacion[26].Respuestas;
-      let respuesta27=this.state.resultadosEvaluacion[27].Respuestas;
-      let respuesta28=this.state.resultadosEvaluacion[28].Respuestas;
-      let respuesta29=this.state.resultadosEvaluacion[29].Respuestas;
-      let respuesta30=this.state.resultadosEvaluacion[30].Respuestas;
-      let respuesta31=this.state.resultadosEvaluacion[31].Respuestas;
-      let respuesta32=this.state.resultadosEvaluacion[32].Respuestas;
-      let respuesta33=this.state.resultadosEvaluacion[33].Respuestas;
-      let respuesta34=this.state.resultadosEvaluacion[34].Respuestas;
-      let respuesta35=this.state.resultadosEvaluacion[35].Respuestas;
-      let respuesta36=this.state.resultadosEvaluacion[36].Respuestas;
-      let respuesta37=this.state.resultadosEvaluacion[37].Respuestas;
-      let respuesta38=this.state.resultadosEvaluacion[38].Respuestas;
-      let respuesta39=this.state.resultadosEvaluacion[39].Respuestas;
-      let respuesta40=this.state.resultadosEvaluacion[40].Respuestas;
-      let respuesta41=this.state.resultadosEvaluacion[41].Respuestas;
-      let respuesta42=this.state.resultadosEvaluacion[42].Respuestas;
-      let respuesta43=this.state.resultadosEvaluacion[43].Respuestas;
-      let respuesta44=this.state.resultadosEvaluacion[44].Respuestas;
-      let respuesta45=this.state.resultadosEvaluacion[45].Respuestas;
-      let respuesta46=this.state.resultadosEvaluacion[46].Respuestas;
-      let respuesta47=this.state.resultadosEvaluacion[47].Respuestas;
-      let respuesta48=this.state.resultadosEvaluacion[48].Respuestas;
-      let respuesta49=this.state.resultadosEvaluacion[49].Respuestas;
-      let respuesta50=this.state.resultadosEvaluacion[50].Respuestas;  
-      let respuesta51=this.state.resultadosEvaluacion[51].Respuestas;
-      let respuesta52=this.state.resultadosEvaluacion[52].Respuestas;
-      let respuesta53=this.state.resultadosEvaluacion[53].Respuestas;
-      let respuesta54=this.state.resultadosEvaluacion[54].Respuestas;
-      let respuesta55=this.state.resultadosEvaluacion[55].Respuestas;
-      let respuesta56=this.state.resultadosEvaluacion[56].Respuestas;
-      let respuesta57=this.state.resultadosEvaluacion[57].Respuestas;
-      let respuesta58=this.state.resultadosEvaluacion[58].Respuestas;
-      let respuesta59=this.state.resultadosEvaluacion[59].Respuestas;
-      let respuesta60=this.state.resultadosEvaluacion[60].Respuestas; 
-      let respuesta61=this.state.resultadosEvaluacion[61].Respuestas;
-      let respuesta62=this.state.resultadosEvaluacion[62].Respuestas;
-      let respuesta63=this.state.resultadosEvaluacion[63].Respuestas;
-      let respuesta64=this.state.resultadosEvaluacion[64].Respuestas;
-      let respuesta65=this.state.resultadosEvaluacion[65].Respuestas;
-      let respuesta66=this.state.resultadosEvaluacion[66].Respuestas;
-      let respuesta67=this.state.resultadosEvaluacion[67].Respuestas;
-      let respuesta68=this.state.resultadosEvaluacion[68].Respuestas;
-      let respuesta69=this.state.resultadosEvaluacion[69].Respuestas;
-      let respuesta70=this.state.resultadosEvaluacion[70].Respuestas;
-      let respuesta71=this.state.resultadosEvaluacion[71].Respuestas;
-      let respuesta72=this.state.resultadosEvaluacion[72].Respuestas;
+      let filtrar1;
+      filtrar1 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 1;
+      });
+      value1 = filtrar1.pop()
+
+      let filtrar2;
+      filtrar2 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 2;
+      });
+      value2 = filtrar2.pop()
+
+      let filtrar3;
+      filtrar3 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 3;
+      });
+      value3 = filtrar3.pop()
+
+
+      let filtrar4;
+      filtrar4 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 4;
+      });
+      value4 = filtrar4.pop()
+
+
+      let filtrar5;
+      filtrar5 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 5;
+      });
+      value5 = filtrar5.pop()
+
+
+      let filtrar6;
+      filtrar6 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 6;
+      });
+      value6 = filtrar6.pop()
+
+
+      let filtrar7;
+      filtrar7 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 7;
+      });
+      value7 = filtrar7.pop()
+
+
+      let filtrar8;
+      filtrar8 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 8;
+      });
+      value8 = filtrar8.pop()
+
+
+      let filtrar9;
+      filtrar9 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 9;
+      });
+      value9  = filtrar9.pop()
+
+
+      let filtrar10;
+      filtrar10 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 10;
+      });
+      value10 = filtrar10.pop()
+
+
+      let filtrar11;
+      filtrar11 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 11;
+      });
+      value11 = filtrar11.pop()
+
+      let filtrar12;
+      filtrar12 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 12;
+      });
+      value12 = filtrar12.pop()
+
+      let filtrar13;
+      filtrar13 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 13;
+      });
+      value13 = filtrar13.pop()
+
+      let filtrar14;
+      filtrar14 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 14;
+      });
+      value14 = filtrar14.pop()
+
+      let filtrar15;
+      filtrar15 = this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 15;
+      });
+      value15 = filtrar15.pop()
+
+      let filtrar16;
+      filtrar16 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 16;
+      });
+      value16 = filtrar16.pop()
+
+      let filtrar17;
+      filtrar17 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 17;
+      });
+      value17 = filtrar17.pop()
+
+      let filtrar18;
+      filtrar18 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 18;
+      });
+      value18 = filtrar18.pop()
+
+      let filtrar19;
+      filtrar19 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 19;
+      });
+      value19 = filtrar19.pop()
+
+      let filtrar20;
+      filtrar20=  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 20;
+      });
+      value20 = filtrar20.pop()
+
+      let filtrar21;
+      filtrar21 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 21;
+      });
+      value21 = filtrar21.pop()
+
+        let filtrar22;
+      filtrar22 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 22;
+      });
+      value22 = filtrar22.pop()
+
+      let filtrar23;
+      filtrar23 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 23;
+      });
+      value23 = filtrar23.pop()
+
+      let filtrar24;
+      filtrar24=  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 24;
+      });
+      value24 = filtrar24.pop()
+
+      let filtrar25;
+      filtrar25 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 25;
+      });
+      value25 = filtrar25.pop()
+
+      let filtrar26;
+      filtrar26 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 26;
+      });
+      value26 = filtrar26.pop()
+
+      let filtrar27;
+      filtrar27 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 27;
+      }); 
+      value27 = filtrar27.pop()
+    
+      let filtrar28;
+      filtrar28 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 28;
+      });
+      value28 = filtrar28.pop()
+
+      let filtrar29;
+      filtrar29 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 29;
+      }); 
+      value29 = filtrar29.pop()
+   
+      let filtrar30;
+      filtrar30 = this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 30;
+      });
+      value30 = filtrar30.pop()
+
+      let filtrar31;
+      filtrar31 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 31;
+      });
+      value31 = filtrar31.pop()
+
+      let filtrar32;
+      filtrar32 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 32;
+      });
+      value32 = filtrar32.pop()
+
+      let filtrar33;
+      filtrar33 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 33;
+      });
+      value33 = filtrar33.pop()
+
+      let filtrar34;
+      filtrar34 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 34;
+      });
+      value34 = filtrar34.pop()
+
+      let filtrar35;
+      filtrar35 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 35;
+      });
+      value35 = filtrar35.pop()
+
+      let filtrar36;
+      filtrar36 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 36;
+      });
+      value36 = filtrar36.pop()
+
+      let filtrar37;
+      filtrar37 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 37;
+      });
+      value37 = filtrar37.pop()
+
+      let filtrar38;
+      filtrar38 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 38;
+      });
+      value38 = filtrar38.pop()
+
+       let filtrar39;
+      filtrar39 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 39;
+      });
+      value39 = filtrar39.pop()
+
+      let filtrar40;
+      filtrar40 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 40;
+      }); 
+      value40 = filtrar40.pop()
+     
+      let filtrar41;
+      filtrar41 = this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 41;
+      });   
+      value41 = filtrar41.pop()
+   
+      let filtrar42;
+      filtrar42 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 42;
+      });  
+      value42 = filtrar42.pop()
+    
+      let filtrar43;
+      filtrar43 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 43;
+      }); 
+      value43 = filtrar43.pop()
+     
+      let filtrar44;
+      filtrar44 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 44;
+      });
+      value44 = filtrar44.pop()
+
+      let filtrar45;
+      filtrar45 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 45;
+      });
+      value45 = filtrar45.pop()
+
+       let filtrar46;
+      filtrar46 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 46;
+      });
+      value46 = filtrar46.pop()
+
+      let filtrar47;
+      filtrar47 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 47;
+      });
+      value47 = filtrar47.pop()
+
+      let filtrar48;
+      filtrar48 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 48;
+      });
+      value48 = filtrar48.pop()
+
+      let filtrar49;
+      filtrar49 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 49;
+      });
+      value49 = filtrar49.pop()
       
-      let valor1=this.state.resultadosEvaluacion[1].ponderacion;
-      let valor2=this.state.resultadosEvaluacion[2].ponderacion;
-      let valor3=this.state.resultadosEvaluacion[3].ponderacion;
-      let valor4=this.state.resultadosEvaluacion[4].ponderacion;
-      let valor5=this.state.resultadosEvaluacion[5].ponderacion;
-      let valor6=this.state.resultadosEvaluacion[6].ponderacion;
-      let valor7=this.state.resultadosEvaluacion[7].ponderacion;
-      let valor8=this.state.resultadosEvaluacion[8].ponderacion;
-      let valor9=this.state.resultadosEvaluacion[9].ponderacion;
-      let valor10=this.state.resultadosEvaluacion[10].ponderacion;
-      let valor11=this.state.resultadosEvaluacion[11].ponderacion;
-      let valor12=this.state.resultadosEvaluacion[12].ponderacion;
-      let valor13=this.state.resultadosEvaluacion[13].ponderacion;
-      let valor14=this.state.resultadosEvaluacion[14].ponderacion;
-      let valor15=this.state.resultadosEvaluacion[15].ponderacion;
-      let valor16=this.state.resultadosEvaluacion[16].ponderacion;
-      let valor17=this.state.resultadosEvaluacion[17].ponderacion;
-      let valor18=this.state.resultadosEvaluacion[18].ponderacion;
-      let valor19=this.state.resultadosEvaluacion[19].ponderacion;
-      let valor20=this.state.resultadosEvaluacion[20].ponderacion;
-      let valor21=this.state.resultadosEvaluacion[21].ponderacion;
-      let valor22=this.state.resultadosEvaluacion[22].ponderacion;
-      let valor23=this.state.resultadosEvaluacion[23].ponderacion;
-      let valor24=this.state.resultadosEvaluacion[24].ponderacion;
-      let valor25=this.state.resultadosEvaluacion[25].ponderacion;
-      let valor26=this.state.resultadosEvaluacion[26].ponderacion;
-      let valor27=this.state.resultadosEvaluacion[27].ponderacion;
-      let valor28=this.state.resultadosEvaluacion[28].ponderacion;
-      let valor29=this.state.resultadosEvaluacion[29].ponderacion;
-      let valor30=this.state.resultadosEvaluacion[30].ponderacion;
-      let valor31=this.state.resultadosEvaluacion[31].ponderacion;
-      let valor32=this.state.resultadosEvaluacion[32].ponderacion;
-      let valor33=this.state.resultadosEvaluacion[33].ponderacion;
-      let valor34=this.state.resultadosEvaluacion[34].ponderacion;
-      let valor35=this.state.resultadosEvaluacion[35].ponderacion;
-      let valor36=this.state.resultadosEvaluacion[36].ponderacion;
-      let valor37=this.state.resultadosEvaluacion[37].ponderacion;
-      let valor38=this.state.resultadosEvaluacion[38].ponderacion;
-      let valor39=this.state.resultadosEvaluacion[39].ponderacion;
-      let valor40=this.state.resultadosEvaluacion[40].ponderacion;
-      let valor41=this.state.resultadosEvaluacion[41].ponderacion;
-      let valor42=this.state.resultadosEvaluacion[42].ponderacion;
-      let valor43=this.state.resultadosEvaluacion[43].ponderacion;
-      let valor44=this.state.resultadosEvaluacion[44].ponderacion;
-      let valor45=this.state.resultadosEvaluacion[45].ponderacion;
-      let valor46=this.state.resultadosEvaluacion[46].ponderacion;
-      let valor47=this.state.resultadosEvaluacion[47].ponderacion;
-      let valor48=this.state.resultadosEvaluacion[48].ponderacion;
-      let valor49=this.state.resultadosEvaluacion[49].ponderacion;
-      let valor50=this.state.resultadosEvaluacion[50].ponderacion;  
-      let valor51=this.state.resultadosEvaluacion[51].ponderacion;
-      let valor52=this.state.resultadosEvaluacion[52].ponderacion;
-      let valor53=this.state.resultadosEvaluacion[53].ponderacion;
-      let valor54=this.state.resultadosEvaluacion[54].ponderacion;
-      let valor55=this.state.resultadosEvaluacion[55].ponderacion;
-      let valor56=this.state.resultadosEvaluacion[56].ponderacion;
-      let valor57=this.state.resultadosEvaluacion[57].ponderacion;
-      let valor58=this.state.resultadosEvaluacion[58].ponderacion;
-      let valor59=this.state.resultadosEvaluacion[59].ponderacion;
-      let valor60=this.state.resultadosEvaluacion[60].ponderacion; 
-      let valor61=this.state.resultadosEvaluacion[61].ponderacion;
-      let valor62=this.state.resultadosEvaluacion[62].ponderacion;
-      let valor63=this.state.resultadosEvaluacion[63].ponderacion;
-      let valor64=this.state.resultadosEvaluacion[64].ponderacion;
-      let valor65=this.state.resultadosEvaluacion[65].ponderacion;
-      let valor66=this.state.resultadosEvaluacion[66].ponderacion;
-      let valor67=this.state.resultadosEvaluacion[67].ponderacion;
-      let valor68=this.state.resultadosEvaluacion[68].ponderacion;
-      let valor69=this.state.resultadosEvaluacion[69].ponderacion;
-      let valor70=this.state.resultadosEvaluacion[70].ponderacion;
-      let valor71=this.state.resultadosEvaluacion[71].ponderacion;
-      let valor72=this.state.resultadosEvaluacion[72].ponderacion;
+      let filtrar50;
+      filtrar50 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 50;
+      });
+      value50 = filtrar50.pop()
+
+      let filtrar51;
+      filtrar51 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 51;
+      });
+      value51 = filtrar51.pop()
+
+      let filtrar52;
+      filtrar52 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 52;
+      });
+      value52= filtrar52.pop()
+
+      let filtrar53;
+      filtrar53 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 53;
+      });
+      value53 = filtrar53.pop()
+
+      let filtrar54;
+      filtrar54 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 54;
+      });
+      value54 = filtrar54.pop()
+
+      let filtrar55;
+      filtrar55 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 55;
+      });
+      value55 = filtrar55.pop()
+
+      let filtrar56;
+      filtrar56 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 56;
+      });
+      value56 = filtrar56.pop()
+
+      let filtrar57;
+      filtrar57 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 57;
+      }); 
+      value57 = filtrar57.pop()
+ 
+      let filtrar58;
+      filtrar58 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 58;
+      });
+      value58 = filtrar58.pop()
+
+      let filtrar59;
+      filtrar59 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 59;
+      });
+      value59 = filtrar59.pop()
+
+      let filtrar60;
+      filtrar60 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 60;
+      });
+      value60 = filtrar60.pop()
+
+      let filtrar61;
+      filtrar61 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 61;
+      });
+      value61 = filtrar61.pop()
+  
+      let filtrar62;
+      filtrar62 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 62;
+      });
+      value62 = filtrar62.pop()
+
+      let filtrar63;
+      filtrar63 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 63;
+      });
+      value63 = filtrar63.pop()
+
+      let filtrar64;
+      filtrar64 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 64;
+      });
+      value64 = filtrar64.pop()
+
+      let filtrar65;
+      filtrar65 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 65;
+      });
+      value65 = filtrar65.pop()
+
+      let filtrar66;
+      filtrar66 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 66;
+      });
+      value66 = filtrar66.pop()
+
+      let filtrar67;
+      filtrar67 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 67;
+      });
+      value67 = filtrar67.pop()
+
+      let filtrar68;
+      filtrar68 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 68;
+      });
+      value68 = filtrar68.pop()
+
+      let filtrar69;
+      filtrar69 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 69;
+      });
+      value69= filtrar69.pop()
+
+      let filtrar70;
+      filtrar70 = this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 70;
+      });
+      value70 = filtrar70.pop()
+
+      let filtrar71;
+      filtrar71 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 71;
+      });
+      value71 = filtrar71.pop()
+
+      let filtrar72;
+      filtrar72 =  this.state.resultadosEvaluacion.filter(function(hero) {
+        return hero.fk_preguntasEEO == 72;
+      });
+      value72 = filtrar72.pop()
+
+      let respuesta1=value1.Respuestas;
+      let respuesta2=value2.Respuestas;
+      let respuesta3=value3.Respuestas;
+      let respuesta4=value4.Respuestas;
+      let respuesta5=value5.Respuestas;
+      let respuesta6=value6.Respuestas;
+      let respuesta7=value7.Respuestas;
+      let respuesta8=value8.Respuestas;
+      let respuesta9=value9.Respuestas;
+      let respuesta10=value10.Respuestas;
+      let respuesta11=value11.Respuestas;
+      let respuesta12=value12.Respuestas;
+      let respuesta13=value13.Respuestas;
+      let respuesta14=value14.Respuestas;
+      let respuesta15=value15.Respuestas;
+      let respuesta16=value16.Respuestas;
+      let respuesta17=value17.Respuestas;
+      let respuesta18=value18.Respuestas;
+      let respuesta19=value19.Respuestas;
+      let respuesta20=value20.Respuestas;
+      let respuesta21=value21.Respuestas;
+      let respuesta22=value22.Respuestas;
+      let respuesta23=value23.Respuestas;
+      let respuesta24=value24.Respuestas;
+      let respuesta25=value25.Respuestas;
+      let respuesta26=value26.Respuestas;
+      let respuesta27=value27.Respuestas;
+      let respuesta28=value28.Respuestas;
+      let respuesta29=value29.Respuestas;
+      let respuesta30=value30.Respuestas;
+      let respuesta31=value31.Respuestas;
+      let respuesta32=value32.Respuestas;
+      let respuesta33=value33.Respuestas;
+      let respuesta34=value34.Respuestas;
+      let respuesta35=value35.Respuestas;
+      let respuesta36=value36.Respuestas;
+      let respuesta37=value37.Respuestas;
+      let respuesta38=value38.Respuestas;
+      let respuesta39=value39.Respuestas;
+      let respuesta40=value40.Respuestas;
+      let respuesta41=value41.Respuestas;
+      let respuesta42=value42.Respuestas;
+      let respuesta43=value43.Respuestas;
+      let respuesta44=value44.Respuestas;
+      let respuesta45=value45.Respuestas;
+      let respuesta46=value46.Respuestas;
+      let respuesta47=value47.Respuestas;
+      let respuesta48=value48.Respuestas;
+      let respuesta49=value49.Respuestas;
+      let respuesta50=value50.Respuestas;  
+      let respuesta51=value51.Respuestas;
+      let respuesta52=value52.Respuestas;
+      let respuesta53=value53.Respuestas;
+      let respuesta54=value54.Respuestas;
+      let respuesta55=value55.Respuestas;
+      let respuesta56=value56.Respuestas;
+      let respuesta57=value57.Respuestas;
+      let respuesta58=value58.Respuestas;
+      let respuesta59=value59.Respuestas;
+      let respuesta60=value60.Respuestas; 
+      let respuesta61=value61.Respuestas;
+      let respuesta62=value62.Respuestas;
+      let respuesta63=value63.Respuestas;
+      let respuesta64=value64.Respuestas;
+      let respuesta65=value65.Respuestas;
+      let respuesta66=value66.Respuestas;
+      let respuesta67=value67.Respuestas;
+      let respuesta68=value68.Respuestas;
+      let respuesta69=value69.Respuestas;
+      let respuesta70=value70.Respuestas;
+      let respuesta71=value71.Respuestas;
+      let respuesta72=value72.Respuestas;
+      
+      let valor1=value1.ponderacion;
+      let valor2=value2.ponderacion;
+      let valor3=value3.ponderacion;
+      let valor4=value4.ponderacion;
+      let valor5=value5.ponderacion;
+      let valor6=value6.ponderacion;
+      let valor7=value7.ponderacion;
+      let valor8=value8.ponderacion;
+      let valor9=value9.ponderacion;
+      let valor10=value10.ponderacion;
+      let valor11=value11.ponderacion;
+      let valor12=value12.ponderacion;
+      let valor13=value13.ponderacion;
+      let valor14=value14.ponderacion;
+      let valor15=value15.ponderacion;
+      let valor16=value16.ponderacion;
+      let valor17=value17.ponderacion;
+      let valor18=value18.ponderacion;
+      let valor19=value19.ponderacion;
+      let valor20=value20.ponderacion;
+      let valor21=value21.ponderacion;
+      let valor22=value22.ponderacion;
+      let valor23=value23.ponderacion;
+      let valor24=value24.ponderacion;
+      let valor25=value25.ponderacion;
+      let valor26=value26.ponderacion;
+      let valor27=value27.ponderacion;
+      let valor28=value28.ponderacion;
+      let valor29=value29.ponderacion;
+      let valor30=value30.ponderacion;
+      let valor31=value31.ponderacion;
+      let valor32=value32.ponderacion;
+      let valor33=value33.ponderacion;
+      let valor34=value34.ponderacion;
+      let valor35=value35.ponderacion;
+      let valor36=value36.ponderacion;
+      let valor37=value37.ponderacion;
+      let valor38=value38.ponderacion;
+      let valor39=value39.ponderacion;
+      let valor40=value40.ponderacion;
+      let valor41=value41.ponderacion;
+      let valor42=value42.ponderacion;
+      let valor43=value43.ponderacion;
+      let valor44=value44.ponderacion;
+      let valor45=value45.ponderacion;
+      let valor46=value46.ponderacion;
+      let valor47=value47.ponderacion;
+      let valor48=value48.ponderacion;
+      let valor49=value49.ponderacion;
+      let valor50=value50.ponderacion;  
+      let valor51=value51.ponderacion;
+      let valor52=value52.ponderacion;
+      let valor53=value53.ponderacion;
+      let valor54=value54.ponderacion;
+      let valor55=value55.ponderacion;
+      let valor56=value56.ponderacion;
+      let valor57=value57.ponderacion;
+      let valor58=value58.ponderacion;
+      let valor59=value59.ponderacion;
+      let valor60=value60.ponderacion; 
+      let valor61=value61.ponderacion;
+      let valor62=value62.ponderacion;
+      let valor63=value63.ponderacion;
+      let valor64=value64.ponderacion;
+      let valor65=value65.ponderacion;
+      let valor66=value66.ponderacion;
+      let valor67=value67.ponderacion;
+      let valor68=value68.ponderacion;
+      let valor69=value69.ponderacion;
+      let valor70=value70.ponderacion;
+      let valor71=value71.ponderacion;
+      let valor72=value72.ponderacion;
+
       let entero1=parseInt(valor1);let entero2=parseInt(valor2);let entero3=parseInt(valor3);let entero4=parseInt(valor4);
       let entero5=parseInt(valor5);let entero6=parseInt(valor6);let entero7=parseInt(valor7);let entero8=parseInt(valor8);
       let entero9=parseInt(valor9);let entero10=parseInt(valor10);let entero11=parseInt(valor11);let entero12=parseInt(valor12);
@@ -5466,7 +6971,7 @@ ponderacion=<React.Fragment>
     let categoria1MuyAlto;
     let categoriaUno = (entero1+entero3+entero2+entero4+entero5).toFixed(2);
     let colorCategoriaUno;
-    // console.log("categotia1",entero1,entero3,entero2,entero4,entero5)
+    
     if(categoriaUno < 5){
       categoria1Nulo= categoriaUno
       colorCategoriaUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
@@ -6658,11 +8163,26 @@ ponderacion=<React.Fragment>
     
      let botonCerrar;
      let botonResultadosGlobales;
+     let botonReporteEjecutivo;
      if(!this.state.botonDisabled){
          botonCerrar=<MDBBtn className = "text-white"  size="md" color="danger" onClick={(e)=>{window.location.reload()}} >Cerrar resultados</MDBBtn>
      }
      if(this.state.botonDisabled){
-         botonResultadosGlobales=<MDBRow><MDBCol><MDBBtn className = "text-white"  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Descarga del reporte Global</MDBBtn></MDBCol><MDBCol><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)} color="success" size="md">Evaluaciones masivas</MDBBtn></MDBCol><MDBCol><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)} color="success" size="md">Resultados masivos</MDBBtn></MDBCol></MDBRow>
+         botonResultadosGlobales=
+         <MDBRow>
+         <MDBCol>
+         <MDBBtn className = "text-white"  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Descarga del reporte Global</MDBBtn>
+         </MDBCol>
+         <MDBCol>
+         <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)} color="success" size="md">Evaluaciones masivas</MDBBtn>
+         </MDBCol>
+         <MDBCol>
+         <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)} color="success" size="md">Resultados masivos</MDBBtn>
+         </MDBCol>
+         <MDBCol>
+         {/* <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteEjecutivo(datosEmpleados,filtro)} color="success" size="md">Reporte ejecutivo</MDBBtn>  */}
+         </MDBCol>
+         </MDBRow>
      }
 
      let dataSource;
@@ -8696,7 +10216,7 @@ ponderacion=<React.Fragment>
     let categoria1MuyAlto;
     let categoriaUno = (entero1+entero3+entero2+entero4+entero5).toFixed(2);
     let colorCategoriaUno;
-    // console.log("categotia1",entero1,entero3,entero2,entero4,entero5)
+
     if(categoriaUno < 5){
     categoria1Nulo= categoriaUno
     colorCategoriaUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
@@ -9505,7 +11025,7 @@ ponderacion=<React.Fragment>
               color="black" style = {{marginLeft:35}}>PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN
               LOS CENTROS DE TRABAJO</font>           
              {this.state.reporteImasivo.map(rows=>{
-               console.log("rows" , rows)
+              
                if(rows[0]){
                 let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16,value17,value18,value19,value20,value21,value22,value23,value24;
                 let value25,value26,value27,value28,value29,value30,value31,value32,value33,value34,value35,value36,value37,value38,value39,value40,value41,value42,value43,value44,value45,value46;
@@ -10519,6 +12039,7 @@ ponderacion=<React.Fragment>
               {ponderacion}
               {ponderacionIndividual}
               {pdfView1}
+              {reporteEjecutivo}
             </div> 
           </Grow>  
         </div> 

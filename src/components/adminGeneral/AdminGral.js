@@ -96,10 +96,8 @@ class AdminGral extends React.Component {
           }
         })
         .then(datos => {	
-          console.log("exito eventos",datos)
           this.setState({periodo:datos.data.data.getPeriodo})
         }).catch(err=>{
-          console.log("error",err.response)
         })
         axios({
           url:  API,
@@ -120,10 +118,8 @@ class AdminGral extends React.Component {
           }
         })
         .then(datos => {	
-          console.log("exito datos",datos)
           this.setState({allperiodo:datos.data.data.getallPeriodo})
         }).catch(err=>{
-          console.log("error",err.response)
         })
 
     }
@@ -176,13 +172,10 @@ class AdminGral extends React.Component {
               }).then((datos) => {
                
                 this.setState({ datos: datos.data.data.getUsersTableEmployees});
-                console.log("los datos de los empleados" , datos.data.data.getUsersTableEmployees) 
               })
 
               .catch((error) => {
-          
-                //console.log("errores" ,error.response.data.errors[0].message)
-                console.log(".cartch" , error.response)
+                 console.log(".cartch" , error.response)
             });  
 
               axios({
@@ -210,15 +203,12 @@ class AdminGral extends React.Component {
                   `
               }
               }).then((datos) => {
-               console.log("datos correctos" ,datos.data.data.getSucursales)
                 this.setState({ datosSucursales: datos.data.data.getSucursales});
 
               })
 
               .catch((error) => {
-                
-                //console.log("errores" ,error.response.data.errors[0].message)
-                console.log(".cartch" , error.response)
+                 console.log(".cartch" , error.response)
             });  
 
             axios({
@@ -237,14 +227,11 @@ class AdminGral extends React.Component {
               }
                   }).then((datos) => {
                    
-                    console.log("datos correctos" , datos.data.data.getDeptos)
                      this.setState({ datosDeptos: datos.data.data.getDeptos});
     
                   })
     
                   .catch((error) => {
-              
-                    //console.log("errores" ,error.response.data.errors[0].message)
                     console.log(".cartch" , error.response)
                 });  
 
@@ -267,9 +254,7 @@ class AdminGral extends React.Component {
                       })
         
                       .catch((error) => {
-                  
-                        //console.log("errores" ,error.response.data.errors[0].message)
-                        console.log(".cartch" , error.response)
+                         console.log(".cartch" , error.response)
                     });  
     }
 
@@ -308,8 +293,6 @@ class AdminGral extends React.Component {
                     })
 
                     .catch((error) => {
-                
-                      //console.log("errores" ,error.response.data.errors[0].message)
                       console.log(".cartch" , error.response)
                   });  
                }
@@ -430,7 +413,6 @@ class AdminGral extends React.Component {
       
 
                 toggle = (nr,id) => () => {
-                console.log("id rows",id)
                 this.setState({updateRows:id} )
                   
                   let modalNumber = 'modal' + nr
@@ -440,7 +422,6 @@ class AdminGral extends React.Component {
                 }
 
                 toggleSucursales = (nr,id) => () => {
-                  console.log("id rows",id)
                   this.setState({updateRowsSucursales:id} )
                   
                   let modalNumber = 'modal' + nr
@@ -450,7 +431,6 @@ class AdminGral extends React.Component {
                 }
 
                 toggleDeptos = (nr,id) => () => {
-                  console.log("id rows deptos",id)
                   this.setState({updateRowsDeptos:id} )
                   
                   let modalNumber = 'modal' + nr
@@ -460,7 +440,6 @@ class AdminGral extends React.Component {
                 }
 
                 togglePuestos = (nr,id) => () => {
-                  console.log("id rows deptos",id)
                   this.setState({updateRowsPuestos:id} )
                   
                   let modalNumber = 'modal' + nr
@@ -698,8 +677,6 @@ class AdminGral extends React.Component {
               }
 
               evaluarSucursales  = (values,id) =>{
-                console.log("los valores son ",values,id)
-               console.log("entro")
                 // if(values){
                 //   let modalNumber = 'modal' + 13
                 //   this.setState({
@@ -737,7 +714,6 @@ class AdminGral extends React.Component {
                       }
                     })
                     .then(datos => {	
-                      console.log("exito")
                       let modalNumber = 'modal' + 14
                       this.setState({
                         [modalNumber]: !this.state[modalNumber]
@@ -758,7 +734,6 @@ class AdminGral extends React.Component {
               }
               evaluarDeptos  = (values,id) =>{
 
-                console.log("values" , values , id)
                 const nombreDepto = values.nombreDepto  
                 const correo = localStorage.getItem('correo')
         
@@ -778,7 +753,6 @@ class AdminGral extends React.Component {
                       }
                     })
                     .then(datos => {	
-                      console.log("exito")
                       let modalNumber = 'modal' + 15
                       this.setState({
                         [modalNumber]: !this.state[modalNumber]
@@ -820,7 +794,6 @@ class AdminGral extends React.Component {
                       }
                     })
                     .then(datos => {	
-                      console.log("exito")
                       let modalNumber = 'modal' + 16
                       this.setState({
                         [modalNumber]: !this.state[modalNumber]
@@ -858,7 +831,6 @@ class AdminGral extends React.Component {
               }
             })
             .then(datos => {
-              console.log("message",datos.data.data.getEventos.message)	
               if(datos.data.data.getEventos.message==="evento encontrado"){
                 DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },        
@@ -884,8 +856,7 @@ class AdminGral extends React.Component {
             })
             .then(datos => {	
               if(datos.data.data.addPeriodo.message==='registro exitoso'){
-                console.log("exito",datos)
-                DialogUtility.alert({
+                  DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },        
                   title:"AVISO!",   
                   content: 'Periodo Registrado con Éxito',
@@ -921,7 +892,6 @@ class AdminGral extends React.Component {
             if(values.NombrePeriodo && this.state.final && this.state.Alerta1 && this.state.Alerta2 && this.state.Alerta3){    
             const idAdmin=localStorage.getItem("idAdmin")
             // const url = 'http://localhost:8000/graphql'    
-            console.log("entro aqui")                  
             axios({
               url:  API,
               method:'post',
@@ -994,13 +964,11 @@ class AdminGral extends React.Component {
               }
             })
             .then(datos => {	
-              console.log("exito",datos)
               DialogUtility.alert({
                 animationSettings: { effect: 'Fade' },        
                 title:"AVISO!",   
                 content: 'Periodo Deshabilitado con Éxito',
                 position: "fixed",
-              
               }
               )
 
@@ -1023,7 +991,6 @@ class AdminGral extends React.Component {
           };
            handleDateChange2 = date2 => {
             this.setState({final:date2})
-              console.log("data" , date2)
             };    
             handleAlerta1 = date => {
                 this.setState({Alerta1:date})
@@ -1051,7 +1018,6 @@ class AdminGral extends React.Component {
                   });
                 }
                 reader.readAsDataURL(file)
-                console.log("file" , file)
               }
             
     render() {  
@@ -1798,7 +1764,6 @@ class AdminGral extends React.Component {
        let misPeriodos;
       
        if(this.state.misPeriodos==='1'){
-         console.log("mis periodos2 ")
         misPeriodos =<MDBContainer><Paper >
         <MDBCard >
             <MDBCardBody>
@@ -1966,11 +1931,9 @@ class AdminGral extends React.Component {
          
            onTableChange: (action, tableState) => {
            datosEmpleados=tableState.displayData
-           console.log("datosEmpleados " , datosEmpleados)
            },
            onFilterChange: (action, filtroTable) => {
              filtro=filtroTable
-             console.log("filtro" , filtro) 
              }     };
 
       return (

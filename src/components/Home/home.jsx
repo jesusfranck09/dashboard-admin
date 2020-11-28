@@ -78,7 +78,6 @@ class Home extends React.Component {
   async componentWillMount(){
     let idAdmin = localStorage.getItem("idAdmin")
       // const url = 'http://localhost:8000/graphql'
-      // console.log("el tiempo es " , t )
      await  axios({
         url:  API,
         method:'post',
@@ -113,7 +112,6 @@ class Home extends React.Component {
         let alerta1;
         let alerta2;
         let alerta3; 
-        // console.log("eventos",datos.data.data.getPeriodo[0])
         eventoFinal = datos.data.data.getPeriodo[0].eventoFinal
         alerta1  = datos.data.data.getPeriodo[0].alerta1
         alerta2  = datos.data.data.getPeriodo[0].alerta2
@@ -133,16 +131,14 @@ class Home extends React.Component {
         }
         if (eventoFinal){
           fechaFinal = eventoFinal.substring(4,34)
-          // console.log("alerta",fechaFinal) 
         }
 
-        console.log("valores" , fechaFinal,alert1,alert2,alert3)
         this.countdown(fechaFinal)
         this.alerta1(alert1)
         this.alerta2(alert2)
         this.alerta3(alert3)
       }).catch(err=>{
-        console.log("error",err.response)
+        
       })
         await this.getEmployees();
         await this.handleFront();
@@ -284,7 +280,6 @@ class Home extends React.Component {
 		  }
 		})
 		.then(datos => {		
-      // console.log("exito pack " , datos)
       em =datos.data.data.verifyPackSuperUser.empleados
       this.setState({empleados:em})
 		}).catch(err=>{
@@ -309,7 +304,6 @@ class Home extends React.Component {
         `
     }
     }).then((datos) => {
-        // console.log("depto activo",datos.data.data.deptoActive)
       if(datos.data.data.deptoActive.length>0){
         localStorage.setItem("DepartamentoActivo","true")
       }else{
@@ -333,7 +327,6 @@ class Home extends React.Component {
           `
       }
       }).then((datos) => {
-          // console.log("depto activo",datos.data.data.sucActive)
         if(datos.data.data.sucActive.length>0){
           localStorage.setItem("SucursalActiva","true")
         }else{
@@ -357,7 +350,6 @@ class Home extends React.Component {
           `
       }
       }).then((datos) => {
-          // console.log("depto activo",datos.data.data.puestoActive)
         if(datos.data.data.puestoActive.length>0){
           localStorage.setItem("PuestoActivo","true")
         }else{
@@ -905,7 +897,6 @@ openModal () {
     let AlertaDepartamento = localStorage.getItem("DepartamentoActivo")
     let empleadoAc=localStorage.getItem("empleadoActivo")
     if(empleadoAc==="false"){
-     console.log("entro empleado activo false") 
      Alerta =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Empleado Registrado </Alert>
     }if(AlertaDepartamento==="false"){
       dep =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Departamento Registrado</Alert>

@@ -134,7 +134,6 @@ class Cuestions extends Component{
             [id]:value,
         });
        
-        console.log("el estado es ",this.state)
         
       }
 
@@ -170,7 +169,6 @@ class Cuestions extends Component{
               `
           }
               }).then((datos) => {
-                console.log("los datos son ",datos)
                 alert("Registro Exitoso");
                 // this.props.history.push("/inicio")
               });       

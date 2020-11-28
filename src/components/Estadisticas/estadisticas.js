@@ -72,7 +72,6 @@ class Estadisticas extends React.Component {
     
   getEmployees = async event => {
     var idAdmin  = localStorage.getItem("idAdmin")  
-    console.log(idAdmin)     
     // const url = 'http://localhost:8000/graphql'
      await axios({
         url:  API,
@@ -112,7 +111,6 @@ class Estadisticas extends React.Component {
         }
             }).then((datos) => {
               this.setState({ datos: datos.data.data.getUsersTableEmployees});
-              console.log("datos de todo los empleados",datos)
             })
             .catch((error) => {
               console.log(".cartch" , error.response)
@@ -196,7 +194,6 @@ class Estadisticas extends React.Component {
         },
         onFilterChange: (action, filtroTable) => {
           filtro=filtroTable
-          console.log("filtro" , filtro) 
           }     };
 
           let pdf ;
@@ -257,7 +254,6 @@ class Estadisticas extends React.Component {
           let gerencial = []
           let directivo = []
           if(this.state.reporteEstadisticas[0]){
-           console.log("estadisticas" , this.state.reporteEstadisticas)
               this.state.reporteEstadisticas.map(rows =>{
 
                 array.push(rows.data[4])
@@ -554,7 +550,6 @@ class Estadisticas extends React.Component {
                 var intPorcentajedoctorado= Math.round( porcentajedoctorado);
                 //////////////////////////////////////////////////////////////////
 
-                console.log("arraySexo" , arraySexo)
                 const resultSexoH= arraySexo.filter(function(valor){
                   return valor === "MASCULINO"
                 })
@@ -571,7 +566,6 @@ class Estadisticas extends React.Component {
                 var porcentajeHombre= (hombre[0].length / arraySexo.length)*100;
                 var intPorcentajeHombre= Math.round( porcentajeHombre );
             
-                console.log("porcentajes" , intPorcentajeMujer,intPorcentajeHombre)
                 //////////////////////////////////////////////////////////////777777
      
                 const resultOperativo= arrayTipoPuesto.filter(function(valor){

@@ -132,7 +132,6 @@ class SheetJSApp extends React.Component {
 		 })
 		 .then(datos => {		
 			 em =datos.data.data.verifyPackSuperUser.empleados
-		//   console.log("exito no empleados",datos)
  
 		 }).catch(err=>{
 			 console.log("error" , err.response)
@@ -154,12 +153,10 @@ class SheetJSApp extends React.Component {
 				 }
 			 })
 			 .then(datos => {		
-			//  console.log("exito empleados registrados" , datos.data.data.authRegisterSingleEmployee[0].max)
 			 max=datos.data.data.authRegisterSingleEmployee[0].max
 			 });
  
 			 let empleadosRegistrados=parseInt(max)
-			//  console.log("empleados registrados " ,empleadosRegistrados ,empleadosPack)
 		if(empleadosRegistrados < empleadosPack ){
 	
 	
@@ -168,9 +165,7 @@ class SheetJSApp extends React.Component {
 			 
 				// const url  = 'http://localhost:8000/graphql'
 				var estado = this.state.data[i]	
-				// console.log("el estado en la posicion de i " , estado)
 				if(this.state.data[i].length===20  ){	
-					console.log("estado if" , this.state.data[i].length)	
 				const query =  `
 				mutation {
 					registerEmployee(
@@ -222,15 +217,12 @@ class SheetJSApp extends React.Component {
 							if(nombreExistente != null && apellidoPExistente != null && apellidoMExistente != null ){
 								empleadoNoRegistrado.push(nombreExistente  +" "+   apellidoPExistente  +" "  +  apellidoMExistente)
 							}
-							// console.log("la nombre ap am " , nombre,apellidoP,apellidoM)
-							// console.log("la nombre ape ame " , nombreExistente,apellidoMExistente,apellidoPExistente)
 					})
 					 .catch((error) => {
 					 console.log(".cartch" , error.response)
 				});
 				
 				}else if(( this.state.data[i].length < 20 || this.state.data[i].length > 20 ) && this.state.data[i].length !=0 ) {
-					console.log("estado else" , this.state.data[i].length)
 					DialogUtility.alert({
 					animationSettings: { effect: 'Zoom' },           
 					title: "Su archivo no cumple con los requisitos",
@@ -252,9 +244,6 @@ class SheetJSApp extends React.Component {
 			
 				}
 				
-				console.log("this.state",this.state.data[2])
-
-				
 				this.setState({sucursalNoExiste:array3})
 				this.setState({deptoNoExiste:array2})
 				this.setState({puestoNoExiste:array})
@@ -262,11 +251,6 @@ class SheetJSApp extends React.Component {
 				this.setState({empleadoNoExitoso:empleadoNoRegistrado})
 				this.setState({message:arrayMessage})
 
-
-				
-				// console.log("array" , this.state.sucursalNoExiste,this.state.deptoNoExiste,this.state.puestoNoExiste)
-				// console.log("el estado message" , this.state.message)
-				
 			    }else{
 					DialogUtility.alert({
 						animationSettings: { effect: 'Zoom' },           
@@ -575,7 +559,6 @@ class App extends React.Component {
 	})
 	.then(datos => {	
 		this.setState({deptos:datos.data.data.getDeptos})	
-		// console.log("deptosExtraidas" , this.state.deptos)
 	}).catch(err=>{
 		console.log("este es el error get deptos" , err.response)
 	}) 
@@ -597,7 +580,6 @@ class App extends React.Component {
 	})
 	.then(datos => {	
 		this.setState({puestos:datos.data.data.getPuestos})	
-		// console.log("puestosExtraidas" , this.state.puestos)
 	}).catch(err=>{
 		console.log("este es el error get deptos" , err.response)
 	}) 
@@ -617,7 +599,6 @@ class App extends React.Component {
 	})
 	.then(datos => {	
 		this.setState({sucursal:datos.data.data.getSucursales})	
-		// console.log("sucursalExtraidas" , this.state.sucursal)
 	}).catch(err=>{
 		console.log("este es el error get deptos" , err.response)
 	}) 
@@ -692,7 +673,6 @@ class App extends React.Component {
 		})
 		.then(datos => {		
 			em =datos.data.data.verifyPackSuperUser.empleados
-		//  console.log("exito no empleados",datos)
 
 		}).catch(err=>{
 			console.log("error" , err.response)
@@ -719,7 +699,6 @@ class App extends React.Component {
 			let empleadosRegistrados=parseInt(max)
 			
 			if(empleadosRegistrados < empleadosPack ){
-
 			axios({
 			url:  API,
 			method:'post',

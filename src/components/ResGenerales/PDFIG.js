@@ -162,12 +162,9 @@ pdfExportComponent ;
                   totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
                   // function deMenorAMayor(elem1, elem2) {return elem1-elem2;}
 
-                  // console.log("totalEmpleafos" , totalEmpleados.sort((a,b) => {
                   //   return a.fk_preguntasATS.sort(deMenorAMayor)
                   // }))
                   this.setState({peticion:totalEmpleados})   
-                  // // console.log("peticion1",this.state.peticion.length)
-                  // // console.log("peticion2",this.state.empleados.length)
 
                   // if(this.state.peticion.length == this.state.empleados.length){
                   //   this.setState({spinner:false})
@@ -185,7 +182,6 @@ pdfExportComponent ;
 
 
       async consultarDatosFiltrados ( datos,filtro){
-        // console.log("entro")
         this.setState({botonDescargaMasivo:''})
         this.setState({botonDescargarIndividual:''})
         var array=[];
@@ -196,7 +192,6 @@ pdfExportComponent ;
         let filter;
 
           this.state.peticion.forEach(row=>{
-            console.log("roe" , row)
             array.forEach(element => {
               filter =row.filter(function(hero){
                 return hero.fk_Empleados === element
@@ -275,11 +270,9 @@ pdfExportComponent ;
           
           this.setState({datosLength:datos.length})
            
-          // console.log("datos enviados",datos[0].data[6])
           }
 
         reporteImasivo(datos,filtro){
-              // console.log("entro")
         this.setState({botonDescargaMasivo:''})
         this.setState({botonDescargarIndividual:''})
         var array=[];
@@ -375,7 +368,6 @@ pdfExportComponent ;
           
          this.setState({datosLength:datos.length})
            
-        // console.log("datos enviados",datos[0].data[6])
           }     
 
         click(id,periodo){  
@@ -420,7 +412,6 @@ pdfExportComponent ;
                 `
             }
                 }).then(datos => {   
-                  // console.log("datos" , datos)
                 if(datos.data.data.resultSingleSurvey.length > 0 ){
                 this.setState({resultados:'' })  
                 this.setState({resultados :datos.data.data.resultSingleSurvey })                
@@ -503,13 +494,11 @@ pdfExportComponent ;
         if (rows[1].Respuestas === 'si'){
            accionSi = accionSi + 1
         }
-        // console.log("accionSi" , accionSi)
         if (rows[1].Respuestas === 'no'){
            accionNo = accionNo +1
         }
       }
     })   
-    // console.log("accionNo" , accionNo)
     const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo",{name: "Respuestas",label: "Respuestas",options:{filter: false,sort: true,}}];
     const data = this.state.empleados.map(rows=>{
         let boton =  <div><MDBBtn  className = "text-white"  disabled={!this.state.botonDescargarIndividual} size ="md" color ="danger" onClick={(e) => this.click(rows.id,rows.periodo)}>Respuestas</MDBBtn></div> 
@@ -586,7 +575,6 @@ pdfExportComponent ;
             }
 
             if(this.state.resultados.length>0){ 
-              console.log("estado",this.state.resultados)
               let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value12,value13,value14,value15,value16;
               
               let filtrar1;
@@ -1130,9 +1118,7 @@ pdfExportComponent ;
       if(this.state.empleados[0]){
         this.state.empleados.map(rows=>{
           mapeo.push(rows.ATSDetectado)
-            // console.log("mapeo" , mapeo)
             filtrar =  mapeo.filter(function(hero) {
-              // console.log("hero" , hero)
             return hero==='true';
             });
   
@@ -1327,7 +1313,6 @@ pdfExportComponent ;
 
                                   </tr>
                                   { this.state.peticion1.map((rows,i) => {
-                                    // console.log("rows",rows)
                                     if(rows[1]){
                                       if(rows[1].Respuestas ==='si'){
                                       respuesta =  <TableCell  width="12%" style={{backgroundColor: "#FF0000"}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">SI</font></TableCell>
@@ -1372,7 +1357,6 @@ pdfExportComponent ;
     let reporteImasivo;
 
     if(this.state.reporteImasivo[0]){
-      // console.log("filtrado" , this.state.reporteImasivo[0])
 
       let estado  = this.state.reporteImasivo;
       function array_equals(a, b){
@@ -1499,7 +1483,6 @@ pdfExportComponent ;
                                         }
                                     }
                                     if(rows[0]){
-                                      console.log("rows masivos" , rows )
                                       let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16;
                                       let array1= [];
                                       let filtrar1;

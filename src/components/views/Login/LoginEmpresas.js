@@ -89,9 +89,6 @@ handleInput = async (e) => {
   this.setState({
     [id]:value,
    });
-
-
-
   }
 
   togglePasswordVisiblity = () => {
@@ -102,8 +99,6 @@ handleInput = async (e) => {
 
   handleForm = (e, login) => { 
     e.preventDefault();
-
-    console.log('Enviando formulario...');
     login({variables: { 
         ...this.state
     }});
@@ -119,10 +114,8 @@ handleInput = async (e) => {
     setTimeout(() => {
       window.location.reload();
     }, 2000); 
-
   }
  if(data.loginEmpresas.token==='no hay token' && data.loginEmpresas.message==='usuario y contraseña incorrectos'){
-  console.log("data del dash" , data)
 
   let rfc = data.loginEmpresas.RFC
   var date = new Date();
@@ -147,21 +140,19 @@ handleInput = async (e) => {
           `
       }
       }).then((datos) => {
-          console.log("datatransaccions" , datos.data.data.transactions.message)
       }).catch(err=>{
         console.log("error" , err.response)
         console.log("err" , err)
-
       })  
-    DialogUtility.alert({
+      DialogUtility.alert({
       animationSettings: { effect: 'Zoom' },           
       title: 'USUARIO Y CONTRASEÑA INCORRECTOS',
       position: "fixed",
-  })  
-  setTimeout(() => {
-    window.location.reload();
-  }, 2000); 
-  }
+    })  
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000); 
+    }
    if(data.loginEmpresas.message==='Login exitoso' && data.loginEmpresas.token){
 
     let IP  = "000000";
@@ -172,7 +163,6 @@ handleInput = async (e) => {
   //  await findIP.then(ip => {
   //     IP = ip
   //   }).catch(err=>{
-  //     console.log("error al obtener ip" , err)
   //   })
 
     let rfc = data.loginEmpresas.RFC
@@ -199,7 +189,6 @@ handleInput = async (e) => {
             `
         }
         }).then((datos) => {
-            console.log("datatransaccions" , datos.data.data.transactions.message)
         }).catch(err=>{
           console.log("error" , err.response)
           console.log("err" , err)
@@ -221,7 +210,6 @@ handleInput = async (e) => {
         var texto = "";
         var ahora=new Date(); 
         var hora=ahora.getHours();
-        console.log("hora" , hora)
         if (hora>=6 && hora<13) {
             texto="Buenos días";  
         } else if (hora>=13 && hora<21) { 

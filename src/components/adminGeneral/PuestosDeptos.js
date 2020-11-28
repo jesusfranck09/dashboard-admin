@@ -74,7 +74,6 @@ import Navbar from './navbar'
                 }
               })
               .then(datos => {		
-              console.log("datos correctos" , datos)
               localStorage.setItem("ok",1)
               DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },           
@@ -119,7 +118,6 @@ import Navbar from './navbar'
                 }
               })
               .then(datos => {		
-              console.log("datos correctos" , datos)
               localStorage.setItem("ok",1)
               DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },           

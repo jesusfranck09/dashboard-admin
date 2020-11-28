@@ -325,7 +325,6 @@ pdfExportComponent ;
           }
               }).then(datos => {    
               totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
-              // console.log("totalEMpleados" , totalEmpleados)
               this.setState({peticion1:totalEmpleados})
     
               })
@@ -399,7 +398,7 @@ pdfExportComponent ;
           }
           
           this.setState({datosLength:datos.length})
-        // console.log("datos enviados",datos[0].data[6])
+        
           }
 
 
@@ -415,7 +414,6 @@ pdfExportComponent ;
             array.push(rows.data[0])
           })
           for(var i=0; i<=array.length;i++){   
-            // console.log("array en la posicion  de i " , array[i])    
         // const url = 'http://localhost:8000/graphql'
 
             await  axios({
@@ -458,10 +456,8 @@ pdfExportComponent ;
               }
               }).then(datos => {    
               totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
-              // console.log("totalEMpleados" , totalEmpleados)
               this.setState({reporteImasivo:totalEmpleados})
 
-              console.log("reporteImasivo" ,this.state.reporteImasivo )
                
               })
               .catch(err => {
@@ -537,7 +533,6 @@ pdfExportComponent ;
           }
           
          this.setState({datosLength:datos.length})
-        // console.log("datos enviados",datos[0].data[6])
           }     
 
         click(id,periodo){  
@@ -582,7 +577,6 @@ pdfExportComponent ;
                 `
             }
                 }).then(datos => {   
-                  console.log("datos" , datos)
                 if(datos.data.data.resultSingleSurvey.length > 0 ){
                 this.setState({resultados:'' })  
                 this.setState({resultados :datos.data.data.resultSingleSurvey })                
@@ -639,13 +633,11 @@ pdfExportComponent ;
         if (rows[1].Respuestas == 'si'){
            accionSi = accionSi + 1
         }
-        // console.log("accionSi" , accionSi)
         if (rows[1].Respuestas == 'no'){
            accionNo = accionNo +1
         }
       }
     })   
-    // console.log("accionNo" , accionNo)
     const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo",{name: "Respuestas",label: "Respuestas",options:{filter: false,sort: true,}}];
     const data = this.state.empleados.map(rows=>{
         let boton =  <div><MDBBtn  disabled={!this.state.botonDescargarIndividual} color ="danger" onClick={(e) => this.click(rows.id,rows.periodo)}>Respuestas</MDBBtn></div> 
@@ -725,7 +717,6 @@ pdfExportComponent ;
             }
 
             if(this.state.resultados.length>0){ 
-            console.log("state",this.state.resultados)
             pdfView1 = <MDBContainer > <Alert className ="mt-4" color ="primary ">Resultados individuales de la Aplicación de la evaluación ATS </Alert>
 
             
@@ -1430,7 +1421,6 @@ pdfExportComponent ;
 
                                   </tr>
                                   { this.state.peticion1.sort().map((rows,i) => {
-                                    console.log("rows",rows)
                                     if(rows[1]){
                               
                                       if(rows[1].Respuestas =='si'){
