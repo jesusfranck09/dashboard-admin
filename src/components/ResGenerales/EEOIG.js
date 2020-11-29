@@ -3732,7 +3732,7 @@ if(DominioCuatro < 1){
   colorDominioCuatro=<TableCell  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio4Bajo= DominioCuatro
 }else if(DominioCuatro >= 2 && DominioCuatro < 4){
-  colorDominioCuatro = <TableCell  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioCuatro = <TableCell  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   Dominio4Medio= DominioCuatro
 }else if(DominioCuatro >= 4 && DominioCuatro < 6){
   colorDominioCuatro = <TableCell  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
@@ -3825,7 +3825,7 @@ if(DominioOcho < 7){
   colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio8Nulo= DominioOcho
 }else if(DominioOcho >= 7 && DominioOcho < 10){
-  colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio8Bajo= DominioOcho
 }else if(DominioOcho >= 10 && DominioOcho < 13){
   colorDominioOcho=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
@@ -3873,7 +3873,7 @@ if(DominioDiez < 4){
   colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio10Nulo= DominioDiez
 }else if(DominioDiez >= 4 && DominioDiez < 6){
-  colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio10Bajo= DominioDiez
 }else if(DominioDiez >= 6 && DominioDiez < 8){
   colorDominioDiez=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
@@ -7264,7 +7264,7 @@ ponderacion=<React.Fragment>
       colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
       Dominio8Nulo= DominioOcho
     }else if(DominioOcho >= 7 && DominioOcho < 10){
-      colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
       Dominio8Bajo= DominioOcho
     }else if(DominioOcho >= 10 && DominioOcho < 13){
       colorDominioOcho=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
@@ -7288,7 +7288,7 @@ ponderacion=<React.Fragment>
       colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
       Dominio9Nulo= DominioNueve
     }else if(DominioNueve >= 6 && DominioNueve < 10){
-      colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
       Dominio9Bajo= DominioNueve
     }else if(DominioNueve >= 10 && DominioNueve < 14){
       colorDominioNueve=<TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
@@ -7312,7 +7312,7 @@ ponderacion=<React.Fragment>
       colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
       Dominio10Nulo= DominioDiez
     }else if(DominioDiez >= 4 && DominioDiez < 6){
-      colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
       Dominio10Bajo= DominioDiez
     }else if(DominioDiez >= 6 && DominioDiez < 8){
       colorDominioDiez=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
@@ -10509,7 +10509,7 @@ ponderacion=<React.Fragment>
     colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
     Dominio8Nulo= DominioOcho
     }else if(DominioOcho >= 7 && DominioOcho < 10){
-    colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
     Dominio8Bajo= DominioOcho
     }else if(DominioOcho >= 10 && DominioOcho < 13){
     colorDominioOcho=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
@@ -10533,7 +10533,7 @@ ponderacion=<React.Fragment>
     colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
     Dominio9Nulo= DominioNueve
     }else if(DominioNueve >= 6 && DominioNueve < 10){
-    colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
     Dominio9Bajo= DominioNueve
     }else if(DominioNueve >= 10 && DominioNueve < 14){
     colorDominioNueve=<TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
@@ -10557,7 +10557,7 @@ ponderacion=<React.Fragment>
     colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
     Dominio10Nulo= DominioDiez
     }else if(DominioDiez >= 4 && DominioDiez < 6){
-    colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
     Dominio10Bajo= DominioDiez
     }else if(DominioDiez >= 6 && DominioDiez < 8){
     colorDominioDiez=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>

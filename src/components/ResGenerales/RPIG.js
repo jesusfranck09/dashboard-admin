@@ -4124,7 +4124,7 @@ if(DominioOcho < 7){
   colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio8Nulo=DominioOcho
 }else if(DominioOcho >= 7 && DominioOcho < 10){
-  colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio8Bajo= DominioOcho
 }else if(DominioOcho >= 10 && DominioOcho < 13){
   colorDominioOcho=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
@@ -6609,7 +6609,7 @@ if(DominioOcho < 7){
   colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio8Nulo= DominioOcho
 }else if(DominioOcho >= 7 && DominioOcho < 10){
-  colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio8Bajo= DominioOcho
 }else if(DominioOcho >= 10 && DominioOcho < 13){
   colorDominioOcho=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
@@ -8598,7 +8598,7 @@ ponderacionIndividual =  <React.Fragment>
                                         colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
                                         Dominio8Nulo= DominioOcho
                                       }else if(DominioOcho >= 7 && DominioOcho < 10){
-                                        colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+                                        colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
                                         Dominio8Bajo= DominioOcho
                                       }else if(DominioOcho >= 10 && DominioOcho < 13){
                                         colorDominioOcho=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
