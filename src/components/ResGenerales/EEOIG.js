@@ -3440,7 +3440,7 @@ export default class App extends React.Component {
   +respuesta61+respuesta62+respuesta63+respuesta64+respuesta65+respuesta66+respuesta67+respuesta68+respuesta69+respuesta70+respuesta71+respuesta72)          
  
   let length =this.state.peticion1.length;
-  let general =total/length.toFixed(2);
+  let general =total/length;
 
 let celda;
 let criterios;
@@ -3849,7 +3849,7 @@ if(DominioNueve < 6){
   colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   Dominio9Nulo= DominioNueve
 }else if(DominioNueve >= 6 && DominioNueve < 10){
-  colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   Dominio9Bajo= DominioNueve
 }else if(DominioNueve >= 10 && DominioNueve < 14){
   colorDominioNueve=<TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
@@ -3920,7 +3920,7 @@ ponderacion=<React.Fragment>
 <TableRow>
   <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>Resultados Generales</TableCell>
     {celdaPrev}
-  <TableCell width="6%"  > <strong>   TOTAL {general}  Puntos </strong></TableCell>
+  <TableCell width="6%"  > <strong>   TOTAL {general.toFixed(2)}  Puntos </strong></TableCell>
   <TableCell width="2%" ></TableCell>
   <TableCell width="1%"  ></TableCell>
  {criteriosPrev}
@@ -4559,7 +4559,7 @@ ponderacion=<React.Fragment>
                                      <MDBTableBody>
                                     </MDBTableBody>                                                                            
                                     </MDBTable>
-                                    <font color="red" style= {{marginTop:10,marginLeft:20}}  size="1">III.- Resultados por Dimensión</font>
+                                    <font color="red" style= {{marginLeft:20}}  size="1">III.- Resultados por Dimensión</font>
                                       <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
                                       <MDBTableBody>
                                           
@@ -4663,7 +4663,7 @@ ponderacion=<React.Fragment>
                                         </tr>
                                         <tr>         
                                           <td width="5px"><font size="1" face="arial"color="black" >19</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black"></font>Relaciones sociales en el trabajo</td>
+                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Relaciones sociales en el trabajo</font></td>
                                           <td width="15px"><font size="1" face="arial"color="black">{((respuesta42/length)+(respuesta43/length)+(respuesta44/length)+(respuesta45/length)+(respuesta46/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
@@ -8171,7 +8171,7 @@ ponderacion=<React.Fragment>
          botonResultadosGlobales=
          <MDBRow>
          <MDBCol>
-         <MDBBtn className = "text-white"  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Descarga del reporte Global</MDBBtn>
+         <MDBBtn className = "text-white"  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Descarga del Reporte Global</MDBBtn>
          </MDBCol>
          <MDBCol>
          <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)} color="success" size="md">Evaluaciones masivas</MDBBtn>
@@ -8179,9 +8179,9 @@ ponderacion=<React.Fragment>
          <MDBCol>
          <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)} color="success" size="md">Resultados masivos</MDBBtn>
          </MDBCol>
-         <MDBCol>
+         {/* <MDBCol> */}
          {/* <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteEjecutivo(datosEmpleados,filtro)} color="success" size="md">Reporte ejecutivo</MDBBtn>  */}
-         </MDBCol>
+         {/* </MDBCol> */}
          </MDBRow>
      }
 
