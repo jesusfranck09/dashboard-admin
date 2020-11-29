@@ -3582,7 +3582,7 @@ let categoria3MuyAlto;
 let colorCategoriaTre;
 let categoriaTre = ((respuesta17+respuesta18+respuesta19+respuesta20+respuesta21+respuesta22)/length).toFixed(2);
 if(categoriaTre < 5){
-  colorCategoriaTre  = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorCategoriaTre  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   categoria3Nulo= categoriaTre
 }else if(categoriaTre >= 5 && categoriaTre < 7){
   colorCategoriaTre =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
@@ -3634,7 +3634,7 @@ if(categoriaCinco < 10){
   colorCategoriaCinco  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   categoria5Nulo= categoriaCinco
 }else if(categoriaCinco >= 10 && categoriaCinco < 14){
-  colorCategoriaCinco=<TableCell style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorCategoriaCinco=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   categoria5Bajo= categoriaCinco
 }else if(categoriaCinco >=14 && categoriaCinco < 18){
   colorCategoriaCinco=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>

@@ -3770,9 +3770,12 @@ let criterios;
 let celdaPrev;
 let criteriosPrev;
 if(general<20){
-celda = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7 "}}><font size="2" face="arial"color="black" align="justify"><p>NULO O DESPRECIABLE</p></font></TableCell>
+celda = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}}><font size="2" face="arial"color="black" align="justify"><p>NULO O DESPRECIABLE</p></font></TableCell>
 criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify"><p>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</p></font></TableCell>
-}else if(general>=20 && general < 45){
+}
+
+else if(general>=20 && general <45){
+
   celda = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}} ><font size="1" face="arial"color="black" align="justify">BAJO</font></TableCell>
   celdaPrev = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}} ><font size="3" face="arial"color="black" align="justify">BAJO</font></TableCell>
 
@@ -3823,7 +3826,7 @@ criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face
  favorable y la prevención de la violencia laboral, así como reforzar su
  aplicación y difusión.</p></font></TableCell>
 }
-else if( general > 90){
+else if( general >= 90){
   celda  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}}><font size="1" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
   celdaPrev  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}}><font size="3" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
  
@@ -3877,19 +3880,19 @@ let colorCategoriaDos;
 
  let categoriaDos = ((respuesta4+respuesta9+respuesta5+respuesta6+respuesta7+respuesta8+respuesta41+respuesta42+respuesta43+respuesta10+respuesta11+respuesta12+respuesta13+respuesta20+respuesta21+respuesta22+respuesta18+respuesta19+respuesta26+respuesta27)/length).toFixed(2);
 if(categoriaDos < 10){
-  colorCategoriaDos  = <TableCell style={{backgroundColor: "#51EAFF"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorCategoriaDos  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   categoria2Nulo=categoriaDos
 }else if(categoriaDos >= 10 && categoriaDos < 20){
-  colorCategoriaDos =<TableCell style={{backgroundColor: "#45D09E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorCategoriaDos =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   categoria2Bajo= categoriaDos
 }else if(categoriaDos >=20 && categoriaDos < 30){
-  colorCategoriaDos=<TableCell style={{backgroundColor: "#FFD600"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorCategoriaDos=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   categoria2Medio= categoriaDos
 }else if(categoriaDos >=30 && categoriaDos < 40){
-  colorCategoriaDos = <TableCell style={{backgroundColor: "#FF905A"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorCategoriaDos = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
   categoria2Alto= categoriaDos
 }else if(categoriaDos >= 40){
-  colorCategoriaDos = <TableCell style={{backgroundColor: "#E20338"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorCategoriaDos = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
   categoria2MuyAlto = categoriaDos
 }
 let categoria3Nulo;
@@ -3929,7 +3932,7 @@ if(categoriaCuatro < 10){
   colorCategoriaCuatro  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
   categoria4Nulo=categoriaCuatro
 }else if(categoriaCuatro >= 10 && categoriaCuatro < 18){
-  colorCategoriaCuatro =<TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorCategoriaCuatro =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
   categoria4Bajo= categoriaCuatro
 }else if(categoriaCuatro >=18 && categoriaCuatro < 28){
   colorCategoriaCuatro=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
@@ -6289,14 +6292,14 @@ if(total<20){
 color =<TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
 criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify"><p>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</p></font></TableCell>
 celda1 = <TableCell style={{backgroundColor: "#9BE0F7"}} align="right">{total}</TableCell>
-}else if(total>=20 && total <= 45){
+}else if(total>=20 && total < 45){
   criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify"><p>Es necesario una mayor difusión de la política de prevención de riesgos
   psicosociales y programas para: la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
   prevención de la violencia laboral.</p></font></TableCell>
   color= <TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black" >Bajo</font></TableCell>
   celda2 = <TableCell style={{backgroundColor: "#6BF56E"}} align="right">{total}</TableCell>
-}else if(total>=45 && total <= 70){
+}else if(total>=45 && total < 70){
   criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify"><p>Se requiere revisar la política de prevención de riesgos psicosociales y
   programas para la prevención de los factores de riesgo psicosocial, la
   promoción de un entorno organizacional favorable y la prevención de la
@@ -6304,7 +6307,7 @@ celda1 = <TableCell style={{backgroundColor: "#9BE0F7"}} align="right">{total}</
   Programa de intervención.</p></font></TableCell>
 color=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
   celda3 = <TableCell style={{backgroundColor: "#FFFF00"}} align="right">{total}</TableCell>
-}else if(total>=70 && total <= 90){
+}else if(total>=70 && total < 90){
   criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align=" justify"><p>Se requiere realizar un análisis de cada categoría y dominio, de manera que
   se puedan determinar las acciones de intervención apropiadas a través de un
   Programa de intervención, que podrá incluir una evaluación específica y
