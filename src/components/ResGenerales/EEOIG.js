@@ -864,7 +864,7 @@ export default class App extends React.Component {
                           valor1.push(rows[0].ponderacion)           
                    })
                    this.setState({valor1:valor1})  
-                   this.setState({empleadosRE:empleados})        
+                   this.setState({empleadosRE:empleados.sort()})        
                        }) 
                        
                     filtrado.map(rows=>{
@@ -12572,7 +12572,7 @@ if(ponderacionPromedio<50){
                             <br/>     
                             <font size="2"face="arial"color="black"><strong> {localStorage.getItem("razonsocial")} </strong></font><br></br>          
                             <br></br>
-                            <font size="1"face="arial"color="black"> Reporte Ejecutivo Global | identificación y análisis de los factores de riesgo psicosocial y evaluacion del entorno organizacional</font><br></br>
+                            <font size="1"face="arial"color="black"><strong>Reporte Ejecutivo Global | identificación y análisis de los factores de riesgo psicosocial y evaluacion del entorno organizacional</strong></font><br></br>
                             <br></br>
                             <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
 
@@ -12651,14 +12651,14 @@ if(ponderacionPromedio<50){
                                 <table className="table-bordered" style={{marginLeft:"5%"}}>
                              
                                   <tr >
-                                    <th width="10%" scope="col"><p  style={{fontSize:"6px"}}><strong>#</strong></p></th>
-                                    <th width="30%" scope="col"><p style={{fontSize:"6px"}}><strong >Nombre</strong></p></th>
+                                    <th width="8%" scope="col"><p  style={{fontSize:"6px"}}><strong>#</strong></p></th>
+                                    <th width="40%" scope="col"><p style={{fontSize:"6px"}}><strong >Nombre</strong></p></th>
                                     <th width="10%"  scope="col"><p style={{fontSize:"6px"}}><strong>Ambiente de T.</strong></p></th>
-                                    <th width="10%" scope="col"><p style={{fontSize:"6px"}}><strong >Factores P.</strong></p></th>
+                                    <th width="8%" scope="col"><p style={{fontSize:"6px"}}><strong >Factores P.</strong></p></th>
                                     <th width="10%" scope="col"><p style={{fontSize:"6px"}}><strong >Organización</strong></p></th>
-                                    <th width="10%" scope="col"><p style={{fontSize:"6px"}}><strong>Liderazgo</strong></p></th>
-                                    <th width="10%" scope="col"><p style={{fontSize:"6px"}}><strong>Entorno O.</strong></p></th>
-                                    <th width="10%"scope="col"><p  style={{fontSize:"6px"}}><strong>Total</strong></p></th>
+                                    <th width="8%" scope="col"><p style={{fontSize:"6px"}}><strong>Liderazgo</strong></p></th>
+                                    <th width="8%" scope="col"><p style={{fontSize:"6px"}}><strong>Entorno O.</strong></p></th>
+                                    <th width="8%"scope="col"><p  style={{fontSize:"6px"}}><strong>Total</strong></p></th>
                                   </tr>
                               
                                 {arrayFinal.map(rows=>{
@@ -12915,7 +12915,7 @@ if(ponderacionPromedio<50){
                                       <tbody>
                                         <tr>
                                           <th scope="row"><font size="1" face="arial"color="black" >{increment++}</font></th>
-                                          <td  width="30%"  className = "text-left"><font size="1" face="arial"color="black" >{rows[0]}</font></td>
+                                          <td  width="40%"  className = "text-left"><font size="1" face="arial"color="black" >{rows[0]}</font></td>
                                            {fila1}
                                            {fila2}
                                            {fila3}

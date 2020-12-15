@@ -895,7 +895,7 @@ pdfExportComponent ;
                 valor1.push(rows[0].ponderacion)          
             })
             this.setState({valor1:valor1})
-            this.setState({empleadosRE:empleados})
+            this.setState({empleadosRE:empleados.sort()})
            })
 
           filtrado.map(rows=>{
@@ -9216,7 +9216,7 @@ ponderacionIndividual =  <React.Fragment>
 
                   let arrayFinal = [];
                   for(let i = 0; i < this.state.empleadosRE.length; i++){
-                     arrayFinal[i] = [this.state.empleadosRE[i] , ambienteTrabajo[i] , factoresPropios[i] , organizacion[i] , liderazgo[i],totalPonderacion[i]];  
+                     arrayFinal[i] = [this.state.empleadosRE[i], ambienteTrabajo[i] , factoresPropios[i] , organizacion[i] , liderazgo[i],totalPonderacion[i]];  
                   }
                   let increment = 1;
 
@@ -9364,7 +9364,7 @@ ponderacionIndividual =  <React.Fragment>
                                           <br/>     
                                           <font size="2"face="arial"color="black"><strong> {localStorage.getItem("razonsocial")} </strong></font><br></br>          
                                           <br></br>
-                                          <font size="1"face="arial"color="black"> Reporte Ejecutivo Global | identificación y análisis de los factores de riesgo psicosocial</font><br></br>
+                                          <font size="1"face="arial"color="black"><strong> Reporte Ejecutivo Global | identificación y análisis de los factores de riesgo psicosocial</strong></font><br></br>
                                           <br></br>
                                           <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
 
@@ -9443,13 +9443,13 @@ ponderacionIndividual =  <React.Fragment>
                                               <table className="table-bordered" style={{marginLeft:"5%"}}>
                                            
                                                 <tr >
-                                                  <th width="11%" scope="col"><p  style={{fontSize:"6px"}}><strong>#</strong></p></th>
-                                                  <th width="30%" scope="col"><p style={{fontSize:"6px"}}><strong >Nombre</strong></p></th>
-                                                  <th width="13%"  scope="col"><p style={{fontSize:"6px"}}><strong>Ambiente de trabajo</strong></p></th>
-                                                  <th width="11%" scope="col"><p style={{fontSize:"6px"}}><strong >Factores propios</strong></p></th>
-                                                  <th width="11%" scope="col"><p style={{fontSize:"6px"}}><strong >Organización</strong></p></th>
-                                                  <th width="11%" scope="col"><p style={{fontSize:"6px"}}><strong>Liderazgo</strong></p></th>
-                                                  <th width="11%"scope="col"><p  style={{fontSize:"6px"}}><strong>Total</strong></p></th>
+                                                  <th width="10%" scope="col"><p  style={{fontSize:"6px"}}><strong>#</strong></p></th>
+                                                  <th width="40%" scope="col"><p style={{fontSize:"6px"}}><strong >Nombre</strong></p></th>
+                                                  <th width="10%"  scope="col"><p style={{fontSize:"6px"}}><strong>Ambiente de trabajo</strong></p></th>
+                                                  <th width="10%" scope="col"><p style={{fontSize:"6px"}}><strong >Factores propios</strong></p></th>
+                                                  <th width="10%" scope="col"><p style={{fontSize:"6px"}}><strong >Organización</strong></p></th>
+                                                  <th width="10%" scope="col"><p style={{fontSize:"6px"}}><strong>Liderazgo</strong></p></th>
+                                                  <th width="10%"scope="col"><p  style={{fontSize:"6px"}}><strong>Total</strong></p></th>
                                                 </tr>
                                             
                                               {arrayFinal.map(rows=>{
@@ -9461,35 +9461,35 @@ ponderacionIndividual =  <React.Fragment>
                                            
 
                                                 if(rows[1] < 3){
-                                                  fila1 = <td style={{backgroundColor: "#9BE0F7"}}>
+                                                  fila1 = <td width="10%" style={{backgroundColor: "#9BE0F7"}}>
                                                      <font size="1" face="arial"color="black">
                                                      {rows[1]}
                                                      </font>
                                                    </td>
                                                    frecuenciaAmbiente1++;
                                                }else if(rows[1] >= 3 && rows[1] < 5){                                                     
-                                                   fila1 = <td style={{backgroundColor: "#6BF56E"}}>
+                                                   fila1 = <td width="10%" style={{backgroundColor: "#6BF56E"}}>
                                                      <font size="1" face="arial"color="black">
                                                      {rows[1]}
                                                      </font>
                                                    </td>
                                                    frecuenciaAmbiente2++;
                                                }else if(rows[1] >= 5 && rows[1] < 7){
-                                                    fila1 = <td style={{backgroundColor: "#FFFF00"}}>
+                                                    fila1 = <td width="10%" style={{backgroundColor: "#FFFF00"}}>
                                                        <font size="1" face="arial"color="black">
                                                        {rows[1]}
                                                        </font>
                                                      </td>
                                                      frecuenciaAmbiente3++;
                                                }else if(rows[1] >= 7 && rows[1] < 9){
-                                                    fila1 = <td style={{backgroundColor: "#FFC000"}}>
+                                                    fila1 = <td width="10%" style={{backgroundColor: "#FFC000"}}>
                                                        <font size="1" face="arial"color="black">
                                                        {rows[1]}
                                                        </font>
                                                      </td>
                                                      frecuenciaAmbiente4++;
                                                }else if(rows[1] >= 9){
-                                                     fila1 = <td  style={{backgroundColor: "#FF0000"}} >
+                                                     fila1 = <td  width="10%" style={{backgroundColor: "#FF0000"}} >
                                                        <font size="1" face="arial"color="black">
                                                        {rows[1]}
                                                        </font>
@@ -9498,35 +9498,35 @@ ponderacionIndividual =  <React.Fragment>
                                                }
 
                                                if(rows[2] < 10){
-                                                fila2 = <td style={{backgroundColor: "#9BE0F7"}}>
+                                                fila2 = <td width="10%" style={{backgroundColor: "#9BE0F7"}}>
                                                 <font size="1" face="arial"color="black">
                                                 {rows[2]}
                                                 </font>
                                                 </td>
                                                 frecuenciaFactores1++;
                                               }else if(rows[2] >= 10 && rows[2] < 20){
-                                                fila2 = <td style={{backgroundColor: "#6BF56E"}}>
+                                                fila2 = <td width="10%" style={{backgroundColor: "#6BF56E"}}>
                                                 <font size="1" face="arial"color="black">
                                                 {rows[2]}
                                                 </font>
                                                 </td>
                                                 frecuenciaFactores2++;
                                               }else if(rows[2] >=20 && rows[2] < 30){
-                                                fila2 = <td style={{backgroundColor: "#FFFF00"}}>
+                                                fila2 = <td width="10%" style={{backgroundColor: "#FFFF00"}}>
                                                 <font size="1" face="arial"color="black">
                                                 {rows[2]}
                                                 </font>
                                                 </td>
                                                 frecuenciaFactores3++;
                                               }else if(rows[2] >=30 && rows[2] < 40){
-                                                fila2 = <td style={{backgroundColor: "#FFC000"}}>
+                                                fila2 = <td width="10%" style={{backgroundColor: "#FFC000"}}>
                                                 <font size="1" face="arial"color="black">
                                                 {rows[2]}
                                                 </font>
                                                 </td>
                                                 frecuenciaFactores4++;
                                               }else if(rows[2] >= 40){
-                                                fila2 = <td style={{backgroundColor: "#FF0000"}}>
+                                                fila2 = <td width="10%" style={{backgroundColor: "#FF0000"}}>
                                                 <font size="1" face="arial"color="black">
                                                 {rows[2]}
                                                 </font>
@@ -9536,7 +9536,7 @@ ponderacionIndividual =  <React.Fragment>
 
                                               if(rows[3] < 4){
                                                 fila3 = 
-                                                <td style={{backgroundColor: "#9BE0F7"}}>
+                                                <td width="10%" style={{backgroundColor: "#9BE0F7"}}>
                                                   <font size="1" face="arial"color="black">
                                                     {rows[3]}
                                                   </font>
@@ -9544,7 +9544,7 @@ ponderacionIndividual =  <React.Fragment>
                                                 frecuenciaOrganizacion1++;
                                               }else if(rows[3] >= 4 && rows[3] < 6){
                                                 fila3 = 
-                                                <td style={{backgroundColor: "#6BF56E"}}>
+                                                <td width="10%" style={{backgroundColor: "#6BF56E"}}>
                                                   <font size="1" face="arial"color="black">
                                                     {rows[3]}
                                                   </font>
@@ -9552,7 +9552,7 @@ ponderacionIndividual =  <React.Fragment>
                                                 frecuenciaOrganizacion2++;
                                               }else if(rows[3] >=6 && rows[3] < 9){
                                                 fila3 = 
-                                                <td style={{backgroundColor: "#FFFF00"}}>
+                                                <td width="10%" style={{backgroundColor: "#FFFF00"}}>
                                                   <font size="1" face="arial"color="black">
                                                     {rows[3]}
                                                   </font>
@@ -9560,7 +9560,7 @@ ponderacionIndividual =  <React.Fragment>
                                                 frecuenciaOrganizacion3++;
                                               }else if(rows[3] >=9 && rows[3] < 12){
                                                 fila3 = 
-                                                <td style={{backgroundColor: "#FFC000"}}>
+                                                <td width="10%" style={{backgroundColor: "#FFC000"}}>
                                                   <font size="1" face="arial"color="black">
                                                     {rows[3]}
                                                   </font>
@@ -9568,7 +9568,7 @@ ponderacionIndividual =  <React.Fragment>
                                                 frecuenciaOrganizacion4++;
                                               }else if(rows[3] >= 12){
                                                 fila3 = 
-                                                <td style={{backgroundColor: "#FF0000"}}>
+                                                <td width="10%" style={{backgroundColor: "#FF0000"}}>
                                                   <font size="1" face="arial"color="black">
                                                     {rows[3]}
                                                   </font>
@@ -9578,7 +9578,7 @@ ponderacionIndividual =  <React.Fragment>
 
                                               if(rows[4]  < 10){
                                                 fila4 = 
-                                                <td style={{backgroundColor: "#9BE0F7"}}>
+                                                <td width="10%" style={{backgroundColor: "#9BE0F7"}}>
                                                   <font size="1" face="arial"color="black">
                                                     {rows[4]}
                                                   </font>
@@ -9586,7 +9586,7 @@ ponderacionIndividual =  <React.Fragment>
                                                 frecuenciaLiderazgo1++;
                                               }else if(rows[4] >= 10 && rows[4] < 18){
                                                 fila4 = 
-                                                <td style={{backgroundColor: "#6BF56E"}}>
+                                                <td width="10%" style={{backgroundColor: "#6BF56E"}}>
                                                   <font size="1" face="arial"color="black">
                                                     {rows[4]}
                                                   </font>
@@ -9594,7 +9594,7 @@ ponderacionIndividual =  <React.Fragment>
                                                  frecuenciaLiderazgo2++;
                                               }else if(rows[4] >=18 && rows[4] < 28){
                                                 fila4 = 
-                                                <td style={{backgroundColor: "#FFFF00"}}>
+                                                <td width="10%" style={{backgroundColor: "#FFFF00"}}>
                                                   <font size="1" face="arial"color="black">
                                                     {rows[4]}
                                                   </font>
@@ -9602,7 +9602,7 @@ ponderacionIndividual =  <React.Fragment>
                                                  frecuenciaLiderazgo3++;
                                               }else if(rows[4] >=28 && rows[4] < 38){
                                                 fila4 = 
-                                                <td style={{backgroundColor: "#FFC000"}}>
+                                                <td width="10%" style={{backgroundColor: "#FFC000"}}>
                                                   <font size="1" face="arial"color="black">
                                                     {rows[4]}
                                                   </font>
@@ -9610,7 +9610,7 @@ ponderacionIndividual =  <React.Fragment>
                                                  frecuenciaLiderazgo4++;
                                               }else if(rows[4] >= 38){
                                                 fila4 = 
-                                                <td style={{backgroundColor: "#FF0000"}}>
+                                                <td width="10%" style={{backgroundColor: "#FF0000"}}>
                                                   <font size="1" face="arial"color="black">
                                                     {rows[4]}
                                                   </font>
@@ -9619,7 +9619,7 @@ ponderacionIndividual =  <React.Fragment>
                                               }
                                                 if(rows[5]<20){
                                                   fila5 = 
-                                                  <td style={{backgroundColor: "#9BE0F7"}}>
+                                                  <td width="10%" style={{backgroundColor: "#9BE0F7"}}>
                                                     <font size="1" face="arial"color="black">
                                                       {rows[5]}
                                                     </font>
@@ -9627,21 +9627,21 @@ ponderacionIndividual =  <React.Fragment>
                                                 }
                                                 else if(rows[5]>=20 && rows[5] <45){
                                                   fila5 = 
-                                                  <td style={{backgroundColor: "#6BF56E"}}>
+                                                  <td width="10%" style={{backgroundColor: "#6BF56E"}}>
                                                     <font size="1" face="arial"color="black">
                                                       {rows[5]}
                                                     </font>
                                                   </td> 
                                                 }else if(rows[5]>=45 && rows[5] < 70){
                                                   fila5 = 
-                                                  <td style={{backgroundColor: "#FFFF00"}}>
+                                                  <td width="10%" style={{backgroundColor: "#FFFF00"}}>
                                                     <font size="1" face="arial"color="black">
                                                       {rows[5]}
                                                     </font>
                                                   </td> 
                                                 }else if(rows[5]>=70 && rows[5] < 90){
                                                   fila5 = 
-                                                  <td style={{backgroundColor: "#FFC000"}}>
+                                                  <td width="10%" style={{backgroundColor: "#FFC000"}}>
                                                     <font size="1" face="arial"color="black">
                                                       {rows[5]}
                                                     </font>
@@ -9649,7 +9649,7 @@ ponderacionIndividual =  <React.Fragment>
                                                 }
                                                 else if( rows[5] >= 90){
                                                   fila5 = 
-                                                  <td style={{backgroundColor: "#FF0000"}}>
+                                                  <td width="10%" style={{backgroundColor: "#FF0000"}}>
                                                     <font size="1" face="arial"color="black">
                                                       {rows[5]}
                                                     </font>
@@ -9658,23 +9658,26 @@ ponderacionIndividual =  <React.Fragment>
 
 
                                                 return(
-                                                    <tbody>
+                                                    
                                                       <tr>
-                                                        <th scope="row"><font size="1" face="arial"color="black" >{increment++}</font></th>
-                                                        <td  width="30%"  className = "text-left"><font size="1" face="arial"color="black" >{rows[0]}</font></td>
+                                                        <td  width="10%"  scope="col" ><font size="1" face="arial"color="black" >{increment++}</font></td>
+                                                        <td  width="40%" scope="col"><font size="1" face="arial"color="black" >{rows[0]}</font></td>
                                                          {fila1}
                                                          {fila2}
                                                          {fila3}
                                                          {fila4}
                                                          {fila5}
                                                       </tr>
-                                                    </tbody>                     
+                                                                         
                                                 )
 
                                               })}
 
                                               </table>
+
                                               <br/>
+                                              <br/>
+                                           
                                               <p style={{marginLeft:"5%"}}><font size="1" face="arial"color="black" >FRECUENCIA</font></p>
                                               <table className=" table-bordered" style={{marginLeft:"5%"}}>
                                               
