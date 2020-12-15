@@ -73,6 +73,7 @@ export default class App extends React.Component {
       resultadosInicio:[],
       showModal2: false,  
       spinner:false,
+      empleadosRE:[],
       evaluacionMasivoResultados:[],
       respuestasInicio:[],
       valor1:[],
@@ -832,7 +833,7 @@ export default class App extends React.Component {
                               
                     let arrayFilter = []
                     let filter;
-                    await this.state.resultadosInicio.forEach(row=>{
+                     this.state.resultadosInicio.forEach(row=>{
                         array.forEach(element => {
                           filter  = row.filter(function(hero){
                             return hero.fk_empleados === element
@@ -856,11 +857,14 @@ export default class App extends React.Component {
                     });
                     array1.push(filtrar1)
                     
-                      let valor1=[];    
+                      let valor1=[];  
+                      let empleados = []  
                       array1.map(rows=>{
+                        empleados.push(rows[0].nombre +" " + rows[0].ApellidoP  + " " + rows[0].ApellidoM) 
                           valor1.push(rows[0].ponderacion)           
                    })
-                   this.setState({valor1:valor1})          
+                   this.setState({valor1:valor1})  
+                   this.setState({empleadosRE:empleados})        
                        }) 
                        
                     filtrado.map(rows=>{
@@ -1265,8 +1269,10 @@ export default class App extends React.Component {
                     });
                     array35.push(filtrar35)
                     let valor35=[];    
-                      array35.map(rows=>{          
+                      array35.map(rows=>{  
+                        valor35.push(rows[0].ponderacion)          
                     })
+                    console.log("array35" , array35)
                     this.setState({valor35:valor35})
                               })
           
@@ -1895,13 +1901,7 @@ export default class App extends React.Component {
           filtro=filtroTable
           }          
       };
-      let reporteEjecutivo;
-      if(this.state.valor1[0] && this.state.valor72[0]){
-        reporteEjecutivo = 
-        <div>
-          hola mundo
-        </div>
-      }
+ 
 
       let ponderacion;
       if(this.state.peticion1.length>0){
@@ -8169,20 +8169,13 @@ ponderacion=<React.Fragment>
      }
      if(this.state.botonDisabled){
          botonResultadosGlobales=
-         <MDBRow>
+         
          <MDBCol>
-         <MDBBtn className = "text-white"  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Descarga del Reporte Global</MDBBtn>
-         </MDBCol>
-         <MDBCol>
+         <MDBBtn className = "text-white"  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Reporte Global</MDBBtn>
          <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)} color="success" size="md">Evaluaciones masivas</MDBBtn>
-         </MDBCol>
-         <MDBCol>
          <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)} color="success" size="md">Resultados masivos</MDBBtn>
+         <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteEjecutivo(datosEmpleados,filtro)} color="success" size="md">Reporte ejecutivo</MDBBtn> 
          </MDBCol>
-         {/* <MDBCol> */}
-         {/* <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteEjecutivo(datosEmpleados,filtro)} color="success" size="md">Reporte ejecutivo</MDBBtn>  */}
-         {/* </MDBCol> */}
-         </MDBRow>
      }
 
      let dataSource;
@@ -11998,6 +11991,1011 @@ ponderacion=<React.Fragment>
               </div>
               </div> 
     }
+
+    let reporteEjecutivo;
+    if(this.state.valor1[0] && this.state.valor72[0]){
+      let celda;
+      let criterios;
+      let celdaPrev;
+      let criteriosPrev;
+      let charColor;
+
+      var arr1 = this.state.valor1.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr2 = this.state.valor2.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr3 = this.state.valor3.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr4 = this.state.valor4.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr5 = this.state.valor5.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      
+      var categoriaUno = [];
+
+      for(let i = 0; i < arr1.length; i++){
+        categoriaUno[i] =arr1[i]+arr2[i]+arr3[i]+arr4[i]+arr5[i];
+      }
+
+
+      var arr6 = this.state.valor6.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr12 = this.state.valor12.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr7 = this.state.valor7.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr8 = this.state.valor8.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr9 = this.state.valor9.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr10 = this.state.valor10.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr11 = this.state.valor11.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr65 = this.state.valor65.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr66 = this.state.valor66.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr67 = this.state.valor67.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr68 = this.state.valor68.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr13 = this.state.valor13.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr14 = this.state.valor14.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr15 = this.state.valor15.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr16 = this.state.valor16.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr25 = this.state.valor25.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr26 = this.state.valor26.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr27 = this.state.valor27.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr28 = this.state.valor28.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr23 = this.state.valor23.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr24 = this.state.valor24.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr29 = this.state.valor29.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr30 = this.state.valor30.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+      var arr35 = this.state.valor35.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+       var arr36 = this.state.valor36.map(function (x) { 
+        return parseInt(x, 10); 
+      });
+
+      var categoriaDos = [];
+      for(let i = 0; i < arr6.length; i++){
+        categoriaDos[i] = arr6[i]+arr12[i]+arr7[i]+arr8[i]+arr9[i]+arr10[i]+arr11[i]+arr65[i]+arr66[i]+arr67[i]+arr68[i]+arr13[i]+arr14[i]+arr15[i]+arr16[i]+arr25[i]+arr26[i]+arr27[i]+arr28[i]+arr23[i]+arr24[i]+arr29[i]+arr30[i]+arr35[i]+arr36[i];
+
+      }
+      
+      var arr17 = this.state.valor17.map(function (x) { 
+      return parseInt(x, 10); 
+    });
+    var arr18 = this.state.valor18.map(function (x) { 
+      return parseInt(x, 10); 
+    });
+    var arr19 = this.state.valor19.map(function (x) { 
+      return parseInt(x, 10); 
+    });
+    var arr20 = this.state.valor20.map(function (x) { 
+      return parseInt(x, 10); 
+    });
+    var arr21 = this.state.valor21.map(function (x) { 
+      return parseInt(x, 10); 
+    });
+    var arr22 = this.state.valor22.map(function (x) { 
+      return parseInt(x, 10); 
+    });
+
+    var  categoriaTres = [];
+    for(let i = 0; i < arr17.length; i++){
+      categoriaTres[i] =arr17[i]+arr18[i]+arr19[i]+arr20[i]+arr21[i]+arr22[i];
+    }
+   
+
+  var arr31 = this.state.valor31.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr32 = this.state.valor32.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr33 = this.state.valor33.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr34 = this.state.valor34.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr37 = this.state.valor37.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr38 = this.state.valor38.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr39 = this.state.valor39.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr40 = this.state.valor40.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr41 = this.state.valor41.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr42 = this.state.valor42.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr43 = this.state.valor43.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr44 = this.state.valor44.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr45 = this.state.valor45.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr46 = this.state.valor46.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr69 = this.state.valor69.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr70 = this.state.valor70.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr71 = this.state.valor71.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr72 = this.state.valor72.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr57 = this.state.valor57.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr58 = this.state.valor58.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr59 = this.state.valor59.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr60 = this.state.valor60.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr61 = this.state.valor61.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr62 = this.state.valor62.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr63 = this.state.valor63.map(function (x) { 
+    return parseInt(x, 10); 
+  });
+  var arr64 = this.state.valor64.map(function (x) { 
+    return parseInt(x, 10); 
+  });  
+
+
+
+  var categoriaCuatro=[];
+  for(let i = 0; i < arr31.length; i++){
+    categoriaCuatro[i] =arr31[i]+arr32[i]+arr33[i]+arr34[i]+arr37[i]+arr38[i]+arr39[i]+arr40[i]+arr41[i]+arr42[i]+arr43[i]+arr44[i]+arr45[i]+arr46[i]+arr69[i]+arr70[i]+arr71[i]+arr72[i]+arr57[i]+arr58[i]+arr59[i]+arr60[i]+arr61[i]+arr62[i]+arr63[i]+arr64[i];
+  }
+
+
+var arr47 = this.state.valor47.map(function (x) { 
+  return parseInt(x, 10); 
+});  
+var arr48 = this.state.valor48.map(function (x) { 
+  return parseInt(x, 10); 
+});  
+var arr49 = this.state.valor49.map(function (x) { 
+  return parseInt(x, 10); 
+});  
+var arr50 = this.state.valor50.map(function (x) { 
+  return parseInt(x, 10); 
+});  
+var arr51 = this.state.valor51.map(function (x) { 
+  return parseInt(x, 10); 
+});  
+var arr52 = this.state.valor52.map(function (x) { 
+  return parseInt(x, 10); 
+});  
+var arr55 = this.state.valor55.map(function (x) { 
+  return parseInt(x, 10); 
+});  
+var arr56 = this.state.valor56.map(function (x) { 
+  return parseInt(x, 10); 
+});  
+var arr53 = this.state.valor53.map(function (x) { 
+  return parseInt(x, 10); 
+});  
+var arr54 = this.state.valor54.map(function (x) { 
+  return parseInt(x, 10); 
+});  
+
+
+var categoriaCinco=[];
+for(let i = 0; i < arr47.length; i++){
+  categoriaCinco[i] =arr47[i]+arr48[i]+arr49[i]+arr50[i]+arr51[i]+arr52[i]+arr55[i]+arr56[i]+arr53[i]+arr54[i];
+}
+
+ 
+let totalPonderacion = [];
+for(let i = 0; i < categoriaUno.length; i++){
+  totalPonderacion[i] = categoriaUno[i] + categoriaDos[i] + categoriaTres[i] + categoriaCuatro [i] + categoriaCinco[i];  
+}
+
+console.log("totalPonderacion " , totalPonderacion)
+
+let suma = 0;
+totalPonderacion.forEach (function(numero){
+    suma += numero;
+});
+let ponderacionPromedio = (suma/totalPonderacion.length).toFixed(2)
+
+if(ponderacionPromedio<50){
+  celda = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="1" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
+  celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="3" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
+  
+  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
+  criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
+  
+  }else if(ponderacionPromedio>=50 && ponderacionPromedio < 75){
+    celda = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">BAJO</font></TableCell>
+    celdaPrev = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="3" face="arial"color="black" align="justify">BAJO</font></TableCell>
+  
+    criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
+    psicosociales y programas para: la prevención de los factores de riesgo
+    psicosocial, la promoción de un entorno organizacional favorable y la
+    prevención de la violencia laboral.</font></TableCell>
+    
+    criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
+    psicosociales y programas para: la prevención de los factores de riesgo
+    psicosocial, la promoción de un entorno organizacional favorable y la
+    prevención de la violencia laboral.</font></TableCell>
+  }else if(ponderacionPromedio>=75 && ponderacionPromedio < 99){
+    celda = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">MEDIO</font></TableCell>
+    celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="3" face="arial"color="black" align="justify">MEDIO</font></TableCell>
+  
+    criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
+    programas para la prevención de los factores de riesgo psicosocial, la
+    promoción de un entorno organizacional favorable y la prevención de la
+    violencia laboral, así como reforzar su aplicación y difusión, mediante un
+    Programa de intervención.</font></TableCell>
+    criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
+    programas para la prevención de los factores de riesgo psicosocial, la
+    promoción de un entorno organizacional favorable y la prevención de la
+    violencia laboral, así como reforzar su aplicación y difusión, mediante un
+    Programa de intervención.</font></TableCell>
+  
+  }else if(ponderacionPromedio>=99 && ponderacionPromedio < 140){
+   celda = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="1" face="arial"color="black" align="justify">ALTO</font></TableCell>
+   celdaPrev = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="3" face="arial"color="black" align="justify">ALTO</font></TableCell>
+  
+   criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
+   se puedan determinar las acciones de intervención apropiadas a través de un
+   Programa de intervención, que podrá incluir una evaluación específica y
+   deberá incluir una campaña de sensibilización, revisar la política de
+   prevención de riesgos psicosociales y programas para la prevención de los
+   factores de riesgo psicosocial, la promoción de un entorno organizacional
+   favorable y la prevención de la violencia laboral, así como reforzar su
+   aplicación y difusión.</font></TableCell>
+   
+   criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
+   se puedan determinar las acciones de intervención apropiadas a través de un
+   Programa de intervención, que podrá incluir una evaluación específica y
+   deberá incluir una campaña de sensibilización, revisar la política de
+   prevención de riesgos psicosociales y programas para la prevención de los
+   factores de riesgo psicosocial, la promoción de un entorno organizacional
+   favorable y la prevención de la violencia laboral, así como reforzar su
+   aplicación y difusión.</font></TableCell>
+  }
+  else if( ponderacionPromedio > 140){
+    celda  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="1" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
+    celdaPrev  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="3" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
+   
+   criterios= <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
+    las acciones de intervención apropiadas, mediante un Programa de
+    intervención que deberá incluir evaluaciones específicas, y contemplar
+    campañas de sensibilización, revisar la política de prevención de riesgos
+    psicosociales y programas para la prevención de los factores de riesgo
+    psicosocial, la promoción de un entorno organizacional favorable y la
+    prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
+  
+    criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="3" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
+    las acciones de intervención apropiadas, mediante un Programa de
+    intervención que deberá incluir evaluaciones específicas, y contemplar
+    campañas de sensibilización, revisar la política de prevención de riesgos
+    psicosociales y programas para la prevención de los factores de riesgo
+    psicosocial, la promoción de un entorno organizacional favorable y la
+    prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
+  }
+    // let sumaCategoria1 = 0;
+    // categoriaUno.forEach (function(numero){
+    //   sumaCategoria1 += numero;
+    // });
+
+    // let suma1 = (sumaCategoria1/categoriaUno.length).toFixed(2);
+
+    // console.log("suma1" , suma1)
+
+    // let sumaCategoria2 = 0;
+    // categoriaDos.forEach (function(numero){
+    //   sumaCategoria2 += numero;
+    // });
+
+    // let suma2 = (sumaCategoria2/categoriaDos.length).toFixed(2);
+    // console.log("suma2", suma2)
+
+    // let sumaCategoria3 = 0;
+    // categoriaTres.forEach (function(numero){
+    //   sumaCategoria3 += numero;
+    // });
+
+    // let suma3 = (sumaCategoria3/categoriaTres.length).toFixed(2);
+    // console.log("suma3", suma3)
+    
+    // let sumaCategoria4 = 0;
+    // categoriaCuatro.forEach (function(numero){
+    //   sumaCategoria4 += numero;
+    // });
+
+    // let suma4 = (sumaCategoria4/categoriaCuatro.length).toFixed(2);
+    // console.log("suma4", suma4)
+     
+    // let sumaCategoria5 = 0;
+    // categoriaCinco.forEach (function(numero){
+    //   sumaCategoria5 += numero;
+    // });
+
+    // let suma5 = (sumaCategoria5/categoriaCinco.length).toFixed(2);
+    // console.log("suma4", suma5)
+
+    let frecuenciaCategoriaUno1 = 0;
+    let frecuenciaCategoriaUno2 = 0;
+    let frecuenciaCategoriaUno3 = 0;
+    let frecuenciaCategoriaUno4 = 0;
+    let frecuenciaCategoriaUno5 = 0;
+    let frecuenciaCategoriaDos1 = 0;
+    let frecuenciaCategoriaDos2 = 0;
+    let frecuenciaCategoriaDos3 = 0;
+    let frecuenciaCategoriaDos4 = 0;
+    let frecuenciaCategoriaDos5 = 0;
+    let frecuenciaCategoriaTres1 = 0;
+    let frecuenciaCategoriaTres2 = 0;
+    let frecuenciaCategoriaTres3 = 0;
+    let frecuenciaCategoriaTres4 = 0;
+    let frecuenciaCategoriaTres5 = 0;
+    let frecuenciaCategoriaCuatro1= 0;
+    let frecuenciaCategoriaCuatro2= 0;
+    let frecuenciaCategoriaCuatro3= 0;
+    let frecuenciaCategoriaCuatro4= 0;
+    let frecuenciaCategoriaCuatro5= 0;
+    let frecuenciaCategoriaCinco1= 0;
+    let frecuenciaCategoriaCinco2= 0;
+    let frecuenciaCategoriaCinco3= 0;
+    let frecuenciaCategoriaCinco4= 0;
+    let frecuenciaCategoriaCinco5= 0;
+
+    let arrayFinal = [];
+    for(let i = 0; i < this.state.empleadosRE.length; i++){
+       arrayFinal[i] = [this.state.empleadosRE[i] , categoriaUno[i] , categoriaDos[i] , categoriaTres[i] , categoriaCuatro[i], categoriaCinco[i],totalPonderacion[i]];  
+    }
+
+    let increment = 1;
+
+    var LaFecha=new Date();
+    var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+    var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
+    var diasemana=LaFecha.getDay();
+    var FechaCompleta="";
+    var NumeroDeMes="";    
+    NumeroDeMes=LaFecha.getMonth();
+    FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
+    let celdaNombre;
+    let celdaAmbiente;
+
+    reporteEjecutivo = 
+    <React.Fragment>
+    <Alert className ="mt-4" color ="primary ">Reporte ejecutivo del total de empleados</Alert>
+
+    <MDBContainer style={{marginTop:20}}>
+      <table>
+        <tr>
+          <td width="33%">
+          <MDBBtn   gradient="purple" size="md" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+          Descargar reporte ejecutivo
+          </MDBBtn>
+          </td>
+          <td>
+
+          </td>
+          <td width="33%">
+          <font  face="arial" className = "mt-4" ><strong> EVALUACIÓN RP. </strong><br/><strong>FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></strong><br/><strong>{localStorage.getItem("razonsocial")}</strong> </font>
+          </td>
+          <td width="34%">
+          <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100}}/> 
+          </td>
+        </tr>
+      </table>
+
+
+    </MDBContainer>
+        <MDBContainer >
+          <Table   responsive small borderless className="text-left mt-4 ">
+          <TableHead>
+          <TableRow>
+            <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>RESULTADOS GENERALES</TableCell>
+              {celdaPrev}
+            <TableCell width="6%"  > <strong>   TOTAL {ponderacionPromedio}  PUNTOS </strong></TableCell>
+            <TableCell width="2%" ></TableCell>
+            <TableCell width="1%"  ></TableCell>
+              {criteriosPrev}
+          </TableRow>
+          </TableHead>
+          </Table>
+        </MDBContainer>
+        <br/>
+
+    <TableContainer component={Paper} style={{marginBottom:30}}>
+      <Table  size="large">
+    
+        <TableBody>
+            <TableRow>
+              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Nombre</strong></TableCell> 
+              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Ambiente de Trabajo</strong></TableCell>              
+              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Factores Propios</strong></TableCell>              
+              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Organización del tiempo</strong></TableCell>              
+              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Liderazgo</strong></TableCell>   
+              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong> Entorno organizacional</strong></TableCell>
+              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Total</strong></TableCell>              
+
+            </TableRow>
+            <TableRow>
+            <TableCell component="th" scope="row" >
+            {this.state.empleadosRE.map(rows=>{
+              return(
+                <tr>{rows}</tr>                          
+              )
+            })}
+            </TableCell>   
+            <TableCell component="th" scope="row" align="center">
+            {categoriaUno.map(filas=>{  
+
+              return(
+                <tr>{filas}</tr>     
+              )  
+            })} 
+            </TableCell>
+            <TableCell component="th" scope="row" align="center">
+            {categoriaDos.map(filas=>{  
+              return(
+                <tr>{filas}</tr>     
+              )  
+            })} 
+            </TableCell>
+            <TableCell component="th" scope="row" align="center">
+            {categoriaTres.map(filas=>{  
+              return(
+                <tr>{filas}</tr>     
+              )  
+            })} 
+            </TableCell>
+            <TableCell component="th" scope="row" align="center">
+             {categoriaCuatro.map(filas=>{  
+              return(
+                <tr>{filas}</tr>     
+              )  
+            })} 
+            </TableCell>
+            <TableCell component="th" scope="row" align="center">
+             {categoriaCinco.map(filas=>{  
+              return(
+                <tr>{filas}</tr>     
+              )  
+            })} 
+            </TableCell>
+            <TableCell component="th" scope="row" align="center">
+             {totalPonderacion.map(filas=>{  
+              return(
+                <tr>{filas}</tr>     
+              )  
+            })} 
+            </TableCell>
+           </TableRow>  
+                   
+        </TableBody>
+      </Table>
+
+    </TableContainer>              
+           <div>
+                <div className="example-config">
+                  
+                </div>
+                 {/*   */}
+
+                <div style={{ position: "absolute", left: "-1000px", top: 0 }}>
+                    <PDFExport
+                        paperSize="letter"
+                        margin="1cm"
+                        pageNum
+                        pageTemplate={PageTemplate}
+                        forcePageBreak=".page-break"
+                        fileName={`Reporte ejecutivo ${new Date().getFullYear()}`}
+                        ref={(component) => this.pdfExportComponent = component}
+                    >
+                        <div style={{ width: "500px" }}>                                          
+                            <img src={logo} alt="logo" style = {{width:550,marginTop:30}}/>
+                            <MDBRow > 
+                            <MDBCol>                                  
+                            {/* <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/> */}
+                            </MDBCol> 
+                            </MDBRow>   
+                            <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left ">
+                              
+                            <MDBTableBody>  
+                            <br/>     
+                            <font size="2"face="arial"color="black"><strong> {localStorage.getItem("razonsocial")} </strong></font><br></br>          
+                            <br></br>
+                            <font size="1"face="arial"color="black"> Reporte Ejecutivo Global | identificación y análisis de los factores de riesgo psicosocial y evaluacion del entorno organizacional</font><br></br>
+                            <br></br>
+                            <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
+
+                            <br></br><br/>
+                            <font size="1"face="arial"color="black">Total de evaluaciones consideradas : {this.state.empleadosRE.length}</font><br></br><br></br>
+
+                            <font size="1"face="arial"color="black" style={{marginLeft:"55%"}}>{FechaCompleta}</font>
+
+                            <br></br><br/><br></br><br/>
+                            <center><font size="1"face="arial"color="red"><strong>diagnostico035.com</strong></font></center>
+                            </MDBTableBody>
+                            </MDBTable>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>  
+                              <br></br>     
+
+                                <div style={{marginLeft:"2%"}} >
+                                <p  className ="text-center"><strong>GUÍA DE REFERENCIA III  <br/>IDENTIFICACIÓN Y ANÁLISIS DE LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUACIÓN DEL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO </strong> </p>
+
+                                  </div> 
+                                  <br/>
+
+                                  <MDBTable bordless style={{marginLeft:"5%",marginTop:"2%"}}>
+                                  <MDBTableBody>
+                                  <tr>
+                                    <td width="30%"><font size="1" face="arial"color="black"><strong>{localStorage.getItem("razonsocial")}</strong></font></td>
+                                    <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre3}</strong></font></td>
+                                    <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre4}</strong></font></td>
+                                    <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre5}</strong></font></td>
+                                    <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre6}</strong></font></td>
+                                    <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre7}</strong></font></td>
+                                  </tr> 
+                                  </MDBTableBody>
+                                  </MDBTable>
+
+                                  <MDBTable style={{marginLeft:"5%"}}   large bordered  className="text-center">
+                                  <MDBTableBody>  
+                               
+                                  <tr >                              
+                                  <td width = "32%"><font size="1" face="arial"color="#283747" ><strong>Puntaje Promedio:</strong></font></td>
+                                  <td width = "13%" className="text-left"><font size="1" face="arial"color="#273746"><strong>   {ponderacionPromedio}</strong></font></td>
+                                  <td width = "30%"><font size="1" face="arial"color="#283747"><strong> Nivel de riesgo:</strong></font></td>
+                                   {celda}                                  
+                                  </tr>   
+                                  </MDBTableBody>                                              
+                                  </MDBTable>
+                                  <Table style={{marginLeft:"5%"}}  responsive small bordless  className="text-left">
+                                  <tr >                              
+                                  <td width="100%"><font size="2" face="arial"color="black" ><strong>Necesidad de la acción : </strong></font></td>                                
+                                 
+                                  </tr>
+                                  <tr>
+                                    <td width="100%"><font size="1" face="arial"color="black" >{criterios}</font></td>
+                                  </tr>
+                                  </Table>
+                           
+                                <table className="table-bordered" style={{marginLeft:"5%"}}>
+                             
+                                  <tr >
+                                    <th width="10%" scope="col"><p  style={{fontSize:"6px"}}><strong>#</strong></p></th>
+                                    <th width="30%" scope="col"><p style={{fontSize:"6px"}}><strong >Nombre</strong></p></th>
+                                    <th width="10%"  scope="col"><p style={{fontSize:"6px"}}><strong>Ambiente de T.</strong></p></th>
+                                    <th width="10%" scope="col"><p style={{fontSize:"6px"}}><strong >Factores P.</strong></p></th>
+                                    <th width="10%" scope="col"><p style={{fontSize:"6px"}}><strong >Organización</strong></p></th>
+                                    <th width="10%" scope="col"><p style={{fontSize:"6px"}}><strong>Liderazgo</strong></p></th>
+                                    <th width="10%" scope="col"><p style={{fontSize:"6px"}}><strong>Entorno O.</strong></p></th>
+                                    <th width="10%"scope="col"><p  style={{fontSize:"6px"}}><strong>Total</strong></p></th>
+                                  </tr>
+                              
+                                {arrayFinal.map(rows=>{
+                                  let fila1;
+                                  let fila2;
+                                  let fila3;
+                                  let fila4;
+                                  let fila5;
+                                  let fila6;
+                             
+
+                                  if(rows[1] < 5){
+                                    fila1 = <td style={{backgroundColor: "#9BE0F7"}}>
+                                       <font size="1" face="arial"color="black">
+                                       {rows[1]}
+                                       </font>
+                                     </td>
+                                     frecuenciaCategoriaUno1++;
+                                 }else if(rows[1] >= 5 && rows[1] < 9){                                                     
+                                     fila1 = <td style={{backgroundColor: "#6BF56E"}}>
+                                       <font size="1" face="arial"color="black">
+                                       {rows[1]}
+                                       </font>
+                                     </td>
+                                     frecuenciaCategoriaUno2++;
+                                 }else if(rows[1] >= 9 && rows[1] < 11){
+                                      fila1 = <td style={{backgroundColor: "#FFFF00"}}>
+                                         <font size="1" face="arial"color="black">
+                                         {rows[1]}
+                                         </font>
+                                       </td>
+                                       frecuenciaCategoriaUno3++;
+                                 }else if(rows[1] >= 11 && rows[1] < 14){
+                                      fila1 = <td style={{backgroundColor: "#FFC000"}}>
+                                         <font size="1" face="arial"color="black">
+                                         {rows[1]}
+                                         </font>
+                                       </td>
+                                       frecuenciaCategoriaUno4++;
+                                 }else if(rows[1] >= 14){
+                                       fila1 = <td  style={{backgroundColor: "#FF0000"}} >
+                                         <font size="1" face="arial"color="black">
+                                         {rows[1]}
+                                         </font>
+                                       </td>
+                                       frecuenciaCategoriaUno5++;
+                                 }
+
+                                  if(rows[2] < 15){
+                                    fila2 = <td style={{backgroundColor: "#9BE0F7"}}>
+                                    <font size="1" face="arial"color="black">
+                                    {rows[2]}
+                                    </font>
+                                    </td>
+                                    frecuenciaCategoriaDos1++;
+                                  }else if(rows[2] >= 15 && rows[2] < 30){
+                                    fila2 = <td style={{backgroundColor: "#6BF56E"}}>
+                                    <font size="1" face="arial"color="black">
+                                    {rows[2]}
+                                    </font>
+                                    </td>
+                                    frecuenciaCategoriaDos2++;
+                                  }else if(rows[2] >=30 && rows[2] < 45){
+                                    fila2 = <td style={{backgroundColor: "#FFFF00"}}>
+                                    <font size="1" face="arial"color="black">
+                                    {rows[2]}
+                                    </font>
+                                    </td>
+                                    frecuenciaCategoriaDos3++;
+                                  }else if(rows[2] >=45 && rows[2] < 60){
+                                    fila2 = <td style={{backgroundColor: "#FFC000"}}>
+                                    <font size="1" face="arial"color="black">
+                                    {rows[2]}
+                                    </font>
+                                    </td>
+                                    frecuenciaCategoriaDos4++;
+                                  }else if(rows[2] >= 60){
+                                    fila2 = <td style={{backgroundColor: "#FF0000"}}>
+                                    <font size="1" face="arial"color="black">
+                                    {rows[2]}
+                                    </font>
+                                    </td>
+                                    frecuenciaCategoriaDos5++;
+                                  }
+
+                                if(rows[3] < 5){
+                                  fila3 = 
+                                  <td style={{backgroundColor: "#9BE0F7"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[3]}
+                                    </font>
+                                  </td>
+                                  frecuenciaCategoriaTres1++;
+                                }else if(rows[3] >= 5 && rows[3] < 7){
+                                  fila3 = 
+                                  <td style={{backgroundColor: "#6BF56E"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[3]}
+                                    </font>
+                                  </td>
+                                  frecuenciaCategoriaTres2++;
+                                }else if(rows[3] >=7 && rows[3] < 10){
+                                  fila3 = 
+                                  <td style={{backgroundColor: "#FFFF00"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[3]}
+                                    </font>
+                                  </td>
+                                  frecuenciaCategoriaTres3++;
+                                }else if(rows[3] >=10 && rows[3] < 13){
+                                  fila3 = 
+                                  <td style={{backgroundColor: "#FFC000"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[3]}
+                                    </font>
+                                  </td>
+                                  frecuenciaCategoriaTres4++;
+                                }else if(rows[3] >= 13){
+                                  fila3 = 
+                                  <td style={{backgroundColor: "#FF0000"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[3]}
+                                    </font>
+                                  </td>
+                                  frecuenciaCategoriaTres5++;
+                                }
+
+                                if(rows[4]  < 14){
+                                  fila4 = 
+                                  <td style={{backgroundColor: "#9BE0F7"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[4]}
+                                    </font>
+                                  </td>
+                                  frecuenciaCategoriaCuatro1++;
+                                }else if(rows[4] >= 14 && rows[4] < 29){
+                                  fila4 = 
+                                  <td style={{backgroundColor: "#6BF56E"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[4]}
+                                    </font>
+                                  </td>
+                                   frecuenciaCategoriaCuatro2++;
+                                }else if(rows[4] >=29 && rows[4] < 42){
+                                  fila4 = 
+                                  <td style={{backgroundColor: "#FFFF00"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[4]}
+                                    </font>
+                                  </td>
+                                   frecuenciaCategoriaCuatro3++;
+                                }else if(rows[4] >=42 && rows[4] < 58){
+                                  fila4 = 
+                                  <td style={{backgroundColor: "#FFC000"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[4]}
+                                    </font>
+                                  </td>
+                                   frecuenciaCategoriaCuatro4++;
+                                }else if(rows[4] >= 58){
+                                  fila4 = 
+                                  <td style={{backgroundColor: "#FF0000"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[4]}
+                                    </font>
+                                  </td>   
+                                   frecuenciaCategoriaCuatro5++;  
+                                }
+
+                                
+                                if(rows[5]  < 10){
+                                  fila5 = 
+                                  <td style={{backgroundColor: "#9BE0F7"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[5]}
+                                    </font>
+                                  </td>
+                                  frecuenciaCategoriaCinco1++;
+                                }else if(rows[5] >= 10 && rows[5] < 14){
+                                  fila5 = 
+                                  <td style={{backgroundColor: "#6BF56E"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[5]}
+                                    </font>
+                                  </td>
+                                   frecuenciaCategoriaCinco2++;
+                                }else if(rows[5] >=14 && rows[5] < 18){
+                                  fila5 = 
+                                  <td style={{backgroundColor: "#FFFF00"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[5]}
+                                    </font>
+                                  </td>
+                                   frecuenciaCategoriaCinco3++;
+                                }else if(rows[5] >=18 && rows[5] < 23){
+                                  fila5 = 
+                                  <td style={{backgroundColor: "#FFC000"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[5]}
+                                    </font>
+                                  </td>
+                                   frecuenciaCategoriaCinco4++;
+                                }else if(rows[5] >= 23){
+                                  fila5 = 
+                                  <td style={{backgroundColor: "#FF0000"}}>
+                                    <font size="1" face="arial"color="black">
+                                      {rows[5]}
+                                    </font>
+                                  </td>   
+                                   frecuenciaCategoriaCinco5++;  
+                                }
+
+                                  if(rows[6]<50){
+                                    fila6 = 
+                                    <td style={{backgroundColor: "#9BE0F7"}}>
+                                      <font size="1" face="arial"color="black">
+                                        {rows[6]}
+                                      </font>
+                                    </td>    
+                                  }
+                                  else if(rows[6]>=50 && rows[6] <75){
+                                    fila6 = 
+                                    <td style={{backgroundColor: "#6BF56E"}}>
+                                      <font size="1" face="arial"color="black">
+                                        {rows[6]}
+                                      </font>
+                                    </td> 
+                                  }else if(rows[6]>=75 && rows[6] < 99){
+                                    fila6 = 
+                                    <td style={{backgroundColor: "#FFFF00"}}>
+                                      <font size="1" face="arial"color="black">
+                                        {rows[6]}
+                                      </font>
+                                    </td> 
+                                  }else if(rows[6]>=99 && rows[6] < 140){
+                                    fila6 = 
+                                    <td style={{backgroundColor: "#FFC000"}}>
+                                      <font size="1" face="arial"color="black">
+                                        {rows[6]}
+                                      </font>
+                                    </td> 
+                                  }
+                                  else if( rows[6] >= 140){
+                                    fila6 = 
+                                    <td style={{backgroundColor: "#FF0000"}}>
+                                      <font size="1" face="arial"color="black">
+                                        {rows[6]}
+                                      </font>
+                                    </td> 
+                                } 
+
+
+                                  return(
+                                      <tbody>
+                                        <tr>
+                                          <th scope="row"><font size="1" face="arial"color="black" >{increment++}</font></th>
+                                          <td  width="30%"  className = "text-left"><font size="1" face="arial"color="black" >{rows[0]}</font></td>
+                                           {fila1}
+                                           {fila2}
+                                           {fila3}
+                                           {fila4}
+                                           {fila5}
+                                           {fila6}
+                                        </tr>
+                                      </tbody>                     
+                                  )
+
+                                })}
+
+                                </table>
+                                <br/>
+                                <p style={{marginLeft:"5%"}}><font size="1" face="arial"color="black" >FRECUENCIA</font></p>
+                                <table className=" table-bordered" style={{marginLeft:"5%"}}>
+                                
+                                    <tr>
+                                      <td width="10%" scope="col"></td>
+                                      <td width="40%" scope="col"><font size="1" face="arial"color="black" >Ponderaciones</font></td>
+                                      <td width="10%"style={{backgroundColor: "#9BE0F7"}} scope="col"><font size="1" face="arial"color="black" >Nulo</font></td>
+                                      <td width="10%"style={{backgroundColor: "#6BF56E"}} scope="col"><font size="1" face="arial"color="black" >Bajo</font></td>
+                                      <td width="10%"style={{backgroundColor: "#FFFF00"}} scope="col"><font size="1" face="arial"color="black" >Medio</font></td>
+                                      <td width="10%"style={{backgroundColor: "#FFC000"}} scope="col"><font size="1" face="arial"color="black" >Alto</font></td>
+                                      <td width="10%"style={{backgroundColor: "#FF0000"}} scope="col"><font size="1" face="arial"color="black" >Muy Alto</font></td>
+                                    </tr>
+                                 
+                                  <tbody>
+                                    <tr>
+                                    <td><font size="1" face="arial"color="black" >1</font></td>
+                                    <td><font size="1" face="arial"color="black" >Ambiente de Trabajo</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaUno1}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaUno2}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaUno3}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaUno4}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaUno5}</font></td>
+                                    </tr>
+                                    <tr>
+                                    <td><font size="1" face="arial"color="black" >2</font></td>
+                                    <td><font size="1" face="arial"color="black" >Factores Propios</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaDos1}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaDos2}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaDos3}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaDos4}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaDos5}</font></td>
+                                    </tr>
+                                    <tr>
+                                    <td><font size="1" face="arial"color="black" >3</font></td>
+                                    <td><font size="1" face="arial"color="black" >Organizacion</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaTres1}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaTres2}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaTres3}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaTres4}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaTres5}</font></td>
+                                    </tr>
+                                    <tr>
+                                    <td><font size="1" face="arial"color="black" >4</font></td>
+                                    <td><font size="1" face="arial"color="black" >Liderazgo</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCuatro1}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCuatro2}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCuatro3}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCuatro4}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCuatro5}</font></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <td>
+                                 
+                                 </td>
+                             
+                        </div>
+                    </PDFExport>
+                </div>
+            </div>
+  
+          </React.Fragment>
+
+
+}
+ 
     return (
       <React.Fragment>
       <div>
@@ -12026,16 +13024,11 @@ ponderacion=<React.Fragment>
                 options={options}
               />
               <MDBRow style={{marginTop:20}}>
-              <MDBCol >{botonCerrar}{botonResultadosGlobales}</MDBCol> 
-              <MDBCol>
-  
-              <MDBContainer>
+              {botonCerrar}{botonResultadosGlobales}
               {spinner}
              { PDFRespuestasMasivos}
               {PDFResultadosMasivos}
-               </MDBContainer>  
-              </MDBCol>
-            </MDBRow>
+              </MDBRow>
               {ponderacion}
               {ponderacionIndividual}
               {pdfView1}

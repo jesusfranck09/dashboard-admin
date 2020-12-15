@@ -1807,7 +1807,7 @@ pdfExportComponent ;
                   <div>
                   <Grow in={true}>
 
-                  <div style={{ margin: "50px 40px" }}>
+                  <div style={{ margin: "50px 40px",marginLeft:"8%" }}>
                   <ReactFusioncharts
                   type="pie3d"
                   width="99%"

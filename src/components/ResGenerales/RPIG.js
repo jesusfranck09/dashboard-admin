@@ -1,4 +1,5 @@
-import React from "react";
+
+import React, { PureComponent } from "react";
 import MUIDataTable from "mui-datatables";
 import Grow from "@material-ui/core/Grow";
 import {MDBRow,MDBCol,MDBBtn, MDBContainer,MDBTableHead ,MDBTable, MDBTableBody} from 'mdbreact';
@@ -120,7 +121,7 @@ pdfExportComponent ;
       valor44:[],
       valor45:[],
       valor46:[],
-      
+     
     };
 
     this.handleLogOut = this.handleLogOut.bind(this);
@@ -889,7 +890,8 @@ pdfExportComponent ;
           let valor1=[];
           let empleados = []
            array1.map(rows=>{
-                empleados.push(rows[0].nombre +" " + rows[0].ApellidoP  + " " + rows[0].ApellidoM) 
+              
+              empleados.push(rows[0].nombre +" " + rows[0].ApellidoP  + " " + rows[0].ApellidoM) 
                 valor1.push(rows[0].ponderacion)          
             })
             this.setState({valor1:valor1})
@@ -1557,6 +1559,7 @@ pdfExportComponent ;
 
     let datosEmpleados;
     let filtro;
+    
     const options = {
         filterType: "dropdown",
         responsive: "stacked",
@@ -4145,7 +4148,7 @@ ponderacion=<React.Fragment>
     <tr>
       <td width="33%">
       <MDBBtn   gradient="purple" size="md" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-      Descargar resultados globales
+      Descargar reporte ejecutivo
       </MDBBtn>
       </td>
       <td>
@@ -7340,7 +7343,7 @@ ponderacionIndividual =  <React.Fragment>
       <MDBCol><MDBBtn  className = "text-white" disabled={!this.state.botonResultados} onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Reporte Global</MDBBtn>
       <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  color="success" size="md"> Evaluaciones Masivas</MDBBtn>
       <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)} color="success" size="md">Resultados masivos</MDBBtn> 
-      {/* <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteEjecutivo(datosEmpleados,filtro)} color="success" size="md">Reporte ejecutivo</MDBBtn>  */}
+      <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteEjecutivo(datosEmpleados,filtro)} color="success" size="md">Reporte ejecutivo</MDBBtn> 
 
       </MDBCol>
     
@@ -8905,80 +8908,7 @@ ponderacionIndividual =  <React.Fragment>
                   let celdaPrev;
                   let criteriosPrev;
                   let charColor;
-                  if(totalGrafica<20){
-                  charColor = "#9BE0F7"
-                  celda = <td   style={{backgroundColor: "#9BE0F7 "}}><font size="1" face="arial"color="#283747" align="justify"><strong> NULO O DESPRECIABLE</strong></font></td>
-                  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify"><p>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</p></font></TableCell>
-                  }else if(totalGrafica>=20 && totalGrafica < 45){
-                    celda = <td width="10%" style={{backgroundColor: "#6BF56E"}} ><font size="1" face="arial"color="#283747" align="justify"><strong> BAJO</strong></font></td>
-                    celdaPrev = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}} ><font size="3" face="arial"color="black" align="justify">BAJO</font></TableCell>
-                    
-                  criterios =<font size="2" face="arial"color="black" align="justify"><p> Es necesario una mayor difusión de la política de prevención de riesgos
-                  psicosociales y programas para: la prevención de los factores de riesgo
-                  psicosocial, la promoción de un entorno organizacional favorable y la
-                  prevención de la violencia laboral. <br></br></p></font>
-
-                    criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">
-                  <p> Es necesario una mayor difusión de la política de prevención de riesgos
-                      psicosociales y programas para: la prevención de los factores de riesgo
-                      psicosocial, la promoción de un entorno organizacional favorable y la
-                      prevención de la violencia laboral.</p></font></TableCell>
-
-                  }else if(totalGrafica>=45 && totalGrafica < 70){
-                    celda = <td style={{backgroundColor: "#FFFF00"}} ><font size="1" face="arial"color="#283747" align="justify"><strong> MEDIO</strong></font></td>
-                    celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}} ><font size="3" face="arial"color="black" align="justify">MEDIO</font></TableCell>
-                    charColor = "#FFFF00"
-                    criterios = <font size="2" face="arial"color="black" align="justify">
-                      <p>Se requiere revisar la política de prevención de riesgos psicosociales y
-                        programas para la prevención de los factores de riesgo psicosocial, la
-                        promoción de un entorno organizacional favorable y la prevención de la
-                        violencia laboral, así como reforzar su aplicación y difusión, mediante un
-                        Programa de intervención.</p></font>
-
-                    criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">
-                  <p>Se requiere revisar la política de prevención de riesgos psicosociales y
-                    programas para la prevención de los factores de riesgo psicosocial, la
-                    promoción de un entorno organizacional favorable y la prevención de la
-                    violencia laboral, así como reforzar su aplicación y difusión, mediante un
-                    Programa de intervención.</p></font></TableCell>
-                  }else if(totalGrafica>=70 && totalGrafica < 90){
-                  celda = <td  style={{backgroundColor: "#FFC000"}} ><font size="1" face="arial"color="#283747" align="justify"><strong>ALTO</strong></font></td>
-                  celdaPrev = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} ><font size="3" face="arial"color="black" align="justify">ALTO</font></TableCell>
-                  charColor = "#FFC000"  
-                  criterios = <font size="1" face="arial"color="black" align="justify"><p>
-                 </p></font>
-                  criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify"><p>Se requiere realizar un análisis de cada categoría y dominio, de manera que
-                   Se requiere realizar un análisis de cada categoría y dominio, de manera que
-                  se puedan determinar las acciones de intervención apropiadas a través de un
-                  Programa de intervención, que podrá incluir una evaluación específica y
-                  deberá incluir una campaña de sensibilización, revisar la política de
-                  prevención de riesgos psicosociales y programas para la prevención de los
-                  factores de riesgo psicosocial, la promoción de un entorno organizacional
-                  favorable y la prevención de la violencia laboral, así como reforzar su
-                  aplicación y difusión.</p></font></TableCell>
-                  }
-                  else if( totalGrafica > 90){
-                    celda  = <td   style={{backgroundColor: "#FF0000"}}><font size="1" face="arial"color="#283747" align="justify"><strong>MUY ALTO</strong></font></td>
-                    celdaPrev  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}}><font size="3" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
-                  charColor = "#FF0000"
-                  criterios = <font size="2" face="arial"color="black" align="justify"><p>
-                   Se requiere realizar el análisis de cada categoría y dominio para establecer
-                    las acciones de intervención apropiadas, mediante un Programa de
-                    intervención que deberá incluir evaluaciones específicas, y contemplar
-                    campañas de sensibilización, revisar la política de prevención de riesgos
-                    psicosociales y programas para la prevención de los factores de riesgo
-                    psicosocial, la promoción de un entorno organizacional favorable y la
-                    prevención de la violencia laboral, así como reforzar su aplicación y difusión.</p></font>
-                    criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="3" face="arial"color="black" align="justify">
-                <p> Se requiere realizar el análisis de cada categoría y dominio para establecer
-                    las acciones de intervención apropiadas, mediante un Programa de
-                    intervención que deberá incluir evaluaciones específicas, y contemplar
-                    campañas de sensibilización, revisar la política de prevención de riesgos
-                    psicosociales y programas para la prevención de los factores de riesgo
-                    psicosocial, la promoción de un entorno organizacional favorable y la
-                    prevención de la violencia laboral, así como reforzar su aplicación y difusión.</p></font></TableCell>
-                  }
-
+                 
                   var arr1 = this.state.valor1.map(function (x) { 
                     return parseInt(x, 10); 
                   });
@@ -8988,6 +8918,7 @@ ponderacionIndividual =  <React.Fragment>
                   var arr3 = this.state.valor3.map(function (x) { 
                     return parseInt(x, 10); 
                   });
+
                   var ambienteTrabajo = [];
 
                   for(let i = 0; i < arr1.length; i++){
@@ -9142,63 +9073,152 @@ ponderacionIndividual =  <React.Fragment>
                   for(let i = 0; i < arr23.length; i++){
                     liderazgo[i] =arr23[i]+arr24[i]+arr25[i]+arr28[i]+arr29[i]+arr30[i]+arr31[i]+arr32[i]+arr33[i]+arr34[i]+arr35[i]+arr36[i]+arr37[i]+arr38[i]+arr39[i]+arr40[i]+arr44[i]+arr45[i]+arr46[i];
                   }
+                  ////////////////////////////////////////////////////////////////////
                   
                   let totalPonderacion = [];
                   for(let i = 0; i < ambienteTrabajo.length; i++){
                     totalPonderacion[i] = ambienteTrabajo[i] + factoresPropios[i] + organizacion[i] + liderazgo [i];  
                   }
                   
-                  let totalInt = parseInt(totalGrafica);
-                  let cat1In = parseInt(categoria1Grafica);
-                  let cat2In = parseInt(categoria2Grafica);
-                  let cat3In = parseInt(categoria3Grafica);
-                  let cat4In = parseInt(categoria4Grafica);
-               
-                  let dataBar   =  {
-                    labels: ["Total" + " " + totalGrafica, "Ambiente de T" + " " + categoria1Grafica , "Factores P." + " " +  categoria2Grafica, "Organizacion" + " " + categoria3Grafica, "Liderazgo" + "  " + categoria4Grafica ],
-                    datasets: [
-                      {
-                        label: "Ponderacion por categoría",
-                        data: [totalInt, cat1In, cat2In, cat3In, cat4In],
-                        backgroundColor: [
-                          charColor,
-                          colorCategoria1Grafica,
-                          colorCategoria2Grafica,
-                          colorCategoria3Grafica,
-                          colorCategoria4Grafica,
-                        ],
-                        borderWidth: 2,
-                     
-                      }
-                    ]
-                  }
-
-                  let barChartOptions  =  {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                      xAxes: [
-                        {
-                          barPercentage: 1,
-                          gridLines: {
-                            display: true,
-                            color: "rgba(0, 0, 0, 0.1)"
-                          }
-                        }
-                      ],
-                      yAxes: [
-                        {
-                          gridLines: {
-                            display: true,
-                            color: "rgba(0, 0, 0, 0.1)"
-                          },
-                          ticks: {
-                            beginAtZero: true
-                          }
-                        }
-                      ]
+                  let suma = 0;
+                  totalPonderacion.forEach (function(numero){
+                      suma += numero;
+                  });
+                  let ponderacionPromedio = (suma/totalPonderacion.length).toFixed(2)
+      
+                  if(ponderacionPromedio<20){
+                    charColor = "#9BE0F7"
+                    celda = <td   style={{backgroundColor: "#9BE0F7 "}}><font size="1" face="arial"color="#283747" align="justify"><strong> NULO O DESPRECIABLE</strong></font></td>
+                    criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify"><p>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</p></font></TableCell>
+                    }else if(totalGrafica>=20 && totalGrafica < 45){
+                      celda = <td width="10%" style={{backgroundColor: "#6BF56E"}} ><font size="1" face="arial"color="#283747" align="justify"><strong> BAJO</strong></font></td>
+                      celdaPrev = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}} ><font size="3" face="arial"color="black" align="justify">BAJO</font></TableCell>
+                      
+                    criterios =<font size="2" face="arial"color="black" align="justify"><p> Es necesario una mayor difusión de la política de prevención de riesgos
+                    psicosociales y programas para: la prevención de los factores de riesgo
+                    psicosocial, la promoción de un entorno organizacional favorable y la
+                    prevención de la violencia laboral. <br></br></p></font>
+  
+                      criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">
+                    <p> Es necesario una mayor difusión de la política de prevención de riesgos
+                        psicosociales y programas para: la prevención de los factores de riesgo
+                        psicosocial, la promoción de un entorno organizacional favorable y la
+                        prevención de la violencia laboral.</p></font></TableCell>
+  
+                    }else if(ponderacionPromedio>=45 && ponderacionPromedio < 70){
+                      celda = <td style={{backgroundColor: "#FFFF00"}} ><font size="1" face="arial"color="#283747" align="justify"><strong> MEDIO</strong></font></td>
+                      celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}} ><font size="3" face="arial"color="black" align="justify">MEDIO</font></TableCell>
+                      charColor = "#FFFF00"
+                      criterios = <font size="2" face="arial"color="black" align="justify">
+                        <p>Se requiere revisar la política de prevención de riesgos psicosociales y
+                          programas para la prevención de los factores de riesgo psicosocial, la
+                          promoción de un entorno organizacional favorable y la prevención de la
+                          violencia laboral, así como reforzar su aplicación y difusión, mediante un
+                          Programa de intervención.</p></font>
+  
+                      criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">
+                    <p>Se requiere revisar la política de prevención de riesgos psicosociales y
+                      programas para la prevención de los factores de riesgo psicosocial, la
+                      promoción de un entorno organizacional favorable y la prevención de la
+                      violencia laboral, así como reforzar su aplicación y difusión, mediante un
+                      Programa de intervención.</p></font></TableCell>
+                    }else if(ponderacionPromedio>=70 && ponderacionPromedio < 90){
+                    celda = <td  style={{backgroundColor: "#FFC000"}} ><font size="1" face="arial"color="#283747" align="justify"><strong>ALTO</strong></font></td>
+                    celdaPrev = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} ><font size="3" face="arial"color="black" align="justify">ALTO</font></TableCell>
+                    charColor = "#FFC000"  
+                    criterios = <font size="1" face="arial"color="black" align="justify"><p>
+                   </p></font>
+                    criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify"><p>Se requiere realizar un análisis de cada categoría y dominio, de manera que
+                     Se requiere realizar un análisis de cada categoría y dominio, de manera que
+                    se puedan determinar las acciones de intervención apropiadas a través de un
+                    Programa de intervención, que podrá incluir una evaluación específica y
+                    deberá incluir una campaña de sensibilización, revisar la política de
+                    prevención de riesgos psicosociales y programas para la prevención de los
+                    factores de riesgo psicosocial, la promoción de un entorno organizacional
+                    favorable y la prevención de la violencia laboral, así como reforzar su
+                    aplicación y difusión.</p></font></TableCell>
                     }
+                    else if( ponderacionPromedio > 90){
+                      celda  = <td   style={{backgroundColor: "#FF0000"}}><font size="1" face="arial"color="#283747" align="justify"><strong>MUY ALTO</strong></font></td>
+                      celdaPrev  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}}><font size="3" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
+                    charColor = "#FF0000"
+                    criterios = <font size="2" face="arial"color="black" align="justify"><p>
+                     Se requiere realizar el análisis de cada categoría y dominio para establecer
+                      las acciones de intervención apropiadas, mediante un Programa de
+                      intervención que deberá incluir evaluaciones específicas, y contemplar
+                      campañas de sensibilización, revisar la política de prevención de riesgos
+                      psicosociales y programas para la prevención de los factores de riesgo
+                      psicosocial, la promoción de un entorno organizacional favorable y la
+                      prevención de la violencia laboral, así como reforzar su aplicación y difusión.</p></font>
+                      criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="3" face="arial"color="black" align="justify">
+                  <p> Se requiere realizar el análisis de cada categoría y dominio para establecer
+                      las acciones de intervención apropiadas, mediante un Programa de
+                      intervención que deberá incluir evaluaciones específicas, y contemplar
+                      campañas de sensibilización, revisar la política de prevención de riesgos
+                      psicosociales y programas para la prevención de los factores de riesgo
+                      psicosocial, la promoción de un entorno organizacional favorable y la
+                      prevención de la violencia laboral, así como reforzar su aplicación y difusión.</p></font></TableCell>
+                    }
+
+                  ////////////////////////////////////////////////////////
+                  let sumaAmbienteT = 0;
+                  ambienteTrabajo.forEach (function(numero){
+                    sumaAmbienteT += numero;
+                  });
+
+                  let suma1 = (sumaAmbienteT/ambienteTrabajo.length).toFixed(2);
+
+                  console.log("suma1" , suma1)
+                  let sumaFactoresP = 0;
+                  factoresPropios.forEach (function(numero){
+                    sumaFactoresP += numero;
+                  });
+
+                  let suma2 = (sumaFactoresP/factoresPropios.length).toFixed(2);
+                  console.log("suma2", suma2)
+
+                  let sumaOrganizacion = 0;
+                  organizacion.forEach (function(numero){
+                    sumaOrganizacion += numero;
+                  });
+
+                  let suma3 = (sumaOrganizacion/organizacion.length).toFixed(2);
+                  console.log("suma3", suma3)
+                 
+                  let sumaLiderazgo = 0;
+                  liderazgo.forEach (function(numero){
+                    sumaLiderazgo += numero;
+                  });
+
+                  let suma4 = (sumaLiderazgo/liderazgo.length).toFixed(2);
+                  console.log("suma4", suma4)
+
+                  let frecuenciaAmbiente1 = 0;
+                  let frecuenciaAmbiente2 = 0;
+                  let frecuenciaAmbiente3 = 0;
+                  let frecuenciaAmbiente4 = 0;
+                  let frecuenciaAmbiente5 = 0;
+                  let frecuenciaFactores1 = 0;
+                  let frecuenciaFactores2 = 0;
+                  let frecuenciaFactores3 = 0;
+                  let frecuenciaFactores4 = 0;
+                  let frecuenciaFactores5 = 0;
+                  let frecuenciaOrganizacion1 = 0;
+                  let frecuenciaOrganizacion2 = 0;
+                  let frecuenciaOrganizacion3 = 0;
+                  let frecuenciaOrganizacion4 = 0;
+                  let frecuenciaOrganizacion5 = 0;
+                  let frecuenciaLiderazgo1= 0;
+                  let frecuenciaLiderazgo2= 0;
+                  let frecuenciaLiderazgo3= 0;
+                  let frecuenciaLiderazgo4= 0;
+                  let frecuenciaLiderazgo5= 0;
+
+                  let arrayFinal = [];
+                  for(let i = 0; i < this.state.empleadosRE.length; i++){
+                     arrayFinal[i] = [this.state.empleadosRE[i] , ambienteTrabajo[i] , factoresPropios[i] , organizacion[i] , liderazgo[i],totalPonderacion[i]];  
                   }
+                  let increment = 1;
 
                   var LaFecha=new Date();
                   var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
@@ -9212,21 +9232,37 @@ ponderacionIndividual =  <React.Fragment>
                   let celdaAmbiente;
                   reporteEjecutivo = 
                   <React.Fragment>
-                  <Alert className ="mt-4" color ="primary ">Resultados de la aplicación de la evaluación RP </Alert>
+                  <Alert className ="mt-4" color ="primary ">Reporte ejecutivo total de empleados</Alert>
               
-                          <div>
-                                  <MDBBtn size="md" color="secondary" className="k-button text-white" onClick={() => { this.pdfExportComponent.save(); }}>
-                                      Descargar Resultados de nombre apellido apellidom
-                                  </MDBBtn>
-                         </div>
-                         <br/>
+                  <MDBContainer style={{marginTop:20}}>
+                    <table>
+                      <tr>
+                        <td width="33%">
+                        <MDBBtn   gradient="purple" size="md" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                        Descargar reporte ejecutivo
+                        </MDBBtn>
+                        </td>
+                        <td>
+
+                        </td>
+                        <td width="33%">
+                        <font  face="arial" className = "mt-4" ><strong> EVALUACIÓN RP. </strong><br/><strong>FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></strong><br/><strong>{localStorage.getItem("razonsocial")}</strong> </font>
+                        </td>
+                        <td width="34%">
+                        <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100}}/> 
+                        </td>
+                      </tr>
+                    </table>
+
+
+                  </MDBContainer>
                       <MDBContainer >
                         <Table   responsive small borderless className="text-left mt-4 ">
                         <TableHead>
                         <TableRow>
                           <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>RESULTADOS GENERALES</TableCell>
                             {celdaPrev}
-                          <TableCell width="6%"  > <strong>   TOTAL {totalGrafica}  PUNTOS </strong></TableCell>
+                          <TableCell width="6%"  > <strong>   TOTAL {ponderacionPromedio}  PUNTOS </strong></TableCell>
                           <TableCell width="2%" ></TableCell>
                           <TableCell width="1%"  ></TableCell>
                             {criteriosPrev}
@@ -9259,6 +9295,7 @@ ponderacionIndividual =  <React.Fragment>
                           </TableCell>   
                           <TableCell component="th" scope="row" align="center">
                           {ambienteTrabajo.map(filas=>{  
+
                             return(
                               <tr>{filas}</tr>     
                             )  
@@ -9302,6 +9339,7 @@ ponderacionIndividual =  <React.Fragment>
                               <div className="example-config">
                                 
                               </div>
+                               {/*   */}
               
                               <div style={{ position: "absolute", left: "-1000px", top: 0 }}>
                                   <PDFExport
@@ -9310,28 +9348,32 @@ ponderacionIndividual =  <React.Fragment>
                                       pageNum
                                       pageTemplate={PageTemplate}
                                       forcePageBreak=".page-break"
-                                      fileName={` Resultados RP ${new Date().getFullYear()}`}
+                                      fileName={`Reporte ejecutivo ${new Date().getFullYear()}`}
                                       ref={(component) => this.pdfExportComponent = component}
                                   >
                                       <div style={{ width: "500px" }}>                                          
                                           <img src={logo} alt="logo" style = {{width:550,marginTop:30}}/>
                                           <MDBRow > 
                                           <MDBCol>                                  
-                                          <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                                          {/* <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/> */}
                                           </MDBCol> 
-                                          </MDBRow> 
+                                          </MDBRow>   
                                           <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left ">
                                             
-                                          <MDBTableBody>     
-                                          <font size="3"face="arial"color="black"><strong> {localStorage.getItem("razonsocial")} </strong></font><br></br>          
+                                          <MDBTableBody>  
+                                          <br/>     
+                                          <font size="2"face="arial"color="black"><strong> {localStorage.getItem("razonsocial")} </strong></font><br></br>          
                                           <br></br>
-                                          <font size="2"face="arial"color="black"> Reporte Ejecutivo Global | identificación y análisis de los factores de riesgo psicosocial</font><br></br>
+                                          <font size="1"face="arial"color="black"> Reporte Ejecutivo Global | identificación y análisis de los factores de riesgo psicosocial</font><br></br>
                                           <br></br>
-                                          <font size="2"face="arial"color="black">Total de evaluaciones consideradas : {this.state.empleadosRE.length}</font><br></br><br></br>
-                                          <br></br>
+                                          <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
+
+                                          <br></br><br/>
+                                          <font size="1"face="arial"color="black">Total de evaluaciones consideradas : {this.state.empleadosRE.length}</font><br></br><br></br>
+
                                           <font size="1"face="arial"color="black" style={{marginLeft:"55%"}}>{FechaCompleta}</font>
 
-                                          <br></br><br/><br/>
+                                          <br></br><br/><br></br><br/>
                                           <center><font size="1"face="arial"color="red"><strong>diagnostico035.com</strong></font></center>
                                           </MDBTableBody>
                                           </MDBTable>
@@ -9355,23 +9397,40 @@ ponderacionIndividual =  <React.Fragment>
                                             <br></br>
                                             <br></br>
                                             <br></br>
+                                            <br></br>  
                                             <br></br>     
-                                             <p style={{marginLeft:"2%"}} className ="text-center"><strong>GUÍA DE REFERENCIA III 
-                                             IDENTIFICACIÓN Y ANÁLISIS DE LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</strong><br/></p>  
-                                              {/* <div style={{width:400,height:220,marginLeft:"13%",marginTop:"5%"}}>
-                                              <Bar data={dataBar} options={barChartOptions} />
-                                                
-                                              </div> */}
-                                              
-                                                <MDBTable style={{marginTop:"5%",marginLeft:"5%"}}   large bordered  className="text-center">
-                                                <tr >                              
-                                                <td width = "32%"><font size="2" face="arial"color="#283747" ><strong>Puntaje acumulado:</strong></font></td>
-                                                <td width = "13%" className="text-left"><font size="2" face="arial"color="#283747"><strong>   {totalGrafica}</strong></font></td>
-                                                <td width = "30%"><font size="2" face="arial"color="#283747"><strong> Nivel de riesgo:</strong></font></td>
-                                                 {celda}                                  
-                                                </tr>                                               
+
+                                              <div style={{marginLeft:"2%"}} >
+                                              <p  className ="text-center"><strong>GUÍA DE REFERENCIA II  <br/>IDENTIFICACIÓN Y ANÁLISIS DE LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO </strong> </p>
+
+                                                </div> 
+                                                <br/>
+
+                                                <MDBTable bordless style={{marginLeft:"5%",marginTop:"2%"}}>
+                                                <MDBTableBody>
+                                                <tr>
+                                                  <td width="30%"><font size="1" face="arial"color="black"><strong>{localStorage.getItem("razonsocial")}</strong></font></td>
+                                                  <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre3}</strong></font></td>
+                                                  <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre4}</strong></font></td>
+                                                  <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre5}</strong></font></td>
+                                                  <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre6}</strong></font></td>
+                                                  <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre7}</strong></font></td>
+                                                </tr> 
+                                                </MDBTableBody>
                                                 </MDBTable>
-                                                <Table style={{marginTop:"2%",marginLeft:"5%"}}  responsive small bordless  className="text-left">
+
+                                                <MDBTable style={{marginLeft:"5%"}}   large bordered  className="text-center">
+                                                <MDBTableBody>  
+                                             
+                                                <tr >                              
+                                                <td width = "32%"><font size="1" face="arial"color="#283747" ><strong>Puntaje Promedio:</strong></font></td>
+                                                <td width = "13%" className="text-left"><font size="1" face="arial"color="#273746"><strong>   {ponderacionPromedio}</strong></font></td>
+                                                <td width = "30%"><font size="1" face="arial"color="#283747"><strong> Nivel de riesgo:</strong></font></td>
+                                                 {celda}                                  
+                                                </tr>   
+                                                </MDBTableBody>                                              
+                                                </MDBTable>
+                                                <Table style={{marginLeft:"5%"}}  responsive small bordless  className="text-left">
                                                 <tr >                              
                                                 <td width="100%"><font size="2" face="arial"color="black" ><strong>Necesidad de la acción : </strong></font></td>                                
                                                
@@ -9380,141 +9439,297 @@ ponderacionIndividual =  <React.Fragment>
                                                   <td width="100%"><font size="1" face="arial"color="black" >{criterios}</font></td>
                                                 </tr>
                                                 </Table>
-                                       
-                                              <Table style={{marginLeft:"5%"}}size="small" aria-label="a dense table"> 
-                                              <TableRow >                              
-                                              <TableCell width="43%" className="text-left"><p style={{fontSize:"7px"}}><strong>Nombre</strong></p></TableCell>
-                                              <TableCell  width="11%" className="text-left"><p style={{fontSize:"7px"}}><strong>Ambiente de Trabajo</strong></p></TableCell>
-                                              <TableCell  width="11%" className="text-left"><p style={{fontSize:"7px"}}><strong>Factores propios de la Actividad</strong></p></TableCell>
-                                              <TableCell  width="11%" className="text-left"><p style={{fontSize:"7px"}}><strong>Organización del tiempo de Trabajo</strong></p></TableCell>  
-                                              <TableCell  width="11%" className="text-left"><p style={{fontSize:"7px"}}><strong>Liderazgo y relaciones en el Trabajo</strong></p></TableCell>   
-                                              <TableCell  width="8%"  className="text-left"><p style={{fontSize:"7px"}}><strong>Total</strong></p></TableCell>                                         
-                                              </TableRow>
-                                              <TableRow >  
-                                              <TableCell width="43%">
-                                              {this.state.empleadosRE.map(rows=>{
-                                                return(
-                                                  <tr><font size="1" face="arial"color="black" >{rows}</font></tr>                          
-                                                )
-                                              })}
-                                              </TableCell>  
-                                                
-                                              <TableCell  width="11%" >
-                                              {ambienteTrabajo.map(filas=>{  
-                                                  if(filas < 3){
-                                                   return(
-                                                    <TableRow style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                   ) 
-                                                  }else if(filas >= 3 && filas < 5){
-                                                    return(
-                                                      <TableRow style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                    )
-                                                  }else if(filas >= 5 && filas < 7){
-                                                    return(
-                                                      <TableRow style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                    )
-                                                  }else if(filas >= 7 && filas < 9){
-                                                    return(
-                                                      <TableRow style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                    )
-                                                  }else if(filas >= 9){
-                                                    return(
-                                                      <TableRow style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                    )
-                                                  }
+                                         
+                                              <table className="table-bordered" style={{marginLeft:"5%"}}>
+                                           
+                                                <tr >
+                                                  <th width="11%" scope="col"><p  style={{fontSize:"6px"}}><strong>#</strong></p></th>
+                                                  <th width="30%" scope="col"><p style={{fontSize:"6px"}}><strong >Nombre</strong></p></th>
+                                                  <th width="13%"  scope="col"><p style={{fontSize:"6px"}}><strong>Ambiente de trabajo</strong></p></th>
+                                                  <th width="11%" scope="col"><p style={{fontSize:"6px"}}><strong >Factores propios</strong></p></th>
+                                                  <th width="11%" scope="col"><p style={{fontSize:"6px"}}><strong >Organización</strong></p></th>
+                                                  <th width="11%" scope="col"><p style={{fontSize:"6px"}}><strong>Liderazgo</strong></p></th>
+                                                  <th width="11%"scope="col"><p  style={{fontSize:"6px"}}><strong>Total</strong></p></th>
+                                                </tr>
                                             
-                                              })} 
-                                              </TableCell>
-                                              <TableCell  width="11%" >
-                                              {factoresPropios.map(filas=>{  
-                                                if(filas < 10){
-                                                  return(
-                                                    <TableRow style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                  )
-                                                }else if(filas >= 10 && filas < 20){
-                                                  return(
-                                                    <TableRow style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                  )
-                                                }else if(filas >=20 && filas < 30){
-                                                  return(
-                                                    <TableRow style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                  )
-                                                }else if(filas >=30 && filas < 40){
-                                                  return(
-                                                    <TableRow style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                  )
-                                                }else if(filas >= 40){
-                                                  return(
-                                                    <TableRow style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                  )
-                                                }
+                                              {arrayFinal.map(rows=>{
+                                                let fila1;
+                                                let fila2;
+                                                let fila3;
+                                                let fila4;
+                                                let fila5;
+                                           
 
-                                              })} 
-                                              </TableCell>
-                                              <TableCell  width="11%">
-                                              {organizacion.map(filas=>{  
-                                                if(filas < 4){
-                                                  return(
-                                                    <TableRow style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                  )
-                                                }else if(filas >= 4 && filas < 6){
-                                                  return(
-                                                    <TableRow style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                  )
-                                                }else if(filas >=6 && filas < 9){
-                                                  return(
-                                                    <TableRow style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                  )
-                                                }else if(filas >=9 && filas < 12){
-                                                  return(
-                                                    <TableRow style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                  )
-                                                }else if(filas >= 12){
-                                                  return(
-                                                    <TableRow style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                  )
+                                                if(rows[1] < 3){
+                                                  fila1 = <td style={{backgroundColor: "#9BE0F7"}}>
+                                                     <font size="1" face="arial"color="black">
+                                                     {rows[1]}
+                                                     </font>
+                                                   </td>
+                                                   frecuenciaAmbiente1++;
+                                               }else if(rows[1] >= 3 && rows[1] < 5){                                                     
+                                                   fila1 = <td style={{backgroundColor: "#6BF56E"}}>
+                                                     <font size="1" face="arial"color="black">
+                                                     {rows[1]}
+                                                     </font>
+                                                   </td>
+                                                   frecuenciaAmbiente2++;
+                                               }else if(rows[1] >= 5 && rows[1] < 7){
+                                                    fila1 = <td style={{backgroundColor: "#FFFF00"}}>
+                                                       <font size="1" face="arial"color="black">
+                                                       {rows[1]}
+                                                       </font>
+                                                     </td>
+                                                     frecuenciaAmbiente3++;
+                                               }else if(rows[1] >= 7 && rows[1] < 9){
+                                                    fila1 = <td style={{backgroundColor: "#FFC000"}}>
+                                                       <font size="1" face="arial"color="black">
+                                                       {rows[1]}
+                                                       </font>
+                                                     </td>
+                                                     frecuenciaAmbiente4++;
+                                               }else if(rows[1] >= 9){
+                                                     fila1 = <td  style={{backgroundColor: "#FF0000"}} >
+                                                       <font size="1" face="arial"color="black">
+                                                       {rows[1]}
+                                                       </font>
+                                                     </td>
+                                                     frecuenciaAmbiente5++;
+                                               }
+
+                                               if(rows[2] < 10){
+                                                fila2 = <td style={{backgroundColor: "#9BE0F7"}}>
+                                                <font size="1" face="arial"color="black">
+                                                {rows[2]}
+                                                </font>
+                                                </td>
+                                                frecuenciaFactores1++;
+                                              }else if(rows[2] >= 10 && rows[2] < 20){
+                                                fila2 = <td style={{backgroundColor: "#6BF56E"}}>
+                                                <font size="1" face="arial"color="black">
+                                                {rows[2]}
+                                                </font>
+                                                </td>
+                                                frecuenciaFactores2++;
+                                              }else if(rows[2] >=20 && rows[2] < 30){
+                                                fila2 = <td style={{backgroundColor: "#FFFF00"}}>
+                                                <font size="1" face="arial"color="black">
+                                                {rows[2]}
+                                                </font>
+                                                </td>
+                                                frecuenciaFactores3++;
+                                              }else if(rows[2] >=30 && rows[2] < 40){
+                                                fila2 = <td style={{backgroundColor: "#FFC000"}}>
+                                                <font size="1" face="arial"color="black">
+                                                {rows[2]}
+                                                </font>
+                                                </td>
+                                                frecuenciaFactores4++;
+                                              }else if(rows[2] >= 40){
+                                                fila2 = <td style={{backgroundColor: "#FF0000"}}>
+                                                <font size="1" face="arial"color="black">
+                                                {rows[2]}
+                                                </font>
+                                                </td>
+                                                frecuenciaFactores5++;
+                                              }
+
+                                              if(rows[3] < 4){
+                                                fila3 = 
+                                                <td style={{backgroundColor: "#9BE0F7"}}>
+                                                  <font size="1" face="arial"color="black">
+                                                    {rows[3]}
+                                                  </font>
+                                                </td>
+                                                frecuenciaOrganizacion1++;
+                                              }else if(rows[3] >= 4 && rows[3] < 6){
+                                                fila3 = 
+                                                <td style={{backgroundColor: "#6BF56E"}}>
+                                                  <font size="1" face="arial"color="black">
+                                                    {rows[3]}
+                                                  </font>
+                                                </td>
+                                                frecuenciaOrganizacion2++;
+                                              }else if(rows[3] >=6 && rows[3] < 9){
+                                                fila3 = 
+                                                <td style={{backgroundColor: "#FFFF00"}}>
+                                                  <font size="1" face="arial"color="black">
+                                                    {rows[3]}
+                                                  </font>
+                                                </td>
+                                                frecuenciaOrganizacion3++;
+                                              }else if(rows[3] >=9 && rows[3] < 12){
+                                                fila3 = 
+                                                <td style={{backgroundColor: "#FFC000"}}>
+                                                  <font size="1" face="arial"color="black">
+                                                    {rows[3]}
+                                                  </font>
+                                                </td>
+                                                frecuenciaOrganizacion4++;
+                                              }else if(rows[3] >= 12){
+                                                fila3 = 
+                                                <td style={{backgroundColor: "#FF0000"}}>
+                                                  <font size="1" face="arial"color="black">
+                                                    {rows[3]}
+                                                  </font>
+                                                </td>
+                                                frecuenciaOrganizacion5++;
+                                              }
+
+                                              if(rows[4]  < 10){
+                                                fila4 = 
+                                                <td style={{backgroundColor: "#9BE0F7"}}>
+                                                  <font size="1" face="arial"color="black">
+                                                    {rows[4]}
+                                                  </font>
+                                                </td>
+                                                frecuenciaLiderazgo1++;
+                                              }else if(rows[4] >= 10 && rows[4] < 18){
+                                                fila4 = 
+                                                <td style={{backgroundColor: "#6BF56E"}}>
+                                                  <font size="1" face="arial"color="black">
+                                                    {rows[4]}
+                                                  </font>
+                                                </td>
+                                                 frecuenciaLiderazgo2++;
+                                              }else if(rows[4] >=18 && rows[4] < 28){
+                                                fila4 = 
+                                                <td style={{backgroundColor: "#FFFF00"}}>
+                                                  <font size="1" face="arial"color="black">
+                                                    {rows[4]}
+                                                  </font>
+                                                </td>
+                                                 frecuenciaLiderazgo3++;
+                                              }else if(rows[4] >=28 && rows[4] < 38){
+                                                fila4 = 
+                                                <td style={{backgroundColor: "#FFC000"}}>
+                                                  <font size="1" face="arial"color="black">
+                                                    {rows[4]}
+                                                  </font>
+                                                </td>
+                                                 frecuenciaLiderazgo4++;
+                                              }else if(rows[4] >= 38){
+                                                fila4 = 
+                                                <td style={{backgroundColor: "#FF0000"}}>
+                                                  <font size="1" face="arial"color="black">
+                                                    {rows[4]}
+                                                  </font>
+                                                </td>   
+                                                 frecuenciaLiderazgo5++;  
+                                              }
+                                                if(rows[5]<20){
+                                                  fila5 = 
+                                                  <td style={{backgroundColor: "#9BE0F7"}}>
+                                                    <font size="1" face="arial"color="black">
+                                                      {rows[5]}
+                                                    </font>
+                                                  </td>    
                                                 }
-                                          
-                                              })} 
-                                              </TableCell>
-                                              <TableCell width="11%">
-                                              {liderazgo.map(filas=>{  
-                                                  if(filas < 10){
-                                                    return(
-                                                      <TableRow style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                    )
-                                                  }else if(filas >= 10 && filas < 18){
-                                                    return(
-                                                      <TableRow style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                    )
-                                                  }else if(filas >=18 && filas < 28){
-                                                    return(
-                                                      <TableRow style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                    )
-                                                  }else if(filas >=28 && filas < 38){
-                                                    return(
-                                                      <TableRow style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                    )
-                                                  }else if(filas >= 38){
-                                                    return(
-                                                      <TableRow style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">{filas}</font></TableRow>
-                                                    )
-                                                  }
+                                                else if(rows[5]>=20 && rows[5] <45){
+                                                  fila5 = 
+                                                  <td style={{backgroundColor: "#6BF56E"}}>
+                                                    <font size="1" face="arial"color="black">
+                                                      {rows[5]}
+                                                    </font>
+                                                  </td> 
+                                                }else if(rows[5]>=45 && rows[5] < 70){
+                                                  fila5 = 
+                                                  <td style={{backgroundColor: "#FFFF00"}}>
+                                                    <font size="1" face="arial"color="black">
+                                                      {rows[5]}
+                                                    </font>
+                                                  </td> 
+                                                }else if(rows[5]>=70 && rows[5] < 90){
+                                                  fila5 = 
+                                                  <td style={{backgroundColor: "#FFC000"}}>
+                                                    <font size="1" face="arial"color="black">
+                                                      {rows[5]}
+                                                    </font>
+                                                  </td> 
+                                                }
+                                                else if( rows[5] >= 90){
+                                                  fila5 = 
+                                                  <td style={{backgroundColor: "#FF0000"}}>
+                                                    <font size="1" face="arial"color="black">
+                                                      {rows[5]}
+                                                    </font>
+                                                  </td> 
+                                              } 
+
 
                                                 return(
-                                                  <tr><font size="1" face="arial"color="black" >{filas}</font></tr>     
-                                                )  
-                                              })} 
-                                              </TableCell>
-                                              <TableCell width="8%">
-                                              {totalPonderacion.map(filas=>{  
-                                                return(
-                                                  <tr><font size="1" face="arial"color="black" >{filas}</font></tr>     
-                                                )  
-                                              })} 
-                                              </TableCell>
-                                            </TableRow>  
-                                            </Table>
+                                                    <tbody>
+                                                      <tr>
+                                                        <th scope="row"><font size="1" face="arial"color="black" >{increment++}</font></th>
+                                                        <td  width="30%"  className = "text-left"><font size="1" face="arial"color="black" >{rows[0]}</font></td>
+                                                         {fila1}
+                                                         {fila2}
+                                                         {fila3}
+                                                         {fila4}
+                                                         {fila5}
+                                                      </tr>
+                                                    </tbody>                     
+                                                )
+
+                                              })}
+
+                                              </table>
+                                              <br/>
+                                              <p style={{marginLeft:"5%"}}><font size="1" face="arial"color="black" >FRECUENCIA</font></p>
+                                              <table className=" table-bordered" style={{marginLeft:"5%"}}>
+                                              
+                                                  <tr>
+                                                    <td width="10%" scope="col"></td>
+                                                    <td width="40%" scope="col"><font size="1" face="arial"color="black" >Ponderaciones</font></td>
+                                                    <td width="10%"style={{backgroundColor: "#9BE0F7"}} scope="col"><font size="1" face="arial"color="black" >Nulo</font></td>
+                                                    <td width="10%"style={{backgroundColor: "#6BF56E"}} scope="col"><font size="1" face="arial"color="black" >Bajo</font></td>
+                                                    <td width="10%"style={{backgroundColor: "#FFFF00"}} scope="col"><font size="1" face="arial"color="black" >Medio</font></td>
+                                                    <td width="10%"style={{backgroundColor: "#FFC000"}} scope="col"><font size="1" face="arial"color="black" >Alto</font></td>
+                                                    <td width="10%"style={{backgroundColor: "#FF0000"}} scope="col"><font size="1" face="arial"color="black" >Muy Alto</font></td>
+                                                  </tr>
+                                               
+                                                <tbody>
+                                                  <tr>
+                                                  <td><font size="1" face="arial"color="black" >1</font></td>
+                                                  <td><font size="1" face="arial"color="black" >Ambiente de Trabajo</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaAmbiente1}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaAmbiente2}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaAmbiente3}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaAmbiente4}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaAmbiente5}</font></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td><font size="1" face="arial"color="black" >2</font></td>
+                                                  <td><font size="1" face="arial"color="black" >Factores Propios</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaFactores1}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaFactores2}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaFactores3}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaFactores4}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaFactores5}</font></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td><font size="1" face="arial"color="black" >3</font></td>
+                                                  <td><font size="1" face="arial"color="black" >Organizacion</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaOrganizacion1}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaOrganizacion2}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaOrganizacion3}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaOrganizacion4}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaOrganizacion5}</font></td>
+                                                  </tr>
+                                                  <tr>
+                                                  <td><font size="1" face="arial"color="black" >4</font></td>
+                                                  <td><font size="1" face="arial"color="black" >Liderazgo</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaLiderazgo1}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaLiderazgo2}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaLiderazgo3}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaLiderazgo4}</font></td>
+                                                  <td><font size="1" face="arial"color="black" >{frecuenciaLiderazgo5}</font></td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                              <td>
+                                               
+                                               </td>
                                            
                                       </div>
                                   </PDFExport>
@@ -9523,6 +9738,9 @@ ponderacionIndividual =  <React.Fragment>
                 
                         </React.Fragment>
                 }
+
+
+                
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     return (
       <React.Fragment>
