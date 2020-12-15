@@ -864,7 +864,7 @@ export default class App extends React.Component {
                           valor1.push(rows[0].ponderacion)           
                    })
                    this.setState({valor1:valor1})  
-                   this.setState({empleadosRE:empleados.sort()})        
+                  this.setState({empleadosRE:empleados})        
                        }) 
                        
                     filtrado.map(rows=>{
@@ -12473,21 +12473,281 @@ if(ponderacionPromedio<50){
         <br/>
 
     <TableContainer component={Paper} style={{marginBottom:30}}>
-      <Table  size="large">
+      <Table  size="small">
     
         <TableBody>
             <TableRow>
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Nombre</strong></TableCell> 
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Ambiente de Trabajo</strong></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Factores Propios</strong></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Organización del tiempo</strong></TableCell>              
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Liderazgo</strong></TableCell>   
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong> Entorno organizacional</strong></TableCell>
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Total</strong></TableCell>              
+            <TableCell width="5%" component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>#</strong></TableCell> 
+              <TableCell width="30%" component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Nombre</strong></TableCell> 
+              <TableCell width="11%" component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Ambiente de Trabajo</strong></TableCell>              
+              <TableCell width="11%"component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Factores Propios</strong></TableCell>              
+              <TableCell width="11%" component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Organización del tiempo</strong></TableCell>              
+              <TableCell width="11%" component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Liderazgo</strong></TableCell>   
+              <TableCell width="11%" component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong> Entorno organizacional</strong></TableCell>
+              <TableCell width="10%" component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>Total</strong></TableCell>              
 
             </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >
+            {arrayFinal.map(rows=>{
+              let fila1;
+              let fila2;
+              let fila3;
+              let fila4;
+              let fila5;
+              let fila6;
+          
+
+              if(rows[1] < 5){
+                fila1 = <td style={{backgroundColor: "#9BE0F7"}}>
+                    <font size="1" face="arial"color="black">
+                    {rows[1]}
+                    </font>
+                  </td>
+                  frecuenciaCategoriaUno1++;
+              }else if(rows[1] >= 5 && rows[1] < 9){                                                     
+                  fila1 = <td style={{backgroundColor: "#6BF56E"}}>
+                    <font size="1" face="arial"color="black">
+                    {rows[1]}
+                    </font>
+                  </td>
+                  frecuenciaCategoriaUno2++;
+              }else if(rows[1] >= 9 && rows[1] < 11){
+                  fila1 = <td style={{backgroundColor: "#FFFF00"}}>
+                      <font size="1" face="arial"color="black">
+                      {rows[1]}
+                      </font>
+                    </td>
+                    frecuenciaCategoriaUno3++;
+              }else if(rows[1] >= 11 && rows[1] < 14){
+                  fila1 = <td style={{backgroundColor: "#FFC000"}}>
+                      <font size="1" face="arial"color="black">
+                      {rows[1]}
+                      </font>
+                    </td>
+                    frecuenciaCategoriaUno4++;
+              }else if(rows[1] >= 14){
+                    fila1 = <td  style={{backgroundColor: "#FF0000"}} >
+                      <font size="1" face="arial"color="black">
+                      {rows[1]}
+                      </font>
+                    </td>
+                    frecuenciaCategoriaUno5++;
+              }
+
+              if(rows[2] < 15){
+                fila2 = <td style={{backgroundColor: "#9BE0F7"}}>
+                <font size="1" face="arial"color="black">
+                {rows[2]}
+                </font>
+                </td>
+                frecuenciaCategoriaDos1++;
+              }else if(rows[2] >= 15 && rows[2] < 30){
+                fila2 = <td style={{backgroundColor: "#6BF56E"}}>
+                <font size="1" face="arial"color="black">
+                {rows[2]}
+                </font>
+                </td>
+                frecuenciaCategoriaDos2++;
+              }else if(rows[2] >=30 && rows[2] < 45){
+                fila2 = <td style={{backgroundColor: "#FFFF00"}}>
+                <font size="1" face="arial"color="black">
+                {rows[2]}
+                </font>
+                </td>
+                frecuenciaCategoriaDos3++;
+              }else if(rows[2] >=45 && rows[2] < 60){
+                fila2 = <td style={{backgroundColor: "#FFC000"}}>
+                <font size="1" face="arial"color="black">
+                {rows[2]}
+                </font>
+                </td>
+                frecuenciaCategoriaDos4++;
+              }else if(rows[2] >= 60){
+                fila2 = <td style={{backgroundColor: "#FF0000"}}>
+                <font size="1" face="arial"color="black">
+                {rows[2]}
+                </font>
+                </td>
+                frecuenciaCategoriaDos5++;
+              }
+
+            if(rows[3] < 5){
+              fila3 = 
+              <td style={{backgroundColor: "#9BE0F7"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[3]}
+                </font>
+              </td>
+              frecuenciaCategoriaTres1++;
+            }else if(rows[3] >= 5 && rows[3] < 7){
+              fila3 = 
+              <td style={{backgroundColor: "#6BF56E"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[3]}
+                </font>
+              </td>
+              frecuenciaCategoriaTres2++;
+            }else if(rows[3] >=7 && rows[3] < 10){
+              fila3 = 
+              <td style={{backgroundColor: "#FFFF00"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[3]}
+                </font>
+              </td>
+              frecuenciaCategoriaTres3++;
+            }else if(rows[3] >=10 && rows[3] < 13){
+              fila3 = 
+              <td style={{backgroundColor: "#FFC000"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[3]}
+                </font>
+              </td>
+              frecuenciaCategoriaTres4++;
+            }else if(rows[3] >= 13){
+              fila3 = 
+              <td style={{backgroundColor: "#FF0000"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[3]}
+                </font>
+              </td>
+              frecuenciaCategoriaTres5++;
+            }
+
+            if(rows[4]  < 14){
+              fila4 = 
+              <td style={{backgroundColor: "#9BE0F7"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[4]}
+                </font>
+              </td>
+              frecuenciaCategoriaCuatro1++;
+            }else if(rows[4] >= 14 && rows[4] < 29){
+              fila4 = 
+              <td style={{backgroundColor: "#6BF56E"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[4]}
+                </font>
+              </td>
+                frecuenciaCategoriaCuatro2++;
+            }else if(rows[4] >=29 && rows[4] < 42){
+              fila4 = 
+              <td style={{backgroundColor: "#FFFF00"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[4]}
+                </font>
+              </td>
+                frecuenciaCategoriaCuatro3++;
+            }else if(rows[4] >=42 && rows[4] < 58){
+              fila4 = 
+              <td style={{backgroundColor: "#FFC000"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[4]}
+                </font>
+              </td>
+                frecuenciaCategoriaCuatro4++;
+            }else if(rows[4] >= 58){
+              fila4 = 
+              <td style={{backgroundColor: "#FF0000"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[4]}
+                </font>
+              </td>   
+                frecuenciaCategoriaCuatro5++;  
+            }
+            if(rows[5]  < 10){
+              fila5 = 
+              <td style={{backgroundColor: "#9BE0F7"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[5]}
+                </font>
+              </td>
+              frecuenciaCategoriaCinco1++;
+            }else if(rows[5] >= 10 && rows[5] < 14){
+              fila5 = 
+              <td style={{backgroundColor: "#6BF56E"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[5]}
+                </font>
+              </td>
+                frecuenciaCategoriaCinco2++;
+            }else if(rows[5] >=14 && rows[5] < 18){
+              fila5 = 
+              <td style={{backgroundColor: "#FFFF00"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[5]}
+                </font>
+              </td>
+                frecuenciaCategoriaCinco3++;
+            }else if(rows[5] >=18 && rows[5] < 23){
+              fila5 = 
+              <td style={{backgroundColor: "#FFC000"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[5]}
+                </font>
+              </td>
+                frecuenciaCategoriaCinco4++;
+            }else if(rows[5] >= 23){
+              fila5 = 
+              <td style={{backgroundColor: "#FF0000"}}>
+                <font size="1" face="arial"color="black">
+                  {rows[5]}
+                </font>
+              </td>   
+                frecuenciaCategoriaCinco5++;  
+            }
+
+              if(rows[6]<50){
+                fila6 = 
+                <td style={{backgroundColor: "#9BE0F7"}}>
+                  <font size="1" face="arial"color="black">
+                    {rows[6]}
+                  </font>
+                </td>    
+              }
+              else if(rows[6]>=50 && rows[6] <75){
+                fila6 = 
+                <td style={{backgroundColor: "#6BF56E"}}>
+                  <font size="1" face="arial"color="black">
+                    {rows[6]}
+                  </font>
+                </td> 
+              }else if(rows[6]>=75 && rows[6] < 99){
+                fila6 = 
+                <td style={{backgroundColor: "#FFFF00"}}>
+                  <font size="1" face="arial"color="black">
+                    {rows[6]}
+                  </font>
+                </td> 
+              }else if(rows[6]>=99 && rows[6] < 140){
+                fila6 = 
+                <td style={{backgroundColor: "#FFC000"}}>
+                  <font size="1" face="arial"color="black">
+                    {rows[6]}
+                  </font>
+                </td> 
+              }
+              else if( rows[6] >= 140){
+                fila6 = 
+                <td style={{backgroundColor: "#FF0000"}}>
+                  <font size="1" face="arial"color="black">
+                    {rows[6]}
+                  </font>
+                </td> 
+            } 
+              return(
+                    <tr>
+                      <td><font size="1" face="arial"color="black" >{increment++}</font></td>
+                      <td  className = "text-left"><font size="1" face="arial"color="black" >{rows[0]}</font></td>
+                        {fila1}
+                        {fila2}
+                        {fila3}
+                        {fila4}
+                        {fila5}
+                        {fila6}
+                    </tr>
+              )
+
+            })}  
+            {/* <TableCell component="th" scope="row" >
             {this.state.empleadosRE.map(rows=>{
               return(
                 <tr>{rows}</tr>                          
@@ -12536,8 +12796,7 @@ if(ponderacionPromedio<50){
                 <tr>{filas}</tr>     
               )  
             })} 
-            </TableCell>
-           </TableRow>  
+            </TableCell> */}
                    
         </TableBody>
       </Table>
