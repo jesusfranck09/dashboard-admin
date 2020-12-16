@@ -12272,17 +12272,17 @@ if(ponderacionPromedio<50){
   celda = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="1" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
   celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="3" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
   
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
+  criterios = <font size="2" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font>
   criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
   
   }else if(ponderacionPromedio>=50 && ponderacionPromedio < 75){
     celda = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">BAJO</font></TableCell>
     celdaPrev = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="3" face="arial"color="black" align="justify">BAJO</font></TableCell>
   
-    criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
+    criterios = <font size="2" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
     psicosociales y programas para: la prevención de los factores de riesgo
     psicosocial, la promoción de un entorno organizacional favorable y la
-    prevención de la violencia laboral.</font></TableCell>
+    prevención de la violencia laboral.</font>
     
     criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
     psicosociales y programas para: la prevención de los factores de riesgo
@@ -12292,11 +12292,11 @@ if(ponderacionPromedio<50){
     celda = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">MEDIO</font></TableCell>
     celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="3" face="arial"color="black" align="justify">MEDIO</font></TableCell>
   
-    criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
+    criterios = <font size="2" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
     programas para la prevención de los factores de riesgo psicosocial, la
     promoción de un entorno organizacional favorable y la prevención de la
     violencia laboral, así como reforzar su aplicación y difusión, mediante un
-    Programa de intervención.</font></TableCell>
+    Programa de intervención.</font>
     criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
     programas para la prevención de los factores de riesgo psicosocial, la
     promoción de un entorno organizacional favorable y la prevención de la
@@ -12307,14 +12307,14 @@ if(ponderacionPromedio<50){
    celda = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="1" face="arial"color="black" align="justify">ALTO</font></TableCell>
    celdaPrev = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="3" face="arial"color="black" align="justify">ALTO</font></TableCell>
   
-   criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
+   criterios =<font size="2" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
    se puedan determinar las acciones de intervención apropiadas a través de un
    Programa de intervención, que podrá incluir una evaluación específica y
    deberá incluir una campaña de sensibilización, revisar la política de
    prevención de riesgos psicosociales y programas para la prevención de los
    factores de riesgo psicosocial, la promoción de un entorno organizacional
    favorable y la prevención de la violencia laboral, así como reforzar su
-   aplicación y difusión.</font></TableCell>
+   aplicación y difusión.</font>
    
    criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
    se puedan determinar las acciones de intervención apropiadas a través de un
@@ -12329,13 +12329,13 @@ if(ponderacionPromedio<50){
     celda  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="1" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
     celdaPrev  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="3" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
    
-   criterios= <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
+   criterios= <font size="2" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
     las acciones de intervención apropiadas, mediante un Programa de
     intervención que deberá incluir evaluaciones específicas, y contemplar
     campañas de sensibilización, revisar la política de prevención de riesgos
     psicosociales y programas para la prevención de los factores de riesgo
     psicosocial, la promoción de un entorno organizacional favorable y la
-    prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
+    prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font>
   
     criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="3" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
     las acciones de intervención apropiadas, mediante un Programa de
@@ -12460,7 +12460,7 @@ if(ponderacionPromedio<50){
           <Table   responsive small borderless className="text-left mt-4 ">
           <TableHead>
           <TableRow>
-            <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>RESULTADOS GENERALES</TableCell>
+            <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>PUNTAJE PROMEDIO</TableCell>
               {celdaPrev}
             <TableCell width="6%"  > <strong>   TOTAL {ponderacionPromedio}  PUNTOS </strong></TableCell>
             <TableCell width="2%" ></TableCell>
@@ -12498,35 +12498,35 @@ if(ponderacionPromedio<50){
 
               if(rows[1] < 5){
                 fila1 = <td style={{backgroundColor: "#9BE0F7"}}>
-                    <font size="1" face="arial"color="black">
+                    <font size="2" face="arial"color="black">
                     {rows[1]}
                     </font>
                   </td>
                   frecuenciaCategoriaUno1++;
               }else if(rows[1] >= 5 && rows[1] < 9){                                                     
                   fila1 = <td style={{backgroundColor: "#6BF56E"}}>
-                    <font size="1" face="arial"color="black">
+                    <font size="2" face="arial"color="black">
                     {rows[1]}
                     </font>
                   </td>
                   frecuenciaCategoriaUno2++;
               }else if(rows[1] >= 9 && rows[1] < 11){
                   fila1 = <td style={{backgroundColor: "#FFFF00"}}>
-                      <font size="1" face="arial"color="black">
+                      <font size="2" face="arial"color="black">
                       {rows[1]}
                       </font>
                     </td>
                     frecuenciaCategoriaUno3++;
               }else if(rows[1] >= 11 && rows[1] < 14){
                   fila1 = <td style={{backgroundColor: "#FFC000"}}>
-                      <font size="1" face="arial"color="black">
+                      <font size="2" face="arial"color="black">
                       {rows[1]}
                       </font>
                     </td>
                     frecuenciaCategoriaUno4++;
               }else if(rows[1] >= 14){
                     fila1 = <td  style={{backgroundColor: "#FF0000"}} >
-                      <font size="1" face="arial"color="black">
+                      <font size="2" face="arial"color="black">
                       {rows[1]}
                       </font>
                     </td>
@@ -12535,35 +12535,35 @@ if(ponderacionPromedio<50){
 
               if(rows[2] < 15){
                 fila2 = <td style={{backgroundColor: "#9BE0F7"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                 {rows[2]}
                 </font>
                 </td>
                 frecuenciaCategoriaDos1++;
               }else if(rows[2] >= 15 && rows[2] < 30){
                 fila2 = <td style={{backgroundColor: "#6BF56E"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                 {rows[2]}
                 </font>
                 </td>
                 frecuenciaCategoriaDos2++;
               }else if(rows[2] >=30 && rows[2] < 45){
                 fila2 = <td style={{backgroundColor: "#FFFF00"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                 {rows[2]}
                 </font>
                 </td>
                 frecuenciaCategoriaDos3++;
               }else if(rows[2] >=45 && rows[2] < 60){
                 fila2 = <td style={{backgroundColor: "#FFC000"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                 {rows[2]}
                 </font>
                 </td>
                 frecuenciaCategoriaDos4++;
               }else if(rows[2] >= 60){
                 fila2 = <td style={{backgroundColor: "#FF0000"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                 {rows[2]}
                 </font>
                 </td>
@@ -12573,7 +12573,7 @@ if(ponderacionPromedio<50){
             if(rows[3] < 5){
               fila3 = 
               <td style={{backgroundColor: "#9BE0F7"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[3]}
                 </font>
               </td>
@@ -12581,7 +12581,7 @@ if(ponderacionPromedio<50){
             }else if(rows[3] >= 5 && rows[3] < 7){
               fila3 = 
               <td style={{backgroundColor: "#6BF56E"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[3]}
                 </font>
               </td>
@@ -12589,7 +12589,7 @@ if(ponderacionPromedio<50){
             }else if(rows[3] >=7 && rows[3] < 10){
               fila3 = 
               <td style={{backgroundColor: "#FFFF00"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[3]}
                 </font>
               </td>
@@ -12597,7 +12597,7 @@ if(ponderacionPromedio<50){
             }else if(rows[3] >=10 && rows[3] < 13){
               fila3 = 
               <td style={{backgroundColor: "#FFC000"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[3]}
                 </font>
               </td>
@@ -12605,7 +12605,7 @@ if(ponderacionPromedio<50){
             }else if(rows[3] >= 13){
               fila3 = 
               <td style={{backgroundColor: "#FF0000"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[3]}
                 </font>
               </td>
@@ -12615,7 +12615,7 @@ if(ponderacionPromedio<50){
             if(rows[4]  < 14){
               fila4 = 
               <td style={{backgroundColor: "#9BE0F7"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[4]}
                 </font>
               </td>
@@ -12623,7 +12623,7 @@ if(ponderacionPromedio<50){
             }else if(rows[4] >= 14 && rows[4] < 29){
               fila4 = 
               <td style={{backgroundColor: "#6BF56E"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[4]}
                 </font>
               </td>
@@ -12631,7 +12631,7 @@ if(ponderacionPromedio<50){
             }else if(rows[4] >=29 && rows[4] < 42){
               fila4 = 
               <td style={{backgroundColor: "#FFFF00"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[4]}
                 </font>
               </td>
@@ -12639,7 +12639,7 @@ if(ponderacionPromedio<50){
             }else if(rows[4] >=42 && rows[4] < 58){
               fila4 = 
               <td style={{backgroundColor: "#FFC000"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[4]}
                 </font>
               </td>
@@ -12647,7 +12647,7 @@ if(ponderacionPromedio<50){
             }else if(rows[4] >= 58){
               fila4 = 
               <td style={{backgroundColor: "#FF0000"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[4]}
                 </font>
               </td>   
@@ -12656,7 +12656,7 @@ if(ponderacionPromedio<50){
             if(rows[5]  < 10){
               fila5 = 
               <td style={{backgroundColor: "#9BE0F7"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[5]}
                 </font>
               </td>
@@ -12664,7 +12664,7 @@ if(ponderacionPromedio<50){
             }else if(rows[5] >= 10 && rows[5] < 14){
               fila5 = 
               <td style={{backgroundColor: "#6BF56E"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[5]}
                 </font>
               </td>
@@ -12672,7 +12672,7 @@ if(ponderacionPromedio<50){
             }else if(rows[5] >=14 && rows[5] < 18){
               fila5 = 
               <td style={{backgroundColor: "#FFFF00"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[5]}
                 </font>
               </td>
@@ -12680,7 +12680,7 @@ if(ponderacionPromedio<50){
             }else if(rows[5] >=18 && rows[5] < 23){
               fila5 = 
               <td style={{backgroundColor: "#FFC000"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[5]}
                 </font>
               </td>
@@ -12688,7 +12688,7 @@ if(ponderacionPromedio<50){
             }else if(rows[5] >= 23){
               fila5 = 
               <td style={{backgroundColor: "#FF0000"}}>
-                <font size="1" face="arial"color="black">
+                <font size="2" face="arial"color="black">
                   {rows[5]}
                 </font>
               </td>   
@@ -12698,7 +12698,7 @@ if(ponderacionPromedio<50){
               if(rows[6]<50){
                 fila6 = 
                 <td style={{backgroundColor: "#9BE0F7"}}>
-                  <font size="1" face="arial"color="black">
+                  <font size="2" face="arial"color="black">
                     {rows[6]}
                   </font>
                 </td>    
@@ -12706,21 +12706,21 @@ if(ponderacionPromedio<50){
               else if(rows[6]>=50 && rows[6] <75){
                 fila6 = 
                 <td style={{backgroundColor: "#6BF56E"}}>
-                  <font size="1" face="arial"color="black">
+                  <font size="2" face="arial"color="black">
                     {rows[6]}
                   </font>
                 </td> 
               }else if(rows[6]>=75 && rows[6] < 99){
                 fila6 = 
                 <td style={{backgroundColor: "#FFFF00"}}>
-                  <font size="1" face="arial"color="black">
+                  <font size="2" face="arial"color="black">
                     {rows[6]}
                   </font>
                 </td> 
               }else if(rows[6]>=99 && rows[6] < 140){
                 fila6 = 
                 <td style={{backgroundColor: "#FFC000"}}>
-                  <font size="1" face="arial"color="black">
+                  <font size="2" face="arial"color="black">
                     {rows[6]}
                   </font>
                 </td> 
@@ -12728,15 +12728,15 @@ if(ponderacionPromedio<50){
               else if( rows[6] >= 140){
                 fila6 = 
                 <td style={{backgroundColor: "#FF0000"}}>
-                  <font size="1" face="arial"color="black">
+                  <font size="2" face="arial"color="black">
                     {rows[6]}
                   </font>
                 </td> 
             } 
               return(
                     <tr>
-                      <td><font size="1" face="arial"color="black" >{increment++}</font></td>
-                      <td  className = "text-left"><font size="1" face="arial"color="black" >{rows[0]}</font></td>
+                      <td><font size="2" face="arial"color="black" >{increment++}</font></td>
+                      <td  className = "text-left"><font size="2" face="arial"color="black" >{rows[0]}</font></td>
                         {fila1}
                         {fila2}
                         {fila3}
@@ -12906,7 +12906,7 @@ if(ponderacionPromedio<50){
                                     <td width="100%"><font size="1" face="arial"color="black" >{criterios}</font></td>
                                   </tr>
                                   </Table>
-                           
+                                 <br/>
                                 <table className="table-bordered" style={{marginLeft:"5%"}}>
                              
                                   <tr >
