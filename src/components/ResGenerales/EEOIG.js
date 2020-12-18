@@ -12502,35 +12502,30 @@ if(ponderacionPromedio<50){
                     {rows[1]}
                     </font>
                   </td>
-                  frecuenciaCategoriaUno1++;
               }else if(rows[1] >= 5 && rows[1] < 9){                                                     
                   fila1 = <td style={{backgroundColor: "#6BF56E"}}>
                     <font size="2" face="arial"color="black">
                     {rows[1]}
                     </font>
                   </td>
-                  frecuenciaCategoriaUno2++;
               }else if(rows[1] >= 9 && rows[1] < 11){
                   fila1 = <td style={{backgroundColor: "#FFFF00"}}>
                       <font size="2" face="arial"color="black">
                       {rows[1]}
                       </font>
                     </td>
-                    frecuenciaCategoriaUno3++;
               }else if(rows[1] >= 11 && rows[1] < 14){
                   fila1 = <td style={{backgroundColor: "#FFC000"}}>
                       <font size="2" face="arial"color="black">
                       {rows[1]}
                       </font>
                     </td>
-                    frecuenciaCategoriaUno4++;
               }else if(rows[1] >= 14){
                     fila1 = <td  style={{backgroundColor: "#FF0000"}} >
                       <font size="2" face="arial"color="black">
                       {rows[1]}
                       </font>
                     </td>
-                    frecuenciaCategoriaUno5++;
               }
 
               if(rows[2] < 15){
@@ -12539,35 +12534,30 @@ if(ponderacionPromedio<50){
                 {rows[2]}
                 </font>
                 </td>
-                frecuenciaCategoriaDos1++;
               }else if(rows[2] >= 15 && rows[2] < 30){
                 fila2 = <td style={{backgroundColor: "#6BF56E"}}>
                 <font size="2" face="arial"color="black">
                 {rows[2]}
                 </font>
                 </td>
-                frecuenciaCategoriaDos2++;
               }else if(rows[2] >=30 && rows[2] < 45){
                 fila2 = <td style={{backgroundColor: "#FFFF00"}}>
                 <font size="2" face="arial"color="black">
                 {rows[2]}
                 </font>
                 </td>
-                frecuenciaCategoriaDos3++;
               }else if(rows[2] >=45 && rows[2] < 60){
                 fila2 = <td style={{backgroundColor: "#FFC000"}}>
                 <font size="2" face="arial"color="black">
                 {rows[2]}
                 </font>
                 </td>
-                frecuenciaCategoriaDos4++;
               }else if(rows[2] >= 60){
                 fila2 = <td style={{backgroundColor: "#FF0000"}}>
                 <font size="2" face="arial"color="black">
                 {rows[2]}
                 </font>
                 </td>
-                frecuenciaCategoriaDos5++;
               }
 
             if(rows[3] < 5){
@@ -12577,7 +12567,6 @@ if(ponderacionPromedio<50){
                   {rows[3]}
                 </font>
               </td>
-              frecuenciaCategoriaTres1++;
             }else if(rows[3] >= 5 && rows[3] < 7){
               fila3 = 
               <td style={{backgroundColor: "#6BF56E"}}>
@@ -12585,7 +12574,6 @@ if(ponderacionPromedio<50){
                   {rows[3]}
                 </font>
               </td>
-              frecuenciaCategoriaTres2++;
             }else if(rows[3] >=7 && rows[3] < 10){
               fila3 = 
               <td style={{backgroundColor: "#FFFF00"}}>
@@ -12593,7 +12581,6 @@ if(ponderacionPromedio<50){
                   {rows[3]}
                 </font>
               </td>
-              frecuenciaCategoriaTres3++;
             }else if(rows[3] >=10 && rows[3] < 13){
               fila3 = 
               <td style={{backgroundColor: "#FFC000"}}>
@@ -12601,7 +12588,6 @@ if(ponderacionPromedio<50){
                   {rows[3]}
                 </font>
               </td>
-              frecuenciaCategoriaTres4++;
             }else if(rows[3] >= 13){
               fila3 = 
               <td style={{backgroundColor: "#FF0000"}}>
@@ -12609,7 +12595,6 @@ if(ponderacionPromedio<50){
                   {rows[3]}
                 </font>
               </td>
-              frecuenciaCategoriaTres5++;
             }
 
             if(rows[4]  < 14){
@@ -12619,7 +12604,6 @@ if(ponderacionPromedio<50){
                   {rows[4]}
                 </font>
               </td>
-              frecuenciaCategoriaCuatro1++;
             }else if(rows[4] >= 14 && rows[4] < 29){
               fila4 = 
               <td style={{backgroundColor: "#6BF56E"}}>
@@ -12627,7 +12611,6 @@ if(ponderacionPromedio<50){
                   {rows[4]}
                 </font>
               </td>
-                frecuenciaCategoriaCuatro2++;
             }else if(rows[4] >=29 && rows[4] < 42){
               fila4 = 
               <td style={{backgroundColor: "#FFFF00"}}>
@@ -12635,7 +12618,6 @@ if(ponderacionPromedio<50){
                   {rows[4]}
                 </font>
               </td>
-                frecuenciaCategoriaCuatro3++;
             }else if(rows[4] >=42 && rows[4] < 58){
               fila4 = 
               <td style={{backgroundColor: "#FFC000"}}>
@@ -12643,7 +12625,6 @@ if(ponderacionPromedio<50){
                   {rows[4]}
                 </font>
               </td>
-                frecuenciaCategoriaCuatro4++;
             }else if(rows[4] >= 58){
               fila4 = 
               <td style={{backgroundColor: "#FF0000"}}>
@@ -12651,7 +12632,6 @@ if(ponderacionPromedio<50){
                   {rows[4]}
                 </font>
               </td>   
-                frecuenciaCategoriaCuatro5++;  
             }
             if(rows[5]  < 10){
               fila5 = 
@@ -12660,7 +12640,6 @@ if(ponderacionPromedio<50){
                   {rows[5]}
                 </font>
               </td>
-              frecuenciaCategoriaCinco1++;
             }else if(rows[5] >= 10 && rows[5] < 14){
               fila5 = 
               <td style={{backgroundColor: "#6BF56E"}}>
@@ -12668,7 +12647,6 @@ if(ponderacionPromedio<50){
                   {rows[5]}
                 </font>
               </td>
-                frecuenciaCategoriaCinco2++;
             }else if(rows[5] >=14 && rows[5] < 18){
               fila5 = 
               <td style={{backgroundColor: "#FFFF00"}}>
@@ -12676,7 +12654,6 @@ if(ponderacionPromedio<50){
                   {rows[5]}
                 </font>
               </td>
-                frecuenciaCategoriaCinco3++;
             }else if(rows[5] >=18 && rows[5] < 23){
               fila5 = 
               <td style={{backgroundColor: "#FFC000"}}>
@@ -12684,7 +12661,6 @@ if(ponderacionPromedio<50){
                   {rows[5]}
                 </font>
               </td>
-                frecuenciaCategoriaCinco4++;
             }else if(rows[5] >= 23){
               fila5 = 
               <td style={{backgroundColor: "#FF0000"}}>
@@ -12692,7 +12668,6 @@ if(ponderacionPromedio<50){
                   {rows[5]}
                 </font>
               </td>   
-                frecuenciaCategoriaCinco5++;  
             }
 
               if(rows[6]<50){

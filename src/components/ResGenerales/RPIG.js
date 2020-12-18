@@ -9624,7 +9624,7 @@ ponderacionIndividual =  <React.Fragment>
                                                 </tr>   
                                                 </MDBTableBody>                                              
                                                 </MDBTable>
-                                                <Table style={{marginLeft:"5%"}}  responsive small bordless  className="text-left">
+                                                <table style={{marginLeft:"5%"}}  responsive small bordless  className="text-left">
                                                 <tr >                              
                                                 <td width="100%"><font size="2" face="arial"color="black" ><strong>Necesidad de la acción : </strong></font></td>                                
                                                
@@ -9632,7 +9632,7 @@ ponderacionIndividual =  <React.Fragment>
                                                 <tr>
                                                   <td width="100%"><font size="1" face="arial"color="black" >{criterios}</font></td>
                                                 </tr>
-                                                </Table>
+                                                </table>
                                          
                                               <table className="table-bordered" style={{marginLeft:"5%"}}>
                                            
@@ -9851,8 +9851,6 @@ ponderacionIndividual =  <React.Fragment>
                                                     </font>
                                                   </td> 
                                               } 
-
-
                                                 return(
                                                     
                                                       <tr>
@@ -9864,7 +9862,6 @@ ponderacionIndividual =  <React.Fragment>
                                                          {fila4}
                                                          {fila5}
                                                       </tr>
-                                                                         
                                                 )
 
                                               })}

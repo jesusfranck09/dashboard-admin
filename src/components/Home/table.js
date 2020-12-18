@@ -276,11 +276,13 @@ class TableEmployees extends React.Component {
     }
 
      sendMailATS =  (datosEmpleados) =>{
+       console.log("datosEmpleados" , datosEmpleados)
       const idAdmin = localStorage.getItem("idAdmin")
       let array=[]
         datosEmpleados.map(rows=>{
          array.push(rows.data[0],[rows.data[4]])
         })
+        console.log("periodo" , this.state.periodo)
         if ( this.state.periodoActivo > 0){
         axios({
         url:  API,
@@ -294,17 +296,20 @@ class TableEmployees extends React.Component {
               }
             `
         }
-            }).then(datos => {  
+            }).then(datos => { 
+              console.log("entro" ) 
               DialogUtility.alert({
                 animationSettings: { effect: 'Zoom' },           
                 content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,
                 title: 'Aviso!',
                 position: "fixed"
-                });
+                })
                   setTimeout(() => {
                     window.location.reload()
                   },1000);
-            });
+            }).catch(err=>{
+              console.log("error", err.response)
+            })
       }
     }    
         ///////////////////////////////////////////////////////////////////////////////////////
