@@ -489,6 +489,8 @@ pdfExportComponent ;
 
     let accionSi = 0;
     let accionNo =0;
+    console.log("rows.respuestas", this.state.peticion1)
+
     this.state.peticion1.map(rows=>{
       if(rows[1]){
         if (rows[1].Respuestas === 'si'){
@@ -678,16 +680,16 @@ pdfExportComponent ;
                         
                     <tr>
                         <td width ="35%">  <MDBBtn  size="md" color="secondary" className="k-button text-white" onClick={() => { this.pdfExportComponent.save(); }}>
-                                 Resultados de {this.state.resultados[0].nombre } {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} 
+                                 Respuestas de {this.state.resultados[0].nombre } {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} 
                             </MDBBtn></td>
-                        <td width ="55%">
+                        <td >
                         <MDBBtn className = "text-white"  color="danger" size="md" onClick={ (e)=> window.location.reload()}>Cerrar</MDBBtn>
                         </td>
                     </tr>
 
                     </MDBTableBody>        
                     </MDBTable>
-                        <MDBContainer style={{marginLeft:"6%"}}>
+                        <MDBContainer style={{marginLeft:"3%"}}>
                         <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL<br/>EN LOS CENTROS DE TRABAJO</font>
                         <br/><br/> <strong>{localStorage.getItem("razonsocial")}</strong><br/>
                         <MDBTable small borderless className="text-left mt-4 ">
@@ -929,7 +931,7 @@ pdfExportComponent ;
                                   SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font>
                                     
                                         
-                                        <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
+                                        <MDBTable  component={Paper}  style = {{marginLeft:25}} small  className="text-left">
                                             <MDBTableBody>
                                             <tr>
                                             <td width="25%"><font size="1" face="arial"color="black"><strong>{this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</strong></font></td>
@@ -938,163 +940,97 @@ pdfExportComponent ;
                                         </tr>
                                         <tr></tr>
                                         </MDBTableBody>
-                                        
-                                            </MDBTable>  
-                                        
-                                        <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left  ">
-                                            <MDBTableBody>
-                                            <tr></tr>
-                                            <td ></td>
-                                            <td></td>
-                                    
-                                        
-                                        </MDBTableBody>
-                                        
-                                            </MDBTable>  
+                                        </MDBTable>  
 
-                                        <MDBTable  component={Paper}  small  className="text-left ">
-                                            <MDBTableBody>
-                                            <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">I.- Acontecimiento traumático severo </font>
-                                            </MDBTableBody>                                                                            
-                                            </MDBTable>
-                                            <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left"> 
-                                            <MDBTableBody>
-                                                
-                                                <tr>
-                                            
-                                                <td >
-                                                <font size="1" face="arial"color="black" >¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los
-                                                    siguientes:<br></br> Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
-                                                    grave? Asaltos? Actos violentos que derivaron en lesiones graves? Secuestro? Amenazas?, o Cualquier otro
-                                                    que ponga en riesgo su vida o salud, y/o la de otras personas?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{value1.Respuestas}</font></td>
-                                                
-                                                </tr>
-                    
-                                            </MDBTableBody>
-                                            </MDBTable>
-                                            <MDBTable  component={Paper}  small  className="text-left ">
-                                            <MDBTableBody>
-                                            <font color="red" style= {{marginTop:40,marginLeft:20}}   size="1">II.- Recuerdos persistentes sobre el acontecimiento (durante el último mes)</font>
-                                            </MDBTableBody>
-                                            </MDBTable>
-                                            <MDBTable style={{marginLeft:20}}  component={Paper}  small bordered className="text-left mt-4 ">
-                                            <MDBTableBody>
-                                            <tr>            
-                                                <td >
-                                            <font size="1" face="arial"color="black">¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{value2.Respuestas}</font></td>
+                                        <font color="red" style= {{marginLeft:20}}  size="1">I.- Acontecimiento traumático severo </font>
+
+                                        <table width="500" className=" table-bordered" style={{marginLeft:"5%"}}> 
+                                          <tr>
+                                          <td >
+                                          <font size="1" face="arial"color="black" >¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los
+                                              siguientes:<br></br> Accidente que tenga como consecuencia la muerte, la pérdida de un miembro o una lesión
+                                              grave? Asaltos? Actos violentos que derivaron en lesiones graves? Secuestro? Amenazas?, o Cualquier otro
+                                              que ponga en riesgo su vida o salud, y/o la de otras personas?</font></td>
+                                          <td width="60px"><font size="1" face="arial"color="black">{value1.Respuestas}</font></td>
+                                          </tr>
+                                          </table>
+                                          <font color="red" style= {{marginLeft:20}}   size="1">II.- Recuerdos persistentes sobre el acontecimiento (durante el último mes)</font>
+                                          <table width="500" className=" table-bordered" style={{marginLeft:"5%"}}>
+                                          <tr>            
+                                              <td >
+                                          <font size="1" face="arial"color="black">¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</font></td>
+                                              <td width="60px"><font size="1" face="arial"color="black">{value2.Respuestas}</font></td>
+                                          </tr>
+                                          <tr>
+                                              <td >
+                                          <font size="1" face="arial"color="black">¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</font></td>
+                                              <td width="60px"><font size="1" face="arial"color="black">{value3.Respuestas}</font></td>
+                                          </tr>
+                                          </table>
+                                          <font style= {{marginLeft:20}}  size="1" color="red" >III.- Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento</font>
+                                          <table width="500" className=" table-bordered" style={{marginLeft:"5%"}}>
+                                            <tr>
+                                            <td >
+                                            <font size="1" face="arial"color="black">¿Se ha esforzado por evitar todo tipo de sentimientos, conversaciones o situaciones que le puedan recordar el acontecimiento?</font></td>
+                                            <td width="60px"><font size="1" face="arial"color="black">{value4.Respuestas}</font></td></tr>
+                                            <tr>
+                                            <td >
+                                            <font size="1" face="arial"color="black">¿Se ha esforzado por evitar todo tipo de actividades, lugares o personas que motivan recuerdos del acontecimiento?</font></td>
+                                            <td width="60px"><font size="1" face="arial"color="black">{value5.Respuestas}</font></td>
                                             </tr>
                                             <tr>
-                                                <td >
-                                            <font size="1" face="arial"color="black">¿Ha tenido sueños de carácter recurrente sobre el acontecimiento, que le producen malestar?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{value3.Respuestas}</font></td>
-                                                
+                                            <td >
+                                            <font size="1" face="arial"color="black">¿Ha tenido dificultad para recordar alguna parte importante del evento?</font></td>
+                                            <td width="60px"><font size="1" face="arial"color="black">{value6.Respuestas}</font></td>
                                             </tr>
-                                            
-                                            </MDBTableBody>
-                                            </MDBTable>
-                                            <MDBTable  component={Paper}  small  className="text-left  ">
-                                            <MDBTableBody>
-                                
-                                            <font style= {{marginLeft:20}}  size="1" color="red" >III.- Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento</font>
-                                        </MDBTableBody>
-                                        </MDBTable>
-                                            <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                                            <MDBTableBody>
-                                                <tr>
-                                                
-                                                <td >
-                                                <font size="1" face="arial"color="black">¿Se ha esforzado por evitar todo tipo de sentimientos, conversaciones o situaciones que le puedan recordar el acontecimiento?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{value4.Respuestas}</font></td></tr>
-                                                
-                                                <tr>
-                                                
-                                                <td >
-                                                <font size="1" face="arial"color="black">¿Se ha esforzado por evitar todo tipo de actividades, lugares o personas que motivan recuerdos del acontecimiento?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{value5.Respuestas}</font></td>
-                                                </tr>
-
-                                                <tr>
-                                                
-                                                <td >
-                                                <font size="1" face="arial"color="black">¿Ha tenido dificultad para recordar alguna parte importante del evento?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{value6.Respuestas}</font></td>
-                                                </tr>
-
-                                                <tr>
-                                                
-                                                <td >
-                                                <font size="1" face="arial"color="black">¿Ha disminuido su interés en sus actividades cotidianas?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{value7.Respuestas}</font></td>
-                                                </tr>
-
-                                                <tr>
-                                                
-                                                <td >
-                                                <font size="1" face="arial"color="black">  ¿Se ha sentido usted alejado o distante de los demás?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{value8.Respuestas}</font></td>
-                                                </tr>
-
-                                                <tr>
-                                                <td >
-                                                <font size="1" face="arial"color="black"> ¿Ha notado que tiene dificultad para expresar sus sentimientos?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{value9.Respuestas}</font></td>
-                                                </tr>
-
-                                                <tr>
-                                                <td >
-                                                <font size="1" face="arial"color="black"> ¿Ha tenido la impresión de que su vida se va a acortar, que va a morir antes que otras personas o que tiene un futuro limitado?</font></td>
-                                                <td width="60px"><font size="1" face="arial"color="black">{value10.Respuestas}</font></td>
-                                                </tr>
-                                            
-                                            </MDBTableBody>
-                                            </MDBTable>
-                                             <br/>
-                                            <MDBTable  component={Paper}  small  className="text-left mt-4 ">
-                                            <MDBTableBody>
+                                            <tr>
+                                            <td >
+                                            <font size="1" face="arial"color="black">¿Ha disminuido su interés en sus actividades cotidianas?</font></td>
+                                            <td width="60px"><font size="1" face="arial"color="black">{value7.Respuestas}</font></td>
+                                            </tr>
+                                            <tr>
+                                            <td >
+                                            <font size="1" face="arial"color="black">  ¿Se ha sentido usted alejado o distante de los demás?</font></td>
+                                            <td width="60px"><font size="1" face="arial"color="black">{value8.Respuestas}</font></td>
+                                            </tr>
+                                            <tr>
+                                            <td >
+                                            <font size="1" face="arial"color="black"> ¿Ha notado que tiene dificultad para expresar sus sentimientos?</font></td>
+                                            <td width="60px"><font size="1" face="arial"color="black">{value9.Respuestas}</font></td>
+                                            </tr>
+                                            <tr>
+                                            <td >
+                                            <font size="1" face="arial"color="black"> ¿Ha tenido la impresión de que su vida se va a acortar, que va a morir antes que otras personas o que tiene un futuro limitado?</font></td>
+                                            <td width="60px"><font size="1" face="arial"color="black">{value10.Respuestas}</font></td>
+                                            </tr>
+                                            </table>
                                             <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV.- Afectación (durante el último mes)</font>
-                                            </MDBTableBody>
-                                            </MDBTable>
-                                            <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                                            <MDBTableBody>
+                                            <table width="500" className=" table-bordered" style={{marginLeft:"5%"}}>
                                                 <tr>
-                                                
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Ha tenido usted dificultades para dormir?</font></td>
                                                 <td width="60px"><font size="1" face="arial"color="black">{value12.Respuestas}</font></td></tr>
-                                                
                                                 <tr>
-                                                
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Ha estado particularmente irritable o le han dado arranques de coraje?</font></td>
                                                 <td width="60px"><font size="1" face="arial"color="black">{value13.Respuestas}</font></td>
                                                 </tr>
-
                                                 <tr>
-                                                
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Ha tenido dificultad para concentrarse?</font></td>
                                                 <td width="60px"><font size="1" face="arial"color="black">{value14.Respuestas}</font></td>
                                                 </tr>
-
                                                 <tr>
-                                                
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Ha estado nervioso o constantemente en alerta?</font></td>
                                                 <td width="60px"><font size="1" face="arial"color="black">{value15.Respuestas}</font></td>
                                                 </tr>
-
                                                 <tr>
-                                                
                                                 <td >
                                                 <font size="1" face="arial"color="black">¿Se ha sobresaltado fácilmente por cualquier cosa?</font></td>
                                                 <td width="60px"><font size="1" face="arial"color="black">{value16.Respuestas}</font></td>
                                                 </tr>
-                                            
-                                                
-                                            </MDBTableBody>
-                                            </MDBTable>
+                                                </table>
                                         </div>
                                     </PDFExport>
                                 </div>
@@ -1180,8 +1116,8 @@ pdfExportComponent ;
           <MDBContainer>
             <MDBRow>     
               <MDBCol>   
-                <MDBBtn  gradient="purple" size="md" outline className="k-button text-white" onClick={() => { this.pdfExportComponent.save(); }}>
-                    Descargar Resultados
+                <MDBBtn color="primary" size="md"  className="text-white" onClick={() => { this.pdfExportComponent.save(); }}>
+                  descargar reporte global
                 </MDBBtn>
               </MDBCol>
               <MDBCol> 
@@ -1284,60 +1220,50 @@ pdfExportComponent ;
                                    </tr>
                                    </MDBTableBody>
                                    </MDBTable>
-                                   <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left ">
-                                    <MDBTableBody>
-                                    <tr>
-                                        <td width="25%"><font size="1" face="arial"color="black"></font></td>
-                                   </tr>
-                                   </MDBTableBody>
-                                   </MDBTable>
-                                   <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left ">
-                                    <MDBTableBody>
+                                  
+                                   <table width="500" className="table-bordered table-lg" style = {{marginLeft:25 , marginBottom:20}}>
                                    <tr>
-                                   <td width="40%" style={{backgroundColor: "#D8D8D8"}}><font size="1" face="arial"color="black">TOTAL DE EVALUACIONES : <strong>{this.state.datosLength}</strong></font></td>
-                                   <td width="30%" style={{backgroundColor: "#FF0000 "}} ><font size="1" face="arial"color="black">ACCIÓN REQUERIDA : {accionSi}</font></td>
-                                   <td width="30%" style={{backgroundColor: "#9BE0F7"}}><font size="1" face="arial"color="black" >ACCIÓN NO REQUERIDA : {accionNo}</font></td>
+                                   <td width="36%" className="text-center" style={{backgroundColor: "#D8D8D8"}}><font size="1" face="arial"color="black">TOTAL :<strong>{this.state.datosLength}</strong></font></td>
+                                   <td width="32%" className="text-center" style={{backgroundColor: "#FF0000 "}} ><font size="1" face="arial"color="black">ACCIÓN REQUERIDA : {accionSi}</font></td>
+                                   <td width="32%" className="text-center" style={{backgroundColor: "#9BE0F7"}}><font size="1" face="arial"color="black" >ACCIÓN NO REQUERIDA : {accionNo}</font></td>
                                    </tr>                                  
-                                   </MDBTableBody>
-                                    </MDBTable>  
-                                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
-                                  <MDBTableBody>                                    
+                                    </table>  
+                                <table width="500" style = {{marginLeft:25 }}className="table-bordered table-lg" > 
                                     <tr >   
-                                    <td width="5%"><font size="1" face="arial"color="black" ><strong>#</strong></font></td>                           
-                                    <td width="19%" ><font size="1" face="arial"color="black"><strong>Apellido Paterno</strong></font></td>
-                                    <td width="19%"><font size="1" face="arial"color="black"><strong>Apellido Materno</strong></font></td>
-                                    <td width="18%"><font size="1" face="arial"color="black" ><strong>Nombre</strong></font></td>
-                                    <td width="27%"><font size="1" face="arial"color="black"><strong>Centro de Trabajo</strong></font></td>                                                                     
+                                    <td className="text-center" width="5%"><font size="1" face="arial"color="black" ><strong>#</strong></font></td>                           
+                                    <td className="text-center" width="19%" ><font size="1" face="arial"color="black"><strong>Apellido Paterno</strong></font></td>
+                                    <td className="text-center" width="19%"><font size="1" face="arial"color="black"><strong>Apellido Materno</strong></font></td>
+                                    <td className="text-center" width="18%"><font size="1" face="arial"color="black" ><strong>Nombre</strong></font></td>
+                                    <td className="text-center" width="27%"><font size="1" face="arial"color="black"><strong>Centro de Trabajo</strong></font></td>                                                                     
 
-                                    <td width="12%"><font size="1" face="arial"color="black"><strong>Accion Requerida</strong></font></td>                                                                     
+                                    <td className="text-center" width="12%"><font size="1" face="arial"color="black"><strong>Accion Requerida</strong></font></td>                                                                     
 
                                   </tr>
                                   { this.state.peticion1.map((rows,i) => {
                                     if(rows[1]){
                                       if(rows[1].Respuestas ==='si'){
-                                      respuesta =  <TableCell  width="12%" style={{backgroundColor: "#FF0000"}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">SI</font></TableCell>
+                                      respuesta =  <td  width="10%" style={{backgroundColor: "#FF0000"}} align="center" component="th" ><font size="1" face="arial"color="black">SI</font></td>
                                       }if(rows[1].Respuestas ==='no'){
-                                        respuesta =  <TableCell  width="12%" style={{backgroundColor: "#9BE0F7 "}} align="center" component="th" scope="row" ><font size="1" face="arial"color="black">NO</font></TableCell>
+                                        respuesta =  <td  width="10%" style={{backgroundColor: "#9BE0F7 "}} align="center" component="th"><font size="1" face="arial"color="black">NO</font></td>
                                       }
                                   
                                       return (
-                                        <TableRow >
-                                      <td width="5%"  className="text-center"><font size="1" face="arial"color="black" >{i + 1} </font></td>
-                                      <td width="19%" className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoP  }</font></td>
-                                      <td width="19%"  className="text-left"><font size="1" face="arial"color="black">{rows[1].ApellidoM}</font></td>
-                                      <td width="18%"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].nombre} </font></td>
-                                      <td width="27%"  className="text-left"><font size="1" face="arial"color="black" >{rows[1].CentroTrabajo} </font></td>
+                                        <tr >
+                                      <td width="7%"  className="text-justify"><font style={{marginLeft:1}} size="1" face="arial"color="black" >{i + 1} </font></td>
+                                      <td width="19%" className="text-justify"><font style={{marginLeft:1}} size="1" face="arial"color="black">{rows[1].ApellidoP  }</font></td>
+                                      <td width="19%" className="text-justify"><font style={{marginLeft:1}} size="1" face="arial"color="black">{ rows[1].ApellidoM}</font></td>
+                                      <td width="18%" className="text-justify"><font style={{marginLeft:1}} size="1" face="arial"color="black" >{rows[1].nombre} </font></td>
+                                      <td width="27%" className="text-justify"><font style={{marginLeft:1}} size="1" face="arial"color="black" >{rows[1].CentroTrabajo} </font></td>
 
                                       {respuesta}
-                                        </TableRow>                                
+                                        </tr>                                
                                       );
                                     }
                                 
                                     })
                                     
                                   }
-                                </MDBTableBody>
-                              </MDBTable>
+                              </table>
                               </div>
 
                               </PDFExport>
@@ -1373,7 +1299,7 @@ pdfExportComponent ;
                   <MDBRow>     
                     <MDBCol>   
                       <MDBBtn   gradient="purple" size="md"  className="k-button text-white" onClick={() => { this.pdfExportComponent.save(); }}>
-                          Descargar Resultados
+                          Descargar reporte 
                       </MDBBtn>
                     </MDBCol>
                     <MDBCol> 
@@ -1593,7 +1519,7 @@ pdfExportComponent ;
 
                                     return(
                                     <div style={{ width: "500px" }}>  
-                                       <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
+                                       <MDBTable  component={Paper}  style = {{marginLeft:30}} small  className="text-left ">
                                           <MDBTableBody>
                                           <tr>
                                             <td width="25%"><font size="1" face="arial"color="black"><strong>{rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</strong></font></td>
@@ -1603,21 +1529,10 @@ pdfExportComponent ;
                                          <tr></tr>
                                          </MDBTableBody>
                                         </MDBTable>  
-                          
-                                      <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left  ">
-                                          <MDBTableBody>
-                                          <tr></tr>
-                                          <td ></td>
-                                          <td></td>
-                                         </MDBTableBody>                                       
-                                          </MDBTable>       
-                                         <MDBTable  component={Paper}  small  className="text-left ">
-                                           <MDBTableBody>
-                                          <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">I.- Acontecimiento traumático severo </font>
-                                          </MDBTableBody>                                                                            
-                                          </MDBTable>
-                                          <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left"> 
-                                            <MDBTableBody>                
+
+                                          <font color="red" style= {{marginLeft:30}}  size="1">I.- Acontecimiento traumático severo </font>
+
+                                          <table width="500" className=" table-bordered" style={{marginLeft:"6%"}}> 
                                                <tr>           
                                                 <td >
                                                <font size="1" face="arial"color="black" >¿Ha presenciado o sufrido alguna vez, durante o con motivo del trabajo un acontecimiento como los
@@ -1626,16 +1541,11 @@ pdfExportComponent ;
                                                     que ponga en riesgo su vida o salud, y/o la de otras personas?</font></td>
                                                 <td width="60px"><font size="1" face="arial"color="black">{value1.Respuestas}</font></td>              
                                               </tr>
-                     
-                                            </MDBTableBody>
-                                            </MDBTable>
-                                            <MDBTable  component={Paper}  small  className="text-left ">
-                                           <MDBTableBody>
-                                            <font color="red" style= {{marginTop:40,marginLeft:20}}   size="1">II.- Recuerdos persistentes sobre el acontecimiento (durante el último mes)</font>
-                                            </MDBTableBody>
-                                            </MDBTable>
-                                            <MDBTable style={{marginLeft:20}}  component={Paper}  small bordered className="text-left mt-4 ">
-                                            <MDBTableBody>
+                                             </table>
+                                       
+                                            <font color="red" style= {{marginLeft:30}}   size="1">II.- Recuerdos persistentes sobre el acontecimiento (durante el último mes)</font>
+                                          
+                                            <table width="500" className=" table-bordered" style={{marginLeft:"6%"}}>
                                             <tr>            
                                               <td >
                                             <font size="1" face="arial"color="black">¿Ha tenido recuerdos recurrentes sobre el acontecimiento que le provocan malestares?</font></td>
@@ -1648,16 +1558,11 @@ pdfExportComponent ;
                                                
                                             </tr>
                                            
-                                          </MDBTableBody>
-                                          </MDBTable>
-                                          <MDBTable  component={Paper}  small  className="text-left  ">
-                                           <MDBTableBody>
-                              
-                                            <font style= {{marginLeft:20}}  size="1" color="red" >III.- Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento</font>
-                                         </MDBTableBody>
-                                         </MDBTable>
-                                          <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                                            <MDBTableBody>
+                                          </table>
+
+                                            <font style= {{marginLeft:30}}  size="1" color="red" >III.- Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento</font>
+
+                                          <table width="500" className=" table-bordered" style={{marginLeft:"6%"}}>
                                               <tr>
                                                
                                                 <td >
@@ -1706,19 +1611,10 @@ pdfExportComponent ;
       
                                               </tr>
                                           
-                                            </MDBTableBody>
-                                            </MDBTable>
-                                            <br/> 
-                                            <br/> 
-                                            <br/> 
-                                            <br/> 
-                                            <MDBTable  component={Paper}  small  className="text-left mt-4 ">
-                                           <MDBTableBody>
-                                            <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV.- Afectación (durante el último mes)</font>
-                                           </MDBTableBody>
-                                           </MDBTable>
-                                            <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                                            <MDBTableBody>
+                                            </table>
+
+                                            <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >IV.- Afectación (durante el último mes)</font>
+                                            <table width="500" className=" table-bordered" style={{marginLeft:"6%"}}>
                                               <tr>
                                                
                                                 <td >
@@ -1751,8 +1647,7 @@ pdfExportComponent ;
                                               <font size="1" face="arial"color="black">¿Se ha sobresaltado fácilmente por cualquier cosa?</font></td>
                                                 <td width="60px"><font size="1" face="arial"color="black">{value16.Respuestas}</font></td>
                                                </tr> 
-                                            </MDBTableBody>
-                                            </MDBTable>
+                                            </table>
                                             <br/>
                                             <br/>
                                             <br/>

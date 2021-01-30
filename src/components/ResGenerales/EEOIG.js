@@ -682,6 +682,7 @@ export default class App extends React.Component {
                 }).then(datos => {               
                 
                 if(datos.data.data.resultSingleSurveyEEO.length > 0 ){
+                  this.setState({resultados:''})
                   this.setState({resultados :datos.data.data.resultSingleSurveyEEO })                
                   this.setState({getPonderacion:[]})
                 } if(datos.data.data.resultSingleSurveyEEO.length <= 0){
@@ -1797,6 +1798,10 @@ export default class App extends React.Component {
     let nombre;
     let arrayNombre= []
     let a;
+    let botonCerrar;
+    if(!this.state.botonDisabled){
+        botonCerrar=<MDBBtn className = "text-white"  size="md" color="danger" onClick={(e)=>{window.location.reload()}} >Cerrar</MDBBtn>
+    }
     if(this.state.spinner=== true){
       spinner = <div><MDBBtn className = "text-white"  size="md" color="danger" disabled>
       <Spinner
@@ -3536,19 +3541,19 @@ let colorCategoriaUno;
 
 let categoriaUno = ((respuesta1+respuesta3+respuesta2+respuesta4+respuesta5)/length).toFixed(2);
 if(categoriaUno < 5){
-  colorCategoriaUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorCategoriaUno  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   categoria1Nulo= categoriaUno
 }else if(categoriaUno >= 5 && categoriaUno < 9){
-  colorCategoriaUno =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorCategoriaUno =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   categoria1Bajo= categoriaUno
 }else if(categoriaUno >= 9 && categoriaUno < 11){
-  colorCategoriaUno=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorCategoriaUno=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   categoria1Medio= categoriaUno
 }else if(categoriaUno >= 11 && categoriaUno < 14){
-  colorCategoriaUno = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorCategoriaUno = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   categoria1Alto= categoriaUno
 }else if(categoriaUno >= 14){
-  colorCategoriaUno = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorCategoriaUno = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   categoria1MuyAlto= categoriaUno
 }
 let categoria2Nulo;
@@ -3559,19 +3564,19 @@ let categoria2MuyAlto;
 let colorCategoriaDos;
 let categoriaDos = ((respuesta6+respuesta12+respuesta7+respuesta8+respuesta9+respuesta10+respuesta11+respuesta65+respuesta66+respuesta67+respuesta68+respuesta13+respuesta14+respuesta15+respuesta16+respuesta25+respuesta26+respuesta27+respuesta28+respuesta23+respuesta24+respuesta29+respuesta30+respuesta35+respuesta36)/length).toFixed(2);
 if(categoriaDos < 15){
-  colorCategoriaDos  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorCategoriaDos  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   categoria2Nulo= categoriaDos
 }else if(categoriaDos >= 15 && categoriaDos < 30){
-  colorCategoriaDos =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorCategoriaDos =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   categoria2Bajo= categoriaDos
 }else if(categoriaDos >=30 && categoriaDos < 45){
-  colorCategoriaDos=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorCategoriaDos=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   categoria2Medio= categoriaDos
 }else if(categoriaDos >=45 && categoriaDos < 60){
-  colorCategoriaDos = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorCategoriaDos = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   categoria2Alto= categoriaDos
 }else if(categoriaDos >= 60){
-  colorCategoriaDos = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorCategoriaDos = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   categoria2MuyAlto= categoriaDos
 }
 let categoria3Nulo;
@@ -3582,19 +3587,19 @@ let categoria3MuyAlto;
 let colorCategoriaTre;
 let categoriaTre = ((respuesta17+respuesta18+respuesta19+respuesta20+respuesta21+respuesta22)/length).toFixed(2);
 if(categoriaTre < 5){
-  colorCategoriaTre  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorCategoriaTre  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   categoria3Nulo= categoriaTre
 }else if(categoriaTre >= 5 && categoriaTre < 7){
-  colorCategoriaTre =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorCategoriaTre =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   categoria3Bajo= categoriaTre
 }else if(categoriaTre >=7 && categoriaTre < 10){
-  colorCategoriaTre=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorCategoriaTre=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   categoria3Medio= categoriaTre
 }else if(categoriaTre >=10 && categoriaTre < 13){
-  colorCategoriaTre = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorCategoriaTre = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   categoria3Alto= categoriaTre
 }else if(categoriaTre >= 13){
-  colorCategoriaTre = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorCategoriaTre = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   categoria3MuyAlto= categoriaTre
 }
 
@@ -3607,19 +3612,19 @@ let colorCategoriaCuatro;
 
 let categoriaCuatro = ((respuesta31+respuesta32+respuesta33+respuesta34+respuesta37+respuesta38+respuesta39+respuesta40+respuesta41+respuesta42+respuesta43+respuesta44+respuesta45+respuesta46+respuesta69+respuesta70+respuesta71+respuesta72+respuesta57+respuesta58+respuesta59+respuesta60+respuesta61+respuesta62+respuesta63+respuesta64)/length).toFixed(2);
 if(categoriaCuatro < 14){
-  colorCategoriaCuatro  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorCategoriaCuatro  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   categoria4Nulo= categoriaCuatro
 }else if(categoriaCuatro >= 14 && categoriaCuatro < 29){
-  colorCategoriaCuatro =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorCategoriaCuatro =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   categoria4Bajo= categoriaCuatro
 }else if(categoriaCuatro >=29 && categoriaCuatro < 42){
-  colorCategoriaCuatro=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorCategoriaCuatro=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   categoria4Medio= categoriaCuatro
 }else if(categoriaCuatro >=42 && categoriaCuatro < 58){
-  colorCategoriaCuatro = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorCategoriaCuatro = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   categoria4Alto= categoriaCuatro
 }else if(categoriaCuatro >= 58){
-  colorCategoriaCuatro= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorCategoriaCuatro= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   categoria4MuyAlto= categoriaCuatro
 }
 
@@ -3631,19 +3636,19 @@ let categoria5MuyAlto;
 let colorCategoriaCinco;
 let categoriaCinco = ((respuesta47+respuesta48+respuesta49+respuesta50+respuesta51+respuesta52+respuesta55+respuesta56+respuesta53+respuesta54)/length).toFixed(2);
 if(categoriaCinco < 10){
-  colorCategoriaCinco  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorCategoriaCinco  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   categoria5Nulo= categoriaCinco
 }else if(categoriaCinco >= 10 && categoriaCinco < 14){
-  colorCategoriaCinco=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorCategoriaCinco=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   categoria5Bajo= categoriaCinco
 }else if(categoriaCinco >=14 && categoriaCinco < 18){
-  colorCategoriaCinco=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorCategoriaCinco=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   categoria5Medio= categoriaCinco
 }else if(categoriaCinco >=18 && categoriaCinco < 23){
-  colorCategoriaCinco = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorCategoriaCinco = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   categoria5Alto= categoriaCinco
 }else if(categoriaCinco >= 23){
-  colorCategoriaCinco= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorCategoriaCinco= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   categoria5MuyAlto= categoriaCinco
 }
 
@@ -3655,19 +3660,19 @@ let Dominio1MuyAlto;
 let colorDominioUno;
 let DominioUno =( (respuesta1+respuesta3+respuesta2+respuesta4+respuesta5)/length).toFixed(2);
 if(DominioUno < 5){
-  colorDominioUno  = <TableCell  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioUno  = <td  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   Dominio1Nulo= DominioUno
 }else if(DominioUno >= 5 && DominioUno < 9){
-  colorDominioUno=<TableCell  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioUno=<td  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   Dominio1Bajo= DominioUno
 }else if(DominioUno >= 9 && DominioUno < 11){
-  colorDominioUno=<TableCell  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioUno=<td  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   Dominio1Medio= DominioUno
 }else if(DominioUno >=11 && DominioUno < 14){
-  colorDominioUno = <TableCell  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioUno = <td  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   Dominio1Alto= DominioUno
 }else if(DominioUno >= 14){
-  colorDominioUno= <TableCell  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioUno= <td  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   Dominio1MuyAlto= DominioUno
 }
 let Dominio2Nulo;
@@ -3678,19 +3683,19 @@ let Dominio2MuyAlto;
 let colorDominioDos;
 let DominioDos = ((respuesta6+respuesta12+respuesta7+respuesta8+respuesta9+respuesta10+respuesta11+respuesta65+respuesta66+respuesta67+respuesta68+respuesta13+respuesta14+respuesta15+respuesta16)/length).toFixed(2);
 if(DominioDos < 15){
-  colorDominioDos  = <TableCell  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioDos  = <td  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   Dominio2Nulo= DominioDos
 }else if(DominioDos >= 15 && DominioDos < 21){
-  colorDominioDos=<TableCell  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioDos=<td  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   Dominio2Bajo= DominioDos
 }else if(DominioDos >= 21 && DominioDos < 27){
-  colorDominioDos=<TableCell  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioDos=<td  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   Dominio2Medio= DominioDos
 }else if(DominioDos >= 27 && DominioDos < 37){
-  colorDominioDos = <TableCell  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioDos = <td  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   Dominio2Alto= DominioDos
 }else if(DominioDos >= 37){
-  colorDominioDos= <TableCell  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioDos= <td  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   Dominio2MuyAlto= DominioDos
 }
 
@@ -3702,19 +3707,19 @@ let Dominio3MuyAlto;
 let colorDominioTres;
 let DominioTres = ((respuesta25+respuesta26+respuesta27+respuesta28+respuesta23+respuesta24+respuesta29+respuesta30+respuesta35+respuesta36)/length).toFixed(2);
 if(DominioTres < 11){
-  colorDominioTres  = <TableCell  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioTres  = <td  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   Dominio3Nulo= DominioTres
 }else if(DominioTres >= 11 && DominioTres < 16){
-  colorDominioTres=<TableCell  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioTres=<td  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   Dominio3Bajo= DominioTres
 }else if(DominioTres >= 16 && DominioTres < 21){
-  colorDominioTres=<TableCell  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioTres=<td  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   Dominio3Medio= DominioTres
 }else if(DominioTres >= 21 && DominioTres < 25){
-  colorDominioTres = <TableCell  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioTres = <td  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   Dominio3Alto= DominioTres
 }else if(DominioTres >= 25){
-  colorDominioTres= <TableCell  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioTres= <td  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   Dominio3MuyAlto= DominioTres
 }
 
@@ -3726,19 +3731,19 @@ let Dominio4MuyAlto;
 let colorDominioCuatro;
 let DominioCuatro =( (respuesta17+respuesta18)/length).toFixed(2);
 if(DominioCuatro < 1){
-  colorDominioCuatro  = <TableCell  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioCuatro  = <td  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   Dominio4Nulo= DominioCuatro
 }else if(DominioCuatro >= 1 && DominioCuatro < 2){
-  colorDominioCuatro=<TableCell  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioCuatro=<td  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   Dominio4Bajo= DominioCuatro
 }else if(DominioCuatro >= 2 && DominioCuatro < 4){
-  colorDominioCuatro = <TableCell  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioCuatro = <td  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   Dominio4Medio= DominioCuatro
 }else if(DominioCuatro >= 4 && DominioCuatro < 6){
-  colorDominioCuatro = <TableCell  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioCuatro = <td  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   Dominio4Alto= DominioCuatro
 }else if(DominioCuatro >= 6){
-  colorDominioCuatro= <TableCell  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioCuatro= <td  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   Dominio4MuyAlto= DominioCuatro
 }
 
@@ -3750,19 +3755,19 @@ let Dominio5MuyAlto;
 let colorDominioCinco;
 let DominioCinco = ((respuesta19+respuesta20+respuesta21+respuesta22)/length).toFixed(2);
 if(DominioCinco < 4){
-  colorDominioCinco  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioCinco  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   Dominio5Nulo= DominioCinco
 }else if(DominioCinco >= 4 && DominioCinco < 6){
-  colorDominioCinco=<TableCell width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioCinco=<td width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   Dominio5Bajo= DominioCinco
 }else if(DominioCinco >= 6 && DominioCinco < 8){
-  colorDominioCinco=<TableCell width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioCinco=<td width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   Dominio5Medio= DominioCinco
 }else if(DominioCinco >= 8 && DominioCinco < 10){
-  colorDominioCinco = <TableCell  width="20px"style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioCinco = <td  width="20px"style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   Dominio5Alto= DominioCinco
 }else if(DominioCinco >= 10){
-  colorDominioCinco= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioCinco= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   Dominio5MuyAlto= DominioCinco
 }
 
@@ -3774,19 +3779,19 @@ let Dominio6MuyAlto;
 let colorDominioSeis;
 let DominioSeis = ((respuesta31+respuesta32+respuesta33+respuesta34+respuesta37+respuesta38+respuesta39+respuesta40+respuesta41)/length).toFixed(2);
 if(DominioSeis < 9){
-  colorDominioSeis  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioSeis  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   Dominio6Nulo= DominioSeis
 }else if(DominioSeis >= 9 && DominioSeis < 12){
-  colorDominioSeis=<TableCell  width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioSeis=<td  width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   Dominio6Bajo= DominioSeis
 }else if(DominioSeis >= 12 && DominioSeis < 16){
-  colorDominioSeis=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioSeis=<td width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   Dominio6Medio= DominioSeis
 }else if(DominioSeis >= 16 && DominioSeis < 20){
-  colorDominioSeis = <TableCell width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioSeis = <td width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   Dominio6Alto= DominioSeis
 }else if(DominioSeis >= 20){
-  colorDominioSeis= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioSeis= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   Dominio6MuyAlto= DominioSeis
 }
 
@@ -3798,19 +3803,19 @@ let Dominio7MuyAlto;
 let colorDominioSiete;
 let DominioSiete = ((respuesta42+respuesta43+respuesta44+respuesta45+respuesta46+respuesta69+respuesta70+respuesta71+respuesta72)/length).toFixed(2);
 if(DominioSiete < 10){
-  colorDominioSiete  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioSiete  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   Dominio7Nulo= DominioSiete
 }else if(DominioSiete >= 10 && DominioSiete < 13){
-  colorDominioSiete=<TableCell width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioSiete=<td width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   Dominio7Bajo= DominioSiete
 }else if(DominioSiete >= 13 && DominioSiete < 17){
-  colorDominioSiete=<TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioSiete=<td  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   Dominio7Medio= DominioSiete
 }else if(DominioSiete >= 17 && DominioSiete < 21){
-  colorDominioSiete = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioSiete = <td width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   Dominio7Alto= DominioSiete
 }else if(DominioSiete >= 21){
-  colorDominioSiete= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioSiete= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   Dominio7MuyAlto= DominioSiete
 }
 
@@ -3822,19 +3827,19 @@ let Dominio8MuyAlto;
 let colorDominioOcho;
 let DominioOcho = ((respuesta57+respuesta58+respuesta59+respuesta60+respuesta61+respuesta62+respuesta63+respuesta64)/length).toFixed(2);
 if(DominioOcho < 7){
-  colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioOcho  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   Dominio8Nulo= DominioOcho
 }else if(DominioOcho >= 7 && DominioOcho < 10){
-  colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioOcho  = <td width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   Dominio8Bajo= DominioOcho
 }else if(DominioOcho >= 10 && DominioOcho < 13){
-  colorDominioOcho=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioOcho=<td width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   Dominio8Medio= DominioOcho
 }else if(DominioOcho >= 13 && DominioOcho < 16){
-  colorDominioOcho = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioOcho = <td width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   Dominio8Alto= DominioOcho
 }else if(DominioOcho >= 16){
-  colorDominioOcho= <TableCell width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioOcho= <td width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   Dominio8MuyAlto= DominioOcho
 }
 
@@ -3846,19 +3851,19 @@ let Dominio9MuyAlto;
 let colorDominioNueve;
 let DominioNueve = ((respuesta47+respuesta48+respuesta49+respuesta50+respuesta51+respuesta52)/length).toFixed(2);
 if(DominioNueve < 6){
-  colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioNueve  = <td width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   Dominio9Nulo= DominioNueve
 }else if(DominioNueve >= 6 && DominioNueve < 10){
-  colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioNueve  = <td width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   Dominio9Bajo= DominioNueve
 }else if(DominioNueve >= 10 && DominioNueve < 14){
-  colorDominioNueve=<TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioNueve=<td  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   Dominio9Medio= DominioNueve
 }else if(DominioNueve >= 14 && DominioNueve < 18){
-  colorDominioNueve = <TableCell  width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioNueve = <td  width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   Dominio9Alto= DominioNueve
 }else if(DominioNueve >= 18){
-  colorDominioNueve= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioNueve= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   Dominio9MuyAlto= DominioNueve
 }
 
@@ -3870,19 +3875,19 @@ let Dominio10MuyAlto;
 let colorDominioDiez;
 let DominioDiez = ((respuesta55+respuesta56+respuesta53+respuesta54)/length).toFixed(2);
 if(DominioDiez < 4){
-  colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+  colorDominioDiez  = <td width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
   Dominio10Nulo= DominioDiez
 }else if(DominioDiez >= 4 && DominioDiez < 6){
-  colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+  colorDominioDiez  = <td width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
   Dominio10Bajo= DominioDiez
 }else if(DominioDiez >= 6 && DominioDiez < 8){
-  colorDominioDiez=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+  colorDominioDiez=<td width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
   Dominio10Medio= DominioDiez
 }else if(DominioDiez >= 8 && DominioDiez < 10){
-  colorDominioDiez = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+  colorDominioDiez = <td width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
   Dominio10Alto= DominioDiez
 }else if(DominioDiez >= 10){
-  colorDominioDiez= <TableCell  width="20px"style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+  colorDominioDiez= <td  width="20px"style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
   Dominio10MuyAlto= DominioDiez
 }
  a = 1  
@@ -3906,6 +3911,7 @@ ponderacion=<React.Fragment>
       <td width="34%">
       <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100}}/> 
       </td>
+      <td>{botonCerrar}</td>
     </tr>
   </table>
 
@@ -4190,9 +4196,6 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
-
-
-
             <TableRow>
             <TableCell component="th" scope="row" >13.- Limitada o inexistente capacitación</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
@@ -4428,276 +4431,253 @@ ponderacion=<React.Fragment>
                                    </MDBTableBody>
                                     </MDBTable>  
 
-                                   <MDBTable  component={Paper}  small  className="text-left ">
-                                     <MDBTableBody>
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">I.- Resultados de la categoría</font>
-                                    </MDBTableBody>                                                                            
-                                    </MDBTable>
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
-                                      <MDBTableBody>
-                                          
+                     
+                                    <table width="500" style={{marginLeft:20}} className="table-bordered">                                           
                                          <tr >                              
-                                          <td width="5px"><font size="1" face="arial"color="black" ></font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Categoría</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">Calificación</font></td>
-                                          <td width="20px"><font size="1" face="arial"color="black">Riesgo</font></td>                                         
+                                          <td  width="10%"><font size="1" face="arial"color="black" ></font></td>
+                                          <td  width="60%"><font size="1" face="arial"color="black">Categoría</font></td>
+                                          <td  width="20%"><font size="1" face="arial"color="black">Calificación</font></td>
+                                          <td ><font size="1" face="arial"color="black">Riesgo</font></td>                                         
                                         </tr>
                                         <tr>           
-                                        <td width="5px"><font size="1" face="arial"color="black" >1</font></td>
-                                        <td width="60px"  className="text-left"><font size="1" face="arial"color="black">Ambiente de Trabajo</font></td>
-                                        <td width="15px"><font size="1" face="arial"color="black">{categoriaUno}</font></td>
+                                        <td  width="10%"><font size="1" face="arial"color="black" >1</font></td>
+                                        <td  width="60%"><font size="1" face="arial"color="black">Ambiente de Trabajo</font></td>
+                                        <td  width="20%"><font size="1" face="arial"color="black">{categoriaUno}</font></td>
                                          {colorCategoriaUno}                
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >2</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Factores propios de la actividad</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{categoriaDos}</font></td>
+                                          <td  width="10%"><font size="1" face="arial"color="black" >2</font></td>
+                                          <td  width="60%"><font size="1" face="arial"color="black">Factores propios de la actividad</font></td>
+                                          <td  width="20%"><font size="1" face="arial"color="black">{categoriaDos}</font></td>
                                            {colorCategoriaDos}
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >3</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Organización del tiempo de trabajo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{categoriaTre}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >3</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Organización del tiempo de trabajo</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{categoriaTre}</font></td>
                                           {colorCategoriaTre}
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >4</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Liderazgo y relaciones en el trabajo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{categoriaCuatro}</font></td>
+                                          <td  width="10%"><font size="1" face="arial"color="black" >4</font></td>
+                                          <td  width="60%"><font size="1" face="arial"color="black">Liderazgo y relaciones en el trabajo</font></td>
+                                          <td  width="20%"><font size="1" face="arial"color="black">{categoriaCuatro}</font></td>
                                           {colorCategoriaCuatro}
                                           </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Entorno organizacional</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{categoriaCinco}</font></td>
+                                          <td  width="10%"><font size="1" face="arial"color="black" >5</font></td>
+                                          <td  width="60%"><font size="1" face="arial"color="black">Entorno organizacional</font></td>
+                                          <td  width="20%"><font size="1" face="arial"color="black">{categoriaCinco}</font></td>
                                           {colorCategoriaCinco}  
                                         </tr>
-               
-                                      </MDBTableBody>
-                                      </MDBTable>
-                           
-                                      <MDBTable  component={Paper}  small  className="text-left ">
-                                     <MDBTableBody>
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">II.- Resultados del dominio</font>
-                                    </MDBTableBody>                                                                            
-                                    </MDBTable>
-                                      <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
-                                      <MDBTableBody>
-                                          
+                                        </table>
+                      
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">II.- Resultados del dominio</font>         
+                                      <table width="500" style={{marginLeft:20}} className="table-bordered"> 
+
                                          <tr >                              
-                                          <td width="5px"><font size="1" face="arial"color="black" ></font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Dominio</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">Calificación</font></td>
-                                          <td width="20px"><font size="1" face="arial"color="black">Riesgo</font></td>                                         
+                                          <td width="10%"><font size="1" face="arial"color="black" ></font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Dominio</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">Calificación</font></td>
+                                          <td><font size="1" face="arial"color="black">Riesgo</font></td>                                         
                                         </tr>
                                         <tr>           
-                                        <td width="5px"><font size="1" face="arial"color="black" >1</font></td>
-                                        <td width="60px"  className="text-left"><font size="1" face="arial"color="black">Carga de Trabajo</font></td>
-                                        <td width="15px"><font size="1" face="arial"color="black">{DominioUno}</font></td>
+                                        <td width="10%"><font size="1" face="arial"color="black" >1</font></td>
+                                        <td width="60%"><font size="1" face="arial"color="black">Carga de Trabajo</font></td>
+                                        <td width="20%"><font size="1" face="arial"color="black">{DominioUno}</font></td>
                                          {colorDominioUno}                
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >2</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Condiciones en el ambiente de trabajo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{DominioDos}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >2</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Condiciones en el ambiente de trabajo</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{DominioDos}</font></td>
                                            {colorDominioDos}
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >3</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Falta de control sobre el trabajo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{DominioTres}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >3</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Falta de control sobre el trabajo</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{DominioTres}</font></td>
                                           {colorDominioTres}
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >4</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Jornada de trabajo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{DominioCuatro}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >4</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Jornada de trabajo</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{DominioCuatro}</font></td>
                                           {colorDominioCinco}  
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Interferencia en la relación trabajo-familia</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{DominioCinco}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >5</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Interferencia en la relación trabajo-familia</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{DominioCinco}</font></td>
                                           {colorDominioCinco}
                                           </tr>
                                           <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >6</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Liderazgo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{DominioSeis}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >6</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Liderazgo</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{DominioSeis}</font></td>
                                           {colorDominioSeis}  
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >7</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Relaciones en el trabajo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{DominioSiete}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >7</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Relaciones en el trabajo</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{DominioSiete}</font></td>
                                           {colorDominioSiete}  
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >8</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Violencia</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{DominioOcho}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >8</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Violencia</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{DominioOcho}</font></td>
                                           {colorDominioOcho}  
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >9</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Reconocimiento del desempeño</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{DominioNueve}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >9</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Reconocimiento del desempeño</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{DominioNueve}</font></td>
                                           {colorDominioNueve}  
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >10</font></td>
-                                          <td width="60px" className="text-left"><font size="1" face="arial"color="black">Insuficiente sentido de pertenencia e, inestabilidad</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{DominioDiez}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >10</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Insuficiente sentido de pertenencia e, inestabilidad</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{DominioDiez}</font></td>
                                           {colorDominioDiez}  
                                         </tr>
-                                      
-                                       
-                                      </MDBTableBody>
-                                      </MDBTable>
+                                      </table>
                      
-                                      <MDBTable  component={Paper}  small  className="text-left ">
-                                     <MDBTableBody>
-                                    </MDBTableBody>                                                                            
-                                    </MDBTable>
                                     <font color="red" style= {{marginLeft:20}}  size="1">III.- Resultados por Dimensión</font>
-                                      <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
-                                      <MDBTableBody>
-                                          
+                                      <table width="500" style={{marginLeft:20}} className="table-bordered "> 
+
                                          <tr >                              
-                                          <td width="5px"><font size="1" face="arial"color="black" ></font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Dimensión</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">Calificación</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" ></font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Dimensión</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">Calificación</font></td>
                                         </tr>
                                         <tr>           
-                                        <td width="5px"><font size="1" face="arial"color="black" >1</font></td>
-                                        <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Condiciones peligrosas e inseguras</font></td>
-                                        <td width="15px"><font size="1" face="arial"color="black">{((respuesta1/length)+(respuesta3/length)).toFixed(2)}</font></td>
+                                        <td width="10%"><font size="1" face="arial"color="black" >1</font></td>
+                                        <td width="60%"><font size="1" face="arial"color="black">Condiciones peligrosas e inseguras</font></td>
+                                        <td width="20%"><font size="1" face="arial"color="black">{((respuesta1/length)+(respuesta3/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >2</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Condiciones deficientes e insalubres</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta2/length)+(respuesta4/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >2</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Condiciones deficientes e insalubres</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta2/length)+(respuesta4/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >3</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{(respuesta5/length).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >3</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{(respuesta5/length).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >4</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta6/length)+(respuesta12/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >4</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta6/length)+(respuesta12/length)).toFixed(2)}</font></td>
                                           </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta7/length)+(respuesta8/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >5</font></td>
+                                          <td width="60%" ><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta7/length)+(respuesta8/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >6</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Carga mental</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta9/length)+(respuesta10/length)+(respuesta11/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >6</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Carga mental</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta9/length)+(respuesta10/length)+(respuesta11/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >7</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas psicológicas emocionales</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta65/length)+(respuesta66/length)+(respuesta67/length)+(respuesta68/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >7</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Cargas psicológicas emocionales</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta65/length)+(respuesta66/length)+(respuesta67/length)+(respuesta68/length)).toFixed(2)}</font></td>
                                           </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >8</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas de alta responsabilidad</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta13/length)+(respuesta14/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >8</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Cargas de alta responsabilidad</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta13/length)+(respuesta14/length)).toFixed(2)}</font></td>
                                         </tr>
-
-
                                         <tr>           
-                                        <td width="5px"><font size="1" face="arial"color="black" >9</font></td>
-                                        <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Cargas contradictorias o inconsistentes</font></td>
-                                        <td width="15px"><font size="1" face="arial"color="black">{((respuesta15/length)+(respuesta16/length)).toFixed(2)}</font></td>
+                                        <td width="10%"><font size="1" face="arial"color="black" >9</font></td>
+                                        <td width="60%"><font size="1" face="arial"color="black">Cargas contradictorias o inconsistentes</font></td>
+                                        <td width="20%"><font size="1" face="arial"color="black">{((respuesta15/length)+(respuesta16/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >10</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Falta de control y autonomía sobre el trabajo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta25/length)+(respuesta26/length)+(respuesta27/length)+(respuesta28/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >10</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Falta de control y autonomía sobre el trabajo</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta25/length)+(respuesta26/length)+(respuesta27/length)+(respuesta28/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >11</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitada o nula posibilidad de desarrollo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta23/length)+(respuesta24/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >11</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Limitada o nula posibilidad de desarrollo</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta23/length)+(respuesta24/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >12</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Insuficiente participación y manejo del cambio</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta29/length)+(respuesta30/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >12</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Insuficiente participación y manejo del cambio</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta29/length)+(respuesta30/length)).toFixed(2)}</font></td>
                                           </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >13</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitada o inexistente capacitación</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta35/length)+(respuesta36/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >13</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Limitada o inexistente capacitación</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta35/length)+(respuesta36/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >14</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Jornadas de trabajo extensas</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta17/length)+(respuesta18/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >14</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Jornadas de trabajo extensas</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta17/length)+(respuesta18/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >15</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Influencia del trabajo fuera del centro laboral</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta19/length)+(respuesta20/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >15</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Influencia del trabajo fuera del centro laboral</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta19/length)+(respuesta20/length)).toFixed(2)}</font></td>
                                           </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >16</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Influencia de las responsabilidades familiares</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta21/length)+(respuesta22/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >16</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Influencia de las responsabilidades familiares</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta21/length)+(respuesta22/length)).toFixed(2)}</font></td>
                                         </tr>
 
                                         <tr>           
-                                        <td width="5px"><font size="1" face="arial"color="black" >17</font></td>
-                                        <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Escasa claridad de funciones</font></td>
-                                        <td width="15px"><font size="1" face="arial"color="black">{((respuesta31/length)+(respuesta32/length)+(respuesta33/length)+(respuesta34/length)).toFixed(2)}</font></td>
+                                        <td width="10%"><font size="1" face="arial"color="black" >17</font></td>
+                                        <td width="60%"><font size="1" face="arial"color="black">Escasa claridad de funciones</font></td>
+                                        <td width="20%"><font size="1" face="arial"color="black">{((respuesta31/length)+(respuesta32/length)+(respuesta33/length)+(respuesta34/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >18</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Características del liderazgo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta37/length)+(respuesta38/length)+(respuesta39/length)+(respuesta40/length)+(respuesta41/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >18</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Características del liderazgo</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta37/length)+(respuesta38/length)+(respuesta39/length)+(respuesta40/length)+(respuesta41/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >19</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Relaciones sociales en el trabajo</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta42/length)+(respuesta43/length)+(respuesta44/length)+(respuesta45/length)+(respuesta46/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >19</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Relaciones sociales en el trabajo</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta42/length)+(respuesta43/length)+(respuesta44/length)+(respuesta45/length)+(respuesta46/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >20</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Deficiente relación con los colaboradores que Supervisa</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta69/length)+(respuesta70/length)+(respuesta71/length)+(respuesta72/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >20</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Deficiente relación con los colaboradores que Supervisa</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta69/length)+(respuesta70/length)+(respuesta71/length)+(respuesta72/length)).toFixed(2)}</font></td>
                                           </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >21</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Violencia laboral</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta57/length)+(respuesta58/length)+(respuesta59/length)+(respuesta60/length)+(respuesta61/length)+(respuesta62/length)+(respuesta63/length)+(respuesta64/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >21</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Violencia laboral</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta57/length)+(respuesta58/length)+(respuesta59/length)+(respuesta60/length)+(respuesta61/length)+(respuesta62/length)+(respuesta63/length)+(respuesta64/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >22</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Escasa o nula retroalimentación del desempeño</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta47/length)+(respuesta48/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >22</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Escasa o nula retroalimentación del desempeño</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta47/length)+(respuesta48/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >23</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Escaso o nulo reconocimiento y compensación</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta49/length)+(respuesta50/length)+(respuesta51/length)+(respuesta52/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >23</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Escaso o nulo reconocimiento y compensación</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta49/length)+(respuesta50/length)+(respuesta51/length)+(respuesta52/length)).toFixed(2)}</font></td>
                                           </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >24</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitado sentido de pertenencia</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta55/length)+(respuesta56/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >24</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Limitado sentido de pertenencia</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta55/length)+(respuesta56/length)).toFixed(2)}</font></td>
                                         </tr>
                                         <tr>         
-                                          <td width="5px"><font size="1" face="arial"color="black" >25</font></td>
-                                          <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
-                                          <td width="15px"><font size="1" face="arial"color="black">{((respuesta53/length)+(respuesta54/length)).toFixed(2)}</font></td>
+                                          <td width="10%"><font size="1" face="arial"color="black" >25</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{((respuesta53/length)+(respuesta54/length)).toFixed(2)}</font></td>
                                         </tr>
-                                      </MDBTableBody>
-                                      </MDBTable>           
+                                      </table>           
                                       <br/>
                                       <br/>
                                       <br/>
@@ -4743,9 +4723,13 @@ ponderacion=<React.Fragment>
 
       let filtrar1;
       filtrar1 =  this.state.resultados.filter(function(hero) {
+        console.log("filtrar1" , hero.fk_preguntasEEO)
+
         return hero.fk_preguntasEEO == 1;
       });
       value1 = filtrar1.pop()
+
+      console.log("filtrar1" , filtrar1)
 
       let filtrar2;
       filtrar2 =  this.state.resultados.filter(function(hero) {
@@ -4901,9 +4885,12 @@ ponderacion=<React.Fragment>
 
       let filtrar26;
       filtrar26 =  this.state.resultados.filter(function(hero) {
+        console.log("hero" , hero)
         return hero.fk_preguntasEEO == 26;
       });
       value26 = filtrar26.pop()
+
+      console.log("filtrar26" , filtrar25)
 
       let filtrar27;
       filtrar27 =  this.state.resultados.filter(function(hero) {
@@ -5181,18 +5168,20 @@ ponderacion=<React.Fragment>
       });
       value72 = filtrar72.pop()
  
+      console.log("resultads" , this.state.resultados)
 
       a = 1
       pdfView1 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la Aplicación de la evaluación EEO </Alert>
         <React.Fragment>
             <section className="flex-column  bg-white  pa4 "  >
-                <div>
+                <div  style={{marginLeft:"6%"}}>
                       <MDBBtn className = "text-white"  size="md" color="secondary"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
                           Descargar Respuestas de {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}
                       </MDBBtn>
+                      &nbsp;
+                    {botonCerrar}
                 </div>
                 <br/>
-  
                 <MDBContainer style={{marginLeft:"6%"}}>
                 <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL<br/>EN LOS CENTROS DE TRABAJO</font>
                  <br/><br/> <strong>{localStorage.getItem("razonsocial")}</strong><br/>
@@ -5417,7 +5406,7 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td >26</td>
                       <td >Puedo decidir cuánto trabajo realizo durante la jornada laboral</td>   
-                      <td >{filtrar26[0].Respuestas}</td> 
+                      <td >{value26.Respuestas}</td> 
                     </tr>
                     <tr>
                       <td>27</td>
@@ -5810,12 +5799,12 @@ ponderacion=<React.Fragment>
                                     <br/>
                                     <font size="1"
                                         face="arial"
-                                        color="black" style = {{marginLeft:35}}>GUÍA DE REFERENCIA III
-                                        CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</font>   <br/>  
+                                        color="black" style = {{marginLeft:35}}><strong>GUÍA DE REFERENCIA III
+                                        CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</strong></font>   <br/>  
                                         <font size="1"  face="arial"
-                                        color="black" style = {{marginLeft:35}}>PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN
-                                        LOS CENTROS DE TRABAJO</font>
-                                    <MDBTable responsive small borderless className="text-left mt-4" style = {{marginLeft:35}}>
+                                        color="black" style = {{marginLeft:35}}><strong>PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN
+                                        LOS CENTROS DE TRABAJO</strong></font>
+                                    <table width="500" style = {{marginLeft:40,marginBottom:10}}>
         
                                     <MDBTableBody>  
                                                         
@@ -5832,461 +5821,379 @@ ponderacion=<React.Fragment>
                                       <td width="6%" ><font size="1" face="arial"color="black" >RFC : {this.state.resultados[0].RFC}</font></td>            
                                       </tr>
                                     </MDBTableBody>
-                                    </MDBTable>
+                                    </table>
              
 
-                                    <MDBTable  component={Paper}  small  className="text-left ">
-                                    <MDBTableBody>
                                     <font color="red" style= {{marginLeft:20}}  size="1">I. Condiciones ambientales de su centro de trabajo.</font>
-                                    </MDBTableBody>                                                                            
-                                    </MDBTable>
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left"> 
-                                    <MDBTableBody>
+                                
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered "> 
                                         
                                     <tr>
-                                    <td><font size="1" face="arial"color="black" >El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</font></td>
-                                    <td width="90px"><font size="1" face="arial"color="black" >{value1.Respuestas}</font></td> 
-                                  </tr>
-                                  <tr>
-                                    <td><font size="1" face="arial"color="black" >Mi trabajo me exige hacer mucho esfuerzo físico</font></td>
-                                    <td width="90px" ><font size="1" face="arial"color="black" >{value2.Respuestas}</font></td> 
-                                  </tr>
-                                  <tr>
-                                    <td><font size="1" face="arial"color="black" >Me preocupa sufrir un accidente en mi trabajo</font></td>
-                                    <td  width="90px"><font size="1" face="arial"color="black" >{value3.Respuestas}</font></td> 
-                                  </tr>                    
-                                  <tr>
-                                    <td><font size="1" face="arial"color="black" >Considero que en mi trabajo se aplican las normas de seguridad y salud en el trabajo</font></td>
-                                    <td  width="90px"><font size="1" face="arial"color="black" >{value4.Respuestas}</font></td> 
-                                  </tr>
-                                  <tr>
-                                    <td><font size="1" face="arial"color="black" >Considero que las actividades que realizo son peligrosas</font></td>
-                                    <td  width="90px"><font size="1" face="arial"color="black" >{value5.Respuestas}</font></td> 
-                                  </tr>
-                                  
-          
-                                    </MDBTableBody>
-                                   </MDBTable>
-                                    <MDBTable  component={Paper}  small  className="text-left ">
-                                    <MDBTableBody>
+                                    <td width="80%"><font size="1" face="arial"color="black" >El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</font></td>
+                                    <td width="20%"><font size="1" face="arial"color="black" >{value1.Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo me exige hacer mucho esfuerzo físico</font></td>
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value2.Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td width="80%"><font size="1" face="arial"color="black" >Me preocupa sufrir un accidente en mi trabajo</font></td>
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value3.Respuestas}</font></td> 
+                                    </tr>                    
+                                    <tr>
+                                      <td width="80%"><font size="1" face="arial"color="black" >Considero que en mi trabajo se aplican las normas de seguridad y salud en el trabajo</font></td>
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value4.Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td width="80%"><font size="1" face="arial"color="black" >Considero que las actividades que realizo son peligrosas</font></td>
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value5.Respuestas}</font></td> 
+                                    </tr>
+                                   </table>
+                                    
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}   size="1">II. La cantidad y ritmo de trabajo que tiene.</font>
-                                    </MDBTableBody>
-                                    </MDBTable>
-                                    <MDBTable style={{marginLeft:20}}  component={Paper}  small bordered className="text-left mt-4 ">
-                                    <MDBTableBody>
-                                    <tr>
-                                    <td><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</font></td>
-                                    <td width="90px"><font size="1" face="arial"color="black" >{value6.Respuestas}</font></td> 
-                                  </tr>
-                                  <tr>
-                                    <td><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo trabajar sin parar</font></td>
-                                    <td width="90px"><font size="1" face="arial"color="black" >{value7.Respuestas} </font></td> 
-                                  </tr>
-                                  <tr>
-                                    <td><font size="1" face="arial"color="black" >Considero que es necesario mantener un ritmo de trabajo acelerado</font></td>
-                                    <td width="90px"><font size="1" face="arial"color="black" >{value8.Respuestas}</font></td> 
-                                  </tr>
                                   
-                                    </MDBTableBody>
-                                    </MDBTable>
-                          
-                                    <MDBTable  component={Paper}  small  className="text-left">
-                                    <MDBTableBody>
-                                    <font style= {{marginLeft:20}}  size="1" color="red" >III. El esfuerzo mental que le exige su trabajo.</font>
-                                    </MDBTableBody>
-                                    </MDBTable>
-                                            
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                                    <MDBTableBody>
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
                                     <tr>
-                                    <td><font size="1" face="arial"color="black" >Mi trabajo exige que esté muy concentrado</font></td>
-                                    <td width="90px"><font size="1" face="arial"color="black" >{value9.Respuestas}</font></td> 
+                                    <td width="80%"><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</font></td>
+                                    <td width="20%"><font size="1" face="arial"color="black" >{value6.Respuestas}</font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td width="80%"><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo trabajar sin parar</font></td>
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value7.Respuestas} </font></td> 
+                                    </tr>
+                                    <tr>
+                                      <td width="80%"><font size="1" face="arial"color="black" >Considero que es necesario mantener un ritmo de trabajo acelerado</font></td>
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value8.Respuestas}</font></td> 
+                                    </tr>
+                                  
+                                    </table>
+                          
+
+                                    <font style= {{marginLeft:20}}  size="1" color="red" >III. El esfuerzo mental que le exige su trabajo.</font>
+                                   
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <tr>
+                                    <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo exige que esté muy concentrado</font></td>
+                                    <td width="20%"><font size="1" face="arial"color="black" >{value9.Respuestas}</font></td> 
                                   </tr>
                                     <tr>
-                                    <td><font size="1" face="arial"color="black" >Mi trabajo requiere que memorice mucha información</font></td>   
-                                    <td width="90px"><font size="1" face="arial"color="black" >{value10.Respuestas}</font></td> 
+                                    <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo requiere que memorice mucha información</font></td>   
+                                    <td width="20%"><font size="1" face="arial"color="black" >{value10.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >En mi trabajo tengo que tomar decisiones difíciles muy rápido</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value11.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >En mi trabajo tengo que tomar decisiones difíciles muy rápido</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value11.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >Mi trabajo exige que atienda varios asuntos al mismo tiempo</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value12.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo exige que atienda varios asuntos al mismo tiempo</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value12.Respuestas}</font></td> 
                                     </tr>
-                                   
-                   
-                                    </MDBTableBody>
-                                    </MDBTable>
-                               
-                                    <MDBTable  component={Paper}  small  className="text-left">
-                                    <MDBTableBody>
+                                    </table>
+                              
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV. Trabajo y las responsabilidades que tiene.</font>
-                                    </MDBTableBody>
-                                    </MDBTable>
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                                    <MDBTableBody>
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >En mi trabajo soy responsable de cosas de mucho valor</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value13.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >En mi trabajo soy responsable de cosas de mucho valor</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value13.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                    <td><font size="1" face="arial"color="black" >Respondo ante mi jefe por los resultados de toda mi área de trabajo</font></td>   
-                                    <td width="90px"><font size="1" face="arial"color="black" >{value14.Respuestas}</font></td> 
+                                    <td width="80%"><font size="1" face="arial"color="black" >Respondo ante mi jefe por los resultados de toda mi área de trabajo</font></td>   
+                                    <td width="20%"><font size="1" face="arial"color="black" >{value14.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >En el trabajo me dan órdenes contradictorias</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value15.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >En el trabajo me dan órdenes contradictorias</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value15.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >Considero que en mi trabajo me piden hacer cosas innecesarias</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value16.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >Considero que en mi trabajo me piden hacer cosas innecesarias</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value16.Respuestas}</font></td> 
                                     </tr>
-                                   
-                                    </MDBTableBody>
-                                    </MDBTable>
+                                    </table>
 
-                                    <MDBTable  component={Paper}  small  className="text-left">
-                                    <MDBTableBody>
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >V. Jornada de trabajo.</font>
-                                    </MDBTableBody>
-                                    </MDBTable>
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                                    <MDBTableBody>
+                                 
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >Trabajo horas extras más de tres veces a la semana</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value17.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >Trabajo horas extras más de tres veces a la semana</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value17.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                    <td><font size="1" face="arial"color="black" >Mi trabajo me exige laborar en días de descanso, festivos o fines de semana</font></td>   
-                                    <td width="90px"><font size="1" face="arial"color="black" >{value18.Respuestas}</font></td> 
+                                    <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo me exige laborar en días de descanso, festivos o fines de semana</font></td>   
+                                    <td width="20%"><font size="1" face="arial"color="black" >{value18.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value19.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value19.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >Debo atender asuntos de trabajo cuando estoy en casa</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value20.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >Debo atender asuntos de trabajo cuando estoy en casa</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value20.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >Pienso en las actividades familiares o personales cuando estoy en mi trabajo</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value21.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >Pienso en las actividades familiares o personales cuando estoy en mi trabajo</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value21.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >Pienso que mis responsabilidades familiares afectan mi trabajo</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value22.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >Pienso que mis responsabilidades familiares afectan mi trabajo</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value22.Respuestas}</font></td> 
                                     </tr>
-                                    </MDBTableBody>
-                                    </MDBTable>
-                          
-                                    <MDBTable  component={Paper}  small  className="text-left">
-                                    <MDBTableBody>
+                                    </table>
+                                    
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VI. Decisiones que puede tomar en su trabajo.</font>
-                                    </MDBTableBody>
-                                    </MDBTable>
-
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                                    <MDBTableBody>
+                                 
+                                    < table width="500" style = {{marginLeft:20}} className="table-bordered ">
                                             
                                     <tr>
-                                    <td><font size="1" face="arial"color="black" >Mi trabajo permite que desarrolle nuevas habilidades</font></td>   
-                                    <td width="90px"><font size="1" face="arial"color="black" >{value23.Respuestas}</font></td> 
+                                    <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo permite que desarrolle nuevas habilidades</font></td>   
+                                    <td width="20%"><font size="1" face="arial"color="black" >{value23.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >En mi trabajo puedo aspirar a un mejor puesto</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value24.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >En mi trabajo puedo aspirar a un mejor puesto</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value24.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value25.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value25.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1" face="arial"color="black" >Puedo decidir cuánto trabajo realizo durante la jornada laboral</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value26.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >Puedo decidir cuánto trabajo realizo durante la jornada laboral</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value26.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td ><font size="1" face="arial"color="black" >Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</font></td>   
-                                      <td width="90px"><font size="1" face="arial"color="black" >{value27.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1" face="arial"color="black" >Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</font></td>   
+                                      <td width="20%"><font size="1" face="arial"color="black" >{value27.Respuestas}</font></td> 
                                     </tr>
                             
                                     <tr>
-                                    <td><font size="1"face="arial"color="black">Puedo cambiar el orden de las actividades que realizo en mi trabajo</font></td>   
-                                    <td width="90px"><font size="1"face="arial"color="black">{value28.Respuestas}</font></td> 
+                                    <td width="80%"><font size="1"face="arial"color="black">Puedo cambiar el orden de las actividades que realizo en mi trabajo</font></td>   
+                                    <td width="20%"><font size="1"face="arial"color="black">{value28.Respuestas}</font></td> 
                                     </tr>
                                     
-                                    </MDBTableBody>
-                                    </MDBTable>
-                                 
-                                    <MDBTable  component={Paper}  small  className="text-left">
-                                    <MDBTableBody>
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VII.Cualquier tipo de cambio que ocurra en su trabajo</font><br/>
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >(considere los últimos cambios realizados).	</font>
+                                    </table>
+                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VII.Cualquier tipo de cambio que ocurra en su trabajo (considere los últimos cambios realizados).</font>
 
-                                    </MDBTableBody>
-                                    </MDBTable>
-
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                                    <MDBTableBody>
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Los cambios que se presentan en mi trabajo dificultan mi labor</font></td>   
-                                      <td width="90px" ><font size="1"face="arial"color="black">{value29.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Los cambios que se presentan en mi trabajo dificultan mi labor</font></td>   
+                                      <td width="20%" ><font size="1"face="arial"color="black">{value29.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value30.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value30.Respuestas}</font></td> 
                                     </tr>
                                     
-                                    </MDBTableBody>
-                                    </MDBTable>
-                                    <MDBTable  component={Paper}  small  className="text-left">
-                                    <MDBTableBody>
+                                    </table>
+                                   
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VIII. capacitación e información que se le proporciona sobre su trabajo.</font>
-                                    </MDBTableBody>
-                                    </MDBTable>
-
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                                    <MDBTableBody>
+                                
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Me informan con claridad cuáles son mis funciones</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value31.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Me informan con claridad cuáles son mis funciones</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value31.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Me explican claramente los resultados que debo obtener en mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value32.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Me explican claramente los resultados que debo obtener en mi trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value32.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Me explican claramente los objetivos de mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value33.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Me explican claramente los objetivos de mi trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value33.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Me informan con quién puedo resolver problemas o asuntos de trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value34.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Me informan con quién puedo resolver problemas o asuntos de trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value34.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Me permiten asistir a capacitaciones relacionadas con mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value35.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Me permiten asistir a capacitaciones relacionadas con mi trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value35.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Recibo capacitación útil para hacer mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value36.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Recibo capacitación útil para hacer mi trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value36.Respuestas}</font></td> 
                                     </tr>
                                     
-                                    </MDBTableBody>
-                                    </MDBTable>
-                                    <MDBTable  component={Paper}  small  className="text-left">
-                                    <MDBTableBody>
+                                    </table>
+                                   
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IX. Jefes con quien tiene contacto.</font>
-                                    </MDBTableBody>
-                                    </MDBTable>
-
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                                    <MDBTableBody>
+                            
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Mi jefe ayuda a organizar mejor el trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value37.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Mi jefe ayuda a organizar mejor el trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value37.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Mi jefe tiene en cuenta mis puntos de vista y opiniones</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value38.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Mi jefe tiene en cuenta mis puntos de vista y opiniones</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value38.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Mi jefe me comunica a tiempo la información relacionada con el trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value39.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Mi jefe me comunica a tiempo la información relacionada con el trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value39.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">La orientación que me da mi jefe me ayuda a realizar mejor mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value40.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">La orientación que me da mi jefe me ayuda a realizar mejor mi trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value40.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value41.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value41.Respuestas}</font></td> 
                                     </tr>
                                                                  
-                                    </MDBTableBody>
-                                    </MDBTable>
-                                    <MDBTable  component={Paper}  small  className="text-left">
-                                    <MDBTableBody>
+                                    </table>
+                                 
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >X. Relaciones con sus compañeros.</font>
-                                    </MDBTableBody>
-                                    </MDBTable>
-
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                                    <MDBTableBody>
+                         
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Puedo confiar en mis compañeros de trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value42.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Puedo confiar en mis compañeros de trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value42.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Entre compañeros solucionamos los problemas de trabajo de forma respetuosa</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value43.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Entre compañeros solucionamos los problemas de trabajo de forma respetuosa</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value43.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">En mi trabajo me hacen sentir parte del grupo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value44.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">En mi trabajo me hacen sentir parte del grupo</font></td>   
+                                      <td width="20%" ><font size="1"face="arial"color="black">{value44.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Cuando tenemos que realizar trabajo de equipo los compañeros colaboran</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value45.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Cuando tenemos que realizar trabajo de equipo los compañeros colaboran</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value45.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Mis compañeros de trabajo me ayudan cuando tengo dificultades</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value46.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Mis compañeros de trabajo me ayudan cuando tengo dificultades</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value46.Respuestas}</font></td> 
                                     </tr>
                                                                  
-                                    </MDBTableBody>
-                                    </MDBTable>
+                                    </table>
                                     <br/>
                                     <br/>  
-                                    <MDBTable  component={Paper}  small  className="text-left">
-                                    <MDBTableBody>
+                                  
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento</font><br/>
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</font>
 
-                                    </MDBTableBody>
-                                    </MDBTable>
-                                   
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                                    <MDBTableBody>
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Me informan sobre lo que hago bien en mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value47.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Me informan sobre lo que hago bien en mi trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value47.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">La forma como evalúan mi trabajo en mi centro de trabajo me ayuda a mejorar mi desempeño</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value48.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">La forma como evalúan mi trabajo en mi centro de trabajo me ayuda a mejorar mi desempeño</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value48.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">En mi centro de trabajo me pagan a tiempo mi salario</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value49.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">En mi centro de trabajo me pagan a tiempo mi salario</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value49.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">El pago que recibo es el que merezco por el trabajo que realizo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value50.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">El pago que recibo es el que merezco por el trabajo que realizo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value50.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Si obtengo los resultados esperados en mi trabajo me recompensan o reconocen</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value51.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Si obtengo los resultados esperados en mi trabajo me recompensan o reconocen</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value51.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Las personas que hacen bien el trabajo pueden crecer laboralmente</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value52.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Las personas que hacen bien el trabajo pueden crecer laboralmente</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value52.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Considero que mi trabajo es estable</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value53.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Considero que mi trabajo es estable</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value53.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">En mi trabajo existe continua rotación de personal</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value54.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">En mi trabajo existe continua rotación de personal</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value54.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Siento orgullo de laborar en este centro de trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value55.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Siento orgullo de laborar en este centro de trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value55.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Me siento comprometido con mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value56.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Me siento comprometido con mi trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value56.Respuestas}</font></td> 
                                     </tr>
                                                                  
-                                    </MDBTableBody>
-                                    </MDBTable>
-                                    <MDBTable  component={Paper}  small  className="text-left">
-                                    <MDBTableBody>
+                                    </table>
+                                    
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</font>
-                                    </MDBTableBody>
-                                    </MDBTable>
-
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                                    <MDBTableBody>
+                          
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">En mi trabajo puedo expresarme libremente sin interrupciones</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value57.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">En mi trabajo puedo expresarme libremente sin interrupciones</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value57.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Recibo críticas constantes a mi persona y/o trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value58.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Recibo críticas constantes a mi persona y/o trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value58.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value59.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value59.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value60.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value60.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value61.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value61.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value62.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value62.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value63.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value63.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">He presenciado actos de violencia en mi centro de trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value64.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">He presenciado actos de violencia en mi centro de trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value64.Respuestas}</font></td> 
                                     </tr>
                                                                                                   
-                                    </MDBTableBody>
-                                    </MDBTable>
+                                    </table>
                                   
-                                    <MDBTable  component={Paper}  small  className="text-left">
-                                    <MDBTableBody>
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XIII. Atención a clientes y usuarios.</font>
-                                    </MDBTableBody>
-                                    </MDBTable>
-
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                                    <MDBTableBody>
+                                
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Atiendo clientes o usuarios muy enojados</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value65.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Atiendo clientes o usuarios muy enojados</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value65.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value66.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value66.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Para hacer mi trabajo debo demostrar sentimientos distintos a los míos</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value67.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Para hacer mi trabajo debo demostrar sentimientos distintos a los míos</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value67.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Mi trabajo me exige atender situaciones de violencia</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value68.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Mi trabajo me exige atender situaciones de violencia</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value68.Respuestas}</font></td> 
                                     </tr>
-                                    </MDBTableBody>
-                                    </MDBTable>
-                                    <MDBTable  component={Paper}  small  className="text-left">
-                                    <MDBTableBody>
+                                    </table>
+                                   
                                     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >Las actitudes de las personas que supervisa.</font>
-                                    </MDBTableBody>
-                                    </MDBTable>
-
-                                    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                                    <MDBTableBody>
+                             
+                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Comunican tarde los asuntos de trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value69.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Comunican tarde los asuntos de trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value69.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Dificultan el logro de los resultados del trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value70.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Dificultan el logro de los resultados del trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value70.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Cooperan poco cuando se necesita</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value71.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Cooperan poco cuando se necesita</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value71.Respuestas}</font></td> 
                                     </tr>
                                     <tr>
-                                      <td><font size="1"face="arial"color="black">Ignoran las sugerencias para mejorar su trabajo</font></td>   
-                                      <td width="90px"><font size="1"face="arial"color="black">{value72.Respuestas}</font></td> 
+                                      <td width="80%"><font size="1"face="arial"color="black">Ignoran las sugerencias para mejorar su trabajo</font></td>   
+                                      <td width="20%"><font size="1"face="arial"color="black">{value72.Respuestas}</font></td> 
                                     </tr>
-                                    </MDBTableBody>
-                                    </MDBTable>
+                                    </table>
                                 </div>
                             </PDFExport>
                         </div>
@@ -6974,18 +6881,18 @@ ponderacion=<React.Fragment>
     
     if(categoriaUno < 5){
       categoria1Nulo= categoriaUno
-      colorCategoriaUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorCategoriaUno  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     }else if(categoriaUno >= 5 && categoriaUno < 9){
-      colorCategoriaUno =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorCategoriaUno =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       categoria1Bajo= categoriaUno
     }else if(categoriaUno >= 9 && categoriaUno < 11){
-      colorCategoriaUno=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorCategoriaUno=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       categoria1Medio= categoriaUno
     }else if(categoriaUno >= 11 && categoriaUno < 14){
-      colorCategoriaUno = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorCategoriaUno = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       categoria1Alto= categoriaUno
     }else if(categoriaUno >= 14){
-      colorCategoriaUno = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorCategoriaUno = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       categoria1MuyAlto= categoriaUno
     }
     
@@ -6997,19 +6904,19 @@ ponderacion=<React.Fragment>
     let colorCategoriaDos;
     let categoriaDos = (entero6+entero12+entero7+entero8+entero9+entero10+entero11+entero65+entero66+entero67+entero68+entero13+entero14+entero15+entero16+entero25+entero26+entero27+entero28+entero23+entero24+entero29+entero30+entero35+entero36).toFixed(2);
     if(categoriaDos < 15){
-      colorCategoriaDos  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorCategoriaDos  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       categoria2Nulo= categoriaDos
     }else if(categoriaDos >= 15 && categoriaDos < 30){
-      colorCategoriaDos =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorCategoriaDos =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       categoria2Bajo= categoriaDos
     }else if(categoriaDos >=30 && categoriaDos < 45){
-      colorCategoriaDos=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorCategoriaDos=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       categoria2Medio= categoriaDos
     }else if(categoriaDos >=45 && categoriaDos < 60){
-      colorCategoriaDos = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorCategoriaDos = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       categoria2Alto= categoriaDos
     }else if(categoriaDos >= 60){
-      colorCategoriaDos = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorCategoriaDos = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       categoria2MuyAlto= categoriaDos
     }
     let categoria3Nulo;
@@ -7020,20 +6927,20 @@ ponderacion=<React.Fragment>
     let colorCategoriaTre;
     let categoriaTre = (entero17+entero18+entero19+entero20+entero21+entero22).toFixed(2);
     if(categoriaTre < 5){
-      colorCategoriaTre  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorCategoriaTre  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       categoria3Nulo= categoriaTre
     }else if(categoriaTre >= 5 && categoriaTre < 7){
-      colorCategoriaTre =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorCategoriaTre =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       categoria3Bajo= categoriaTre
     }else if(categoriaTre >=7 && categoriaTre < 10){
-      colorCategoriaTre=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorCategoriaTre=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       categoria3Medio= categoriaTre
     }else if(categoriaTre >=10 && categoriaTre < 13){
-      colorCategoriaTre = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorCategoriaTre = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       categoria3Alto= categoriaTre
     }else if(categoriaTre >= 13){
       categoria3MuyAlto= categoriaTre
-      colorCategoriaTre = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorCategoriaTre = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     }
     
     let categoria4Nulo;
@@ -7044,19 +6951,19 @@ ponderacion=<React.Fragment>
     let colorCategoriaCuatro;
     let categoriaCuatro = (entero31+entero32+entero33+entero34+entero37+entero38+entero39+entero40+entero41+entero42+entero43+entero44+entero45+entero46+entero69+entero70+entero71+entero72+entero57+entero58+entero59+entero60+entero61+entero62+entero63+entero64).toFixed(2);
     if(categoriaCuatro < 14){
-      colorCategoriaCuatro  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorCategoriaCuatro  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       categoria4Nulo= categoriaCuatro
     }else if(categoriaCuatro >= 14 && categoriaCuatro < 29){
-      colorCategoriaCuatro =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorCategoriaCuatro =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       categoria4Bajo= categoriaCuatro
     }else if(categoriaCuatro >=29 && categoriaCuatro < 42){
-      colorCategoriaCuatro=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorCategoriaCuatro=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       categoria4Medio= categoriaCuatro
     }else if(categoriaCuatro >=42 && categoriaCuatro < 58){
-      colorCategoriaCuatro = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorCategoriaCuatro = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       categoria4Alto= categoriaCuatro
     }else if(categoriaCuatro >= 58){
-      colorCategoriaCuatro= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorCategoriaCuatro= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       categoria4MuyAlto= categoriaCuatro
     }
     
@@ -7068,19 +6975,19 @@ ponderacion=<React.Fragment>
     let colorCategoriaCinco;
     let categoriaCinco = (entero47+entero48+entero49+entero50+entero51+entero52+entero55+entero56+entero53+entero54).toFixed(2);
     if(categoriaCinco < 10){
-      colorCategoriaCinco  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorCategoriaCinco  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       categoria5Nulo= categoriaCinco
     }else if(categoriaCinco >= 10 && categoriaCinco < 14){
-      colorCategoriaCinco=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorCategoriaCinco=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       categoria5Bajo= categoriaCinco
     }else if(categoriaCinco >=14 && categoriaCinco < 18){
-      colorCategoriaCinco=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorCategoriaCinco=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       categoria5Medio= categoriaCinco
     }else if(categoriaCinco >=18 && categoriaCinco < 23){
-      colorCategoriaCinco = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorCategoriaCinco = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       categoria5Alto= categoriaCinco
     }else if(categoriaCinco >= 23){
-      colorCategoriaCinco= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorCategoriaCinco= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       categoria5MuyAlto= categoriaCinco
     }
     
@@ -7093,19 +7000,19 @@ ponderacion=<React.Fragment>
     let DominioUno = (entero1+entero3+entero2+entero4+entero5).toFixed(2);
     let colorDominioUno;
     if(DominioUno < 5){
-      colorDominioUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioUno  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       Dominio1Nulo= DominioUno
     }else if(DominioUno >= 5 && DominioUno < 9){
-      colorDominioUno=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorDominioUno=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       Dominio1Bajo= DominioUno
     }else if(DominioUno >= 9 && DominioUno < 11){
-      colorDominioUno=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorDominioUno=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       Dominio1Medio= DominioUno
     }else if(DominioUno >=11 && DominioUno < 14){
-      colorDominioUno = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorDominioUno = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       Dominio1Alto= DominioUno
     }else if(DominioUno >= 14){
-      colorDominioUno= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorDominioUno= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       Dominio1MuyAlto= DominioUno
     }
     
@@ -7117,19 +7024,19 @@ ponderacion=<React.Fragment>
     let colorDominioDos;
     let DominioDos = (entero6+entero12+entero7+entero8+entero9+entero10+entero11+entero65+entero66+entero67+entero68+entero13+entero14+entero15+entero16).toFixed(2);
     if(DominioDos < 15){
-      colorDominioDos  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioDos  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       Dominio2Nulo= DominioDos
     }else if(DominioDos >= 15 && DominioDos < 21){
-      colorDominioDos=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorDominioDos=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       Dominio2Bajo= DominioDos
     }else if(DominioDos >= 21 && DominioDos < 27){
-      colorDominioDos=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorDominioDos=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       Dominio2Medio= DominioDos
     }else if(DominioDos >= 27 && DominioDos < 37){
-      colorDominioDos = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorDominioDos = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       Dominio2Alto= DominioDos
     }else if(DominioDos >= 37){
-      colorDominioDos= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorDominioDos= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       Dominio2MuyAlto= DominioDos
     }
     
@@ -7141,19 +7048,19 @@ ponderacion=<React.Fragment>
     let colorDominioTres;
     let DominioTres = (entero25+entero26+entero27+entero28+entero23+entero24+entero29+entero30+entero35+entero36).toFixed(2);
     if(DominioTres < 11){
-      colorDominioTres  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioTres  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       Dominio3Nulo= DominioTres
     }else if(DominioTres >= 11 && DominioTres < 16){
-      colorDominioTres=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorDominioTres=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       Dominio3Bajo= DominioTres
     }else if(DominioTres >= 16 && DominioTres < 21){
-      colorDominioTres=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorDominioTres=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       Dominio3Medio= DominioTres
     }else if(DominioTres >= 21 && DominioTres < 25){
-      colorDominioTres = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorDominioTres = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       Dominio3Alto= DominioTres
     }else if(DominioTres >= 25){
-      colorDominioTres= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorDominioTres= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       Dominio3MuyAlto= DominioTres
     }
     
@@ -7165,19 +7072,19 @@ ponderacion=<React.Fragment>
     let colorDominioCuatro;
     let DominioCuatro = (entero17+entero18).toFixed(2);
     if(DominioCuatro < 1){
-      colorDominioCuatro  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioCuatro  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       Dominio4Nulo= DominioCuatro
     }else if(DominioCuatro >= 1 && DominioCuatro < 2){
-      colorDominioCuatro=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorDominioCuatro=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       Dominio4Bajo= DominioCuatro
     }else if(DominioCuatro >= 2 && DominioCuatro < 4){
-      colorDominioCuatro=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorDominioCuatro=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       Dominio4Medio= DominioCuatro
     }else if(DominioCuatro >= 4 && DominioCuatro < 6){
-      colorDominioCuatro = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorDominioCuatro = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       Dominio4Alto= DominioCuatro
     }else if(DominioCuatro >= 6){
-      colorDominioCuatro= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorDominioCuatro= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       Dominio4MuyAlto= DominioCuatro
     }
     
@@ -7189,19 +7096,19 @@ ponderacion=<React.Fragment>
     let colorDominioCinco;
     let DominioCinco = (entero19+entero20+entero21+entero22).toFixed(2);
     if(DominioCinco < 4){
-      colorDominioCinco  = <TableCell width="15px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioCinco  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       Dominio5Nulo= DominioCinco
     }else if(DominioCinco >= 4 && DominioCinco < 6){
-      colorDominioCinco=<TableCell width="15px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorDominioCinco=<td  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       Dominio5Bajo= DominioCinco
     }else if(DominioCinco >= 6 && DominioCinco < 8){
-      colorDominioCinco=<TableCell width="15px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorDominioCinco=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       Dominio5Medio= DominioCinco
     }else if(DominioCinco >= 8 && DominioCinco < 10){
-      colorDominioCinco = <TableCell  width="15px"style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorDominioCinco = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       Dominio5Alto= DominioCinco
     }else if(DominioCinco >= 10){
-      colorDominioCinco= <TableCell  width="15px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorDominioCinco= <td  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       Dominio5MuyAlto= DominioCinco
     }
     
@@ -7213,19 +7120,19 @@ ponderacion=<React.Fragment>
     let colorDominioSeis;
     let DominioSeis = (entero31+entero32+entero33+entero34+entero37+entero38+entero39+entero40+entero41).toFixed(2);
     if(DominioSeis < 9){
-      colorDominioSeis  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioSeis  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       Dominio6Nulo= DominioSeis
     }else if(DominioSeis >= 9 && DominioSeis < 12){
-      colorDominioSeis=<TableCell  width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorDominioSeis=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       Dominio6Bajo= DominioSeis
     }else if(DominioSeis >= 12 && DominioSeis < 16){
-      colorDominioSeis=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorDominioSeis=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       Dominio6Medio= DominioSeis
     }else if(DominioSeis >= 16 && DominioSeis < 20){
-      colorDominioSeis = <TableCell width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorDominioSeis = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       Dominio6Alto= DominioSeis
     }else if(DominioSeis >= 20){
-      colorDominioSeis= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorDominioSeis= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       Dominio6MuyAlto= DominioSeis
     }
     
@@ -7237,19 +7144,19 @@ ponderacion=<React.Fragment>
     let colorDominioSiete;
     let DominioSiete = (entero42+entero43+entero44+entero45+entero46+entero69+entero70+entero71+entero72).toFixed(2);
     if(DominioSiete < 10){
-      colorDominioSiete  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioSiete  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       Dominio7Nulo= DominioSiete
     }else if(DominioSiete >= 10 && DominioSiete < 13){
-      colorDominioSiete=<TableCell width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorDominioSiete=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       Dominio7Bajo= DominioSiete
     }else if(DominioSiete >= 13 && DominioSiete < 17){
-      colorDominioSiete=<TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorDominioSiete=<td  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       Dominio7Medio= DominioSiete
     }else if(DominioSiete >= 17 && DominioSiete < 21){
-      colorDominioSiete = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorDominioSiete = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     Dominio7Alto= DominioSiete
     }else if(DominioSiete >= 21){
-      colorDominioSiete= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorDominioSiete= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       Dominio7MuyAlto= DominioSiete
     }
     
@@ -7261,19 +7168,19 @@ ponderacion=<React.Fragment>
     let colorDominioOcho;
     let DominioOcho = (entero57+entero58+entero59+entero60+entero61+entero62+entero63+entero64).toFixed(2);
     if(DominioOcho < 7){
-      colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioOcho  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       Dominio8Nulo= DominioOcho
     }else if(DominioOcho >= 7 && DominioOcho < 10){
-      colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorDominioOcho  = <td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       Dominio8Bajo= DominioOcho
     }else if(DominioOcho >= 10 && DominioOcho < 13){
-      colorDominioOcho=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorDominioOcho=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       Dominio8Medio= DominioOcho
     }else if(DominioOcho >= 13 && DominioOcho < 16){
-      colorDominioOcho = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorDominioOcho = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       Dominio8Alto= DominioOcho
     }else if(DominioOcho >= 16){
-      colorDominioOcho= <TableCell width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorDominioOcho= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       Dominio8MuyAlto= DominioOcho
     }
     
@@ -7285,19 +7192,19 @@ ponderacion=<React.Fragment>
     let colorDominioNueve;
     let DominioNueve = (entero47+entero48+entero49+entero50+entero51+entero52).toFixed(2);
     if(DominioNueve < 6){
-      colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioNueve  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       Dominio9Nulo= DominioNueve
     }else if(DominioNueve >= 6 && DominioNueve < 10){
-      colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorDominioNueve  = <td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       Dominio9Bajo= DominioNueve
     }else if(DominioNueve >= 10 && DominioNueve < 14){
-      colorDominioNueve=<TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorDominioNueve=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       Dominio9Medio= DominioNueve
     }else if(DominioNueve >= 14 && DominioNueve < 18){
-      colorDominioNueve = <TableCell  width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorDominioNueve = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       Dominio9Alto= DominioNueve
     }else if(DominioNueve >= 18){
-      colorDominioNueve= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorDominioNueve= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       Dominio9MuyAlto= DominioNueve
     }
     
@@ -7309,31 +7216,33 @@ ponderacion=<React.Fragment>
     let colorDominioDiez;
     let DominioDiez = (entero55+entero56+entero53+entero54).toFixed(2);
     if(DominioDiez < 4){
-      colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+      colorDominioDiez  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
       Dominio10Nulo= DominioDiez
     }else if(DominioDiez >= 4 && DominioDiez < 6){
-      colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+      colorDominioDiez  = <td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
       Dominio10Bajo= DominioDiez
     }else if(DominioDiez >= 6 && DominioDiez < 8){
-      colorDominioDiez=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+      colorDominioDiez=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
       Dominio10Medio= DominioDiez
     }else if(DominioDiez >= 8 && DominioDiez < 10){
-      colorDominioDiez = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+      colorDominioDiez = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
       Dominio10Alto= DominioDiez
     }else if(DominioDiez >= 10){
-      colorDominioDiez= <TableCell  width="20px"style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+      colorDominioDiez= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       Dominio10MuyAlto= DominioDiez
     }
      
     ponderacionIndividual =  <React.Fragment>
             <Alert className ="mt-4" color ="primary ">Resultados de la aplicación de la evaluación EEO </Alert>
 
-                 <div>
+                    <div>
                         <MDBBtn  className = "text-white"  size="md" color="secondary" className="k-button" onClick={() => { this.pdfExportComponent.save();}}>
                             Descargar Resultados de {this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}
                         </MDBBtn>
-               </div>
-                               
+                        &nbsp;
+                    {botonCerrar}
+                    </div>
+                    <br/>       
                     <MDBContainer  style={{marginLeft:"5%",marginTop:20}}>
                     <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>
                     <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
@@ -7861,279 +7770,261 @@ ponderacion=<React.Fragment>
                                        </MDBTableBody>
                                         </MDBTable>  
     
-                                       <MDBTable  component={Paper}  small  className="text-left ">
-                                         <MDBTableBody>
                                         <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">I.- Resultados de la categoría</font>
-                                        </MDBTableBody>                                                                            
-                                        </MDBTable>
-                                        <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
-                                          <MDBTableBody>
+                                        
+                                        <table WIDTH="500"style={{marginLeft:20}} className="table-bordered">
                                               
                                              <tr >                              
-                                              <td width="5px"><font size="1" face="arial"color="black" ></font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Categoría</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">Calificación</font></td>
-                                              <td width="20px"><font size="1" face="arial"color="black">Riesgo</font></td>                                         
+                                              <td width="10%"><font size="1" face="arial"color="black" ></font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Categoría</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">Calificación</font></td>
+                                              <td ><font size="1" face="arial"color="black">Riesgo</font></td>                                         
                                             </tr>
                                             <tr>           
-                                            <td width="5px"><font size="1" face="arial"color="black" >1</font></td>
-                                            <td width="60px"  className="text-left"><font size="1" face="arial"color="black">Ambiente de Trabajo</font></td>
-                                            <td width="15px"><font size="1" face="arial"color="black">{categoriaUno}</font></td>
+                                            <td width="10%"><font size="1" face="arial"color="black" >1</font></td>
+                                            <td width="60%"><font size="1" face="arial"color="black">Ambiente de Trabajo</font></td>
+                                            <td width="20%"><font size="1" face="arial"color="black">{categoriaUno}</font></td>
                                              {colorCategoriaUno}                
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >2</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Factores propios de la actividad</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{categoriaDos}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >2</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Factores propios de la actividad</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{categoriaDos}</font></td>
                                                {colorCategoriaDos}
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >3</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Organización del tiempo de trabajo</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{categoriaTre}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >3</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Organización del tiempo de trabajo</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{categoriaTre}</font></td>
                                               {colorCategoriaTre}
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >4</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Liderazgo y relaciones en el trabajo</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{categoriaCuatro}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >4</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Liderazgo y relaciones en el trabajo</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{categoriaCuatro}</font></td>
                                               {colorCategoriaCuatro}
                                               </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Entorno organizacional</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{categoriaCinco}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >5</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Entorno organizacional</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{categoriaCinco}</font></td>
                                               {colorCategoriaCinco}  
                                             </tr>
-                   
-                                          </MDBTableBody>
-                                          </MDBTable>
-                                          <MDBTable  component={Paper}  small  className="text-left ">
-                                         <MDBTableBody>
+                                            </table>
+                                       
                                         <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">II.- Resultados del dominio</font>
-                                        </MDBTableBody>                                                                            
-                                        </MDBTable>
-                                          <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
-                                          <MDBTableBody>
-                                              
+                                      
+                                          <table WIDTH="500"style={{marginLeft:20}} className="table-bordered">                                               
                                              <tr >                              
-                                              <td width="5px"><font size="1" face="arial"color="black" ></font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Dominio</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">Calificación</font></td>
-                                              <td width="20px"><font size="1" face="arial"color="black">Riesgo</font></td>                                         
+                                              <td width="10%"><font size="1" face="arial"color="black" ></font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Dominio</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">Calificación</font></td>
+                                              <td ><font size="1" face="arial"color="black">Riesgo</font></td>                                         
                                             </tr>
                                             <tr>           
-                                            <td width="5px"><font size="1" face="arial"color="black" >1</font></td>
-                                            <td width="60px"  className="text-left"><font size="1" face="arial"color="black">Carga de Trabajo</font></td>
-                                            <td width="15px"><font size="1" face="arial"color="black">{DominioUno}</font></td>
+                                            <td width="10%"><font size="1" face="arial"color="black" >1</font></td>
+                                            <td width="60%"><font size="1" face="arial"color="black">Carga de Trabajo</font></td>
+                                            <td width="20%"><font size="1" face="arial"color="black">{DominioUno}</font></td>
                                              {colorDominioUno}                
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >2</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Condiciones en el ambiente de trabajo</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{DominioDos}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >2</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Condiciones en el ambiente de trabajo</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{DominioDos}</font></td>
                                                {colorDominioDos}
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >3</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Falta de control sobre el trabajo</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{DominioTres}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >3</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Falta de control sobre el trabajo</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{DominioTres}</font></td>
                                               {colorDominioTres}
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >4</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Interferencia en la relación trabajo-familia</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{DominioCuatro}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >4</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Interferencia en la relación trabajo-familia</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{DominioCuatro}</font></td>
                                               {colorDominioCuatro}
                                               </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Jornada de trabajo</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{DominioCinco}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >5</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Jornada de trabajo</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{DominioCinco}</font></td>
                                               {colorDominioCinco}  
                                             </tr>
-                                            
-                                          </MDBTableBody>
-                                          </MDBTable>
-                                          <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
-                                          <MDBTableBody>
+                                            </table>
+                                          <table WIDTH="500"style={{marginLeft:20}} className="table-bordered"> 
                                               <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >6</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Liderazgo</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{DominioSeis}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >6</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Liderazgo</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{DominioSeis}</font></td>
                                               {colorDominioSeis}  
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >7</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Relaciones en el trabajo</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{DominioSiete}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >7</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Relaciones en el trabajo</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{DominioSiete}</font></td>
                                               {colorDominioSiete}  
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >8</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Violencia</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{DominioOcho}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >8</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Violencia</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{DominioOcho}</font></td>
                                               {colorDominioOcho}  
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >9</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Reconocimiento del desempeño</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{DominioNueve}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >9</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Reconocimiento del desempeño</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{DominioNueve}</font></td>
                                               {colorDominioNueve}  
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >10</font></td>
-                                              <td width="60px" className="text-left"><font size="1" face="arial"color="black">Insuficiente sentido de pertenencia e, inestabilidad</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{DominioDiez}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >10</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Insuficiente sentido de pertenencia e, inestabilidad</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{DominioDiez}</font></td>
                                               {colorDominioDiez}  
                                             </tr>
-                                          </MDBTableBody>
-                                          </MDBTable>
+                                          </table>
     
-                                          <MDBTable  component={Paper}  small  className="text-left ">
-                                         <MDBTableBody>
+                                         
                                         <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">III.- Resultados por Dimensión</font>
-                                        </MDBTableBody>                                                                            
-                                        </MDBTable>
-                                          <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
-                                          <MDBTableBody>
-                                              
+                                        
+                                          <table WIDTH="500"style={{marginLeft:20}} className="table-bordered"> 
+ 
                                              <tr >                              
-                                              <td width="5px"><font size="1" face="arial"color="black" ></font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Dimensión</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">Calificación</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" ></font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Dimensión</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">Calificación</font></td>
                                             </tr>
                                             <tr>           
-                                            <td width="5px"><font size="1" face="arial"color="black" >1</font></td>
-                                            <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Condiciones peligrosas e inseguras</font></td>
-                                            <td width="15px"><font size="1" face="arial"color="black">{(entero1+entero3).toFixed(2)}</font></td>
+                                            <td width="10%"><font size="1" face="arial"color="black" >1</font></td>
+                                            <td width="60%"><font size="1" face="arial"color="black">Condiciones peligrosas e inseguras</font></td>
+                                            <td width="20%"><font size="1" face="arial"color="black">{(entero1+entero3).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >2</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Condiciones deficientes e insalubres</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero2+entero4).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >2</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Condiciones deficientes e insalubres</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero2+entero4).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >3</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{entero5.toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >3</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{entero5.toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >4</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero6+entero12).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >4</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero6+entero12).toFixed(2)}</font></td>
                                               </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero7+entero8).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >5</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero7+entero8).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >6</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Carga mental</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero9+entero10+entero11).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >6</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Carga mental</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero9+entero10+entero11).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >7</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas psicológicas emocionales</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero65+entero66+entero67+entero68).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >7</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Cargas psicológicas emocionales</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero65+entero66+entero67+entero68).toFixed(2)}</font></td>
                                               </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >8</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas de alta responsabilidad</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero13+entero14).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >8</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Cargas de alta responsabilidad</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero13+entero14).toFixed(2)}</font></td>
                                             </tr>
     
     
                                             <tr>           
-                                            <td width="5px"><font size="1" face="arial"color="black" >9</font></td>
-                                            <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Cargas contradictorias o inconsistentes</font></td>
-                                            <td width="15px"><font size="1" face="arial"color="black">{(entero15+entero16).toFixed(2)}</font></td>
+                                            <td width="10%"><font size="1" face="arial"color="black" >9</font></td>
+                                            <td width="60%"><font size="1" face="arial"color="black">Cargas contradictorias o inconsistentes</font></td>
+                                            <td width="20%"><font size="1" face="arial"color="black">{(entero15+entero16).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >10</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Falta de control y autonomía sobre el trabajo</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero25+entero26+entero27+entero28).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >10</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Falta de control y autonomía sobre el trabajo</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero25+entero26+entero27+entero28).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >11</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitada o nula posibilidad de desarrollo</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero23+entero24).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >11</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Limitada o nula posibilidad de desarrollo</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero23+entero24).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >12</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Insuficiente participación y manejo del cambio</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero29+entero30).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >12</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Insuficiente participación y manejo del cambio</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero29+entero30).toFixed(2)}</font></td>
                                               </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >13</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitada o inexistente capacitación</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero35+entero36).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >13</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Limitada o inexistente capacitación</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero35+entero36).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >14</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Jornadas de trabajo extensas</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero17+entero18).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >14</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Jornadas de trabajo extensas</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero17+entero18).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >15</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Influencia del trabajo fuera del centro laboral</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero19+entero20).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >15</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Influencia del trabajo fuera del centro laboral</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero19+entero20).toFixed(2)}</font></td>
                                               </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >16</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Influencia de las responsabilidades familiares</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero21+entero22).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >16</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Influencia de las responsabilidades familiares</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero21+entero22).toFixed(2)}</font></td>
                                             </tr>
     
                                             <tr>           
-                                            <td width="5px"><font size="1" face="arial"color="black" >17</font></td>
-                                            <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Escasa claridad de funciones</font></td>
-                                            <td width="15px"><font size="1" face="arial"color="black">{(entero31+entero32+entero33+entero34).toFixed(2)}</font></td>
+                                            <td width="10%"><font size="1" face="arial"color="black" >17</font></td>
+                                            <td width="60%"><font size="1" face="arial"color="black">Escasa claridad de funciones</font></td>
+                                            <td width="20%"><font size="1" face="arial"color="black">{(entero31+entero32+entero33+entero34).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >18</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Características del liderazgo</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero37+entero38+entero39+entero40+entero41).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >18</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Características del liderazgo</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero37+entero38+entero39+entero40+entero41).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >19</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Relaciones sociales en el trabajo</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero42+entero43+entero44+entero45+entero46).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >19</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Relaciones sociales en el trabajo</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero42+entero43+entero44+entero45+entero46).toFixed(2)}</font></td>
                                             </tr>
     
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >20</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Deficiente relación con los colaboradores que Supervisa</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero69+entero70+entero71+entero72).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >20</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Deficiente relación con los colaboradores que Supervisa</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero69+entero70+entero71+entero72).toFixed(2)}</font></td>
                                               </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >21</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Violencia laboral</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero57+entero58+entero59+entero60+entero61+entero62+entero63+entero64).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >21</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Violencia laboral</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero57+entero58+entero59+entero60+entero61+entero62+entero63+entero64).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >22</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Escasa o nula retroalimentación del desempeño</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero47+entero48).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >22</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Escasa o nula retroalimentación del desempeño</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero47+entero48).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >23</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Escaso o nulo reconocimiento y compensación</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero49+entero50+entero51+entero52).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >23</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Escaso o nulo reconocimiento y compensación</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero49+entero50+entero51+entero52).toFixed(2)}</font></td>
                                               </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >24</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitado sentido de pertenencia</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero55+entero56).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >24</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Limitado sentido de pertenencia</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero55+entero56).toFixed(2)}</font></td>
                                             </tr>
                                             <tr>         
-                                              <td width="5px"><font size="1" face="arial"color="black" >25</font></td>
-                                              <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
-                                              <td width="15px"><font size="1" face="arial"color="black">{(entero53+entero54).toFixed(2)}</font></td>
+                                              <td width="10%"><font size="1" face="arial"color="black" >25</font></td>
+                                              <td width="60%"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
+                                              <td width="20%"><font size="1" face="arial"color="black">{(entero53+entero54).toFixed(2)}</font></td>
                                             </tr>
-                                          </MDBTableBody>
-                                          </MDBTable>
+                                          </table>
     
                                     
                                           <br/>
@@ -8161,12 +8052,10 @@ ponderacion=<React.Fragment>
         </React.Fragment>
      }
     
-     let botonCerrar;
+     
      let botonResultadosGlobales;
      let botonReporteEjecutivo;
-     if(!this.state.botonDisabled){
-         botonCerrar=<MDBBtn className = "text-white"  size="md" color="danger" onClick={(e)=>{window.location.reload()}} >Cerrar resultados</MDBBtn>
-     }
+    
      if(this.state.botonDisabled){
          botonResultadosGlobales=
          
@@ -9886,17 +9775,12 @@ ponderacion=<React.Fragment>
      
       PDFResultadosMasivos = 
         <div>
-        <MDBContainer>
-          <MDBRow>     
-            <MDBCol>   
-              <MDBBtn   gradient="purple" size="md" outline className="k-button text-white" onClick={() => { this.pdfExportComponent.save(); }}>
-                  Descargar respuestas
+         <MDBRow style={{marginLeft:"2%"}}>     
+              <MDBBtn   color="primary" size="md"  onClick={() => { this.pdfExportComponent.save(); }}>
+                  Descargar reporte de resultados masivos
               </MDBBtn>
-            </MDBCol>
-            <MDBCol> 
-            </MDBCol> 
+              {botonCerrar}
           </MDBRow>  
-        </MDBContainer>
         <div style={{ position: "absolute", left: "-2000px", top: 0 }}>
          <PDFExport
             paperSize="A4"
@@ -10212,18 +10096,18 @@ ponderacion=<React.Fragment>
 
     if(categoriaUno < 5){
     categoria1Nulo= categoriaUno
-    colorCategoriaUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorCategoriaUno  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     }else if(categoriaUno >= 5 && categoriaUno < 9){
-    colorCategoriaUno =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorCategoriaUno =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     categoria1Bajo= categoriaUno
     }else if(categoriaUno >= 9 && categoriaUno < 11){
-    colorCategoriaUno=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorCategoriaUno=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     categoria1Medio= categoriaUno
     }else if(categoriaUno >= 11 && categoriaUno < 14){
-    colorCategoriaUno = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorCategoriaUno = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     categoria1Alto= categoriaUno
     }else if(categoriaUno >= 14){
-    colorCategoriaUno = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorCategoriaUno = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     categoria1MuyAlto= categoriaUno
     }
 
@@ -10235,19 +10119,19 @@ ponderacion=<React.Fragment>
     let colorCategoriaDos;
     let categoriaDos = (entero6+entero12+entero7+entero8+entero9+entero10+entero11+entero65+entero66+entero67+entero68+entero13+entero14+entero15+entero16+entero25+entero26+entero27+entero28+entero23+entero24+entero29+entero30+entero35+entero36).toFixed(2);
     if(categoriaDos < 15){
-    colorCategoriaDos  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorCategoriaDos  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     categoria2Nulo= categoriaDos
     }else if(categoriaDos >= 15 && categoriaDos < 30){
-    colorCategoriaDos =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorCategoriaDos =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     categoria2Bajo= categoriaDos
     }else if(categoriaDos >=30 && categoriaDos < 45){
-    colorCategoriaDos=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorCategoriaDos=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     categoria2Medio= categoriaDos
     }else if(categoriaDos >=45 && categoriaDos < 60){
-    colorCategoriaDos = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorCategoriaDos = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     categoria2Alto= categoriaDos
     }else if(categoriaDos >= 60){
-    colorCategoriaDos = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorCategoriaDos = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     categoria2MuyAlto= categoriaDos
     }
     let categoria3Nulo;
@@ -10258,20 +10142,20 @@ ponderacion=<React.Fragment>
     let colorCategoriaTre;
     let categoriaTre = (entero17+entero18+entero19+entero20+entero21+entero22).toFixed(2);
     if(categoriaTre < 5){
-    colorCategoriaTre  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorCategoriaTre  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     categoria3Nulo= categoriaTre
     }else if(categoriaTre >= 5 && categoriaTre < 7){
-    colorCategoriaTre =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorCategoriaTre =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     categoria3Bajo= categoriaTre
     }else if(categoriaTre >=7 && categoriaTre < 10){
-    colorCategoriaTre=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorCategoriaTre=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     categoria3Medio= categoriaTre
     }else if(categoriaTre >=10 && categoriaTre < 13){
-    colorCategoriaTre = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorCategoriaTre = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     categoria3Alto= categoriaTre
     }else if(categoriaTre >= 13){
     categoria3MuyAlto= categoriaTre
-    colorCategoriaTre = <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorCategoriaTre = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     }
 
     let categoria4Nulo;
@@ -10282,19 +10166,19 @@ ponderacion=<React.Fragment>
     let colorCategoriaCuatro;
     let categoriaCuatro = (entero31+entero32+entero33+entero34+entero37+entero38+entero39+entero40+entero41+entero42+entero43+entero44+entero45+entero46+entero69+entero70+entero71+entero72+entero57+entero58+entero59+entero60+entero61+entero62+entero63+entero64).toFixed(2);
     if(categoriaCuatro < 14){
-    colorCategoriaCuatro  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorCategoriaCuatro  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     categoria4Nulo= categoriaCuatro
     }else if(categoriaCuatro >= 14 && categoriaCuatro < 29){
-    colorCategoriaCuatro =<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorCategoriaCuatro =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     categoria4Bajo= categoriaCuatro
     }else if(categoriaCuatro >=29 && categoriaCuatro < 42){
-    colorCategoriaCuatro=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorCategoriaCuatro=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     categoria4Medio= categoriaCuatro
     }else if(categoriaCuatro >=42 && categoriaCuatro < 58){
-    colorCategoriaCuatro = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorCategoriaCuatro = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     categoria4Alto= categoriaCuatro
     }else if(categoriaCuatro >= 58){
-    colorCategoriaCuatro= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorCategoriaCuatro= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     categoria4MuyAlto= categoriaCuatro
     }
 
@@ -10306,19 +10190,19 @@ ponderacion=<React.Fragment>
     let colorCategoriaCinco;
     let categoriaCinco = (entero47+entero48+entero49+entero50+entero51+entero52+entero55+entero56+entero53+entero54).toFixed(2);
     if(categoriaCinco < 10){
-    colorCategoriaCinco  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorCategoriaCinco  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     categoria5Nulo= categoriaCinco
     }else if(categoriaCinco >= 10 && categoriaCinco < 14){
-    colorCategoriaCinco=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorCategoriaCinco=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     categoria5Bajo= categoriaCinco
     }else if(categoriaCinco >=14 && categoriaCinco < 18){
-    colorCategoriaCinco=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorCategoriaCinco=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     categoria5Medio= categoriaCinco
     }else if(categoriaCinco >=18 && categoriaCinco < 23){
-    colorCategoriaCinco = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorCategoriaCinco = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     categoria5Alto= categoriaCinco
     }else if(categoriaCinco >= 23){
-    colorCategoriaCinco= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorCategoriaCinco= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     categoria5MuyAlto= categoriaCinco
     }
 
@@ -10331,19 +10215,19 @@ ponderacion=<React.Fragment>
     let DominioUno = (entero1+entero3+entero2+entero4+entero5).toFixed(2);
     let colorDominioUno;
     if(DominioUno < 5){
-    colorDominioUno  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioUno  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     Dominio1Nulo= DominioUno
     }else if(DominioUno >= 5 && DominioUno < 9){
-    colorDominioUno=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorDominioUno=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     Dominio1Bajo= DominioUno
     }else if(DominioUno >= 9 && DominioUno < 11){
-    colorDominioUno=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorDominioUno=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     Dominio1Medio= DominioUno
     }else if(DominioUno >=11 && DominioUno < 14){
-    colorDominioUno = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorDominioUno = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     Dominio1Alto= DominioUno
     }else if(DominioUno >= 14){
-    colorDominioUno= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorDominioUno= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     Dominio1MuyAlto= DominioUno
     }
 
@@ -10355,19 +10239,19 @@ ponderacion=<React.Fragment>
     let colorDominioDos;
     let DominioDos = (entero6+entero12+entero7+entero8+entero9+entero10+entero11+entero65+entero66+entero67+entero68+entero13+entero14+entero15+entero16).toFixed(2);
     if(DominioDos < 15){
-    colorDominioDos  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioDos  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     Dominio2Nulo= DominioDos
     }else if(DominioDos >= 15 && DominioDos < 21){
-    colorDominioDos=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorDominioDos=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     Dominio2Bajo= DominioDos
     }else if(DominioDos >= 21 && DominioDos < 27){
-    colorDominioDos=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorDominioDos=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     Dominio2Medio= DominioDos
     }else if(DominioDos >= 27 && DominioDos < 37){
-    colorDominioDos = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorDominioDos = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     Dominio2Alto= DominioDos
     }else if(DominioDos >= 37){
-    colorDominioDos= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorDominioDos= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     Dominio2MuyAlto= DominioDos
     }
 
@@ -10379,19 +10263,19 @@ ponderacion=<React.Fragment>
     let colorDominioTres;
     let DominioTres = (entero25+entero26+entero27+entero28+entero23+entero24+entero29+entero30+entero35+entero36).toFixed(2);
     if(DominioTres < 11){
-    colorDominioTres  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioTres  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     Dominio3Nulo= DominioTres
     }else if(DominioTres >= 11 && DominioTres < 16){
-    colorDominioTres=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorDominioTres=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     Dominio3Bajo= DominioTres
     }else if(DominioTres >= 16 && DominioTres < 21){
-    colorDominioTres=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorDominioTres=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     Dominio3Medio= DominioTres
     }else if(DominioTres >= 21 && DominioTres < 25){
-    colorDominioTres = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorDominioTres = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     Dominio3Alto= DominioTres
     }else if(DominioTres >= 25){
-    colorDominioTres= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorDominioTres= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     Dominio3MuyAlto= DominioTres
     }
 
@@ -10403,19 +10287,19 @@ ponderacion=<React.Fragment>
     let colorDominioCuatro;
     let DominioCuatro = (entero17+entero18).toFixed(2);
     if(DominioCuatro < 1){
-    colorDominioCuatro  = <TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioCuatro  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     Dominio4Nulo= DominioCuatro
     }else if(DominioCuatro >= 1 && DominioCuatro < 2){
-    colorDominioCuatro=<TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorDominioCuatro=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     Dominio4Bajo= DominioCuatro
     }else if(DominioCuatro >= 2 && DominioCuatro < 4){
-    colorDominioCuatro=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorDominioCuatro=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     Dominio4Medio= DominioCuatro
     }else if(DominioCuatro >= 4 && DominioCuatro < 6){
-    colorDominioCuatro = <TableCell style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorDominioCuatro = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     Dominio4Alto= DominioCuatro
     }else if(DominioCuatro >= 6){
-    colorDominioCuatro= <TableCell style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorDominioCuatro= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     Dominio4MuyAlto= DominioCuatro
     }
 
@@ -10427,19 +10311,19 @@ ponderacion=<React.Fragment>
     let colorDominioCinco;
     let DominioCinco = (entero19+entero20+entero21+entero22).toFixed(2);
     if(DominioCinco < 4){
-    colorDominioCinco  = <TableCell width="15px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioCinco  = <td width="15px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     Dominio5Nulo= DominioCinco
     }else if(DominioCinco >= 4 && DominioCinco < 6){
-    colorDominioCinco=<TableCell width="15px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorDominioCinco=<td width="15px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     Dominio5Bajo= DominioCinco
     }else if(DominioCinco >= 6 && DominioCinco < 8){
-    colorDominioCinco=<TableCell width="15px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorDominioCinco=<td width="15px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     Dominio5Medio= DominioCinco
     }else if(DominioCinco >= 8 && DominioCinco < 10){
-    colorDominioCinco = <TableCell  width="15px"style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorDominioCinco = <td  width="15px"style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     Dominio5Alto= DominioCinco
     }else if(DominioCinco >= 10){
-    colorDominioCinco= <TableCell  width="15px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorDominioCinco= <td  width="15px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     Dominio5MuyAlto= DominioCinco
     }
 
@@ -10451,19 +10335,19 @@ ponderacion=<React.Fragment>
     let colorDominioSeis;
     let DominioSeis = (entero31+entero32+entero33+entero34+entero37+entero38+entero39+entero40+entero41).toFixed(2);
     if(DominioSeis < 9){
-    colorDominioSeis  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioSeis  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     Dominio6Nulo= DominioSeis
     }else if(DominioSeis >= 9 && DominioSeis < 12){
-    colorDominioSeis=<TableCell  width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorDominioSeis=<td  width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     Dominio6Bajo= DominioSeis
     }else if(DominioSeis >= 12 && DominioSeis < 16){
-    colorDominioSeis=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorDominioSeis=<td width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     Dominio6Medio= DominioSeis
     }else if(DominioSeis >= 16 && DominioSeis < 20){
-    colorDominioSeis = <TableCell width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorDominioSeis = <td width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     Dominio6Alto= DominioSeis
     }else if(DominioSeis >= 20){
-    colorDominioSeis= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorDominioSeis= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     Dominio6MuyAlto= DominioSeis
     }
 
@@ -10475,19 +10359,19 @@ ponderacion=<React.Fragment>
     let colorDominioSiete;
     let DominioSiete = (entero42+entero43+entero44+entero45+entero46+entero69+entero70+entero71+entero72).toFixed(2);
     if(DominioSiete < 10){
-    colorDominioSiete  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioSiete  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     Dominio7Nulo= DominioSiete
     }else if(DominioSiete >= 10 && DominioSiete < 13){
-    colorDominioSiete=<TableCell width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorDominioSiete=<td width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     Dominio7Bajo= DominioSiete
     }else if(DominioSiete >= 13 && DominioSiete < 17){
-    colorDominioSiete=<TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorDominioSiete=<td  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     Dominio7Medio= DominioSiete
     }else if(DominioSiete >= 17 && DominioSiete < 21){
-    colorDominioSiete = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorDominioSiete = <td width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     Dominio7Alto= DominioSiete
     }else if(DominioSiete >= 21){
-    colorDominioSiete= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorDominioSiete= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     Dominio7MuyAlto= DominioSiete
     }
 
@@ -10499,19 +10383,19 @@ ponderacion=<React.Fragment>
     let colorDominioOcho;
     let DominioOcho = (entero57+entero58+entero59+entero60+entero61+entero62+entero63+entero64).toFixed(2);
     if(DominioOcho < 7){
-    colorDominioOcho  = <TableCell width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioOcho  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     Dominio8Nulo= DominioOcho
     }else if(DominioOcho >= 7 && DominioOcho < 10){
-    colorDominioOcho  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorDominioOcho  = <td width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     Dominio8Bajo= DominioOcho
     }else if(DominioOcho >= 10 && DominioOcho < 13){
-    colorDominioOcho=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorDominioOcho=<td width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     Dominio8Medio= DominioOcho
     }else if(DominioOcho >= 13 && DominioOcho < 16){
-    colorDominioOcho = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorDominioOcho = <td width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     Dominio8Alto= DominioOcho
     }else if(DominioOcho >= 16){
-    colorDominioOcho= <TableCell width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorDominioOcho= <td width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     Dominio8MuyAlto= DominioOcho
     }
 
@@ -10523,19 +10407,19 @@ ponderacion=<React.Fragment>
     let colorDominioNueve;
     let DominioNueve = (entero47+entero48+entero49+entero50+entero51+entero52).toFixed(2);
     if(DominioNueve < 6){
-    colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioNueve  = <td width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     Dominio9Nulo= DominioNueve
     }else if(DominioNueve >= 6 && DominioNueve < 10){
-    colorDominioNueve  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorDominioNueve  = <td width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     Dominio9Bajo= DominioNueve
     }else if(DominioNueve >= 10 && DominioNueve < 14){
-    colorDominioNueve=<TableCell  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorDominioNueve=<td  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     Dominio9Medio= DominioNueve
     }else if(DominioNueve >= 14 && DominioNueve < 18){
-    colorDominioNueve = <TableCell  width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorDominioNueve = <td  width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     Dominio9Alto= DominioNueve
     }else if(DominioNueve >= 18){
-    colorDominioNueve= <TableCell  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorDominioNueve= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     Dominio9MuyAlto= DominioNueve
     }
 
@@ -10547,19 +10431,19 @@ ponderacion=<React.Fragment>
     let colorDominioDiez;
     let DominioDiez = (entero55+entero56+entero53+entero54).toFixed(2);
     if(DominioDiez < 4){
-    colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
+    colorDominioDiez  = <td width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
     Dominio10Nulo= DominioDiez
     }else if(DominioDiez >= 4 && DominioDiez < 6){
-    colorDominioDiez  = <TableCell width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></TableCell>
+    colorDominioDiez  = <td width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
     Dominio10Bajo= DominioDiez
     }else if(DominioDiez >= 6 && DominioDiez < 8){
-    colorDominioDiez=<TableCell width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></TableCell>
+    colorDominioDiez=<td width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
     Dominio10Medio= DominioDiez
     }else if(DominioDiez >= 8 && DominioDiez < 10){
-    colorDominioDiez = <TableCell width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></TableCell>
+    colorDominioDiez = <td width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
     Dominio10Alto= DominioDiez
     }else if(DominioDiez >= 10){
-    colorDominioDiez= <TableCell  width="20px"style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></TableCell>
+    colorDominioDiez= <td  width="20px"style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
     Dominio10MuyAlto= DominioDiez
     }
     return(
@@ -10593,275 +10477,256 @@ ponderacion=<React.Fragment>
     </MDBTableBody>
     </MDBTable>  
 
-    <MDBTable  component={Paper}  small  className="text-left ">
-    <MDBTableBody>
-    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">I.- Resultados de la categoría</font>
-    </MDBTableBody>                                                                            
-    </MDBTable>
-    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
-    <MDBTableBody>
+    <table  component={Paper}  small  className="text-left ">
+     <font color="red" style= {{marginTop:20,marginLeft:15}}  size="1">I.- Resultados de la categoría</font>
+    </table>
+    <table width="500" style={{marginLeft:15}} className="table-bordered"> 
 
     <tr >                              
-    <td width="5px"><font size="1" face="arial"color="black" ></font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Categoría</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">Calificación</font></td>
-    <td width="20px"><font size="1" face="arial"color="black">Riesgo</font></td>                                         
+    <td width="10%"><font size="1" face="arial"color="black" ></font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Categoría</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">Calificación</font></td>
+    <td ><font size="1" face="arial"color="black">Riesgo</font></td>                                         
     </tr>
     <tr>           
-    <td width="5px"><font size="1" face="arial"color="black" >1</font></td>
-    <td width="60px"  className="text-left"><font size="1" face="arial"color="black">Ambiente de Trabajo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{categoriaUno}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >1</font></td>
+    <td width="60%"  className="text-left"><font size="1" face="arial"color="black">Ambiente de Trabajo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{categoriaUno}</font></td>
     {colorCategoriaUno}                
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >2</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Factores propios de la actividad</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{categoriaDos}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >2</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Factores propios de la actividad</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{categoriaDos}</font></td>
       {colorCategoriaDos}
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >3</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Organización del tiempo de trabajo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{categoriaTre}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >3</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Organización del tiempo de trabajo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{categoriaTre}</font></td>
     {colorCategoriaTre}
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >4</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Liderazgo y relaciones en el trabajo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{categoriaCuatro}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >4</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Liderazgo y relaciones en el trabajo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{categoriaCuatro}</font></td>
     {colorCategoriaCuatro}
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Entorno organizacional</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{categoriaCinco}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >5</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Entorno organizacional</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{categoriaCinco}</font></td>
     {colorCategoriaCinco}  
     </tr>
-
-    </MDBTableBody>
-    </MDBTable>
-    <MDBTable  component={Paper}  small  className="text-left ">
-    <MDBTableBody>
+    </table>
     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">II.- Resultados del dominio</font>
-    </MDBTableBody>                                                                            
-    </MDBTable>
-    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
-    <MDBTableBody>
 
+    <table width="500" style={{marginLeft:15}} className="table-bordered"> 
     <tr >                              
-    <td width="5px"><font size="1" face="arial"color="black" ></font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Dominio</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">Calificación</font></td>
-    <td width="20px"><font size="1" face="arial"color="black">Riesgo</font></td>                                         
+    <td width="10%"><font size="1" face="arial"color="black" ></font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Dominio</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">Calificación</font></td>
+    <td ><font size="1" face="arial"color="black">Riesgo</font></td>                                         
     </tr>
     <tr>           
-    <td width="5px"><font size="1" face="arial"color="black" >1</font></td>
-    <td width="60px"  className="text-left"><font size="1" face="arial"color="black">Carga de Trabajo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{DominioUno}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >1</font></td>
+    <td width="60%"  className="text-left"><font size="1" face="arial"color="black">Carga de Trabajo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{DominioUno}</font></td>
     {colorDominioUno}                
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >2</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Condiciones en el ambiente de trabajo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{DominioDos}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >2</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Condiciones en el ambiente de trabajo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{DominioDos}</font></td>
       {colorDominioDos}
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >3</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Falta de control sobre el trabajo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{DominioTres}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >3</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Falta de control sobre el trabajo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{DominioTres}</font></td>
     {colorDominioTres}
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >4</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Interferencia en la relación trabajo-familia</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{DominioCuatro}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >4</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Interferencia en la relación trabajo-familia</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{DominioCuatro}</font></td>
     {colorDominioCuatro}
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Jornada de trabajo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{DominioCinco}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >5</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Jornada de trabajo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{DominioCinco}</font></td>
     {colorDominioCinco}  
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >6</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Liderazgo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{DominioSeis}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >6</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Liderazgo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{DominioSeis}</font></td>
     {colorDominioSeis}  
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >7</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Relaciones en el trabajo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{DominioSiete}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >7</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Relaciones en el trabajo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{DominioSiete}</font></td>
     {colorDominioSiete}  
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >8</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Violencia</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{DominioOcho}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >8</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Violencia</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{DominioOcho}</font></td>
     {colorDominioOcho}  
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >9</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Reconocimiento del desempeño</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{DominioNueve}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >9</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Reconocimiento del desempeño</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{DominioNueve}</font></td>
     {colorDominioNueve}  
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >10</font></td>
-    <td width="60px" className="text-left"><font size="1" face="arial"color="black">Insuficiente sentido de pertenencia e, inestabilidad</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{DominioDiez}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >10</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Insuficiente sentido de pertenencia e, inestabilidad</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{DominioDiez}</font></td>
     {colorDominioDiez}  
     </tr>
 
-    </MDBTableBody>
-    </MDBTable>
-
-    <MDBTable  component={Paper}  small  className="text-left ">
-    <MDBTableBody>
+    </table>
     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">III.- Resultados por Dimensión</font>
-    </MDBTableBody>                                                                            
-    </MDBTable>
-    <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-center"> 
-    <MDBTableBody>
+    <table width="500" style={{marginLeft:15}} className="table-bordered"> 
 
     <tr >                              
-    <td width="5px"><font size="1" face="arial"color="black" ></font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Dimensión</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">Calificación</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" ></font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Dimensión</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">Calificación</font></td>
     </tr>
     <tr>           
-    <td width="5px"><font size="1" face="arial"color="black" >1</font></td>
-    <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Condiciones peligrosas e inseguras</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero1+entero3).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >1</font></td>
+    <td width="60%"  className="text-left"><font size="1" face="arial"color="black">Condiciones peligrosas e inseguras</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero1+entero3).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >2</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Condiciones deficientes e insalubres</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero2+entero4).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >2</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Condiciones deficientes e insalubres</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero2+entero4).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >3</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{entero5.toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >3</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Trabajos peligrosos</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{entero5.toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >4</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero6+entero12).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >4</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Cargas cuantitativas</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero6+entero12).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >5</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero7+entero8).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >5</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero7+entero8).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >6</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Carga mental</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero9+entero10+entero11).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >6</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Carga mental</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero9+entero10+entero11).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >7</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas psicológicas emocionales</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero65+entero66+entero67+entero68).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >7</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Cargas psicológicas emocionales</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero65+entero66+entero67+entero68).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >8</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Cargas de alta responsabilidad</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero13+entero14).toFixed(2)}</font></td>
-    </tr>
-
-
-    <tr>           
-    <td width="5px"><font size="1" face="arial"color="black" >9</font></td>
-    <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Cargas contradictorias o inconsistentes</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero15+entero16).toFixed(2)}</font></td>
-    </tr>
-    <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >10</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Falta de control y autonomía sobre el trabajo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero25+entero26+entero27+entero28).toFixed(2)}</font></td>
-    </tr>
-    <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >11</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitada o nula posibilidad de desarrollo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero23+entero24).toFixed(2)}</font></td>
-    </tr>
-    <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >12</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Insuficiente participación y manejo del cambio</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero29+entero30).toFixed(2)}</font></td>
-    </tr>
-    <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >13</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitada o inexistente capacitación</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero35+entero36).toFixed(2)}</font></td>
-    </tr>
-    <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >14</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Jornadas de trabajo extensas</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero17+entero18).toFixed(2)}</font></td>
-    </tr>
-    <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >15</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Influencia del trabajo fuera del centro laboral</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero19+entero20).toFixed(2)}</font></td>
-    </tr>
-    <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >16</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Influencia de las responsabilidades familiares</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero21+entero22).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >8</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Cargas de alta responsabilidad</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero13+entero14).toFixed(2)}</font></td>
     </tr>
 
     <tr>           
-    <td width="5px"><font size="1" face="arial"color="black" >17</font></td>
-    <td width="80px"  className="text-left"><font size="1" face="arial"color="black">Escasa claridad de funciones</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero31+entero32+entero33+entero34).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >9</font></td>
+    <td width="60%"  className="text-left"><font size="1" face="arial"color="black">Cargas contradictorias o inconsistentes</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero15+entero16).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >18</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Características del liderazgo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero37+entero38+entero39+entero40+entero41).toFixed(2)}</font></td>
+    <td width="10"><font size="1" face="arial"color="black" >10</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Falta de control y autonomía sobre el trabajo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero25+entero26+entero27+entero28).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >19</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Relaciones sociales en el trabajo</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero42+entero43+entero44+entero45+entero46).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >11</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Limitada o nula posibilidad de desarrollo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero23+entero24).toFixed(2)}</font></td>
+    </tr>
+    <tr>         
+    <td width="10%"><font size="1" face="arial"color="black" >12</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Insuficiente participación y manejo del cambio</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero29+entero30).toFixed(2)}</font></td>
+    </tr>
+    <tr>         
+    <td width="10%"><font size="1" face="arial"color="black" >13</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Limitada o inexistente capacitación</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero35+entero36).toFixed(2)}</font></td>
+    </tr>
+    <tr>         
+    <td width="10%"><font size="1" face="arial"color="black" >14</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Jornadas de trabajo extensas</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero17+entero18).toFixed(2)}</font></td>
+    </tr>
+    <tr>         
+    <td width="10%"><font size="1" face="arial"color="black" >15</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Influencia del trabajo fuera del centro laboral</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero19+entero20).toFixed(2)}</font></td>
+    </tr>
+    <tr>         
+    <td width="10%"><font size="1" face="arial"color="black" >16</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Influencia de las responsabilidades familiares</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero21+entero22).toFixed(2)}</font></td>
+    </tr>
+
+    <tr>           
+    <td width="10%"><font size="1" face="arial"color="black" >17</font></td>
+    <td width="60%"  className="text-left"><font size="1" face="arial"color="black">Escasa claridad de funciones</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero31+entero32+entero33+entero34).toFixed(2)}</font></td>
+    </tr>
+    <tr>         
+    <td width="10%"><font size="1" face="arial"color="black" >18</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Características del liderazgo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero37+entero38+entero39+entero40+entero41).toFixed(2)}</font></td>
+    </tr>
+    <tr>         
+    <td width="10%"><font size="1" face="arial"color="black" >19</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Relaciones sociales en el trabajo</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero42+entero43+entero44+entero45+entero46).toFixed(2)}</font></td>
     </tr>
 
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >20</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Deficiente relación con los colaboradores que Supervisa</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero69+entero70+entero71+entero72).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >20</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Deficiente relación con los colaboradores que Supervisa</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero69+entero70+entero71+entero72).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >21</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Violencia laboral</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero57+entero58+entero59+entero60+entero61+entero62+entero63+entero64).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >21</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Violencia laboral</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero57+entero58+entero59+entero60+entero61+entero62+entero63+entero64).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >22</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Escasa o nula retroalimentación del desempeño</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero47+entero48).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >22</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Escasa o nula retroalimentación del desempeño</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero47+entero48).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >23</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Escaso o nulo reconocimiento y compensación</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero49+entero50+entero51+entero52).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >23</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Escaso o nulo reconocimiento y compensación</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero49+entero50+entero51+entero52).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >24</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Limitado sentido de pertenencia</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero55+entero56).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >24</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Limitado sentido de pertenencia</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero55+entero56).toFixed(2)}</font></td>
     </tr>
     <tr>         
-    <td width="5px"><font size="1" face="arial"color="black" >25</font></td>
-    <td width="80px" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
-    <td width="15px"><font size="1" face="arial"color="black">{(entero53+entero54).toFixed(2)}</font></td>
+    <td width="10%"><font size="1" face="arial"color="black" >25</font></td>
+    <td width="60%" className="text-left"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
+    <td width="20%"><font size="1" face="arial"color="black">{(entero53+entero54).toFixed(2)}</font></td>
     </tr>
-    </MDBTableBody>
-    </MDBTable>                        
+    </table>                        
     <br/>
     <br/>
     <br/>
@@ -10930,17 +10795,12 @@ ponderacion=<React.Fragment>
 
          PDFRespuestasMasivos = 
          <div>
-          <MDBContainer>
-          <MDBRow>     
-            <MDBCol>   
-              <MDBBtn    gradient="purple"  className = "text-white"  size="md" outline className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-                  Descargar respuestas
+           <MDBRow style={{marginLeft:"2%"}}>     
+              <MDBBtn   color="primary" size="md"  onClick={() => { this.pdfExportComponent.save(); }}>
+                  Descargar reporte de evaluaciones masivas
               </MDBBtn>
-            </MDBCol>
-            <MDBCol> 
-            </MDBCol> 
-          </MDBRow>  
-        </MDBContainer>
+              {botonCerrar}
+          </MDBRow>
          <div style={{ position: "absolute", left: "-2000px", top: 0 }}>
          <section className="flex-column  bg-white  pa4 "  >
           <PDFExport
@@ -11460,7 +11320,7 @@ ponderacion=<React.Fragment>
                return(
                 <div> 
                  
-                <MDBTable responsive small borderless className="text-left mt-4" style = {{marginLeft:35}}>
+                <table width="500" style = {{marginLeft:40,marginBottom:15,marginTop:10}} >
 
                 <MDBTableBody>  
                                     
@@ -11477,477 +11337,375 @@ ponderacion=<React.Fragment>
                   <td width="6%" ><font size="1" face="arial"color="black" >RFC : {rows[0].RFC}</font></td>            
                   </tr>
                 </MDBTableBody>
-                </MDBTable>
+                </table>
 
-
-                <MDBTable  component={Paper}  small  className="text-left ">
-                <MDBTableBody>
-                <font color="red" style= {{marginLeft:20}}  size="1">I. Condiciones ambientales de su centro de trabajo.</font>
-                </MDBTableBody>                                                                            
-                </MDBTable>
-
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left"> 
-                <MDBTableBody>
-                    
+                <font color="red" style= {{marginLeft:30}}  size="1">I. Condiciones ambientales de su centro de trabajo.</font>
+           
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">                     
+               
                 <tr>
-                <td><font size="1" face="arial"color="black" >El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</font></td>
-                <td width="90px"><font size="1" face="arial"color="black" >{value1.Respuestas}</font></td> 
+                <td width="80%"><font size="1" face="arial"color="black" >El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</font></td>
+                <td width="20%"><font size="1" face="arial"color="black" >{value1.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1" face="arial"color="black" >Mi trabajo me exige hacer mucho esfuerzo físico</font></td>
-                  <td width="90px" ><font size="1" face="arial"color="black" >{value2.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo me exige hacer mucho esfuerzo físico</font></td>
+                  <td width="20%" ><font size="1" face="arial"color="black" >{value2.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1" face="arial"color="black" >Me preocupa sufrir un accidente en mi trabajo</font></td>
-                  <td  width="90px"><font size="1" face="arial"color="black" >{value3.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >Me preocupa sufrir un accidente en mi trabajo</font></td>
+                  <td width="20%"><font size="1" face="arial"color="black" >{value3.Respuestas}</font></td> 
                 </tr>                    
                 <tr>
-                  <td><font size="1" face="arial"color="black" >Considero que en mi trabajo se aplican las normas de seguridad y salud en el trabajo</font></td>
-                  <td  width="90px"><font size="1" face="arial"color="black" >{value4.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >Considero que en mi trabajo se aplican las normas de seguridad y salud en el trabajo</font></td>
+                  <td width="20%"><font size="1" face="arial"color="black" >{value4.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1" face="arial"color="black" >Considero que las actividades que realizo son peligrosas</font></td>
-                  <td  width="90px"><font size="1" face="arial"color="black" >{value5.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >Considero que las actividades que realizo son peligrosas</font></td>
+                  <td width="20%"><font size="1" face="arial"color="black" >{value5.Respuestas}</font></td> 
               </tr>
-                </MDBTableBody>
-               </MDBTable>
-                <MDBTable  component={Paper}  small  className="text-left ">
-                <MDBTableBody>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}   size="1">II. La cantidad y ritmo de trabajo que tiene.</font>
-                </MDBTableBody>
-                </MDBTable>
-                <MDBTable style={{marginLeft:20}}  component={Paper}  small bordered className="text-left mt-4 ">
-                <MDBTableBody>
+               </table>
+   
+                <font color="red" style= {{marginTop:40,marginLeft:30}}   size="1">II. La cantidad y ritmo de trabajo que tiene.</font>
+
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
                 <tr>
-                <td><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</font></td>
-                <td width="90px"><font size="1" face="arial"color="black" >{value6.Respuestas}</font></td> 
+                <td width="80%"><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</font></td>
+                <td width="20%"><font size="1" face="arial"color="black" >{value6.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo trabajar sin parar</font></td>
-                  <td width="90px"><font size="1" face="arial"color="black" >{value7.Respuestas} </font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo trabajar sin parar</font></td>
+                  <td width="20%"><font size="1" face="arial"color="black" >{value7.Respuestas} </font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1" face="arial"color="black" >Considero que es necesario mantener un ritmo de trabajo acelerado</font></td>
-                  <td width="90px"><font size="1" face="arial"color="black" >{value8.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >Considero que es necesario mantener un ritmo de trabajo acelerado</font></td>
+                  <td width="20%"><font size="1" face="arial"color="black" >{value8.Respuestas}</font></td> 
                 </tr>
               
-                </MDBTableBody>
-                </MDBTable>
-      
-                <MDBTable  component={Paper}  small  className="text-left">
-                <MDBTableBody>
-                <font style= {{marginLeft:20}}  size="1" color="red" >III. El esfuerzo mental que le exige su trabajo.</font>
-                </MDBTableBody>
-                </MDBTable>
-                        
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                <MDBTableBody>
+                </table>
+
+                <font style= {{marginLeft:30}}  size="1" color="red" >III. El esfuerzo mental que le exige su trabajo.</font>
+
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
                 <tr>
-                <td><font size="1" face="arial"color="black" >Mi trabajo exige que esté muy concentrado</font></td>
-                <td width="90px"><font size="1" face="arial"color="black" >{value9.Respuestas}</font></td> 
+                <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo exige que esté muy concentrado</font></td>
+                <td width="20%"><font size="1" face="arial"color="black" >{value9.Respuestas}</font></td> 
               </tr>
                 <tr>
-                <td><font size="1" face="arial"color="black" >Mi trabajo requiere que memorice mucha información</font></td>   
-                <td width="90px"><font size="1" face="arial"color="black" >{value10.Respuestas}</font></td> 
+                <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo requiere que memorice mucha información</font></td>   
+                <td width="20%"><font size="1" face="arial"color="black" >{value10.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1" face="arial"color="black" >En mi trabajo tengo que tomar decisiones difíciles muy rápido</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value11.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >En mi trabajo tengo que tomar decisiones difíciles muy rápido</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value11.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1" face="arial"color="black" >Mi trabajo exige que atienda varios asuntos al mismo tiempo</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value12.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo exige que atienda varios asuntos al mismo tiempo</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value12.Respuestas}</font></td> 
                 </tr>
-                </MDBTableBody>
-                </MDBTable>
+                </table>
              
-                <MDBTable  component={Paper}  small  className="text-left">
-                <MDBTableBody>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV. Trabajo y las responsabilidades que tiene.</font>
-                </MDBTableBody>
-                </MDBTable>
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                <MDBTableBody>
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >IV. Trabajo y las responsabilidades que tiene.</font>
+  
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
                 <tr>
-                  <td><font size="1" face="arial"color="black" >En mi trabajo soy responsable de cosas de mucho valor</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value13.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >En mi trabajo soy responsable de cosas de mucho valor</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value13.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                <td><font size="1" face="arial"color="black" >Respondo ante mi jefe por los resultados de toda mi área de trabajo</font></td>   
-                <td width="90px"><font size="1" face="arial"color="black" >{value14.Respuestas}</font></td> 
+                <td width="80%"><font size="1" face="arial"color="black" >Respondo ante mi jefe por los resultados de toda mi área de trabajo</font></td>   
+                <td width="20%"><font size="1" face="arial"color="black" >{value14.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1" face="arial"color="black" >En el trabajo me dan órdenes contradictorias</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value15.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >En el trabajo me dan órdenes contradictorias</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value15.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1" face="arial"color="black" >Considero que en mi trabajo me piden hacer cosas innecesarias</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value16.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >Considero que en mi trabajo me piden hacer cosas innecesarias</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value16.Respuestas}</font></td> 
                 </tr>
                
-                </MDBTableBody>
-                </MDBTable>
+                </table>
 
-                <MDBTable  component={Paper}  small  className="text-left">
-                <MDBTableBody>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >V. Jornada de trabajo.</font>
-                </MDBTableBody>
-                </MDBTable>
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                <MDBTableBody>
-                <tr>
-                  <td><font size="1" face="arial"color="black" >Trabajo horas extras más de tres veces a la semana</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value17.Respuestas}</font></td> 
-                </tr>
-                <tr>
-                <td><font size="1" face="arial"color="black" >Mi trabajo me exige laborar en días de descanso, festivos o fines de semana</font></td>   
-                <td width="90px"><font size="1" face="arial"color="black" >{value18.Respuestas}</font></td> 
-                </tr>
-                <tr>
-                  <td><font size="1" face="arial"color="black" >Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value19.Respuestas}</font></td> 
-                </tr>
-                <tr>
-                  <td><font size="1" face="arial"color="black" >Debo atender asuntos de trabajo cuando estoy en casa</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value20.Respuestas}</font></td> 
-                </tr>
-                <tr>
-                  <td><font size="1" face="arial"color="black" >Pienso en las actividades familiares o personales cuando estoy en mi trabajo</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value21.Respuestas}</font></td> 
-                </tr>
-                <tr>
-                  <td><font size="1" face="arial"color="black" >Pienso que mis responsabilidades familiares afectan mi trabajo</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value22.Respuestas}</font></td> 
-                </tr>
-                </MDBTableBody>
-                </MDBTable>
-      
-                <MDBTable  component={Paper}  small  className="text-left">
-                <MDBTableBody>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VI. Decisiones que puede tomar en su trabajo.</font>
-                </MDBTableBody>
-                </MDBTable>
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >V. Jornada de trabajo.</font>
 
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                <MDBTableBody>
-                        
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
                 <tr>
-                <td><font size="1" face="arial"color="black" >Mi trabajo permite que desarrolle nuevas habilidades</font></td>   
-                <td width="90px"><font size="1" face="arial"color="black" >{value23.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >Trabajo horas extras más de tres veces a la semana</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value17.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1" face="arial"color="black" >En mi trabajo puedo aspirar a un mejor puesto</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value24.Respuestas}</font></td> 
+                <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo me exige laborar en días de descanso, festivos o fines de semana</font></td>   
+                <td width="20%"><font size="1" face="arial"color="black" >{value18.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1" face="arial"color="black" >Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value25.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value19.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1" face="arial"color="black" >Puedo decidir cuánto trabajo realizo durante la jornada laboral</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value26.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >Debo atender asuntos de trabajo cuando estoy en casa</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value20.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td ><font size="1" face="arial"color="black" >Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</font></td>   
-                  <td width="90px"><font size="1" face="arial"color="black" >{value27.Respuestas}</font></td> 
+                  <td width="80%"><font size="1" face="arial"color="black" >Pienso en las actividades familiares o personales cuando estoy en mi trabajo</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value21.Respuestas}</font></td> 
+                </tr>
+                <tr>
+                  <td width="80%"><font size="1" face="arial"color="black" >Pienso que mis responsabilidades familiares afectan mi trabajo</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value22.Respuestas}</font></td> 
+                </tr>
+                </table>
+
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >VI. Decisiones que puede tomar en su trabajo.</font>
+
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">                        
+                <tr>
+                <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo permite que desarrolle nuevas habilidades</font></td>   
+                <td width="20%"><font size="1" face="arial"color="black" >{value23.Respuestas}</font></td> 
+                </tr>
+                <tr>
+                  <td width="80%"><font size="1" face="arial"color="black" >En mi trabajo puedo aspirar a un mejor puesto</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value24.Respuestas}</font></td> 
+                </tr>
+                <tr>
+                  <td width="80%"><font size="1" face="arial"color="black" >Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value25.Respuestas}</font></td> 
+                </tr>
+                <tr>
+                  <td width="80%"><font size="1" face="arial"color="black" >Puedo decidir cuánto trabajo realizo durante la jornada laboral</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value26.Respuestas}</font></td> 
+                </tr>
+                <tr>
+                  <td width="80%"><font size="1" face="arial"color="black" >Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</font></td>   
+                  <td width="20%"><font size="1" face="arial"color="black" >{value27.Respuestas}</font></td> 
                 </tr>
         
                 <tr>
-                <td><font size="1"face="arial"color="black">Puedo cambiar el orden de las actividades que realizo en mi trabajo</font></td>   
-                <td width="90px"><font size="1"face="arial"color="black">{value28.Respuestas}</font></td> 
+                <td width="80%"><font size="1"face="arial"color="black">Puedo cambiar el orden de las actividades que realizo en mi trabajo</font></td>   
+                <td width="20%"><font size="1"face="arial"color="black">{value28.Respuestas}</font></td> 
                 </tr>
                 
-                </MDBTableBody>
-                </MDBTable>
-             
-                <MDBTable  component={Paper}  small  className="text-left">
-                <MDBTableBody>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VII.Cualquier tipo de cambio que ocurra en su trabajo</font><br/>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >(considere los últimos cambios realizados).	</font>
+                </table>
+   
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >VII.Cualquier tipo de cambio que ocurra en su trabajo</font><br/>
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >(considere los últimos cambios realizados).	</font>
 
-                </MDBTableBody>
-                </MDBTable>
-
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left mt-4 ">
-                <MDBTableBody>
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
                 <tr>
-                  <td><font size="1"face="arial"color="black">Los cambios que se presentan en mi trabajo dificultan mi labor</font></td>   
-                  <td width="90px" ><font size="1"face="arial"color="black">{value29.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Los cambios que se presentan en mi trabajo dificultan mi labor</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value29.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value30.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value30.Respuestas}</font></td> 
                 </tr>
+                </table>
+
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >VIII. capacitación e información que se le proporciona sobre su trabajo.</font>
                 
-                </MDBTableBody>
-                </MDBTable>
-                <MDBTable  component={Paper}  small  className="text-left">
-                <MDBTableBody>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VIII. capacitación e información que se le proporciona sobre su trabajo.</font>
-                </MDBTableBody>
-                </MDBTable>
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <tr>
+                  <td width="80%"><font size="1"face="arial"color="black">Me informan con claridad cuáles son mis funciones</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value31.Respuestas}</font></td> 
+                </tr>
+                <tr>
+                  <td width="80%"><font size="1"face="arial"color="black">Me explican claramente los resultados que debo obtener en mi trabajo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value32.Respuestas}</font></td> 
+                </tr>
+                <tr>
+                  <td width="80%"><font size="1"face="arial"color="black">Me explican claramente los objetivos de mi trabajo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value33.Respuestas}</font></td> 
+                </tr>
+                <tr>
+                  <td width="80%"><font size="1"face="arial"color="black">Me informan con quién puedo resolver problemas o asuntos de trabajo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value34.Respuestas}</font></td> 
+                </tr>
+                <tr>
+                  <td width="80%"><font size="1"face="arial"color="black">Me permiten asistir a capacitaciones relacionadas con mi trabajo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value35.Respuestas}</font></td> 
+                </tr>
+                <tr>
+                  <td width="80%"><font size="1"face="arial"color="black">Recibo capacitación útil para hacer mi trabajo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value36.Respuestas}</font></td> 
+                </tr>
+                </table>
 
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                <MDBTableBody>
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >IX. Jefes con quien tiene contacto.</font>
+              
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
                 <tr>
-                  <td><font size="1"face="arial"color="black">Me informan con claridad cuáles son mis funciones</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value31.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Mi jefe ayuda a organizar mejor el trabajo</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value37.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Me explican claramente los resultados que debo obtener en mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value32.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Mi jefe tiene en cuenta mis puntos de vista y opiniones</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value38.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Me explican claramente los objetivos de mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value33.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Mi jefe me comunica a tiempo la información relacionada con el trabajo</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value39.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Me informan con quién puedo resolver problemas o asuntos de trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value34.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">La orientación que me da mi jefe me ayuda a realizar mejor mi trabajo</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value40.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Me permiten asistir a capacitaciones relacionadas con mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value35.Respuestas}</font></td> 
-                </tr>
-                <tr>
-                  <td><font size="1"face="arial"color="black">Recibo capacitación útil para hacer mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value36.Respuestas}</font></td> 
-                </tr>
-                
-                </MDBTableBody>
-                </MDBTable>
-                <MDBTable  component={Paper}  small  className="text-left">
-                <MDBTableBody>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IX. Jefes con quien tiene contacto.</font>
-                </MDBTableBody>
-                </MDBTable>
-
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                <MDBTableBody>
-                <tr>
-                  <td><font size="1"face="arial"color="black">Mi jefe ayuda a organizar mejor el trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value37.Respuestas}</font></td> 
-                </tr>
-                <tr>
-                  <td><font size="1"face="arial"color="black">Mi jefe tiene en cuenta mis puntos de vista y opiniones</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value38.Respuestas}</font></td> 
-                </tr>
-                <tr>
-                  <td><font size="1"face="arial"color="black">Mi jefe me comunica a tiempo la información relacionada con el trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value39.Respuestas}</font></td> 
-                </tr>
-                <tr>
-                  <td><font size="1"face="arial"color="black">La orientación que me da mi jefe me ayuda a realizar mejor mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value40.Respuestas}</font></td> 
-                </tr>
-                <tr>
-                  <td><font size="1"face="arial"color="black">Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value41.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value41.Respuestas}</font></td> 
                 </tr>
                                              
-                </MDBTableBody>
-                </MDBTable>
-                <MDBTable  component={Paper}  small  className="text-left">
-                <MDBTableBody>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >X. Relaciones con sus compañeros.</font>
-                </MDBTableBody>
-                </MDBTable>
+                </table>
 
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                <MDBTableBody>
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >X. Relaciones con sus compañeros.</font>
+  
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
                 <tr>
-                  <td><font size="1"face="arial"color="black">Puedo confiar en mis compañeros de trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value42.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Puedo confiar en mis compañeros de trabajo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value42.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Entre compañeros solucionamos los problemas de trabajo de forma respetuosa</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value43.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Entre compañeros solucionamos los problemas de trabajo de forma respetuosa</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value43.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">En mi trabajo me hacen sentir parte del grupo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value44.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">En mi trabajo me hacen sentir parte del grupo</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value44.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Cuando tenemos que realizar trabajo de equipo los compañeros colaboran</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value45.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Cuando tenemos que realizar trabajo de equipo los compañeros colaboran</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value45.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Mis compañeros de trabajo me ayudan cuando tengo dificultades</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value46.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Mis compañeros de trabajo me ayudan cuando tengo dificultades</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value46.Respuestas}</font></td> 
                 </tr>
-                                             
-                </MDBTableBody>
-                </MDBTable>
+                </table>
+           
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento</font><br/>
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</font>
                
-                <MDBTable  component={Paper}  small  className="text-left">
-                <MDBTableBody>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento</font><br/>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</font>
-
-                </MDBTableBody>
-                </MDBTable>
-               
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                <MDBTableBody>
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
                 <tr>
-                  <td><font size="1"face="arial"color="black">Me informan sobre lo que hago bien en mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value47.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Me informan sobre lo que hago bien en mi trabajo</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value47.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">La forma como evalúan mi trabajo en mi centro de trabajo me ayuda a mejorar mi desempeño</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value48.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">La forma como evalúan mi trabajo en mi centro de trabajo me ayuda a mejorar mi desempeño</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value48.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">En mi centro de trabajo me pagan a tiempo mi salario</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value49.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">En mi centro de trabajo me pagan a tiempo mi salario</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value49.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">El pago que recibo es el que merezco por el trabajo que realizo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value50.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">El pago que recibo es el que merezco por el trabajo que realizo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value50.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Si obtengo los resultados esperados en mi trabajo me recompensan o reconocen</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value51.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Si obtengo los resultados esperados en mi trabajo me recompensan o reconocen</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value51.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Las personas que hacen bien el trabajo pueden crecer laboralmente</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value52.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Las personas que hacen bien el trabajo pueden crecer laboralmente</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value52.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Considero que mi trabajo es estable</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value53.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Considero que mi trabajo es estable</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value53.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">En mi trabajo existe continua rotación de personal</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value54.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">En mi trabajo existe continua rotación de personal</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value54.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Siento orgullo de laborar en este centro de trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value55.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Siento orgullo de laborar en este centro de trabajo</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value55.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Me siento comprometido con mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value56.Respuestas}</font></td> 
+                  <td  width="80%"><font size="1"face="arial"color="black">Me siento comprometido con mi trabajo</font></td>   
+                  <td  width="20%"><font size="1"face="arial"color="black">{value56.Respuestas}</font></td> 
                 </tr>
                                              
-                </MDBTableBody>
-                </MDBTable>
-                <MDBTable  component={Paper}  small  className="text-left">
-                <MDBTableBody>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</font>
-                </MDBTableBody>
-                </MDBTable>
-
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                <MDBTableBody>
+                </table>
+               
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</font>
+               
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
                 <tr>
-                  <td><font size="1"face="arial"color="black">En mi trabajo puedo expresarme libremente sin interrupciones</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value57.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">En mi trabajo puedo expresarme libremente sin interrupciones</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value57.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Recibo críticas constantes a mi persona y/o trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value58.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Recibo críticas constantes a mi persona y/o trabajo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value58.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value59.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value59.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value60.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value60.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value61.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value61.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value62.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value62.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value63.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value63.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">He presenciado actos de violencia en mi centro de trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value64.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">He presenciado actos de violencia en mi centro de trabajo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value64.Respuestas}</font></td> 
                 </tr>
                                                                               
-                </MDBTableBody>
-                </MDBTable>
-                <br/>
-                <br/>
-                <br/>  
-                <br/>
-                <br/>  
-                <br/>
-                <br/>  
-                <br/>
-                <br/>
-                <br/>  
-                <br/>
-                <br/>  
-                <br/>
-                <br/>  
-                <br/>
-                <br/>
-                <br/>  
-                <br/>
-                <br/>  
-                <br/>
-                <br/>  
-                <MDBTable  component={Paper}  small  className="text-left">
-                <MDBTableBody>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XIII. Atención a clientes y usuarios.</font>
-                </MDBTableBody>
-                </MDBTable>
+                </table>
 
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                <MDBTableBody>
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >XIII. Atención a clientes y usuarios.</font>
+               
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
                 <tr>
-                  <td><font size="1"face="arial"color="black">Atiendo clientes o usuarios muy enojados</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value65.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Atiendo clientes o usuarios muy enojados</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value65.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value66.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value66.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Para hacer mi trabajo debo demostrar sentimientos distintos a los míos</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value67.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Para hacer mi trabajo debo demostrar sentimientos distintos a los míos</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value67.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Mi trabajo me exige atender situaciones de violencia</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value68.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Mi trabajo me exige atender situaciones de violencia</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value68.Respuestas}</font></td> 
                 </tr>
-                </MDBTableBody>
-                </MDBTable>
-                <MDBTable  component={Paper}  small  className="text-left">
-                <MDBTableBody>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XIV. Las actitudes de las personas que supervisa.</font>
-                </MDBTableBody>
-                </MDBTable>
+                </table>
+               
+                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >XIV. Las actitudes de las personas que supervisa.</font>
 
-                <MDBTable style={{marginLeft:20}} component={Paper}  small bordered className="text-left">
-                <MDBTableBody>
+                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
                 <tr>
-                  <td><font size="1"face="arial"color="black">Comunican tarde los asuntos de trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value69.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Comunican tarde los asuntos de trabajo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value69.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Dificultan el logro de los resultados del trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value70.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Dificultan el logro de los resultados del trabajo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value70.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Cooperan poco cuando se necesita</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value71.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Cooperan poco cuando se necesita</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value71.Respuestas}</font></td> 
                 </tr>
                 <tr>
-                  <td><font size="1"face="arial"color="black">Ignoran las sugerencias para mejorar su trabajo</font></td>   
-                  <td width="90px"><font size="1"face="arial"color="black">{value72.Respuestas}</font></td> 
+                  <td width="80%"><font size="1"face="arial"color="black">Ignoran las sugerencias para mejorar su trabajo</font></td>   
+                  <td width="20%"><font size="1"face="arial"color="black">{value72.Respuestas}</font></td> 
                 </tr>
-                </MDBTableBody>
-                </MDBTable> 
+                </table> 
                 <br></br>
                 <br></br>
                 <br></br>
@@ -12451,6 +12209,7 @@ if(ponderacionPromedio<50){
           <td width="34%">
           <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100}}/> 
           </td>
+          <td>{botonCerrar}</td>
         </tr>
       </table>
 
@@ -12882,7 +12641,7 @@ if(ponderacionPromedio<50){
                                   </tr>
                                   </Table>
                                  <br/>
-                                <table className="table-bordered" style={{marginLeft:"5%"}}>
+                                <table width="500" className="table-bordered" style={{marginLeft:"5%"}}>
                              
                                   <tr >
                                     <th width="8%" scope="col"><p  style={{fontSize:"6px"}}><strong>#</strong></p></th>
@@ -13165,7 +12924,7 @@ if(ponderacionPromedio<50){
                                 </table>
                                 <br/>
                                 <p style={{marginLeft:"5%"}}><font size="1" face="arial"color="black" >FRECUENCIA</font></p>
-                                <table className=" table-bordered" style={{marginLeft:"5%"}}>
+                                <table with="500" className=" table-bordered" style={{marginLeft:"5%"}}>
                                 
                                     <tr>
                                       <td width="10%" scope="col"></td>
@@ -13258,7 +13017,7 @@ if(ponderacionPromedio<50){
                 options={options}
               />
               <MDBRow style={{marginTop:20}}>
-              {botonCerrar}{botonResultadosGlobales}
+              {botonResultadosGlobales}
               {spinner}
              { PDFRespuestasMasivos}
               {PDFResultadosMasivos}
