@@ -372,6 +372,7 @@ pdfExportComponent ;
 
         click(id,periodo){  
         
+          console.log("id" , id)
           this.setState({botonDescargaMasivo:''})
           this.setState({botonDescargar:''})        
           // const url = 'http://localhost:8000/graphql'
@@ -407,6 +408,7 @@ pdfExportComponent ;
                 RotacionTurnos 
                 fk_administrador 
                 fk_correos 
+                ATSDetectado
                     }
                   }
                 `
@@ -563,12 +565,19 @@ pdfExportComponent ;
             let a  = 1
 
             if(this.state.resultados.length!==0){
-            if(this.state.resultados[1].Respuestas==="si"){
+
+              let filtro;
+              filtro =  this.state.resultados.filter(function(hero) {
+                return hero.fk_preguntasATS == 1;
+              });
+              let valor = filtro.pop()
+
+            if(valor.ATSDetectado==="true"){
                 ATSReporte= <font size="1"
                 face="arial"
                 color="red" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
                 ATS = <Alert className ="mt-4" color ="danger ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
-            }if(this.state.resultados[1].Respuestas==="no"){
+            }if(valor.ATSDetectado==="false"){
                 ATSReporte= <font size="1"
                 face="arial"
                 color="blue" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
