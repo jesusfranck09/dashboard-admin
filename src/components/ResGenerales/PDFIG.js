@@ -491,18 +491,10 @@ pdfExportComponent ;
 
     let accionSi = 0;
     let accionNo =0;
-    console.log("rows.respuestas", this.state.peticion1)
+    let valueAccion;
+    let filtrarAccion;
 
-    this.state.peticion1.map(rows=>{
-      if(rows[1]){
-        if (rows[1].Respuestas === 'si'){
-           accionSi = accionSi + 1
-        }
-        if (rows[1].Respuestas === 'no'){
-           accionNo = accionNo +1
-        }
-      }
-    })   
+    console.log("accionNo " ,  accionNo)
     const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo",{name: "Respuestas",label: "Respuestas",options:{filter: false,sort: true,}}];
     const data = this.state.empleados.map(rows=>{
         let boton =  <div><MDBBtn  className = "text-white"  disabled={!this.state.botonDescargarIndividual} size ="md" color ="danger" onClick={(e) => this.click(rows.id,rows.periodo)}>Respuestas</MDBBtn></div> 
@@ -677,6 +669,7 @@ pdfExportComponent ;
                 return hero.fk_preguntasATS == 16;
               });
               value16 = filtrar16.pop()
+              
 
             pdfView1 = <MDBContainer > <Alert className ="mt-4" color ="primary ">Resultados individuales de la Aplicación de la evaluación ATS </Alert>
 
@@ -1110,8 +1103,26 @@ pdfExportComponent ;
     }      
 
     let reporteGlobal;
-
+    let filtrarVeredicto;
+    let valueVeredicto;
     if(this.state.peticion1[0]){
+      this.state.peticion1.map(rows=>{
+
+        filtrarAccion =  rows.filter(function(hero) {
+          return hero.fk_preguntasATS == 1;
+        });
+        valueAccion = filtrarAccion.pop()
+        if(valueAccion){
+  
+          if (valueAccion.Respuestas === 'si'){
+             accionSi = accionSi + 1
+          }
+          else if (valueAccion.Respuestas === 'no'){
+             accionNo = accionNo +1
+          }
+        }
+        
+      })
       let estado  = this.state.peticion1;
       function array_equals(a, b){
         return a.length === b.length && a.every((item,idx) => item === b[idx])
@@ -1249,13 +1260,21 @@ pdfExportComponent ;
 
                                   </tr>
                                   { this.state.peticion1.map((rows,i) => {
-                                    if(rows[1]){
-                                      if(rows[1].Respuestas ==='si'){
+                                      if(rows[1]){
+                                      filtrarVeredicto =  rows.filter(function(hero) {
+                                        return hero.fk_preguntasATS == 1;
+                                      });
+                                      valueVeredicto= filtrarVeredicto.pop()
+                                      if(valueAccion){
+                                
+                                        if (valueVeredicto.Respuestas === 'si'){
                                       respuesta =  <td  width="10%" style={{backgroundColor: "#FF0000"}} align="center" component="th" ><font size="1" face="arial"color="black">SI</font></td>
-                                      }if(rows[1].Respuestas ==='no'){
+                                      }
+                                        else if (valueVeredicto.Respuestas === 'no'){
                                         respuesta =  <td  width="10%" style={{backgroundColor: "#9BE0F7 "}} align="center" component="th"><font size="1" face="arial"color="black">NO</font></td>
                                       }
-                                  
+                                      }
+                                      
                                       return (
                                         <tr >
                                       <td width="7%"  className="text-justify"><font style={{marginLeft:1}} size="1" face="arial"color="black" >{i + 1} </font></td>
