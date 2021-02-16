@@ -550,6 +550,7 @@ pdfExportComponent ;
           filtro=filtroTable
           }     };
 
+
             let pdfView1;
             let ATS;
             let ATSReporte;
@@ -1106,23 +1107,7 @@ pdfExportComponent ;
     let filtrarVeredicto;
     let valueVeredicto;
     if(this.state.peticion1[0]){
-      this.state.peticion1.map(rows=>{
-
-        filtrarAccion =  rows.filter(function(hero) {
-          return hero.fk_preguntasATS == 1;
-        });
-        valueAccion = filtrarAccion.pop()
-        if(valueAccion){
-  
-          if (valueAccion.Respuestas === 'si'){
-             accionSi = accionSi + 1
-          }
-          else if (valueAccion.Respuestas === 'no'){
-             accionNo = accionNo +1
-          }
-        }
-        
-      })
+     
       let estado  = this.state.peticion1;
       function array_equals(a, b){
         return a.length === b.length && a.every((item,idx) => item === b[idx])
@@ -1147,6 +1132,19 @@ pdfExportComponent ;
           </MDBContainer>
          </div>
         {filtrado.map((rows,i) =>{       
+           filtrarAccion =  rows.filter(function(hero) {
+            return hero.fk_preguntasATS == 1;
+          });
+          valueAccion = filtrarAccion.pop()
+          if(valueAccion){
+    
+            if (valueAccion.Respuestas === 'si'){
+               accionSi = accionSi + 1
+            }
+            else if (valueAccion.Respuestas === 'no'){
+               accionNo = accionNo +1
+            }
+          }
             a=1          
             let respuesta;
             if(rows[1]){
