@@ -1423,18 +1423,28 @@ pdfExportComponent ;
                                   SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font>
                                   {this.state.reporteImasivo.map(rows=>{
                                      let ATSReporteMasivo;
+                                     let filtrarVeredictoMasivo;
+                                     let valueVeredictoMasivo;
                                     if(rows[0]){
-                                      if(rows[1].Respuestas==="si"){
+                                      filtrarVeredictoMasivo =  rows.filter(function(hero) {
+                                        return hero.fk_preguntasATS == 1;
+                                      });
+                                      valueVeredictoMasivo= filtrarVeredictoMasivo.pop()
+
+                                      if(valueVeredictoMasivo){
+                                      if (valueVeredictoMasivo.Respuestas === 'si'){
                                         ATSReporteMasivo= <font size="1"
                                         face="arial"
                                         color="red" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
                                         ATS = <Alert className ="mt-4" color ="danger ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
-                                        }if(rows[1].Respuestas==="no"){
-                                          ATSReporteMasivo= <font size="1"
-                                          face="arial"
-                                          color="blue" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
-                                          ATS = <Alert className ="mt-4" color ="primary ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
-                                        }
+                                      }
+                                      else if (valueVeredictoMasivo.Respuestas === 'no'){
+                                        ATSReporteMasivo= <font size="1"
+                                        face="arial"
+                                        color="blue" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
+                                        ATS = <Alert className ="mt-4" color ="primary ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
+                                      }
+                                      }
                                     }
                                     if(rows[0]){
                                       let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16;
