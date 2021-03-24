@@ -925,6 +925,7 @@ export default class App extends React.Component {
                       array6.map(rows=>{
                             valor6.push(rows[0].ponderacion)
                     })
+                    console.log("array6" , array6)
                     this.setState({valor6:valor6})
                               })
           
@@ -10878,7 +10879,7 @@ ponderacion=<React.Fragment>
               color="black" style = {{marginLeft:35}}>PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN
               LOS CENTROS DE TRABAJO</font>           
              {this.state.reporteImasivo.map(rows=>{
-              
+                console.log("reporteimasivo" , rows)
                if(rows[0]){
                 let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16,value17,value18,value19,value20,value21,value22,value23,value24;
                 let value25,value26,value27,value28,value29,value30,value31,value32,value33,value34,value35,value36,value37,value38,value39,value40,value41,value42,value43,value44,value45,value46;
@@ -10919,7 +10920,8 @@ ponderacion=<React.Fragment>
                 filtrar6 =  rows.filter(function(hero) {
                   return hero.fk_preguntasEEO == 6;
                 });
-                value6 = filtrar6.pop()
+                value6 = filtrar6.pop();
+                console.log("value6" , value6)
           
                 let filtrar7;
                 filtrar7 = rows.filter(function(hero) {
@@ -12972,6 +12974,15 @@ if(ponderacionPromedio<50){
                                     <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCuatro3}</font></td>
                                     <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCuatro4}</font></td>
                                     <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCuatro5}</font></td>
+                                    </tr>
+                                    <tr>
+                                    <td><font size="1" face="arial"color="black" >5</font></td>
+                                    <td><font size="1" face="arial"color="black" >Entorno Organizacional</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCinco1}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCinco2}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCinco3}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCinco4}</font></td>
+                                    <td><font size="1" face="arial"color="black" >{frecuenciaCategoriaCinco5}</font></td>
                                     </tr>
                                   </tbody>
                                 </table>
