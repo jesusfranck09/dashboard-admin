@@ -1470,7 +1470,7 @@ class AdminGral extends React.Component {
                           component={TextField}
                           type="text"
                           defaultValue={this.state.updateRows.TipoPuesto}
-                          label = "Tiempo en el Puesto"
+                          label = "Tipo de Puesto"
                         />
                       </Grid>
 
