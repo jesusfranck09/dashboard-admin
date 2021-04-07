@@ -831,6 +831,8 @@ class AdminGral extends React.Component {
               }
             })
             .then(datos => {
+
+              console.log("datos" , datos)
               if(datos.data.data.getEventos.message==="evento encontrado"){
                 DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },        
@@ -873,10 +875,12 @@ class AdminGral extends React.Component {
                 }
                 )
               }   
+            }).catch(error=>{
+              console.log("errror" , error)
             })
               }
             }).catch(err=>{
-              console.log("error en la consulta del evento" , err.response)}) 
+              console.log("error en la consulta del evento" , err)}) 
             }else{
               DialogUtility.alert({
                 animationSettings: { effect: 'Fade' },        

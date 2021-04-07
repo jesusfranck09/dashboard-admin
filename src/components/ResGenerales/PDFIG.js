@@ -154,6 +154,7 @@ pdfExportComponent ;
                   CentroTrabajo
                   fk_administrador 
                   fk_correos 
+                  ATSDetectado
                       }
                     }
                   `
@@ -1133,15 +1134,17 @@ pdfExportComponent ;
          </div>
         {filtrado.map((rows,i) =>{       
            filtrarAccion =  rows.filter(function(hero) {
-            return hero.fk_preguntasATS == 1;
+            return hero.ATSDetectado;
           });
+
           valueAccion = filtrarAccion.pop()
+          console.log("valueAccion" , valueAccion)
           if(valueAccion){
     
-            if (valueAccion.Respuestas === 'si'){
+            if (valueAccion.ATSDetectado === 'true'){
                accionSi = accionSi + 1
             }
-            else if (valueAccion.Respuestas === 'no'){
+            else if (valueAccion.ATSDetectado === 'false'){
                accionNo = accionNo +1
             }
           }
@@ -1259,16 +1262,17 @@ pdfExportComponent ;
                                   </tr>
                                   { this.state.peticion1.map((rows,i) => {
                                       if(rows[1]){
+                                        console.log("rows" , rows)
                                       filtrarVeredicto =  rows.filter(function(hero) {
                                         return hero.fk_preguntasATS == 1;
                                       });
                                       valueVeredicto= filtrarVeredicto.pop()
                                       if(valueAccion){
                                 
-                                        if (valueVeredicto.Respuestas === 'si'){
+                                        if (valueVeredicto.ATSDetectado === 'true'){
                                       respuesta =  <td  width="10%" style={{backgroundColor: "#FF0000"}} align="center" component="th" ><font size="1" face="arial"color="black">SI</font></td>
                                       }
-                                        else if (valueVeredicto.Respuestas === 'no'){
+                                        else if (valueVeredicto.ATSDetectado === 'false'){
                                         respuesta =  <td  width="10%" style={{backgroundColor: "#9BE0F7 "}} align="center" component="th"><font size="1" face="arial"color="black">NO</font></td>
                                       }
                                       }
@@ -1420,23 +1424,24 @@ pdfExportComponent ;
                                   color="black" style = {{marginLeft:35}}>FUERON
                                   SUJETOS A ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</font>
                                   {this.state.reporteImasivo.map(rows=>{
+                                    // console.log("reportei masivo" , this.state.reporteImasivo)
                                      let ATSReporteMasivo;
                                      let filtrarVeredictoMasivo;
                                      let valueVeredictoMasivo;
                                     if(rows[0]){
                                       filtrarVeredictoMasivo =  rows.filter(function(hero) {
-                                        return hero.fk_preguntasATS == 1;
+                                        return hero.ATSDetectado;
                                       });
                                       valueVeredictoMasivo= filtrarVeredictoMasivo.pop()
-
+                                      console.log("veredictoMasivo" , valueVeredictoMasivo)
                                       if(valueVeredictoMasivo){
-                                      if (valueVeredictoMasivo.Respuestas === 'si'){
+                                      if (valueVeredictoMasivo.ATSDetectado === 'true'){
                                         ATSReporteMasivo= <font size="1"
                                         face="arial"
                                         color="red" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
                                         ATS = <Alert className ="mt-4" color ="danger ">LA EVALUACIÓN REVELÓ QUE EL PERSONAL  REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert>
                                       }
-                                      else if (valueVeredictoMasivo.Respuestas === 'no'){
+                                      else if (valueVeredictoMasivo.ATSDetectado === 'false'){
                                         ATSReporteMasivo= <font size="1"
                                         face="arial"
                                         color="blue" >LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</font>
