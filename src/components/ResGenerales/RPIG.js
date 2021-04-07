@@ -7952,6 +7952,13 @@ if(DominioOcho < 7){
         }   
         let PDFResultadosMasivos;
         if(this.state.resultadosEvaluacionMasivo[0]){
+          
+          let value1, value2, value3, value4, value5, value6, value7, value8, value9, value10
+          let value11, value12, value13, value14, value15, value16, value17, value18, value19, value20
+          let value21, value22, value23, value24, value25, value26, value27, value28, value29, value30
+          let value31, value32, value33, value34, value35, value36, value37, value38, value39, value40
+          let value41, value42, value43, value44, value45, value46;
+
           PDFResultadosMasivos = 
                        <div>
                         
@@ -8041,99 +8048,379 @@ if(DominioOcho < 7){
                                         color="black" style = {{marginLeft:35}}>PSICOSOCIAL EN
                                         LOS CENTROS DE TRABAJO</font>
                                     {this.state.resultadosEvaluacionMasivo.map(rows=>{
-                                      if(rows[0]){
-                                        let valor1=rows[1].ponderacion;   
-                                        let valor2=rows[2].ponderacion;
-                                        let valor3=rows[3].ponderacion;
-                                        let valor4=rows[4].ponderacion;
-                                        let valor5=rows[5].ponderacion;
-                                        let valor6=rows[6].ponderacion;
-                                        let valor7=rows[7].ponderacion;
-                                        let valor8=rows[8].ponderacion;
-                                        let valor9=rows[9].ponderacion;
-                                        let valor10=rows[10].ponderacion;
-                                        let valor11=rows[11].ponderacion;
-                                        let valor12=rows[12].ponderacion;
-                                        let valor13=rows[13].ponderacion;
-                                        let valor14=rows[14].ponderacion;
-                                        let valor15=rows[15].ponderacion;
-                                        let valor16=rows[16].ponderacion;
-                                        let valor17=rows[17].ponderacion;
-                                        let valor18=rows[18].ponderacion;
-                                        let valor19=rows[19].ponderacion;
-                                        let valor20=rows[20].ponderacion;
-                                        let valor21=rows[21].ponderacion;
-                                        let valor22=rows[22].ponderacion;
-                                        let valor23=rows[23].ponderacion;
-                                        let valor24=rows[24].ponderacion;
-                                        let valor25=rows[25].ponderacion;
-                                        let valor26=rows[26].ponderacion;
-                                        let valor27=rows[27].ponderacion;
-                                        let valor28=rows[28].ponderacion;
-                                        let valor29=rows[29].ponderacion;
-                                        let valor30=rows[30].ponderacion;
-                                        let valor31=rows[31].ponderacion;
-                                        let valor32=rows[32].ponderacion;
-                                        let valor33=rows[33].ponderacion;
-                                        let valor34=rows[34].ponderacion;
-                                        let valor35=rows[35].ponderacion;
-                                        let valor36=rows[36].ponderacion;
-                                        let valor37=rows[37].ponderacion;
-                                        let valor38=rows[38].ponderacion;
-                                        let valor39=rows[39].ponderacion;
-                                        let valor40=rows[40].ponderacion;
-                                        let valor41=rows[42].ponderacion;
-                                        let valor42=rows[43].ponderacion;
-                                        let valor43=rows[44].ponderacion;
-                                        let valor44=rows[46].ponderacion;
-                                        let valor45=rows[47].ponderacion;
-                                        let valor46=rows[48].ponderacion;
-                                      
-                                        let respuesta1=rows[1].Respuestas;
-                                        let respuesta2=rows[2].Respuestas;
-                                        let respuesta3=rows[3].Respuestas;
-                                        let respuesta4=rows[4].Respuestas;
-                                        let respuesta5=rows[5].Respuestas;
-                                        let respuesta6=rows[6].Respuestas;
-                                        let respuesta7=rows[7].Respuestas;
-                                        let respuesta8=rows[8].Respuestas;
-                                        let respuesta9=rows[9].Respuestas;
-                                        let respuesta10=rows[10].Respuestas;
-                                        let respuesta11=rows[11].Respuestas;
-                                        let respuesta12=rows[12].Respuestas;
-                                        let respuesta13=rows[13].Respuestas;
-                                        let respuesta14=rows[14].Respuestas;
-                                        let respuesta15=rows[15].Respuestas;
-                                        let respuesta16=rows[16].Respuestas;
-                                        let respuesta18=rows[18].Respuestas;
-                                        let respuesta19=rows[19].Respuestas;
-                                        let respuesta20=rows[20].Respuestas;
-                                        let respuesta21=rows[21].Respuestas;
-                                        let respuesta22=rows[22].Respuestas;
-                                        let respuesta23=rows[23].Respuestas;
-                                        let respuesta24=rows[24].Respuestas;
-                                        let respuesta25=rows[25].Respuestas;
-                                        let respuesta26=rows[26].Respuestas;
-                                        let respuesta27=rows[27].Respuestas;
-                                        let respuesta28=rows[28].Respuestas;
-                                        let respuesta29=rows[29].Respuestas;
-                                        let respuesta30=rows[30].Respuestas;
-                                        let respuesta31=rows[31].Respuestas;
-                                        let respuesta32=rows[32].Respuestas;
-                                        let respuesta33=rows[33].Respuestas;
-                                        let respuesta34=rows[34].Respuestas;
-                                        let respuesta35=rows[35].Respuestas;
-                                        let respuesta36=rows[36].Respuestas;
-                                        let respuesta37=rows[37].Respuestas;
-                                        let respuesta38=rows[38].Respuestas;
-                                        let respuesta39=rows[39].Respuestas;
-                                        let respuesta40=rows[40].Respuestas;
-                                        let respuesta41=rows[42].Respuestas;
-                                        let respuesta42=rows[43].Respuestas;
-                                        let respuesta43=rows[44].Respuestas;
-                                        let respuesta44=rows[46].Respuestas;
-                                        let respuesta45=rows[47].Respuestas;
-                                        let respuesta46=rows[48].Respuestas;
+                                      if(rows){
+
+                                        let filtrar1;
+                                         filtrar1 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 1;
+                                         });
+                                         console.log("filtrar1" , filtrar1)
+                                         value1=filtrar1.pop() 
+                                        // console.log("this.state.resultadosEvaluacionMasivo", this.state.resultadosEvaluacionMasivo)
+                                         let filtrar2;
+                                         filtrar2 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 2;
+                                         });
+                                         value2=filtrar2.pop() 
+                                        
+                                         let filtrar3;
+                                         filtrar3 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 3;
+                                         });
+                                         value3=filtrar3.pop() 
+                                        
+                                         let filtrar4;
+                                         filtrar4 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 4;
+                                         });
+                                         value4=filtrar4.pop() 
+                                        
+                                         let filtrar5;
+                                         filtrar5 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 5;
+                                         });
+                                         value5=filtrar5.pop() 
+                                        
+                                         let filtrar6;
+                                         filtrar6 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 6;
+                                         });
+                                         value6=filtrar6.pop() 
+                                        
+                                         let filtrar7;
+                                         filtrar7 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 7;
+                                         });
+                                         value7=filtrar7.pop() 
+                                        
+                                         let filtrar8;
+                                         filtrar8 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 8;
+                                         });
+                                         value8=filtrar8.pop() 
+                                        
+                                         let filtrar9;
+                                         filtrar9 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 9;
+                                         });
+                                         value9=filtrar9.pop() 
+                                        
+                                         let filtrar10;
+                                         filtrar10 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 10;
+                                         });
+                                         value10=filtrar10.pop() 
+                                        
+                                         let filtrar11;
+                                         filtrar11 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 11;
+                                         });
+                                         value11=filtrar11.pop() 
+                                        
+                                         let filtrar12;
+                                         filtrar12 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 12;
+                                         });
+                                         value12=filtrar12.pop() 
+                                        
+                                         let filtrar13;
+                                         filtrar13 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 13;
+                                         });
+                                         value13=filtrar13.pop() 
+                                        
+                                         let filtrar14;
+                                         filtrar14 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 14;
+                                         });
+                                         value14=filtrar14.pop() 
+                                        
+                                         let filtrar15;
+                                         filtrar15 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 15;
+                                         });
+                                         value15=filtrar15.pop() 
+                                        
+                                         let filtrar16;
+                                         filtrar16 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 16;
+                                         });
+                                         value16=filtrar16.pop() 
+                                        
+                                         let filtrar17;
+                                         filtrar17 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 17;
+                                         });
+                                         value17=filtrar17.pop() 
+                                        
+                                         let filtrar18;
+                                         filtrar18 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 18;
+                                         });
+                                         value18=filtrar18.pop() 
+                                        
+                                         let filtrar19;
+                                         filtrar19 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 19;
+                                         });
+                                         value19=filtrar19.pop() 
+                                        
+                                         let filtrar20;
+                                         filtrar20 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 20;
+                                         });
+                                         value20=filtrar20.pop() 
+                                        
+                                         let filtrar21;
+                                         filtrar21 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 21;
+                                         });
+                                         value21=filtrar21.pop() 
+                                        
+                                         let filtrar22;
+                                         filtrar22 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 22;
+                                         });
+                                         value22=filtrar22.pop() 
+                                        
+                                         let filtrar23;
+                                         filtrar23 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 23;
+                                         });
+                                         value23=filtrar23.pop() 
+                                        
+                                         let filtrar24;
+                                         filtrar24 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 24;
+                                         });
+                                         value24=filtrar24.pop() 
+                                        
+                                         let filtrar25;
+                                         filtrar25 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 25;
+                                         });
+                                         value25=filtrar25.pop() 
+                                        
+                                         let filtrar26;
+                                         filtrar26 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 26;
+                                         });
+                                         value26=filtrar26.pop() 
+                                        
+                                         let filtrar27;
+                                         filtrar27 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 27;
+                                         });
+                                         value27=filtrar27.pop() 
+                                        
+                                         let filtrar28;
+                                         filtrar28 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 28;
+                                         });
+                                         value28=filtrar28.pop() 
+                                        
+                                         let filtrar29;
+                                         filtrar29 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 29;
+                                         });
+                                         value29=filtrar29.pop() 
+                                        
+                                         let filtrar30;
+                                         filtrar30 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 30;
+                                         });
+                                         value30=filtrar30.pop() 
+                                        
+                                         let filtrar31;
+                                         filtrar31 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 31;
+                                         });
+                                         value31=filtrar31.pop() 
+                                        
+                                         let filtrar32;
+                                         filtrar32 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 32;
+                                         });
+                                         value32=filtrar32.pop() 
+                                        
+                                         let filtrar33;
+                                         filtrar33 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 33;
+                                         });
+                                         value33=filtrar33.pop() 
+                                        
+                                         let filtrar34;
+                                         filtrar34 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 34;
+                                         });
+                                         value34=filtrar34.pop() 
+                                        
+                                         let filtrar35;
+                                         filtrar35 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 35;
+                                         });
+                                         value35=filtrar35.pop() 
+                                        
+                                         let filtrar36;
+                                         filtrar36 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 36;
+                                         });
+                                         value36=filtrar36.pop() 
+                                        
+                                         let filtrar37;
+                                         filtrar37 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 37;
+                                         });
+                                         value37=filtrar37.pop() 
+                                        
+                                         let filtrar38;
+                                         filtrar38 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 38;
+                                         });
+                                         value38=filtrar38.pop() 
+                                        
+                                         let filtrar39;
+                                         filtrar39 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 39;
+                                         });
+                                         value39=filtrar39.pop() 
+                                         
+                                         let filtrar40;
+                                         filtrar40 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 40;
+                                         });
+                                         value40=filtrar40.pop() 
+                                        
+                                         let filtrar41;
+                                         filtrar41 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 41;
+                                         });
+                                         value41=filtrar41.pop() 
+                                        
+                                         let filtrar42;
+                                         filtrar42 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 42;
+                                         });
+                                         value42=filtrar42.pop() 
+                                        
+                                         let filtrar43;
+                                         filtrar43 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 43;
+                                         });
+                                         value43=filtrar43.pop() 
+                                        
+                                         let filtrar44;
+                                         filtrar44 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 44;
+                                         });
+                                         value44=filtrar44.pop() 
+                                        
+                                         let filtrar45;
+                                         filtrar45 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 45;
+                                         });
+                                         value45=filtrar45.pop() 
+                                        
+                                         let filtrar46;
+                                         filtrar46 =rows.filter(function(hero){
+                                           return hero.fk_preguntasRP == 46;
+                                         });
+                                         value46=filtrar46.pop() 
+                                         
+                                          let valor1=value1.ponderacion;
+                                          let valor2=value2.ponderacion;
+                                          let valor3=value3.ponderacion;
+                                          let valor4=value4.ponderacion;
+                                          let valor5=value5.ponderacion;
+                                          let valor6=value6.ponderacion;
+                                          let valor7=value7.ponderacion;
+                                          let valor8=value8.ponderacion;
+                                          let valor9=value9.ponderacion;
+                                          let valor10=value10.ponderacion;
+                                          let valor11=value11.ponderacion;
+                                          let valor12=value12.ponderacion;
+                                          let valor13=value13.ponderacion;
+                                          let valor14=value14.ponderacion;
+                                          let valor15=value15.ponderacion;
+                                          let valor16=value16.ponderacion;
+                                          let valor17=value17.ponderacion;
+                                          let valor18=value18.ponderacion;
+                                          let valor19=value19.ponderacion;
+                                          let valor20=value20.ponderacion;
+                                          let valor21=value21.ponderacion;
+                                          let valor22=value22.ponderacion;
+                                          let valor23=value23.ponderacion;
+                                          let valor24=value24.ponderacion;
+                                          let valor25=value25.ponderacion;
+                                          let valor26=value26.ponderacion;
+                                          let valor27=value27.ponderacion;
+                                          let valor28=value28.ponderacion;
+                                          let valor29=value29.ponderacion;
+                                          let valor30=value30.ponderacion;
+                                          let valor31=value31.ponderacion;
+                                          let valor32=value32.ponderacion;
+                                          let valor33=value33.ponderacion;
+                                          let valor34=value34.ponderacion;
+                                          let valor35=value35.ponderacion;
+                                          let valor36=value36.ponderacion;
+                                          let valor37=value37.ponderacion;
+                                          let valor38=value38.ponderacion;
+                                          let valor39=value39.ponderacion;
+                                          let valor40=value40.ponderacion;
+                                          let valor41=value41.ponderacion;
+                                          let valor42=value42.ponderacion;
+                                          let valor43=value43.ponderacion;
+                                          let valor44=value44.ponderacion;
+                                          let valor45=value45.ponderacion;
+                                          let valor46=value46.ponderacion;
+                                        
+                                        
+                                          let respuesta1=value1.Respuestas;
+                                          let respuesta2=value2.Respuestas;
+                                          let respuesta3=value3.Respuestas;
+                                          let respuesta4=value4.Respuestas;
+                                          let respuesta5=value5.Respuestas;
+                                          let respuesta6=value6.Respuestas;
+                                          let respuesta7=value7.Respuestas;
+                                          let respuesta8=value8.Respuestas;
+                                          let respuesta9=value9.Respuestas;
+                                          let respuesta10=value10.Respuestas;
+                                          let respuesta11=value11.Respuestas;
+                                          let respuesta12=value12.Respuestas;
+                                          let respuesta13=value13.Respuestas;
+                                          let respuesta14=value14.Respuestas;
+                                          let respuesta15=value15.Respuestas;
+                                          let respuesta16=value16.Respuestas;
+                                          let respuesta17=value17.Respuestas;
+                                          let respuesta18=value18.Respuestas;
+                                          let respuesta19=value19.Respuestas;
+                                          let respuesta20=value20.Respuestas;
+                                          let respuesta21=value21.Respuestas;
+                                          let respuesta22=value22.Respuestas;
+                                          let respuesta23=value23.Respuestas;
+                                          let respuesta24=value24.Respuestas;
+                                          let respuesta25=value25.Respuestas;
+                                          let respuesta26=value26.Respuestas;
+                                          let respuesta27=value27.Respuestas;
+                                          let respuesta28=value28.Respuestas;
+                                          let respuesta29=value29.Respuestas;
+                                          let respuesta30=value30.Respuestas;
+                                          let respuesta31=value31.Respuestas;
+                                          let respuesta32=value32.Respuestas;
+                                          let respuesta33=value33.Respuestas;
+                                          let respuesta34=value34.Respuestas;
+                                          let respuesta35=value35.Respuestas;
+                                          let respuesta36=value36.Respuestas;
+                                          let respuesta37=value37.Respuestas;
+                                          let respuesta38=value38.Respuestas;
+                                          let respuesta39=value39.Respuestas;
+                                          let respuesta40=value40.Respuestas;
+                                          let respuesta41=value41.Respuestas;
+                                          let respuesta42=value42.Respuestas;
+                                          let respuesta43=value43.Respuestas;
+                                          let respuesta44=value44.Respuestas;
+                                          let respuesta45=value45.Respuestas;
+                                          let respuesta46=value46.Respuestas;
                                       
                                       let entero1=parseInt(valor1);let entero2=parseInt(valor2);let entero3=parseInt(valor3);let entero4=parseInt(valor4);
                                       let entero5=parseInt(valor5);let entero6=parseInt(valor6);let entero7=parseInt(valor7);let entero8=parseInt(valor8);
@@ -8300,6 +8587,7 @@ if(DominioOcho < 7){
                                         categoria4MuyAlto= categoriaCuatro
                                       }
                                       
+                                      console.log("categoria" , categoriaUno,categoriaDos,categoriaTre,categoriaCuatro)
                                       let Dominio1Nulo;
                                       let Dominio1Bajo;
                                       let Dominio1Medio;
