@@ -3718,7 +3718,6 @@ pdfExportComponent ;
               arr44Int.forEach (function(numero){
                 respuesta44 += numero;
               });
-              // console.log("respuesta44" , respuesta44)
               })
               var filtrar45 ;
               var array45Int;
@@ -5840,11 +5839,13 @@ if(this.state.resultadosEvaluacion.length > 0 && this.state.resultadosQuery.leng
  });
  value1=filtrar1.pop() 
 
+ console.log("value1" , value1)
  let filtrar2;
  filtrar2 =this.state.resultadosEvaluacion.filter(function(hero){
    return hero.fk_preguntasRP == 2;
  });
  value2=filtrar2.pop() 
+ console.log("value1" , value2)
 
  let filtrar3;
  filtrar3 =this.state.resultadosEvaluacion.filter(function(hero){
@@ -6788,7 +6789,7 @@ if(DominioOcho < 7){
             <TableCell component="th" scope="row" >1.- Condiciones peligrosas e inseguras</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {entero1.toFixed(2)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {entero2.toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -6796,7 +6797,7 @@ if(DominioOcho < 7){
             <TableCell component="th" scope="row" >2.- Condiciones deficientes e insalubres</TableCell> 
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {entero2.toFixed(2)}</TableCell>
+            <TableCell component="th" scope="row" align="center"> {entero1.toFixed(2)}</TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
@@ -7142,12 +7143,12 @@ if(DominioOcho < 7){
                                 <tr>           
                                 <td width="10%"><font size="1" face="arial"color="black" >1</font></td>
                                 <td width="60%"  className="text-left"><font size="1" face="arial"color="black">Condiciones peligrosas e inseguras</font></td>
-                                <td width="20%"><font size="1" face="arial"color="black">{entero1.toFixed(2)}</font></td>
+                                <td width="20%"><font size="1" face="arial"color="black">{entero2.toFixed(2)}</font></td>
                                 </tr>
                                 <tr>         
                                 <td width="10%"><font size="1" face="arial"color="black" >2</font></td>
                                 <td width="60%" className="text-left"><font size="1" face="arial"color="black">Condiciones deficientes e insalubres</font></td>
-                                <td width="20%"><font size="1" face="arial"color="black">{entero2.toFixed(2)}</font></td>
+                                <td width="20%"><font size="1" face="arial"color="black">{entero1.toFixed(2)}</font></td>
                                 </tr>
                                 <tr>         
                                 <td width="10%"><font size="1" face="arial"color="black" >3</font></td>
@@ -8920,12 +8921,12 @@ if(DominioOcho < 7){
                                           <tr>           
                                           <td width="10%"><font size="1" face="arial"color="black" >1</font></td>
                                           <td width="60%"><font size="1" face="arial"color="black">Condiciones peligrosas e inseguras</font></td>
-                                          <td width="20%"><font size="1" face="arial"color="black">{entero1.toFixed(2)}</font></td>
+                                          <td width="20%"><font size="1" face="arial"color="black">{entero2.toFixed(2)}</font></td>
                                           </tr>
                                           <tr>         
                                             <td width="10%"><font size="1" face="arial"color="black" >2</font></td>
                                             <td width="60%"><font size="1" face="arial"color="black">Condiciones deficientes e insalubres</font></td>
-                                            <td width="20%"><font size="1" face="arial"color="black">{entero2.toFixed(2)}</font></td>
+                                            <td width="20%"><font size="1" face="arial"color="black">{entero1.toFixed(2)}</font></td>
                                           </tr>
                                           <tr>         
                                             <td width="10%"><font size="1" face="arial"color="black" >3</font></td>
