@@ -7194,7 +7194,7 @@ if(DominioOcho < 7){
                                 <tr>         
                                 <td width="10%"><font size="1" face="arial"color="black" >11</font></td>
                                 <td width="60%" className="text-left"><font size="1" face="arial"color="black">Limitada o nula posibilidad de desarrollo</font></td>
-                                <td width="20%"><font size="1" face="arial"color="black">{(entero23+entero24).toFixed(2)}</font></td>
+                                <td width="20%"><font size="1" face="arial"color="black">{(entero18+entero19).toFixed(2)}</font></td>
                                 </tr>
                                 <tr>         
                                 <td width="10%"><font size="1" face="arial"color="black" >12</font></td>
