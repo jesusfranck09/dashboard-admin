@@ -431,7 +431,7 @@ class Home extends React.Component {
           //     position: "fixed",
           //   }
           //   ) 
-          })
+          // })
         }
       }, 1000)
     };
