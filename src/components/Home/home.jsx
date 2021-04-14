@@ -75,10 +75,10 @@ class Home extends React.Component {
 
   }
 
-  async componentWillMount(){
+   componentWillMount(){
     let idAdmin = localStorage.getItem("idAdmin")
       // const url = 'http://localhost:8000/graphql'
-     await  axios({
+       axios({
         url:  API,
         method:'post',
         data:{
@@ -104,10 +104,9 @@ class Home extends React.Component {
       })
       .then(datos => {	
         let periodo = datos.data.data.getPeriodo[0].Descripcion ;
-        localStorage.setItem("periodo" ,datos.data.data.getPeriodo[0].Descripcion )
+        localStorage.setItem("periodo" ,datos.data.data.getPeriodo[0].Descripcion)
         this.setState({periodo:periodo})
         this.setState({datosEventos:datos.data.data.getPeriodo[0]})
-        
         let eventoFinal;
         let alerta1;
         let alerta2;
@@ -116,6 +115,8 @@ class Home extends React.Component {
         alerta1  = datos.data.data.getPeriodo[0].alerta1
         alerta2  = datos.data.data.getPeriodo[0].alerta2
         alerta3  =  datos.data.data.getPeriodo[0].alerta3
+        console.log("periodo",eventoFinal)
+
         var alert3;
         var alert2;
         var alert1;
@@ -140,10 +141,10 @@ class Home extends React.Component {
       }).catch(err=>{
         
       })
-        await this.getEmployees();
-        await this.handleFront();
-        await this.verifyTables();
-        await this.getUrlLogo();
+         this.getEmployees();
+         this.handleFront();
+         this.verifyTables();
+         this.getUrlLogo();
   }
 
   getEmployees(){
@@ -404,31 +405,32 @@ class Home extends React.Component {
       const timerUpdate = setInterval( async () => {
         let t = this.getRemainingTime(deadline);
         let descripcion;
+        // console.log("remine time",t )
         if(t.remainTime <= 1) {
           clearInterval(timerUpdate);
           let idAdmin = localStorage.getItem("idAdmin")
           descripcion = this.state.periodo
-          axios({
-            url:  API,
-            method:'post',
-            data:{
-            query:`
-            mutation{
-              deletePeriodo(data:"${[descripcion,idAdmin]}"){
-                  message
-                    }
-                  }
-                `
-            }
-          })
-          .then(datos => {	
-            DialogUtility.alert({
-              animationSettings: { effect: 'Fade' },        
-              title:"AVISO!",   
-              content: 'Su periodo está Desactivado por favor Registre uno nuevo',
-              position: "fixed",
-            }
-            ) 
+          // axios({
+          //   url:  API,
+          //   method:'post',
+          //   data:{
+          //   query:`
+          //   mutation{
+          //     deletePeriodo(data:"${[descripcion,idAdmin]}"){
+          //         message
+          //           }
+          //         }
+          //       `
+          //   }
+          // })
+          // .then(datos => {	
+          //   DialogUtility.alert({
+          //     animationSettings: { effect: 'Fade' },        
+          //     title:"AVISO!",   
+          //     content: 'Su periodo está Desactivado por favor Registre uno nuevo',
+          //     position: "fixed",
+          //   }
+          //   ) 
           })
         }
       }, 1000)
