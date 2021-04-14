@@ -75,10 +75,10 @@ class Home extends React.Component {
 
   }
 
-   componentWillMount(){
+   async componentWillMount(){
     let idAdmin = localStorage.getItem("idAdmin")
       // const url = 'http://localhost:8000/graphql'
-       axios({
+      await axios({
         url:  API,
         method:'post',
         data:{
@@ -134,10 +134,10 @@ class Home extends React.Component {
           fechaFinal = eventoFinal.substring(4,34)
         }
 
-        this.countdown(fechaFinal)
-        this.alerta1(alert1)
-        this.alerta2(alert2)
-        this.alerta3(alert3)
+        await this.countdown(fechaFinal)
+        await this.alerta1(alert1)
+        await this.alerta2(alert2)
+        await this.alerta3(alert3)
       }).catch(err=>{
         
       })
