@@ -75,10 +75,10 @@ class Home extends React.Component {
 
   }
 
-   async componentWillMount(){
+  async componentWillMount(){
     let idAdmin = localStorage.getItem("idAdmin")
       // const url = 'http://localhost:8000/graphql'
-      await axios({
+     await  axios({
         url:  API,
         method:'post',
         data:{
@@ -104,9 +104,10 @@ class Home extends React.Component {
       })
       .then(datos => {	
         let periodo = datos.data.data.getPeriodo[0].Descripcion ;
-        localStorage.setItem("periodo" ,datos.data.data.getPeriodo[0].Descripcion)
+        localStorage.setItem("periodo" ,datos.data.data.getPeriodo[0].Descripcion )
         this.setState({periodo:periodo})
         this.setState({datosEventos:datos.data.data.getPeriodo[0]})
+        
         let eventoFinal;
         let alerta1;
         let alerta2;
@@ -115,8 +116,6 @@ class Home extends React.Component {
         alerta1  = datos.data.data.getPeriodo[0].alerta1
         alerta2  = datos.data.data.getPeriodo[0].alerta2
         alerta3  =  datos.data.data.getPeriodo[0].alerta3
-        console.log("periodo",eventoFinal)
-
         var alert3;
         var alert2;
         var alert1;
@@ -134,17 +133,17 @@ class Home extends React.Component {
           fechaFinal = eventoFinal.substring(4,34)
         }
 
-        await this.countdown(fechaFinal)
-        await this.alerta1(alert1)
-        await this.alerta2(alert2)
-        await this.alerta3(alert3)
+        this.countdown(fechaFinal)
+        this.alerta1(alert1)
+        this.alerta2(alert2)
+        this.alerta3(alert3)
       }).catch(err=>{
         
       })
-         this.getEmployees();
-         this.handleFront();
-         this.verifyTables();
-         this.getUrlLogo();
+        await this.getEmployees();
+        await this.handleFront();
+        await this.verifyTables();
+        await this.getUrlLogo();
   }
 
   getEmployees(){
