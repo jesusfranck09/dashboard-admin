@@ -9770,6 +9770,7 @@ ponderacion=<React.Fragment>
                       ]
                     };    }
 
+                    
     let PDFResultadosMasivos;
     let PDFRespuestasMasivos;
     if(this.state.resultadosEvaluacionMasivo[0]){
@@ -9868,152 +9869,520 @@ ponderacion=<React.Fragment>
       {this.state.resultadosEvaluacionMasivo.map(rows=>{
 
           if(rows[0]){
-                            
-        let respuesta1=rows[1].Respuestas;
-        let respuesta2=rows[2].Respuestas;
-        let respuesta3=rows[3].Respuestas;
-        let respuesta4=rows[4].Respuestas;
-        let respuesta5=rows[5].Respuestas;
-        let respuesta6=rows[6].Respuestas;
-        let respuesta7=rows[7].Respuestas;
-        let respuesta8=rows[8].Respuestas;
-        let respuesta9=rows[9].Respuestas;
-        let respuesta10=rows[10].Respuestas;
-        let respuesta11=rows[11].Respuestas;
-        let respuesta12=rows[12].Respuestas;
-        let respuesta13=rows[13].Respuestas;
-        let respuesta14=rows[14].Respuestas;
-        let respuesta15=rows[15].Respuestas;
-        let respuesta16=rows[16].Respuestas;
-        let respuesta17=rows[17].Respuestas;
-        let respuesta18=rows[18].Respuestas;
-        let respuesta19=rows[19].Respuestas;
-        let respuesta20=rows[20].Respuestas;
-        let respuesta21=rows[21].Respuestas;
-        let respuesta22=rows[22].Respuestas;
-        let respuesta23=rows[23].Respuestas;
-        let respuesta24=rows[24].Respuestas;
-        let respuesta25=rows[25].Respuestas;
-        let respuesta26=rows[26].Respuestas;
-        let respuesta27=rows[27].Respuestas;
-        let respuesta28=rows[28].Respuestas;
-        let respuesta29=rows[29].Respuestas;
-        let respuesta30=rows[30].Respuestas;
-        let respuesta31=rows[31].Respuestas;
-        let respuesta32=rows[32].Respuestas;
-        let respuesta33=rows[33].Respuestas;
-        let respuesta34=rows[34].Respuestas;
-        let respuesta35=rows[35].Respuestas;
-        let respuesta36=rows[36].Respuestas;
-        let respuesta37=rows[37].Respuestas;
-        let respuesta38=rows[38].Respuestas;
-        let respuesta39=rows[39].Respuestas;
-        let respuesta40=rows[40].Respuestas;
-        let respuesta41=rows[41].Respuestas;
-        let respuesta42=rows[42].Respuestas;
-        let respuesta43=rows[43].Respuestas;
-        let respuesta44=rows[44].Respuestas;
-        let respuesta45=rows[45].Respuestas;
-        let respuesta46=rows[46].Respuestas;
-        let respuesta47=rows[47].Respuestas;
-        let respuesta48=rows[48].Respuestas;
-        let respuesta49=rows[49].Respuestas;
-        let respuesta50=rows[50].Respuestas;  
-        let respuesta51=rows[51].Respuestas;
-        let respuesta52=rows[52].Respuestas;
-        let respuesta53=rows[53].Respuestas;
-        let respuesta54=rows[54].Respuestas;
-        let respuesta55=rows[55].Respuestas;
-        let respuesta56=rows[56].Respuestas;
-        let respuesta57=rows[57].Respuestas;
-        let respuesta58=rows[58].Respuestas;
-        let respuesta59=rows[59].Respuestas;
-        let respuesta60=rows[60].Respuestas; 
-        let respuesta61=rows[61].Respuestas;
-        let respuesta62=rows[62].Respuestas;
-        let respuesta63=rows[63].Respuestas;
-        let respuesta64=rows[64].Respuestas;
-        let respuesta65=rows[65].Respuestas;
-        let respuesta66=rows[66].Respuestas;
-        let respuesta67=rows[67].Respuestas;
-        let respuesta68=rows[68].Respuestas;
-        let respuesta69=rows[69].Respuestas;
-        let respuesta70=rows[70].Respuestas;
-        let respuesta71=rows[71].Respuestas;
-        let respuesta72=rows[72].Respuestas;
+
+            let filtrar1;
+            filtrar1 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 1;
+            });
+            value1 = filtrar1.pop()
+      
+            let filtrar2;
+            filtrar2 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 2;
+            });
+            value2 = filtrar2.pop()
+      
+            let filtrar3;
+            filtrar3 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 3;
+            });
+            value3 = filtrar3.pop()
+      
+      
+            let filtrar4;
+            filtrar4 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 4;
+            });
+            value4 = filtrar4.pop()
+      
+      
+            let filtrar5;
+            filtrar5 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 5;
+            });
+            value5 = filtrar5.pop()
+      
+      
+            let filtrar6;
+            filtrar6 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 6;
+            });
+            value6 = filtrar6.pop()
+      
+      
+            let filtrar7;
+            filtrar7 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 7;
+            });
+            value7 = filtrar7.pop()
+      
+      
+            let filtrar8;
+            filtrar8 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 8;
+            });
+            value8 = filtrar8.pop()
+      
+      
+            let filtrar9;
+            filtrar9 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 9;
+            });
+            value9  = filtrar9.pop()
+      
+      
+            let filtrar10;
+            filtrar10 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 10;
+            });
+            value10 = filtrar10.pop()
+      
+      
+            let filtrar11;
+            filtrar11 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 11;
+            });
+            value11 = filtrar11.pop()
+      
+            let filtrar12;
+            filtrar12 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 12;
+            });
+            value12 = filtrar12.pop()
+      
+            let filtrar13;
+            filtrar13 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 13;
+            });
+            value13 = filtrar13.pop()
+      
+            let filtrar14;
+            filtrar14 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 14;
+            });
+            value14 = filtrar14.pop()
+      
+            let filtrar15;
+            filtrar15 = rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 15;
+            });
+            value15 = filtrar15.pop()
+      
+            let filtrar16;
+            filtrar16 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 16;
+            });
+            value16 = filtrar16.pop()
+      
+            let filtrar17;
+            filtrar17 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 17;
+            });
+            value17 = filtrar17.pop()
+      
+            let filtrar18;
+            filtrar18 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 18;
+            });
+            value18 = filtrar18.pop()
+      
+            let filtrar19;
+            filtrar19 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 19;
+            });
+            value19 = filtrar19.pop()
+      
+            let filtrar20;
+            filtrar20=  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 20;
+            });
+            value20 = filtrar20.pop()
+      
+            let filtrar21;
+            filtrar21 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 21;
+            });
+            value21 = filtrar21.pop()
+      
+              let filtrar22;
+            filtrar22 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 22;
+            });
+            value22 = filtrar22.pop()
+      
+            let filtrar23;
+            filtrar23 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 23;
+            });
+            value23 = filtrar23.pop()
+      
+            let filtrar24;
+            filtrar24=  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 24;
+            });
+            value24 = filtrar24.pop()
+      
+            let filtrar25;
+            filtrar25 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 25;
+            });
+            value25 = filtrar25.pop()
+      
+            let filtrar26;
+            filtrar26 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 26;
+            });
+            value26 = filtrar26.pop()
+      
+            let filtrar27;
+            filtrar27 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 27;
+            }); 
+            value27 = filtrar27.pop()
+          
+            let filtrar28;
+            filtrar28 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 28;
+            });
+            value28 = filtrar28.pop()
+      
+            let filtrar29;
+            filtrar29 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 29;
+            }); 
+            value29 = filtrar29.pop()
+         
+            let filtrar30;
+            filtrar30 = rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 30;
+            });
+            value30 = filtrar30.pop()
+      
+            let filtrar31;
+            filtrar31 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 31;
+            });
+            value31 = filtrar31.pop()
+      
+            let filtrar32;
+            filtrar32 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 32;
+            });
+            value32 = filtrar32.pop()
+      
+            let filtrar33;
+            filtrar33 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 33;
+            });
+            value33 = filtrar33.pop()
+      
+            let filtrar34;
+            filtrar34 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 34;
+            });
+            value34 = filtrar34.pop()
+      
+            let filtrar35;
+            filtrar35 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 35;
+            });
+            value35 = filtrar35.pop()
+      
+            let filtrar36;
+            filtrar36 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 36;
+            });
+            value36 = filtrar36.pop()
+      
+            let filtrar37;
+            filtrar37 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 37;
+            });
+            value37 = filtrar37.pop()
+      
+            let filtrar38;
+            filtrar38 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 38;
+            });
+            value38 = filtrar38.pop()
+      
+             let filtrar39;
+            filtrar39 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 39;
+            });
+            value39 = filtrar39.pop()
+      
+            let filtrar40;
+            filtrar40 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 40;
+            }); 
+            value40 = filtrar40.pop()
+           
+            let filtrar41;
+            filtrar41 = rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 41;
+            });   
+            value41 = filtrar41.pop()
+         
+            let filtrar42;
+            filtrar42 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 42;
+            });  
+            value42 = filtrar42.pop()
+          
+            let filtrar43;
+            filtrar43 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 43;
+            }); 
+            value43 = filtrar43.pop()
+           
+            let filtrar44;
+            filtrar44 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 44;
+            });
+            value44 = filtrar44.pop()
+      
+            let filtrar45;
+            filtrar45 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 45;
+            });
+            value45 = filtrar45.pop()
+      
+             let filtrar46;
+            filtrar46 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 46;
+            });
+            value46 = filtrar46.pop()
+      
+            let filtrar47;
+            filtrar47 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 47;
+            });
+            value47 = filtrar47.pop()
+      
+            let filtrar48;
+            filtrar48 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 48;
+            });
+            value48 = filtrar48.pop()
+      
+            let filtrar49;
+            filtrar49 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 49;
+            });
+            value49 = filtrar49.pop()
+            
+            let filtrar50;
+            filtrar50 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 50;
+            });
+            value50 = filtrar50.pop()
+      
+            let filtrar51;
+            filtrar51 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 51;
+            });
+            value51 = filtrar51.pop()
+      
+            let filtrar52;
+            filtrar52 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 52;
+            });
+            value52= filtrar52.pop()
+      
+            let filtrar53;
+            filtrar53 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 53;
+            });
+            value53 = filtrar53.pop()
+      
+            let filtrar54;
+            filtrar54 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 54;
+            });
+            value54 = filtrar54.pop()
+      
+            let filtrar55;
+            filtrar55 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 55;
+            });
+            value55 = filtrar55.pop()
+      
+            let filtrar56;
+            filtrar56 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 56;
+            });
+            value56 = filtrar56.pop()
+      
+            let filtrar57;
+            filtrar57 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 57;
+            }); 
+            value57 = filtrar57.pop()
+       
+            let filtrar58;
+            filtrar58 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 58;
+            });
+            value58 = filtrar58.pop()
+      
+            let filtrar59;
+            filtrar59 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 59;
+            });
+            value59 = filtrar59.pop()
+      
+            let filtrar60;
+            filtrar60 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 60;
+            });
+            value60 = filtrar60.pop()
+      
+            let filtrar61;
+            filtrar61 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 61;
+            });
+            value61 = filtrar61.pop()
         
-        let valor1=rows[1].ponderacion;
-        let valor2=rows[2].ponderacion;
-        let valor3=rows[3].ponderacion;
-        let valor4=rows[4].ponderacion;
-        let valor5=rows[5].ponderacion;
-        let valor6=rows[6].ponderacion;
-        let valor7=rows[7].ponderacion;
-        let valor8=rows[8].ponderacion;
-        let valor9=rows[9].ponderacion;
-        let valor10=rows[10].ponderacion;
-        let valor11=rows[11].ponderacion;
-        let valor12=rows[12].ponderacion;
-        let valor13=rows[13].ponderacion;
-        let valor14=rows[14].ponderacion;
-        let valor15=rows[15].ponderacion;
-        let valor16=rows[16].ponderacion;
-        let valor17=rows[17].ponderacion;
-        let valor18=rows[18].ponderacion;
-        let valor19=rows[19].ponderacion;
-        let valor20=rows[20].ponderacion;
-        let valor21=rows[21].ponderacion;
-        let valor22=rows[22].ponderacion;
-        let valor23=rows[23].ponderacion;
-        let valor24=rows[24].ponderacion;
-        let valor25=rows[25].ponderacion;
-        let valor26=rows[26].ponderacion;
-        let valor27=rows[27].ponderacion;
-        let valor28=rows[28].ponderacion;
-        let valor29=rows[29].ponderacion;
-        let valor30=rows[30].ponderacion;
-        let valor31=rows[31].ponderacion;
-        let valor32=rows[32].ponderacion;
-        let valor33=rows[33].ponderacion;
-        let valor34=rows[34].ponderacion;
-        let valor35=rows[35].ponderacion;
-        let valor36=rows[36].ponderacion;
-        let valor37=rows[37].ponderacion;
-        let valor38=rows[38].ponderacion;
-        let valor39=rows[39].ponderacion;
-        let valor40=rows[40].ponderacion;
-        let valor41=rows[41].ponderacion;
-        let valor42=rows[42].ponderacion;
-        let valor43=rows[43].ponderacion;
-        let valor44=rows[44].ponderacion;
-        let valor45=rows[45].ponderacion;
-        let valor46=rows[46].ponderacion;
-        let valor47=rows[47].ponderacion;
-        let valor48=rows[48].ponderacion;
-        let valor49=rows[49].ponderacion;
-        let valor50=rows[50].ponderacion;  
-        let valor51=rows[51].ponderacion;
-        let valor52=rows[52].ponderacion;
-        let valor53=rows[53].ponderacion;
-        let valor54=rows[54].ponderacion;
-        let valor55=rows[55].ponderacion;
-        let valor56=rows[56].ponderacion;
-        let valor57=rows[57].ponderacion;
-        let valor58=rows[58].ponderacion;
-        let valor59=rows[59].ponderacion;
-        let valor60=rows[60].ponderacion; 
-        let valor61=rows[61].ponderacion;
-        let valor62=rows[62].ponderacion;
-        let valor63=rows[63].ponderacion;
-        let valor64=rows[64].ponderacion;
-        let valor65=rows[65].ponderacion;
-        let valor66=rows[66].ponderacion;
-        let valor67=rows[67].ponderacion;
-        let valor68=rows[68].ponderacion;
-        let valor69=rows[69].ponderacion;
-        let valor70=rows[70].ponderacion;
-        let valor71=rows[71].ponderacion;
-        let valor72=rows[72].ponderacion;
+            let filtrar62;
+            filtrar62 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 62;
+            });
+            value62 = filtrar62.pop()
+      
+            let filtrar63;
+            filtrar63 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 63;
+            });
+            value63 = filtrar63.pop()
+      
+            let filtrar64;
+            filtrar64 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 64;
+            });
+            value64 = filtrar64.pop()
+      
+            let filtrar65;
+            filtrar65 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 65;
+            });
+            value65 = filtrar65.pop()
+      
+            let filtrar66;
+            filtrar66 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 66;
+            });
+            value66 = filtrar66.pop()
+      
+            let filtrar67;
+            filtrar67 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 67;
+            });
+            value67 = filtrar67.pop()
+      
+            let filtrar68;
+            filtrar68 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 68;
+            });
+            value68 = filtrar68.pop()
+      
+            let filtrar69;
+            filtrar69 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 69;
+            });
+            value69= filtrar69.pop()
+      
+            let filtrar70;
+            filtrar70 = rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 70;
+            });
+            value70 = filtrar70.pop()
+      
+            let filtrar71;
+            filtrar71 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 71;
+            });
+            value71 = filtrar71.pop()
+      
+            let filtrar72;
+            filtrar72 =  rows.filter(function(hero) {
+              return hero.fk_preguntasEEO == 72;
+            });
+            value72 = filtrar72.pop()
+
+      let valor1=value1.ponderacion;
+      let valor2=value2.ponderacion;
+      let valor3=value3.ponderacion;
+      let valor4=value4.ponderacion;
+      let valor5=value5.ponderacion;
+      let valor6=value6.ponderacion;
+      let valor7=value7.ponderacion;
+      let valor8=value8.ponderacion;
+      let valor9=value9.ponderacion;
+      let valor10=value10.ponderacion;
+      let valor11=value11.ponderacion;
+      let valor12=value12.ponderacion;
+      let valor13=value13.ponderacion;
+      let valor14=value14.ponderacion;
+      let valor15=value15.ponderacion;
+      let valor16=value16.ponderacion;
+      let valor17=value17.ponderacion;
+      let valor18=value18.ponderacion;
+      let valor19=value19.ponderacion;
+      let valor20=value20.ponderacion;
+      let valor21=value21.ponderacion;
+      let valor22=value22.ponderacion;
+      let valor23=value23.ponderacion;
+      let valor24=value24.ponderacion;
+      let valor25=value25.ponderacion;
+      let valor26=value26.ponderacion;
+      let valor27=value27.ponderacion;
+      let valor28=value28.ponderacion;
+      let valor29=value29.ponderacion;
+      let valor30=value30.ponderacion;
+      let valor31=value31.ponderacion;
+      let valor32=value32.ponderacion;
+      let valor33=value33.ponderacion;
+      let valor34=value34.ponderacion;
+      let valor35=value35.ponderacion;
+      let valor36=value36.ponderacion;
+      let valor37=value37.ponderacion;
+      let valor38=value38.ponderacion;
+      let valor39=value39.ponderacion;
+      let valor40=value40.ponderacion;
+      let valor41=value41.ponderacion;
+      let valor42=value42.ponderacion;
+      let valor43=value43.ponderacion;
+      let valor44=value44.ponderacion;
+      let valor45=value45.ponderacion;
+      let valor46=value46.ponderacion;
+      let valor47=value47.ponderacion;
+      let valor48=value48.ponderacion;
+      let valor49=value49.ponderacion;
+      let valor50=value50.ponderacion;  
+      let valor51=value51.ponderacion;
+      let valor52=value52.ponderacion;
+      let valor53=value53.ponderacion;
+      let valor54=value54.ponderacion;
+      let valor55=value55.ponderacion;
+      let valor56=value56.ponderacion;
+      let valor57=value57.ponderacion;
+      let valor58=value58.ponderacion;
+      let valor59=value59.ponderacion;
+      let valor60=value60.ponderacion; 
+      let valor61=value61.ponderacion;
+      let valor62=value62.ponderacion;
+      let valor63=value63.ponderacion;
+      let valor64=value64.ponderacion;
+      let valor65=value65.ponderacion;
+      let valor66=value66.ponderacion;
+      let valor67=value67.ponderacion;
+      let valor68=value68.ponderacion;
+      let valor69=value69.ponderacion;
+      let valor70=value70.ponderacion;
+      let valor71=value71.ponderacion;
+      let valor72=value72.ponderacion;
+
     let entero1=parseInt(valor1);let entero2=parseInt(valor2);let entero3=parseInt(valor3);let entero4=parseInt(valor4);
     let entero5=parseInt(valor5);let entero6=parseInt(valor6);let entero7=parseInt(valor7);let entero8=parseInt(valor8);
     let entero9=parseInt(valor9);let entero10=parseInt(valor10);let entero11=parseInt(valor11);let entero12=parseInt(valor12);
