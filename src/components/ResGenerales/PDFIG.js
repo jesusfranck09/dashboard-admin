@@ -64,12 +64,23 @@ pdfExportComponent ;
       spinner:false,
       showModal2: false,  
       spinnerReporte:false,
+      date:''
     };
     this.handleLogOut = this.handleLogOut.bind(this);
     this.ads = this.ads.bind(this);  
   }
 
      componentWillMount(){
+      var LaFecha=new Date();
+      var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+      var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
+      var diasemana=LaFecha.getDay();
+      var FechaCompleta="";
+      var NumeroDeMes="";    
+      NumeroDeMes=LaFecha.getMonth();
+      FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
+      this.setState({date:FechaCompleta}) 
+
       this.getGlobalEmployees()    
     }
 
@@ -886,7 +897,7 @@ pdfExportComponent ;
                                     <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                                     <font size="1"face="arial"color="black">{this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</font><br></br><br/>
                                     <font size="3"face="arial"color="black">Diagnóstico de acontecimientos traumáticos severos</font><br></br>
-                                    <font size="1"face="arial"color="black">{this.state.date}</font>                     
+                                    <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
                                     </MDBTableBody>
                                     </MDBTable>
 
@@ -1180,11 +1191,11 @@ pdfExportComponent ;
                                         <MDBTableBody>     
                                 <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                                 <font size="3"face="arial"color="black">Reporte Global de Acontecimientos Traumáticos Severos  </font><br></br>
-                                <font size="1"face="arial"color="black">{this.state.date}</font><br/>
                                 <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
                                 <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>
                                 <br/><font size="1"face="arial"color="black">Total de empleados con atención requerida : <strong>{accionSi}</strong></font>
                                 <br/><font size="1"face="arial"color="black">Total de empleados sin atención requerida : <strong>{accionNo}</strong></font>
+                                <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
                                 </MDBTableBody>
                                 </MDBTable>
                               <br/>
@@ -1368,10 +1379,10 @@ pdfExportComponent ;
                                    <MDBTableBody>     
                                   <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                                   <font size="3"face="arial"color="black">Diagnóstico de acontecimientos traumáticos severos</font><br></br>
-                                  <font size="1"face="arial"color="black">{this.state.date}</font>  <br/> 
                                   <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
                                   <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>
-                 
+                                  <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
+
                                   </MDBTableBody>
                                   </MDBTable>    
                                   <br/>
