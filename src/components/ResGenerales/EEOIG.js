@@ -148,7 +148,7 @@ export default class App extends React.Component {
       valor70:[],
       valor71:[],
       valor72:[],
-
+      FechaCompleta:''
 
       // componentepdf:'0'
     };
@@ -160,7 +160,17 @@ export default class App extends React.Component {
   }
 
     componentWillMount(){
-      this.getGlobalEmployees()
+      var LaFecha=new Date();
+      var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+      var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
+      var diasemana=LaFecha.getDay();
+      var FechaCompleta="";
+      var NumeroDeMes="";    
+      NumeroDeMes=LaFecha.getMonth();
+      FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
+      this.setState({date:FechaCompleta}) 
+
+      this.getGlobalEmployees();
     }
    
   handleLogOut(){
@@ -4336,10 +4346,9 @@ ponderacion=<React.Fragment>
                                     <MDBTableBody>     
                             <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                             <font size="3"face="arial"color="black">Diagnóstico Global de factores de riesgo psicosocial y evaluación de entorno organizacional en los centros de trabajo</font><br></br>
-                            <font size="1"face="arial"color="black">{this.state.date}</font><br/>
                             <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
                             <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>
-
+                            <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
                         
                             </MDBTableBody>
                             </MDBTable>
@@ -4484,13 +4493,13 @@ ponderacion=<React.Fragment>
                                         </tr>
                                         <tr>           
                                         <td width="10%"><font size="1" face="arial"color="black" >1</font></td>
-                                        <td width="60%"><font size="1" face="arial"color="black">Carga de Trabajo</font></td>
+                                        <td width="60%"><font size="1" face="arial"color="black">Condiciones en el ambiente de trabajo</font></td>
                                         <td width="20%"><font size="1" face="arial"color="black">{DominioUno}</font></td>
                                          {colorDominioUno}                
                                         </tr>
                                         <tr>         
                                           <td width="10%"><font size="1" face="arial"color="black" >2</font></td>
-                                          <td width="60%"><font size="1" face="arial"color="black">Condiciones en el ambiente de trabajo</font></td>
+                                          <td width="60%"><font size="1" face="arial"color="black">Carga de Trabajo</font></td>
                                           <td width="20%"><font size="1" face="arial"color="black">{DominioDos}</font></td>
                                            {colorDominioDos}
                                         </tr>
@@ -5757,7 +5766,7 @@ ponderacion=<React.Fragment>
                                     <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                                     <font size="1"face="arial"color="black">{this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</font><br></br><br/>
                                     <font size="2"face="arial"color="black">CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font><br></br>
-                                    <font size="1"face="arial"color="black">{this.state.date}</font>                     
+                                    <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
                                     </MDBTableBody>
                                     </MDBTable>
                                     <br/>  
@@ -5793,6 +5802,15 @@ ponderacion=<React.Fragment>
                                     <br/>  
                                     <br/>
                                     <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>  
+                                    <br/>
+                                    <br/>
+                                    <br/>  
                                     <br/>
                                     <br/>
                                     <br/>  
@@ -7713,7 +7731,7 @@ ponderacion=<React.Fragment>
                                 <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                                 <font size="1"face="arial"color="black">{this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}</font><br></br><br/>
                                 <font size="3"face="arial"color="black">Diagnóstico individual de factores de riesgo psicosocial y evaluación de entorno organizacional en los centros de trabajo</font><br></br>
-                                <font size="1"face="arial"color="black">{this.state.fecha}</font>
+                                <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
                                 </MDBTableBody>
                                 </MDBTable>
                                   <br></br>
@@ -9809,7 +9827,9 @@ ponderacion=<React.Fragment>
           <font size="3"face="arial"color="black">Diagnóstico individual de factores de riesgo psicosocial y evaluación de entorno organizacional en los centros de trabajo</font><br></br>
           <font size="1"face="arial"color="black">{this.state.date}</font><br/>
           <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
-          <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>                              
+          <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>    
+          <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
+                          
           </MDBTableBody>
           </MDBTable>
             <br></br>
@@ -11200,6 +11220,7 @@ ponderacion=<React.Fragment>
               <font size="1"face="arial"color="black">{this.state.date}</font>    
               <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
                   <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>                                               
+                  <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
               </MDBTableBody>
               </MDBTable>
               <br/>  
@@ -12943,7 +12964,7 @@ if(ponderacionPromedio<50){
                             <br></br><br/>
                             <font size="1"face="arial"color="black">Total de evaluaciones consideradas : {this.state.empleadosRE.length}</font><br></br><br></br>
 
-                            <font size="1"face="arial"color="black" style={{marginLeft:"55%"}}>{FechaCompleta}</font>
+                            <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
 
                             <br></br><br/><br></br><br/>
                             <center><font size="1"face="arial"color="red"><strong>diagnostico035.com</strong></font></center>
