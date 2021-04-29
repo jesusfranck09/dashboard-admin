@@ -3458,6 +3458,8 @@ export default class App extends React.Component {
   let length =this.state.peticion1.length;
   let general =total/length;
 
+  console.log("general" , general)
+
 let celda;
 let criterios;
 
@@ -3541,7 +3543,6 @@ else if( general > 140){
   psicosocial, la promoción de un entorno organizacional favorable y la
   prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
 }
-
 
 let categoria1Nulo;
 let categoria1Bajo;
@@ -4421,7 +4422,6 @@ ponderacion=<React.Fragment>
                                    </MDBTable>
                                 <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
                                     <MDBTableBody>
-                            
                                    <tr>
                                    <td width="40%"><font size="1" face="arial"color="black">RESULTADO DEL NÚMERO DE EVALUACIONES :  </font></td>
                                    <td width="20%"><font size="1" face="arial"color="black">{general.toFixed(2)}</font></td>
