@@ -210,9 +210,9 @@ handleInput = async (e) => {
         var texto = "";
         var ahora=new Date(); 
         var hora=ahora.getHours();
-        if (hora>=6 && hora<13) {
+        if (hora>=6 && hora<12) {
             texto="Buenos días";  
-        } else if (hora>=13 && hora<21) { 
+        } else if (hora>=12 && hora<=19) { 
             texto="Buenas tardes";
         } else { 
             texto="Buenas noches";

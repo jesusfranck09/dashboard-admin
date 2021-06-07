@@ -1,9 +1,11 @@
 import React from 'react';
-import {MDBRow, MDBContainer, MDBCol, MDBCardHeader} from 'mdbreact';
+import {MDBRow, MDBContainer, MDBCol,MDBBtn, MDBCardHeader} from 'mdbreact';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
+import Grow from "@material-ui/core/Grow";
+
 import {
   Grid,
   Button,
@@ -29,6 +31,10 @@ import { MDBModal, MDBModalBody, MDBModalHeader} from "mdbreact";
 import { MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
 import {ProgressBar} from 'react-bootstrap' 
 import Navbar from './navbar'
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MUIDataTable from "mui-datatables";
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -67,7 +73,18 @@ class Home extends React.Component {
       empleados:'',
       urlLogo:'',
       periodo:'',
-      datosEventos:[]
+      datosEventos:[],
+      dropdown:null,
+      date:'',
+      empleadosTotales : [],
+      tablaEmpleados:true,
+      tablaATSContestado:false,
+      tablaATSNoContestado:false,
+      tablaRPContestado:false,
+      tablaRPNoContestado:false,
+      tablaEEOContestado:false,
+      tablaEEONoContestado:false,
+      tablaATSDetectado:false
     };
 
     this.ads = this.ads.bind(this);
@@ -144,6 +161,16 @@ class Home extends React.Component {
         await this.handleFront();
         await this.verifyTables();
         await this.getUrlLogo();
+        var LaFecha=new Date();
+        var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
+        var diasemana=LaFecha.getDay();
+        var FechaCompleta="";
+        var NumeroDeMes="";    
+        NumeroDeMes=LaFecha.getMonth();
+        FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
+    
+        this.setState({date:FechaCompleta}) 
   }
 
   getEmployees(){
@@ -195,14 +222,16 @@ class Home extends React.Component {
               `
           }
          }).then((datos) => {
-
+            
            let datosEmpleados = datos.data.data.getUsersTableEmployees;
+
            if( datos.data.data.getUsersTableEmployees.length>0){
             localStorage.setItem("empleadoActivo","true")
            }else{
              localStorage.setItem("empleadoActivo","false")
            }
            this.setState({totalEmpleados  : datosEmpleados.length})  
+           this.setState({empleadosTotales:datosEmpleados})
 
            let resultados1 = datosEmpleados.filter(function(hero) {
              return hero.ATSContestado == 'true';
@@ -886,9 +915,123 @@ alerta3 =  (deadline) => {
 openModal () {
   this.setState({isOpen: true})
 }
+handleDropdown = (event) => {
+  this.setState({dropdown: event.currentTarget});
+};
+handleClose = () => {
+  this.setState({dropdown: null});
+};
 
+tablaATSContestado(){
+  this.setState({tablaEmpleados:false})
+  this.setState({tablaATSContestado:true})
+  this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:false})
+  this.setState({tablaEEONoContestado:false})
+  this.setState({tablaATSDetectado:false})
+}
+tablaATSNoContestado(){
+  this.setState({tablaEmpleados:false})
+  this.setState({tablaATSNoContestado:true})
+  this.setState({tablaATSContestado:false})
+  this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:false})
+  this.setState({tablaEEONoContestado:false})
+  this.setState({tablaATSDetectado:false})
+}
+tablaRPContestado(){
+  this.setState({tablaEmpleados:false})
+  this.setState({tablaATSContestado:false})
+  this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:true})
+  this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:false})
+  this.setState({tablaEEONoContestado:false})
+  this.setState({tablaATSDetectado:false})
+}
+
+tablaRPNoContestado(){
+  this.setState({tablaEmpleados:false})
+  this.setState({tablaATSContestado:false})
+  this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:true})
+  this.setState({tablaEEOContestado:false})
+  this.setState({tablaEEONoContestado:false})
+  this.setState({tablaATSDetectado:false})
+}
+tablaEEOContestado(){
+  this.setState({tablaEmpleados:false})
+  this.setState({tablaATSContestado:false})
+  this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:true})
+  this.setState({tablaEEONoContestado:false})
+  this.setState({tablaATSDetectado:false})
+}
+tablaEEONoContestado(){
+  this.setState({tablaEmpleados:false})
+  this.setState({tablaATSContestado:false})
+  this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:false})
+  this.setState({tablaEEONoContestado:true})
+  this.setState({tablaATSDetectado:false})
+}
+tablaATSDetectado(){
+  this.setState({tablaEmpleados:false})
+  this.setState({tablaATSContestado:false})
+  this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:false})
+  this.setState({tablaEEONoContestado:false})
+  this.setState({tablaATSDetectado:true})
+}
+cerraTablas(parametro){
+if(parametro == 1){
+  this.setState({tablaEmpleados:true})
+  this.setState({tablaATSContestado:false})
+}
+else if(parametro == 2){
+  this.setState({tablaEmpleados:true})
+  this.setState({tablaATSNoContestado:false})
+}
+else if(parametro == 3){
+  this.setState({tablaEmpleados:true})
+  this.setState({tablaRPContestado:false})
+}
+else if(parametro == 4){
+  this.setState({tablaEmpleados:true})
+  this.setState({tablaRPNoContestado:false})
+}
+else if(parametro == 5){
+  this.setState({tablaEmpleados:true})
+  this.setState({tablaEEOContestado:false})
+}
+else if(parametro == 6){
+  this.setState({tablaEmpleados:true})
+  this.setState({tablaEEONoContestado:false})
+}
+else if(parametro == 7){
+  this.setState({tablaEmpleados:true})
+  this.setState({tablaATSDetectado:false})
+}
+}
   render() {
-   
+    let periodoActivo;
+
+    if(this.state.periodo){
+      periodoActivo= <h6 style={{color:'green'}}><strong>{this.state.periodo}</strong></h6>
+    }
+    else{
+      periodoActivo= <h6 style={{color:'red'}}><strong>Su periodo ha finalizado</strong></h6>
+    }
     let Alerta;
     let dep;
     let suc;
@@ -896,9 +1039,11 @@ openModal () {
     let alertaPuesto = localStorage.getItem("PuestoActivo")
     let alertaSucursal=localStorage.getItem("SucursalActiva")
     let AlertaDepartamento = localStorage.getItem("DepartamentoActivo")
+    let empleadoNoEncontrado;
     let empleadoAc=localStorage.getItem("empleadoActivo")
     if(empleadoAc==="false"){
-     Alerta =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Empleado Registrado </Alert>
+      empleadoNoEncontrado  = "Actualmente el sistema no contiene empleados registrados" 
+       Alerta =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Empleado Registrado</Alert>
     }if(AlertaDepartamento==="false"){
       dep =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Departamento Registrado</Alert>
     }if(alertaSucursal==="false"){
@@ -914,316 +1059,110 @@ openModal () {
       expiro = <Alert color="danger" className="text-center ">{this.state.licencia}</Alert>
 
     }
-
-    let empleadoATSDetectado;
-    if(this.state.AtsDetectado.length !== 0){ 
-      empleadoATSDetectado=<MDBContainer >
-        <MDBModal isOpen={this.state.modal10} toggle={this.toggle(10)} size="md">
-          <MDBModalHeader toggle={this.toggle(10)}>
-          <Alert color="danger"> Empleado con ATS Detectado</Alert>
-          </MDBModalHeader>
-          <MDBModalBody>
-      
-          <Paper >
-          <MDBCard>
-          <Grid container wrap="nowrap" spacing={2}>
-            <Grid item>
-              <Avatar>ATS</Avatar>
-            </Grid>
-            <Grid item xs>
-          <Typography>   
-          <MDBContainer >
-          <TableContainer align="left">
-          <Table  >
-            
-            <TableBody>
-              {this.state.AtsDetectado.map(row => (
-                
-                <TableRow key={row.id}>
-                  <TableCell component="th" scope="row">
-                    {row.nombre}
-                  </TableCell>
-                  <TableCell align="left">{row.ApellidoP}</TableCell>
-                  <TableCell align="left">{row.ApellidoM}</TableCell>              
-                </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        </MDBContainer>
-        </Typography>
-            </Grid>
-          </Grid>
-          </MDBCard>
-        </Paper>
-    </MDBModalBody>   
-        </MDBModal>
-      </MDBContainer>      
+    let updateLogo;
+    if(this.state.modal21){
+ 
+     updateLogo  =  <MDBContainer >
+       <MDBModal isOpen={this.state.modal21} toggle={this.toggle(21)}  tabindex="-1"  size="md">
+         <MDBModalHeader toggle={this.toggle(21)}>
+           Modificar logo
+         </MDBModalHeader>
+         <MDBModalBody>
+         <UpdateLogo/>
+         </MDBModalBody>   
+       </MDBModal>
+     </MDBContainer>
+ 
     }
+ 
+    let logo;
+    if(!this.state.urlLogo){
+    logo = <div>
+     <strong style={{ color: '#BC71F3'}}>Adjuntar logo de mi empresa</strong>
+     <IconButton onClick={this.toggle(20)} color="#BC71F3"> <PublishOutlinedIcon /></IconButton>
+    </div>
+    }
+ 
+    let modificarLogo;
+    if(this.state.urlLogo){
+     logo = <div>
+     <strong style={{ color: '#BC71F3' }}>Modificar mi logo</strong>
+     <IconButton onClick={this.toggle(21)} color="#BC71F3"> <PublishOutlinedIcon /></IconButton>
+    </div>
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////
+//////Opciones de las tablas
+const options = {
+  filterType: "dropdown",
+  responsive: "stacked",
+  textLabels: {
+            body: {
+              noMatch: empleadoNoEncontrado,
+              toolTip: "Sort",
+              columnHeaderTooltip: column => `Sort for ${column.label}`
+            },
+            pagination: {
+              next: "Siguiente Página",
+              previous: "Anterior Página",
+              rowsPerPage: "Filas por Página:",
+              displayRows: "de",
+            },
+            toolbar: {
+              search: "Buscar",
+              downloadCsv: "Descargar CSV",
+              print: "Imprimir",
+              viewColumns: "Ver Columnas",
+              filterTable: "Filtrar Tabla",
+            },
+            filter: {
+              all: "Todos",
+              title: "Filtros",
+              reset: "Deshacer",
+            },
+            viewColumns: {
+              title: "Mostrar Columnas",
+              titleAria: "Show/Hide Table Columns",
+            },
+            selectedRows: {
+              text: "Filas Selecionadas",
+              delete: "Borrar",
+              deleteAria: "Eliminar Filas Seleccionadas",
+            },
+          },
 
-     let modal;
-     let modalFalse;
-     let modalRP;
-     let modalRPFalse;
-     let modalEEO;
-     let modalEEOFalse;
-     
+  onTableChange: (action, tableState) => {
+  datosEmpleados = tableState.displayData
+  },
+  onFilterChange: (action, filtroTable) => {
+    filtro=filtroTable
+    }     };
+
+     let modalInfoG;
      if(this.state.modal16){
-      if(this.state.empleadosAts[0]){
-        modal  =  <MDBContainer >
+    
+
+        modalInfoG  =  <MDBContainer >
         <MDBModal isOpen={this.state.modal16} toggle={this.toggle(16)} size="lg">
           <MDBModalHeader toggle={this.toggle(16)}>
-            Empleados Evaluacion ATS Contestado
+           Información General
           </MDBModalHeader>
           <MDBModalBody>
-          <TableContainer component={Paper} align="center">
-       <Table  aria-label="simple table" style={{width:650}}>
-         <TableHead>
-           <TableRow>
-             <TableCell align="center">Nombre</TableCell>
-             <TableCell align="center">Apellido Paterno</TableCell>
-             <TableCell align="center">Apellido Materno</TableCell>
-             <TableCell align="center">Correo</TableCell>
-            
-           </TableRow>
-         </TableHead>
-         <TableBody>
-          {this.state.empleadosAts.map(row => (
-             <TableRow key={row.id}>
-               
-               <TableCell component="th" scope="row">
-                 {row.nombre}
-               </TableCell>
-               <TableCell align="center">{row.ApellidoP}</TableCell>
-               <TableCell align="center">{row.ApellidoM}</TableCell>
-               <TableCell align="center">{row.correo}</TableCell>
-              
-             </TableRow>
-             ))}
-         </TableBody>
-       </Table>
-     </TableContainer>
+          <strong>Licencia de {this.state.empleados} Empleados</strong>
+          <br/>
+          <br/>
+          <strong>Empleados registrados : {this.state.totalEmpleados}</strong>
+          <br/>
+          <br/>
+          <strong>Empleados por registrar : {(this.state.empleados-this.state.totalEmpleados)}</strong><br/>
+          <br/>
+          
+           
+          {expiro}
           </MDBModalBody>   
         </MDBModal>
-      </MDBContainer>
-      }
-
+        </MDBContainer>
      }
-
-     if(this.state.modal15){
-     if(this.state.empleadosAtsFalse[0]){
-
-      modalFalse  =  <MDBContainer >
-      <MDBModal isOpen={this.state.modal15} toggle={this.toggle(15)} size="lg">
-        <MDBModalHeader toggle={this.toggle(15)}>
-          Empleados Evaluacion ATS No Contestado
-        </MDBModalHeader>
-        <MDBModalBody>
-        <TableContainer component={Paper} align="center">
-     <Table  aria-label="simple table" style={{width:650}}>
-       <TableHead>
-         <TableRow>
-           <TableCell align="center">Nombre</TableCell>
-           <TableCell align="center">Apellido Paterno</TableCell>
-           <TableCell align="center">Apellido Materno</TableCell>
-           <TableCell align="center">Correo</TableCell>
-          
-         </TableRow>
-       </TableHead>
-       <TableBody>
-        {this.state.empleadosAtsFalse.map(row => (
-           <TableRow key={row.id}>
-             <TableCell component="th" scope="row">
-               {row.nombre}
-             </TableCell>
-             <TableCell align="center">{row.ApellidoP}</TableCell>
-             <TableCell align="center">{row.ApellidoM}</TableCell>
-             <TableCell align="center">{row.correo}</TableCell>
-            
-           </TableRow>
-           ))}
-       </TableBody>
-     </Table>
-   </TableContainer>
-        </MDBModalBody>   
-      </MDBModal>
-    </MDBContainer>
-    }
-  }
-
-  if(this.state.modal14){
-  
-    if(this.state.empleadosRP[0]){
-
-      modalRP  =  <MDBContainer >
-      <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} size="lg">
-        <MDBModalHeader toggle={this.toggle(14)}>
-          Empleados Evaluacion RP Contestado
-        </MDBModalHeader>
-        <MDBModalBody>
-        <TableContainer component={Paper} align="center">
-     <Table  aria-label="simple table" style={{width:650}}>
-       <TableHead>
-         <TableRow>
-           <TableCell align="center">Nombre</TableCell>
-           <TableCell align="center">Apellido Paterno</TableCell>
-           <TableCell align="center">Apellido Materno</TableCell>
-           <TableCell align="center">Correo</TableCell>
-          
-         </TableRow>
-       </TableHead>
-       <TableBody>
-        {this.state.empleadosRP.map(row => (
-           <TableRow key={row.id}>
-             <TableCell component="th" scope="row">
-               {row.nombre}
-             </TableCell>
-             <TableCell align="center">{row.ApellidoP}</TableCell>
-             <TableCell align="center">{row.ApellidoM}</TableCell>
-             <TableCell align="center">{row.correo}</TableCell>
-            
-           </TableRow>
-           ))}
-       </TableBody>
-     </Table>
-   </TableContainer>
-        </MDBModalBody>   
-      </MDBModal>
-    </MDBContainer>
-    }
-
-   }
-
-   if(this.state.modal13){
-  
-    if(this.state.empleadosRPFalse[0]){
-
-      modalRPFalse  =  <MDBContainer >
-      <MDBModal isOpen={this.state.modal13} toggle={this.toggle(13)} size="lg">
-        <MDBModalHeader toggle={this.toggle(13)}>
-          Empleados Evaluacion RP No Contestado
-        </MDBModalHeader>
-        <MDBModalBody>
-        <TableContainer component={Paper} align="center">
-     <Table  aria-label="simple table" style={{width:650}}>
-       <TableHead>
-         <TableRow>
-           <TableCell align="center">Nombre</TableCell>
-           <TableCell align="center">Apellido Paterno</TableCell>
-           <TableCell align="center">Apellido Materno</TableCell>
-           <TableCell align="center">Correo</TableCell>
-          
-         </TableRow>
-       </TableHead>
-       <TableBody>
-        {this.state.empleadosRPFalse.map(row => (
-           <TableRow key={row.id}>
-             <TableCell component="th" scope="row">
-               {row.nombre}
-             </TableCell>
-             <TableCell align="center">{row.ApellidoP}</TableCell>
-             <TableCell align="center">{row.ApellidoM}</TableCell>
-             <TableCell align="center">{row.correo}</TableCell>
-            
-           </TableRow>
-           ))}
-       </TableBody>
-     </Table>
-   </TableContainer>
-        </MDBModalBody>   
-      </MDBModal>
-    </MDBContainer>
-    }
-
-   }
-
-   if(this.state.modal11){
-  
-    if(this.state.empleadosEEO[0]){
-
-      modalEEO  =  <MDBContainer >
-      <MDBModal isOpen={this.state.modal11} toggle={this.toggle(11)} size="lg">
-        <MDBModalHeader toggle={this.toggle(11)}>
-          Empleados Evaluacion EEO Contestado
-        </MDBModalHeader>
-        <MDBModalBody>
-        <TableContainer component={Paper} align="center">
-     <Table  aria-label="simple table" style={{width:650}}>
-       <TableHead>
-         <TableRow>
-           <TableCell align="center">Nombre</TableCell>
-           <TableCell align="center">Apellido Paterno</TableCell>
-           <TableCell align="center">Apellido Materno</TableCell>
-           <TableCell align="center">Correo</TableCell>
-          
-         </TableRow>
-       </TableHead>
-       <TableBody>
-        {this.state.empleadosEEO.map(row => (
-           <TableRow key={row.id}>
-             <TableCell component="th" scope="row">
-               {row.nombre}
-             </TableCell>
-             <TableCell align="center">{row.ApellidoP}</TableCell>
-             <TableCell align="center">{row.ApellidoM}</TableCell>
-             <TableCell align="center">{row.correo}</TableCell>
-            
-           </TableRow>
-           ))}
-       </TableBody>
-     </Table>
-   </TableContainer>
-        </MDBModalBody>   
-      </MDBModal>
-    </MDBContainer>
-    }
-
-   }
-
-   if(this.state.modal12){
-  
-    if(this.state.empleadosEEOFalse[0]){
-
-      modalEEOFalse  =  <MDBContainer >
-      <MDBModal isOpen={this.state.modal12} toggle={this.toggle(12)} size="lg">
-        <MDBModalHeader toggle={this.toggle(12)}>
-          Empleados Evaluacion EEO No Contestado
-        </MDBModalHeader>
-        <MDBModalBody>
-        <TableContainer component={Paper} align="center">
-     <Table  aria-label="simple table" style={{width:650}}>
-       <TableHead>
-         <TableRow>
-           <TableCell align="center">Nombre</TableCell>
-           <TableCell align="center">Apellido Paterno</TableCell>
-           <TableCell align="center">Apellido Materno</TableCell>
-           <TableCell align="center">Correo</TableCell>
-          
-         </TableRow>
-       </TableHead>
-       <TableBody>
-        {this.state.empleadosEEOFalse.map(row => (
-           <TableRow key={row.id}>
-             <TableCell component="th" scope="row">
-               {row.nombre}
-             </TableCell>
-             <TableCell align="center">{row.ApellidoP}</TableCell>
-             <TableCell align="center">{row.ApellidoM}</TableCell>
-             <TableCell align="center">{row.correo}</TableCell>
-            
-           </TableRow>
-           ))}
-       </TableBody>
-     </Table>
-   </TableContainer>
-        </MDBModalBody>   
-      </MDBModal>
-    </MDBContainer>
-    }
-
-   }
-
-   let cargarLogo;
+ let cargarLogo;
    if(this.state.modal20){
 
     cargarLogo  =  <MDBContainer >
@@ -1237,37 +1176,6 @@ openModal () {
       </MDBModal>
     </MDBContainer>
 
-   }
-   let updateLogo;
-   if(this.state.modal21){
-
-    updateLogo  =  <MDBContainer >
-      <MDBModal isOpen={this.state.modal21} toggle={this.toggle(21)}  tabindex="-1"  size="md">
-        <MDBModalHeader toggle={this.toggle(21)}>
-          Modificar logo
-        </MDBModalHeader>
-        <MDBModalBody>
-        <UpdateLogo/>
-        </MDBModalBody>   
-      </MDBModal>
-    </MDBContainer>
-
-   }
-
-   let logo;
-   if(!this.state.urlLogo){
-   logo = <div>
-    <strong style={{ color: '#BC71F3'}}>Adjuntar logo de mi empresa</strong>
-    <IconButton onClick={this.toggle(20)} color="#BC71F3"> <PublishOutlinedIcon /></IconButton>
-   </div>
-   }
-
-   let modificarLogo;
-   if(this.state.urlLogo){
-    logo = <div>
-    <strong style={{ color: '#BC71F3' }}>Modificar mi logo</strong>
-    <IconButton onClick={this.toggle(21)} color="#BC71F3"> <PublishOutlinedIcon /></IconButton>
-   </div>
    }
 
    let totalAts = this.state.empleadosAts.length + this.state.empleadosAtsFalse.length
@@ -1296,112 +1204,356 @@ openModal () {
    let progressInstanceRP;
    let progressInstanceEEO;
    if(intPorcentajeATS || intPorcentajeATSFalse ){
-    progressInstanceATS =<ProgressBar> <ProgressBar variant="primary" animated now={intPorcentajeATS}  label={`${intPorcentajeATS}%`} /><ProgressBar variant="danger" animated now={intPorcentajeATSFalse}  label={`${intPorcentajeATSFalse}%`} /></ProgressBar>;
+    progressInstanceATS =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={intPorcentajeATS}  label={`${intPorcentajeATS}%`} /><ProgressBar variant="danger" animated now={intPorcentajeATSFalse}  label={`${intPorcentajeATSFalse}%`} /></ProgressBar>;
    }else{
-    progressInstanceATS =<ProgressBar> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
+    progressInstanceATS =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
    }
    if(intPorcentajeRP || intPorcentajeRPFalse ){
-    progressInstanceRP=<ProgressBar> <ProgressBar variant="primary" animated now={intPorcentajeRP}  label={`${intPorcentajeRP}%`} /><ProgressBar variant="danger" animated now={intPorcentajeRPFalse}  label={`${intPorcentajeRPFalse}%`} /></ProgressBar>;
+    progressInstanceRP=<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={intPorcentajeRP}  label={`${intPorcentajeRP}%`} /><ProgressBar variant="danger" animated now={intPorcentajeRPFalse}  label={`${intPorcentajeRPFalse}%`} /></ProgressBar>;
    }else{
-    progressInstanceRP =<ProgressBar> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
+    progressInstanceRP =<ProgressBar style ={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
    }
    if(intPorcentajeEEO || intPorcentajeEEOFalse ){
-    progressInstanceEEO=<ProgressBar> <ProgressBar variant="primary" animated now={intPorcentajeEEO}  label={`${intPorcentajeEEO}%`} /><ProgressBar variant="danger" animated now={intPorcentajeEEOFalse}  label={`${intPorcentajeEEOFalse}%`} /></ProgressBar>;
+    progressInstanceEEO=<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={intPorcentajeEEO}  label={`${intPorcentajeEEO}%`} /><ProgressBar variant="danger" animated now={intPorcentajeEEOFalse}  label={`${intPorcentajeEEOFalse}%`} /></ProgressBar>;
    }else{
-    progressInstanceEEO =<ProgressBar> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
+    progressInstanceEEO =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
    }
+   ////////////////////////////////////////////////////////
+   // TablaEmpleados de inicio
+   let tablaEmpleados;
+   const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
 
-   let periodoActivo;
-
-   if(this.state.periodo){
-     periodoActivo= <font size="2" face="arial"color="#58BC8D">{this.state.periodo}</font>
+    const data = this.state.empleadosTotales.map(rows=>{
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
+    })
+    let datosEmpleados;
+    let filtro;
+   
+   if(this.state.tablaEmpleados == true){
+    tablaEmpleados = <div style = {{width:680,marginLeft:"1%"}} >
+    <MUIDataTable
+      title={`Mis empleados`}
+      data={data}
+      columns={columns}
+      options={options}
+    />
+  </div> 
    }
-   else{
-     periodoActivo= <font size="2" face="arial"color="#F7251B">Su periodo ha finalizado</font>
-   }
+////////////////////////////////////////////////////////////////////////////////////////////////7
 
-    const container = { width: 1000, height: 500 }
-    return (
+////////////////////// evaluación ATS
+  let tablaATSContestado;
+  let botonTablaATSContestado;
+  if(this.state.empleadosAts[0] &&  this.state.tablaATSContestado == true){
+   
+    const columnsATSContestado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
 
+    const dataATSContestado = this.state.empleadosAts.map(rows=>{
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
+    })
+    botonTablaATSContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(1)}> Cerrar tabla Eval. ATS contestado</MDBBtn>
+    tablaATSContestado = <div style = {{width:680,marginLeft:"1%"}} >
+    <MUIDataTable
+      title={`Empleados que ya realizaron la evaluación ATS`}
+      data={dataATSContestado}
+      columns={columnsATSContestado}
+      options={options}
+    />
+  </div> 
+    } else if (this.state.empleadosAts[0] == undefined  &&  this.state.tablaATSContestado == true ) {
+      botonTablaATSContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(1)}> Cerrar tabla Eval. ATS contestado</MDBBtn>
 
+      const columnsATSContestado = [];
+
+      const dataATSContestado =  [];
+      tablaATSContestado = <MUIDataTable
+      title={"Por el momento no hay datos que mostrar"}
+      data={dataATSContestado}
+      columns={columnsATSContestado}
+      options={options}
+    />
+    }
+
+    let tablaATSNoContestado;
+    let botonTablaATSNoContestado;
+    console.log("empleadosatsFalse" , this.state.empleadosAtsFalse[0])
+    
+    if(this.state.empleadosAtsFalse[0] &&  this.state.tablaATSNoContestado == true){
+   
+      const columnsATSNoContestado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
+  
+      const dataATSNoContestado = this.state.empleadosAtsFalse.map(rows=>{
+        return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
+      })
+      botonTablaATSNoContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(2)}> Cerrar tabla Eval. ATS no realizadas</MDBBtn>
+      tablaATSNoContestado = <div style = {{width:680,marginLeft:"1%"}} >
+      <MUIDataTable
+        title={`Empleados que aun no realizan la evaluación ATS`}
+        data={dataATSNoContestado}
+        columns={columnsATSNoContestado}
+        options={options}
+      />
+    </div> 
+      }else if (this.state.empleadosAtsFalse[0] == undefined &&  this.state.tablaATSNoContestado == true) {
+        botonTablaATSNoContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(2)}> Cerrar tabla Eval. ATS no realizadas</MDBBtn>
+
+        const columnsATSContestado = [];
+  
+        const dataATSContestado =  [];
+        tablaATSContestado = <MUIDataTable
+        title={"Por el momento no hay datos que mostrar"}
+        data={dataATSContestado}
+        columns={columnsATSContestado}
+        options={options}
+      />
+      }
+      /////////////////////////////////////////////////////////////////////////////////////
+      // Evaluación RP
+
+      let tablaRPContestado;
+      let botonTablaRPContestado;
+      if(this.state.empleadosRP[0] &&  this.state.tablaRPContestado == true){
+        const columnsRPContestado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
+        const dataRPContestado = this.state.empleadosRP.map(rows=>{
+          return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
+        })
+        botonTablaRPContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(3)}> Cerrar tabla Eval. RP contestado</MDBBtn>
+        tablaRPContestado = <div style = {{width:680,marginLeft:"1%"}} >
+        <MUIDataTable
+          title={`Empleados que ya realizaron la evaluación RP`}
+          data={dataRPContestado}
+          columns={columnsRPContestado}
+          options={options}
+        />
+      </div> 
+        } else if (this.state.empleadosRP[0] == undefined  &&  this.state.tablaRPContestado == true ) {
+          botonTablaRPContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(3)}> Cerrar tabla Eval. RP contestado</MDBBtn>
+          const columnsRPContestado = [];
+          const dataRPContestado =  [];
+          tablaRPContestado = <MUIDataTable
+          title={"Por el momento no hay datos que mostrar"}
+          data={dataRPContestado}
+          columns={columnsRPContestado}
+          options={options}
+        />
+        }
+        let tablaRPNoContestado;
+        let botonTablaRPNoContestado;
+        if(this.state.empleadosRPFalse[0] &&  this.state.tablaRPNoContestado == true){
+         
+          const columnsRPNoContestado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
+          const dataRPNoContestado = this.state.empleadosRPFalse.map(rows=>{
+            return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
+          })
+          botonTablaRPNoContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(4)}> Cerrar tabla Eval. RP no contestado</MDBBtn>
+          tablaRPNoContestado = <div style = {{width:680,marginLeft:"1%"}} >
+          <MUIDataTable
+            title={`Empleados aun no realizan la evaluación RP`}
+            data={dataRPNoContestado}
+            columns={columnsRPNoContestado}
+            options={options}
+          />
+        </div> 
+          } else if (this.state.empleadosRPFalse[0] == undefined  &&  this.state.tablaRPNoContestado == true ) {
+            botonTablaRPNoContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(4)}> Cerrar tabla Eval. RP no contestado</MDBBtn>
+      
+            const columnsRPNoContestado = [];
+      
+            const dataRPNoContestado =  [];
+            tablaRPContestado = <MUIDataTable
+            title={"Por el momento no hay datos que mostrar"}
+            data={dataRPNoContestado}
+            columns={columnsRPNoContestado}
+            options={options}
+          />
+          }
+///////////////////////////////////////////////////////////////////////////////////////////////
+// Evaluación EEO
+          let tablaEEOContestado;
+          let botonTablaEEOContestado;
+          if(this.state.empleadosEEO[0] &&  this.state.tablaEEOContestado == true){
+          
+            const columnsEEOContestado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
+
+            const dataEEOContestado = this.state.empleadosEEO.map(rows=>{
+              return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
+            })
+            botonTablaEEOContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(5)}> Cerrar tabla Eval. EEO contestado</MDBBtn>
+            tablaEEOContestado = <div style = {{width:680,marginLeft:"1%"}} >
+            <MUIDataTable
+              title={`Empleados que ya realizaron la evaluación EEO`}
+              data={dataEEOContestado}
+              columns={columnsEEOContestado}
+              options={options}
+            />
+          </div> 
+            } else if (this.state.empleadosEEO[0] == undefined  &&  this.state.tablaEEOContestado == true ) {
+              botonTablaEEOContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(5)}> Cerrar tabla Eval. EEO contestado</MDBBtn>
+              const columnsEEOContestado = [];
+              const dataEEOContestado =  [];
+              tablaEEOContestado = <MUIDataTable
+              title={"Por el momento no hay datos que mostrar"}
+              data={dataEEOContestado}
+              columns={columnsEEOContestado}
+              options={options}
+            />
+            }
+            let tablaEEONoContestado;
+            let botonTablaEEONoContestado;
+            if(this.state.empleadosEEOFalse[0] &&  this.state.tablaEEONoContestado == true){
+              const columnsEEONoContestado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
+              const dataEEONoContestado = this.state.empleadosEEOFalse.map(rows=>{
+                return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
+              })
+              botonTablaEEONoContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(6)}> Cerrar tabla Eval. EEO no contestado</MDBBtn>
+              tablaEEONoContestado = <div style = {{width:680,marginLeft:"1%"}} >
+              <MUIDataTable
+                title={`Empleados aún no realizan la evaluación EEO`}
+                data={dataEEONoContestado}
+                columns={columnsEEONoContestado}
+                options={options}
+              />
+            </div> 
+              } else if (this.state.empleadosEEOFalse[0] == undefined  &&  this.state.tablaEEONoContestado == true ) {
+                botonTablaEEONoContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(6)}> Cerrar tabla Eval. EEO no contestado</MDBBtn>
+                const columnsEEONoContestado = [];
+                const dataEEONoContestado =  [];
+                tablaEEONoContestado = <MUIDataTable
+                title={"Por el momento no hay datos que mostrar"}
+                data={dataEEONoContestado}
+                columns={columnsEEONoContestado}
+                options={options}
+              />
+              }
+              ///////////////////////////////////////////////////////////////////////////////////////////////////
+              /// Empleados con ATSDetectado 
+
+              let tablaATSDetectado;
+              let botonTablaATSDetectado;
+              if(this.state.AtsDetectado[0] &&  this.state.tablaATSDetectado== true){
+                const columnsATSDetectado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
+    
+                const dataATSDetectado= this.state.AtsDetectado.map(rows=>{
+                  return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
+                })
+                botonTablaATSDetectado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(7)}> Cerrar tabla ATS detectado</MDBBtn>
+                tablaATSDetectado = <div style = {{width:680,marginLeft:"1%"}} >
+                <MUIDataTable
+                  title={`Empleados con ATS detectado`}
+                  data={dataATSDetectado}
+                  columns={columnsATSDetectado}
+                  options={options}
+                />
+              </div> 
+                } else if (this.state.AtsDetectado[0] == undefined  &&  this.state.tablaATSDetectado == true ) {
+                  botonTablaATSDetectado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(7)}>Cerrar tabla ATS detectado</MDBBtn>
+                  const columnsATSDetectado = [];
+                  const dataATSDetectado =  [];
+                  tablaATSDetectado = <MUIDataTable
+                  title={"Por el momento no hay datos que mostrar"}
+                  data={dataATSDetectado}
+                  columns={columnsATSDetectado}
+                  options={options}
+                />
+                }
+       return (
       <React.Fragment>
       <div>
         <Navbar/>
-        <MDBContainer style={container} >
-       
-        {/* {this.state.nombre.nombre} */}
-        <MDBRow>
-        <MDBCol>
-        <MDBCard style={{ width: "25rem" ,marginTop:60}}>
+        <div style = {{marginTop:"5%" ,marginLeft:"13%"}}>
+        <MDBRow >
+         <MDBCard style={{ width: "22rem",marginLeft:"1%"}}>
           <MDBCardBody>        
-          <strong>Empleados Evaluación ATS</strong>
-         <MDBCardHeader><strong>Realizada: {this.state.ATSContestado} </strong>  <IconButton onClick={this.toggle(16)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada: {this.state.empleadosAtsFalse.length}</strong><IconButton onClick={this.toggle(15)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                 
-         {progressInstanceATS}  
-       </MDBCardBody>
-      </MDBCard>
-      
-      <MDBCard style={{ width: "25rem" ,marginTop:5}}>
+          <center><h6><strong>Progreso evaluación ATS </strong></h6></center>
+         {progressInstanceATS}
+         <MDBRow style = {{marginTop:"10%" , marginLeft : "8%"}}>
+         <MDBBtn color = "success" size  = "sm" onClick = { e => this.tablaATSContestado()}> Realizada </MDBBtn>  
+         <MDBBtn color= "danger" size = "sm" onClick = { e => this.tablaATSNoContestado()}>No realizada</MDBBtn>
+         </MDBRow>
+        </MDBCardBody>
+        </MDBCard>
+        <MDBCard style={{ width: "22rem",marginLeft:"1%"}}>
           <MDBCardBody>        
-          <strong>Empleados Evaluación RP</strong>
-         <MDBCardHeader><strong>Realizada: {this.state.RPContestado} </strong>  <IconButton onClick={this.toggle(14)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada: {this.state.RPNoContestado} </strong><IconButton onClick={this.toggle(13)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
-         {progressInstanceRP}  
-       </MDBCardBody>
-      </MDBCard>
-   
-      <MDBCard style={{ width: "25rem" ,marginTop:5}}>
+          <center><h6><strong>Progreso evaluación RP </strong></h6></center>           
+         {progressInstanceRP}
+         <MDBRow style = {{marginTop:"10%" , marginLeft : "8%"}}>
+        
+         <MDBBtn color = "success" size  = "sm" onClick = {e => this.tablaRPContestado()}> Realizada </MDBBtn>  
+         <MDBBtn color= "danger" size = "sm" onClick = {e => this.tablaRPNoContestado()}>No realizada</MDBBtn>
+        
+         </MDBRow>
+        </MDBCardBody>
+        </MDBCard>
+        <MDBCard style={{ width: "22rem",marginLeft:"1%"}}>
           <MDBCardBody>        
-          <strong>Empleados Evaluación EEO</strong>
-         <MDBCardHeader><strong>Realizada: {this.state.EEOContestado} </strong>  <IconButton onClick={this.toggle(11)}> <RemoveRedEyeOutlinedIcon /></IconButton> <strong>No Realizada: {this.state.EEONoContestado} </strong><IconButton onClick={this.toggle(12)}> <RemoveRedEyeOutlinedIcon /></IconButton></MDBCardHeader>                  
+          <center><h6><strong>Progreso evaluación EEO </strong></h6></center>
          {progressInstanceEEO}
+         <MDBRow style = {{marginTop:"10%" , marginLeft : "8%"}}>
+        
+         <MDBBtn color = "success" size  = "sm" onClick = { e => this.tablaEEOContestado()}> Realizada </MDBBtn>  
+         <MDBBtn color= "danger" size = "sm" onClick = { e => this.tablaEEONoContestado()}>No realizada</MDBBtn>
+        
+         </MDBRow>
        </MDBCardBody>
-      </MDBCard>
-        {/* <MDBContainer className=" mt-5 pt-5" ><Alert color = "primary">Su licencia caduca en undefined dias</Alert>  <ProgressBar/></MDBContainer> */}
-        </MDBCol>
-        <MDBCol>
-        <MDBCard style={{ width: "22rem" ,marginTop:60,marginLeft:100}}>
-          <MDBCardBody>        
-          <MDBCardTitle>Información General:</MDBCardTitle>
-         <MDBCardHeader>
+       </MDBCard>
+        </MDBRow>
+       <MDBRow>
+          {tablaEmpleados}
+          {tablaATSContestado}
+          {tablaATSNoContestado}
+          {tablaRPContestado}
+          {tablaRPNoContestado}
+          {tablaEEOContestado}
+          {tablaEEONoContestado}
+          {tablaATSDetectado}
+          <MDBCard style={{ width: "22rem",marginLeft:"4%" }}>
           
-          <strong>Licencia de {this.state.empleados} Empleados</strong>
+          <MDBCardHeader>
+          <center>
+          <Button style={{ color: 'green' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
+          <strong>&nbsp;Información del Sistema <br/><i class="fas fa-mouse-pointer"></i></strong>
+          </Button>
+          </center>
+          <Menu
+              id="simple-menu"
+              anchorEl={this.state.dropdown}
+              keepMounted
+              open={Boolean(this.state.dropdown)}
+              onClose={this.handleClose}
+          >
+              <MenuItem onClick={this.toggle(16)}><i class="fas fa-info-circle"></i> &nbsp;  Información General</MenuItem>
+              <MenuItem onClick={this.handleClose}><i class="fas fa-cloud-upload-alt"></i> &nbsp;{logo} </MenuItem>
+              <MenuItem style={{ color: 'purple' }}><i class="fas fa-question"></i>&nbsp;  ¿Como usar Diagnóstico035?  <IconButton onClick={this.openModal} color="secondary"> <RemoveRedEyeOutlinedIcon /></IconButton></MenuItem>
+              <MenuItem style={{ color: 'orange' }} onClick = { e => this.tablaATSDetectado()}><i class="fas fa-exclamation-triangle"></i>&nbsp; Empleados con ATS detectado : &nbsp; <strong>{this.state.AtsDetectado.length}</strong></MenuItem>
+          </Menu>
+          </MDBCardHeader>
+          <MDBCardBody>
+          <center><strong>{this.state.date}</strong> <br/>
           <br/>
-          <br/>
-          <strong>Empleados registrados : {this.state.totalEmpleados}</strong>
-          <br/>
-          <br/>
-          <strong>Empleados por registrar : {(this.state.empleados-this.state.totalEmpleados)}</strong><br/>
-          <strong style={{ color: '#BC71F3' }}>¿Como usar Diagnóstico035?</strong>
-          <IconButton onClick={this.openModal} color="secondary"> <RemoveRedEyeOutlinedIcon /></IconButton><br/>
-          <i>Periodo actual :</i>{periodoActivo} 
-         </MDBCardHeader>      
-        {expiro}
-       </MDBCardBody>
-      </MDBCard >
-          <MDBCard style={{ width: "22rem",marginLeft:100,marginTop:5}}>
-          <MDBCardBody>  
-          <MDBCardTitle>Acciones a realizar</MDBCardTitle>      
-         <MDBCardHeader><strong>Detección de ATS : {this.state.AtsDetectado.length}</strong> <IconButton onClick={this.toggle(10)}> <RemoveRedEyeOutlinedIcon /></IconButton>               
-          {logo}
-          {updateLogo}
-         </MDBCardHeader>   
-       </MDBCardBody>
-      </MDBCard>
-      {pues}
-      </MDBCol>
-      </MDBRow>
-        {modal}
-        {modalFalse}
-        {modalRP}
-        {modalRPFalse}
-        {modalEEOFalse}
-        {modalEEO}
-        {empleadoATSDetectado}
-        {Alerta}
-        {dep}
-        {suc}
+          <strong>Periodo actual &nbsp;</strong> {periodoActivo}<br></br>
+          {botonTablaATSContestado}
+          {botonTablaATSNoContestado}
+          {botonTablaRPContestado}
+          {botonTablaRPNoContestado}
+          {botonTablaEEOContestado}
+          {botonTablaEEONoContestado}
+          {botonTablaATSDetectado}
+          {Alerta}
+          {dep}
+          {suc}
+          {pues}
+          </center>
+          </MDBCardBody>
+          </MDBCard> 
+          </MDBRow>
+
+        {updateLogo}
+     
+        {modalInfoG}
+        {/* {modalAcciones} */}
         {cargarLogo}
         {modificarLogo}
-        </MDBContainer>
+        </div>
       </div>
       <div><ModalVideo channel='vimeo' isOpen={this.state.isOpen} videoId='461258739' onClose={() => this.setState({isOpen: false})} /></div>
       </React.Fragment>

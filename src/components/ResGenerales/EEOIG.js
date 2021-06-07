@@ -1,7 +1,7 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
 import Grow from "@material-ui/core/Grow";
-import {MDBRow,MDBCol,MDBBtn,MDBTable, MDBTableBody, MDBContainer,MDBTableHead} from 'mdbreact';
+import {MDBRow,MDBCol,MDBBtn,MDBTable, MDBTableBody, MDBContainer,MDBCardTitle,MDBTableHead, MDBCard, MDBCardHeader,MDBCardBody} from 'mdbreact';
 import logo from '../images/logo.png'
 import diagnostico from '../images/diagnostico.png'
 import { API} from '../utils/http'
@@ -11,6 +11,8 @@ import Button from '@material-ui/core/Button';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
 import {Alert} from 'reactstrap'
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import {
   Grid,
   
@@ -148,9 +150,17 @@ export default class App extends React.Component {
       valor70:[],
       valor71:[],
       valor72:[],
-      FechaCompleta:''
-
-      // componentepdf:'0'
+      FechaCompleta:'',
+      tablaPeriodoActual:true,
+      dropdown:null,
+      reporteIndividual:false,
+      reporteResultadosIndividual:false,
+      reporteResultadosGlobales:false,
+      tablaPeriodoSeleccionado:false,
+      periodoSeleccionado:'',
+      todosLosPeriodos:[],
+      evaluacionesTodosLosPeriodos:[],
+      reporteEjecutivo:false
     };
 
     this.handleLogOut = this.handleLogOut.bind(this);
@@ -191,18 +201,39 @@ export default class App extends React.Component {
     this.setState({showModal2:true}) 
   }
   getGlobalEmployees = async ( ) => {
+    var datasort;
+    let periodo =  localStorage.getItem("periodo")
     this.setState({spinner:true})
     let totalEmpleados=[];
     let totalEmpleadosResultados=[];
-    var id  =localStorage.getItem("idAdmin")       
+    var idAdmin  =localStorage.getItem("idAdmin")       
     // const url = 'http://localhost:8000/graphql'
     await axios({
       url:  API,
       method:'post',
       data:{
       query:`
+       query{
+        getallPeriodo(data:"${[idAdmin]}"){
+         Descripcion
+         EventoActivo
+              }
+            }
+          `
+      }
+    })
+    .then(datos => {	
+      this.setState({todosLosPeriodos:datos.data.data.getallPeriodo})
+    }).catch(err=>{
+    })
+
+    await axios({
+      url:  API,
+      method:'post',
+      data:{
+      query:`
       query{
-        getEmployeesResolvesEEO(data:"${id}"){
+        getEmployeesResolvesEEO(data:"${idAdmin}"){
           id
           nombre
           ApellidoP
@@ -220,9 +251,13 @@ export default class App extends React.Component {
           `
        }
        }).then((datos) => {
-         
-          this.setState({empleados:datos.data.data.getEmployeesResolvesEEO})       
-          datos.data.data.getEmployeesResolvesEEO.map(rows=>{
+          datasort =  datos.data.data.getEmployeesResolvesEEO
+          datasort.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );  
+          let arrayFilter = datasort.filter(e => e.periodo == periodo)
+          this.setState({empleados:arrayFilter}) 
+          this.setState({evaluacionesTodosLosPeriodos:datos.data.data.getEmployeesResolvesEEO}) 
+          // console.log("getEmployeesResolvesEEO" ,datos.data.data.getEmployeesResolvesEEO)    
+          datasort.map(rows=>{
             axios({
             url:  API,
             method:'post',
@@ -256,11 +291,13 @@ export default class App extends React.Component {
                   RotacionTurnos 
                   fk_administrador 
                   fk_correos 
+                  Periodo
                     }
                   }
                 `
             }
-            }).then(datos => {    
+            }).then(datos => {   
+              // console.log("getresultGlobalSurveyEEO", datos.data.data.getresultGlobalSurveyEEO) 
               totalEmpleados.push(datos.data.data.getresultGlobalSurveyEEO)  
               
               this.setState({resultadosInicio:totalEmpleados})
@@ -303,11 +340,13 @@ export default class App extends React.Component {
                 RotacionTurnos 
                 fk_administrador 
                 fk_correos 
+                Periodo
                     }
                   }
                 `
             }
             }).then(datos => {     
+              // console.log("resultSingleSurveyEEO" ,datos.data.data.resultSingleSurveyEEO)
               totalEmpleadosResultados.push(datos.data.data.resultSingleSurveyEEO)
               this.setState({evaluacionMasivoResultados : totalEmpleadosResultados})  
               this.setState({resultadosQueryMasivo : totalEmpleadosResultados})  
@@ -329,7 +368,7 @@ export default class App extends React.Component {
             data:{
             query:`
               query{
-              getPonderacionEEO(data:"${[id]}"){
+              getPonderacionEEO(data:"${[idAdmin]}"){
                 id
                 siempre
                 casisiempre
@@ -341,40 +380,65 @@ export default class App extends React.Component {
                 `
             }
             }).then(datos => { 
+              console.log("getPonderacionEEO" , datos.data.data.getPonderacionEEO)
               this.setState({getPonderacion: datos.data.data.getPonderacionEEO})
             })
             .catch(err => {
               console.log("el error es  ",err.response)
             }); 
          }
-     consultarDatosFiltrados = async (datos,filtro) =>{
+      async cargarTablaPeriodoSeleccionado (parametro){
+      let periodo = parametro
+      let empleados  = this.state.evaluacionesTodosLosPeriodos; 
+      let arrayFilter = empleados.filter(e => e.periodo == periodo)
+      await  this.setState({empleados:[]})
+      this.setState({tablaPeriodoActual:false})            
+      this.setState({tablaPeriodoSeleccionado:true})
+      this.setState({empleados:arrayFilter})
+      this.setState({reporteEjecutivo:false})
+      this.setState({reporteResultadosIndividual:false})
+      this.setState({reporteResultadosGlobales:true})
+      this.setState({reporteIndividual:false})
+    }
+   
+     consultarDatosFiltrados = (datos,filtro,periodoTabla) =>{
+      this.setState({reporteIndividual:false})
+      this.setState({tablaPeriodoActual:false})
+      this.setState({reporteResultadosIndividual:false})
+      this.setState({reporteResultadosGlobales:true})
+      this.setState({reporteEjecutivo:false})
+      this.setState({reporteIndividual:false})
+      this.setState({tablaPeriodoSeleccionado:false})
       this.setState({botonDisabled:''})
       this.setState({botonResultados:''})
       this.setState({spinner:true})
       let array=[];
-      let periodo;
+
       let totalEmpleados=[];
+
       datos.map(rows=>{
-        periodo= rows.data[6]
         array.push(rows.data[0])
       })
+
       let arrayFilter = []
       let filter;
+      let filterArray;
+      let filtrado = [];
       
-      await this.state.resultadosInicio.forEach(row=>{
+       this.state.resultadosInicio.forEach(row=>{
            array.forEach(element => {
             filter  = row.filter(function(hero){
               return hero.fk_empleados === element
             })
               arrayFilter.push(filter)
-
             }); 
-      })
-      let tag = []
-      function array_equals(a, b){
-        return a.length === b.length && a.every((item,idx) => item === b[idx])
-       }
-      var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
+      })      
+      arrayFilter.map(row=>{
+        filterArray = row.filter(function(hero){
+          return hero.periodo = periodoTabla[0]
+        })
+        filtrado.push(filterArray)
+        })
 
       this.setState({peticion1:filtrado}) 
        this.setState({spinner:false});
@@ -445,42 +509,42 @@ export default class App extends React.Component {
     }else{
       this.setState({filtro6:"SIN FILTRO"})
     }
-    
       this.setState({datosLength:datos.length})
     }
 
-    reporteImasivo = async (datos,filtro) =>{
+    reporteImasivo = async (datos,filtro,periodoTabla) =>{
     this.setState({botonDisabled:''})
     this.setState({botonResultados:''})
     this.setState({spinner:true})
+
     let array=[];
-    let periodo;
     let totalEmpleados=[];
+
     datos.map(rows=>{
-      periodo= rows.data[6]
       array.push(rows.data[0])
     })
+
     let arrayFilter = []
     let filter;
-    
+    let filterArray;
+    let filtrado = [];
+
     this.state.resultadosInicio.forEach(row=>{
-      array.forEach(rows=>{
+      array.forEach(element=>{
       filter =row.filter(function(hero){
-        return hero.fk_empleados === rows
+        return hero.fk_empleados === element
       })
         arrayFilter.push(filter)
       })
     })
-    function array_equals(a, b){
-      return a.length === b.length && a.every((item,idx) => item === b[idx])
-     }
-     let tag = []
-     var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
-
-      this.setState({reporteImasivo:filtrado})
+    arrayFilter.map(fila=>{
+      filterArray = fila.filter(function(hero){
+        return hero.Periodo === periodoTabla[0]
+      })
+        filtrado.push(filterArray)
+      })
+      this.setState({reporteImasivo:filtrado}) 
       this.setState({spinner:false});
-
-         
     if(filtro!== undefined){
       
       if(filtro[0].length>0){
@@ -552,7 +616,40 @@ export default class App extends React.Component {
   }
 
   
-  reporteImasivoResultados = async (datos,filtro) =>{
+  reporteImasivoResultados = async (datos,filtro,periodoTabla) =>{
+    // this.setState({botonDisabled:''})
+    // this.setState({botonResultados:''})
+    // this.setState({spinner:true})
+
+    // let array=[];
+    // let totalEmpleados=[];
+
+    // datos.map(rows=>{
+    //   array.push(rows.data[0])
+    // })
+
+    // let arrayFilter = []
+    // let filter;
+    // let filterArray;
+    // let filtrado = [];
+
+    // this.state.resultadosInicio.forEach(row=>{
+    //   array.forEach(element=>{
+    //   filter =row.filter(function(hero){
+    //     return hero.fk_empleados === element
+    //   })
+    //     arrayFilter.push(filter)
+    //   })
+    // })
+    // arrayFilter.map(fila=>{
+    //   console.log("fila" , fila)
+    //   filterArray = fila.filter(function(hero){
+    //     return hero.Periodo === periodoTabla[0]
+    //   })
+    //     filtrado.push(filterArray)
+    //   })
+    //   this.setState({reporteImasivo:filtrado}) 
+
     this.setState({botonDisabled:''})
     this.setState({botonResultados:''})
     this.setState({spinner:true})
@@ -564,21 +661,32 @@ export default class App extends React.Component {
 
     let arrayFilter = []
     let filter;
-    
+    let filterArray;
+    let filtrado = [];
+
     this.state.evaluacionMasivoResultados.forEach(row=>{
-      array.forEach(rows=>{
+      array.forEach(element=>{
       filter =row.filter(function(hero){
-        return hero.fk_empleados === rows
+        return hero.fk_empleados === element
       })
         arrayFilter.push(filter)
       })
     })
-    function array_equals(a, b){
-      return a.length === b.length && a.every((item,idx) => item === b[idx])
-     }
-     let tag = []
-     var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
+
+     arrayFilter.map(fila=>{
+      filterArray = fila.filter(function(hero){
+        return hero.Periodo === periodoTabla[0]
+      })
+        filtrado.push(filterArray)
+      })
+      
+    // function array_equals(a, b){
+    //   return a.length === b.length && a.every((item,idx) => item === b[idx])
+    //  }
+    //  let tag = []
+    //  var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
    
+
       this.setState({resultadosEvaluacionMasivo:filtrado})
       this.setState({spinner:false});
 
@@ -649,1161 +757,1082 @@ export default class App extends React.Component {
    
     this.setState({datosLength:datos.length})
       }
-    click(id,periodo){
-        this.setState({botonDisabled:''})
-       
+    reporteIndividual(id,periodo){
+    this.setState({botonDisabled:''})
+    this.setState({reporteIndividual:true})
+    this.setState({tablaPeriodoActual:false})
+    this.setState({reporteResultadosIndividual:false})
+    this.setState({reporteResultadosGlobales:false})
+    this.setState({reporteEjecutivo:false})
+    this.setState({tablaPeriodoSeleccionado:false})
           // const url = 'http://localhost:8000/graphql'
-          axios({
-            url:  API,
-            method:'post',
-            data:{
-            query:`
-              query{
-              resultSingleSurveyEEO(data:"${[id,periodo]}"){
-                id 
-                Respuestas 
-                fk_preguntasEEO
-                fk_empleados
-                nombre 
-                ApellidoP 
-                ApellidoM 
-                Curp 
-                RFC 
-                FechaNacimiento 
-                Sexo  
-                EstadoCivil 
-                correo 
-                AreaTrabajo 
-                Puesto 
-                TipoPuesto 
-                NivelEstudios 
-                TipoPersonal 
-                JornadaTrabajo 
-                TipoContratacion 
-                TiempoPuesto 
-                ExperienciaLaboral 
-                RotacionTurnos 
-                fk_administrador 
-                fk_correos 
-                    }
-                  }
-                `
-            }
-                }).then(datos => {               
-                
-                if(datos.data.data.resultSingleSurveyEEO.length > 0 ){
-                  this.setState({resultados:''})
-                  this.setState({resultados :datos.data.data.resultSingleSurveyEEO })                
-                  this.setState({getPonderacion:[]})
-                } if(datos.data.data.resultSingleSurveyEEO.length <= 0){
-                  DialogUtility.alert({
-                    animationSettings: { effect: 'Zoom' },           
-                    title: "Su colaborador aun no responde la evaluación",
-                    // title: 'Aviso!',
-                    position: "fixed"
-                    });
+      axios({
+        url:  API,
+        method:'post',
+        data:{
+        query:`
+          query{
+          resultSingleSurveyEEO(data:"${[id,periodo]}"){
+            id 
+            Respuestas 
+            fk_preguntasEEO
+            fk_empleados
+            nombre 
+            ApellidoP 
+            ApellidoM 
+            Curp 
+            RFC 
+            FechaNacimiento 
+            Sexo  
+            EstadoCivil 
+            correo 
+            AreaTrabajo 
+            Puesto 
+            TipoPuesto 
+            NivelEstudios 
+            TipoPersonal 
+            JornadaTrabajo 
+            TipoContratacion 
+            TiempoPuesto 
+            ExperienciaLaboral 
+            RotacionTurnos 
+            fk_administrador 
+            fk_correos 
                 }
-              })
-                .catch(err => {
-                  console.log("el error es  ",err)
-                });  
-
-              }          
-          getEvaluacion(id,periodo){
-            this.setState({botonDisabled:''})
-            axios({
-              url:  API,
-              method:'post',
-              data:{
-              query:`
-                query{
-                resultSingleSurveyEEO(data:"${[id,periodo]}"){
-                  id 
-                  Respuestas 
-                  fk_preguntasEEO
-                  fk_empleados
-                  ponderacion
-                  nombre 
-                  ApellidoP 
-                  ApellidoM 
-                  Curp 
-                  RFC 
-                  FechaNacimiento 
-                  Sexo  
-                  EstadoCivil 
-                  correo 
-                  AreaTrabajo 
-                  Puesto 
-                  TipoPuesto 
-                  NivelEstudios 
-                  TipoPersonal 
-                  JornadaTrabajo 
-                  TipoContratacion 
-                  TiempoPuesto 
-                  ExperienciaLaboral 
-                  RotacionTurnos 
-                  fk_administrador 
-                  fk_correos 
-                      }
-                    }
-                  `
               }
-                  }).then(datos => {   
-                    if(datos.data.data.resultSingleSurveyEEO.length > 0 ){
-                      this.setState({resultadosEvaluacion:''})
-                    this.setState({resultadosEvaluacion :datos.data.data.resultSingleSurveyEEO })                
-                    this.setState({resultados:[]}) 
-                  } if(datos.data.data.resultSingleSurveyEEO.length <= 0){
-                    DialogUtility.alert({
-                      animationSettings: { effect: 'Zoom' },           
-                      title: "Su colaborador aun no responde la evaluación",
-                      // title: 'Aviso!',
-                      position: "fixed"
-                      });
-                  }
-                })
-                  .catch(err => {
-                    console.log("el error es  ",err)
-                  });  
-  
-                              
-            axios({
-              url:  API,
-              method:'post',
-              data:{
-              query:`
-                query{
-                resultSingleSurveyEEO(data:"${[id,periodo]}"){
-                  id 
-                  Respuestas 
-                  fk_preguntasEEO
-                  fk_empleados
-                  nombre 
-                  ApellidoP 
-                  ApellidoM 
-                  Curp 
-                  RFC 
-                  FechaNacimiento 
-                  Sexo 
-                  EstadoCivil 
-                  correo 
-                  AreaTrabajo 
-                  Puesto 
-                  TipoPuesto 
-                  NivelEstudios 
-                  TipoPersonal 
-                  JornadaTrabajo 
-                  TipoContratacion 
-                  TiempoPuesto 
-                  ExperienciaLaboral 
-                  RotacionTurnos 
-                  fk_administrador 
-                  fk_correos 
-                      }
-                    }
-                  `
-              }
-                  }).then(datos => {    
-                    this.setState({resultadosQuery:''})              
-                    this.setState({resultadosQuery :datos.data.data.resultSingleSurveyEEO })                
-        
-                  })
-                  .catch(err => {
-                    console.log("el error es  ",err)
-                  });  
-                    }
-                  reporteEjecutivo = async (datos,filtro)=>{
-                    this.setState({botonDisabled:''})
-                    this.setState({botonResultados:''})
-                    this.setState({spinner:true})
-                    let array=[];
-                    let periodo;
-                    let totalEmpleados=[];
-                    let array1=[], array2=[], array3=[], array4=[], array5=[], array6=[], array7=[], array8=[], array9=[], array10=[]      
-                    let array11=[], array12=[], array13=[], array14=[], array15=[], array16=[], array17=[], array18=[], array19=[], array20=[]      
-                    let array21=[], array22=[], array23=[], array24=[], array25=[], array26=[], array27=[], array28=[], array29=[], array30=[]      
-                    let array31=[], array32=[], array33=[], array34=[], array35=[], array36=[], array37=[], array38=[], array39=[], array40=[]      
-                    let array41=[], array42=[], array43=[], array44=[], array45=[], array46=[], array47=[], array48=[], array49=[], array50=[]      
-                    let array51=[], array52=[], array53=[], array54=[], array55=[], array56=[], array57=[], array58=[], array59=[], array60=[]      
-                    let array61=[], array62=[], array63=[], array64=[], array65=[], array66=[], array67=[], array68=[], array69=[], array70=[]
-                    let array71=[],array72=[];
-          
-                    let filtrar1, filtrar2, filtrar3, filtrar4, filtrar5, filtrar6, filtrar7, filtrar8, filtrar9, filtrar10
-                    let filtrar11, filtrar12, filtrar13, filtrar14, filtrar15, filtrar16, filtrar17, filtrar18, filtrar19, filtrar20
-                    let filtrar21, filtrar22, filtrar23, filtrar24, filtrar25, filtrar26, filtrar27, filtrar28, filtrar29, filtrar30
-                    let filtrar31, filtrar32, filtrar33, filtrar34, filtrar35, filtrar36, filtrar37, filtrar38, filtrar39, filtrar40
-                    let filtrar41, filtrar42, filtrar43, filtrar44, filtrar45, filtrar46, filtrar47, filtrar48, filtrar49, filtrar50
-                    let filtrar51, filtrar52, filtrar53, filtrar54, filtrar55, filtrar56, filtrar57, filtrar58, filtrar59, filtrar60
-                    let filtrar61, filtrar62, filtrar63, filtrar64, filtrar65, filtrar66, filtrar67, filtrar68, filtrar69, filtrar70
-                    let filtrar71, filtrar72;
-
-                    datos.map(rows=>{
-                      periodo= rows.data[6]
-                      array.push(rows.data[0])
-                    })
-                              
-                    let arrayFilter = []
-                    let filter;
-                     this.state.resultadosInicio.forEach(row=>{
-                        array.forEach(element => {
-                          filter  = row.filter(function(hero){
-                            return hero.fk_empleados === element
-                          })
-                            arrayFilter.push(filter)
-                          }); 
-                    })
-                    let tag = []
-                    function array_equals(a, b){
-                      return a.length === b.length && a.every((item,idx) => item === b[idx])
-                    }
-                    var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
-                    
-                    var array1Int;
-                    var arr1Int;
-                    var respuesta1;
-                 
-                    filtrado.map(rows=>{
-                    filtrar1 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 1;
-                    });
-                    array1.push(filtrar1)
-                    
-                      let valor1=[];  
-                      let empleados = []  
-                      array1.map(rows=>{
-                        empleados.push(rows[0].nombre +" " + rows[0].ApellidoP  + " " + rows[0].ApellidoM) 
-                          valor1.push(rows[0].ponderacion)           
-                   })
-                   this.setState({valor1:valor1})  
-                  this.setState({empleadosRE:empleados})        
-                       }) 
-                       
-                    filtrado.map(rows=>{
-                    filtrar2 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 2;
-                    });
-                    array2.push(filtrar2)
-                      let valor2=[];    
-                      array2.map(rows=>{
-                            valor2.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor2:valor2})
-                             }) 
-          
-                    filtrado.map(rows=>{
-                    filtrar3 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 3;
-                    });
-                    array3.push(filtrar3)
-                      let valor3=[];    
-                      array3.map(rows=>{
-                            valor3.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor3:valor3})
-                             })
-          
-                    filtrado.map(rows=>{
-                    filtrar4 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 4;
-                    });
-                    array4.push(filtrar4)
-                      let valor4=[];    
-                      array4.map(rows=>{
-                            valor4.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor4:valor4})
-                             })
-          
-                    filtrado.map(rows=>{
-                    filtrar5 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 5;
-                    });
-                    array5.push(filtrar5)
-                      let valor5=[];    
-                      array5.map(rows=>{                        
-                            valor5.push(rows[0].ponderacion)        
-                    })
-                    this.setState({valor5:valor5})
-                             })
-          
-                    filtrado.map(rows=>{
-                    filtrar6 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 6;
-                    });
-                    array6.push(filtrar6)
-                      let valor6=[];    
-                      array6.map(rows=>{
-                            valor6.push(rows[0].ponderacion)
-                    })
-                    console.log("array6" , array6)
-                    this.setState({valor6:valor6})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar7 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 7;
-                    });
-                    array7.push(filtrar7)
-                     let valor7=[];    
-                      array7.map(rows=>{
-                            valor7.push(rows[0].ponderacion)          
-                    })
-                    this.setState({valor7:valor7})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar8 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 8;
-                    });
-                    array8.push(filtrar8)
-                      let valor8=[];    
-                      array8.map(rows=>{
-                            valor8.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor8:valor8})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar9 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 9;
-                    });
-                    array9.push(filtrar9)
-                      let valor9=[];    
-                      array9.map(rows=>{
-                            valor9.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor9:valor9})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar10 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 10;
-                    });
-                    array10.push(filtrar10)
-                      let valor10=[];    
-                      array10.map(rows=>{
-                            valor10.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor10:valor10})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar11 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 11;
-                    });
-                    array11.push(filtrar11)
-                      let valor11=[];    
-                      array11.map(rows=>{
-                            valor11.push(rows[0].ponderacion)             
-                    })
-                    this.setState({valor11:valor11})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar12 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 12;
-                    });
-                    array12.push(filtrar12)
-                      let valor12=[];    
-                      array12.map(rows=>{
-                            valor12.push(rows[0].ponderacion)          
-                    })
-                    this.setState({valor12:valor12})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar13 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 13;
-                    });
-                    array13.push(filtrar13)
-                      let valor13=[];    
-                      array13.map(rows=>{
-                            valor13.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor13:valor13})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar14 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 14;
-                    });
-                    array14.push(filtrar14)
-                    let valor14=[];    
-                      array14.map(rows=>{
-                            valor14.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor14:valor14})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar15 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 15;
-                    });
-                    array15.push(filtrar15)
-                     let valor15=[];    
-                      array15.map(rows=>{
-                            valor15.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor15:valor15})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar16 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 16;
-                    });
-                    array16.push(filtrar16)
-                     let valor16=[];    
-                      array16.map(rows=>{
-                            valor16.push(rows[0].ponderacion)          
-                    })
-                    this.setState({valor16:valor16})
-                              })
-                    
-                    filtrado.map(rows=>{
-                    filtrar17 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 17;
-                    });
-                    array17.push(filtrar17)
-                    let valor17=[];    
-                      array17.map(rows=>{
-                            valor17.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor17:valor17})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar18 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 18 ;
-                    });
-                    array18.push(filtrar18)
-                     let valor18=[];    
-                      array18.map(rows=>{
-                            valor18.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor18:valor18})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar19 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 19;
-                    });
-                    array19.push(filtrar19)
-                    let valor19=[];    
-                      array19.map(rows=>{
-                            valor19.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor19:valor19})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar20 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 20;
-                    });
-                    array20.push(filtrar20)
-                    let valor20=[];    
-                      array20.map(rows=>{
-                            valor20.push(rows[0].ponderacion)             
-                    })
-                    this.setState({valor20:valor20})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar21 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 21;
-                    });
-                    array21.push(filtrar21)
-                    let valor21=[];    
-                      array21.map(rows=>{
-                            valor21.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor21:valor21})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar22 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 22;
-                    });
-                    array22.push(filtrar22)
-                      let valor22=[];    
-                      array22.map(rows=>{
-                            valor22.push(rows[0].ponderacion)          
-                    })
-                    this.setState({valor22:valor22})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar23 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 23;
-                    });
-                    array23.push(filtrar23)
-                     let valor23=[];    
-                      array23.map(rows=>{
-                            valor23.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor23:valor23})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar24 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 24;
-                    });
-                    array24.push(filtrar24)
-                    let valor24=[];    
-                      array24.map(rows=>{
-                            valor24.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor24:valor24})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar25=  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 25;
-                    });
-                    array25.push(filtrar25)
-                    let valor25=[];    
-                      array25.map(rows=>{
-                            valor25.push(rows[0].ponderacion)
-                    })
-                    this.setState({valor25:valor25})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar26 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 26;
-                    });
-                    array26.push(filtrar26)
-                    let valor26=[];    
-                      array26.map(rows=>{
-                            valor26.push(rows[0].ponderacion)
-                    })
-                    this.setState({valor26:valor26})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar27 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 27;
-                    });
-                    array27.push(filtrar27)
-                     let valor27=[];    
-                      array27.map(rows=>{
-                            valor27.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor27:valor27})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar28 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 28;
-                    });
-                    array28.push(filtrar28)
-                     let valor28=[];    
-                      array28.map(rows=>{
-                            valor28.push(rows[0].ponderacion)             
-                    })
-                    this.setState({valor28:valor28})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar29 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 29;
-                    });
-                    array29.push(filtrar29)
-                     let valor29=[];    
-                      array29.map(rows=>{
-                            valor29.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor29:valor29})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar30 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 30;
-                    });
-                    array30.push(filtrar30)
-                    let valor30=[];    
-                      array30.map(rows=>{
-                            valor30.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor30:valor30})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar31 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 31;
-                    });
-                    array31.push(filtrar31)
-                     let valor31=[];    
-                      array31.map(rows=>{
-                            valor31.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor31:valor31})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar32 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 32;
-                    });
-                    array32.push(filtrar32)
-                     let valor32=[];    
-                      array32.map(rows=>{
-                            valor32.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor32:valor32})
-                              }) 
-          
-                    filtrado.map(rows=>{
-                    filtrar33 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 33;
-                    });
-                    array33.push(filtrar33)
-                     let valor33=[];    
-                      array33.map(rows=>{
-                            valor33.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor33:valor33})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar34=  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 34;
-                    });
-                    array34.push(filtrar34)
-                    let valor34=[];    
-                      array34.map(rows=>{
-                            valor34.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor34:valor34})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar35 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 35;
-                    });
-                    array35.push(filtrar35)
-                    let valor35=[];    
-                      array35.map(rows=>{  
-                        valor35.push(rows[0].ponderacion)          
-                    })
-                    console.log("array35" , array35)
-                    this.setState({valor35:valor35})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar36 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 36;
-                    });
-                    array36.push(filtrar36)
-                    let valor36=[];    
-                      array36.map(rows=>{
-                            valor36.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor36:valor36})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar37 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 37;
-                    });
-                    array37.push(filtrar37)
-                    let valor37=[];    
-                      array37.map(rows=>{
-                            valor37.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor37:valor37})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar38 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 38;
-                    });
-                    array38.push(filtrar38)
-                    let valor38= []    
-                      array38.map(rows=>{
-                            valor38.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor38:valor38})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar39 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 39;
-                    });
-                    array39.push(filtrar39)
-                    let valor39=[];    
-                      array39.map(rows=>{
-                            valor39.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor39:valor39})
-                              })
+            `
+        }
+            }).then(datos => {               
             
-                    filtrado.map(rows=>{
-                    filtrar40 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 40;
-                    });
-                    array40.push(filtrar40)
-                     let valor40=[];    
-                      array40.map(rows=>{
-                            valor40.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor40:valor40})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar41 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 41;
-                    });
-                    array41.push(filtrar41)
-                     let valor41=[];    
-                      array41.map(rows=>{
-                            valor41.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor41:valor41})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar42 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 42;
-                    });
-                    array42.push(filtrar42)
-                     let valor42=[];    
-                      array42.map(rows=>{
-                            valor42.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor42:valor42})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar43 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 43;
-                    });
-                    array43.push(filtrar43)
-                    let valor43=[];    
-                      array43.map(rows=>{
-                            valor43.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor43:valor43})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar44 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 44;
-                    });
-                    array44.push(filtrar44)
-                    let valor44=[];    
-                      array44.map(rows=>{
-                            valor44.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor44:valor44})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar45 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 45;
-                    });
-                    array45.push(filtrar45)
-                    let valor45=[];    
-                      array45.map(rows=>{
-                            valor45.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor45:valor45})
-                              })
-          
-                    filtrado.map(rows=>{
-                    filtrar46 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 46;
-                    });
-                    array46.push(filtrar46)
-                    let valor46=[];    
-                      array46.map(rows=>{
-                            valor46.push(rows[0].ponderacion)
-                    })
-                    this.setState({valor46:valor46})
-                              })
+            if(datos.data.data.resultSingleSurveyEEO.length > 0 ){
+            
+              this.setState({resultados:''})
+              this.setState({resultados :datos.data.data.resultSingleSurveyEEO })                
+              this.setState({getPonderacion:[]})
 
-                    filtrado.map(rows=>{
-                    filtrar47 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 47;
-                    });
-                    array47.push(filtrar47)
-                    let valor47=[];    
-                      array47.map(rows=>{
-                            valor47.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor47:valor47})
-                              })
+            } if(datos.data.data.resultSingleSurveyEEO.length <= 0){
+              DialogUtility.alert({
+                animationSettings: { effect: 'Zoom' },           
+                title: "Su colaborador aun no responde la evaluación",
+                // title: 'Aviso!',
+                position: "fixed"
+                });
+            }
+          })
+            .catch(err => {
+              console.log("el error es  ",err)
+            });  
 
-                    filtrado.map(rows=>{
-                    filtrar48 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 48;
-                    });
-                    array48.push(filtrar48)
-                     let valor48=[];    
-                      array48.map(rows=>{
-                            valor48.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor48:valor48})
-                              })
+          }          
+      getEvaluacion(id,periodo){
+        this.setState({reporteIndividual:false})
+        this.setState({tablaPeriodoActual:false})
+        this.setState({reporteResultadosIndividual:true})
+        this.setState({reporteResultadosGlaobales:false})
+        this.setState({reporteEjecutivo:false})
+        this.setState({tablaPeriodoSeleccionado:false})
 
-                    filtrado.map(rows=>{
-                    filtrar49 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 49;
-                    });
-                    array49.push(filtrar49)
-                     let valor49=[];    
-                      array49.map(rows=>{
-                            valor49.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor49:valor49})
-                              })
-                                      
-                    filtrado.map(rows=>{
-                    filtrar50 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 50;
-                    });
-                    array50.push(filtrar50)
-                    let valor50=[];    
-                      array50.map(rows=>{
-                            valor50.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor50:valor50})
-                              })
+        this.setState({botonDisabled:''})
+        axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+            query{
+            resultSingleSurveyEEO(data:"${[id,periodo]}"){
+              id 
+              Respuestas 
+              fk_preguntasEEO
+              fk_empleados
+              ponderacion
+              nombre 
+              ApellidoP 
+              ApellidoM 
+              Curp 
+              RFC 
+              FechaNacimiento 
+              Sexo  
+              EstadoCivil 
+              correo 
+              AreaTrabajo 
+              Puesto 
+              TipoPuesto 
+              NivelEstudios 
+              TipoPersonal 
+              JornadaTrabajo 
+              TipoContratacion 
+              TiempoPuesto 
+              ExperienciaLaboral 
+              RotacionTurnos 
+              fk_administrador 
+              fk_correos 
+                  }
+                }
+              `
+          }
+          }).then(datos => {   
+            if(datos.data.data.resultSingleSurveyEEO.length > 0 ){
+            this.setState({resultadosEvaluacion:''})
+            this.setState({resultadosEvaluacion :datos.data.data.resultSingleSurveyEEO })                
+            this.setState({resultados:[]}) 
+            this.setState({resultadosQuery:''})              
+            this.setState({resultadosQuery :datos.data.data.resultSingleSurveyEEO })       
+          } if(datos.data.data.resultSingleSurveyEEO.length <= 0){
+            DialogUtility.alert({
+              animationSettings: { effect: 'Zoom' },           
+              title: "Su colaborador aun no responde la evaluación",
+              // title: 'Aviso!',
+              position: "fixed"
+              });
+          }
+        })
+        .catch(err => {
+          console.log("el error es  ",err)
+        });                                
+       }
+      reporteEjecutivo = async (datos,filtro,periodoTabla)=>{
+        this.setState({botonDisabled:''})
+        this.setState({botonResultados:''})
+        this.setState({reporteIndividual:false})
+        this.setState({tablaPeriodoActual:false})      
+        this.setState({tablaPeriodoSeleccionado:false})
+        this.setState({reporteResultadosIndividual:false})
+        this.setState({reporteResultadosGlobales:false})
+        this.setState({reporteEjecutivo:true})
+        this.setState({spinner:true})
+        let array=[];
+        let periodo;
+        let totalEmpleados=[];
+        let array1=[], array2=[], array3=[], array4=[], array5=[], array6=[], array7=[], array8=[], array9=[], array10=[]      
+        let array11=[], array12=[], array13=[], array14=[], array15=[], array16=[], array17=[], array18=[], array19=[], array20=[]      
+        let array21=[], array22=[], array23=[], array24=[], array25=[], array26=[], array27=[], array28=[], array29=[], array30=[]      
+        let array31=[], array32=[], array33=[], array34=[], array35=[], array36=[], array37=[], array38=[], array39=[], array40=[]      
+        let array41=[], array42=[], array43=[], array44=[], array45=[], array46=[], array47=[], array48=[], array49=[], array50=[]      
+        let array51=[], array52=[], array53=[], array54=[], array55=[], array56=[], array57=[], array58=[], array59=[], array60=[]      
+        let array61=[], array62=[], array63=[], array64=[], array65=[], array66=[], array67=[], array68=[], array69=[], array70=[]
+        let array71=[],array72=[];
 
-                    filtrado.map(rows=>{
-                    filtrar51 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 51;
-                    });
-                    array51.push(filtrar51)
-                      let valor51=[];    
-                      array51.map(rows=>{
-                            valor51.push(rows[0].ponderacion)
-                    })
-                    this.setState({valor51:valor51})
-                              })
+        let filtrar1, filtrar2, filtrar3, filtrar4, filtrar5, filtrar6, filtrar7, filtrar8, filtrar9, filtrar10
+        let filtrar11, filtrar12, filtrar13, filtrar14, filtrar15, filtrar16, filtrar17, filtrar18, filtrar19, filtrar20
+        let filtrar21, filtrar22, filtrar23, filtrar24, filtrar25, filtrar26, filtrar27, filtrar28, filtrar29, filtrar30
+        let filtrar31, filtrar32, filtrar33, filtrar34, filtrar35, filtrar36, filtrar37, filtrar38, filtrar39, filtrar40
+        let filtrar41, filtrar42, filtrar43, filtrar44, filtrar45, filtrar46, filtrar47, filtrar48, filtrar49, filtrar50
+        let filtrar51, filtrar52, filtrar53, filtrar54, filtrar55, filtrar56, filtrar57, filtrar58, filtrar59, filtrar60
+        let filtrar61, filtrar62, filtrar63, filtrar64, filtrar65, filtrar66, filtrar67, filtrar68, filtrar69, filtrar70
+        let filtrar71, filtrar72;
 
-                    filtrado.map(rows=>{
-                    filtrar52 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 52;
-                    });
-                    array52.push(filtrar52)
-                    let valor52=[];    
-                      array52.map(rows=>{
-                            valor52.push(rows[0].ponderacion)     
-                    })
-                    this.setState({valor52:valor52})
-                              })
+        datos.map(rows=>{
+          periodo= rows.data[6]
+          array.push(rows.data[0])
+        })
 
-                    filtrado.map(rows=>{
-                    filtrar53 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 53;
-                    });
-                    array53.push(filtrar53)
-                    let valor53=[];    
-                      array53.map(rows=>{
-                            valor53.push(rows[0].ponderacion)         
-                    })
-                    this.setState({valor53:valor53})
-                              })
+                  
+        let arrayFilter = []
+        let filter;
+        let filterArray;
+        let filtrado2 = [];
 
-                    filtrado.map(rows=>{
-                    filtrar54 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 54;
-                    });
-                    array54.push(filtrar54)
-                    let valor54=[];    
-                      array54.map(rows=>{
-                            valor54.push(rows[0].ponderacion)         
-                    })
-                    this.setState({valor54:valor54})
-                              })
+          this.state.resultadosInicio.forEach(row=>{
+            array.forEach(element => {
+              filter  = row.filter(function(hero){
+                return hero.fk_empleados === element
+              })
+                arrayFilter.push(filter)
+            }); 
+        })
 
-                    filtrado.map(rows=>{
-                    filtrar55 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 55;
-                    });
-                    array55.push(filtrar55)
-                    let valor55=[];    
-                      array55.map(rows=>{
-                            valor55.push(rows[0].ponderacion)         
-                    })
-                    this.setState({valor55:valor55})
+        arrayFilter.map(fila=>{
+          filterArray = fila.filter(function(hero){
+            return hero.Periodo === periodoTabla[0]
+          })
+            filtrado2.push(filterArray)
+        })
+        let tag = []
+        function array_equals(a, b){
+          return a.length === b.length && a.every((item,idx) => item === b[idx])
+        }
+        var filtrado = filtrado2.filter(item => !array_equals(item, tag))
+        
+        var array1Int;
+        var arr1Int;
+        var respuesta1;
+                 
+      filtrado.map(rows=>{
+      filtrar1 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 1;
+      });
+      array1.push(filtrar1)
+      
+        let valor1=[];  
+        let empleados = []  
+        array1.map(rows=>{
+          empleados.push(rows[0].nombre +" " + rows[0].ApellidoP  + " " + rows[0].ApellidoM) 
+            valor1.push(rows[0].ponderacion)           
+      })
+      this.setState({valor1:valor1})  
+      this.setState({empleadosRE:empleados})        
+          }) 
+      filtrado.map(rows=>{
+      filtrar2 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 2;
+      });
+      array2.push(filtrar2)
+        let valor2=[];    
+        array2.map(rows=>{
+              valor2.push(rows[0].ponderacion)            
+      })
+      this.setState({valor2:valor2})
+                }) 
+      filtrado.map(rows=>{
+      filtrar3 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 3;
+      });
+      array3.push(filtrar3)
+        let valor3=[];    
+        array3.map(rows=>{
+              valor3.push(rows[0].ponderacion)            
+      })
+      this.setState({valor3:valor3})
+                })
+      filtrado.map(rows=>{
+      filtrar4 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 4;
+      });
+      array4.push(filtrar4)
+        let valor4=[];    
+        array4.map(rows=>{
+              valor4.push(rows[0].ponderacion)           
+      })
+      this.setState({valor4:valor4})
+                })
+      filtrado.map(rows=>{
+      filtrar5 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 5;
+      });
+      array5.push(filtrar5)
+        let valor5=[];    
+        array5.map(rows=>{                        
+              valor5.push(rows[0].ponderacion)        
+      })
+      this.setState({valor5:valor5})
+                })
+      filtrado.map(rows=>{
+      filtrar6 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 6;
+      });
+      array6.push(filtrar6)
+        let valor6=[];    
+        array6.map(rows=>{
+              valor6.push(rows[0].ponderacion)
+      })
+      this.setState({valor6:valor6})
+                })
+      filtrado.map(rows=>{
+      filtrar7 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 7;
+      });
+      array7.push(filtrar7)
+        let valor7=[];    
+        array7.map(rows=>{
+              valor7.push(rows[0].ponderacion)          
+      })
+      this.setState({valor7:valor7})
+                })
+      filtrado.map(rows=>{
+      filtrar8 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 8;
+      });
+      array8.push(filtrar8)
+        let valor8=[];    
+        array8.map(rows=>{
+              valor8.push(rows[0].ponderacion)            
+      })
+      this.setState({valor8:valor8})
+                })
+      filtrado.map(rows=>{
+      filtrar9 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 9;
+      });
+      array9.push(filtrar9)
+        let valor9=[];    
+        array9.map(rows=>{
+              valor9.push(rows[0].ponderacion)            
+      })
+      this.setState({valor9:valor9})
+                })
+      filtrado.map(rows=>{
+      filtrar10 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 10;
+      });
+      array10.push(filtrar10)
+        let valor10=[];    
+        array10.map(rows=>{
+              valor10.push(rows[0].ponderacion)            
+      })
+      this.setState({valor10:valor10})
+                })
+      filtrado.map(rows=>{
+      filtrar11 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 11;
+      });
+      array11.push(filtrar11)
+        let valor11=[];    
+        array11.map(rows=>{
+              valor11.push(rows[0].ponderacion)             
+      })
+      this.setState({valor11:valor11})
                               })
+      filtrado.map(rows=>{
+      filtrar12 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 12;
+      });
+      array12.push(filtrar12)
+        let valor12=[];    
+        array12.map(rows=>{
+              valor12.push(rows[0].ponderacion)          
+      })
+      this.setState({valor12:valor12})
+                })
+      filtrado.map(rows=>{
+      filtrar13 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 13;
+      });
+      array13.push(filtrar13)
+        let valor13=[];    
+        array13.map(rows=>{
+              valor13.push(rows[0].ponderacion)            
+      })
+      this.setState({valor13:valor13})
+                })
+      filtrado.map(rows=>{
+      filtrar14 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 14;
+      });
+      array14.push(filtrar14)
+      let valor14=[];    
+        array14.map(rows=>{
+              valor14.push(rows[0].ponderacion)            
+      })
+      this.setState({valor14:valor14})
+                })
+      filtrado.map(rows=>{
+      filtrar15 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 15;
+      });
+      array15.push(filtrar15)
+        let valor15=[];    
+        array15.map(rows=>{
+              valor15.push(rows[0].ponderacion)            
+      })
+      this.setState({valor15:valor15})
+                })
+      filtrado.map(rows=>{
+      filtrar16 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 16;
+      });
+      array16.push(filtrar16)
+        let valor16=[];    
+        array16.map(rows=>{
+              valor16.push(rows[0].ponderacion)          
+      })
+      this.setState({valor16:valor16})
+                })
+      filtrado.map(rows=>{
+      filtrar17 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 17;
+      });
+      array17.push(filtrar17)
+      let valor17=[];    
+        array17.map(rows=>{
+              valor17.push(rows[0].ponderacion)            
+      })
+      this.setState({valor17:valor17})
+                })
+      filtrado.map(rows=>{
+      filtrar18 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 18 ;
+      });
+      array18.push(filtrar18)
+        let valor18=[];    
+        array18.map(rows=>{
+              valor18.push(rows[0].ponderacion)            
+      })
+      this.setState({valor18:valor18})
+                })
+      filtrado.map(rows=>{
+      filtrar19 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 19;
+      });
+      array19.push(filtrar19)
+      let valor19=[];    
+        array19.map(rows=>{
+              valor19.push(rows[0].ponderacion)            
+      })
+      this.setState({valor19:valor19})
+                })
+      filtrado.map(rows=>{
+      filtrar20 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 20;
+      });
+      array20.push(filtrar20)
+      let valor20=[];    
+        array20.map(rows=>{
+              valor20.push(rows[0].ponderacion)             
+      })
+      this.setState({valor20:valor20})
+                })
+      filtrado.map(rows=>{
+      filtrar21 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 21;
+      });
+      array21.push(filtrar21)
+      let valor21=[];    
+        array21.map(rows=>{
+              valor21.push(rows[0].ponderacion)            
+      })
+      this.setState({valor21:valor21})
+                })
+      filtrado.map(rows=>{
+      filtrar22 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 22;
+      });
+      array22.push(filtrar22)
+        let valor22=[];    
+        array22.map(rows=>{
+              valor22.push(rows[0].ponderacion)          
+      })
+      this.setState({valor22:valor22})
+                })
+      filtrado.map(rows=>{
+      filtrar23 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 23;
+      });
+      array23.push(filtrar23)
+        let valor23=[];    
+        array23.map(rows=>{
+              valor23.push(rows[0].ponderacion)           
+      })
+      this.setState({valor23:valor23})
+                })
+      filtrado.map(rows=>{
+      filtrar24 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 24;
+      });
+      array24.push(filtrar24)
+      let valor24=[];    
+        array24.map(rows=>{
+              valor24.push(rows[0].ponderacion)           
+      })
+      this.setState({valor24:valor24})
+                })
+      filtrado.map(rows=>{
+      filtrar25=  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 25;
+      });
+      array25.push(filtrar25)
+      let valor25=[];    
+        array25.map(rows=>{
+              valor25.push(rows[0].ponderacion)
+      })
+      this.setState({valor25:valor25})
+                })
+      filtrado.map(rows=>{
+      filtrar26 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 26;
+      });
+      array26.push(filtrar26)
+      let valor26=[];    
+        array26.map(rows=>{
+              valor26.push(rows[0].ponderacion)
+      })
+      this.setState({valor26:valor26})
+                })
+      filtrado.map(rows=>{
+      filtrar27 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 27;
+      });
+      array27.push(filtrar27)
+        let valor27=[];    
+        array27.map(rows=>{
+              valor27.push(rows[0].ponderacion)           
+      })
+      this.setState({valor27:valor27})
+                })
+      filtrado.map(rows=>{
+      filtrar28 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 28;
+      });
+      array28.push(filtrar28)
+        let valor28=[];    
+        array28.map(rows=>{
+              valor28.push(rows[0].ponderacion)             
+      })
+      this.setState({valor28:valor28})
+                })
+      filtrado.map(rows=>{
+      filtrar29 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 29;
+      });
+      array29.push(filtrar29)
+        let valor29=[];    
+        array29.map(rows=>{
+              valor29.push(rows[0].ponderacion)            
+      })
+      this.setState({valor29:valor29})
+                })
+      filtrado.map(rows=>{
+      filtrar30 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 30;
+      });
+      array30.push(filtrar30)
+      let valor30=[];    
+        array30.map(rows=>{
+              valor30.push(rows[0].ponderacion)            
+      })
+      this.setState({valor30:valor30})
+                })
+      filtrado.map(rows=>{
+      filtrar31 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 31;
+      });
+      array31.push(filtrar31)
+        let valor31=[];    
+        array31.map(rows=>{
+              valor31.push(rows[0].ponderacion)            
+      })
+      this.setState({valor31:valor31})
+                })
+      filtrado.map(rows=>{
+      filtrar32 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 32;
+      });
+      array32.push(filtrar32)
+        let valor32=[];    
+        array32.map(rows=>{
+              valor32.push(rows[0].ponderacion)            
+      })
+      this.setState({valor32:valor32})
+                }) 
+      filtrado.map(rows=>{
+      filtrar33 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 33;
+      });
+      array33.push(filtrar33)
+        let valor33=[];    
+        array33.map(rows=>{
+              valor33.push(rows[0].ponderacion)           
+      })
+      this.setState({valor33:valor33})
+                })
+      filtrado.map(rows=>{
+      filtrar34=  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 34;
+      });
+      array34.push(filtrar34)
+      let valor34=[];    
+        array34.map(rows=>{
+              valor34.push(rows[0].ponderacion)           
+      })
+      this.setState({valor34:valor34})
+                })
+      filtrado.map(rows=>{
+      filtrar35 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 35;
+      });
+      array35.push(filtrar35)
+      let valor35=[];    
+        array35.map(rows=>{  
+          valor35.push(rows[0].ponderacion)          
+      })
+      console.log("array35" , array35)
+      this.setState({valor35:valor35})
+                })
+      filtrado.map(rows=>{
+      filtrar36 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 36;
+      });
+      array36.push(filtrar36)
+      let valor36=[];    
+        array36.map(rows=>{
+              valor36.push(rows[0].ponderacion)            
+      })
+      this.setState({valor36:valor36})
+                })
+      filtrado.map(rows=>{
+      filtrar37 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 37;
+      });
+      array37.push(filtrar37)
+      let valor37=[];    
+        array37.map(rows=>{
+              valor37.push(rows[0].ponderacion)           
+      })
+      this.setState({valor37:valor37})
+                })
 
-                    filtrado.map(rows=>{
-                    filtrar56 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 56;
-                    });
-                    array56.push(filtrar56)
-                    let valor56=[];    
-                      array56.map(rows=>{
-                            valor56.push(rows[0].ponderacion)        
-                    })
-                    this.setState({valor56:valor56})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar57 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 57;
-                    });
-                    array57.push(filtrar57)
-                    let valor57=[];    
-                      array57.map(rows=>{
-                            valor57.push(rows[0].ponderacion)
-                    })
-                      this.setState({valor57:valor57})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar58 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 58;
-                    });
-                    array58.push(filtrar58)
-                    let valor58=[];    
-                      array58.map(rows=>{
-                            valor58.push(rows[0].ponderacion)      
-                    })
-                    this.setState({valor58:valor58})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar59 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 59;
-                    });
-                    array59.push(filtrar59)
-                    let valor59=[];    
-                      array59.map(rows=>{
-                            valor59.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor59:valor59})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar60 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 60;
-                    });
-                    array60.push(filtrar60)
-                     let valor60=[];    
-                      array60.map(rows=>{
-                            valor60.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor60:valor60})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar61 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 61;
-                    });
-                    array61.push(filtrar61)
-                     let valor61=[];    
-                      array61.map(rows=>{
-                            valor61.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor61:valor61})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar62 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 62;
-                    });
-                    array62.push(filtrar62)
-                    let valor62=[];    
-                      array62.map(rows=>{
-                            valor62.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor62:valor62})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar63 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 63;
-                    });
-                    array63.push(filtrar63)
-                    let valor63=[];    
-                      array63.map(rows=>{
-                            valor63.push(rows[0].ponderacion)          
-                    })
-                    this.setState({valor63:valor63})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar64 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 64;
-                    });
-                    array64.push(filtrar64)
-                    let valor64=[];    
-                      array64.map(rows=>{
-                            valor64.push(rows[0].ponderacion)             
-                    })
-                    this.setState({valor64:valor64})
-                              })
-
-
-                    filtrado.map(rows=>{
-                    filtrar65 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 65;
-                    });
-                    array65.push(filtrar65)
-                     let valor65=[];    
-                      array65.map(rows=>{
-                            valor65.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor65:valor65})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar66 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 66;
-                    });
-                    array66.push(filtrar66)
-                    let valor66=[];    
-                      array66.map(rows=>{
-                            valor66.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor66:valor66})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar67 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 67;
-                    });
-                    array67.push(filtrar67)
-                     let valor67=[];    
-                      array67.map(rows=>{
-                            valor67.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor67:valor67})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar68 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 68;
-                    });
-                    array68.push(filtrar68)
-                    let valor68=[];    
-                      array68.map(rows=>{
-                            valor68.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor68:valor68})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar69 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 69;
-                    });
-                    array69.push(filtrar69)
-                    let valor69=[];    
-                      array69.map(rows=>{
-                            valor69.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor69:valor69})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar70 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 70;
-                    });
-                    array70.push(filtrar70)
-                    let valor70=[];    
-                      array70.map(rows=>{
-                            valor70.push(rows[0].ponderacion)            
-                    })
-                    this.setState({valor70:valor70})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar71 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 71;
-                    });
-                    array71.push(filtrar71)
-                    let valor71=[];    
-                      array71.map(rows=>{
-                            valor71.push(rows[0].ponderacion)          
-                    })
-                    this.setState({valor71:valor71})
-                              })
-
-                    filtrado.map(rows=>{
-                    filtrar72 =  rows.filter(function(hero) {
-                      return hero.fk_preguntasEEO == 72;
-                    });
-                    array72.push(filtrar72)
-                     let valor72=[];    
-                      array72.map(rows=>{
-                            valor72.push(rows[0].ponderacion)           
-                    })
-                    this.setState({valor72:valor72})
-                              })
-                    
-                      this.setState({spinner:false});    
-                      if(filtro!== undefined){
-                        if(filtro[0].length>0){
-                          this.setState({nombre1:filtro[0][0]})
-                          this.setState({filtro1:"ID"})
-                          this.setState({filtro6:""})
-                        }else{
-                          this.setState({nombre1:''})
-                          this.setState({filtro1:""})
-                          this.setState({filtro6:""})
-                        }
-                        if(filtro[1].length>0){
-                          this.setState({nombre2:filtro[1][0]})
-                          this.setState({filtro2:"NOMBRE"})
-                          this.setState({filtro6:""})
-                        }else{
-                          this.setState({nombre2:''})
-                          this.setState({filtro2:""})
-                          this.setState({filtro6:""})
-                        }
-                        if(filtro[2].length>0){
-                          this.setState({nombre3:filtro[2][0]})
-                          this.setState({filtro3:"SEXO"})
-                          this.setState({filtro6:""})
-                        }else{
-                          this.setState({nombre3:''})
-                          this.setState({filtro3:""})
-                          this.setState({filtro6:""})
-                        }
-                        if(filtro[3].length>0){
-                          this.setState({nombre4:filtro[3][0]})
-                          this.setState({filtro4:"ÁREA DE TRABAJO"})
-                          this.setState({filtro6:""})
-                        }else{
-                          this.setState({nombre4:''})
-                          this.setState({filtro4:""})
-                          this.setState({filtro6:""})
-                        }if(filtro[4].length>0){
-                          this.setState({nombre5:filtro[4][0]})
-                          this.setState({filtro5:"PUESTO"})
-                          this.setState({filtro6:""})
-                        }else{
-                          this.setState({nombre5:''})
-                          this.setState({filtro5:""})
-                          this.setState({filtro6:""})
-                        }if(filtro[5].length>0){
-                          this.setState({nombre6:filtro[5][0]})
-                          this.setState({filtro7:"CENTRO DE TRABAJO"})
-                          this.setState({filtro6:""})
-                        }else{
-                          this.setState({nombre6:''})
-                          this.setState({filtro7:""})
-                          this.setState({filtro6:""})
-                        }if(filtro[6].length>0){
-                          this.setState({nombre7:filtro[6][0]})
-                          this.setState({filtro8:"PERIODO"})
-                          this.setState({filtro6:""})
-                        }else{
-                          this.setState({nombre7:''})
-                          this.setState({filtro8:""})
-                          this.setState({filtro6:""})
-                        }
-                      }else{
-                        this.setState({filtro6:"SIN FILTRO"})
-                      }
-                       
-                        this.setState({datosLength:datos.length})
-                          }
+      filtrado.map(rows=>{
+      filtrar38 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 38;
+      });
+      array38.push(filtrar38)
+      let valor38= []    
+        array38.map(rows=>{
+              valor38.push(rows[0].ponderacion)            
+      })
+      this.setState({valor38:valor38})
+                })
+      filtrado.map(rows=>{
+      filtrar39 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 39;
+      });
+      array39.push(filtrar39)
+      let valor39=[];    
+        array39.map(rows=>{
+              valor39.push(rows[0].ponderacion)            
+      })
+      this.setState({valor39:valor39})
+                })
+      filtrado.map(rows=>{
+      filtrar40 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 40;
+      });
+      array40.push(filtrar40)
+        let valor40=[];    
+        array40.map(rows=>{
+              valor40.push(rows[0].ponderacion)           
+      })
+      this.setState({valor40:valor40})
+                })
+      filtrado.map(rows=>{
+      filtrar41 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 41;
+      });
+      array41.push(filtrar41)
+        let valor41=[];    
+        array41.map(rows=>{
+              valor41.push(rows[0].ponderacion)            
+      })
+      this.setState({valor41:valor41})
+                })
+      filtrado.map(rows=>{
+      filtrar42 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 42;
+      });
+      array42.push(filtrar42)
+        let valor42=[];    
+        array42.map(rows=>{
+              valor42.push(rows[0].ponderacion)            
+      })
+      this.setState({valor42:valor42})
+                })
+      filtrado.map(rows=>{
+      filtrar43 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 43;
+      });
+      array43.push(filtrar43)
+      let valor43=[];    
+        array43.map(rows=>{
+              valor43.push(rows[0].ponderacion)            
+      })
+      this.setState({valor43:valor43})
+                })
+      filtrado.map(rows=>{
+      filtrar44 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 44;
+      });
+      array44.push(filtrar44)
+      let valor44=[];    
+        array44.map(rows=>{
+              valor44.push(rows[0].ponderacion)           
+      })
+      this.setState({valor44:valor44})
+                })
+      filtrado.map(rows=>{
+      filtrar45 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 45;
+      });
+      array45.push(filtrar45)
+      let valor45=[];    
+        array45.map(rows=>{
+              valor45.push(rows[0].ponderacion)           
+      })
+      this.setState({valor45:valor45})
+                })
+      filtrado.map(rows=>{
+      filtrar46 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 46;
+      });
+      array46.push(filtrar46)
+      let valor46=[];    
+        array46.map(rows=>{
+              valor46.push(rows[0].ponderacion)
+      })
+      this.setState({valor46:valor46})
+                })
+      filtrado.map(rows=>{
+      filtrar47 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 47;
+      });
+      array47.push(filtrar47)
+      let valor47=[];    
+        array47.map(rows=>{
+              valor47.push(rows[0].ponderacion)            
+      })
+      this.setState({valor47:valor47})
+                })
+      filtrado.map(rows=>{
+      filtrar48 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 48;
+      });
+      array48.push(filtrar48)
+        let valor48=[];    
+        array48.map(rows=>{
+              valor48.push(rows[0].ponderacion)           
+      })
+      this.setState({valor48:valor48})
+                })
+      filtrado.map(rows=>{
+      filtrar49 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 49;
+      });
+      array49.push(filtrar49)
+        let valor49=[];    
+        array49.map(rows=>{
+              valor49.push(rows[0].ponderacion)            
+      })
+      this.setState({valor49:valor49})
+                })            
+      filtrado.map(rows=>{
+      filtrar50 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 50;
+      });
+      array50.push(filtrar50)
+      let valor50=[];    
+        array50.map(rows=>{
+              valor50.push(rows[0].ponderacion)            
+      })
+      this.setState({valor50:valor50})
+                })
+      filtrado.map(rows=>{
+      filtrar51 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 51;
+      });
+      array51.push(filtrar51)
+        let valor51=[];    
+        array51.map(rows=>{
+              valor51.push(rows[0].ponderacion)
+      })
+      this.setState({valor51:valor51})
+                })
+      filtrado.map(rows=>{
+      filtrar52 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 52;
+      });
+      array52.push(filtrar52)
+      let valor52=[];    
+        array52.map(rows=>{
+              valor52.push(rows[0].ponderacion)     
+      })
+      this.setState({valor52:valor52})
+                })
+      filtrado.map(rows=>{
+      filtrar53 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 53;
+      });
+      array53.push(filtrar53)
+      let valor53=[];    
+        array53.map(rows=>{
+              valor53.push(rows[0].ponderacion)         
+      })
+      this.setState({valor53:valor53})
+                })
+      filtrado.map(rows=>{
+      filtrar54 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 54;
+      });
+      array54.push(filtrar54)
+      let valor54=[];    
+        array54.map(rows=>{
+              valor54.push(rows[0].ponderacion)         
+      })
+      this.setState({valor54:valor54})
+                })
+      filtrado.map(rows=>{
+      filtrar55 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 55;
+      });
+      array55.push(filtrar55)
+      let valor55=[];    
+        array55.map(rows=>{
+              valor55.push(rows[0].ponderacion)         
+      })
+      this.setState({valor55:valor55})
+                })
+      filtrado.map(rows=>{
+      filtrar56 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 56;
+      });
+      array56.push(filtrar56)
+      let valor56=[];    
+        array56.map(rows=>{
+              valor56.push(rows[0].ponderacion)        
+      })
+      this.setState({valor56:valor56})
+                })
+      filtrado.map(rows=>{
+      filtrar57 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 57;
+      });
+      array57.push(filtrar57)
+      let valor57=[];    
+        array57.map(rows=>{
+              valor57.push(rows[0].ponderacion)
+      })
+        this.setState({valor57:valor57})
+                })
+      filtrado.map(rows=>{
+      filtrar58 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 58;
+      });
+      array58.push(filtrar58)
+      let valor58=[];    
+        array58.map(rows=>{
+              valor58.push(rows[0].ponderacion)      
+      })
+      this.setState({valor58:valor58})
+                })
+      filtrado.map(rows=>{
+      filtrar59 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 59;
+      });
+      array59.push(filtrar59)
+      let valor59=[];    
+        array59.map(rows=>{
+              valor59.push(rows[0].ponderacion)           
+      })
+      this.setState({valor59:valor59})
+                })
+      filtrado.map(rows=>{
+      filtrar60 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 60;
+      });
+      array60.push(filtrar60)
+        let valor60=[];    
+        array60.map(rows=>{
+              valor60.push(rows[0].ponderacion)            
+      })
+      this.setState({valor60:valor60})
+                })
+      filtrado.map(rows=>{
+      filtrar61 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 61;
+      });
+      array61.push(filtrar61)
+        let valor61=[];    
+        array61.map(rows=>{
+              valor61.push(rows[0].ponderacion)           
+      })
+      this.setState({valor61:valor61})
+                })
+      filtrado.map(rows=>{
+      filtrar62 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 62;
+      });
+      array62.push(filtrar62)
+      let valor62=[];    
+        array62.map(rows=>{
+              valor62.push(rows[0].ponderacion)            
+      })
+      this.setState({valor62:valor62})
+                })
+      filtrado.map(rows=>{
+      filtrar63 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 63;
+      });
+      array63.push(filtrar63)
+      let valor63=[];    
+        array63.map(rows=>{
+              valor63.push(rows[0].ponderacion)          
+      })
+      this.setState({valor63:valor63})
+                })
+      filtrado.map(rows=>{
+      filtrar64 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 64;
+      });
+      array64.push(filtrar64)
+      let valor64=[];    
+        array64.map(rows=>{
+              valor64.push(rows[0].ponderacion)             
+      })
+      this.setState({valor64:valor64})
+                })
+      filtrado.map(rows=>{
+      filtrar65 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 65;
+      });
+      array65.push(filtrar65)
+        let valor65=[];    
+        array65.map(rows=>{
+              valor65.push(rows[0].ponderacion)           
+      })
+      this.setState({valor65:valor65})
+                })
+      filtrado.map(rows=>{
+      filtrar66 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 66;
+      });
+      array66.push(filtrar66)
+      let valor66=[];    
+        array66.map(rows=>{
+              valor66.push(rows[0].ponderacion)           
+      })
+      this.setState({valor66:valor66})
+                })
+      filtrado.map(rows=>{
+      filtrar67 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 67;
+      });
+      array67.push(filtrar67)
+        let valor67=[];    
+        array67.map(rows=>{
+              valor67.push(rows[0].ponderacion)            
+      })
+      this.setState({valor67:valor67})
+                })
+      filtrado.map(rows=>{
+      filtrar68 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 68;
+      });
+      array68.push(filtrar68)
+      let valor68=[];    
+        array68.map(rows=>{
+              valor68.push(rows[0].ponderacion)            
+      })
+      this.setState({valor68:valor68})
+                })
+      filtrado.map(rows=>{
+      filtrar69 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 69;
+      });
+      array69.push(filtrar69)
+      let valor69=[];    
+        array69.map(rows=>{
+              valor69.push(rows[0].ponderacion)            
+      })
+      this.setState({valor69:valor69})
+                })
+      filtrado.map(rows=>{
+      filtrar70 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 70;
+      });
+      array70.push(filtrar70)
+      let valor70=[];    
+        array70.map(rows=>{
+              valor70.push(rows[0].ponderacion)            
+      })
+      this.setState({valor70:valor70})
+                })
+      filtrado.map(rows=>{
+      filtrar71 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 71;
+      });
+      array71.push(filtrar71)
+      let valor71=[];    
+        array71.map(rows=>{
+              valor71.push(rows[0].ponderacion)          
+      })
+      this.setState({valor71:valor71})
+      })
+      filtrado.map(rows=>{
+      filtrar72 =  rows.filter(function(hero) {
+        return hero.fk_preguntasEEO == 72;
+      });
+      array72.push(filtrar72)
+        let valor72=[];    
+        array72.map(rows=>{
+              valor72.push(rows[0].ponderacion)           
+      })
+      this.setState({valor72:valor72})
+      })
+      this.setState({spinner:false});    
+      if(filtro!== undefined){
+        if(filtro[0].length>0){
+          this.setState({nombre1:filtro[0][0]})
+          this.setState({filtro1:"ID"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre1:''})
+          this.setState({filtro1:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[1].length>0){
+          this.setState({nombre2:filtro[1][0]})
+          this.setState({filtro2:"NOMBRE"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre2:''})
+          this.setState({filtro2:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[2].length>0){
+          this.setState({nombre3:filtro[2][0]})
+          this.setState({filtro3:"SEXO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre3:''})
+          this.setState({filtro3:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[3].length>0){
+          this.setState({nombre4:filtro[3][0]})
+          this.setState({filtro4:"ÁREA DE TRABAJO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre4:''})
+          this.setState({filtro4:""})
+          this.setState({filtro6:""})
+        }if(filtro[4].length>0){
+          this.setState({nombre5:filtro[4][0]})
+          this.setState({filtro5:"PUESTO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre5:''})
+          this.setState({filtro5:""})
+          this.setState({filtro6:""})
+        }if(filtro[5].length>0){
+          this.setState({nombre6:filtro[5][0]})
+          this.setState({filtro7:"CENTRO DE TRABAJO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre6:''})
+          this.setState({filtro7:""})
+          this.setState({filtro6:""})
+        }if(filtro[6].length>0){
+          this.setState({nombre7:filtro[6][0]})
+          this.setState({filtro8:"PERIODO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre7:''})
+          this.setState({filtro8:""})
+          this.setState({filtro6:""})
+        }
+      }else{
+        this.setState({filtro6:"SIN FILTRO"})
+      }
+      this.setState({datosLength:datos.length})
+      }
+    handleDropdown = (event) => {
+      this.setState({dropdown: event.currentTarget});
+    };
+    handleClose = () => {
+      this.setState({dropdown: null});
+    };
                                  
                   
   render() {
+    let dataSource;
+    charts(FusionCharts);
     let spinner;
     let spinnerReporte;
     let nombre;
@@ -1862,19 +1891,16 @@ export default class App extends React.Component {
     </BotonReactstrap>
     </div>
     }
-
-    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
-    const data = this.state.empleados.map(rows=>{
-        let botonRespuestas = <div><MDBBtn className = "text-white"  disabled={!this.state.botonResultados}  size="md" color="danger"  onClick={(e) => this.click(rows.id,rows.periodo)}>Respuestas</MDBBtn></div>
-      let botonResultados =  <div><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} color="secondary" size="md" onClick={(e) => this.getEvaluacion(rows.id,rows.periodo)}>Resultados</MDBBtn></div> 
-      return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
-    })
-
+    let periodoTabla;
     let datosEmpleados;
     let filtro;
     const options = {
         filterType: "dropdown",
-        responsive: "stacked", textLabels: {
+        responsive: "scrollMaxHeight",
+        sort:true,
+        setCellProps: () => ({ style: { minWidth: "1000px", maxWidth: "1000px" }}),
+        customBodyRender: (data, type, row) => {return <pre>{data}</pre>},
+        textLabels: {
           body: {
             noMatch: "Consultando información",
             toolTip: "Sort",
@@ -1911,6 +1937,7 @@ export default class App extends React.Component {
       
         onTableChange: (action, tableState) => {
         datosEmpleados=tableState.displayData
+        periodoTabla = tableState.filterData[3]
         },
   
         onFilterChange: (action, filtroTable) => {
@@ -1920,8 +1947,12 @@ export default class App extends React.Component {
  
 
       let ponderacion;
-      if(this.state.peticion1.length>0){
-      let total;
+      let botonDescargarResultadosGlobales;
+      if(this.state.peticion1.length>0 && this.state.reporteResultadosGlobales == true){
+      botonDescargarResultadosGlobales = <MDBBtn className = "text-white"  gradient="purple" size="md"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+       Resultados globales
+      </MDBBtn>
+        let total;
     
       let array1=[], array2=[], array3=[], array4=[], array5=[], array6=[], array7=[], array8=[], array9=[], array10=[]      
       let array11=[], array12=[], array13=[], array14=[], array15=[], array16=[], array17=[], array18=[], array19=[], array20=[]      
@@ -3450,525 +3481,514 @@ export default class App extends React.Component {
             respuesta72 += numero;
           });
           })
- total =(respuesta1+respuesta2+respuesta3+respuesta4+respuesta5+respuesta6+respuesta7+respuesta8+respuesta9+respuesta10+respuesta11+respuesta12+respuesta13+respuesta14+respuesta15+respuesta16+respuesta17+respuesta18+respuesta19+respuesta20
-  +respuesta21+respuesta22+respuesta23+respuesta24+respuesta25+respuesta26+respuesta27+respuesta28+respuesta29+respuesta30+respuesta31+respuesta32+respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40
-  +respuesta41+respuesta42+respuesta43+respuesta44+respuesta45+respuesta46+respuesta47+respuesta48+respuesta49+respuesta50+respuesta51+respuesta52+respuesta53+respuesta54+respuesta55+respuesta56+respuesta57+respuesta58+respuesta59+respuesta60
-  +respuesta61+respuesta62+respuesta63+respuesta64+respuesta65+respuesta66+respuesta67+respuesta68+respuesta69+respuesta70+respuesta71+respuesta72)          
- 
-  let length =this.state.peticion1.length;
-  let general =total/length;
+        total =(respuesta1+respuesta2+respuesta3+respuesta4+respuesta5+respuesta6+respuesta7+respuesta8+respuesta9+respuesta10+respuesta11+respuesta12+respuesta13+respuesta14+respuesta15+respuesta16+respuesta17+respuesta18+respuesta19+respuesta20
+          +respuesta21+respuesta22+respuesta23+respuesta24+respuesta25+respuesta26+respuesta27+respuesta28+respuesta29+respuesta30+respuesta31+respuesta32+respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40
+          +respuesta41+respuesta42+respuesta43+respuesta44+respuesta45+respuesta46+respuesta47+respuesta48+respuesta49+respuesta50+respuesta51+respuesta52+respuesta53+respuesta54+respuesta55+respuesta56+respuesta57+respuesta58+respuesta59+respuesta60
+          +respuesta61+respuesta62+respuesta63+respuesta64+respuesta65+respuesta66+respuesta67+respuesta68+respuesta69+respuesta70+respuesta71+respuesta72)          
+        
+          let length =this.state.peticion1.length;
+          let general =total/length;
 
-  console.log("general" , general)
+        let celda;
+        let criterios;
 
-let celda;
-let criterios;
+        let celdaPrev;
+        let criteriosPrev;
 
-let celdaPrev;
-let criteriosPrev;
+        if(general<50){
+        celda = <TableCell width="20%"  style={{backgroundColor: "#9BE0F7"}} className="text-left"><font size="1" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
+        celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="2" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
 
-if(general<50){
-celda = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="1" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
-celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="3" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
+        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
+        criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="2" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
 
-criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
-criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
+        }else if(general>=50 && general < 75){
+          celda = <TableCell width="20%" style={{backgroundColor: "#6BF56E"}}  className="text-left"><font size="1" face="arial"color="black" align="justify">BAJO</font></TableCell>
+          celdaPrev = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="2" face="arial"color="black" align="justify">BAJO</font></TableCell>
 
-}else if(general>=50 && general < 75){
-  celda = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">BAJO</font></TableCell>
-  celdaPrev = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="3" face="arial"color="black" align="justify">BAJO</font></TableCell>
+          criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
+          psicosociales y programas para: la prevención de los factores de riesgo
+          psicosocial, la promoción de un entorno organizacional favorable y la
+          prevención de la violencia laboral.</font></TableCell>
+          
+          criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="2" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
+          psicosociales y programas para: la prevención de los factores de riesgo
+          psicosocial, la promoción de un entorno organizacional favorable y la
+          prevención de la violencia laboral.</font></TableCell>
+        }else if(general>=75 && general < 99){
+          celda = <TableCell width="20%"  style={{backgroundColor: "#FFFF00"}}  className="text-left"><font size="1" face="arial"color="black" align="justify">MEDIO</font></TableCell>
+          celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="2" face="arial"color="black" align="justify">MEDIO</font></TableCell>
 
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
-  psicosociales y programas para: la prevención de los factores de riesgo
-  psicosocial, la promoción de un entorno organizacional favorable y la
-  prevención de la violencia laboral.</font></TableCell>
-  
-  criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
-  psicosociales y programas para: la prevención de los factores de riesgo
-  psicosocial, la promoción de un entorno organizacional favorable y la
-  prevención de la violencia laboral.</font></TableCell>
-}else if(general>=75 && general < 99){
-  celda = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">MEDIO</font></TableCell>
-  celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="3" face="arial"color="black" align="justify">MEDIO</font></TableCell>
+          criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
+          programas para la prevención de los factores de riesgo psicosocial, la
+          promoción de un entorno organizacional favorable y la prevención de la
+          violencia laboral, así como reforzar su aplicación y difusión, mediante un
+          Programa de intervención.</font></TableCell>
+          criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="2" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
+          programas para la prevención de los factores de riesgo psicosocial, la
+          promoción de un entorno organizacional favorable y la prevención de la
+          violencia laboral, así como reforzar su aplicación y difusión, mediante un
+          Programa de intervención.</font></TableCell>
 
-  criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
-  programas para la prevención de los factores de riesgo psicosocial, la
-  promoción de un entorno organizacional favorable y la prevención de la
-  violencia laboral, así como reforzar su aplicación y difusión, mediante un
-  Programa de intervención.</font></TableCell>
-  criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
-  programas para la prevención de los factores de riesgo psicosocial, la
-  promoción de un entorno organizacional favorable y la prevención de la
-  violencia laboral, así como reforzar su aplicación y difusión, mediante un
-  Programa de intervención.</font></TableCell>
+        }else if(general>=99 && general < 140){
+        celda = <TableCell  width="20%" style={{backgroundColor: "#FFC000"}} className="text-left" ><font size="1" face="arial"color="black" align="justify">ALTO</font></TableCell>
+        celdaPrev = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="2" face="arial"color="black" align="justify">ALTO</font></TableCell>
 
-}else if(general>=99 && general < 140){
- celda = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="1" face="arial"color="black" align="justify">ALTO</font></TableCell>
- celdaPrev = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="3" face="arial"color="black" align="justify">ALTO</font></TableCell>
+        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
+        se puedan determinar las acciones de intervención apropiadas a través de un
+        Programa de intervención, que podrá incluir una evaluación específica y
+        deberá incluir una campaña de sensibilización, revisar la política de
+        prevención de riesgos psicosociales y programas para la prevención de los
+        factores de riesgo psicosocial, la promoción de un entorno organizacional
+        favorable y la prevención de la violencia laboral, así como reforzar su
+        aplicación y difusión.</font></TableCell>
+        
+        criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="2" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
+        se puedan determinar las acciones de intervención apropiadas a través de un
+        Programa de intervención, que podrá incluir una evaluación específica y
+        deberá incluir una campaña de sensibilización, revisar la política de
+        prevención de riesgos psicosociales y programas para la prevención de los
+        factores de riesgo psicosocial, la promoción de un entorno organizacional
+        favorable y la prevención de la violencia laboral, así como reforzar su
+        aplicación y difusión.</font></TableCell>
+        }
+        else if( general > 140){
+          celda  = <TableCell width="20%"  style={{backgroundColor: "#FF0000"}} className="text-left"><font size="1" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
+          celdaPrev  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="2" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
+        
+        criterios= <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
+          las acciones de intervención apropiadas, mediante un Programa de
+          intervención que deberá incluir evaluaciones específicas, y contemplar
+          campañas de sensibilización, revisar la política de prevención de riesgos
+          psicosociales y programas para la prevención de los factores de riesgo
+          psicosocial, la promoción de un entorno organizacional favorable y la
+          prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
 
- criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
- se puedan determinar las acciones de intervención apropiadas a través de un
- Programa de intervención, que podrá incluir una evaluación específica y
- deberá incluir una campaña de sensibilización, revisar la política de
- prevención de riesgos psicosociales y programas para la prevención de los
- factores de riesgo psicosocial, la promoción de un entorno organizacional
- favorable y la prevención de la violencia laboral, así como reforzar su
- aplicación y difusión.</font></TableCell>
- 
- criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
- se puedan determinar las acciones de intervención apropiadas a través de un
- Programa de intervención, que podrá incluir una evaluación específica y
- deberá incluir una campaña de sensibilización, revisar la política de
- prevención de riesgos psicosociales y programas para la prevención de los
- factores de riesgo psicosocial, la promoción de un entorno organizacional
- favorable y la prevención de la violencia laboral, así como reforzar su
- aplicación y difusión.</font></TableCell>
-}
-else if( general > 140){
-  celda  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="1" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
-  celdaPrev  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="3" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
- 
- criterios= <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
-  las acciones de intervención apropiadas, mediante un Programa de
-  intervención que deberá incluir evaluaciones específicas, y contemplar
-  campañas de sensibilización, revisar la política de prevención de riesgos
-  psicosociales y programas para la prevención de los factores de riesgo
-  psicosocial, la promoción de un entorno organizacional favorable y la
-  prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
+          criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="2" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
+          las acciones de intervención apropiadas, mediante un Programa de
+          intervención que deberá incluir evaluaciones específicas, y contemplar
+          campañas de sensibilización, revisar la política de prevención de riesgos
+          psicosociales y programas para la prevención de los factores de riesgo
+          psicosocial, la promoción de un entorno organizacional favorable y la
+          prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
+        }
 
-  criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="3" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
-  las acciones de intervención apropiadas, mediante un Programa de
-  intervención que deberá incluir evaluaciones específicas, y contemplar
-  campañas de sensibilización, revisar la política de prevención de riesgos
-  psicosociales y programas para la prevención de los factores de riesgo
-  psicosocial, la promoción de un entorno organizacional favorable y la
-  prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
-}
+        let categoria1Nulo;
+        let categoria1Bajo;
+        let categoria1Medio;
+        let categoria1Alto;
+        let categoria1MuyAlto;
+        let colorCategoriaUno;
 
-let categoria1Nulo;
-let categoria1Bajo;
-let categoria1Medio;
-let categoria1Alto;
-let categoria1MuyAlto;
-let colorCategoriaUno;
+        let categoriaUno = ((respuesta1+respuesta3+respuesta2+respuesta4+respuesta5)/length).toFixed(2);
+        if(categoriaUno < 5){
+          colorCategoriaUno  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          categoria1Nulo= categoriaUno
+        }else if(categoriaUno >= 5 && categoriaUno < 9){
+          colorCategoriaUno =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          categoria1Bajo= categoriaUno
+        }else if(categoriaUno >= 9 && categoriaUno < 11){
+          colorCategoriaUno=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          categoria1Medio= categoriaUno
+        }else if(categoriaUno >= 11 && categoriaUno < 14){
+          colorCategoriaUno = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          categoria1Alto= categoriaUno
+        }else if(categoriaUno >= 14){
+          colorCategoriaUno = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          categoria1MuyAlto= categoriaUno
+        }
+        let categoria2Nulo;
+        let categoria2Bajo;
+        let categoria2Medio;
+        let categoria2Alto;
+        let categoria2MuyAlto;
+        let colorCategoriaDos;
+        let categoriaDos = ((respuesta6+respuesta12+respuesta7+respuesta8+respuesta9+respuesta10+respuesta11+respuesta65+respuesta66+respuesta67+respuesta68+respuesta13+respuesta14+respuesta15+respuesta16+respuesta25+respuesta26+respuesta27+respuesta28+respuesta23+respuesta24+respuesta29+respuesta30+respuesta35+respuesta36)/length).toFixed(2);
+        if(categoriaDos < 15){
+          colorCategoriaDos  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          categoria2Nulo= categoriaDos
+        }else if(categoriaDos >= 15 && categoriaDos < 30){
+          colorCategoriaDos =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          categoria2Bajo= categoriaDos
+        }else if(categoriaDos >=30 && categoriaDos < 45){
+          colorCategoriaDos=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          categoria2Medio= categoriaDos
+        }else if(categoriaDos >=45 && categoriaDos < 60){
+          colorCategoriaDos = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          categoria2Alto= categoriaDos
+        }else if(categoriaDos >= 60){
+          colorCategoriaDos = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          categoria2MuyAlto= categoriaDos
+        }
+        let categoria3Nulo;
+        let categoria3Bajo;
+        let categoria3Medio;
+        let categoria3Alto;
+        let categoria3MuyAlto;
+        let colorCategoriaTre;
+        let categoriaTre = ((respuesta17+respuesta18+respuesta19+respuesta20+respuesta21+respuesta22)/length).toFixed(2);
+        if(categoriaTre < 5){
+          colorCategoriaTre  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          categoria3Nulo= categoriaTre
+        }else if(categoriaTre >= 5 && categoriaTre < 7){
+          colorCategoriaTre =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          categoria3Bajo= categoriaTre
+        }else if(categoriaTre >=7 && categoriaTre < 10){
+          colorCategoriaTre=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          categoria3Medio= categoriaTre
+        }else if(categoriaTre >=10 && categoriaTre < 13){
+          colorCategoriaTre = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          categoria3Alto= categoriaTre
+        }else if(categoriaTre >= 13){
+          colorCategoriaTre = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          categoria3MuyAlto= categoriaTre
+        }
 
-let categoriaUno = ((respuesta1+respuesta3+respuesta2+respuesta4+respuesta5)/length).toFixed(2);
-if(categoriaUno < 5){
-  colorCategoriaUno  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  categoria1Nulo= categoriaUno
-}else if(categoriaUno >= 5 && categoriaUno < 9){
-  colorCategoriaUno =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  categoria1Bajo= categoriaUno
-}else if(categoriaUno >= 9 && categoriaUno < 11){
-  colorCategoriaUno=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  categoria1Medio= categoriaUno
-}else if(categoriaUno >= 11 && categoriaUno < 14){
-  colorCategoriaUno = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  categoria1Alto= categoriaUno
-}else if(categoriaUno >= 14){
-  colorCategoriaUno = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  categoria1MuyAlto= categoriaUno
-}
-let categoria2Nulo;
-let categoria2Bajo;
-let categoria2Medio;
-let categoria2Alto;
-let categoria2MuyAlto;
-let colorCategoriaDos;
-let categoriaDos = ((respuesta6+respuesta12+respuesta7+respuesta8+respuesta9+respuesta10+respuesta11+respuesta65+respuesta66+respuesta67+respuesta68+respuesta13+respuesta14+respuesta15+respuesta16+respuesta25+respuesta26+respuesta27+respuesta28+respuesta23+respuesta24+respuesta29+respuesta30+respuesta35+respuesta36)/length).toFixed(2);
-if(categoriaDos < 15){
-  colorCategoriaDos  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  categoria2Nulo= categoriaDos
-}else if(categoriaDos >= 15 && categoriaDos < 30){
-  colorCategoriaDos =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  categoria2Bajo= categoriaDos
-}else if(categoriaDos >=30 && categoriaDos < 45){
-  colorCategoriaDos=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  categoria2Medio= categoriaDos
-}else if(categoriaDos >=45 && categoriaDos < 60){
-  colorCategoriaDos = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  categoria2Alto= categoriaDos
-}else if(categoriaDos >= 60){
-  colorCategoriaDos = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  categoria2MuyAlto= categoriaDos
-}
-let categoria3Nulo;
-let categoria3Bajo;
-let categoria3Medio;
-let categoria3Alto;
-let categoria3MuyAlto;
-let colorCategoriaTre;
-let categoriaTre = ((respuesta17+respuesta18+respuesta19+respuesta20+respuesta21+respuesta22)/length).toFixed(2);
-if(categoriaTre < 5){
-  colorCategoriaTre  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  categoria3Nulo= categoriaTre
-}else if(categoriaTre >= 5 && categoriaTre < 7){
-  colorCategoriaTre =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  categoria3Bajo= categoriaTre
-}else if(categoriaTre >=7 && categoriaTre < 10){
-  colorCategoriaTre=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  categoria3Medio= categoriaTre
-}else if(categoriaTre >=10 && categoriaTre < 13){
-  colorCategoriaTre = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  categoria3Alto= categoriaTre
-}else if(categoriaTre >= 13){
-  colorCategoriaTre = <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  categoria3MuyAlto= categoriaTre
-}
+        let categoria4Nulo;
+        let categoria4Bajo;
+        let categoria4Medio;
+        let categoria4Alto;
+        let categoria4MuyAlto;
+        let colorCategoriaCuatro;
 
-let categoria4Nulo;
-let categoria4Bajo;
-let categoria4Medio;
-let categoria4Alto;
-let categoria4MuyAlto;
-let colorCategoriaCuatro;
+        let categoriaCuatro = ((respuesta31+respuesta32+respuesta33+respuesta34+respuesta37+respuesta38+respuesta39+respuesta40+respuesta41+respuesta42+respuesta43+respuesta44+respuesta45+respuesta46+respuesta69+respuesta70+respuesta71+respuesta72+respuesta57+respuesta58+respuesta59+respuesta60+respuesta61+respuesta62+respuesta63+respuesta64)/length).toFixed(2);
+        if(categoriaCuatro < 14){
+          colorCategoriaCuatro  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          categoria4Nulo= categoriaCuatro
+        }else if(categoriaCuatro >= 14 && categoriaCuatro < 29){
+          colorCategoriaCuatro =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          categoria4Bajo= categoriaCuatro
+        }else if(categoriaCuatro >=29 && categoriaCuatro < 42){
+          colorCategoriaCuatro=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          categoria4Medio= categoriaCuatro
+        }else if(categoriaCuatro >=42 && categoriaCuatro < 58){
+          colorCategoriaCuatro = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          categoria4Alto= categoriaCuatro
+        }else if(categoriaCuatro >= 58){
+          colorCategoriaCuatro= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          categoria4MuyAlto= categoriaCuatro
+        }
 
-let categoriaCuatro = ((respuesta31+respuesta32+respuesta33+respuesta34+respuesta37+respuesta38+respuesta39+respuesta40+respuesta41+respuesta42+respuesta43+respuesta44+respuesta45+respuesta46+respuesta69+respuesta70+respuesta71+respuesta72+respuesta57+respuesta58+respuesta59+respuesta60+respuesta61+respuesta62+respuesta63+respuesta64)/length).toFixed(2);
-if(categoriaCuatro < 14){
-  colorCategoriaCuatro  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  categoria4Nulo= categoriaCuatro
-}else if(categoriaCuatro >= 14 && categoriaCuatro < 29){
-  colorCategoriaCuatro =<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  categoria4Bajo= categoriaCuatro
-}else if(categoriaCuatro >=29 && categoriaCuatro < 42){
-  colorCategoriaCuatro=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  categoria4Medio= categoriaCuatro
-}else if(categoriaCuatro >=42 && categoriaCuatro < 58){
-  colorCategoriaCuatro = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  categoria4Alto= categoriaCuatro
-}else if(categoriaCuatro >= 58){
-  colorCategoriaCuatro= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  categoria4MuyAlto= categoriaCuatro
-}
+        let categoria5Nulo;
+        let categoria5Bajo;
+        let categoria5Medio;
+        let categoria5Alto;
+        let categoria5MuyAlto;
+        let colorCategoriaCinco;
+        let categoriaCinco = ((respuesta47+respuesta48+respuesta49+respuesta50+respuesta51+respuesta52+respuesta55+respuesta56+respuesta53+respuesta54)/length).toFixed(2);
+        if(categoriaCinco < 10){
+          colorCategoriaCinco  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          categoria5Nulo= categoriaCinco
+        }else if(categoriaCinco >= 10 && categoriaCinco < 14){
+          colorCategoriaCinco=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          categoria5Bajo= categoriaCinco
+        }else if(categoriaCinco >=14 && categoriaCinco < 18){
+          colorCategoriaCinco=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          categoria5Medio= categoriaCinco
+        }else if(categoriaCinco >=18 && categoriaCinco < 23){
+          colorCategoriaCinco = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          categoria5Alto= categoriaCinco
+        }else if(categoriaCinco >= 23){
+          colorCategoriaCinco= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          categoria5MuyAlto= categoriaCinco
+        }
 
-let categoria5Nulo;
-let categoria5Bajo;
-let categoria5Medio;
-let categoria5Alto;
-let categoria5MuyAlto;
-let colorCategoriaCinco;
-let categoriaCinco = ((respuesta47+respuesta48+respuesta49+respuesta50+respuesta51+respuesta52+respuesta55+respuesta56+respuesta53+respuesta54)/length).toFixed(2);
-if(categoriaCinco < 10){
-  colorCategoriaCinco  = <td style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  categoria5Nulo= categoriaCinco
-}else if(categoriaCinco >= 10 && categoriaCinco < 14){
-  colorCategoriaCinco=<td style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  categoria5Bajo= categoriaCinco
-}else if(categoriaCinco >=14 && categoriaCinco < 18){
-  colorCategoriaCinco=<td style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  categoria5Medio= categoriaCinco
-}else if(categoriaCinco >=18 && categoriaCinco < 23){
-  colorCategoriaCinco = <td style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  categoria5Alto= categoriaCinco
-}else if(categoriaCinco >= 23){
-  colorCategoriaCinco= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  categoria5MuyAlto= categoriaCinco
-}
+        let Dominio1Nulo;
+        let Dominio1Bajo;
+        let Dominio1Medio;
+        let Dominio1Alto;
+        let Dominio1MuyAlto;
+        let colorDominioUno;
+        let DominioUno =( (respuesta1+respuesta3+respuesta2+respuesta4+respuesta5)/length).toFixed(2);
+        if(DominioUno < 5){
+          colorDominioUno  = <td  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          Dominio1Nulo= DominioUno
+        }else if(DominioUno >= 5 && DominioUno < 9){
+          colorDominioUno=<td  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          Dominio1Bajo= DominioUno
+        }else if(DominioUno >= 9 && DominioUno < 11){
+          colorDominioUno=<td  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          Dominio1Medio= DominioUno
+        }else if(DominioUno >=11 && DominioUno < 14){
+          colorDominioUno = <td  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          Dominio1Alto= DominioUno
+        }else if(DominioUno >= 14){
+          colorDominioUno= <td  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          Dominio1MuyAlto= DominioUno
+        }
+        let Dominio2Nulo;
+        let Dominio2Bajo;
+        let Dominio2Medio;
+        let Dominio2Alto;
+        let Dominio2MuyAlto;
+        let colorDominioDos;
+        let DominioDos = ((respuesta6+respuesta12+respuesta7+respuesta8+respuesta9+respuesta10+respuesta11+respuesta65+respuesta66+respuesta67+respuesta68+respuesta13+respuesta14+respuesta15+respuesta16)/length).toFixed(2);
+        if(DominioDos < 15){
+          colorDominioDos  = <td  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          Dominio2Nulo= DominioDos
+        }else if(DominioDos >= 15 && DominioDos < 21){
+          colorDominioDos=<td  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          Dominio2Bajo= DominioDos
+        }else if(DominioDos >= 21 && DominioDos < 27){
+          colorDominioDos=<td  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          Dominio2Medio= DominioDos
+        }else if(DominioDos >= 27 && DominioDos < 37){
+          colorDominioDos = <td  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          Dominio2Alto= DominioDos
+        }else if(DominioDos >= 37){
+          colorDominioDos= <td  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          Dominio2MuyAlto= DominioDos
+        }
 
-let Dominio1Nulo;
-let Dominio1Bajo;
-let Dominio1Medio;
-let Dominio1Alto;
-let Dominio1MuyAlto;
-let colorDominioUno;
-let DominioUno =( (respuesta1+respuesta3+respuesta2+respuesta4+respuesta5)/length).toFixed(2);
-if(DominioUno < 5){
-  colorDominioUno  = <td  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  Dominio1Nulo= DominioUno
-}else if(DominioUno >= 5 && DominioUno < 9){
-  colorDominioUno=<td  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  Dominio1Bajo= DominioUno
-}else if(DominioUno >= 9 && DominioUno < 11){
-  colorDominioUno=<td  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  Dominio1Medio= DominioUno
-}else if(DominioUno >=11 && DominioUno < 14){
-  colorDominioUno = <td  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  Dominio1Alto= DominioUno
-}else if(DominioUno >= 14){
-  colorDominioUno= <td  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  Dominio1MuyAlto= DominioUno
-}
-let Dominio2Nulo;
-let Dominio2Bajo;
-let Dominio2Medio;
-let Dominio2Alto;
-let Dominio2MuyAlto;
-let colorDominioDos;
-let DominioDos = ((respuesta6+respuesta12+respuesta7+respuesta8+respuesta9+respuesta10+respuesta11+respuesta65+respuesta66+respuesta67+respuesta68+respuesta13+respuesta14+respuesta15+respuesta16)/length).toFixed(2);
-if(DominioDos < 15){
-  colorDominioDos  = <td  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  Dominio2Nulo= DominioDos
-}else if(DominioDos >= 15 && DominioDos < 21){
-  colorDominioDos=<td  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  Dominio2Bajo= DominioDos
-}else if(DominioDos >= 21 && DominioDos < 27){
-  colorDominioDos=<td  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  Dominio2Medio= DominioDos
-}else if(DominioDos >= 27 && DominioDos < 37){
-  colorDominioDos = <td  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  Dominio2Alto= DominioDos
-}else if(DominioDos >= 37){
-  colorDominioDos= <td  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  Dominio2MuyAlto= DominioDos
-}
+        let Dominio3Nulo;
+        let Dominio3Bajo;
+        let Dominio3Medio;
+        let Dominio3Alto;
+        let Dominio3MuyAlto;
+        let colorDominioTres;
+        let DominioTres = ((respuesta25+respuesta26+respuesta27+respuesta28+respuesta23+respuesta24+respuesta29+respuesta30+respuesta35+respuesta36)/length).toFixed(2);
+        if(DominioTres < 11){
+          colorDominioTres  = <td  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          Dominio3Nulo= DominioTres
+        }else if(DominioTres >= 11 && DominioTres < 16){
+          colorDominioTres=<td  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          Dominio3Bajo= DominioTres
+        }else if(DominioTres >= 16 && DominioTres < 21){
+          colorDominioTres=<td  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          Dominio3Medio= DominioTres
+        }else if(DominioTres >= 21 && DominioTres < 25){
+          colorDominioTres = <td  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          Dominio3Alto= DominioTres
+        }else if(DominioTres >= 25){
+          colorDominioTres= <td  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          Dominio3MuyAlto= DominioTres
+        }
 
-let Dominio3Nulo;
-let Dominio3Bajo;
-let Dominio3Medio;
-let Dominio3Alto;
-let Dominio3MuyAlto;
-let colorDominioTres;
-let DominioTres = ((respuesta25+respuesta26+respuesta27+respuesta28+respuesta23+respuesta24+respuesta29+respuesta30+respuesta35+respuesta36)/length).toFixed(2);
-if(DominioTres < 11){
-  colorDominioTres  = <td  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  Dominio3Nulo= DominioTres
-}else if(DominioTres >= 11 && DominioTres < 16){
-  colorDominioTres=<td  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  Dominio3Bajo= DominioTres
-}else if(DominioTres >= 16 && DominioTres < 21){
-  colorDominioTres=<td  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  Dominio3Medio= DominioTres
-}else if(DominioTres >= 21 && DominioTres < 25){
-  colorDominioTres = <td  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  Dominio3Alto= DominioTres
-}else if(DominioTres >= 25){
-  colorDominioTres= <td  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  Dominio3MuyAlto= DominioTres
-}
+        let Dominio4Nulo;
+        let Dominio4Bajo;
+        let Dominio4Medio;
+        let Dominio4Alto;
+        let Dominio4MuyAlto;
+        let colorDominioCuatro;
+        let DominioCuatro =( (respuesta17+respuesta18)/length).toFixed(2);
+        if(DominioCuatro < 1){
+          colorDominioCuatro  = <td  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          Dominio4Nulo= DominioCuatro
+        }else if(DominioCuatro >= 1 && DominioCuatro < 2){
+          colorDominioCuatro=<td  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          Dominio4Bajo= DominioCuatro
+        }else if(DominioCuatro >= 2 && DominioCuatro < 4){
+          colorDominioCuatro = <td  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          Dominio4Medio= DominioCuatro
+        }else if(DominioCuatro >= 4 && DominioCuatro < 6){
+          colorDominioCuatro = <td  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          Dominio4Alto= DominioCuatro
+        }else if(DominioCuatro >= 6){
+          colorDominioCuatro= <td  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          Dominio4MuyAlto= DominioCuatro
+        }
 
-let Dominio4Nulo;
-let Dominio4Bajo;
-let Dominio4Medio;
-let Dominio4Alto;
-let Dominio4MuyAlto;
-let colorDominioCuatro;
-let DominioCuatro =( (respuesta17+respuesta18)/length).toFixed(2);
-if(DominioCuatro < 1){
-  colorDominioCuatro  = <td  width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  Dominio4Nulo= DominioCuatro
-}else if(DominioCuatro >= 1 && DominioCuatro < 2){
-  colorDominioCuatro=<td  width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  Dominio4Bajo= DominioCuatro
-}else if(DominioCuatro >= 2 && DominioCuatro < 4){
-  colorDominioCuatro = <td  width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  Dominio4Medio= DominioCuatro
-}else if(DominioCuatro >= 4 && DominioCuatro < 6){
-  colorDominioCuatro = <td  width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  Dominio4Alto= DominioCuatro
-}else if(DominioCuatro >= 6){
-  colorDominioCuatro= <td  width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  Dominio4MuyAlto= DominioCuatro
-}
+        let Dominio5Nulo;
+        let Dominio5Bajo;
+        let Dominio5Medio;
+        let Dominio5Alto;
+        let Dominio5MuyAlto;
+        let colorDominioCinco;
+        let DominioCinco = ((respuesta19+respuesta20+respuesta21+respuesta22)/length).toFixed(2);
+        if(DominioCinco < 4){
+          colorDominioCinco  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          Dominio5Nulo= DominioCinco
+        }else if(DominioCinco >= 4 && DominioCinco < 6){
+          colorDominioCinco=<td width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          Dominio5Bajo= DominioCinco
+        }else if(DominioCinco >= 6 && DominioCinco < 8){
+          colorDominioCinco=<td width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          Dominio5Medio= DominioCinco
+        }else if(DominioCinco >= 8 && DominioCinco < 10){
+          colorDominioCinco = <td  width="20px"style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          Dominio5Alto= DominioCinco
+        }else if(DominioCinco >= 10){
+          colorDominioCinco= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          Dominio5MuyAlto= DominioCinco
+        }
 
-let Dominio5Nulo;
-let Dominio5Bajo;
-let Dominio5Medio;
-let Dominio5Alto;
-let Dominio5MuyAlto;
-let colorDominioCinco;
-let DominioCinco = ((respuesta19+respuesta20+respuesta21+respuesta22)/length).toFixed(2);
-if(DominioCinco < 4){
-  colorDominioCinco  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  Dominio5Nulo= DominioCinco
-}else if(DominioCinco >= 4 && DominioCinco < 6){
-  colorDominioCinco=<td width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  Dominio5Bajo= DominioCinco
-}else if(DominioCinco >= 6 && DominioCinco < 8){
-  colorDominioCinco=<td width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  Dominio5Medio= DominioCinco
-}else if(DominioCinco >= 8 && DominioCinco < 10){
-  colorDominioCinco = <td  width="20px"style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  Dominio5Alto= DominioCinco
-}else if(DominioCinco >= 10){
-  colorDominioCinco= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  Dominio5MuyAlto= DominioCinco
-}
+        let Dominio6Nulo;
+        let Dominio6Bajo;
+        let Dominio6Medio;
+        let Dominio6Alto;
+        let Dominio6MuyAlto;
+        let colorDominioSeis;
+        let DominioSeis = ((respuesta31+respuesta32+respuesta33+respuesta34+respuesta37+respuesta38+respuesta39+respuesta40+respuesta41)/length).toFixed(2);
+        if(DominioSeis < 9){
+          colorDominioSeis  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          Dominio6Nulo= DominioSeis
+        }else if(DominioSeis >= 9 && DominioSeis < 12){
+          colorDominioSeis=<td  width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          Dominio6Bajo= DominioSeis
+        }else if(DominioSeis >= 12 && DominioSeis < 16){
+          colorDominioSeis=<td width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          Dominio6Medio= DominioSeis
+        }else if(DominioSeis >= 16 && DominioSeis < 20){
+          colorDominioSeis = <td width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          Dominio6Alto= DominioSeis
+        }else if(DominioSeis >= 20){
+          colorDominioSeis= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          Dominio6MuyAlto= DominioSeis
+        }
 
-let Dominio6Nulo;
-let Dominio6Bajo;
-let Dominio6Medio;
-let Dominio6Alto;
-let Dominio6MuyAlto;
-let colorDominioSeis;
-let DominioSeis = ((respuesta31+respuesta32+respuesta33+respuesta34+respuesta37+respuesta38+respuesta39+respuesta40+respuesta41)/length).toFixed(2);
-if(DominioSeis < 9){
-  colorDominioSeis  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  Dominio6Nulo= DominioSeis
-}else if(DominioSeis >= 9 && DominioSeis < 12){
-  colorDominioSeis=<td  width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  Dominio6Bajo= DominioSeis
-}else if(DominioSeis >= 12 && DominioSeis < 16){
-  colorDominioSeis=<td width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  Dominio6Medio= DominioSeis
-}else if(DominioSeis >= 16 && DominioSeis < 20){
-  colorDominioSeis = <td width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  Dominio6Alto= DominioSeis
-}else if(DominioSeis >= 20){
-  colorDominioSeis= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  Dominio6MuyAlto= DominioSeis
-}
+        let Dominio7Nulo;
+        let Dominio7Bajo;
+        let Dominio7Medio;
+        let Dominio7Alto;
+        let Dominio7MuyAlto;
+        let colorDominioSiete;
+        let DominioSiete = ((respuesta42+respuesta43+respuesta44+respuesta45+respuesta46+respuesta69+respuesta70+respuesta71+respuesta72)/length).toFixed(2);
+        if(DominioSiete < 10){
+          colorDominioSiete  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          Dominio7Nulo= DominioSiete
+        }else if(DominioSiete >= 10 && DominioSiete < 13){
+          colorDominioSiete=<td width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          Dominio7Bajo= DominioSiete
+        }else if(DominioSiete >= 13 && DominioSiete < 17){
+          colorDominioSiete=<td  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          Dominio7Medio= DominioSiete
+        }else if(DominioSiete >= 17 && DominioSiete < 21){
+          colorDominioSiete = <td width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          Dominio7Alto= DominioSiete
+        }else if(DominioSiete >= 21){
+          colorDominioSiete= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          Dominio7MuyAlto= DominioSiete
+        }
 
-let Dominio7Nulo;
-let Dominio7Bajo;
-let Dominio7Medio;
-let Dominio7Alto;
-let Dominio7MuyAlto;
-let colorDominioSiete;
-let DominioSiete = ((respuesta42+respuesta43+respuesta44+respuesta45+respuesta46+respuesta69+respuesta70+respuesta71+respuesta72)/length).toFixed(2);
-if(DominioSiete < 10){
-  colorDominioSiete  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  Dominio7Nulo= DominioSiete
-}else if(DominioSiete >= 10 && DominioSiete < 13){
-  colorDominioSiete=<td width="20px" style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  Dominio7Bajo= DominioSiete
-}else if(DominioSiete >= 13 && DominioSiete < 17){
-  colorDominioSiete=<td  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  Dominio7Medio= DominioSiete
-}else if(DominioSiete >= 17 && DominioSiete < 21){
-  colorDominioSiete = <td width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  Dominio7Alto= DominioSiete
-}else if(DominioSiete >= 21){
-  colorDominioSiete= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  Dominio7MuyAlto= DominioSiete
-}
+        let Dominio8Nulo;
+        let Dominio8Bajo;
+        let Dominio8Medio;
+        let Dominio8Alto;
+        let Dominio8MuyAlto;
+        let colorDominioOcho;
+        let DominioOcho = ((respuesta57+respuesta58+respuesta59+respuesta60+respuesta61+respuesta62+respuesta63+respuesta64)/length).toFixed(2);
+        if(DominioOcho < 7){
+          colorDominioOcho  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          Dominio8Nulo= DominioOcho
+        }else if(DominioOcho >= 7 && DominioOcho < 10){
+          colorDominioOcho  = <td width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          Dominio8Bajo= DominioOcho
+        }else if(DominioOcho >= 10 && DominioOcho < 13){
+          colorDominioOcho=<td width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          Dominio8Medio= DominioOcho
+        }else if(DominioOcho >= 13 && DominioOcho < 16){
+          colorDominioOcho = <td width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          Dominio8Alto= DominioOcho
+        }else if(DominioOcho >= 16){
+          colorDominioOcho= <td width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          Dominio8MuyAlto= DominioOcho
+        }
 
-let Dominio8Nulo;
-let Dominio8Bajo;
-let Dominio8Medio;
-let Dominio8Alto;
-let Dominio8MuyAlto;
-let colorDominioOcho;
-let DominioOcho = ((respuesta57+respuesta58+respuesta59+respuesta60+respuesta61+respuesta62+respuesta63+respuesta64)/length).toFixed(2);
-if(DominioOcho < 7){
-  colorDominioOcho  = <td width="20px" style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  Dominio8Nulo= DominioOcho
-}else if(DominioOcho >= 7 && DominioOcho < 10){
-  colorDominioOcho  = <td width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  Dominio8Bajo= DominioOcho
-}else if(DominioOcho >= 10 && DominioOcho < 13){
-  colorDominioOcho=<td width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  Dominio8Medio= DominioOcho
-}else if(DominioOcho >= 13 && DominioOcho < 16){
-  colorDominioOcho = <td width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  Dominio8Alto= DominioOcho
-}else if(DominioOcho >= 16){
-  colorDominioOcho= <td width="20px"  style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  Dominio8MuyAlto= DominioOcho
-}
+        let Dominio9Nulo;
+        let Dominio9Bajo;
+        let Dominio9Medio;
+        let Dominio9Alto;
+        let Dominio9MuyAlto;
+        let colorDominioNueve;
+        let DominioNueve = ((respuesta47+respuesta48+respuesta49+respuesta50+respuesta51+respuesta52)/length).toFixed(2);
+        if(DominioNueve < 6){
+          colorDominioNueve  = <td width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          Dominio9Nulo= DominioNueve
+        }else if(DominioNueve >= 6 && DominioNueve < 10){
+          colorDominioNueve  = <td width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          Dominio9Bajo= DominioNueve
+        }else if(DominioNueve >= 10 && DominioNueve < 14){
+          colorDominioNueve=<td  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          Dominio9Medio= DominioNueve
+        }else if(DominioNueve >= 14 && DominioNueve < 18){
+          colorDominioNueve = <td  width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          Dominio9Alto= DominioNueve
+        }else if(DominioNueve >= 18){
+          colorDominioNueve= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          Dominio9MuyAlto= DominioNueve
+        }
 
-let Dominio9Nulo;
-let Dominio9Bajo;
-let Dominio9Medio;
-let Dominio9Alto;
-let Dominio9MuyAlto;
-let colorDominioNueve;
-let DominioNueve = ((respuesta47+respuesta48+respuesta49+respuesta50+respuesta51+respuesta52)/length).toFixed(2);
-if(DominioNueve < 6){
-  colorDominioNueve  = <td width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  Dominio9Nulo= DominioNueve
-}else if(DominioNueve >= 6 && DominioNueve < 10){
-  colorDominioNueve  = <td width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  Dominio9Bajo= DominioNueve
-}else if(DominioNueve >= 10 && DominioNueve < 14){
-  colorDominioNueve=<td  width="20px" style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  Dominio9Medio= DominioNueve
-}else if(DominioNueve >= 14 && DominioNueve < 18){
-  colorDominioNueve = <td  width="20px" style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  Dominio9Alto= DominioNueve
-}else if(DominioNueve >= 18){
-  colorDominioNueve= <td  width="20px" style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  Dominio9MuyAlto= DominioNueve
-}
-
-let Dominio10Nulo;
-let Dominio10Bajo;
-let Dominio10Medio;
-let Dominio10Alto;
-let Dominio10MuyAlto;
-let colorDominioDiez;
-let DominioDiez = ((respuesta55+respuesta56+respuesta53+respuesta54)/length).toFixed(2);
-if(DominioDiez < 4){
-  colorDominioDiez  = <td width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
-  Dominio10Nulo= DominioDiez
-}else if(DominioDiez >= 4 && DominioDiez < 6){
-  colorDominioDiez  = <td width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
-  Dominio10Bajo= DominioDiez
-}else if(DominioDiez >= 6 && DominioDiez < 8){
-  colorDominioDiez=<td width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
-  Dominio10Medio= DominioDiez
-}else if(DominioDiez >= 8 && DominioDiez < 10){
-  colorDominioDiez = <td width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
-  Dominio10Alto= DominioDiez
-}else if(DominioDiez >= 10){
-  colorDominioDiez= <td  width="20px"style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
-  Dominio10MuyAlto= DominioDiez
-}
- a = 1  
+        let Dominio10Nulo;
+        let Dominio10Bajo;
+        let Dominio10Medio;
+        let Dominio10Alto;
+        let Dominio10MuyAlto;
+        let colorDominioDiez;
+        let DominioDiez = ((respuesta55+respuesta56+respuesta53+respuesta54)/length).toFixed(2);
+        if(DominioDiez < 4){
+          colorDominioDiez  = <td width="20px"  style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></td>
+          Dominio10Nulo= DominioDiez
+        }else if(DominioDiez >= 4 && DominioDiez < 6){
+          colorDominioDiez  = <td width="20px"  style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black">Bajo</font></td>
+          Dominio10Bajo= DominioDiez
+        }else if(DominioDiez >= 6 && DominioDiez < 8){
+          colorDominioDiez=<td width="20px"  style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black">Medio</font></td>
+          Dominio10Medio= DominioDiez
+        }else if(DominioDiez >= 8 && DominioDiez < 10){
+          colorDominioDiez = <td width="20px"  style={{backgroundColor: "#FFC000"}} align="center"><font size="1" face="arial"color="black">Alto</font></td>
+          Dominio10Alto= DominioDiez
+        }else if(DominioDiez >= 10){
+          colorDominioDiez= <td  width="20px"style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
+          Dominio10MuyAlto= DominioDiez
+        }
+        a = 1  
 
 ponderacion=<React.Fragment>
+            <MDBCard>
+              <MDBCardHeader>
+                <MDBCardTitle><center>Resultados globales de la evaluación EEO</center></MDBCardTitle>
+              </MDBCardHeader>
+              <MDBCardBody>
 
-<MDBContainer style={{marginTop:20}}>
-  <table>
-    <tr>
-      <td width="33%">
-      <MDBBtn className = "text-white"  gradient="purple" size="md"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-      Descargar resultados globales
-      </MDBBtn>
-      </td>
-      <td>
+              <table style={{marginLeft:"20%"}}>
+              <tr>
+              <td width="65%" > <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+              <td width="35%" >
+              <img src={diagnostico} alt="logo" style = {{width:150}}/>
+              </td>
+              </tr>
+              </table>
+              <center> 
+              <font face="arial" className = "mt-4" ><center><strong>REPORTE GLOBAL DEL CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</strong></center></font><br/>
+              <strong className="text-left  ml-2 mt-4">{localStorage.getItem("razonsocial")}</strong><br/>
+              <font face="arial" className = "mt-4" >FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8} </strong> </font>
 
-      </td>
-      <td width="33%">
-      <font  face="arial" className = "mt-4" ><strong> Evaluacioón EEO. </strong><br/><strong>FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></strong><br/><strong>{localStorage.getItem("razonsocial")}</strong> </font>
-      </td>
-      <td width="34%">
-      <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100}}/> 
-      </td>
-      <td>{botonCerrar}</td>
-    </tr>
-  </table>
-
-
- </MDBContainer>
- <br/>
-
-<MDBContainer >
-
-<Table   responsive small borderless className="text-left">
-<TableHead>
-<TableRow>
-  <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>Resultados Generales</TableCell>
-    {celdaPrev}
-  <TableCell width="6%"  > <strong>   TOTAL {general.toFixed(2)}  Puntos </strong></TableCell>
-  <TableCell width="2%" ></TableCell>
-  <TableCell width="1%"  ></TableCell>
- {criteriosPrev}
-</TableRow>
-</TableHead>
-</Table>
- </MDBContainer>
-
-<TableContainer component={Paper} style={{marginBottom:30,marginTop:20}}>
-      <Table  size="small" aria-label="a dense table" >
-        <TableHead>
-          <TableRow>
-            <TableCell width="50%" ></TableCell>
-            <TableCell align="right" style={{backgroundColor: "#9BE0F7"}}>NULO</TableCell>
-            <TableCell align="right" style={{backgroundColor: "#6BF56E"}}>BAJO&nbsp;</TableCell>
-            <TableCell align="right" style={{backgroundColor: "#FFFF00"}}>MEDIO&nbsp;</TableCell>
-            <TableCell align="right" style={{backgroundColor: "#FFC000"}}>ALTO&nbsp;</TableCell>
-            <TableCell align="right" style={{backgroundColor: "#FF0000"}}>MUY ALTO&nbsp;</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody  style={{marginTop:20}}>       
-            <TableRow>
-              <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>RESULTADOS DE LA CATEGORIA</strong></TableCell>              
-              <TableCell component="th" scope="row"></TableCell>
-              <TableCell component="th" scope="row" ></TableCell>
-              <TableCell component="th" scope="row" ></TableCell>
-              <TableCell component="th" scope="row" ></TableCell>
-              <TableCell component="th" scope="row" ></TableCell>  
-            </TableRow>
-            <TableRow>
+              </center>
+              <br/>
+              <Table   responsive small borderless className="text-left">
+              <TableHead>
+              <TableRow>
+                <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>Resultados Generales</TableCell>
+                  {celdaPrev}
+                <TableCell width="6%"  > <strong>   TOTAL {general.toFixed(2)}  Puntos </strong></TableCell>
+                <TableCell width="2%" ></TableCell>
+                <TableCell width="1%"  ></TableCell>
+              {criteriosPrev}
+              </TableRow>
+              </TableHead>
+              </Table>
+              <TableContainer component={Paper} style={{marginBottom:30,marginTop:20}}>
+              <Table  size="small" aria-label="a dense table" >
+                <TableHead>
+                  <TableRow>
+                    <TableCell width="50%" ></TableCell>
+                    <TableCell width="9%" align="right" style={{backgroundColor: "#9BE0F7"}}><font size="1" face="arial"color="black"><strong>NULO</strong></font></TableCell>
+                    <TableCell width="9%" align="right" style={{backgroundColor: "#6BF56E"}}><font size="1" face="arial"color="black"><strong>BAJO</strong></font></TableCell>
+                    <TableCell width="10%" align="right" style={{backgroundColor: "#FFFF00"}}><font size="1" face="arial"color="black"><strong>MEDIO</strong></font></TableCell>
+                    <TableCell width="9%" align="right" style={{backgroundColor: "#FFC000"}}><font size="1" face="arial"color="black"><strong>ALTO</strong></font></TableCell>
+                    <TableCell width="13%" align="right" style={{backgroundColor: "#FF0000"}}><font size="1" face="arial"color="black"><strong>MUY ALTO</strong></font></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody  style={{marginTop:20}}>       
+                <TableRow>
+                  <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>RESULTADOS DE LA CATEGORIA</strong></TableCell>              
+                  <TableCell component="th" scope="row"></TableCell>
+                  <TableCell component="th" scope="row" ></TableCell>
+                  <TableCell component="th" scope="row" ></TableCell>
+                  <TableCell component="th" scope="row" ></TableCell>
+                  <TableCell component="th" scope="row" ></TableCell>  
+                </TableRow>
+                <TableRow>
                 <TableCell component="th" scope="row" >I. Ambiente de Trabajo</TableCell>
                 <TableCell component="th" scope="row" align="center">{categoria1Nulo}</TableCell>
                 <TableCell component="th" scope="row" align="center">{categoria1Bajo}</TableCell>
@@ -4109,215 +4129,216 @@ ponderacion=<React.Fragment>
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
               <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}></TableCell>              
 
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >1.- Condiciones peligrosas e inseguras</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta1/length)+(respuesta3/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" width="50%" >2.- Condiciones deficientes e insalubres</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta2/length)+(respuesta4/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow> 
-           
-            <TableRow>
-            <TableCell component="th" scope="row" >3.- Trabajos peligrosos</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{(respuesta5/length).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" width="50%">4.- Cargas cuantitativas</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta6/length)+(respuesta12/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" width="50%">5.- Ritmos de trabajo acelerado</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta7/length)+(respuesta8/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >6.- Carga mental</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta9/length)+(respuesta10/length)+(respuesta11/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >7.- Cargas psicológicas emocionales</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta65/length)+(respuesta66/length)+(respuesta67/length)+(respuesta68/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >8.- Cargas de alta responsabilidad</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta13/length)+(respuesta14/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >9.- Cargas contradictorias o inconsistentes</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta15/length)+(respuesta16/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" width="50%" >10.- Falta de control y autonomía sobre el trabajo</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta25/length)+(respuesta26/length)+(respuesta27/length)+(respuesta28/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >11.- Limitada o nula posibilidad de desarrollo</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta23/length)+(respuesta24/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >1.- Condiciones peligrosas e inseguras</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta1/length)+(respuesta3/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" width="50%" >2.- Condiciones deficientes e insalubres</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta2/length)+(respuesta4/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow> 
+            
+              <TableRow>
+              <TableCell component="th" scope="row" >3.- Trabajos peligrosos</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{(respuesta5/length).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" width="50%">4.- Cargas cuantitativas</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta6/length)+(respuesta12/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" width="50%">5.- Ritmos de trabajo acelerado</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta7/length)+(respuesta8/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >6.- Carga mental</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta9/length)+(respuesta10/length)+(respuesta11/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >7.- Cargas psicológicas emocionales</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta65/length)+(respuesta66/length)+(respuesta67/length)+(respuesta68/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >8.- Cargas de alta responsabilidad</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta13/length)+(respuesta14/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >9.- Cargas contradictorias o inconsistentes</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta15/length)+(respuesta16/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" width="50%" >10.- Falta de control y autonomía sobre el trabajo</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta25/length)+(respuesta26/length)+(respuesta27/length)+(respuesta28/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >11.- Limitada o nula posibilidad de desarrollo</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta23/length)+(respuesta24/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
 
-            <TableRow>
-            <TableCell component="th" scope="row" >12.- Insuficiente participación y manejo del cambio</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta29/length)+(respuesta30/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >13.- Limitada o inexistente capacitación</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta35/length)+(respuesta36/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >14.- Jornadas de trabajo extensas</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta17/length)+(respuesta18/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >15.- Influencia del trabajo fuera del centro laboral</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {((respuesta19/length)+(respuesta20/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >16.- Influencia de las responsabilidades familiares</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta21/length)+(respuesta22/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >17.- Escasa claridad de funciones</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta31/length)+(respuesta32/length)+(respuesta33/length)+(respuesta34/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >18.- Características del liderazgo</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta37/length)+(respuesta38/length)+(respuesta39/length)+(respuesta40/length)+(respuesta41/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >19.- Relaciones sociales en el trabajo</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta42/length)+(respuesta43/length)+(respuesta44/length)+(respuesta45/length)+(respuesta46/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >20.- Deficiente relación con los colaboradores que supervisa</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta69/length)+(respuesta70/length)+(respuesta71/length)+(respuesta72/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >21.- Violencia laboral</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta57/length)+(respuesta58/length)+(respuesta59/length)+(respuesta60/length)+(respuesta61/length)+(respuesta62/length)+(respuesta63/length)+(respuesta64/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >22.- Escasa o nula retroalimentación del desempeño</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta47/length)+(respuesta48/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >12.- Insuficiente participación y manejo del cambio</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta29/length)+(respuesta30/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >13.- Limitada o inexistente capacitación</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta35/length)+(respuesta36/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >14.- Jornadas de trabajo extensas</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta17/length)+(respuesta18/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >15.- Influencia del trabajo fuera del centro laboral</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center"> {((respuesta19/length)+(respuesta20/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >16.- Influencia de las responsabilidades familiares</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta21/length)+(respuesta22/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >17.- Escasa claridad de funciones</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta31/length)+(respuesta32/length)+(respuesta33/length)+(respuesta34/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >18.- Características del liderazgo</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta37/length)+(respuesta38/length)+(respuesta39/length)+(respuesta40/length)+(respuesta41/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >19.- Relaciones sociales en el trabajo</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta42/length)+(respuesta43/length)+(respuesta44/length)+(respuesta45/length)+(respuesta46/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >20.- Deficiente relación con los colaboradores que supervisa</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta69/length)+(respuesta70/length)+(respuesta71/length)+(respuesta72/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >21.- Violencia laboral</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta57/length)+(respuesta58/length)+(respuesta59/length)+(respuesta60/length)+(respuesta61/length)+(respuesta62/length)+(respuesta63/length)+(respuesta64/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >22.- Escasa o nula retroalimentación del desempeño</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta47/length)+(respuesta48/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
 
-            <TableRow>
-            <TableCell component="th" scope="row" >23.- Escaso o nulo reconocimiento y compensación</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta49/length)+(respuesta50/length)+(respuesta51/length)+(respuesta52/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >24.- Limitado sentido de pertenencia</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center">{((respuesta55/length)+(respuesta56/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-            <TableRow>
-            <TableCell component="th" scope="row" >25.- Inestabilidad laboral</TableCell> 
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
-            <TableCell component="th" scope="row" align="center"> {((respuesta53/length)+(respuesta54/length)).toFixed(2)}</TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            <TableCell component="th" scope="row" ></TableCell>
-            </TableRow>
-          
-        </TableBody>
-      </Table>
-    </TableContainer>
-
+              <TableRow>
+              <TableCell component="th" scope="row" >23.- Escaso o nulo reconocimiento y compensación</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta49/length)+(respuesta50/length)+(respuesta51/length)+(respuesta52/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >24.- Limitado sentido de pertenencia</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center">{((respuesta55/length)+(respuesta56/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+              <TableRow>
+              <TableCell component="th" scope="row" >25.- Inestabilidad laboral</TableCell> 
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ><strong>Valor</strong></TableCell>
+              <TableCell component="th" scope="row" align="center"> {((respuesta53/length)+(respuesta54/length)).toFixed(2)}</TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              <TableCell component="th" scope="row" ></TableCell>
+              </TableRow>
+            
+          </TableBody>
+        </Table>
+      </TableContainer>
+      </MDBCardBody>
+      </MDBCard>
             <div>
                 <div className="example-config">
                   
@@ -4332,28 +4353,28 @@ ponderacion=<React.Fragment>
                         fileName={`Resultados globales EEO ${new Date().getFullYear()}`}
                         ref={(component) => this.pdfExportComponent = component}
                     >
-                        <div style={{ width: "500px" }}>
+                        <div style={{ width: "550px" }}>
                       
                             <MDBRow style={{marginBottom:10}}> 
                              <MDBCol>
-                            <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
-                    
-                            <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                             <MDBTable component={Paper}  small borderless className="text-left">
+                            <MDBTableBody>  
+                            <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
+
+                                <font size="3"face="arial"color="black">Reporte global de factores de riesgo psicosocial y evaluación de entorno organizacional en los centros de trabajo</font><br></br>  <br></br>  
+                              <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")} </font><br></br>  
+                              <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
+                              <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font><br/>
+                              <font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              </MDBTableBody>
+                              </MDBTable>    
+                              <center>   <img src={diagnostico} alt="logo" style = {{width:120,heigth:50}}/>&nbsp;&nbsp;&nbsp;<img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,heigth:20}}/></center>
                             </MDBCol> 
                             </MDBRow> 
-                            <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
-                            <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
-                          
-                                    <MDBTableBody>     
-                            <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-                            <font size="3"face="arial"color="black">Diagnóstico Global de factores de riesgo psicosocial y evaluación de entorno organizacional en los centros de trabajo</font><br></br>
-                            <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
-                            <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>
-                            <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
-                        
-                            </MDBTableBody>
-                            </MDBTable>
-
                               <br></br>
                               <br></br>
                               <br></br>
@@ -4423,7 +4444,7 @@ ponderacion=<React.Fragment>
                                 <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
                                     <MDBTableBody>
                                    <tr>
-                                   <td width="40%"><font size="1" face="arial"color="black">RESULTADO DEL NÚMERO DE EVALUACIONES :  </font></td>
+                                   <td width="30%"><font size="1" face="arial"color="black">RESULTADO </font></td>
                                    <td width="20%"><font size="1" face="arial"color="black">{general.toFixed(2)}</font></td>
                                    <td width="20%"><font size="1" face="arial"color="black">Nivel de riesgo </font></td>
                                     {celda}
@@ -4723,9 +4744,12 @@ ponderacion=<React.Fragment>
 </React.Fragment>
    } 
 
-    let pdfView1;
-    if(this.state.resultados[2]){ 
-      
+    let reporteIndividual;
+    let botonDescargarReporteIndividual;
+    if(this.state.resultados[2] && this.state.reporteIndividual === true){ 
+      botonDescargarReporteIndividual = <MDBBtn className = "text-white"  size="md" color="secondary"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+      Respuestas de {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}
+      </MDBBtn>
       let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16,value17,value18,value19,value20,value21,value22,value23,value24;
       let value25,value26,value27,value28,value29,value30,value31,value32,value33,value34,value35,value36,value37,value38,value39,value40,value41,value42,value43,value44,value45,value46;
       let value47,value48,value49,value50,value51,value52,value53,value54,value55,value56,value57,value58,value59,value60,value61,value62,value63,value64,value65,value66,value67,value68;
@@ -4733,41 +4757,29 @@ ponderacion=<React.Fragment>
 
       let filtrar1;
       filtrar1 =  this.state.resultados.filter(function(hero) {
-        console.log("filtrar1" , hero.fk_preguntasEEO)
-
         return hero.fk_preguntasEEO == 1;
       });
       value1 = filtrar1.pop()
-
-      console.log("filtrar1" , filtrar1)
-
       let filtrar2;
       filtrar2 =  this.state.resultados.filter(function(hero) {
         return hero.fk_preguntasEEO == 2;
       });
       value2 = filtrar2.pop()
-
       let filtrar3;
       filtrar3 =  this.state.resultados.filter(function(hero) {
         return hero.fk_preguntasEEO == 3;
       });
       value3 = filtrar3.pop()
-
-
       let filtrar4;
       filtrar4 =  this.state.resultados.filter(function(hero) {
         return hero.fk_preguntasEEO == 4;
       });
       value4 = filtrar4.pop()
-
-
       let filtrar5;
       filtrar5 =  this.state.resultados.filter(function(hero) {
         return hero.fk_preguntasEEO == 5;
       });
       value5 = filtrar5.pop()
-
-
       let filtrar6;
       filtrar6 =  this.state.resultados.filter(function(hero) {
         return hero.fk_preguntasEEO == 6;
@@ -4895,12 +4907,9 @@ ponderacion=<React.Fragment>
 
       let filtrar26;
       filtrar26 =  this.state.resultados.filter(function(hero) {
-        console.log("hero" , hero)
         return hero.fk_preguntasEEO == 26;
       });
       value26 = filtrar26.pop()
-
-      console.log("filtrar26" , filtrar25)
 
       let filtrar27;
       filtrar27 =  this.state.resultados.filter(function(hero) {
@@ -5178,566 +5187,533 @@ ponderacion=<React.Fragment>
       });
       value72 = filtrar72.pop()
  
-      console.log("resultads" , this.state.resultados)
 
       a = 1
-      pdfView1 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la Aplicación de la evaluación EEO </Alert>
+      reporteIndividual =
         <React.Fragment>
             <section className="flex-column  bg-white  pa4 "  >
-                <div  style={{marginLeft:"6%"}}>
-                      <MDBBtn className = "text-white"  size="md" color="secondary"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-                          Descargar Respuestas de {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}
-                      </MDBBtn>
-                      &nbsp;
-                    {botonCerrar}
-                </div>
-                <br/>
-                <MDBContainer style={{marginLeft:"6%"}}>
-                <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL<br/>EN LOS CENTROS DE TRABAJO</font>
-                 <br/><br/> <strong>{localStorage.getItem("razonsocial")}</strong><br/>
-                <MDBTable small borderless className="text-left mt-4 ">
-       
-                <MDBTableBody>   
-                <tr>
-                <td width="65%" > <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
-                <td width="35%" >
-                <img src={diagnostico} alt="logo" style = {{width:150}}/>
-
-                </td>
-                </tr>
-               
-                  <tr>
-                  <td width="65%"  >Nombre : {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} </td>
-                  <td width="35%"  >Puesto : {this.state.resultados[0].Puesto}</td>
-                  </tr>
-                  <tr>
-                  <td width="65%"  >Departamento : {this.state.resultados[0].AreaTrabajo}</td>
-                  <td width="35%" >Genero : {this.state.resultados[0].Sexo}</td> 
-                  </tr>
-                  <tr>
-                  <td width="65%" >Correo : {this.state.resultados[0].correo}</td>
-                  <td width="35%" >RFC : {this.state.resultados[0].RFC}</td>   
-                  </tr>
-                </MDBTableBody>
-                </MDBTable>
-                </MDBContainer>
-                
+            <MDBCard>
+                <MDBCardHeader>
+                    <MDBCardTitle><center>Resultados de la Aplicación de la evaluación EEO </center></MDBCardTitle>
+                  </MDBCardHeader>
+                <MDBCardBody>
+                <table style={{marginLeft:"20%"}}>
+                    <tr>
+                    <td width="65%" > <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                    <td width="35%" >
+                    <img src={diagnostico} alt="logo" style = {{width:150}}/>
+                    </td>
+                    </tr>
+                    </table>
+                    <center> 
+                    <font face="arial" className = "mt-4" ><center><strong>CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</strong></center></font><br/>
+                    <strong className="text-left  ml-2 mt-4">{localStorage.getItem("razonsocial")}</strong><br/>
+                    <table  style={{marginLeft:"10%"}} className="mt-4">
+                      <tr>
+                        <td width="40%"><strong>{this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</strong></td>
+                        <td width="20%"></td>
+                        <td width="40%"><strong>{this.state.resultados[0].RFC}</strong></td>
+                      </tr>
+                      <tr>
+                        <td><strong>{this.state.resultados[0].correo}</strong></td>
+                      </tr>
+                    </table>
+                    </center>                
                 <MDBContainer style={{marginLeft:20}} >
                 <MDBTable small borderless className="mt-4 text-left">
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th width="70%">I. Condiciones ambientales de su centro de trabajo.</th>    
+                      <th width="70%"><strong>I. Condiciones ambientales de su centro de trabajo.</strong></th>    
                       <td width="25%"></td>   
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td width="5%">1</td>
+                      <td width="5%"></td>
                       <td width="70%">El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</td>
-                      <td width="25%" >{value1.Respuestas}</td> 
+                      <td width="25%" >{value1.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td >2</td>
+                      <td ></td>
                       <td>Mi trabajo me exige hacer mucho esfuerzo físico</td>
-                      <td>{value2.Respuestas}</td> 
+                      <td>{value2.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>3</td>
+                      <td></td>
                       <td>Me preocupa sufrir un accidente en mi trabajo</td>
-                      <td>{value3.Respuestas}</td> 
+                      <td>{value3.Respuestas.toUpperCase()}</td> 
                     </tr>                    
                     <tr>
-                      <td>4</td>
+                      <td></td>
                       <td>Considero que en mi trabajo se aplican las normas de seguridad y salud en el trabajo</td>
-                      <td>{value4.Respuestas}</td> 
+                      <td>{value4.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>5</td>
+                      <td></td>
                       <td>Considero que las actividades que realizo son peligrosas</td>
-                      <td >{value5.Respuestas}</td> 
+                      <td >{value5.Respuestas.toUpperCase()}</td> 
                     </tr>
-                    <br/>
- 
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
                     <td></td>
-                      <th >II. La cantidad y ritmo de trabajo que tiene.</th>       
+                      <th ><strong>II. La cantidad y ritmo de trabajo que tiene.</strong></th>       
                       <td></td>
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td>6</td>
+                      <td></td>
                       <td>Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</td>   
-                      <td >{value6.Respuestas}</td> 
+                      <td >{value6.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>7</td>
+                      <td></td>
                       <td>Por la cantidad de trabajo que tengo debo trabajar sin parar</td>   
-                      <td >{value7.Respuestas}</td> 
+                      <td >{value7.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>8</td>
+                      <td></td>
                       <td>Considero que es necesario mantener un ritmo de trabajo acelerado</td>   
-                      <td >{value8.Respuestas}</td> 
+                      <td >{value8.Respuestas.toUpperCase()}</td> 
                     </tr>
-                    <br/>
                   </MDBTableBody>
   
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th width="70%">III. El esfuerzo mental que le exige su trabajo.</th>       
+                      <th width="70%"><strong>III. El esfuerzo mental que le exige su trabajo.</strong></th>       
                       <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td width="5%">9</td>
+                      <td width="5%"></td>
                       <td width="70%">Mi trabajo exige que esté muy concentrado</td> 
-                      <td width="25%" >{value9.Respuestas}</td> 
+                      <td width="25%" >{value9.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>10</td>
+                      <td></td>
                       <td>Mi trabajo requiere que memorice mucha información</td>   
-                      <td >{value10.Respuestas}</td> 
+                      <td >{value10.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>11</td>
+                      <td></td>
                       <td>En mi trabajo tengo que tomar decisiones difíciles muy rápido</td>   
-                      <td>{value11.Respuestas}</td> 
+                      <td>{value11.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>12</td>
+                      <td></td>
                       <td>Mi trabajo exige que atienda varios asuntos al mismo tiempo</td>   
-                      <td >{value12.Respuestas}</td> 
+                      <td >{value12.Respuestas.toUpperCase()}</td> 
                     </tr>
-                   <br/>
                   </MDBTableBody>
-
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th width="70%">IV. Trabajo y las responsabilidades que tiene.</th>       
+                      <th width="70%"><strong>IV. Trabajo y las responsabilidades que tiene.</strong></th>       
                       <td width="25%" ></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td width="5%">13</td>
+                      <td width="5%"></td>
                       <td width="70%">En mi trabajo soy responsable de cosas de mucho valor</td>   
-                      <td width="25%" >{value13.Respuestas}</td> 
+                      <td width="25%" >{value13.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>14</td>
+                      <td></td>
                       <td>Respondo ante mi jefe por los resultados de toda mi área de trabajo</td>   
-                      <td>{value14.Respuestas}</td> 
+                      <td>{value14.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>15</td>
+                      <td></td>
                       <td>En el trabajo me dan órdenes contradictorias</td>   
-                      <td>{value15.Respuestas}</td> 
+                      <td>{value15.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>16</td>
+                      <td></td>
                       <td>Considero que en mi trabajo me piden hacer cosas innecesarias</td>   
-                      <td>{value16.Respuestas}</td> 
+                      <td>{value16.Respuestas.toUpperCase()}</td> 
                     </tr>
-                    <br/>
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th width="70%">V. Jornada de trabajo.</th>       
+                      <th width="70%"><strong>V. Jornada de trabajo.</strong></th>       
                       <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td width="5%">17</td>
+                      <td width="5%"></td>
                       <td width="70%">Trabajo horas extras más de tres veces a la semana</td>   
-                      <td width="25%">{value17.Respuestas}</td> 
+                      <td width="25%">{value17.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>18</td>
+                      <td></td>
                       <td>Mi trabajo me exige laborar en días de descanso, festivos o fines de semana</td>   
-                      <td>{value18.Respuestas}</td> 
+                      <td>{value18.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>19</td>
+                      <td></td>
                       <td>Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales</td>   
-                      <td>{value19.Respuestas}</td> 
+                      <td>{value19.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>20</td>
+                      <td></td>
                       <td>Debo atender asuntos de trabajo cuando estoy en casa</td>   
-                      <td>{value20.Respuestas}</td> 
+                      <td>{value20.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>21</td>
+                      <td></td>
                       <td>Pienso en las actividades familiares o personales cuando estoy en mi trabajo</td>   
-                      <td>{value21.Respuestas}</td> 
+                      <td>{value21.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>22</td>
+                      <td></td>
                       <td>Pienso que mis responsabilidades familiares afectan mi trabajo</td>   
-                      <td>{value22.Respuestas}</td> 
+                      <td>{value22.Respuestas.toUpperCase()}</td> 
                     </tr>
                   </MDBTableBody>
                   </MDBTable>
-
                   <MDBTable small borderless className="mt-4 text-left">
                   <MDBTableHead >
                     <tr>
                       <th  width="5%"></th>
-                      <th  width="70%">VI. Decisiones que puede tomar en su trabajo.</th>       
+                      <th  width="70%"><strong>VI. Decisiones que puede tomar en su trabajo.</strong></th>       
                       <td  width="25%"></td> 
                     </tr>
                   </MDBTableHead>
-                 
                   <MDBTableBody>
                     <tr>
-                      <td width="5%">23</td>
+                      <td width="5%"></td>
                       <td width="70%">Mi trabajo permite que desarrolle nuevas habilidades</td>   
-                      <td width="25%">{value23.Respuestas}</td> 
+                      <td width="25%">{value23.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>24</td>
+                      <td></td>
                       <td>En mi trabajo puedo aspirar a un mejor puesto</td>   
-                      <td >{value24.Respuestas}</td> 
+                      <td >{value24.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>25</td>
+                      <td></td>
                       <td>Durante mi jornada de trabajo puedo tomar pausas cuando las necesito</td>   
-                      <td>{value25.Respuestas}</td> 
+                      <td>{value25.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td >26</td>
+                      <td ></td>
                       <td >Puedo decidir cuánto trabajo realizo durante la jornada laboral</td>   
-                      <td >{value26.Respuestas}</td> 
+                      <td >{value26.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>27</td>
+                      <td></td>
                       <td>Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo</td>   
-                      <td >{value27.Respuestas}</td> 
+                      <td >{value27.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>28</td>
+                      <td></td>
                       <td>Puedo cambiar el orden de las actividades que realizo en mi trabajo</td>   
-                      <td>{value28.Respuestas}</td> 
+                      <td>{value28.Respuestas.toUpperCase()}</td> 
                     </tr>
-                    <br/>
                   </MDBTableBody>
-                  
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th width="70%">VII.Cualquier tipo de cambio que ocurra en su trabajo (considere los últimos cambios realizados).</th>       
+                      <th width="70%"><strong>II.Cualquier tipo de cambio que ocurra en su trabajo (considere los últimos cambios realizados).</strong></th>       
                       <td width="25%"> </td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td  width="5%">29</td>
+                      <td  width="5%"></td>
                       <td  width="70%">Los cambios que se presentan en mi trabajo dificultan mi labor</td>   
-                      <td  width="25%">{value29.Respuestas}</td> 
+                      <td  width="25%">{value29.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>30</td>
+                      <td></td>
                       <td>Cuando se presentan cambios en mi trabajo se tienen en cuenta mis ideas o aportaciones</td>   
-                      <td >{value30.Respuestas}</td> 
+                      <td >{value30.Respuestas.toUpperCase()}</td> 
                     </tr>
-                    <br/>
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th width="70%">VIII. capacitación e información que se le proporciona sobre su trabajo.</th>       
+                      <th width="70%"><strong>VIII. capacitación e información que se le proporciona sobre su trabajo.</strong></th>       
                       <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td width="5%">31</td>
+                      <td width="5%"></td>
                       <td width="70%">Me informan con claridad cuáles son mis funciones</td>   
-                      <td width="25%">{value31.Respuestas}</td> 
+                      <td width="25%">{value31.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>32</td>
+                      <td></td>
                       <td>Me explican claramente los resultados que debo obtener en mi trabajo</td>   
-                      <td >{value32.Respuestas}</td> 
+                      <td >{value32.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>33</td>
+                      <td></td>
                       <td>Me explican claramente los objetivos de mi trabajo</td>   
-                      <td >{value33.Respuestas}</td> 
+                      <td >{value33.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>34</td>
+                      <td></td>
                       <td>Me informan con quién puedo resolver problemas o asuntos de trabajo</td>   
-                      <td>{value34.Respuestas}</td> 
+                      <td>{value34.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>35</td>
+                      <td></td>
                       <td>Me permiten asistir a capacitaciones relacionadas con mi trabajo</td>   
                       <td>{value35.Respuestas}</td> 
                     </tr>
                     <tr>
-                      <td>36</td>
+                      <td></td>
                       <td>Recibo capacitación útil para hacer mi trabajo</td>   
-                      <td>{value36.Respuestas}</td> 
+                      <td>{value36.Respuestas.toUpperCase()}</td> 
                     </tr>
-                    <br/>
                   </MDBTableBody>
-
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th width="70%">IX. Jefes con quien tiene contacto.</th>       
+                      <th width="70%"><strong>IX. Jefes con quien tiene contacto.</strong></th>       
                       <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                     <tr>
-                      <td width="5%">37</td>
+                      <td width="5%"></td>
                       <td width="70%">Mi jefe ayuda a organizar mejor el trabajo</td>   
-                      <td width="25%">{value37.Respuestas}</td> 
+                      <td width="25%">{value37.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>38</td>
+                      <td></td>
                       <td>Mi jefe tiene en cuenta mis puntos de vista y opiniones</td>   
-                      <td>{value38.Respuestas}</td> 
+                      <td>{value38.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>39</td>
+                      <td></td>
                       <td>Mi jefe me comunica a tiempo la información relacionada con el trabajo</td>   
-                      <td>{value39.Respuestas}</td> 
+                      <td>{value39.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>40</td>
+                      <td></td>
                       <td>La orientación que me da mi jefe me ayuda a realizar mejor mi trabajo</td>   
-                      <td>{value40.Respuestas}</td> 
+                      <td>{value40.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>41</td>
+                      <td></td>
                       <td>Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo</td>   
-                      <td>{value41.Respuestas}</td> 
+                      <td>{value41.Respuestas.toUpperCase()}</td> 
                     </tr>                  
-                    <br/>
                   </MDBTableBody>
-
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th width="70%">X. Relaciones con sus compañeros.</th>       
+                      <th width="70%"><strong>X. Relaciones con sus compañeros.</strong></th>       
                       <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                   <tr>
-                      <td width="5%">42</td>
+                      <td width="5%"></td>
                       <td width="70%">Puedo confiar en mis compañeros de trabajo</td>   
-                      <td width="25%">{value42.Respuestas}</td> 
+                      <td width="25%">{value42.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>43</td>
+                      <td></td>
                       <td>Entre compañeros solucionamos los problemas de trabajo de forma respetuosa</td>   
-                      <td>{value43.Respuestas}</td> 
+                      <td>{value43.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>44</td>
+                      <td></td>
                       <td>En mi trabajo me hacen sentir parte del grupo</td>   
-                      <td>{value44.Respuestas}</td> 
+                      <td>{value44.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>45</td>
+                      <td></td>
                       <td>Cuando tenemos que realizar trabajo de equipo los compañeros colaboran</td>   
-                      <td >{value45.Respuestas}</td> 
+                      <td >{value45.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>46</td>
+                      <td></td>
                       <td>Mis compañeros de trabajo me ayudan cuando tengo dificultades</td>   
-                      <td>{value46.Respuestas}</td> 
+                      <td>{value46.Respuestas.toUpperCase()}</td> 
                     </tr>
-                    <br/>
-
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
                       <th  width="5px"></th>
-                      <th  width="70px">XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento, el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</th>       
+                      <th  width="70px"><strong>XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento, el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</strong></th>       
                       <td  width="25px"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                   <tr>
-                      <td width="5%">47</td>
+                      <td width="5%"></td>
                       <td width="70%">Me informan sobre lo que hago bien en mi trabajo</td>   
-                      <td width="25%">{value47.Respuestas}</td> 
+                      <td width="25%">{value47.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>48</td>
+                      <td></td>
                       <td>La forma como evalúan mi trabajo en mi centro de trabajo me ayuda a mejorar mi desempeño</td>   
-                      <td>{value48.Respuestas}</td> 
+                      <td>{value48.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>49</td>
+                      <td></td>
                       <td>En mi centro de trabajo me pagan a tiempo mi salario</td>   
-                      <td>{value49.Respuestas}</td> 
+                      <td>{value49.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>50</td>
+                      <td></td>
                       <td>El pago que recibo es el que merezco por el trabajo que realizo</td>   
-                      <td>{value50.Respuestas}</td> 
+                      <td>{value50.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>51</td>
+                      <td></td>
                       <td>Si obtengo los resultados esperados en mi trabajo me recompensan o reconocen</td>   
-                      <td>{value51.Respuestas}</td> 
+                      <td>{value51.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>52</td>
+                      <td></td>
                       <td>Las personas que hacen bien el trabajo pueden crecer laboralmente</td>   
-                      <td >{value52.Respuestas}</td> 
+                      <td >{value52.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>53</td>
+                      <td></td>
                       <td>Considero que mi trabajo es estable</td>   
-                      <td >{value53.Respuestas}</td> 
+                      <td >{value53.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>54</td>
+                      <td></td>
                       <td>En mi trabajo existe continua rotación de personal</td>   
-                      <td>{value54.Respuestas}</td> 
+                      <td>{value54.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>55</td>
+                      <td></td>
                       <td>Siento orgullo de laborar en este centro de trabajo</td>   
-                      <td>{value55.Respuestas}</td> 
+                      <td>{value55.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>56</td>
+                      <td></td>
                       <td>Me siento comprometido con mi trabajo</td>   
-                      <td>{value56.Respuestas}</td> 
+                      <td>{value56.Respuestas.toUpperCase()}</td> 
                     </tr>
-               
                   </MDBTableBody>
-
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th width="70%">XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</th>       
+                      <th width="70%"><strong>XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</strong></th>       
                       <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                   <tr>
-                      <td width="5%">57</td>
+                      <td width="5%"></td>
                       <td width="70%">En mi trabajo puedo expresarme libremente sin interrupciones</td>   
-                      <td width="25%">{value57.Respuestas}</td> 
+                      <td width="25%">{value57.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>58</td>
+                      <td></td>
                       <td>Recibo críticas constantes a mi persona y/o trabajo</td>   
-                      <td>{value58.Respuestas}</td> 
+                      <td>{value58.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>59</td>
+                      <td></td>
                       <td>Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones</td>   
-                      <td>{value59.Respuestas}</td> 
+                      <td>{value59.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>60</td>
+                      <td></td>
                       <td>Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones</td>   
-                      <td>{value60.Respuestas}</td> 
+                      <td>{value60.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>61</td>
+                      <td></td>
                       <td>Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador</td>   
-                      <td>{value61.Respuestas}</td> 
+                      <td>{value61.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>62</td>
+                      <td></td>
                       <td>Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores</td>   
-                      <td>{value62.Respuestas}</td> 
+                      <td>{value62.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>63</td>
+                      <td></td>
                       <td>Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo</td>   
-                      <td>{value63.Respuestas}</td> 
+                      <td>{value63.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>64</td>
+                      <td></td>
                       <td>He presenciado actos de violencia en mi centro de trabajo</td>   
-                      <td >{value64.Respuestas}</td> 
+                      <td >{value64.Respuestas.toUpperCase()}</td> 
                     </tr>
-                    <br/>
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th width="70%">XIII. Atención a clientes y usuarios.</th>       
+                      <th width="70%"><strong>XIII. Atención a clientes y usuarios.</strong></th>       
                       <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                   <tr>
-                      <td width="5%">65</td>
+                      <td width="5%"></td>
                       <td width="70%">Atiendo clientes o usuarios muy enojados</td>   
-                      <td width="25%">{value65.Respuestas}</td> 
+                      <td width="25%">{value65.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>66</td>
+                      <td></td>
                       <td>Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas</td>   
-                      <td>{value66.Respuestas}</td> 
+                      <td>{value66.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>67</td>
+                      <td></td>
                       <td>Para hacer mi trabajo debo demostrar sentimientos distintos a los míos</td>   
-                      <td>{value67.Respuestas}</td> 
+                      <td>{value67.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>68</td>
+                      <td></td>
                       <td>Mi trabajo me exige atender situaciones de violencia</td>   
-                      <td>{value68.Respuestas}</td> 
+                      <td>{value68.Respuestas.toUpperCase()}</td> 
                     </tr> 
-                    <br/>                   
                   </MDBTableBody>
-
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th width="70%">XIV.  Las actitudes de las personas que supervisa.</th>       
+                      <th width="70%"><strong>XIV.  Las actitudes de las personas que supervisa.</strong></th>       
                       <td width="25%"></td> 
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
                   <tr>
-                      <td width="5%">69</td>
+                      <td width="5%"></td>
                       <td width="70%"> Comunican tarde los asuntos de trabajo</td>   
-                      <td width="25%">{value69.Respuestas}</td> 
+                      <td width="25%">{value69.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>70</td>
+                      <td></td>
                       <td>Dificultan el logro de los resultados del trabajo</td>   
-                      <td>{value70.Respuestas}</td> 
+                      <td>{value70.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>71</td>
+                      <td></td>
                       <td>Cooperan poco cuando se necesita</td>   
-                      <td >{value71.Respuestas}</td> 
+                      <td >{value71.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
-                      <td>72</td>
+                      <td></td>
                       <td>Ignoran las sugerencias para mejorar su trabajo</td>   
-                      <td>{value72.Respuestas}</td> 
+                      <td>{value72.Respuestas.toUpperCase()}</td> 
                     </tr>
-                    
                   </MDBTableBody>
                 </MDBTable> 
                 </MDBContainer>  
+                </MDBCardBody>  
+                </MDBCard>
                 <div>
                         <div className="example-config">    
                         </div>
@@ -5750,25 +5726,25 @@ ponderacion=<React.Fragment>
                                 fileName={`${this.state.resultados[0].nombre} ${this.state.resultados[0].ApellidoP} ${this.state.resultados[0].ApellidoM} Reporte ATS ${new Date().getFullYear()}`}
                                 ref={(component) => this.pdfExportComponent = component}
                             >
-                                <div style={{ width: "500px" }}>
-                                
+                                <div style={{ width: "550px" }}>
                                     <MDBRow style={{marginBottom:10}}> 
                                     <MDBCol>
-                                    <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
-                            
-                                    <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
-                                    </MDBCol> 
-                                    </MDBRow> 
+                                    <MDBTable component={Paper}  small borderless className="text-left">
+                                    <MDBTableBody>  
                                     <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
-                                    <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
-                                    
-                                    <MDBTableBody>     
-                                    <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
+                                    <font size="2"face="arial"color="black">Reporte individual para identificar los factores de Riesgo Psicosocial y evaluar el entorno organizacional en los centros de trabajo</font><br></br>
+                                    <font size="1"face="arial"color="black"> <strong>{localStorage.getItem("razonsocial")}</strong></font><br></br>          
                                     <font size="1"face="arial"color="black">{this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</font><br></br><br/>
-                                    <font size="2"face="arial"color="black">CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font><br></br>
                                     <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
-                                    </MDBTableBody>
-                                    </MDBTable>
+                                      <br></br>
+                                      <br></br>
+                                      <br></br>
+                                      <br></br>
+                                      </MDBTableBody>
+                                      </MDBTable>    
+                                      <center>   <img src={diagnostico} alt="logo" style = {{width:120,heigth:50}}/>&nbsp;&nbsp;&nbsp;<img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,heigth:20}}/></center>
+                                    </MDBCol> 
+                                    </MDBRow>
                                     <br/>  
                                     <br/>  
                                     <br/>  
@@ -5816,36 +5792,17 @@ ponderacion=<React.Fragment>
                                     <br/>  
                                     <br/>
                                     <br/>
+                                    <center>
                                     <font size="1"
                                         face="arial"
-                                        color="black" style = {{marginLeft:35}}><strong>GUÍA DE REFERENCIA III
-                                        CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</strong></font>   <br/>  
-                                        <font size="1"  face="arial"
-                                        color="black" style = {{marginLeft:35}}><strong>PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN
-                                        LOS CENTROS DE TRABAJO</strong></font>
-                                    <table width="500" style = {{marginLeft:40,marginBottom:10}}>
-        
-                                    <MDBTableBody>  
-                                                        
-                                      <tr>
-                                      <td width="6%" ><font size="1" face="arial"color="black" >Nombre : {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</font> </td>
-                                      <td width="6%" ><font size="1" face="arial"color="black" >Puesto : {this.state.resultados[0].Puesto}</font></td>
-                                                    </tr>
-                                                    <tr>
-                                      <td width="6%" ><font size="1" face="arial"color="black" >Departamento : {this.state.resultados[0].AreaTrabajo}</font></td>
-                                      <td width="6%" ><font size="1" face="arial"color="black" >Genero : {this.state.resultados[0].Sexo}</font></td> 
-                                                    </tr>
-                                                    <tr>
-                                      <td width="6%" ><font size="1" face="arial"color="black" >Correo : {this.state.resultados[0].correo}</font></td>
-                                      <td width="6%" ><font size="1" face="arial"color="black" >RFC : {this.state.resultados[0].RFC}</font></td>            
-                                      </tr>
-                                    </MDBTableBody>
-                                    </table>
-             
-
-                                    <font color="red" style= {{marginLeft:20}}  size="1">I. Condiciones ambientales de su centro de trabajo.</font>
+                                        color="black" ><strong>GUÍA DE REFERENCIA III
+                                        CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN
+                                        LOS CENTROS DE TRABAJO</strong></font> <br/><br/>
+                                    </center>
+                                   
+                                    <font color="red" style= {{marginLeft:25}}  size="1">I. Condiciones ambientales de su centro de trabajo.</font>
                                 
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered "> 
+                                    <table width="500" style = {{marginLeft:25}}  className="table-bordered "> 
                                         
                                     <tr>
                                     <td width="80%"><font size="1" face="arial"color="black" >El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</font></td>
@@ -5869,9 +5826,9 @@ ponderacion=<React.Fragment>
                                     </tr>
                                    </table>
                                     
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}   size="1">II. La cantidad y ritmo de trabajo que tiene.</font>
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}   size="1">II. La cantidad y ritmo de trabajo que tiene.</font>
                                   
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                     <td width="80%"><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</font></td>
                                     <td width="20%"><font size="1" face="arial"color="black" >{value6.Respuestas}</font></td> 
@@ -5888,9 +5845,9 @@ ponderacion=<React.Fragment>
                                     </table>
                           
 
-                                    <font style= {{marginLeft:20}}  size="1" color="red" >III. El esfuerzo mental que le exige su trabajo.</font>
+                                    <font style= {{marginLeft:25}}  size="1" color="red" >III. El esfuerzo mental que le exige su trabajo.</font>
                                    
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                     <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo exige que esté muy concentrado</font></td>
                                     <td width="20%"><font size="1" face="arial"color="black" >{value9.Respuestas}</font></td> 
@@ -5909,8 +5866,8 @@ ponderacion=<React.Fragment>
                                     </tr>
                                     </table>
                               
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV. Trabajo y las responsabilidades que tiene.</font>
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}  size="1" >IV. Trabajo y las responsabilidades que tiene.</font>
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                       <td width="80%"><font size="1" face="arial"color="black" >En mi trabajo soy responsable de cosas de mucho valor</font></td>   
                                       <td width="20%"><font size="1" face="arial"color="black" >{value13.Respuestas}</font></td> 
@@ -5929,9 +5886,9 @@ ponderacion=<React.Fragment>
                                     </tr>
                                     </table>
 
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >V. Jornada de trabajo.</font>
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}  size="1" >V. Jornada de trabajo.</font>
                                  
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                       <td width="80%"><font size="1" face="arial"color="black" >Trabajo horas extras más de tres veces a la semana</font></td>   
                                       <td width="20%"><font size="1" face="arial"color="black" >{value17.Respuestas}</font></td> 
@@ -5958,9 +5915,9 @@ ponderacion=<React.Fragment>
                                     </tr>
                                     </table>
                                     
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VI. Decisiones que puede tomar en su trabajo.</font>
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}  size="1" >VI. Decisiones que puede tomar en su trabajo.</font>
                                  
-                                    < table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    < table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                             
                                     <tr>
                                     <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo permite que desarrolle nuevas habilidades</font></td>   
@@ -5989,9 +5946,9 @@ ponderacion=<React.Fragment>
                                     </tr>
                                     
                                     </table>
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VII.Cualquier tipo de cambio que ocurra en su trabajo (considere los últimos cambios realizados).</font>
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}  size="1" >VII.Cualquier tipo de cambio que ocurra en su trabajo (considere los últimos cambios realizados).</font>
 
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                       <td width="80%"><font size="1"face="arial"color="black">Los cambios que se presentan en mi trabajo dificultan mi labor</font></td>   
                                       <td width="20%" ><font size="1"face="arial"color="black">{value29.Respuestas}</font></td> 
@@ -6003,9 +5960,9 @@ ponderacion=<React.Fragment>
                                     
                                     </table>
                                    
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VIII. capacitación e información que se le proporciona sobre su trabajo.</font>
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}  size="1" >VIII. capacitación e información que se le proporciona sobre su trabajo.</font>
                                 
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                       <td width="80%"><font size="1"face="arial"color="black">Me informan con claridad cuáles son mis funciones</font></td>   
                                       <td width="20%"><font size="1"face="arial"color="black">{value31.Respuestas}</font></td> 
@@ -6033,9 +5990,9 @@ ponderacion=<React.Fragment>
                                     
                                     </table>
                                    
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IX. Jefes con quien tiene contacto.</font>
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}  size="1" >IX. Jefes con quien tiene contacto.</font>
                             
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                       <td width="80%"><font size="1"face="arial"color="black">Mi jefe ayuda a organizar mejor el trabajo</font></td>   
                                       <td width="20%"><font size="1"face="arial"color="black">{value37.Respuestas}</font></td> 
@@ -6059,9 +6016,9 @@ ponderacion=<React.Fragment>
                                                                  
                                     </table>
                                  
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >X. Relaciones con sus compañeros.</font>
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}  size="1" >X. Relaciones con sus compañeros.</font>
                          
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                       <td width="80%"><font size="1"face="arial"color="black">Puedo confiar en mis compañeros de trabajo</font></td>   
                                       <td width="20%"><font size="1"face="arial"color="black">{value42.Respuestas}</font></td> 
@@ -6083,14 +6040,11 @@ ponderacion=<React.Fragment>
                                       <td width="20%"><font size="1"face="arial"color="black">{value46.Respuestas}</font></td> 
                                     </tr>
                                                                  
-                                    </table>
-                                    <br/>
-                                    <br/>  
-                                  
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento</font><br/>
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</font>
+                                    </table>                                  
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}  size="1" >XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento</font><br/>
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}  size="1" >el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</font>
 
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                       <td width="80%"><font size="1"face="arial"color="black">Me informan sobre lo que hago bien en mi trabajo</font></td>   
                                       <td width="20%"><font size="1"face="arial"color="black">{value47.Respuestas}</font></td> 
@@ -6134,9 +6088,9 @@ ponderacion=<React.Fragment>
                                                                  
                                     </table>
                                     
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</font>
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}  size="1" >XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</font>
                           
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                       <td width="80%"><font size="1"face="arial"color="black">En mi trabajo puedo expresarme libremente sin interrupciones</font></td>   
                                       <td width="20%"><font size="1"face="arial"color="black">{value57.Respuestas}</font></td> 
@@ -6172,9 +6126,9 @@ ponderacion=<React.Fragment>
                                                                                                   
                                     </table>
                                   
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >XIII. Atención a clientes y usuarios.</font>
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}  size="1" >XIII. Atención a clientes y usuarios.</font>
                                 
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                       <td width="80%"><font size="1"face="arial"color="black">Atiendo clientes o usuarios muy enojados</font></td>   
                                       <td width="20%"><font size="1"face="arial"color="black">{value65.Respuestas}</font></td> 
@@ -6193,9 +6147,9 @@ ponderacion=<React.Fragment>
                                     </tr>
                                     </table>
                                    
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >Las actitudes de las personas que supervisa.</font>
+                                    <font color="red" style= {{marginTop:40,marginLeft:25}}  size="1" >Las actitudes de las personas que supervisa.</font>
                              
-                                    <table width="500" style = {{marginLeft:20}} className="table-bordered ">
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                       <td width="80%"><font size="1"face="arial"color="black">Comunican tarde los asuntos de trabajo</font></td>   
                                       <td width="20%"><font size="1"face="arial"color="black">{value69.Respuestas}</font></td> 
@@ -6217,19 +6171,17 @@ ponderacion=<React.Fragment>
                             </PDFExport>
                         </div>
                     </div>
-
+                   
           </section>
         </React.Fragment>
    
-      </MDBContainer>
     } 
-    let ponderacionIndividual 
+    let ponderacionIndividual; 
       let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16,value17,value18,value19,value20,value21,value22,value23,value24;
       let value25,value26,value27,value28,value29,value30,value31,value32,value33,value34,value35,value36,value37,value38,value39,value40,value41,value42,value43,value44,value45,value46;
       let value47,value48,value49,value50,value51,value52,value53,value54,value55,value56,value57,value58,value59,value60,value61,value62,value63,value64,value65,value66,value67,value68;
       let value69,value70,value71,value72;
-
-     if( this.state.resultadosEvaluacion.length > 0 && this.state.resultadosQuery.length>0){
+      let botonDescargarReporteIndividualResultados;     if( this.state.resultadosEvaluacion.length > 0 && this.state.resultadosQuery.length>0 && this.state.reporteResultadosIndividual === true){
     
       let filtrar1;
       filtrar1 =  this.state.resultadosEvaluacion.filter(function(hero) {
@@ -6846,7 +6798,7 @@ ponderacion=<React.Fragment>
     
         let color;
         if(total<50){
-        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</TableCell>
+        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
         color =<TableCell style={{backgroundColor: "#9BE0F7"}} align="center"><font size="1" face="arial"color="black">Nulo</font></TableCell>
         celda1 = <TableCell style={{backgroundColor: "#9BE0F7"}} align="right">{total}</TableCell>
         }else if(total>=50 && total <= 75){
@@ -7250,100 +7202,89 @@ ponderacion=<React.Fragment>
       colorDominioDiez= <td style={{backgroundColor: "#FF0000"}} align="center"><font size="1" face="arial"color="black">Muy Alto</font></td>
       Dominio10MuyAlto= DominioDiez
     }
-     
+    botonDescargarReporteIndividualResultados = <MDBBtn  className = "text-white"  size="md" color="secondary" className="k-button" onClick={() => { this.pdfExportComponent.save();}}>
+     Resultados de {this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}
+    </MDBBtn>
     ponderacionIndividual =  <React.Fragment>
-            <Alert className ="mt-4" color ="primary ">Resultados de la aplicación de la evaluación EEO </Alert>
+                  <MDBCard>
+                  <MDBCardHeader>
+                    <MDBCardTitle><center>Resultados individuales en la aplicación de la evaluación EEO</center></MDBCardTitle>
+                  </MDBCardHeader>
+                  <MDBCardBody>    
 
-                    <div>
-                        <MDBBtn  className = "text-white"  size="md" color="secondary" className="k-button" onClick={() => { this.pdfExportComponent.save();}}>
-                            Descargar Resultados de {this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}
-                        </MDBBtn>
-                        &nbsp;
-                    {botonCerrar}
-                    </div>
-                    <br/>       
-                    <MDBContainer  style={{marginLeft:"5%",marginTop:20}}>
-                    <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>
-                    <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
-              
-                    <MDBTable responsive small borderless className="text-left mt-4 ">
-           
-                    <MDBTableBody>  
+                    <table style={{marginLeft:"20%"}}>
                     <tr>
-                        <td width ="65%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
-                        <td width ="35%">
-                        <img src={diagnostico} alt="logo" style = {{width:150,marginBottom:20}}/>
-    
-                        </td>
-                      </tr>                
+                    <td width="65%" > <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                    <td width="35%" >
+                    <img src={diagnostico} alt="logo" style = {{width:150}}/>
+                    </td>
+                    </tr>
+                    </table>
+                    <center> 
+                    <font face="arial" className = "mt-4" ><center><strong>CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</strong></center></font><br/>
+                    <strong className="text-left  ml-2 mt-4">{localStorage.getItem("razonsocial")}</strong><br/>
+                    <table  style={{marginLeft:"10%"}} className="mt-4">
                       <tr>
-                      <td width ="65%" >Nombre : {this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM} </td>
-                      <td width ="35%">Puesto : {this.state.resultadosQuery[0].Puesto}</td>
-                                    </tr>
-                                    <tr>
-                      <td width ="65%">Departamento : {this.state.resultadosQuery[0].AreaTrabajo}</td>
-                      <td width ="35%">Genero : {this.state.resultadosQuery[0].Sexo}</td> 
-                                    </tr>
-                                    <tr>
-                      <td width ="65%">Correo : {this.state.resultadosQuery[0].correo}</td>
-                      <td width ="35%">RFC : {this.state.resultadosQuery[0].RFC}</td>   
+                        <td width="40%"><strong>{this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}</strong></td>
+                        <td width="20%"></td>
+                        <td width="40%"><strong>{this.state.resultadosQuery[0].RFC}</strong></td>
                       </tr>
-                    </MDBTableBody>
-                    </MDBTable>
-                    </MDBContainer>
-    
-        <TableContainer  component={Paper} style={{marginBottom:30}}>
-              <Table  borderless  size="small" aria-label="a dense table" >
-              <TableRow>
-                      <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}} width="50%"><strong>RESULTADOS GENERALES</strong></TableCell>              
-                      <TableCell component="th" scope="row"></TableCell>
-                      <TableCell component="th" scope="row" ></TableCell>
-                      <TableCell component="th" scope="row" ></TableCell>
-                      <TableCell component="th" scope="row" ></TableCell>
-                      <TableCell component="th" scope="row" ></TableCell>  
-                    </TableRow>
-                <TableHead>
-                  <TableRow>
-                    <TableCell width ="10%"></TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#9BE0F7"}}>NULO</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#6BF56E"}}>BAJO&nbsp;</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#FFFF00"}}>MEDIO&nbsp;</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#FFC000"}}>ALTO&nbsp;</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#FF0000"}}>MUY alto&nbsp;</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody  style={{marginTop:20}}>
-                  
+                      <tr>
+                        <td><strong>{this.state.resultadosQuery[0].correo}</strong></td>
+                      </tr>
+                    </table>
+                    </center>
+                    <br/> 
+
+                 <TableContainer  component={Paper} style={{marginBottom:30}}>
+                    <Table  borderless  size="small" aria-label="a dense table" >
                     <TableRow>
-                      <TableCell component="th" scope="row">
-                    Puntuación total
-                      </TableCell>
-                      <TableCell component="th" scope="row"align="center">{celda1}</TableCell>
-                      <TableCell component="th" scope="row"align="center">{celda2}</TableCell>
-                      <TableCell component="th" scope="row"align="center">{celda3}</TableCell>
-                      <TableCell component="th" scope="row"align="center">{celda4}</TableCell>
-                      <TableCell component="th" scope="row"align="center">{celda5}</TableCell>
-                    
-                    </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
-        
-    
-        
-            <TableContainer component={Paper} style={{marginBottom:30}}>
-              <Table  size="small" aria-label="a dense table" >
-                <TableHead>
-                  <TableRow>
-                    <TableCell width="50%" ></TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#9BE0F7"}}>NULO</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#6BF56E"}}>BAJO&nbsp;</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#FFFF00"}}>MEDIO&nbsp;</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#FFC000"}}>ALTO&nbsp;</TableCell>
-                    <TableCell align="right" style={{backgroundColor: "#FF0000"}}>MUY ALTO&nbsp;</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody  style={{marginTop:20}}>       
+                            <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}} width="50%"><strong>RESULTADOS GENERALES</strong></TableCell>              
+                            <TableCell component="th" scope="row"></TableCell>
+                            <TableCell component="th" scope="row" ></TableCell>
+                            <TableCell component="th" scope="row" ></TableCell>
+                            <TableCell component="th" scope="row" ></TableCell>
+                            <TableCell component="th" scope="row" ></TableCell>  
+                          </TableRow>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell width ="10%"></TableCell>
+                          <TableCell align="right" style={{backgroundColor: "#9BE0F7"}}>NULO</TableCell>
+                          <TableCell align="right" style={{backgroundColor: "#6BF56E"}}>BAJO&nbsp;</TableCell>
+                          <TableCell align="right" style={{backgroundColor: "#FFFF00"}}>MEDIO&nbsp;</TableCell>
+                          <TableCell align="right" style={{backgroundColor: "#FFC000"}}>ALTO&nbsp;</TableCell>
+                          <TableCell align="right" style={{backgroundColor: "#FF0000"}}>MUY alto&nbsp;</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody  style={{marginTop:20}}>
+                        
+                          <TableRow>
+                            <TableCell component="th" scope="row">
+                          Puntuación total
+                            </TableCell>
+                            <TableCell component="th" scope="row"align="center">{celda1}</TableCell>
+                            <TableCell component="th" scope="row"align="center">{celda2}</TableCell>
+                            <TableCell component="th" scope="row"align="center">{celda3}</TableCell>
+                            <TableCell component="th" scope="row"align="center">{celda4}</TableCell>
+                            <TableCell component="th" scope="row"align="center">{celda5}</TableCell>
+                          
+                          </TableRow>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                 <TableContainer component={Paper} style={{marginBottom:30}}>
+                  <Table  size="small" aria-label="a dense table" >
+                    <TableHead>
+                      <TableRow>
+                        <TableCell width="50%" ></TableCell>
+                        <TableCell align="right" style={{backgroundColor: "#9BE0F7"}}>NULO</TableCell>
+                        <TableCell align="right" style={{backgroundColor: "#6BF56E"}}>BAJO&nbsp;</TableCell>
+                        <TableCell align="right" style={{backgroundColor: "#FFFF00"}}>MEDIO&nbsp;</TableCell>
+                        <TableCell align="right" style={{backgroundColor: "#FFC000"}}>ALTO&nbsp;</TableCell>
+                        <TableCell align="right" style={{backgroundColor: "#FF0000"}}>MUY ALTO&nbsp;</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody  style={{marginTop:20}}>       
                     <TableRow>
                       <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}}><strong>RESULTADOS DE LA CATEGORÍA</strong></TableCell>              
                       <TableCell component="th" scope="row"align="center"></TableCell>
@@ -7701,7 +7642,8 @@ ponderacion=<React.Fragment>
               </TableBody>
               </Table>        
               </TableContainer>
-
+              </MDBCardBody>
+              </MDBCard>
               <div>
                     <div className="example-config">           
                     </div>
@@ -7715,25 +7657,26 @@ ponderacion=<React.Fragment>
                             fileName={`${this.state.resultadosQuery[0].nombre} ${this.state.resultadosQuery[0].ApellidoP} ${this.state.resultadosQuery[0].ApellidoM} Reporte EEO ${new Date().getFullYear()}`}
                             ref={(component) => this.pdfExportComponent = component}
                         >
-                            <div style={{ width: "500px" }}>
-                            
-                                <MDBRow style={{marginBottom:10}}> 
-                                <MDBCol>
-                                <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
-                        
-                                <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
-                                </MDBCol> 
-                                </MDBRow> 
-                                <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
-                                <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
+                            <div style={{ width: "550px" }}>
+
+                            <MDBRow style={{marginBottom:10}}> 
+                            <MDBCol>                    
+                            <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                            </MDBCol> 
+                            </MDBRow> 
+                            <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
+                                <MDBTable component={Paper}  small borderless className="text-left mt-4 ">
                                   
-                                        <MDBTableBody>     
+                                <MDBTableBody>     
+                                <font size="3"face="arial"color="black">Reporte de resultados del diagnóstico individual de factores de riesgo psicosocial y Evaluación de Entorno Organizacional en los centros de trabajo</font><br></br><br></br>
                                 <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-                                <font size="1"face="arial"color="black">{this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}</font><br></br><br/>
-                                <font size="3"face="arial"color="black">Diagnóstico individual de factores de riesgo psicosocial y evaluación de entorno organizacional en los centros de trabajo</font><br></br>
-                                <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
+                                <font size="1"face="arial"color="black">{this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}</font><br></br>
+                                <font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
                                 </MDBTableBody>
+                                <br></br>
+                                <br></br>
                                 </MDBTable>
+                                <center>   <img src={diagnostico} alt="logo" style = {{width:120,heigth:50}}/>&nbsp;&nbsp;&nbsp;<img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,heigth:20}}/></center>
                                   <br></br>
                                   <br></br>
                                   <br></br>
@@ -8043,9 +7986,7 @@ ponderacion=<React.Fragment>
                                               <td width="60%"><font size="1" face="arial"color="black">Ritmos de trabajo acelerado</font></td>
                                               <td width="20%"><font size="1" face="arial"color="black">{(entero53+entero54).toFixed(2)}</font></td>
                                             </tr>
-                                          </table>
-    
-                                    
+                                          </table>                                    
                                           <br/>
                                           <br/>
                                           <br/>
@@ -8078,22 +8019,16 @@ ponderacion=<React.Fragment>
      if(this.state.botonDisabled){
          botonResultadosGlobales=
          
-         <MDBCol>
-         <MDBBtn className = "text-white"  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Reporte Global</MDBBtn>
-         <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)} color="success" size="md">Evaluaciones masivas</MDBBtn>
-         <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)} color="success" size="md">Resultados masivos</MDBBtn>
-         <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteEjecutivo(datosEmpleados,filtro)} color="success" size="md">Reporte ejecutivo</MDBBtn> 
-         </MDBCol>
+         <div>
+         <MDBBtn style={{width:"70%"}} className = "text-white"  onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro,periodoTabla)} color="success" size="md">Descarga de reporte global</MDBBtn>
+         <MDBBtn style={{width:"70%"}} className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro,periodoTabla)} color="success" size="md">Descarga masiva de evaluaciones</MDBBtn>
+         <MDBBtn style={{width:"70%"}} className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro,periodoTabla)} color="success" size="md">Descarga masiva de resultados</MDBBtn>
+         <MDBBtn style={{width:"70%"}} className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteEjecutivo(datosEmpleados,filtro,periodoTabla)} color="success" size="md">Descarga del reporte ejecutivo</MDBBtn> 
+         </div>
      }
 
-     let dataSource;
-    charts(FusionCharts);
-
-
     if(this.state.resultadosInicio[0]){
-
       let total;
-    
       let array1=[], array2=[], array3=[], array4=[], array5=[], array6=[], array7=[], array8=[], array9=[], array10=[]      
       let array11=[], array12=[], array13=[], array14=[], array15=[], array16=[], array17=[], array18=[], array19=[], array20=[]      
       let array21=[], array22=[], array23=[], array24=[], array25=[], array26=[], array27=[], array28=[], array29=[], array30=[]      
@@ -9735,8 +9670,8 @@ ponderacion=<React.Fragment>
 
                    dataSource = {
                     chart: {
-                      caption: "Gráfica de previsualización por categoría de resultados globales",
-                      subcaption: "Ponderación de empleados",
+                      caption: "Gráfica de previsualización",
+                      subcaption: "Ponderación",
                       showvalues: "1",
                       showpercentintooltip: "0",
                       // numberprefix: "Pts.",
@@ -9745,7 +9680,7 @@ ponderacion=<React.Fragment>
                       },
                       data: [
                         {
-                          label: "Ambiente de trabajo",
+                          label: "Ambiente de T",
                           value:  categoriaUno,
                           color: colorCategoriaUno,
                           labelFontSize:12,
@@ -9754,7 +9689,7 @@ ponderacion=<React.Fragment>
                           // link:"www.google.com"
                         },
                         {
-                          label: "Factores propios de la actividad",
+                          label: "Factores propios",
                           value: categoriaDos,
                           color: colorCategoriaDos,
                           labelFontSize:12,
@@ -9762,7 +9697,7 @@ ponderacion=<React.Fragment>
                           // link:"www.google.com"
                         },
                         {
-                          label: "Organización del tiempo de trabajo",
+                          label: "Organización",
                           value: categoriaTre,
                           color: colorCategoriaTre,
                           labelFontSize:12,
@@ -9770,7 +9705,7 @@ ponderacion=<React.Fragment>
                           // link:"www.google.com"
                         },
                         {
-                          label: "Liderazgo y relaciones en el trabajo",
+                          label: "Liderazgo ",
                           value: categoriaCuatro,
                           color: colorCategoriaCuatro,
                           labelFontSize:12,
@@ -9778,7 +9713,7 @@ ponderacion=<React.Fragment>
                           // link:"www.google.com"
                         },
                         {
-                          label: "Entorno organizacional",
+                          label: "Entorno O",
                           value: categoriaCinco,
                           color: colorCategoriaCinco,
                           labelFontSize:12,
@@ -9795,12 +9730,9 @@ ponderacion=<React.Fragment>
      
       PDFResultadosMasivos = 
         <div>
-         <MDBRow style={{marginLeft:"2%"}}>     
               <MDBBtn   color="primary" size="md"  onClick={() => { this.pdfExportComponent.save(); }}>
-                  Descargar reporte de resultados masivos
+                   Reporte de resultados masivos
               </MDBBtn>
-              {botonCerrar}
-          </MDBRow>  
         <div style={{ position: "absolute", left: "-2000px", top: 0 }}>
          <PDFExport
             paperSize="A4"
@@ -9810,82 +9742,9 @@ ponderacion=<React.Fragment>
             ref={(component) => this.pdfExportComponent = component}
             fileName={`Resultados del total de empleados ${new Date().getFullYear()}`}
         >
-        <div style={{ width: "500px" }}>
+        <div style={{ width: "550px" }}>
 
-         <MDBRow style={{marginBottom:10}}> 
-         <MDBCol>
-         <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
-
-         <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
-         </MDBCol> 
-         </MDBRow> 
-          <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
-          <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
-  
-          <MDBTableBody>     
-          <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-          <font size="3"face="arial"color="black">Diagnóstico individual de factores de riesgo psicosocial y evaluación de entorno organizacional en los centros de trabajo</font><br></br>
-          <font size="1"face="arial"color="black">{this.state.date}</font><br/>
-          <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
-          <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>    
-          <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
-                          
-          </MDBTableBody>
-          </MDBTable>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br/>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-              
-            <font size="1"
-            face="arial"
-            color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA III
-            CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO </font>   <br/>  
-            <font size="1"  face="arial"
-            color="black" style = {{marginLeft:35}}>PSICOSOCIAL Y
-            EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>
+        
       {this.state.resultadosEvaluacionMasivo.map(rows=>{
 
           if(rows[0]){
@@ -10838,9 +10697,82 @@ ponderacion=<React.Fragment>
     }
     return(
 
-    <MDBContainer >
-
-    <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
+    <div >
+    <MDBRow style={{marginBottom:10}}> 
+    <MDBCol>
+    <img src={logo} alt="logo" style = {{width:550}}/>
+    <MDBTable  component={Paper}  small borderless className="text-left mt-4 ">
+    <MDBTableBody>  
+    <font size="3"face="arial"color="black">Reporte individual de resultados para identificar los factores de riesgo psicosocial y Evaluar el Entorno Organizacional en los centros de trabajo</font><br></br>  <br></br>
+    <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")} </font><br></br>  
+    <font color="black" className= "textleft"  size="1"><strong>{rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</strong></font><br/>        
+    <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
+    <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font><br/>
+    <font color="black" className= "textleft"  size="1">Periodo: <strong>{rows[0].Periodo}</strong></font><br/>
+    <font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+    </MDBTableBody>
+    </MDBTable>    
+    <center>   <img src={diagnostico} alt="logo" style = {{width:120,heigth:50}}/>&nbsp;&nbsp;&nbsp;<img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,heigth:20}}/></center>
+    </MDBCol> 
+    </MDBRow> 
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br/>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <center>
+      <font size="1"
+      face="arial"
+      color="black">GUÍA DE REFERENCIA III
+      CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y
+      EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>   <br/>  
+      </center>  
+    <MDBTable  component={Paper} small  className="text-left mt-4 ">
     <MDBTableBody>
     <tr>
     <td width="40%"><font size="1" face="arial"color="black"><strong>{rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</strong></font></td>
@@ -10849,14 +10781,14 @@ ponderacion=<React.Fragment>
     <td></td>
     </tr>
     <tr>
-    <td width="40%"><font size="1" face="arial"color="black">RESULTADO DEL CUESTIONARIO :  </font></td>
+    <td width="40%"><font size="1" face="arial"color="black">RESULTADO:  </font></td>
     <td width="20%"><font size="1" face="arial"color="black">{total}</font></td>
     <td width="20%"><font size="1" face="arial"color="black">Nivel de riesgo </font></td>
     {color}
     </tr>                                  
     </MDBTableBody>
     </MDBTable>  
-    <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
+    <MDBTable  component={Paper} small  className="text-left mt-4 ">
     <MDBTableBody>
     <tr>
     <td ><font size="1" face="arial"color="black"><strong>Necesidad de la acción :</strong></font></td>
@@ -10870,7 +10802,7 @@ ponderacion=<React.Fragment>
     <table  component={Paper}  small  className="text-left ">
      <font color="red" style= {{marginTop:20,marginLeft:15}}  size="1">I.- Resultados de la categoría</font>
     </table>
-    <table width="500" style={{marginLeft:15}} className="table-bordered"> 
+    <table width="530" className="table-bordered"> 
 
     <tr >                              
     <td width="10%"><font size="1" face="arial"color="black" ></font></td>
@@ -10911,7 +10843,7 @@ ponderacion=<React.Fragment>
     </table>
     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">II.- Resultados del dominio</font>
 
-    <table width="500" style={{marginLeft:15}} className="table-bordered"> 
+    <table width="530" className="table-bordered"> 
     <tr >                              
     <td width="10%"><font size="1" face="arial"color="black" ></font></td>
     <td width="60%" className="text-left"><font size="1" face="arial"color="black">Dominio</font></td>
@@ -10981,7 +10913,7 @@ ponderacion=<React.Fragment>
 
     </table>
     <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">III.- Resultados por Dimensión</font>
-    <table width="500" style={{marginLeft:15}} className="table-bordered"> 
+    <table width="530"  className="table-bordered"> 
 
     <tr >                              
     <td width="10%"><font size="1" face="arial"color="black" ></font></td>
@@ -11171,7 +11103,7 @@ ponderacion=<React.Fragment>
     <br/>
     <br/>
     <br/>
-    </MDBContainer> 
+    </div> 
     )}
     })}
     </div>  
@@ -11185,91 +11117,23 @@ ponderacion=<React.Fragment>
 
          PDFRespuestasMasivos = 
          <div>
-           <MDBRow style={{marginLeft:"2%"}}>     
               <MDBBtn   color="primary" size="md"  onClick={() => { this.pdfExportComponent.save(); }}>
-                  Descargar reporte de evaluaciones masivas
+               Reporte de evaluaciones masivas
               </MDBBtn>
-              {botonCerrar}
-          </MDBRow>
          <div style={{ position: "absolute", left: "-2000px", top: 0 }}>
          <section className="flex-column  bg-white  pa4 "  >
           <PDFExport
-                  pageTemplate={PageTemplate}
-                  forcePageBreak=".page-break"
-                   paperSize="A4"
-                   margin="1cm"
-                   ref={(component) => this.pdfExportComponent = component}
-                   fileName={`Respuestas del total de empleados ${new Date().getFullYear()}`}
-                   >
+            pageTemplate={PageTemplate}
+            forcePageBreak=".page-break"
+              paperSize="A4"
+              margin="1cm"
+              ref={(component) => this.pdfExportComponent = component}
+              fileName={`Respuestas del total de empleados ${new Date().getFullYear()}`}
+              >
    
-           <div style={{ width: "500px" }}>
-           
-           <MDBRow style={{marginBottom:10}}> 
-           <MDBCol>
-           <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
-  
-           <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
-           </MDBCol> 
-           </MDBRow> 
-              <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
-              <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
-              
-              <MDBTableBody>     
-              <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-              <font size="2"face="arial"color="black">CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font><br></br>
-              <font size="1"face="arial"color="black">{this.state.date}</font>    
-              <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
-                  <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>                                               
-                  <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
-              </MDBTableBody>
-              </MDBTable>
-              <br/>  
-              <br/>  
-              <br/>  
-              <br/>  
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>  
-              <br/>
-              <br/>
-              <br/>  
-              <br/>  
-              <br/>  
-              <br/>  
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>  
-              <br/>
-              <br/>
-              <br/>  
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>  
-              <br/>
-              <br/>
-              <br/>  
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>  
-              <br/>
-              <br/>
-              <font size="1"
-              face="arial"
-              color="black" style = {{marginLeft:35}}>GUÍA DE REFERENCIA III
-              CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</font>   <br/>  
-              <font size="1"  face="arial"
-              color="black" style = {{marginLeft:35}}>PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN
-              LOS CENTROS DE TRABAJO</font>           
+           <div style={{ width: "550px" }}>
+         
              {this.state.reporteImasivo.map(rows=>{
-                console.log("reporteimasivo" , rows)
                if(rows[0]){
                 let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16,value17,value18,value19,value20,value21,value22,value23,value24;
                 let value25,value26,value27,value28,value29,value30,value31,value32,value33,value34,value35,value36,value37,value38,value39,value40,value41,value42,value43,value44,value45,value46;
@@ -11711,29 +11575,77 @@ ponderacion=<React.Fragment>
 
                return(
                 <div> 
-                 
-                <table width="500" style = {{marginLeft:40,marginBottom:15,marginTop:10}} >
-
+                <MDBRow style={{marginBottom:10}}> 
+                <MDBCol>
+                <img src={logo} alt="logo" style = {{width:550}}/>
+                <MDBTable  component={Paper}  small borderless className="text-left mt-4 ">
                 <MDBTableBody>  
-                                    
-                  <tr>
-                  <td width="6%" ><font size="1" face="arial"color="black" >Nombre : {rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</font> </td>
-                  <td width="6%" ><font size="1" face="arial"color="black" >Puesto : {rows[0].Puesto}</font></td>
-                                </tr>
-                                <tr>
-                  <td width="6%" ><font size="1" face="arial"color="black" >Departamento : {rows[0].AreaTrabajo}</font></td>
-                  <td width="6%" ><font size="1" face="arial"color="black" >Genero : {rows[0].Sexo}</font></td> 
-                                </tr>
-                                <tr>
-                  <td width="6%" ><font size="1" face="arial"color="black" >Correo : {rows[0].correo}</font></td>
-                  <td width="6%" ><font size="1" face="arial"color="black" >RFC : {rows[0].RFC}</font></td>            
-                  </tr>
+                <font size="3"face="arial"color="black">Reporte individual para identificar los factores de riesgo psicosocial y
+                  Evaluar el Entorno Organizacional en los centros de trabajo</font><br></br>  <br></br>
+                <font size="1"face="arial"color="black"> <strong>{localStorage.getItem("razonsocial")} </strong></font><br></br>  
+                <font color="black" className= "textleft"  size="1"><strong>{rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</strong></font><br/>        
+                <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
+                <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font><br/>
+                <font color="black" className= "textleft"  size="1">Periodo: <strong>{rows[0].Periodo}</strong></font><br/>
+                <font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
                 </MDBTableBody>
-                </table>
+                </MDBTable>    
+                <center>   <img src={diagnostico} alt="logo" style = {{width:120,heigth:50}}/>&nbsp;&nbsp;&nbsp;<img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,heigth:20}}/></center>
 
-                <font color="red" style= {{marginLeft:30}}  size="1">I. Condiciones ambientales de su centro de trabajo.</font>
+            </MDBCol> 
+            </MDBRow> 
+            
+              <br/>  
+              <br/>  
+              <br/>  
+              <br/>  
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>  
+              <br/>
+              <br/>
+              <br/>  
+              <br/>  
+              <br/>  
+              <br/>  
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>  
+              <br/>
+              <br/>
+              <br/>  
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>  
+              <br/>
+              <br/>
+              <br/>  
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>  
+              <br/>
+              <br/>
+        
+              <center><font size="1" face="arial" color="black" style = {{marginTop:25}}>GUÍA DE REFERENCIA I - 
+              GUÍA DE REFERENCIA III CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y
+              EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO
+              </font> </center> <br/>
+             
+                <p style={{textAlign: 'left'}}> <font color="red"  size="1">I. Condiciones ambientales de su centro de trabajo.</font></p>
            
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">                     
+                <table width="530" className="table-bordered ">                     
                
                 <tr>
                 <td width="80%"><font size="1" face="arial"color="black" >El espacio donde trabajo me permite realizar mis actividades de manera segura e higiénica</font></td>
@@ -11757,9 +11669,9 @@ ponderacion=<React.Fragment>
               </tr>
                </table>
    
-                <font color="red" style= {{marginTop:40,marginLeft:30}}   size="1">II. La cantidad y ritmo de trabajo que tiene.</font>
+                <p style={{textAlign: 'left'}}><font color="red"  size="1">II. La cantidad y ritmo de trabajo que tiene.</font></p>
 
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <table width="530"  className="table-bordered ">
                 <tr>
                 <td width="80%"><font size="1" face="arial"color="black" >Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno</font></td>
                 <td width="20%"><font size="1" face="arial"color="black" >{value6.Respuestas}</font></td> 
@@ -11775,9 +11687,9 @@ ponderacion=<React.Fragment>
               
                 </table>
 
-                <font style= {{marginLeft:30}}  size="1" color="red" >III. El esfuerzo mental que le exige su trabajo.</font>
+                <p style={{textAlign: 'left'}}><font  size="1" color="red" >III. El esfuerzo mental que le exige su trabajo.</font></p>
 
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <table width="530" className="table-bordered ">
                 <tr>
                 <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo exige que esté muy concentrado</font></td>
                 <td width="20%"><font size="1" face="arial"color="black" >{value9.Respuestas}</font></td> 
@@ -11796,9 +11708,9 @@ ponderacion=<React.Fragment>
                 </tr>
                 </table>
              
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >IV. Trabajo y las responsabilidades que tiene.</font>
+                <p style={{textAlign: 'left'}}><font color="red"   size="1" >IV. Trabajo y las responsabilidades que tiene.</font></p>
   
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <table width="530" className="table-bordered ">
                 <tr>
                   <td width="80%"><font size="1" face="arial"color="black" >En mi trabajo soy responsable de cosas de mucho valor</font></td>   
                   <td width="20%"><font size="1" face="arial"color="black" >{value13.Respuestas}</font></td> 
@@ -11818,9 +11730,9 @@ ponderacion=<React.Fragment>
                
                 </table>
 
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >V. Jornada de trabajo.</font>
+                <p style={{textAlign: 'left'}}> <font color="red"   size="1" >V. Jornada de trabajo.</font></p>
 
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <table width="530"  className="table-bordered ">
                 <tr>
                   <td width="80%"><font size="1" face="arial"color="black" >Trabajo horas extras más de tres veces a la semana</font></td>   
                   <td width="20%"><font size="1" face="arial"color="black" >{value17.Respuestas}</font></td> 
@@ -11847,9 +11759,9 @@ ponderacion=<React.Fragment>
                 </tr>
                 </table>
 
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >VI. Decisiones que puede tomar en su trabajo.</font>
+                <p style={{textAlign: 'left'}}> <font color="red" size="1" >VI. Decisiones que puede tomar en su trabajo.</font></p>
 
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">                        
+                <table width="530" className="table-bordered ">                        
                 <tr>
                 <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo permite que desarrolle nuevas habilidades</font></td>   
                 <td width="20%"><font size="1" face="arial"color="black" >{value23.Respuestas}</font></td> 
@@ -11878,10 +11790,9 @@ ponderacion=<React.Fragment>
                 
                 </table>
    
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >VII.Cualquier tipo de cambio que ocurra en su trabajo</font><br/>
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >(considere los últimos cambios realizados).	</font>
+                <p style={{textAlign: 'left'}}><font color="red"  size="1" >VII.Cualquier tipo de cambio que ocurra en su trabajo(considere los últimos cambios realizados).	</font></p>
 
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <table width="530"  className="table-bordered ">
                 <tr>
                   <td width="80%"><font size="1"face="arial"color="black">Los cambios que se presentan en mi trabajo dificultan mi labor</font></td>   
                   <td width="20%"><font size="1"face="arial"color="black">{value29.Respuestas}</font></td> 
@@ -11892,9 +11803,9 @@ ponderacion=<React.Fragment>
                 </tr>
                 </table>
 
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >VIII. capacitación e información que se le proporciona sobre su trabajo.</font>
+                <p style={{textAlign: 'left'}}><font color="red"  size="1" >VIII. Capacitación e información que se le proporciona sobre su trabajo.</font></p>
                 
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <table width="530" className="table-bordered ">
                 <tr>
                   <td width="80%"><font size="1"face="arial"color="black">Me informan con claridad cuáles son mis funciones</font></td>   
                   <td width="20%"><font size="1"face="arial"color="black">{value31.Respuestas}</font></td> 
@@ -11921,9 +11832,9 @@ ponderacion=<React.Fragment>
                 </tr>
                 </table>
 
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >IX. Jefes con quien tiene contacto.</font>
+                <p style={{textAlign: 'left'}}> <font color="red"  size="1" >IX. Jefes con quien tiene contacto.</font></p>
               
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <table width="530" className="table-bordered ">
                 <tr>
                   <td  width="80%"><font size="1"face="arial"color="black">Mi jefe ayuda a organizar mejor el trabajo</font></td>   
                   <td  width="20%"><font size="1"face="arial"color="black">{value37.Respuestas}</font></td> 
@@ -11947,9 +11858,9 @@ ponderacion=<React.Fragment>
                                              
                 </table>
 
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >X. Relaciones con sus compañeros.</font>
+                <p style={{textAlign: 'left'}}> <font color="red"  size="1" >X. Relaciones con sus compañeros.</font></p>
   
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <table width="530" className="table-bordered ">
                 <tr>
                   <td width="80%"><font size="1"face="arial"color="black">Puedo confiar en mis compañeros de trabajo</font></td>   
                   <td width="20%"><font size="1"face="arial"color="black">{value42.Respuestas}</font></td> 
@@ -11972,10 +11883,9 @@ ponderacion=<React.Fragment>
                 </tr>
                 </table>
            
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento</font><br/>
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</font>
-               
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <p style={{textAlign: 'left'}}><font color="red" size="1" >XI. Información que recibe sobre su rendimiento en el trabajo, el reconocimiento, el sentido de pertenencia y la estabilidad que le ofrece su trabajo.</font></p>
+              
+                <table width="530" className="table-bordered ">
                 <tr>
                   <td  width="80%"><font size="1"face="arial"color="black">Me informan sobre lo que hago bien en mi trabajo</font></td>   
                   <td  width="20%"><font size="1"face="arial"color="black">{value47.Respuestas}</font></td> 
@@ -12019,9 +11929,9 @@ ponderacion=<React.Fragment>
                                              
                 </table>
                
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</font>
+                <p style={{textAlign: 'left'}}> <font color="red" size="1" >XII. Actos de violencia laboral (malos tratos, acoso, hostigamiento, acoso psicológico).</font></p>
                
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <table width="530" className="table-bordered ">
                 <tr>
                   <td width="80%"><font size="1"face="arial"color="black">En mi trabajo puedo expresarme libremente sin interrupciones</font></td>   
                   <td width="20%"><font size="1"face="arial"color="black">{value57.Respuestas}</font></td> 
@@ -12057,9 +11967,9 @@ ponderacion=<React.Fragment>
                                                                               
                 </table>
 
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >XIII. Atención a clientes y usuarios.</font>
+                <p style={{textAlign: 'left'}}> <font color="red"  size="1" >XIII. Atención a clientes y usuarios.</font></p>
                
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <table width="530" className="table-bordered ">
                 <tr>
                   <td width="80%"><font size="1"face="arial"color="black">Atiendo clientes o usuarios muy enojados</font></td>   
                   <td width="20%"><font size="1"face="arial"color="black">{value65.Respuestas}</font></td> 
@@ -12078,9 +11988,9 @@ ponderacion=<React.Fragment>
                 </tr>
                 </table>
                
-                <font color="red" style= {{marginTop:40,marginLeft:30}}  size="1" >XIV. Las actitudes de las personas que supervisa.</font>
+                <p style={{textAlign: 'left'}}><font color="red" size="1" >XIV. Las actitudes de las personas que supervisa.</font></p>
 
-                <table width="500" style = {{marginLeft:30}} className="table-bordered ">
+                <table width="530" className="table-bordered ">
                 <tr>
                   <td width="80%"><font size="1"face="arial"color="black">Comunican tarde los asuntos de trabajo</font></td>   
                   <td width="20%"><font size="1"face="arial"color="black">{value69.Respuestas}</font></td> 
@@ -12143,7 +12053,12 @@ ponderacion=<React.Fragment>
     }
 
     let reporteEjecutivo;
-    if(this.state.valor1[0] && this.state.valor72[0]){
+    let botonDescargarReporteEjecutivo;
+    if(this.state.valor1[0] && this.state.valor72[0] && this.state.reporteEjecutivo == true){
+      botonDescargarReporteEjecutivo =  
+      <MDBBtn   gradient="purple" size="md" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+         Descargar reporte ejecutivo
+      </MDBBtn>
       let celda;
       let criterios;
       let celdaPrev;
@@ -12410,7 +12325,6 @@ for(let i = 0; i < categoriaUno.length; i++){
   totalPonderacion[i] = categoriaUno[i] + categoriaDos[i] + categoriaTres[i] + categoriaCuatro [i] + categoriaCinco[i];  
 }
 
-console.log("totalPonderacion " , totalPonderacion)
 
 let suma = 0;
 totalPonderacion.forEach (function(numero){
@@ -12419,45 +12333,45 @@ totalPonderacion.forEach (function(numero){
 let ponderacionPromedio = (suma/totalPonderacion.length).toFixed(2)
 
 if(ponderacionPromedio<50){
-  celda = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="1" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
+  celda = <TableCell width="20%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="1" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
   celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="3" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
   
   criterios = <font size="2" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font>
-  criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
+  criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="2" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
   
   }else if(ponderacionPromedio>=50 && ponderacionPromedio < 75){
-    celda = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">BAJO</font></TableCell>
+    celda = <TableCell width="20%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">BAJO</font></TableCell>
     celdaPrev = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="3" face="arial"color="black" align="justify">BAJO</font></TableCell>
   
-    criterios = <font size="2" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
+    criterios = <font size="1" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
     psicosociales y programas para: la prevención de los factores de riesgo
     psicosocial, la promoción de un entorno organizacional favorable y la
     prevención de la violencia laboral.</font>
     
-    criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
+    criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="2" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
     psicosociales y programas para: la prevención de los factores de riesgo
     psicosocial, la promoción de un entorno organizacional favorable y la
     prevención de la violencia laboral.</font></TableCell>
   }else if(ponderacionPromedio>=75 && ponderacionPromedio < 99){
-    celda = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">MEDIO</font></TableCell>
+    celda = <TableCell width="20%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">MEDIO</font></TableCell>
     celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="3" face="arial"color="black" align="justify">MEDIO</font></TableCell>
   
-    criterios = <font size="2" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
+    criterios = <font size="1" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
     programas para la prevención de los factores de riesgo psicosocial, la
     promoción de un entorno organizacional favorable y la prevención de la
     violencia laboral, así como reforzar su aplicación y difusión, mediante un
     Programa de intervención.</font>
-    criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
+    criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="2" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
     programas para la prevención de los factores de riesgo psicosocial, la
     promoción de un entorno organizacional favorable y la prevención de la
     violencia laboral, así como reforzar su aplicación y difusión, mediante un
     Programa de intervención.</font></TableCell>
   
   }else if(ponderacionPromedio>=99 && ponderacionPromedio < 140){
-   celda = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="1" face="arial"color="black" align="justify">ALTO</font></TableCell>
+   celda = <TableCell  width="20%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="1" face="arial"color="black" align="justify">ALTO</font></TableCell>
    celdaPrev = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="3" face="arial"color="black" align="justify">ALTO</font></TableCell>
   
-   criterios =<font size="2" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
+   criterios =<font size="1" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
    se puedan determinar las acciones de intervención apropiadas a través de un
    Programa de intervención, que podrá incluir una evaluación específica y
    deberá incluir una campaña de sensibilización, revisar la política de
@@ -12466,7 +12380,7 @@ if(ponderacionPromedio<50){
    favorable y la prevención de la violencia laboral, así como reforzar su
    aplicación y difusión.</font>
    
-   criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
+   criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="2" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
    se puedan determinar las acciones de intervención apropiadas a través de un
    Programa de intervención, que podrá incluir una evaluación específica y
    deberá incluir una campaña de sensibilización, revisar la política de
@@ -12476,10 +12390,10 @@ if(ponderacionPromedio<50){
    aplicación y difusión.</font></TableCell>
   }
   else if( ponderacionPromedio > 140){
-    celda  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="1" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
+    celda  = <TableCell width="20%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="1" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
     celdaPrev  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="3" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
    
-   criterios= <font size="2" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
+   criterios= <font size="1" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
     las acciones de intervención apropiadas, mediante un Programa de
     intervención que deberá incluir evaluaciones específicas, y contemplar
     campañas de sensibilización, revisar la política de prevención de riesgos
@@ -12487,7 +12401,7 @@ if(ponderacionPromedio<50){
     psicosocial, la promoción de un entorno organizacional favorable y la
     prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font>
   
-    criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="3" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
+    criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="2" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
     las acciones de intervención apropiadas, mediante un Programa de
     intervención que deberá incluir evaluaciones específicas, y contemplar
     campañas de sensibilización, revisar la política de prevención de riesgos
@@ -12495,47 +12409,6 @@ if(ponderacionPromedio<50){
     psicosocial, la promoción de un entorno organizacional favorable y la
     prevención de la violencia laboral, así como reforzar su aplicación y difusión.</font></TableCell>
   }
-    // let sumaCategoria1 = 0;
-    // categoriaUno.forEach (function(numero){
-    //   sumaCategoria1 += numero;
-    // });
-
-    // let suma1 = (sumaCategoria1/categoriaUno.length).toFixed(2);
-
-    // console.log("suma1" , suma1)
-
-    // let sumaCategoria2 = 0;
-    // categoriaDos.forEach (function(numero){
-    //   sumaCategoria2 += numero;
-    // });
-
-    // let suma2 = (sumaCategoria2/categoriaDos.length).toFixed(2);
-    // console.log("suma2", suma2)
-
-    // let sumaCategoria3 = 0;
-    // categoriaTres.forEach (function(numero){
-    //   sumaCategoria3 += numero;
-    // });
-
-    // let suma3 = (sumaCategoria3/categoriaTres.length).toFixed(2);
-    // console.log("suma3", suma3)
-    
-    // let sumaCategoria4 = 0;
-    // categoriaCuatro.forEach (function(numero){
-    //   sumaCategoria4 += numero;
-    // });
-
-    // let suma4 = (sumaCategoria4/categoriaCuatro.length).toFixed(2);
-    // console.log("suma4", suma4)
-     
-    // let sumaCategoria5 = 0;
-    // categoriaCinco.forEach (function(numero){
-    //   sumaCategoria5 += numero;
-    // });
-
-    // let suma5 = (sumaCategoria5/categoriaCinco.length).toFixed(2);
-    // console.log("suma4", suma5)
-
     let frecuenciaCategoriaUno1 = 0;
     let frecuenciaCategoriaUno2 = 0;
     let frecuenciaCategoriaUno3 = 0;
@@ -12582,47 +12455,38 @@ if(ponderacionPromedio<50){
 
     reporteEjecutivo = 
     <React.Fragment>
-    <Alert className ="mt-4" color ="primary ">Reporte ejecutivo del total de empleados</Alert>
-
-    <MDBContainer style={{marginTop:20}}>
-      <table>
-        <tr>
-          <td width="33%">
-          <MDBBtn   gradient="purple" size="md" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-          Descargar reporte ejecutivo
-          </MDBBtn>
-          </td>
-          <td>
-
-          </td>
-          <td width="33%">
-          <font  face="arial" className = "mt-4" ><strong> EVALUACIÓN RP. </strong><br/><strong>FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></strong><br/><strong>{localStorage.getItem("razonsocial")}</strong> </font>
-          </td>
-          <td width="34%">
-          <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100}}/> 
-          </td>
-          <td>{botonCerrar}</td>
-        </tr>
+     <MDBCard>
+    <MDBCardHeader>
+      <MDBCardTitle><center>Reporte ejecutivo del total de empleados</center></MDBCardTitle>
+    </MDBCardHeader>
+    <MDBCardBody> 
+      <table style={{marginLeft:"20%"}}>
+      <tr>
+      <td width="65%" > <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+      <td width="35%" >
+      <img src={diagnostico} alt="logo" style = {{width:150}}/>
+      </td>
+      </tr>
       </table>
-
-
-    </MDBContainer>
-        <MDBContainer >
-          <Table   responsive small borderless className="text-left mt-4 ">
-          <TableHead>
-          <TableRow>
-            <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>PUNTAJE PROMEDIO</TableCell>
-              {celdaPrev}
-            <TableCell width="6%"  > <strong>   TOTAL {ponderacionPromedio}  PUNTOS </strong></TableCell>
-            <TableCell width="2%" ></TableCell>
-            <TableCell width="1%"  ></TableCell>
-              {criteriosPrev}
-          </TableRow>
-          </TableHead>
-          </Table>
-        </MDBContainer>
-        <br/>
-
+      <center> 
+      <font face="arial" className = "mt-4" ><center><strong>REPORTE EJECUTIVO DEL CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</strong></center></font><br/>
+      <strong className="text-left  ml-2 mt-4">{localStorage.getItem("razonsocial")}</strong><br/>
+      <font face="arial" className = "mt-4" >FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8} </strong> </font>
+      </center>
+      <br/>
+      <Table   responsive small borderless className="text-left mt-4 ">
+      <TableHead>
+      <TableRow>
+        <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>PUNTAJE PROMEDIO</TableCell>
+          {celdaPrev}
+        <TableCell width="6%"  > <strong>   TOTAL {ponderacionPromedio}  PUNTOS </strong></TableCell>
+        <TableCell width="2%" ></TableCell>
+        <TableCell width="1%"  ></TableCell>
+          {criteriosPrev}
+      </TableRow>
+      </TableHead>
+      </Table>
+      <br/>
     <TableContainer component={Paper} style={{marginBottom:30}}>
       <Table  size="small">
     
@@ -12862,7 +12726,7 @@ if(ponderacionPromedio<50){
               return(
                     <tr>
                       <td><font size="2" face="arial"color="black" >{increment++}</font></td>
-                      <td  className = "text-left"><font size="2" face="arial"color="black" >{rows[0]}</font></td>
+                      <td  className = "text-center"><font size="2" face="arial"color="black" >{rows[0]}</font></td>
                         {fila1}
                         {fila2}
                         {fila3}
@@ -12870,71 +12734,21 @@ if(ponderacionPromedio<50){
                         {fila5}
                         {fila6}
                     </tr>
-              )
-
+                )
             })}  
-            {/* <TableCell component="th" scope="row" >
-            {this.state.empleadosRE.map(rows=>{
-              return(
-                <tr>{rows}</tr>                          
-              )
-            })}
-            </TableCell>   
-            <TableCell component="th" scope="row" align="center">
-            {categoriaUno.map(filas=>{  
 
-              return(
-                <tr>{filas}</tr>     
-              )  
-            })} 
-            </TableCell>
-            <TableCell component="th" scope="row" align="center">
-            {categoriaDos.map(filas=>{  
-              return(
-                <tr>{filas}</tr>     
-              )  
-            })} 
-            </TableCell>
-            <TableCell component="th" scope="row" align="center">
-            {categoriaTres.map(filas=>{  
-              return(
-                <tr>{filas}</tr>     
-              )  
-            })} 
-            </TableCell>
-            <TableCell component="th" scope="row" align="center">
-             {categoriaCuatro.map(filas=>{  
-              return(
-                <tr>{filas}</tr>     
-              )  
-            })} 
-            </TableCell>
-            <TableCell component="th" scope="row" align="center">
-             {categoriaCinco.map(filas=>{  
-              return(
-                <tr>{filas}</tr>     
-              )  
-            })} 
-            </TableCell>
-            <TableCell component="th" scope="row" align="center">
-             {totalPonderacion.map(filas=>{  
-              return(
-                <tr>{filas}</tr>     
-              )  
-            })} 
-            </TableCell> */}
-                   
         </TableBody>
       </Table>
-
-    </TableContainer>              
+    </TableContainer> 
+    </MDBCardBody> 
+    </MDBCard>             
            <div>
                 <div className="example-config">
                   
                 </div>
                  {/*   */}
 
-                <div style={{ position: "absolute", left: "-1000px", top: 0 }}>
+                <div style={{ position: "absolute", left: "-2000px", top: 0 }}>
                     <PDFExport
                         paperSize="letter"
                         margin="1cm"
@@ -12944,24 +12758,19 @@ if(ponderacionPromedio<50){
                         fileName={`Reporte ejecutivo ${new Date().getFullYear()}`}
                         ref={(component) => this.pdfExportComponent = component}
                     >
-                        <div style={{ width: "500px" }}>                                          
+                        <div style={{ width: "550px" }}>                                          
                             <img src={logo} alt="logo" style = {{width:550,marginTop:30}}/>
-                            <MDBRow > 
-                            <MDBCol>                                  
-                            {/* <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/> */}
-                            </MDBCol> 
-                            </MDBRow>   
-                            <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left ">
+                            
+                            <MDBTable component={Paper}  small borderless className="text-left ">
                               
                             <MDBTableBody>  
-                            <br/>     
+                              <br/>
+                            <font size="3"face="arial"color="black">Reporte Ejecutivo Global | identificación y análisis de los factores de riesgo psicosocial y evaluacion del entorno organizacional</font><br></br>
+
                             <font size="2"face="arial"color="black"><strong> {localStorage.getItem("razonsocial")} </strong></font><br></br>          
                             <br></br>
-                            <font size="1"face="arial"color="black"><strong>Reporte Ejecutivo Global | identificación y análisis de los factores de riesgo psicosocial y evaluacion del entorno organizacional</strong></font><br></br>
-                            <br></br>
                             <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
-
-                            <br></br><br/>
+                            <br></br>
                             <font size="1"face="arial"color="black">Total de evaluaciones consideradas : {this.state.empleadosRE.length}</font><br></br><br></br>
 
                             <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
@@ -12993,13 +12802,11 @@ if(ponderacionPromedio<50){
                               <br></br>  
                               <br></br>     
 
-                                <div style={{marginLeft:"2%"}} >
-                                <p  className ="text-center"><strong>GUÍA DE REFERENCIA III  <br/>IDENTIFICACIÓN Y ANÁLISIS DE LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUACIÓN DEL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO </strong> </p>
-
-                                  </div> 
-                                  <br/>
-
-                                  <MDBTable bordless style={{marginLeft:"5%",marginTop:"2%"}}>
+                                <center>
+                                <p  className ="text-center"><strong> <font size="1"face="arial"color="black">GUÍA DE REFERENCIA III  IDENTIFICACIÓN Y ANÁLISIS DE LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUACIÓN DEL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO </font></strong> </p>
+                                </center>
+                          
+                                  <MDBTable bordless >
                                   <MDBTableBody>
                                   <tr>
                                     <td width="30%"><font size="1" face="arial"color="black"><strong>{localStorage.getItem("razonsocial")}</strong></font></td>
@@ -13012,7 +12819,7 @@ if(ponderacionPromedio<50){
                                   </MDBTableBody>
                                   </MDBTable>
 
-                                  <MDBTable style={{marginLeft:"5%"}}   large bordered  className="text-center">
+                                  <MDBTable  large bordered  className="text-center">
                                   <MDBTableBody>  
                                
                                   <tr >                              
@@ -13023,7 +12830,7 @@ if(ponderacionPromedio<50){
                                   </tr>   
                                   </MDBTableBody>                                              
                                   </MDBTable>
-                                  <Table style={{marginLeft:"5%"}}  responsive small bordless  className="text-left">
+                                  <Table  responsive small bordless  className="text-left">
                                   <tr >                              
                                   <td width="100%"><font size="2" face="arial"color="black" ><strong>Necesidad de la acción : </strong></font></td>                                
                                  
@@ -13033,7 +12840,7 @@ if(ponderacionPromedio<50){
                                   </tr>
                                   </Table>
                                  <br/>
-                                <table width="500" className="table-bordered" style={{marginLeft:"5%"}}>
+                                <table width="500" className="table-bordered" >
                              
                                   <tr >
                                     <th width="8%" scope="col"><p  style={{fontSize:"6px"}}><strong>#</strong></p></th>
@@ -13386,54 +13193,115 @@ if(ponderacionPromedio<50){
             </div>
   
           </React.Fragment>
-
-
 }
+    let tablaPeriodoActual;   
+    if(this.state.tablaPeriodoActual == true){
+      let periodo;
+      periodo = localStorage.getItem("periodo")
+      const columns = ["Id" , "Nombre","Centro de Trabajo","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
+      const data = this.state.empleados.map(rows=>{
+        if(rows) {
+          let botonRespuestas = <div><MDBBtn className = "text-white"  disabled={!this.state.botonResultados}  size="md" color="danger"  onClick={(e) => this.reporteIndividual(rows.id,rows.periodo)}>Respuestas</MDBBtn></div>
+
+          let botonResultados =  <div><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} color="secondary" size="md" onClick={(e) => this.getEvaluacion(rows.id,rows.periodo)}>Resultados</MDBBtn></div> 
+          return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
+        }
+      })
+  
+      tablaPeriodoActual  = <MUIDataTable
+      title={`Tabla de reportes EEO ${periodo}`}
+      data={data}
+      columns={columns}
+      options={options}
+    />
+    }
  
+    let tablaPeriodoSeleccionado;
+    if(this.state.tablaPeriodoSeleccionado == true){
+      const columns = ["Id" , "Nombre","Centro de Trabajo","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
+      const data = this.state.empleados.map(rows=>{
+        if(rows){
+          let botonRespuestas = <div><MDBBtn className = "text-white"  disabled={!this.state.botonResultados}  size="md" color="danger"  onClick={(e) => this.reporteIndividual(rows.id,rows.periodo)}>Respuestas</MDBBtn></div>
+          let botonResultados =  <div><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} color="secondary" size="md" onClick={(e) => this.getEvaluacion(rows.id,rows.periodo)}>Resultados</MDBBtn></div> 
+          return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
+        }
+      })
+      tablaPeriodoSeleccionado = <MUIDataTable
+      title={`Tabla de reportes EEO ${this.state.periodoSeleccionado}`}
+      data={data}
+      columns={columns}
+      options={options}
+      />
+    }
     return (
       <React.Fragment>
       <div>
-          <Navbar/>
-         <div
-        
-        style={{
-          marginLeft: "5%",
-          position: "absolute"
-        }}
-      >
-        <div style={{ height: "110%"}}>
-          <Grow in={true}>
-            <div style={{ margin: "60px 56px" }}>
+        <Navbar/>
+        <div >
+        <div  style={{marginTop:"5%", maxWidth:1140}}>
+        <MDBRow>
+        <MDBCol style={{ maxWidth: "30rem" }}> 
             <ReactFusioncharts
               type="pie3d"
-              width="100%"
-              height="80%"
+              width="140%"
+              height="60%"
               dataFormat="JSON"
               dataSource={dataSource}
-            />{spinner}
-              <MUIDataTable
-                title={`Resultados EEO`}
-                data={data}
-                columns={columns}
-                options={options}
-              />
-              <MDBRow style={{marginTop:20}}>
+            />
+              <MDBCard style={{marginLeft:"20%",width:"101%"}}>
+              <MDBCardHeader>
+              <center>
+              <Button style={{ color: 'green' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
+              <strong>&nbsp;Resultados de otros periodos<br/><i class="fas fa-mouse-pointer"></i></strong>
+              </Button>
+              </center>
+              <Menu
+                  id="simple-menu"
+                  anchorEl={this.state.dropdown}
+                  keepMounted
+                  open={Boolean(this.state.dropdown)}
+                  onClose={this.handleClose}
+              >
+              { this.state.todosLosPeriodos.map((rows)=>{
+                if(rows.Descripcion){
+                  return( <MenuItem value={rows.Descripcion} onClick={e=>this.cargarTablaPeriodoSeleccionado(rows.Descripcion)}><strong>{rows.Descripcion.toUpperCase()}</strong></MenuItem>
+                  ) }
+              })}
+                
+              </Menu>
+              </MDBCardHeader>
+              <MDBCardBody>
+              <center>
+              {botonCerrar}
+              {botonDescargarReporteIndividual}
+              {botonDescargarReporteIndividualResultados}
               {botonResultadosGlobales}
-              {spinner}
-             { PDFRespuestasMasivos}
+              {/* {spinner} */}
+              {PDFRespuestasMasivos}
               {PDFResultadosMasivos}
-              </MDBRow>
-              {ponderacion}
-              {ponderacionIndividual}
-              {pdfView1}
-              {reporteEjecutivo}
-            </div> 
-          </Grow>  
-        </div> 
+              {botonDescargarResultadosGlobales}
+              {botonDescargarReporteEjecutivo}
+              {spinner}
+              </center>
+              </MDBCardBody>
+              </MDBCard>
+
+            </MDBCol> 
+            <MDBCol style={{ maxWidth: "50rem" }}>
+            <div style={{display: 'table', tableLayout:'fixed', width:'115%',marginLeft:"16%"}} >
+                {tablaPeriodoActual}
+                {reporteIndividual}
+                {ponderacionIndividual}
+                {ponderacion}
+                {tablaPeriodoSeleccionado}
+                {reporteEjecutivo}
+            </div>
+            </MDBCol>
+         </MDBRow>
+          </div> 
       </div>
       </div>
-      </React.Fragment>
-      
+      </React.Fragment> 
     )
   }
 }

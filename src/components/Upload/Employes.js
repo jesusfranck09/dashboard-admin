@@ -901,7 +901,6 @@ render(){
 								name="area"
 								fullWidth
 								required
-								component={TextField}
 								type="text"
 								label="Departamento"
 								component={Select}

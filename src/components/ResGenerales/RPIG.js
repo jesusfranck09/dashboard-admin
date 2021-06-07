@@ -2,7 +2,7 @@
 import React, { PureComponent } from "react";
 import MUIDataTable from "mui-datatables";
 import Grow from "@material-ui/core/Grow";
-import {MDBRow,MDBCol,MDBBtn, MDBContainer,MDBTableHead ,MDBTable, MDBTableBody} from 'mdbreact';
+import {MDBRow,MDBCol,MDBBtn, MDBContainer,MDBTableHead,MDBCard ,MDBCardBody,MDBCardHeader,MDBTable, MDBCardTitle,MDBTableBody} from 'mdbreact';
 import logo from '../images/logo.png'
 import diagnostico from '../images/diagnostico.png'
 import { API} from '../utils/http'
@@ -13,6 +13,8 @@ import Button from '@material-ui/core/Button';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Modal from 'react-modal';
 // import PDF from '../PDF/index'
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import {Alert} from 'reactstrap'
 import {
   Grid,
@@ -32,6 +34,7 @@ import Navbar from '../Home/navbar'
 import FusionCharts from "fusioncharts";
 import charts from "fusioncharts/fusioncharts.charts";
 import ReactFusioncharts from "react-fusioncharts";
+
 
 class App extends React.Component {
 pdfExportComponent ;
@@ -121,7 +124,15 @@ pdfExportComponent ;
       valor44:[],
       valor45:[],
       valor46:[],
-      date:''
+      date:'',
+      tablaPeriodoActual:true,
+      reporteIndividual:false,
+      reporteResultadosIndividual:false,
+      todosLosPeriodos:[],
+      dropdown:null,
+      reporteResultadosGlobales:false,
+      reporteEjecutivos:false,
+      tablaPeriodoSeleccionado:true,
     };
 
     this.handleLogOut = this.handleLogOut.bind(this);
@@ -173,7 +184,30 @@ pdfExportComponent ;
     let totalEmpleados=[]
     var id  =localStorage.getItem("idAdmin")  
     let resultadosEvaluacion=[];     
+    let periodo =  localStorage.getItem("periodo")
+    var datasort;
+    let arrayFilter;
+
+
     // const url = 'http://localhost:8000/graphql'
+    await axios({
+      url:  API,
+      method:'post',
+      data:{
+      query:`
+       query{
+        getallPeriodo(data:"${[id]}"){
+         Descripcion
+         EventoActivo
+              }
+            }
+          `
+      }
+    })
+    .then(datos => {	
+      this.setState({todosLosPeriodos:datos.data.data.getallPeriodo})
+    }).catch(err=>{
+    })
       await axios({
       url:  API,
       method:'post',
@@ -195,9 +229,18 @@ pdfExportComponent ;
           `
       }
       }).then((datos) => {
-      this.setState({empleados:datos.data.data.getEmployeesResolvesRP})      
-  
-      datos.data.data.getEmployeesResolvesRP.map(rows=>{
+
+        datasort =  datos.data.data.getEmployeesResolvesRP
+
+        datasort.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );  
+
+        arrayFilter = datasort.filter(e => e.periodo == periodo)
+
+        this.setState({empleados:arrayFilter}) 
+
+        this.setState({evaluacionesTodosLosPeriodos:datos.data.data.getEmployeesResolvesRP}) 
+
+        datasort.map(rows=>{
         axios({
         url:  API,
         method:'post',
@@ -231,13 +274,14 @@ pdfExportComponent ;
             RotacionTurnos 
             fk_administrador 
             fk_correos 
+            Periodo
                 }
               }
             `
         }
-        }).then(datos => {    
-          totalEmpleados.push(datos.data.data.getresultGlobalSurveyRP)  
-          this.setState({resultadosInicio:totalEmpleados})
+        }).then(datos => {              
+          totalEmpleados.push(datos.data.data.getresultGlobalSurveyRP);  
+          this.setState({resultadosInicio:totalEmpleados});
         })
         .catch(err => {
         }); 
@@ -275,6 +319,7 @@ pdfExportComponent ;
             RotacionTurnos 
             fk_administrador 
             fk_correos 
+            Periodo
                 }
               }
             `
@@ -285,7 +330,6 @@ pdfExportComponent ;
           resultadosQuery.push(datos.data.data.resultSingleSurveyRP )
           this.setState({resultadosQueryMasivo : resultadosQuery})   
           if(this.state.evaluacionMasivoResultados.length == this.state.empleados.length){
-            this.setState({spinner:false})
           }    
           })
         .catch(err => {
@@ -321,23 +365,50 @@ pdfExportComponent ;
         .catch(err => {
           console.log("el error es  ",err.response)
         }); 
+        this.setState({spinner:false})
+
      }
 
+     async cargarTablaPeriodoSeleccionado (parametro){
+      let periodo = parametro
+      let empleados  = this.state.evaluacionesTodosLosPeriodos; 
+      let arrayFilter = empleados.filter(e => e.periodo == periodo)
+      await  this.setState({empleados:[]})
+      this.setState({tablaPeriodoActual:false})            
+      this.setState({tablaPeriodoSeleccionado:true})
+      this.setState({empleados:arrayFilter})
+      this.setState({reporteEjecutivos:false})
+      this.setState({reporteResultadosIndividual:false})
+      this.setState({reporteResultadosGlobales:false})
+      this.setState({reporteIndividual:false})
+    }
 
-     consultarDatosFiltrados = async (datos,filtro) =>{
+
+     consultarDatosFiltrados = async (datos,filtro,periodoTabla) =>{
+      this.setState({spinner:true})
+      this.setState({reporteIndividual:false})
+      this.setState({tablaPeriodoActual:false})
+      this.setState({reporteResultadosIndividual:false})
+      this.setState({reporteResultadosGlobales:true})
+      this.setState({reporteEjecutivos:false})
+      this.setState({reporteIndividual:false})
+      this.setState({tablaPeriodoSeleccionado:false})
       this.setState({botonDisabled:''})
       this.setState({botonResultados:''})
-      this.setState({spinner:true})
+      
       let array=[];
-      let periodo;
       let totalEmpleados=[];
+
       datos.map(rows=>{
-        periodo= rows.data[6]
         array.push(rows.data[0])
       })
+
       let arrayFilter = []
       let filter;
-      await this.state.resultadosInicio.forEach(row=>{
+      let filterArray;
+      let filtrado = [];
+
+       this.state.resultadosInicio.forEach(row=>{
            array.forEach(element => {
             filter  = row.filter(function(hero){
               return hero.fk_empleadosRP === element
@@ -346,13 +417,22 @@ pdfExportComponent ;
             //  console.log("arrayFilter" , element)
             }); 
       })
-      let tag = []
-      function array_equals(a, b){
-        return a.length === b.length && a.every((item,idx) => item === b[idx])
-       }
-      var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
-       this.setState({peticion1:filtrado}) 
-       this.setState({spinner:false});
+      // let tag = []
+
+      // function array_equals(a, b){
+      //   return a.length === b.length && a.every((item,idx) => item === b[idx])
+      //  }
+      // var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
+
+      arrayFilter.map(row=>{
+        filterArray = row.filter(function(hero){
+          return hero.periodo = periodoTabla[0]
+        })
+        filtrado.push(filterArray)
+        })
+
+      this.setState({peticion1:filtrado}) 
+      this.setState({spinner:false});
 
       if(filtro!== undefined){
       if(filtro[0].length>0){
@@ -423,20 +503,22 @@ pdfExportComponent ;
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    reporteImasivo = async (datos,filtro) =>{
+    reporteImasivo = async (datos,filtro,periodoTabla) =>{
       this.setState({botonDisabled:''})
       this.setState({botonResultados:''})
       this.setState({spinner:true})
+
       let array=[];
-      let periodo;
       let totalEmpleados=[];
       datos.map(rows=>{
-        periodo= rows.data[6]
         array.push(rows.data[0])
       })
+
       let arrayFilter = []
       let filter;
-      
+      let filterArray;
+      let filtrado = [];
+
       // console.log("array" , array)
       this.state.resultadosInicio.forEach(row=>{
         array.forEach(rows=>{
@@ -448,12 +530,19 @@ pdfExportComponent ;
           arrayFilter.push(filter)
         })
       })
+      
+      arrayFilter.map(fila=>{
+        filterArray = fila.filter(function(hero){
+          return hero.Periodo === periodoTabla[0]
+        })
+          filtrado.push(filterArray)
+        })
 
-      function array_equals(a, b){
-        return a.length === b.length && a.every((item,idx) => item === b[idx])
-      }
-      let tag = []
-      var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
+      // function array_equals(a, b){
+      //   return a.length === b.length && a.every((item,idx) => item === b[idx])
+      // }
+      // let tag = []
+      // var filtrado2 = arrayFilter.filter(item => !array_equals(item, tag))
 
         this.setState({reporteImasivo:filtrado})
         this.setState({spinner:false});
@@ -526,7 +615,7 @@ pdfExportComponent ;
     this.setState({datosLength:datos.length})
     }
 
-    reporteImasivoResultados = async (datos,filtro) =>{
+    reporteImasivoResultados = async (datos,filtro,periodoTabla) =>{
       this.setState({botonDisabled:''})
       this.setState({botonResultados:''})
       this.setState({spinner:true})
@@ -538,7 +627,9 @@ pdfExportComponent ;
   
       let arrayFilter = []
       let filter;
-      
+      let filterArray;
+      let filtrado = [];
+
       this.state.evaluacionMasivoResultados.forEach(row=>{
         array.forEach(rows=>{
         filter =row.filter(function(hero){
@@ -547,14 +638,21 @@ pdfExportComponent ;
           arrayFilter.push(filter)
         })
       })
+      arrayFilter.map(fila=>{
+        filterArray = fila.filter(function(hero){
+          return hero.Periodo === periodoTabla[0]
+        })
+          filtrado.push(filterArray)
+        })
+        console.log("filtrado" , filtrado)
       function array_equals(a, b){
         return a.length === b.length && a.every((item,idx) => item === b[idx])
         }
         let tag = []
-        var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
-      //  console.log("arrayFilter" , filtrado)
+        var filtrado2 = arrayFilter.filter(item => !array_equals(item, tag))
+       console.log("arrayFilter" , filtrado2)
   
-        this.setState({resultadosEvaluacionMasivo:filtrado})
+        this.setState({resultadosEvaluacionMasivo:filtrado2})
         this.setState({spinner:false});
 
       if(filtro!= undefined){
@@ -624,8 +722,14 @@ pdfExportComponent ;
     this.setState({datosLength:datos.length})   
     }
                   
-    click(id,periodo){ 
-    this.setState({botonDisabled:''})   
+    reporteIndividual(id,periodo){ 
+    this.setState({botonDisabled:''})  
+    this.setState({reporteIndividual:true})
+    this.setState({tablaPeriodoActual:false})
+    this.setState({reporteResultadosIndividual:false})
+    this.setState({reporteResultadosGlobales:false})
+    this.setState({reporteEjecutivos:false})
+    this.setState({tablaPeriodoSeleccionado:false}) 
     // const url = 'http://localhost:8000/graphql'
     axios({
       url:  API,
@@ -685,6 +789,12 @@ pdfExportComponent ;
       
   getEvaluacion(id,periodo){
    this.setState({botonDisabled:''})  
+   this.setState({reporteIndividual:false})
+   this.setState({tablaPeriodoActual:false})
+   this.setState({reporteResultadosIndividual:true})
+   this.setState({reporteResultadosGlaobales:false})
+   this.setState({reporteEjecutivos:false})
+   this.setState({tablaPeriodoSeleccionado:false})
     // const url = 'http://localhost:8000/graphql'
     axios({
       url:  API,
@@ -846,14 +956,25 @@ pdfExportComponent ;
       });  
       }    
 
-         reporteEjecutivo (datos,filtro){
-          this.setState({spinner:true})
-
-          // console.log("algo", datos,filtro) 
+      handleDropdown = (event) => {
+        this.setState({dropdown: event.currentTarget});
+      };
+      handleClose = () => {
+        this.setState({dropdown: null});
+      };
+              
+         reporteEjecutivo (datos,filtro,periodoTabla){
           this.setState({botonDisabled:''})
           this.setState({botonResultados:''})
+          this.setState({reporteIndividual:false})
+          this.setState({tablaPeriodoActual:false})      
+          this.setState({tablaPeriodoSeleccionado:false})
+          this.setState({reporteResultadosIndividual:false})
+          this.setState({reporteResultadosGlobales:false})
+          this.setState({reporteEjecutivos:true})
+          this.setState({spinner:true})
+
           let array=[];
-          let periodo;
           let totalEmpleados=[];
           let array1=[], array2=[], array3=[], array4=[], array5=[], array6=[], array7=[], array8=[], array9=[], array10=[]      
           let array11=[], array12=[], array13=[], array14=[], array15=[], array16=[], array17=[], array18=[], array19=[], array20=[]      
@@ -869,9 +990,9 @@ pdfExportComponent ;
 
       
           datos.map(rows=>{
-            periodo= rows.data[6]
             array.push(rows.data[0])
           })
+
           let arrayFilter = []
           let filter;
           this.state.resultadosInicio.forEach(row=>{
@@ -882,11 +1003,25 @@ pdfExportComponent ;
                   arrayFilter.push(filter)
                 }); 
           })
+          let filterArray;
+          let filtrado2 = [];
+          // let tag = []
+          // function array_equals(a, b){
+          //   return a.length === b.length && a.every((item,idx) => item === b[idx])
+          // }
+          // var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
+          arrayFilter.map(fila=>{
+            filterArray = fila.filter(function(hero){
+              return hero.Periodo === periodoTabla[0]
+            })
+              filtrado2.push(filterArray)
+          })
           let tag = []
           function array_equals(a, b){
             return a.length === b.length && a.every((item,idx) => item === b[idx])
           }
-          var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
+          var filtrado = filtrado2.filter(item => !array_equals(item, tag))
+
           var array1Int;
           var arr1Int;
           var respuesta1;
@@ -899,7 +1034,7 @@ pdfExportComponent ;
           let valor1=[];
           let empleados = []
            array1.map(rows=>{
-              
+              console.log("rows" , rows)
               empleados.push(rows[0].nombre +" " + rows[0].ApellidoP  + " " + rows[0].ApellidoM) 
                 valor1.push(rows[0].ponderacion)          
             })
@@ -1561,20 +1696,17 @@ pdfExportComponent ;
     if(!this.state.botonDisabled){  
         botonCerrar=<MDBBtn className = "text-white"  size="md" color="danger" onClick={(e)=>{window.location.reload()}} >Cerrar</MDBBtn>
     }
-    const columns = ["ID","Nombre", "Sexo",  "Area", "Puesto","Centro de Trabajo","Periodo",{name:"Resultados",label:"Respuestas",options:{filter: false,sort: false,}},{name:"Resultados",label:"Resultados",options:{filter: false,sort: false,}}];
-
-    const data = this.state.empleados.map(rows=>{
-        let botonRespuestas = <div><MDBBtn className = "text-white"   disabled={!this.state.botonResultados}size="md" color="danger"  onClick={(e) => this.click(rows.id,rows.periodo)}>Respuestas</MDBBtn></div>
-        let botonResultados =  <div><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} color="secondary" size="md" onClick={(e) => this.getEvaluacion(rows.id,rows.periodo)}>Resultados</MDBBtn></div> 
-      return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.Sexo,rows.AreaTrabajo,rows.Puesto,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
-    })
-
+   
     let datosEmpleados;
     let filtro;
+    let periodoTabla;
     
     const options = {
         filterType: "dropdown",
-        responsive: "stacked",
+        responsive: "scrollMaxHeight",
+        sort:true,
+        setCellProps: () => ({ style: { minWidth: "1000px", maxWidth: "1000px" }}),
+        customBodyRender: (data, type, row) => {return <pre>{data}</pre>},
         textLabels: {
                    body: {
                      noMatch: "Consultando iformación",
@@ -1612,9 +1744,12 @@ pdfExportComponent ;
       
         onTableChange: (action, tableState) => {
         datosEmpleados=tableState.displayData
+        periodoTabla = tableState.filterData[3]
+
         },
         onFilterChange: (action, filtroTable) => {
           filtro=filtroTable
+          
           }     };
           let dataSource;
           charts(FusionCharts);
@@ -2689,8 +2824,8 @@ pdfExportComponent ;
                       }
                          dataSource = {
                           chart: {
-                            caption: "Gráfica de previsualización por categoría de resultados globales",
-                            subcaption: "Ponderación de empleados",
+                            caption: "Gráfica de previsualización",
+                            subcaption: "Ponderación",
                             showvalues: "1",
                             showpercentintooltip: "0",
                             // numberprefix: "Pts.",
@@ -2699,7 +2834,7 @@ pdfExportComponent ;
                             },
                             data: [
                               {
-                                label: "Ambiente de trabajo",
+                                label: "Ambiente de T",
                                 value:  categoria1Grafica,
                                 color: colorCategoria1Grafica,
                                 labelFontSize:12,
@@ -2708,7 +2843,7 @@ pdfExportComponent ;
                                 // link:"www.google.com"
                               },
                               {
-                                label: "Factores propios de la actividad",
+                                label: "Factores propios",
                                 value: categoria2Grafica,
                                 color: colorCategoria2Grafica,
                                 labelFontSize:12,
@@ -2716,7 +2851,7 @@ pdfExportComponent ;
                                 // link:"www.google.com"
                               },
                               {
-                                label: "Organización del tiempo de trabajo",
+                                label: "Organización",
                                 value: categoria3Grafica,
                                 color: colorCategoria3Grafica,
                                 labelFontSize:12,
@@ -2724,7 +2859,7 @@ pdfExportComponent ;
                                 // link:"www.google.com"
                               },
                               {
-                                label: "Liderazgo y relaciones en el trabajo",
+                                label: "Liderazgo",
                                 value: categoria4Grafica,
                                 color: colorCategoria4Grafica,
                                 labelFontSize:12,
@@ -2743,9 +2878,10 @@ pdfExportComponent ;
                         }
       
           let ponderacion;
+          let botonDescargarResultadosGlobales;
           // console.log("dataPeticion1" , this.state.peticion1) 
 
-          if(this.state.peticion1.length>0){
+          if(this.state.peticion1.length>0 &&  this.state.reporteResultadosGlobales == true){
           let total;
           let array1=[], array2=[], array3=[], array4=[], array5=[], array6=[], array7=[], array8=[], array9=[], array10=[]      
           let array11=[], array12=[], array13=[], array14=[], array15=[], array16=[], array17=[], array18=[], array19=[], array20=[]      
@@ -3798,7 +3934,7 @@ else if(general>=20 && general <45){
   psicosocial, la promoción de un entorno organizacional favorable y la
   prevención de la violencia laboral.</p></font></TableCell>
 
-  criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify"><p> Es necesario una mayor difusión de la política de prevención de riesgos
+  criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="2" face="arial"color="black" align="justify"><p> Es necesario una mayor difusión de la política de prevención de riesgos
   psicosociales y programas para: la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
   prevención de la violencia laboral.</p></font></TableCell>
@@ -3813,7 +3949,7 @@ else if(general>=20 && general <45){
   violencia laboral, así como reforzar su aplicación y difusión, mediante un
   Programa de intervención.</p></font></TableCell>
 
-   criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify"><p>Se requiere revisar la política de prevención de riesgos psicosociales y
+   criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="2" face="arial"color="black" align="justify"><p>Se requiere revisar la política de prevención de riesgos psicosociales y
    programas para la prevención de los factores de riesgo psicosocial, la
    promoción de un entorno organizacional favorable y la prevención de la
    violencia laboral, así como reforzar su aplicación y difusión, mediante un
@@ -3831,7 +3967,7 @@ criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face
  favorable y la prevención de la violencia laboral, así como reforzar su
  aplicación y difusión.</p></font></TableCell>
 
- criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify"><p>Se requiere realizar un análisis de cada categoría y dominio, de manera que
+ criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="2" face="arial"color="black" align="justify"><p>Se requiere realizar un análisis de cada categoría y dominio, de manera que
  se puedan determinar las acciones de intervención apropiadas a través de un
  Programa de intervención, que podrá incluir una evaluación específica y
  deberá incluir una campaña de sensibilización, revisar la política de
@@ -3851,7 +3987,7 @@ else if( general >= 90){
   psicosociales y programas para la prevención de los factores de riesgo
   psicosocial, la promoción de un entorno organizacional favorable y la
   prevención de la violencia laboral, así como reforzar su aplicación y difusión.</p></font></TableCell>
-  criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="3" face="arial"color="black" align="justify"><p>Se requiere realizar el análisis de cada categoría y dominio para establecer
+  criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="2" face="arial"color="black" align="justify"><p>Se requiere realizar el análisis de cada categoría y dominio para establecer
   las acciones de intervención apropiadas, mediante un Programa de
   intervención que deberá incluir evaluaciones específicas, y contemplar
   campañas de sensibilización, revisar la política de prevención de riesgos
@@ -4152,34 +4288,32 @@ if(DominioOcho < 7){
 }
 
  a = 1
+  botonDescargarResultadosGlobales =    
+  <MDBBtn   gradient="purple" size="md" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+    Descargar reporte global
+  </MDBBtn>
 ponderacion=<React.Fragment>
 
-<MDBContainer style={{marginTop:20}}>
-  <table>
+  <MDBCard>
+    <MDBCardHeader>
+      <MDBCardTitle><center>Resultados globales de la evaluación RP</center></MDBCardTitle>
+    </MDBCardHeader>
+  <MDBCardBody>
+  <table style={{marginLeft:"20%"}}>
     <tr>
-      <td width="33%">
-      <MDBBtn   gradient="purple" size="md" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-      Descargar reporte global
-      </MDBBtn>
-      </td>
-      <td>
-
-      </td>
-      <td width="33%">
-      <font  face="arial" className = "mt-4" ><strong> EVALUACIÓN RP. </strong><br/><strong>FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></strong><br/><strong>{localStorage.getItem("razonsocial")}</strong> </font>
-      </td>
-      <td width="34%">
-      <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100}}/> 
-      </td>
-      <td>{botonCerrar}</td>
-
+    <td width="65%" > <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+    <td width="35%" >
+    <img src={diagnostico} alt="logo" style = {{width:150}}/>
+    </td>
     </tr>
-  </table>
+    </table>
+    <center> 
+    <font face="arial" className = "mt-4" ><center><strong>REPORTE GLOBAL DEL CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</strong></center></font><br/>
+    <strong className="text-left  ml-2 mt-4">{localStorage.getItem("razonsocial")}</strong><br/>
+    <font face="arial" className = "mt-4" >FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8} </strong> </font>
 
-
- </MDBContainer>
- <br/>
- 
+    </center>
+    <br/>
 <MDBContainer >
 
 <Table   responsive small borderless className="text-left mt-4 ">
@@ -4495,16 +4629,17 @@ ponderacion=<React.Fragment>
             <TableCell component="th" scope="row" ></TableCell>
             <TableCell component="th" scope="row" ></TableCell>
             </TableRow>
-          
         </TableBody>
       </Table>
     </TableContainer>
+    </MDBCardBody>
+    </MDBCard>
     <div>
                 <div className="example-config">
                   
                 </div>
 
-                <div style={{ position: "absolute", left: "-1000px", top: 0 }}>
+                <div style={{ position: "absolute", left: "-2000px", top: 0 }}>
                     <PDFExport
                         paperSize="letter"
                         margin="1cm"
@@ -4513,26 +4648,27 @@ ponderacion=<React.Fragment>
                         fileName={`Resultados globales RP ${new Date().getFullYear()}`}
                         ref={(component) => this.pdfExportComponent = component}
                     >
-                        <div style={{ width: "500px" }}>
-                      
+                        <div style={{ width: "550px" }}>
                             <MDBRow style={{marginBottom:10}}> 
-                            <MDBCol>
-                            <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
-                    
-                            <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
+                             <MDBCol>
+                             <MDBTable component={Paper}  small borderless className="text-left">
+                            <MDBTableBody>  
+                            <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
+
+                                <font size="3"face="arial"color="black">Reporte global de factores de riesgo psicosocial en los centros de trabajo</font><br></br>  <br></br>  
+                              <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")} </font><br></br>  
+                              <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
+                              <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font><br/>
+                              <font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              <br></br>
+                              </MDBTableBody>
+                              </MDBTable>    
+                              <center>   <img src={diagnostico} alt="logo" style = {{width:120,heigth:50}}/>&nbsp;&nbsp;&nbsp;<img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,heigth:20}}/></center>
                             </MDBCol> 
                             </MDBRow> 
-                            <img src={logo} alt="logo" style = {{width:550}}/>
-                            <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
-                          
-                            <MDBTableBody>     
-                            <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-                            <font size="3"face="arial"color="black">Diagnóstico Global de factores de riesgo psicosocial  en los centros de trabajo</font><br></br>
-                            <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
-                            <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>
-                            <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>                        
-                            </MDBTableBody>
-                            </MDBTable>
                               <br/>
                               <br/>
                               <br/>
@@ -4572,18 +4708,17 @@ ponderacion=<React.Fragment>
                               <br/>
                               <br/>
                               <br/>
-                              <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-center mt-4 ">
-                              <MDBTableBody>
+                              <center>
                               <font size="1"
                               face="arial"
-                              color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA II -
+                              color="black" style = {{marginTop:25}}>GUÍA DE REFERENCIA II -
                               CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font>   <br/>  
-                                </MDBTableBody>
-                                </MDBTable>
-                                <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
+                              </center>
+
+                                <MDBTable  component={Paper} small  className="text-left mt-4 ">
                                     <MDBTableBody>
                                     <tr>
-                                        <td width="25%"><font size="1" face="arial"color="black"><strong>{localStorage.getItem("razonsocial")}</strong></font></td>
+                                    <td width="25%"><font size="1" face="arial"color="black"><strong>{localStorage.getItem("razonsocial")}</strong></font></td>
                                     <td width="15%"><font size="1" face="arial"color="black"><strong>{this.state.nombre3}</strong></font></td>
                                     <td width="15%"><font size="1" face="arial"color="black"><strong>{this.state.nombre4}</strong></font></td>
                                     <td width="15%"><font size="1" face="arial"color="black"><strong>{this.state.nombre5}</strong></font></td>
@@ -4592,18 +4727,17 @@ ponderacion=<React.Fragment>
                                    </tr>
                                    </MDBTableBody>
                                    </MDBTable>
-                                <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
+                                <MDBTable  component={Paper}  small  className="text-left mt-4 ">
                                     <MDBTableBody>
-                            
                                    <tr>
-                                   <td width="40%"><font size="1" face="arial"color="black">RESULTADO DEL NÚMERO DE EVALUACIONES :  </font></td>
+                                   <td width="40%"><font size="1" face="arial"color="black">RESULTADO:  </font></td>
                                    <td width="20%"><font size="1" face="arial"color="black">{general.toFixed(2)}</font></td>
                                    <td width="20%"><font size="1" face="arial"color="black">Nivel de riesgo </font></td>
                                     {celda}
                                    </tr>                                  
                                    </MDBTableBody>
                                     </MDBTable>  
-                                    <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left ">
+                                    <MDBTable  component={Paper}  small  className="text-left ">
                                     <MDBTableBody>
                                     <tr>
                                       <td ><font size="1" face="arial"color="black"><strong>Necesidad de la acción :</strong></font></td>
@@ -4616,10 +4750,10 @@ ponderacion=<React.Fragment>
 
                                     <MDBTable  component={Paper}  small  className="text-left ">
                                      <MDBTableBody>
-                                    <font color="red" style= {{marginTop:40,marginLeft:60}}  size="1">I.- Resultados de la categoría</font>
+                                    <font color="red" style= {{marginTop:40}}  size="1">I.- Resultados de la categoría</font>
                                     </MDBTableBody>                                                                            
                                     </MDBTable>
-                                    <table width="500" style={{marginLeft:40}} className="table-bordered table-lg"> 
+                                    <table width="550" className="table-bordered table-lg"> 
                                           
                                          <tr>                              
                                           <td width="10%"><font size="1" face="arial"color="black" ></font></td>
@@ -4656,10 +4790,10 @@ ponderacion=<React.Fragment>
                                       </table>
                                       <MDBTable  component={Paper}  small  className="text-left ">
                                      <MDBTableBody>
-                                    <font color="red" style= {{marginTop:20,marginLeft:60}}  size="1">II.- Resultados del dominio</font>
+                                    <font color="red" style= {{marginTop:20}}  size="1">II.- Resultados del dominio</font>
                                     </MDBTableBody>                                                                            
                                     </MDBTable>
-                                      <table width="500" style={{marginLeft:40}} className="table-bordered table-lg">                                           
+                                      <table width="550" className="table-bordered table-lg">                                           
                                          <tr >                              
                                           <td width="10%"><font size="1" face="arial"color="black" ></font></td>
                                           <td width="60%" className="text-left"><font size="1" face="arial"color="black">Dominio</font></td>
@@ -4721,10 +4855,10 @@ ponderacion=<React.Fragment>
 
                                       <MDBTable  component={Paper}  small  className="text-left ">
                                      <MDBTableBody>
-                                    <font color="red" style= {{marginTop:20,marginLeft:60}}  size="1">III.- Resultados por Dimensión</font>
+                                    <font color="red" style= {{marginTop:20}}  size="1">III.- Resultados por Dimensión</font>
                                     </MDBTableBody>                                                                            
                                     </MDBTable>
-                                      <table width="500" style={{marginLeft:40}} className="table-bordered table-lg">                                           
+                                      <table width="550" className="table-bordered table-lg">                                           
                                          <tr >                              
                                           <td  width="10%"><font size="1" face="arial"color="black" ></font></td>
                                           <td  width="60%"><font size="1" face="arial"color="black">Dimensión</font></td>
@@ -4850,9 +4984,13 @@ ponderacion=<React.Fragment>
 </React.Fragment>
    } 
 
-    let pdfView1;
+    let reporteIndividual;
+    let botonDescargarReporteIndividual;
 
-    if(this.state.resultados[2]){ 
+    if(this.state.resultados[2]  && this.state.reporteIndividual== true){ 
+      botonDescargarReporteIndividual = <MDBBtn className = "text-white"  size="md" color="secondary"  className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+      Respuestas de {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}
+      </MDBBtn>
 
       let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16,value17,value18,value19,value20,value21,value22,value23,value24;
       let value25,value26,value27,value28,value29,value30,value31,value32,value33,value34,value35,value36,value37,value38,value39,value40,value41,value42,value43,value44,value45,value46;
@@ -5155,112 +5293,98 @@ ponderacion=<React.Fragment>
 
       a = 1
       // console.log("este es lo que contiene el estado ")
-      pdfView1 = <MDBContainer> <Alert className ="mt-4" color ="primary ">Resultados de la aplicación de la evaluación RP </Alert>
+      reporteIndividual =
     
         <React.Fragment>
-
-
           <section className="flex-column  bg-white  pa4 "  >
-          <div style={{marginLeft:"6%"}}>
-                    
-                    <MDBBtn size="md" color="secondary" className="k-button text-white" onClick={() => { this.pdfExportComponent.save(); }}>
-                        Descargar Respuestas de {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}
-                    </MDBBtn>
-                    &nbsp;
-                    {botonCerrar}
-           </div>
-           <br/>
- 
-           <MDBContainer style={{marginLeft:"6%"}}>
-                <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font>
-                 <br/><br/> <strong>{localStorage.getItem("razonsocial")}</strong><br/>
-                <MDBTable small borderless className="text-left mt-4 ">
-       
-                <MDBTableBody>   
-                <tr>
-                <td width="65%" > <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
-                <td width="35%" >
-                <img src={diagnostico} alt="logo" style = {{width:150}}/>
-
-                </td>
-                </tr>
-               
-                  <tr>
-                  <td width="65%"  >Nombre : {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM} </td>
-                  <td width="35%"  >Puesto : {this.state.resultados[0].Puesto}</td>
-                  </tr>
-                  <tr>
-                  <td width="65%"  >Departamento : {this.state.resultados[0].AreaTrabajo}</td>
-                  <td width="35%" >Genero : {this.state.resultados[0].Sexo}</td> 
-                  </tr>
-                  <tr>
-                  <td width="65%" >Correo : {this.state.resultados[0].correo}</td>
-                  <td width="35%" >RFC : {this.state.resultados[0].RFC}</td>   
-                  </tr>
-                </MDBTableBody>
-                </MDBTable>
-                </MDBContainer>
+          <MDBCard>
+          <MDBCardHeader>
+              <MDBCardTitle><center>Resultados de la aplicación de la evaluación RP</center></MDBCardTitle>
+            </MDBCardHeader>
+          <MDBCardBody>
+           <table style={{marginLeft:"20%"}}>
+            <tr>
+            <td width="65%" > <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+            <td width="35%" >
+            <img src={diagnostico} alt="logo" style = {{width:150}}/>
+            </td>
+            </tr>
+            </table>
+            <center> 
+            <font face="arial" className = "mt-4" ><center><strong>CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</strong></center></font><br/>
+            <strong className="text-left  ml-2 mt-4">{localStorage.getItem("razonsocial")}</strong><br/>
+            <table  style={{marginLeft:"10%"}} className="mt-4">
+              <tr>
+                <td width="40%"><strong>{this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</strong></td>
+                <td width="20%"></td>
+                <td width="40%"><strong>{this.state.resultados[0].RFC}</strong></td>
+              </tr>
+              <tr>
+                <td><strong>{this.state.resultados[0].correo}</strong></td>
+              </tr>
+            </table>
+            </center>     
                 <MDBContainer style={{marginLeft:20}}>
                 <MDBTable component={Paper}  small borderless className="text-left mt-4 ml-4 " responsive className="mt-4 text-left">
                   <MDBTableHead>
                     <tr>
                       <th width="5%"></th>
-                      <th  width="70%">I. Las condiciones de su centro de trabajo, así como la cantidad y ritmo de trabajo.</th>    
+                      <th  width="70%"><strong>I. Las condiciones de su centro de trabajo, así como la cantidad y ritmo de trabajo.</strong></th>    
                       <td width="25%"></td>   
                     </tr>
-                  </MDBTableHead>
-                  <MDBTableBody>
+                </MDBTableHead>
+                <MDBTableBody>
                     <tr>
                       <td>1</td>
                       <td>Mi trabajo me exige hacer mucho esfuerzo físico.</td>
-                      <td >{value1.Respuestas}</td> 
+                      <td >{value1.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>2</td>
                       <td>Me preocupa sufrir un accidente en mi trabajo.</td>
-                      <td >{value2.Respuestas}</td> 
+                      <td >{value2.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>3</td>
                       <td>Considero que las actividades que realizo son peligrosas</td>
-                      <td >{value3.Respuestas}</td> 
+                      <td >{value3.Respuestas.toUpperCase()}</td> 
                     </tr>                    
                     <tr>
                       <td>4</td>
                       <td>Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno.</td>
-                      <td >{value4.Respuestas}</td> 
+                      <td >{value4.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>5</td>
                       <td>Por la cantidad de trabajo que tengo debo trabajar sin parar.</td>
-                      <td >{value5.Respuestas}</td> 
+                      <td >{value5.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>6</td>
                       <td>Considero que es necesario mantener un ritmo de trabajo acelerado.</td>
-                      <td >{value6.Respuestas}</td> 
+                      <td >{value6.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>7</td>
                       <td>Mi trabajo exige que esté muy concentrado.</td>
-                      <td >{value7.Respuestas}</td> 
+                      <td >{value7.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>8</td>
                       <td>Mi trabajo requiere que memorice mucha información.</td>
-                      <td >{value8.Respuestas}</td> 
+                      <td >{value8.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>9</td>
                       <td>Mi trabajo exige que atienda varios asuntos al mismo tiempo.</td>
-                      <td >{value9.Respuestas}</td> 
+                      <td >{value9.Respuestas.toUpperCase()}</td> 
                     </tr>
  
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
                       <th></th>
-                      <th>II. Las actividades que realiza en su trabajo y las responsabilidades que tiene.</th>       
+                      <th><strong>II. Las actividades que realiza en su trabajo y las responsabilidades que tiene.</strong></th>       
                       <td></td> 
                     </tr>
                   </MDBTableHead>
@@ -5268,29 +5392,29 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td>10</td>
                       <td>En mi trabajo soy responsable de cosas de mucho valor.</td>   
-                      <td >{value10.Respuestas}</td> 
+                      <td >{value10.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>11</td>
                       <td>Respondo ante mi jefe por los resultados de toda mi área de trabajo.</td>   
-                      <td >{value11.Respuestas}</td> 
+                      <td >{value11.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>12</td>
                       <td>En mi trabajo me dan órdenes contradictorias.</td>   
-                      <td >{value12.Respuestas}</td> 
+                      <td >{value12.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>13</td>
                       <td>Considero que en mi trabajo me piden hacer cosas innecesarias.</td>   
-                      <td >{value13.Respuestas}</td> 
+                      <td >{value13.Respuestas.toUpperCase()}</td> 
                     </tr>
                   </MDBTableBody>
 
                   <MDBTableHead>
                     <tr>
                       <th></th>
-                      <th>III. El tiempo destinado a su trabajo y sus responsabilidades familiares.</th>       
+                      <th><strong>III. El tiempo destinado a su trabajo y sus responsabilidades familiares.</strong></th>       
                       <td></td> 
                     </tr>
                   </MDBTableHead>
@@ -5298,29 +5422,29 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td>14</td>
                       <td>Trabajo horas extras más de tres veces a la semana.</td>   
-                      <td >{value14.Respuestas}</td> 
+                      <td >{value14.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>15</td>
                       <td>Mi trabajo me exige laborar en días de descanso, festivos o fines de semana.</td>   
-                      <td >{value15.Respuestas}</td> 
+                      <td >{value15.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>16</td>
                       <td>Considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales.</td>   
-                      <td >{value16.Respuestas}</td> 
+                      <td >{value16.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>17</td>
                       <td>Pienso en las actividades familiares o personales cuando estoy en mi trabajo.</td>   
-                      <td >{value17.Respuestas}</td> 
+                      <td >{value17.Respuestas.toUpperCase()}</td> 
                     </tr>
                    
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
                       <th></th>
-                      <th>IV. Las decisiones que puede tomar en su trabajo.</th>       
+                      <th><strong>IV. Las decisiones que puede tomar en su trabajo.</strong></th>       
                       <td ></td> 
                     </tr>
                   </MDBTableHead>
@@ -5328,27 +5452,27 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td>18</td>
                       <td>Mi trabajo permite que desarrolle nuevas habilidades.</td>   
-                      <td >{value18.Respuestas}</td> 
+                      <td >{value18.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>19</td>
                       <td>En mi trabajo puedo aspirar a un mejor puesto.</td>   
-                      <td >{value19.Respuestas}</td> 
+                      <td >{value19.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>20</td>
                       <td>Durante mi jornada de trabajo puedo tomar pausas cuando las necesito.</td>   
-                      <td >{value20.Respuestas}</td> 
+                      <td >{value20.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>21</td>
                       <td>Puedo decidir la velocidad a la que realizo mis actividades en mi trabajo.</td>   
-                      <td >{value21.Respuestas}</td> 
+                      <td >{value21.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>22</td>
                       <td>Puedo cambiar el orden de las actividades que realizo en mi trabajo.</td>   
-                      <td >{value22.Respuestas}</td> 
+                      <td >{value22.Respuestas.toUpperCase()}</td> 
                     </tr>
                   
                   </MDBTableBody>
@@ -5359,7 +5483,7 @@ ponderacion=<React.Fragment>
                   <MDBTableHead>
                     <tr>
                       <th  width="5%"></th>
-                      <th width="70%">V. La capacitación e información que recibe sobre su trabajo.</th>       
+                      <th width="70%"><strong>V. La capacitación e información que recibe sobre su trabajo.</strong></th>       
                       <td  width="25%"></td> 
                     </tr>
                   </MDBTableHead>
@@ -5367,27 +5491,27 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td>23</td>
                       <td>Me informan con claridad cuáles son mis funciones.</td>   
-                      <td>{value23.Respuestas}</td> 
+                      <td>{value23.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>24</td>
                       <td>Me explican claramente los resultados que debo obtener en mi trabajo.</td>   
-                      <td >{value24.Respuestas}</td> 
+                      <td >{value24.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>25</td>
                       <td>Me informan con quién puedo resolver problemas o asuntos de trabajo.</td>   
-                      <td >{value25.Respuestas}</td> 
+                      <td >{value25.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>26</td>
                       <td>Me permiten asistir a capacitaciones relacionadas con mi trabajo.</td>   
-                      <td >{value26.Respuestas}</td> 
+                      <td >{value26.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td >27</td>
                       <td >Recibo capacitación útil para hacer mi trabajo.</td>   
-                      <td  >{value27.Respuestas}</td> 
+                      <td  >{value27.Respuestas.toUpperCase()}</td> 
                     </tr>
                   </MDBTableBody>
 
@@ -5395,7 +5519,7 @@ ponderacion=<React.Fragment>
                   <MDBTableHead>
                     <tr>
                       <th></th>
-                      <th >VI. Las relaciones con sus compañeros de trabajo y su jefe.</th>       
+                      <th ><strong>VI. Las relaciones con sus compañeros de trabajo y su jefe.</strong></th>       
                       <td></td> 
                     </tr>
                   </MDBTableHead>
@@ -5403,73 +5527,73 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td>28</td>
                       <td>Mi jefe tiene en cuenta mis puntos de vista y opiniones.</td>   
-                      <td >{value28.Respuestas}</td> 
+                      <td >{value28.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>29</td>
                       <td>Mi jefe ayuda a solucionar los problemas que se presentan en el trabajo.</td>   
-                      <td >{value29.Respuestas}</td> 
+                      <td >{value29.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>30</td>
                       <td>Puedo confiar en mis compañeros de trabajo.</td>   
-                      <td >{value30.Respuestas}</td> 
+                      <td >{value30.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>31</td>
                       <td>Cuando tenemos que realizar trabajo de equipo los compañeros colaboran.</td>   
-                      <td >{value31.Respuestas}</td> 
+                      <td >{value31.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>32</td>
                       <td>Mis compañeros de trabajo me ayudan cuando tengo dificultades.</td>   
-                      <td>{value32.Respuestas}</td> 
+                      <td>{value32.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>33</td>
                       <td>En mi trabajo puedo expresarme libremente sin interrupciones.</td>   
-                      <td >{value33.Respuestas}</td> 
+                      <td >{value33.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>34</td>
                       <td>Recibo críticas constantes a mi persona y/o trabajo.</td>   
-                      <td >{value34.Respuestas}</td> 
+                      <td >{value34.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>35</td>
                       <td>Recibo burlas, calumnias, difamaciones, humillaciones o ridiculizaciones.</td>   
-                      <td>{value35.Respuestas}</td> 
+                      <td>{value35.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>36</td>
                       <td>Se ignora mi presencia o se me excluye de las reuniones de trabajo y en la toma de decisiones.</td>   
-                      <td >{value36.Respuestas}</td> 
+                      <td >{value36.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>37</td>
                       <td>Se manipulan las situaciones de trabajo para hacerme parecer un mal trabajador.</td>   
-                      <td >{value37.Respuestas}</td> 
+                      <td >{value37.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>38</td>
                       <td>Se ignoran mis éxitos laborales y se atribuyen a otros trabajadores.</td>   
-                      <td>{value38.Respuestas}</td> 
+                      <td>{value38.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>39</td>
                       <td>Me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo.</td>   
-                      <td >{value39.Respuestas}</td> 
+                      <td >{value39.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>40</td>
                       <td>He presenciado actos de violencia en mi centro de trabajo.</td>   
-                      <td >{value40.Respuestas}</td> 
+                      <td >{value40.Respuestas.toUpperCase()}</td> 
                     </tr>
                   </MDBTableBody>
                   <MDBTableHead>
                     <tr>
                       <th></th>
-                      <th>VII. En mi trabajo debo brindar servicio a clientes o usuarios:</th>       
+                      <th><strong>VII. En mi trabajo debo brindar servicio a clientes o usuarios:</strong></th>       
                       <td></td> 
                     </tr>
                   </MDBTableHead>
@@ -5477,17 +5601,17 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td>41</td>
                       <td>Atiendo clientes o usuarios muy enojados.</td>   
-                      <td >{value41.Respuestas}</td> 
+                      <td >{value41.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>42</td>
                       <td>Mi trabajo me exige atender personas muy necesitadas de ayuda o enfermas.</td>   
-                      <td >{value42.Respuestas}</td> 
+                      <td >{value42.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>43</td>
                       <td>Para hacer mi trabajo debo demostrar sentimientos distintos a los míos.</td>   
-                      <td>{value43.Respuestas}</td> 
+                      <td>{value43.Respuestas.toUpperCase()}</td> 
                     </tr>
                   </MDBTableBody>
                   <MDBTableHead>
@@ -5501,25 +5625,27 @@ ponderacion=<React.Fragment>
                     <tr>
                       <td>44</td>
                       <td>Comunican tarde los asuntos de trabajo.</td>   
-                      <td >{value44.Respuestas}</td> 
+                      <td >{value44.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>45</td>
                       <td>Dificultan el logro de los resultados del trabajo.</td>   
-                      <td >{value45.Respuestas}</td> 
+                      <td >{value45.Respuestas.toUpperCase()}</td> 
                     </tr>
                     <tr>
                       <td>46</td>
                       <td>Ignoran las sugerencias para mejorar su trabajo.</td>   
-                      <td >{value46.Respuestas}</td> 
+                      <td >{value46.Respuestas.toUpperCase()}</td> 
                     </tr>
                   </MDBTableBody>
                 </MDBTable> 
-                </MDBContainer>  
+                </MDBContainer>
+                </MDBCardBody>  
+                </MDBCard>
                 <div>
                         <div className="example-config">    
                         </div>
-                        <div style={{ position: "absolute", left: "-1000px", top: 0 }}>
+                        <div style={{ position: "absolute", left: "-2000px", top: 0 }}>
                             <PDFExport
                                 paperSize="letter"
                                 margin="1cm"
@@ -5529,23 +5655,24 @@ ponderacion=<React.Fragment>
                                 ref={(component) => this.pdfExportComponent = component}
                             >
                                 <div style={{ width: "500px" }}>
-                                    <MDBRow style={{marginBottom:10}}> 
+                                <MDBRow style={{marginBottom:10}}> 
                                     <MDBCol>
-                                    <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
-                            
-                                    <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
-                                    </MDBCol> 
-                                    </MDBRow> 
+                                    <MDBTable component={Paper}  small borderless className="text-left">
+                                    <MDBTableBody>  
                                     <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
-                                    <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
-                                    
-                                    <MDBTableBody>     
-                                    <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
+                                    <font size="2"face="arial"color="black">Reporte individual para identificar los factores de Riesgo Psicosocial en los centros de trabajo</font><br></br>
+                                    <font size="1"face="arial"color="black"> <strong>{localStorage.getItem("razonsocial")}</strong></font><br></br>          
                                     <font size="1"face="arial"color="black">{this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</font><br></br><br/>
-                                    <font size="2"face="arial"color="black">CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font><br></br>
                                     <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
-                                    </MDBTableBody>
-                                    </MDBTable>
+                                      <br></br>
+                                      <br></br>
+                                      <br></br>
+                                      <br></br>
+                                      </MDBTableBody>
+                                      </MDBTable>    
+                                      <center>   <img src={diagnostico} alt="logo" style = {{width:120,heigth:50}}/>&nbsp;&nbsp;&nbsp;<img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,heigth:20}}/></center>
+                                    </MDBCol> 
+                                    </MDBRow>
                                     <br/>  
                                     <br/>  
                                     <br/>  
@@ -5584,34 +5711,16 @@ ponderacion=<React.Fragment>
                                     <br/>  
                                     <br/>
                                     <br/>
+                                    <center>
                                     <font size="1"
                                         face="arial"
-                                        color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA II
-                                        CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</font>   <br/>  
-                                        <font size="1"  face="arial"
-                                        color="black" style = {{marginLeft:35}}>PSICOSOCIAL EN
-                                        LOS CENTROS DE TRABAJO</font>
-                                    <table width="500" style = {{marginLeft:40,marginBottom:15,marginTop:10}} >
-        
-                                    <MDBTableBody>  
-                                                        
-                                      <tr>
-                                      <td width="6%" ><font size="1" face="arial"color="black" >Nombre : {this.state.resultados[0].nombre} {this.state.resultados[0].ApellidoP} {this.state.resultados[0].ApellidoM}</font> </td>
-                                      <td width="6%" ><font size="1" face="arial"color="black" >Puesto : {this.state.resultados[0].Puesto}</font></td>
-                                                    </tr>
-                                                    <tr>
-                                      <td width="6%" ><font size="1" face="arial"color="black" >Departamento : {this.state.resultados[0].AreaTrabajo}</font></td>
-                                      <td width="6%" ><font size="1" face="arial"color="black" >Genero : {this.state.resultados[0].Sexo}</font></td> 
-                                                    </tr>
-                                                    <tr>
-                                      <td width="6%" ><font size="1" face="arial"color="black" >Correo : {this.state.resultados[0].correo}</font></td>
-                                      <td width="6%" ><font size="1" face="arial"color="black" >RFC : {this.state.resultados[0].RFC}</font></td>            
-                                      </tr>
-                                    </MDBTableBody>
-                                    </table>
-            
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">I. Las condiciones de su centro de trabajo, así como la cantidad y ritmo de trabajo.</font>
-                                    <table width="500" style = {{marginLeft:40}} className="table-bordered ">                                         
+                                        color="black" ><strong>GUÍA DE REFERENCIA III
+                                        CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN
+                                        LOS CENTROS DE TRABAJO</strong></font> <br/><br/>
+                                        </center>
+                      
+                                    <font color="red" style= {{marginTop:25,marginLeft:20}}  size="1">I. Las condiciones de su centro de trabajo, así como la cantidad y ritmo de trabajo.</font>
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">                                         
                                     <tr>
                                     <td><font size="1" face="arial"color="black" >Mi trabajo me exige hacer mucho esfuerzo físico.</font></td>
                                     <td width="90px"><font size="1" face="arial"color="black" >{value1.Respuestas}</font></td> 
@@ -5649,8 +5758,8 @@ ponderacion=<React.Fragment>
                                     <td width="90px"><font size="1" face="arial"color="black" >{value9.Respuestas}</font></td> 
                                   </tr>
                                    </table>
-                                   <font color="red" style= {{marginTop:40,marginLeft:20}}   size="1">II. Las actividades que realiza en su trabajo y las responsabilidades que tiene.</font>
-                                    <table width="500" style = {{marginLeft:40}} className="table-bordered ">
+                                   <font color="red" style= {{marginTop:25,marginLeft:20}}   size="1">II. Las actividades que realiza en su trabajo y las responsabilidades que tiene.</font>
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                     <td><font size="1" face="arial"color="black" >En mi trabajo soy responsable de cosas de mucho valor.</font></td>   
                                     <td width="90px"><font size="1" face="arial"color="black" >{value10.Respuestas}</font></td> 
@@ -5669,9 +5778,9 @@ ponderacion=<React.Fragment>
                                     </tr>
                                     </table>
 
-                                    <font style= {{marginLeft:20}}  size="1" color="red" >III. El tiempo destinado a su trabajo y sus responsabilidades familiares.</font>
+                                    <font style= {{marginLeft:25}}  size="1" color="red" >III. El tiempo destinado a su trabajo y sus responsabilidades familiares.</font>
 
-                                    <table  width="500"  style = {{marginLeft:40}} className="table-bordered">
+                                    <table  width="500"  style = {{marginLeft:25}} className="table-bordered">
                                     <tr>
                                     <td><font size="1" face="arial"color="black" >Trabajo horas extras más de tres veces a la semana.</font></td>   
                                     <td width="90px"><font size="1" face="arial"color="black" >{value14.Respuestas}</font></td> 
@@ -5689,8 +5798,8 @@ ponderacion=<React.Fragment>
                                       <td width="90px"><font size="1" face="arial"color="black" >{value17.Respuestas}</font></td> 
                                     </tr>
                                     </table>
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV. Las decisiones que puede tomar en su trabajo.</font>
-                                    <table  width="500"  style = {{marginLeft:40}} className="table-bordered">
+                                    <font color="red" style= {{marginTop:25,marginLeft:20}}  size="1" >IV. Las decisiones que puede tomar en su trabajo.</font>
+                                    <table  width="500"  style = {{marginLeft:25}} className="table-bordered">
                                     <tr>
                                     <td><font size="1" face="arial"color="black" >Mi trabajo permite que desarrolle nuevas habilidades.</font></td>   
                                     <td width="90px"><font size="1" face="arial"color="black" >{value18.Respuestas}</font></td> 
@@ -5712,8 +5821,8 @@ ponderacion=<React.Fragment>
                                       <td width="90px"><font size="1" face="arial"color="black" >{value22.Respuestas}</font></td> 
                                     </tr>
                                      </table>
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >V. La capacitación e información que recibe sobre su trabajo.</font>
-                                    <table  width="500"  style = {{marginLeft:40}} className="table-bordered">
+                                    <font color="red" style= {{marginTop:25,marginLeft:20}}  size="1" >V. La capacitación e información que recibe sobre su trabajo.</font>
+                                    <table  width="500"  style = {{marginLeft:25}} className="table-bordered">
                                     <tr>
                                     <td><font size="1" face="arial"color="black" >Me informan con claridad cuáles son mis funciones.</font></td>   
                                     <td width="90px"><font size="1" face="arial"color="black" >{value23.Respuestas}</font></td> 
@@ -5735,8 +5844,8 @@ ponderacion=<React.Fragment>
                                       <td width="90px"><font size="1" face="arial"color="black" >{value27.Respuestas}</font></td> 
                                     </tr>
                                     </table>
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VI. Las relaciones con sus compañeros de trabajo y su jefe.</font>                                   
-                                    <table  width="500"  style = {{marginLeft:40}} className="table-bordered">
+                                    <font color="red" style= {{marginTop:25,marginLeft:20}}  size="1" >VI. Las relaciones con sus compañeros de trabajo y su jefe.</font>                                   
+                                    <table  width="500"  style = {{marginLeft:25}} className="table-bordered">
                                     <tr>
                                     <td><font size="1"face="arial"color="black">Mi jefe tiene en cuenta mis puntos de vista y opiniones.</font></td>   
                                     <td width="90px"><font size="1"face="arial"color="black">{value28.Respuestas}</font></td> 
@@ -5790,8 +5899,8 @@ ponderacion=<React.Fragment>
                                       <td width="90px"><font size="1"face="arial"color="black">{value40.Respuestas}</font></td> 
                                     </tr>
                                     </table>
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VII. En mi trabajo debo brindar servicio a clientes o usuarios</font>                                   
-                                    <table  width="500"  style = {{marginLeft:40}} className="table-bordered">
+                                    <font color="red" style= {{marginTop:25,marginLeft:20}}  size="1" >VII. En mi trabajo debo brindar servicio a clientes o usuarios</font>                                   
+                                    <table  width="500"  style = {{marginLeft:25}} className="table-bordered">
                                     <tr>
                                     <td><font size="1"face="arial"color="black">Atiendo clientes o usuarios muy enojados.</font></td>   
                                     <td width="90px"><font size="1"face="arial"color="black">{value41.Respuestas}</font></td> 
@@ -5805,8 +5914,8 @@ ponderacion=<React.Fragment>
                                       <td width="90px"><font size="1"face="arial"color="black">{value43.Respuestas}</font></td> 
                                     </tr>
                                     </table>
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VIII. Soy jefe de otros trabajadores</font>                                   
-                                    <table width="500" style = {{marginLeft:40}} className="table-bordered ">
+                                    <font color="red" style= {{marginTop:25,marginLeft:20}}  size="1" >VIII. Soy jefe de otros trabajadores</font>                                   
+                                    <table width="500" style = {{marginLeft:25}} className="table-bordered ">
                                     <tr>
                                     <td><font size="1"face="arial"color="black">Comunican tarde los asuntos de trabajo.</font></td>   
                                     <td width="90px"><font size="1"face="arial"color="black">{value44.Respuestas}</font></td> 
@@ -5826,10 +5935,9 @@ ponderacion=<React.Fragment>
                     </div>
           </section>
         </React.Fragment>
-      
-      </MDBContainer>
-    }
-let ponderacionIndividual 
+      }
+let ponderacionIndividual; 
+let botonDescargarReporteIndividualResultados;
 
 let value1, value2, value3, value4, value5, value6, value7, value8, value9, value10
 let value11, value12, value13, value14, value15, value16, value17, value18, value19, value20
@@ -5838,7 +5946,7 @@ let value31, value32, value33, value34, value35, value36, value37, value38, valu
 let value41, value42, value43, value44, value45, value46;
 
 
-if(this.state.resultadosEvaluacion.length > 0 && this.state.resultadosQuery.length>0){
+if(this.state.resultadosEvaluacion.length > 0 && this.state.resultadosQuery.length>0 && this.state.reporteResultadosIndividual == true){
 
  let filtrar1;
  filtrar1 =this.state.resultadosEvaluacion.filter(function(hero){
@@ -6572,59 +6680,48 @@ if(DominioOcho < 7){
 }
 
     a = 1
-
+    botonDescargarReporteIndividualResultados = <MDBBtn size="md" color="secondary" className="k-button text-white" onClick={() => { this.pdfExportComponent.save(); }}>
+    Descargar Resultados de {this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}
+    </MDBBtn>
     ponderacionIndividual =  <React.Fragment>
-    <Alert className ="mt-4" color ="primary ">Resultados de la aplicación de la evaluación RP </Alert>
-
-            <div style={{marginLeft:"6%"}}>
-                    <MDBBtn size="md" color="secondary" className="k-button text-white" onClick={() => { this.pdfExportComponent.save(); }}>
-                        Descargar Resultados de {this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}
-                    </MDBBtn>
-                    &nbsp;
-                    {botonCerrar}
-           </div>
-           <br/>
-           <MDBContainer  style={{marginLeft:"5%",marginTop:20}}>
-            <font face="arial" className = "mt-4" >CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>
-            <br/><strong>{localStorage.getItem("razonsocial")}</strong><br/>
-      
-            <MDBTable responsive small borderless className="text-left mt-4 ">
-    
-            <MDBTableBody>  
-            <tr>
-                <td width ="65%"> <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
-                <td width ="35%">
-                <img src={diagnostico} alt="logo" style = {{width:150,marginBottom:20}}/>
-
-                </td>
-              </tr>                
-              <tr>
-              <td width ="65%" >Nombre : {this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM} </td>
-              <td width ="35%">Puesto : {this.state.resultadosQuery[0].Puesto}</td>
-                            </tr>
-                            <tr>
-              <td width ="65%">Departamento : {this.state.resultadosQuery[0].AreaTrabajo}</td>
-              <td width ="35%">Genero : {this.state.resultadosQuery[0].Sexo}</td> 
-                            </tr>
-                            <tr>
-              <td width ="65%">Correo : {this.state.resultadosQuery[0].correo}</td>
-              <td width ="35%">RFC : {this.state.resultadosQuery[0].RFC}</td>   
-              </tr>
-            </MDBTableBody>
-            </MDBTable>
-            </MDBContainer>
-    
-
+    <MDBCard>
+    <MDBCardHeader>
+      <MDBCardTitle><center>Resultados individuales de la aplicación de la evaluación RP</center></MDBCardTitle>
+    </MDBCardHeader>
+      <MDBCardBody> 
+      <table style={{marginLeft:"20%"}}>
+      <tr>
+      <td width="65%" > <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+      <td width="35%" >
+      <img src={diagnostico} alt="logo" style = {{width:150}}/>
+      </td>
+      </tr>
+      </table>
+      <center> 
+      <font face="arial" className = "mt-4" ><center><strong>CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</strong></center></font><br/>
+      <strong className="text-left  ml-2 mt-4">{localStorage.getItem("razonsocial")}</strong><br/>
+      <table  style={{marginLeft:"10%"}} className="mt-4">
+        <tr>
+          <td width="40%"><strong>{this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}</strong></td>
+          <td width="20%"></td>
+          <td width="40%"><strong>{this.state.resultadosQuery[0].RFC}</strong></td>
+        </tr>
+        <tr>
+          <td><strong>{this.state.resultadosQuery[0].correo}</strong></td>
+        </tr>
+      </table>
+      </center>
+      <br/> 
       <TableContainer component={Paper} style={{marginBottom:30}}>
       <Table  size="small" aria-label="a dense table" >
       <TableRow>
-                  <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}} width="50%"><strong>Resultados Generales</strong></TableCell>              
-                  <TableCell component="th" scope="row"></TableCell>
-                  <TableCell component="th" scope="row" ></TableCell>
-                  <TableCell component="th" scope="row" ></TableCell>
-                  <TableCell component="th" scope="row" ></TableCell>
-                  <TableCell component="th" scope="row" ></TableCell>  
-                </TableRow>
+        <TableCell component="th" scope="row"  style={{backgroundColor: "#E6E7E8"}} width="50%"><strong>Resultados Generales</strong></TableCell>              
+        <TableCell component="th" scope="row"></TableCell>
+        <TableCell component="th" scope="row" ></TableCell>
+        <TableCell component="th" scope="row" ></TableCell>
+        <TableCell component="th" scope="row" ></TableCell>
+        <TableCell component="th" scope="row" ></TableCell>  
+      </TableRow>
         <TableHead>
           <TableRow>
             <TableCell ></TableCell>
@@ -6636,18 +6733,16 @@ if(DominioOcho < 7){
           </TableRow>
         </TableHead>
         <TableBody  style={{marginTop:20}}>
-
-            <TableRow>
-              <TableCell component="th" scope="row">
-            Puntuación total
-              </TableCell>
-              <TableCell component="th" scope="row" align="center">{celda1}</TableCell>
-              <TableCell component="th" scope="row" align="center">{celda2}</TableCell>
-              <TableCell component="th" scope="row" align="center">{celda3}</TableCell>
-              <TableCell component="th" scope="row" align="center">{celda4}</TableCell>
-              <TableCell component="th" scope="row" align="center">{celda5}</TableCell>
-                
-            </TableRow>
+        <TableRow>
+          <TableCell component="th" scope="row">
+          Puntuación total
+          </TableCell>
+          <TableCell component="th" scope="row" align="center">{celda1}</TableCell>
+          <TableCell component="th" scope="row" align="center">{celda2}</TableCell>
+          <TableCell component="th" scope="row" align="center">{celda3}</TableCell>
+          <TableCell component="th" scope="row" align="center">{celda4}</TableCell>
+          <TableCell component="th" scope="row" align="center">{celda5}</TableCell>
+        </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
@@ -6957,15 +7052,12 @@ if(DominioOcho < 7){
         </TableBody>
       </Table>
 
-    </TableContainer>
-  
+      </TableContainer>
+      </MDBCardBody>
+      </MDBCard>
 
            <div>
-                <div className="example-config">
-                  
-                </div>
-
-                <div style={{ position: "absolute", left: "-1000px", top: 0 }}>
+                <div style={{ position: "absolute", left: "-2000px", top: 0 }}>
                     <PDFExport
                         paperSize="letter"
                         margin="1cm"
@@ -6975,25 +7067,25 @@ if(DominioOcho < 7){
                         fileName={`${this.state.resultadosQuery[0].nombre} ${this.state.resultadosQuery[0].ApellidoP} ${this.state.resultadosQuery[0].ApellidoM} Resultados RP ${new Date().getFullYear()}`}
                         ref={(component) => this.pdfExportComponent = component}
                     >
-                        <div style={{ width: "500px" }}>
+                        <div style={{ width: "550px" }}>
                       
                             <MDBRow style={{marginBottom:10}}> 
-                            <MDBCol>
-                            <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
-                    
+                            <MDBCol>                    
                             <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
                             </MDBCol> 
                             </MDBRow> 
                             <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
-                            <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
-                              
+                            <MDBTable  component={Paper}  small borderless className="text-left mt-4 ">
                             <MDBTableBody>     
+                            <font size="3"face="arial"color="black">Reporte de resultados del diagnóstico individual de factores de Riesgo Psicosocial en los Centros de Trabajo</font><br></br><br></br>
                             <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-                            <font size="1"face="arial"color="black">{this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}</font><br></br><br/>
-                            <font size="3"face="arial"color="black">Diagnóstico individual de factores de riesgo psicosocial en el trabajo</font><br></br>
-                            <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
+                            <font size="1"face="arial"color="black">{this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}</font><br></br>
+                            <font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
                             </MDBTableBody>
+                            <br></br>
+                            <br></br>
                             </MDBTable>
+                            <center>   <img src={diagnostico} alt="logo" style = {{width:120,heigth:50}}/>&nbsp;&nbsp;&nbsp;<img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,heigth:20}}/></center>
                               <br></br>
                               <br></br>
                               <br></br>
@@ -7050,8 +7142,8 @@ if(DominioOcho < 7){
                                   </tr>                     
                                 </MDBTableBody>
                                 </MDBTable>  
-                                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">I.- Resultados de la categoría</font>
-                                <table WIDTH="500"style={{marginLeft:40}} className="table-bordered"> 
+                                <font color="red" style= {{marginTop:40}}  size="1">I.- Resultados de la categoría</font>
+                                <table WIDTH="550" className="table-bordered"> 
                                 <tr >                              
                                   <td width="10%"><font size="1" face="arial"color="black" ></font></td>
                                   <td width="60%" className="text-left"><font size="1" face="arial"color="black">Categoría</font></td>
@@ -7083,8 +7175,8 @@ if(DominioOcho < 7){
                                   {colorCategoriaCuatro}
                                 </tr>
                                 </table>
-                                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">II.- Resultados del dominio</font>
-                                <table  WIDTH="500" style={{marginLeft:40}} className="table-bordered table-lg"> 
+                                <font color="red" style= {{marginTop:40}}  size="1">II.- Resultados del dominio</font>
+                                <table  WIDTH="550"  className="table-bordered table-lg"> 
                                 <tr >                              
                                 <td width="10%"><font size="1" face="arial"color="black" ></font></td>
                                 <td width="60%" className="text-left"><font size="1" face="arial"color="black">Dominio</font></td>
@@ -7141,9 +7233,9 @@ if(DominioOcho < 7){
                                 </tr>
                                 </table>        
                                
-                                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">III.- Resultados por Dimensión</font>
+                                <font color="red" style= {{marginTop:40}}  size="1">III.- Resultados por Dimensión</font>
                                 
-                                <table  WIDTH="500" style={{marginLeft:40}} className="table-bordered table-lg"> 
+                                <table  WIDTH="550" className="table-bordered table-lg"> 
                                 <tr >                              
                                 <td width="10%"><font size="1" face="arial"color="black" ></font></td>
                                 <td width="60%" className="text-left"><font size="1" face="arial"color="black">Dimensión</font></td>
@@ -7264,29 +7356,22 @@ if(DominioOcho < 7){
     let botonReporteEjecutivo;
    
     if(this.state.botonDisabled){
-      botonResultadosGlobales=
-      
-      
-      <MDBCol><MDBBtn  className = "text-white" disabled={!this.state.botonResultados} onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro)} color="success" size="md">Reporte Global</MDBBtn>
-      <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro)}  color="success" size="md"> Evaluaciones Masivas</MDBBtn>
-      <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro)} color="success" size="md">Resultados masivos</MDBBtn> 
-      <MDBBtn className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteEjecutivo(datosEmpleados,filtro)} color="success" size="md">Reporte ejecutivo</MDBBtn> 
-
-      </MDBCol>
-    
+      botonResultadosGlobales=    
+      <div>
+      <MDBBtn style={{width:"70%"}} className = "text-white" disabled={!this.state.botonResultados} onClick={e=>this.consultarDatosFiltrados(datosEmpleados,filtro,periodoTabla)} color="success" size="md">Descarga de reporte global</MDBBtn>
+      <MDBBtn style={{width:"70%"}} className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivo(datosEmpleados,filtro,periodoTabla)}  color="success" size="md"> Descarga masiva de evaluaciones</MDBBtn>
+      <MDBBtn style={{width:"70%"}} className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteImasivoResultados(datosEmpleados,filtro,periodoTabla)} color="success" size="md">Descarga masiva de resultados</MDBBtn> 
+      <MDBBtn style={{width:"70%"}} className = "text-white"  disabled={!this.state.botonResultados} onClick={e=>this.reporteEjecutivo(datosEmpleados,filtro,periodoTabla)} color="success" size="md">Descarga del reporte ejecutivo</MDBBtn> 
+      </div>  
     }
   
     let PDFRespuestasMasivos;
     if(this.state.reporteImasivo[0]){
       PDFRespuestasMasivos =  
         <div> 
-           
-          <MDBRow style={{marginLeft:"2%"}}>     
               <MDBBtn   color="primary" size="md"  onClick={() => { this.pdfExportComponent.save(); }}>
-                  Descargar reporte de evaluaciones masivas
+                  Reporte de evaluaciones masivas
               </MDBBtn>
-              {botonCerrar}
-          </MDBRow>  
        
          <div style={{ position: "absolute", left: "-2000px", top: 0 }}>
          <section className="flex-column  bg-white  pa4 "  >
@@ -7298,85 +7383,8 @@ if(DominioOcho < 7){
                    ref={(component) => this.pdfExportComponent = component}
                    fileName={`Repuestas del total de empleados ${new Date().getFullYear()}`}
                >
-                  <div style={{ width: "500px" }}>
-                  <MDBRow style={{marginBottom:10}}> 
-                  <MDBCol>
-                  <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
-          
-                  <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
-                  </MDBCol> 
-                  </MDBRow> 
-                  <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
-                  <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
+                 
                   
-                  <MDBTableBody>     
-                  <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-                  <font size="2"face="arial"color="black">CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</font><br></br>
-                  <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
-                  <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>
-                  <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
-
-                  </MDBTableBody>
-                  </MDBTable>
-
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                  <br></br>
-                
-                  <font size="1"
-                  face="arial"
-                  color="black" style = {{marginTop:25,marginLeft:35}}><strong>GUÍA DE REFERENCIA II
-                  CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</strong></font>   <br/>  
-                  <font size="1"  face="arial"
-                  color="black" style = {{marginLeft:35}}><strong>PSICOSOCIAL EN
-                  LOS CENTROS DE TRABAJO</strong></font>
                     
              {this.state.reporteImasivo.map(rows=>{
                if(rows[0]){
@@ -7659,29 +7667,85 @@ if(DominioOcho < 7){
                 value46 = filtrar46.pop() 
 
                return(
+                <div style={{ width: "550px" }}>
                  
-               <MDBContainer>
-                <table width="500" style = {{marginLeft:20,marginBottom:15,marginTop:10}} >
-                <MDBTableBody>              
-                  <tr>
-                  <td width="6%" ><font size="1" face="arial"color="black" >Nombre : {rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</font> </td>
-                  <td width="6%" ><font size="1" face="arial"color="black" >Puesto : {rows[0].Puesto}</font></td>
-                                </tr>
-                                <tr>
-                  <td width="6%" ><font size="1" face="arial"color="black" >Departamento : {rows[0].AreaTrabajo}</font></td>
-                  <td width="6%" ><font size="1" face="arial"color="black" >Genero : {rows[0].Sexo}</font></td> 
-                                </tr>
-                                <tr>
-                  <td width="6%" ><font size="1" face="arial"color="black" >Correo : {rows[0].correo}</font></td>
-                  <td width="6%" ><font size="1" face="arial"color="black" >RFC : {rows[0].RFC}</font></td>            
-                  </tr>
-                </MDBTableBody>
-                </table>
-
-                <font color="red" style= {{marginLeft:20}}  size="1">I. Las condiciones de su centro de trabajo, así como la cantidad y ritmo de trabajo.</font>
+               <div>
+                 <MDBRow style={{marginBottom:10}}> 
+                <MDBCol>
+                <img src={logo} alt="logo" style = {{width:550}}/>
+                <MDBTable  component={Paper}  small borderless className="text-left mt-4 ">
+                <MDBTableBody>  
+                <font size="3"face="arial"color="black">Reporte individual masivo para identificar los factores de Riesgo Psicosocial en los centros de trabajo</font><br></br>  <br></br>
+                <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")} </font><br></br>  
+                <font color="black" className= "textleft"  size="1"><strong>{rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</strong></font><br/>        
+                <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
+                <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font><br/>
+                <font color="black" className= "textleft"  size="1">Periodo: <strong>{rows[0].Periodo}</strong></font><br/>
+                <font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
                 <br></br>
-                <table width="500" style = {{marginLeft:10}} className="table-bordered "> 
-
+                <br></br>
+                <br></br>
+                <br></br>
+                </MDBTableBody>
+                </MDBTable>    
+                <center>   <img src={diagnostico} alt="logo" style = {{width:120,heigth:50}}/>&nbsp;&nbsp;&nbsp;<img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,heigth:20}}/></center>
+                </MDBCol> 
+                </MDBRow> 
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <center><font size="1" face="arial" color="black" style = {{marginTop:25}}>GUÍA DE REFERENCIA II
+                  CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO
+                 </font> </center> <br/>
+                 <p style={{textAlign: 'left'}}> <font color="red"  size="1">I. Las condiciones de su centro de trabajo, así como la cantidad y ritmo de trabajo.</font></p>
+                <table width="530"  className="table-bordered " > 
                 <tr>
                 <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo me exige hacer mucho esfuerzo físico.</font></td>
                 <td width="20%"><font size="1" face="arial"color="black" >{value1.Respuestas}</font></td> 
@@ -7719,10 +7783,8 @@ if(DominioOcho < 7){
                 <td width="20%"><font size="1" face="arial"color="black" >{value9.Respuestas}</font></td> 
               </tr>
               </table>
-                <br></br>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1"> II. Las actividades que realiza en su trabajo y las responsabilidades que tiene.</font>
-                <br></br>
-                <table width="500" style = {{marginLeft:10}} className="table-bordered">
+                <p style={{textAlign: 'left'}}><font color="red" size="1"> II. Las actividades que realiza en su trabajo y las responsabilidades que tiene.</font></p>
+                <table width="530" className="table-bordered">
                 <tr>
                 <td width="80%"><font size="1" face="arial"color="black" >En mi trabajo soy responsable de cosas de mucho valor.</font></td>   
                 <td width="20%"><font size="1" face="arial"color="black" >{value10.Respuestas}</font></td> 
@@ -7740,11 +7802,8 @@ if(DominioOcho < 7){
                   <td width="20%"><font size="1" face="arial"color="black" >{value13.Respuestas}</font></td> 
                 </tr>
                 </table>
-               <br/> 
-               <font style= {{marginLeft:20}}  size="1" color="red" >III. El tiempo destinado a su trabajo y sus responsabilidades familiares.</font>
-               <br/> 
-                        
-                <table  width="500"  style = {{marginLeft:10}} className="table-bordered">
+               <p style={{textAlign: 'left'}}><font   size="1" color="red" >III. El tiempo destinado a su trabajo y sus responsabilidades familiares.</font></p>                        
+                <table  width="530" className="table-bordered">
                 <tr>
                 <td width="80%"><font size="1" face="arial"color="black" >Trabajo horas extras más de tres veces a la semana.</font></td>   
                 <td width="20%"><font size="1" face="arial"color="black" >{value14.Respuestas}</font></td> 
@@ -7761,12 +7820,9 @@ if(DominioOcho < 7){
                   <td width="80%"><font size="1" face="arial"color="black" >Pienso en las actividades familiares o personales cuando estoy en mi trabajo.</font></td>   
                   <td width="20%"><font size="1" face="arial"color="black" >{value17.Respuestas}</font></td> 
                 </tr>
-
                 </table>
-                 <br/> 
-                 <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >IV. Las decisiones que puede tomar en su trabajo.</font>
-                 <br/> 
-                <table  width="500"  style = {{marginLeft:10}} className="table-bordered">
+                 <p style={{textAlign: 'left'}}><font color="red" size="1" >IV. Las decisiones que puede tomar en su trabajo.</font></p>
+                <table  width="530" className="table-bordered">
                 <tr>
                 <td width="80%"><font size="1" face="arial"color="black" >Mi trabajo permite que desarrolle nuevas habilidades.</font></td>   
                 <td width="20%"><font size="1" face="arial"color="black" >{value18.Respuestas}</font></td> 
@@ -7787,12 +7843,9 @@ if(DominioOcho < 7){
                   <td width="80%"><font size="1" face="arial"color="black" >Puedo cambiar el orden de las actividades que realizo en mi trabajo.</font></td>   
                   <td width="20%"><font size="1" face="arial"color="black" >{value22.Respuestas}</font></td> 
                 </tr>
-              
                 </table>
-                <br/>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >V. La capacitación e información que recibe sobre su trabajo.</font>
-                <br/>
-                <table  width="500"  style = {{marginLeft:10}} className="table-bordered ">
+                <p style={{textAlign: 'left'}}><font color="red" size="1" >V. La capacitación e información que recibe sobre su trabajo.</font></p>
+                <table  width="530" className="table-bordered ">
                 <tr>
                 <td width="80%"><font size="1" face="arial"color="black" >Me informan con claridad cuáles son mis funciones.</font></td>   
                 <td width="20%"><font size="1" face="arial"color="black" >{value23.Respuestas}</font></td> 
@@ -7814,11 +7867,8 @@ if(DominioOcho < 7){
                   <td width="20%"><font size="1" face="arial"color="black" >{value27.Respuestas}</font></td> 
                 </tr>
                 </table>
-                <br></br>  
-                
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VI. Las relaciones con sus compañeros de trabajo y su jefe.</font>
-                <br/>
-                <table  width="500"  style = {{marginLeft:10}} className="table-bordered ">
+                <p style={{textAlign: 'left'}}><font color="red"  size="1" >VI. Las relaciones con sus compañeros de trabajo y su jefe.</font></p>
+                <table  width="530" className="table-bordered ">
                 <tr>
                 <td width="80%"><font size="1"face="arial"color="black">Mi jefe tiene en cuenta mis puntos de vista y opiniones.</font></td>   
                 <td width="20%"><font size="1"face="arial"color="black">{value28.Respuestas}</font></td> 
@@ -7872,11 +7922,8 @@ if(DominioOcho < 7){
                   <td width="20%"><font size="1"face="arial"color="black">{value40.Respuestas}</font></td> 
                 </tr>
                 </table>
-                <br/>
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VII. En mi trabajo debo brindar servicio a clientes o usuarios</font>
-                <br/>
-
-                <table  width="500"  style = {{marginLeft:10}} className="table-bordered ">
+                <p style={{textAlign: 'left'}}> <font color="red" size="1" >VII. En mi trabajo debo brindar servicio a clientes o usuarios</font></p>
+                <table  width="530" className="table-bordered ">
                 <tr>
                 <td width="80%"><font size="1"face="arial"color="black">Atiendo clientes o usuarios muy enojados.</font></td>   
                 <td width="20%"><font size="1"face="arial"color="black">{value41.Respuestas}</font></td> 
@@ -7890,11 +7937,8 @@ if(DominioOcho < 7){
                   <td width="20%"><font size="1"face="arial"color="black">{value43.Respuestas}</font></td> 
                 </tr>
                 </table>
-                <br/> 
-                <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1" >VIII. Soy jefe de otros trabajadores</font>
-                <br/>
-
-                <table   width="500" style = {{marginLeft:10}} className="table-bordered">
+                <p style={{textAlign: 'left'}}><font color="red" size="1" >VIII. Soy jefe de otros trabajadores</font></p>
+                <table  width="530" className="table-bordered">
                 <tr>
                 <td width="80%"><font size="1"face="arial"color="black">Comunican tarde los asuntos de trabajo.</font></td>   
                 <td width="20%"><font size="1"face="arial"color="black">{value44.Respuestas}</font></td> 
@@ -7949,10 +7993,10 @@ if(DominioOcho < 7){
                   <br></br>
                   <br></br>
              {/* <Alert className ="mt-4" color ="primary ">INFORMACIÓN: LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert> */}
-               </MDBContainer> 
+               </div> 
+              </div>
                  )}
                  })}
-                </div>
                </PDFExport>
         
               </section>
@@ -7970,16 +8014,10 @@ if(DominioOcho < 7){
           let value41, value42, value43, value44, value45, value46;
 
           PDFResultadosMasivos = 
-                       <div>
-                        
-                          <MDBRow style = {{marginLeft:"2%"}}>     
-                              <MDBBtn   color="info" size="md"  onClick={() => { this.pdfExportComponent.save(); }}>
-                                  Descargar reporte de resultados masivos
-                              </MDBBtn>
-                            {botonCerrar}
-                          </MDBRow>  
-                      
-                       
+                       <div>       
+                      <MDBBtn   color="info" size="md"  onClick={() => { this.pdfExportComponent.save(); }}>
+                          Descargar reporte de resultados masivos
+                      </MDBBtn>
                         <div style={{ position: "absolute", left: "-2000px", top: 0 }}>
                          <PDFExport
                                 paperSize="A4"
@@ -7989,77 +8027,9 @@ if(DominioOcho < 7){
                                 pageTemplate={PageTemplate}
                                 forcePageBreak=".page-break"
                             >
-                                 <div style={{ width: "500px" }}>
-                                  
-                                 <MDBRow style={{marginBottom:10}}> 
-                                <MDBCol>
-                                <img src={diagnostico} alt="logo" style = {{width:150,marginLeft:20,heigth:50}}/>
-                        
-                                <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
-                                </MDBCol> 
-                                </MDBRow>  
-                                  <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
-                                  <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left mt-4 ">
-                          
-                                  <MDBTableBody>     
-                                  <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-                                  <font size="3"face="arial"color="black">Diagnóstico Global de factores de riesgo psicosocial  en los centros de trabajo</font><br></br>
-                                  <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
-                                  <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font>                              
-                                  <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
-                                  </MDBTableBody>
-                                  </MDBTable>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                                    <br></br>
-                         
-                                        <font size="1"
-                                        face="arial"
-                                        color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA II
-                                        CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</font>   <br/>  
-                                        <font size="1"  face="arial"
-                                        color="black" style = {{marginLeft:35}}>PSICOSOCIAL EN
-                                        LOS CENTROS DE TRABAJO</font>
+                               
                                     {this.state.resultadosEvaluacionMasivo.map(rows=>{
                                       if(rows){
-
                                         let filtrar1;
                                          filtrar1 =rows.filter(function(hero){
                                            return hero.fk_preguntasRP == 1;
@@ -8459,7 +8429,7 @@ if(DominioOcho < 7){
                                       criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}>El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</TableCell>
                                       celda1 = <TableCell style={{backgroundColor: "#9BE0F7"}} align="right">{total}</TableCell>
                                       }else if(total>=20 && total <= 45){
-                                        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">
+                                        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="left">
                                           <p>Es necesario una mayor difusión de la política de prevención de riesgos
                                         psicosociales y programas para: la prevención de los factores de riesgo
                                         psicosocial, la promoción de un entorno organizacional favorable y la
@@ -8467,7 +8437,7 @@ if(DominioOcho < 7){
                                         color= <TableCell style={{backgroundColor: "#6BF56E"}} align="center"><font size="1" face="arial"color="black" >Bajo</font></TableCell>
                                         celda2 = <TableCell style={{backgroundColor: "#6BF56E"}} align="right">{total}</TableCell>
                                       }else if(total>=45 && total <= 70){
-                                        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">
+                                        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="left">
                                           <p>Se requiere revisar la política de prevención de riesgos psicosociales y
                                         programas para la prevención de los factores de riesgo psicosocial, la
                                         promoción de un entorno organizacional favorable y la prevención de la
@@ -8476,7 +8446,7 @@ if(DominioOcho < 7){
                                       color=<TableCell style={{backgroundColor: "#FFFF00"}} align="center"><font size="1" face="arial"color="black" align="justify">Medio</font></TableCell>
                                         celda3 = <TableCell style={{backgroundColor: "#FFFF00"}} align="right">{total}</TableCell>
                                       }else if(total>=70 && total <= 90){
-                                        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align=" justify">
+                                        criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align=" left">
                                           <p>Se requiere realizar un análisis de cada categoría y dominio, de manera que
                                         se puedan determinar las acciones de intervención apropiadas a través de un
                                         Programa de intervención, que podrá incluir una evaluación específica y
@@ -8489,7 +8459,7 @@ if(DominioOcho < 7){
                                         celda4 = <TableCell style={{backgroundColor: "#FFC000"}} align="right">{total}</TableCell>
                                       }
                                       else if( total > 90){
-                                        criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align=" justify">
+                                        criterios = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align=" left">
                                           <p>Se requiere realizar el análisis de cada categoría y dominio para establecer
                                         las acciones de intervención apropiadas, mediante un Programa de
                                         intervención que deberá incluir evaluaciones específicas, y contemplar
@@ -8791,10 +8761,76 @@ if(DominioOcho < 7){
                                         Dominio8MuyAlto= DominioOcho
                                               }
                                       return(
-                                        
-                                   <MDBContainer >
-
-                                    <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
+                                        <div style={{ width: "550px" }}>
+                                        <MDBRow style={{marginBottom:10}}> 
+                                        <MDBCol>
+                                        <img src={logo} alt="logo" style = {{width:550}}/>
+                                        <MDBTable  component={Paper}  small borderless className="text-left mt-4 ">
+                                        <MDBTableBody>  
+                                        <font size="3"face="arial"color="black">Reporte individual de resultados para identificar los factores de Riesgo Psicosocial en los centros de trabajo</font><br></br>  <br></br>
+                                        <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")} </font><br></br>  
+                                        <font color="black" className= "textleft"  size="1"><strong>{rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</strong></font><br/>        
+                                        <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
+                                        <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font><br/>
+                                        <font color="black" className= "textleft"  size="1">Periodo: <strong>{rows[0].Periodo}</strong></font><br/>
+                                        <font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        <br></br>
+                                        </MDBTableBody>
+                                        </MDBTable>    
+                                        <center>   <img src={diagnostico} alt="logo" style = {{width:120,heigth:50}}/>&nbsp;&nbsp;&nbsp;<img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,heigth:20}}/></center>
+                                        </MDBCol> 
+                                        </MDBRow> 
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                          <br></br>
+                                    <font size="1"
+                                    face="arial"
+                                    color="black" style = {{marginTop:25}}>GUÍA DE REFERENCIA II
+                                    CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO</font>   <br/>  
+                                    <font size="1"  face="arial"
+                                    color="black" style = {{marginLeft:35}}>PSICOSOCIAL EN
+                                    LOS CENTROS DE TRABAJO</font>
+                                    <MDBTable  component={Paper} small  className="text-left mt-4 ">
                                       <MDBTableBody>
                                       <tr>
                                         <td width="40%"><font size="1" face="arial"color="black"><strong>{rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</strong></font></td>
@@ -8803,7 +8839,7 @@ if(DominioOcho < 7){
                                       <td></td>
                                      </tr>
                                      <tr>
-                                     <td width="40%"><font size="1" face="arial"color="black">RESULTADO DEL CUESTIONARIO :  </font></td>
+                                     <td width="40%"><font size="1" face="arial"color="black">RESULTADO:  </font></td>
                                      <td width="20%"><font size="1" face="arial"color="black">{total}</font></td>
                                      <td width="20%"><font size="1" face="arial"color="black">Nivel de riesgo </font></td>
                                       {color}
@@ -8811,21 +8847,18 @@ if(DominioOcho < 7){
                                      </MDBTableBody>
                                       </MDBTable>  
                                       
-                                      <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
+                                      <MDBTable component={Paper}  small  className="text-left mt-4 ">
                                       <MDBTableBody>
                                       <tr>
                                         <td ><font size="1" face="arial"color="black"><strong>Necesidad de la acción :</strong></font></td>
                                      </tr>         
                                      <tr>
                                      {criterios}
-                                       </tr>                     
+                                     </tr>                     
                                      </MDBTableBody>
                                       </MDBTable>  
-  
-                                     <table  component={Paper}  small  className="text-left ">
-                                      <font color="red" style= {{marginTop:20,marginLeft:15}}  size="1">I.- Resultados de la categoría</font>
-                                      </table>
-                                      <table width="500" style={{marginLeft:15}} className="table-bordered"> 
+                                     <p style={{textAlign: 'left'}}><font color="red" style= {{marginTop:20}}  size="1">I.- Resultados de la categoría</font></p>
+                                      <table width="530" className="table-bordered"> 
                                             
                                            <tr >                              
                                             <td width="10%"><font size="1" face="arial"color="black" ></font></td>
@@ -8858,10 +8891,8 @@ if(DominioOcho < 7){
                                             {colorCategoriaCuatro}
                                             </tr>
                                          </table>
-                                        <table>
-                                      <font color="red" style= {{marginTop:40,marginLeft:15}}  size="1">II.- Resultados del dominio</font>
-                                      </table>
-                                        <table width="500" style={{marginLeft:15}} className="table-bordered">                                             
+                                      <p style={{textAlign: 'left'}}><font color="red" style= {{marginTop:40}}  size="1">II.- Resultados del dominio</font></p>
+                                        <table width="530" className="table-bordered">                                             
                                            <tr >                              
                                             <td width="10%"><font size="1" face="arial"color="black" ></font></td>
                                             <td width="60%"><font size="1" face="arial"color="black">Dominio</font></td>
@@ -8918,10 +8949,8 @@ if(DominioOcho < 7){
                                           </tr>
                                         </table>
                                         <br/>                                       
-                                        <table   component={Paper}  small  className="text-left ">
-                                      <font color="red" style= {{marginTop:40,marginLeft:15}}  size="1">III.- Resultados por Dimensión</font>
-                                      </table>
-                                        <table width="500" style={{marginLeft:15}} className="table-bordered">                                             
+                                      <p style={{textAlign: 'left'}}>  <font color="red" style= {{marginTop:40}}  size="1">III.- Resultados por Dimensión</font></p>
+                                        <table width="530"  className="table-bordered">                                             
                                            <tr >                              
                                             <td width="10%"><font size="1" face="arial"color="black" ></font></td>
                                             <td width="60%"><font size="1" face="arial"color="black">Dimensión</font></td>
@@ -9054,18 +9083,18 @@ if(DominioOcho < 7){
                                         <br/>
                                         <br/>
                        {/* <Alert className ="mt-4" color ="primary ">INFORMACIÓN: LA EVALUACIÓN REVELÓ QUE EL PERSONAL ESTA EN PERFECTO ESTADO Y NO REQUIERE CANALIZACIÓN CON UN PROFESIONAL</Alert> */}
-                       </MDBContainer> 
+                       </div> 
                          )}
                          })}
-                       </div>  
                        </PDFExport>
                 </div>  
                 </div>
         }
 
         let reporteEjecutivo;
+        let botonDescargarReporteEjecutivo;
         ////////////////////////////////////////////Reporte Ejecutivo////////////////////////////////////////////////////////////////////////////////
-                if(this.state.valor1[0] && this.state.valor46[0]){
+                if(this.state.valor1[0] && this.state.valor46[0] && this.state.reporteEjecutivos == true){
                   let celda;
                   let criterios;
                   let celdaPrev;
@@ -9263,7 +9292,7 @@ if(DominioOcho < 7){
                     psicosocial, la promoción de un entorno organizacional favorable y la
                     prevención de la violencia laboral. <br></br></p></font>
   
-                      criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="3" face="arial"color="black" align="justify">
+                      criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="2" face="arial"color="black" align="justify">
                     <p> Es necesario una mayor difusión de la política de prevención de riesgos
                         psicosociales y programas para: la prevención de los factores de riesgo
                         psicosocial, la promoción de un entorno organizacional favorable y la
@@ -9280,7 +9309,7 @@ if(DominioOcho < 7){
                           violencia laboral, así como reforzar su aplicación y difusión, mediante un
                           Programa de intervención.</p></font>
   
-                      criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify">
+                      criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="2" face="arial"color="black" align="justify">
                     <p>Se requiere revisar la política de prevención de riesgos psicosociales y
                       programas para la prevención de los factores de riesgo psicosocial, la
                       promoción de un entorno organizacional favorable y la prevención de la
@@ -9292,7 +9321,7 @@ if(DominioOcho < 7){
                     charColor = "#FFC000"  
                     criterios = <font size="1" face="arial"color="black" align="justify"><p>
                    </p></font>
-                    criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="3" face="arial"color="black" align="justify"><p>Se requiere realizar un análisis de cada categoría y dominio, de manera que
+                    criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="2" face="arial"color="black" align="justify"><p>Se requiere realizar un análisis de cada categoría y dominio, de manera que
                      Se requiere realizar un análisis de cada categoría y dominio, de manera que
                     se puedan determinar las acciones de intervención apropiadas a través de un
                     Programa de intervención, que podrá incluir una evaluación específica y
@@ -9314,7 +9343,7 @@ if(DominioOcho < 7){
                       psicosociales y programas para la prevención de los factores de riesgo
                       psicosocial, la promoción de un entorno organizacional favorable y la
                       prevención de la violencia laboral, así como reforzar su aplicación y difusión.</p></font>
-                      criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="3" face="arial"color="black" align="justify">
+                      criteriosPrev = <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="2" face="arial"color="black" align="justify">
                   <p> Se requiere realizar el análisis de cada categoría y dominio para establecer
                       las acciones de intervención apropiadas, mediante un Programa de
                       intervención que deberá incluir evaluaciones específicas, y contemplar
@@ -9393,32 +9422,30 @@ if(DominioOcho < 7){
                   FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
                   let celdaNombre;
                   let celdaAmbiente;
+                  botonDescargarReporteEjecutivo = <MDBBtn   gradient="purple" size="md" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
+                  Descargar reporte ejecutivo
+                  </MDBBtn>
                   reporteEjecutivo = 
                   <React.Fragment>
-                  <Alert className ="mt-4" color ="primary ">Reporte ejecutivo total de empleados</Alert>
-              
-                  <MDBContainer style={{marginTop:20}}>
-                    <table>
-                      <tr>
-                        <td width="33%">
-                        <MDBBtn   gradient="purple" size="md" className="k-button" onClick={() => { this.pdfExportComponent.save(); }}>
-                        Descargar reporte ejecutivo
-                        </MDBBtn>
-                        </td>
-                       
-                        <td width="33%">
-                        <font  face="arial" className = "mt-4" ><strong> EVALUACIÓN RP. </strong><br/><strong>FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></strong><br/><strong>{localStorage.getItem("razonsocial")}</strong> </font>
-                        </td>
-                        <td width="34%">
-                        <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100}}/> 
-                        </td>
-                        <td>{botonCerrar}</td>
-                      </tr>
-                    </table>
-
-
-                  </MDBContainer>
-                      <MDBContainer >
+                <MDBCard>
+                  <MDBCardHeader>
+                    <MDBCardTitle><center>Reporte ejecutivo del total de empleados</center></MDBCardTitle>
+                  </MDBCardHeader>
+                  <MDBCardBody> 
+                  <table style={{marginLeft:"20%"}}>
+                  <tr>
+                  <td width="65%" > <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:100,marginBottom:20}}/></td>
+                  <td width="35%" >
+                  <img src={diagnostico} alt="logo" style = {{width:150}}/>
+                  </td>
+                  </tr>
+                  </table>
+                  <center> 
+                  <font face="arial" className = "mt-4" ><center><strong>REPORTE EJECUTIVO DEL CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</strong></center></font><br/>
+                  <strong className="text-left  ml-2 mt-4">{localStorage.getItem("razonsocial")}</strong><br/>
+                  <font face="arial" className = "mt-4" >FILTRADO POR: <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;  {this.state.filtro2} &nbsp;&nbsp; {this.state.filtro3} &nbsp;&nbsp;{this.state.filtro4} &nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp; {this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8} </strong> </font>
+                  </center>
+                  <br/>
                         <Table   responsive small borderless className="text-left mt-4 ">
                         <TableHead>
                         <TableRow>
@@ -9431,7 +9458,6 @@ if(DominioOcho < 7){
                         </TableRow>
                         </TableHead>
                         </Table>
-                      </MDBContainer>
                       <br/>
               
                       <TableContainer component={Paper} style={{marginBottom:30}}>
@@ -9643,62 +9669,15 @@ if(DominioOcho < 7){
                                 </tr>
                                   )
                                 })}
-                          {/* <TableRow>
-                          <TableCell component="th" scope="row" >
-                          {this.state.empleadosRE.map(rows=>{
-                            return(
-                              <tr>{rows}</tr>                          
-                            )
-                          })}
-                          </TableCell>   
-                          <TableCell component="th" scope="row" align="center">
-                          {ambienteTrabajo.map(filas=>{  
-
-                            return(
-                              <tr>{filas}</tr>     
-                            )  
-                          })} 
-                          </TableCell>
-                          <TableCell component="th" scope="row" align="center">
-                          {factoresPropios.map(filas=>{  
-                            return(
-                              <tr>{filas}</tr>     
-                            )  
-                          })} 
-                          </TableCell>
-                          <TableCell component="th" scope="row" align="center">
-                          {organizacion.map(filas=>{  
-                            return(
-                              <tr>{filas}</tr>     
-                            )  
-                          })} 
-                          </TableCell>
-                          <TableCell component="th" scope="row" align="center">
-                           {liderazgo.map(filas=>{  
-                            return(
-                              <tr>{filas}</tr>     
-                            )  
-                          })} 
-                          </TableCell>
-                          <TableCell component="th" scope="row" align="center">
-                           {totalPonderacion.map(filas=>{  
-                            return(
-                              <tr>{filas}</tr>     
-                            )  
-                          })} 
-                          </TableCell>
-                         </TableRow>  
-                                  */}
                     </TableBody>
                     </Table>
-                   </TableContainer>              
-              
+                   </TableContainer>  
+                   </MDBCardBody>
+                   </MDBCard>            
                          <div>
                               <div className="example-config">
                                 
                               </div>
-                               {/*   */}
-              
                               <div style={{ position: "absolute", left: "-1000px", top: 0 }}>
                                   <PDFExport
                                       paperSize="letter"
@@ -9719,17 +9698,14 @@ if(DominioOcho < 7){
                                           <MDBTable style = {{marginLeft:35}} component={Paper}  small borderless className="text-left ">
                                             
                                           <MDBTableBody>  
-                                          <br/>     
+                                          <br/>   
+                                          <font size="2"face="arial"color="black"><strong> Reporte Ejecutivo Global | identificación y análisis de los factores de riesgo psicosocial</strong></font><br></br>                                            <br></br>
+
                                           <font size="2"face="arial"color="black"><strong> {localStorage.getItem("razonsocial")} </strong></font><br></br>          
-                                          <br></br>
-                                          <font size="1"face="arial"color="black"><strong> Reporte Ejecutivo Global | identificación y análisis de los factores de riesgo psicosocial</strong></font><br></br>
-                                          <br></br>
                                           <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
-
                                           <br></br><br/>
-                                          <font size="1"face="arial"color="black">Total de evaluaciones consideradas : {this.state.empleadosRE.length}</font><br></br><br></br>
-
-                                          <br/><font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
+                                          <font size="1"face="arial"color="black">Total de evaluaciones consideradas : {this.state.empleadosRE.length}</font><br></br>
+                                          <font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
 
                                           <br></br><br/><br></br><br/>
                                           <center><font size="1"face="arial"color="red"><strong>diagnostico035.com</strong></font></center>
@@ -9758,12 +9734,7 @@ if(DominioOcho < 7){
                                             <br></br>  
                                             <br></br>     
 
-                                              <div style={{marginLeft:"2%"}} >
-                                              <p  className ="text-center"><strong>GUÍA DE REFERENCIA II  <br/>IDENTIFICACIÓN Y ANÁLISIS DE LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO </strong> </p>
-
-                                                </div> 
-                                                <br/>
-
+                                             <center> <p  className ="text-center"> <font size="1" face="arial"color="black"><strong>GUÍA DE REFERENCIA II IDENTIFICACIÓN Y ANÁLISIS DE LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO </strong></font> </p></center>
                                                 <MDBTable bordless style={{marginLeft:"5%",marginTop:"2%"}}>
                                                 <MDBTableBody>
                                                 <tr>
@@ -10099,57 +10070,124 @@ if(DominioOcho < 7){
                         </React.Fragment>
                 }
 
+          let tablaPeriodoActual;   
+          if(this.state.tablaPeriodoActual == true){
+            let periodo;
+            periodo = localStorage.getItem("periodo")
+                       const columns = ["ID","Nombre","Centro de Trabajo","Periodo",{name:"Resultados",label:"Respuestas",options:{filter: false,sort: false,}},{name:"Resultados",label:"Resultados",options:{filter: false,sort: false,}}];
 
+            const data = this.state.empleados.map(rows=>{
+              if(rows) {
+                let botonRespuestas = <div><MDBBtn className = "text-white"   disabled={!this.state.botonResultados}size="md" color="danger"  onClick={(e) => this.reporteIndividual(rows.id,rows.periodo)}>Respuestas</MDBBtn></div>
+                let botonResultados =  <div><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} color="secondary" size="md" onClick={(e) => this.getEvaluacion(rows.id,rows.periodo)}>Resultados</MDBBtn></div> 
+              return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
+              }
+               
+            })
+            tablaPeriodoActual  = <MUIDataTable
+            title={`Tabla de reportes RP ${periodo}`}
+            data={data}
+            columns={columns}
+            options={options}
+          />
+          }
+
+          let tablaPeriodoSeleccionado;
+          if(this.state.tablaPeriodoSeleccionado == true){
+         
+            const columns = ["ID","Nombre","Centro de Trabajo","Periodo",{name:"Resultados",label:"Respuestas",options:{filter: false,sort: false,}},{name:"Resultados",label:"Resultados",options:{filter: false,sort: false,}}];
+            const data = this.state.empleados.map(rows=>{
+              if(rows) {
+                let botonRespuestas = <div><MDBBtn className = "text-white"   disabled={!this.state.botonResultados}size="md" color="danger"  onClick={(e) => this.reporteIndividual(rows.id,rows.periodo)}>Respuestas</MDBBtn></div>
+                let botonResultados =  <div><MDBBtn className = "text-white"  disabled={!this.state.botonResultados} color="secondary" size="md" onClick={(e) => this.getEvaluacion(rows.id,rows.periodo)}>Resultados</MDBBtn></div> 
+              return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
+              }
+               
+            })
+            tablaPeriodoActual  = <MUIDataTable
+            title={`Tabla de reportes RP`}
+            data={data}
+            columns={columns}
+            options={options}
+          />
+          
+          }
                 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     return (
+      
       <React.Fragment>
-         <div>
-          <Navbar/>
-         <div
-        
-        style={{
-          marginLeft: "5%",
-          position: "absolute"
-        }}
-      >
-        <div style={{ height: "110%"}}>
-
-          <Grow in={true}>
-            <div style={{ margin: "60px 56px" }}>
-           <ReactFusioncharts
+      <div>
+        <Navbar/>
+        <div >
+        <div  style={{marginTop:"5%", maxWidth:1140}}>
+        <MDBRow>
+        <MDBCol style={{ maxWidth: "30rem" }}> 
+            <ReactFusioncharts
               type="pie3d"
-              width="100%"
-              height="80%"
+              width="140%"
+              height="60%"
               dataFormat="JSON"
               dataSource={dataSource}
-             
-            />{spinner}
-              <MUIDataTable
-                title={`Resultados RP`}
-                data={data}
-                columns={columns}
-                options={options}
-              />
-              
-              <MDBRow style={{marginTop:20}}>
+            />
+              <MDBCard style={{marginLeft:"20%",width:"101%"}}>
+              <MDBCardHeader>
+              <center>
+              <Button style={{ color: 'green' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
+              <strong>&nbsp;Resultados de otros periodos<br/><i class="fas fa-mouse-pointer"></i></strong>
+              </Button>
+              </center>
+              <Menu
+                  id="simple-menu"
+                  anchorEl={this.state.dropdown}
+                  keepMounted
+                  open={Boolean(this.state.dropdown)}
+                  onClose={this.handleClose}
+              >
+              { this.state.todosLosPeriodos.map((rows)=>{
+                if(rows.Descripcion){
+                  return( <MenuItem value={rows.Descripcion} onClick={e=>this.cargarTablaPeriodoSeleccionado(rows.Descripcion)}><strong>{rows.Descripcion.toUpperCase()}</strong></MenuItem>
+                  ) }
+              })}
+                
+              </Menu>
+              </MDBCardHeader>
+              <MDBCardBody>
+              <center>
+              {botonCerrar}
+              {botonDescargarReporteIndividual}
+              {botonDescargarReporteIndividualResultados}
               {botonResultadosGlobales}
-              {spinner}
+              {botonDescargarResultadosGlobales}
               {PDFRespuestasMasivos}
               {PDFResultadosMasivos}
-             </MDBRow>
-               {pdfView1}
-               {ponderacionIndividual}
-               {ponderacion}   
-               {reporteEjecutivo}
-            </div> 
-          </Grow>  
-        </div>
-      </div> 
-     
-      </div>   
-      </React.Fragment>
-      
+              {botonDescargarReporteEjecutivo}
+
+              {/* 
+              
+               */}
+              {spinner}
+              </center>
+              </MDBCardBody>
+              </MDBCard>
+
+            </MDBCol> 
+            <MDBCol style={{ maxWidth: "50rem" }}>
+            <div style={{display: 'table', tableLayout:'fixed', width:'115%',marginLeft:"16%"}} >
+                {tablaPeriodoActual}
+                {reporteIndividual}
+                {ponderacionIndividual}
+                {ponderacion}
+                {reporteEjecutivo}
+                {tablaPeriodoSeleccionado}
+
+            </div>
+            </MDBCol>
+         </MDBRow>
+          </div> 
+      </div>
+      </div>
+      </React.Fragment> 
     )
   }
 }

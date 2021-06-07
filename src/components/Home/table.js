@@ -607,129 +607,75 @@ class TableEmployees extends React.Component {
             <MDBCol> 
            </MDBCol>
             </MDBRow>   
-            </ul>
-
+            </ul>        
+            <div style={{ height: "110%"}}>
+            <Button  startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({correosEnviados:'1'})} style={{marginBottom:20}}>
+              correos Enviados
+            </Button>
+            <Button  startIcon={<CloseOutlinedIcon />} color="secondary" onClick={(e)=>this.setState({correosEnviados:''})} style={{marginBottom:20}}>
+              Cerrar Correos
+            </Button>
+            <br></br>
+            
+            {correosEnviados}
         
-        <div style={{ height: "110%"}}>
-        <Button  startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({correosEnviados:'1'})} style={{marginBottom:20}}>
-           correos Enviados
-         </Button>
-         <Button  startIcon={<CloseOutlinedIcon />} color="secondary" onClick={(e)=>this.setState({correosEnviados:''})} style={{marginBottom:20}}>
-           Cerrar Correos
-         </Button>
-         <br></br>
-        
-         {correosEnviados}
-    
-         <Grow in={true}>
-            <div >
-            {/* <Alert variant="outlined" severity="warning">
-              This is a warning alert — check it out!
-            </Alert> */}
-              <MUIDataTable
-                title={`Enviar evaluación ATS`}
-                data={data}
-                columns={columns}
-                options={options}
-              />
-              <MDBRow style={{marginTop:10}}>
-              <MDBCol  sm="4"></MDBCol>  
-             </MDBRow>
-             <Button style={{marginBottom:40}} startIcon={<CheckOutlinedIcon />}  outline color="secondary" onClick={(e)=>this.sendMailATS(datosEmpleados)}>
-                  Enviar evaluación ATS
-               </Button>
-             
-            </div> 
-          </Grow>  
-          <Grow in={true}>
-            <div >
+            <Grow in={true}>
+                <div >
+                {/* <Alert variant="outlined" severity="warning">
+                  This is a warning alert — check it out!
+                </Alert> */}
+                  <MUIDataTable
+                    title={`Enviar evaluación ATS`}
+                    data={data}
+                    columns={columns}
+                    options={options}
+                  />
+                  <MDBRow style={{marginTop:10}}>
+                  <MDBCol  sm="4"></MDBCol>  
+                </MDBRow>
+                <Button style={{marginBottom:40}} startIcon={<CheckOutlinedIcon />}  outline color="secondary" onClick={(e)=>this.sendMailATS(datosEmpleados)}>
+                      Enviar evaluación ATS
+                  </Button>
+                
+                </div> 
+              </Grow>  
+              <Grow in={true}>
+                <div >
 
-              <MUIDataTable
-                title={`Enviar evaluación RP`}
-                data={dataRP}
-                columns={columns}
-                options={optionsRP}
-              />
-              <MDBRow style={{marginTop:10}}>
-              <MDBCol  sm="4"></MDBCol>  
-             </MDBRow>
-           
-               <Button style={{marginBottom:40}}  startIcon={<ArrowForwardIcon />} outline color="default" onClick={(e)=>this.sendMailRP(datosEmpleadosRP)}>
-                  Enviar evaluación RP
-               </Button>
+                  <MUIDataTable
+                    title={`Enviar evaluación RP`}
+                    data={dataRP}
+                    columns={columns}
+                    options={optionsRP}
+                  />
+                  <MDBRow style={{marginTop:10}}>
+                  <MDBCol  sm="4"></MDBCol>  
+                </MDBRow>
               
-            </div> 
-          </Grow> 
-          <Grow in={true}>
-            <div >
-              <MUIDataTable
-                title={`Enviar evaluación EEO`}
-                data={dataEEO}
-                columns={columns}
-                options={optionsEEO}
-              />
-              <MDBRow style={{marginTop:10}}>
-              <MDBCol  sm="4"></MDBCol>  
-             </MDBRow>
-           
-               <Button style={{marginBottom:60}}  startIcon={<CheckCircleOutlineOutlinedIcon />} outline color="primary" onClick={(e)=>this.sendMailEEO(datosEmpleadosEEO)}>
-                  Enviar evaluación EEO
-               </Button>
-            </div> 
-          </Grow>
-        </div>
-
-        
-   
-            <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
-              <div className="row">
-                  <div className="col-md-12" item xs={12}>
-                      <center><br/>
-                          <br/>
-                          <br/>
-                          <font size="4">
-                          El Distribuidor Asociado Master de CONTPAQi® que ha recibido el reconocimiento como el
-                          <br/>
-                           Primer Lugar en Ventas por 15 Años Consecutivos en la Ciudad de México.
-                          
-                          <br/>
-                          <br/>
-                          Alfa Diseño de Sistemas: 
-                         
-                          Somos un distribuidor asociado master de CONTPAQi®, 
-                          <br/>
-                           una casa desarrolladora de software, que además es PAC (Proveedor Autorizado de Certificación) y PCRDD 
-                          <br/>
-                          (Proveedor de Certificación y Recepción de Documentos Digitales) por parte del SAT.
-                          {/* <img src={Ok} alt="ok" className="img-fluid"/><br/><br/> */}
-                          <br/>
-                          <br/>
-                          Conoce más sobre nosotros en 
-                          <br></br>
-                            <a href="www.ads.com.mx">www.ads.com.mx</a>
-                          </font>
-
-                          <br/>
-                          <br/>
-                          <br/>
-                          {/* <Alert color="secondary" style={{fontSize: 24}}>Su encuesta ha finalizado, Gracias por su colaboración</Alert> */}
-                          <br/>
-                          <br/>
-                          <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
-                          <Button 
-                            variant="outlined"
-                              color="primary"
-                              type = "submit"
-                               onClick={()=>{this.setState({showModal2:false})}}
-                            >
-                             Cerrar
-                            </Button>
-                            </Grid>
-                      </center>
-                  </div>
-              </div>
-
-          </Modal>
+                  <Button style={{marginBottom:40}}  startIcon={<ArrowForwardIcon />} outline color="default" onClick={(e)=>this.sendMailRP(datosEmpleadosRP)}>
+                      Enviar evaluación RP
+                  </Button>
+                  
+                </div> 
+              </Grow> 
+              <Grow in={true}>
+                <div >
+                  <MUIDataTable
+                    title={`Enviar evaluación EEO`}
+                    data={dataEEO}
+                    columns={columns}
+                    options={optionsEEO}
+                  />
+                  <MDBRow style={{marginTop:10}}>
+                  <MDBCol  sm="4"></MDBCol>  
+                </MDBRow>
+              
+                  <Button style={{marginBottom:60}}  startIcon={<CheckCircleOutlineOutlinedIcon />} outline color="primary" onClick={(e)=>this.sendMailEEO(datosEmpleadosEEO)}>
+                      Enviar evaluación EEO
+                  </Button>
+                </div> 
+              </Grow>
+            </div>
             </MDBContainer >
 
   </MDBContainer>

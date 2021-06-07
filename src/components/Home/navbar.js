@@ -10,6 +10,8 @@ import {
     Grid,
     Button,
   } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import Modal from 'react-modal';
 class Navbar extends React.Component {
     constructor(props){
@@ -17,7 +19,9 @@ class Navbar extends React.Component {
         this.state = {
             collapse: false,
             isOpen: false,
-            nombre:''
+            nombre:'',
+            dropdown:null
+
         }
         this.onClick = this.onClick.bind(this);
         this.handleclick = this.handleclick.bind(this);
@@ -82,7 +86,13 @@ class Navbar extends React.Component {
         )
         this.props.history.push("/")
         }
-        
+        handleClose = () => {
+            this.setState({dropdown: null});
+          };
+          handleDropdown = (event) => {
+            this.setState({dropdown: event.currentTarget});
+          
+          };
     render(){
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
         return(
@@ -90,100 +100,53 @@ class Navbar extends React.Component {
                 <header>
                 <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
                     <Sidebar/>
+                    
                     <MDBNavbarBrand a href="./inicio">
                         <AppNavbarBrand full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico035' }} />               
                     </MDBNavbarBrand>
-                        <MDBNavbarToggler onClick={this.onClick} />
+                    <MDBNavbarToggler onClick={this.onClick} />
                     <MDBCollapse isOpen={this.state.collapse} navbar>
+
                         <MDBNavbarNav left>
-                           <MDBNavItem >
-                            <a href="https://eval.diagnostico035.com/ATS">evaluación ATS &nbsp;&nbsp;   </a>
-                           </MDBNavItem>
-                           <MDBNavItem >
-                            <a href="https://eval.diagnostico035.com/RP"> evaluación RP &nbsp;&nbsp; </a>
-                           </MDBNavItem>
-                           <MDBNavItem >
-                            <a href="https://eval.diagnostico035.com/EEO"> evaluación EEO   </a>
-                           </MDBNavItem>
-                            
+                        <strong>{this.state.nombre} </strong>&nbsp;<strong>  {this.state.apellidos}  &nbsp; </strong>
+                        &nbsp;
                         </MDBNavbarNav>
-                            <strong>{localStorage.getItem("razonsocial")}</strong> 
-                        <MDBNavbarNav right>
+                        <MDBNavbarNav left>
+                        <strong>{localStorage.getItem("razonsocial")}</strong> 
                         </MDBNavbarNav>
-                            <strong>{this.state.date}</strong> 
-                        <MDBNavbarNav right>
+                        <MDBNavbarNav left>
+                        <strong>Versión 2.0</strong> 
                         </MDBNavbarNav>
-                            <strong>Versión 1.1.2</strong> 
-                        <MDBNavbarNav right>
+                        <MDBNavbarNav left>
+                        <Button  style={{ color: '#FC1B99' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
+                          Herramientas del usuario &nbsp;<i class="fas fa-cog"> </i> 
+                        </Button>
+                        </MDBNavbarNav>
                         <MDBNavbarBrand>  
                                      
                         <AppNavbarBrand full={{ src: localStorage.getItem("urlLogo") , width: 30, height: 25, alt: 'logo' }} />               
-                        {this.state.nombre}      
+                             
                         </MDBNavbarBrand>
-                        <MDBNavbarBrand>  
-                            <MDBNavItem>   
-                              <MDBDropdown>
-                                <MDBDropdownToggle nav caret>
-                                </MDBDropdownToggle>
-                                    <MDBDropdownMenu className="dropdown-default">
-                                    <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
-                                    <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
-                                    <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
-                                    </MDBDropdownMenu>
-                                </MDBDropdown>
-                            </MDBNavItem>
-                        </MDBNavbarBrand>
-                        </MDBNavbarNav>
+                       
+                      
                      </MDBCollapse>
-                </MDBNavbar>
-                <Modal className="modal-main" isOpen={this.state.showModal2} contentLabel="Minimal Modal Example">
-                    <div className="row">
-                        <div className="col-md-12" item xs={12}>
-                            <center><br/>
-                                <br/>
-                                <br/>
-                                <font size="4">
-                                El Distribuidor Asociado Master de CONTPAQi® que ha recibido el reconocimiento como el
-                                <br/>
-                                 Primer Lugar en Ventas por 15 Años Consecutivos en la Ciudad de México.
-                                
-                                <br/>
-                                <br/>
-                                Alfa Diseño de Sistemas: 
-                               
-                                Somos un distribuidor asociado master de CONTPAQi®, 
-                                <br/>
-                                 una casa desarrolladora de software, que además es PAC (Proveedor Autorizado de Certificación) y PCRDD 
-                                <br/>
-                                (Proveedor de Certificación y Recepción de Documentos Digitales) por parte del SAT.
-                                {/* <img src={Ok} alt="ok" className="img-fluid"/><br/><br/> */}
-                                <br/>
-                                <br/>
-                                Conoce más sobre nosotros en 
-                                <br></br>
-                                  <a href="www.ads.com.mx">www.ads.com.mx</a>
-                                </font>
+                     
+                    <Menu
+                        id="simple-menu"
+                        anchorEl={this.state.dropdown}
+                        keepMounted
+                        open={Boolean(this.state.dropdown)}
+                        onClose={this.handleClose}
+                    >
+                        <MenuItem ><a href = "http://eval.diagnostico035.com/ats">Realizar evaluación ATS</a></MenuItem>
+                        <MenuItem ><a href = "http://eval.diagnostico035.com/rp">Realizar evaluación RP</a></MenuItem>
+                        <MenuItem ><a href = "http://eval.diagnostico035.com/eeo">Realizar evaluación EEO</a></MenuItem>
+                        <MenuItem onClick={this.handleclick}><i class="fas fa-address-card"></i> &nbsp;Mi Perfil</MenuItem>
+                        <MenuItem ><a href = "http://ads.com.mx"><i class="fab fa-buysellads"></i> &nbsp;Más sobre ADS</a></MenuItem>
 
-                                <br/>
-                                <br/>
-                                <br/>
-                                {/* <Alert color="secondary" style={{fontSize: 24}}>Su encuesta ha finalizado, Gracias por su colaboración</Alert> */}
-                                <br/>
-                                <br/>
-                                <Grid item style={{ marginTop: 16 }} spacing={2} item xs={12}>
-                                <Button 
-                                  variant="outlined"
-                                    color="primary"
-                                    type = "submit"
-                                     onClick={()=>{this.setState({showModal2:false})}}
-                                  >
-                                   Cerrar
-                                  </Button>
-                                  </Grid>
-                            </center>
-                            </div>
-                        </div>
-                    </Modal>
+
+                    </Menu>
+                </MDBNavbar>
                 </header>
                 </React.Fragment>
         )

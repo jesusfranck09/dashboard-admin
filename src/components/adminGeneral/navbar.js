@@ -7,13 +7,17 @@ import {MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import "./styles.scss";
 import { withRouter } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 class Navbar extends React.Component {
     constructor(props){
         super(props)
         this.state = {
             collapse: false,
             isOpen: false,
-            nombre:''
+            nombre:'',
+            dropdown:null
         }
         this.onClick = this.onClick.bind(this);
         this.handleclick = this.handleclick.bind(this);
@@ -23,18 +27,6 @@ class Navbar extends React.Component {
     componentWillMount(){
         var Nombre = localStorage.getItem("nombre")
         var Apellidos = localStorage.getItem("apellidos")
-    
-    
-        var LaFecha=new Date();
-        var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
-        var diasemana=LaFecha.getDay();
-        var FechaCompleta="";
-        var NumeroDeMes="";    
-        NumeroDeMes=LaFecha.getMonth();
-        FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
-    
-        this.setState({date:FechaCompleta}) 
         this.setState({nombre:Nombre}) 
         this.setState({apellidos:Apellidos}) 
     
@@ -51,6 +43,10 @@ class Navbar extends React.Component {
     this.props.history.push("/profile")
     
     }
+    handleDropdown = (event) => {
+        this.setState({dropdown: event.currentTarget});
+      
+      };
     handleLogOut(){
         localStorage.removeItem("elToken")
         localStorage.removeItem("nombre")
@@ -78,7 +74,10 @@ class Navbar extends React.Component {
         }
         )
         }
-        
+        handleClose = () => {
+            this.setState({dropdown: null});
+          };
+
     render(){
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
         return(
@@ -86,53 +85,54 @@ class Navbar extends React.Component {
                 <header>
                 <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
                     <Sidebar/>
+                    
                     <MDBNavbarBrand a href="./inicio">
                         <AppNavbarBrand full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico035' }} />               
                     </MDBNavbarBrand>
                         <MDBNavbarToggler onClick={this.onClick} />
                     <MDBCollapse isOpen={this.state.collapse} navbar>
+
+                    <MDBNavbarNav left>
+                        <strong>{this.state.nombre} </strong>&nbsp;<strong>  {this.state.apellidos}  &nbsp; </strong>
+                        &nbsp;
+                        </MDBNavbarNav>
                         <MDBNavbarNav left>
-                           <MDBNavItem >
-                            <a href="http://ats.diagnostico035.com/">evaluación ATS &nbsp;&nbsp;   </a>
-                           </MDBNavItem>
-                           <MDBNavItem >
-                            <a href="http://rp.diagnostico035.com/"> evaluación RP &nbsp;&nbsp; </a>
-                           </MDBNavItem>
-                           <MDBNavItem >
-                            <a href="http://eeo.diagnostico035.com/"> evaluación EEO   </a>
-                           </MDBNavItem>
-                            
+                        <strong>{localStorage.getItem("razonsocial")}</strong> 
                         </MDBNavbarNav>
-                            <strong>{localStorage.getItem("razonsocial")}</strong> 
-                        <MDBNavbarNav right>
+                        <MDBNavbarNav left>
+                        <strong>Versión 2.0</strong> 
                         </MDBNavbarNav>
-                            <strong>{this.state.date}</strong> 
-                        <MDBNavbarNav right>
+                        <MDBNavbarNav left>
+                        <Button  style={{ color: '#FC1B99' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
+                          Herramientas del usuario &nbsp;<i class="fas fa-cog"> </i> 
+                        </Button>
                         </MDBNavbarNav>
-                            <strong>Versión 1.1.0</strong> 
-                        <MDBNavbarNav right>
                         <MDBNavbarBrand>  
                                      
                         <AppNavbarBrand full={{ src: localStorage.getItem("urlLogo") , width: 30, height: 25, alt: 'logo' }} />               
-                        {this.state.nombre}      
+                             
                         </MDBNavbarBrand>
-                        <MDBNavbarBrand>  
-                            <MDBNavItem>   
-                              <MDBDropdown>
-                                <MDBDropdownToggle nav caret>
-                                </MDBDropdownToggle>
-                                    <MDBDropdownMenu className="dropdown-default">
-                                    <MDBDropdownItem onClick={this.handleclick}>Mi Perfil</MDBDropdownItem>
-                                    <MDBDropdownItem onClick={this.ads}>Más sobre ADS</MDBDropdownItem>
-                                    <MDBDropdownItem onClick={this.handleLogOut}>Cerrar Sesión</MDBDropdownItem>
-                                    </MDBDropdownMenu>
-                                </MDBDropdown>
-                            </MDBNavItem>
-                        </MDBNavbarBrand>
-                        </MDBNavbarNav>
+                       
+                      
                      </MDBCollapse>
-                </MDBNavbar>
+                     
+                    <Menu
+                        id="simple-menu"
+                        anchorEl={this.state.dropdown}
+                        keepMounted
+                        open={Boolean(this.state.dropdown)}
+                        onClose={this.handleClose}
+                    >
+                        <MenuItem ><a href = "http://eval.diagnostico035.com/ats">Realizar evaluación ATS</a></MenuItem>
+                        <MenuItem ><a href = "http://eval.diagnostico035.com/rp">Realizar evaluación RP</a></MenuItem>
+                        <MenuItem ><a href = "http://eval.diagnostico035.com/eeo">Realizar evaluación EEO</a></MenuItem>
+                        <MenuItem onClick={this.handleclick}><i class="fas fa-address-card"></i> &nbsp;Mi Perfil</MenuItem>
+                        <MenuItem ><a href = "http://ads.com.mx"><i class="fab fa-buysellads"></i> &nbsp;Más sobre ADS</a></MenuItem>
 
+
+                    </Menu>
+                </MDBNavbar>
+               
                 </header>
       
         )
