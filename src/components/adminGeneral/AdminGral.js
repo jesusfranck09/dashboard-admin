@@ -1248,7 +1248,7 @@ class AdminGral extends React.Component {
                  <MDBCardText>RFC : <strong>{this.state.admin.RFC} </strong></MDBCardText>
                  <MDBCardText>Fecha de registro : <strong>{this.state.admin.fechaRegistro.substring(0,17)} </strong></MDBCardText>
                  <MDBCardText>Objetivo de mi empresa : <strong>{this.state.admin.objetivo} </strong></MDBCardText>
-                 <MDBCardText>Representante : <strong>{this.state.admin.nombreAdmin + " "  + this.state.admin.Apellidos} </strong></MDBCardText>
+                 <MDBCardText>Administrador : <strong>{this.state.admin.nombreAdmin + " "  + this.state.admin.Apellidos} </strong></MDBCardText>
                </MDBCardBody>
              </MDBCard>
              }
@@ -1259,8 +1259,8 @@ class AdminGral extends React.Component {
             let botonPuestos;
             if(this.state.tablaEmpleados === true) {
               botonCentroT= <MDBBtn style= {{width:"60%"}} color = "success" size = "sm" onClick = {e => this.mostrarTablas(1)}>Centros de trabajo</MDBBtn>;
-              botonDepartamentos= <MDBBtn style= {{width:"60%"}}  color = "info" size = "sm" onClick = {e => this.mostrarTablas(2)}>Mis Departamentos</MDBBtn>;
-              botonPuestos= <MDBBtn style= {{width:"60%"}} color = "secondary" size = "sm" onClick = {e => this.mostrarTablas(3)}>Mis Puestos de T.</MDBBtn>;
+              botonDepartamentos= <MDBBtn style= {{width:"60%"}}  color = "info" size = "sm" onClick = {e => this.mostrarTablas(2)}>Departamentos</MDBBtn>;
+              botonPuestos= <MDBBtn style= {{width:"60%"}} color = "secondary" size = "sm" onClick = {e => this.mostrarTablas(3)}>Puestos de T.</MDBBtn>;
 
                 tablaEmpleados =  <div style={{width:900}}>
                 <MUIDataTable
@@ -1313,7 +1313,6 @@ class AdminGral extends React.Component {
             }
             let editarEmpleados;
             if(this.state.editarEmpleados ===  true){
-              console.log("empleados" , this.state.updateRows)
               editarEmpleados  = <div style={{maxWidth: 900 }}>
               <MDBCard style={{padding:"2%"}}>
               <MDBCardHeader><MDBCardTitle>Actualizar empleados</MDBCardTitle></MDBCardHeader>

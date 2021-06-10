@@ -3496,15 +3496,15 @@ export default class App extends React.Component {
         let criteriosPrev;
 
         if(general<50){
-        celda = <TableCell width="20%"  style={{backgroundColor: "#9BE0F7"}} className="text-left"><font size="1" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
-        celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="2" face="arial"color="black" align="justify">NULO O DESPRECIABLE</font></TableCell>
+        celda = <TableCell style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="1" face="arial"color="black" align="justify">Nulo</font></TableCell>
+        celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#9BE0F7"}} className="text-center"><font size="2" face="arial"color="black" align="justify">Nulo</font></TableCell>
 
         criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
         criteriosPrev = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="2" face="arial"color="black" align="justify">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</font></TableCell>
 
         }else if(general>=50 && general < 75){
-          celda = <TableCell width="20%" style={{backgroundColor: "#6BF56E"}}  className="text-left"><font size="1" face="arial"color="black" align="justify">BAJO</font></TableCell>
-          celdaPrev = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="2" face="arial"color="black" align="justify">BAJO</font></TableCell>
+          celda = <TableCell style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">Bajo</font></TableCell>
+          celdaPrev = <TableCell width="10%" style={{backgroundColor: "#6BF56E"}}  className="text-center"><font size="2" face="arial"color="black" align="justify">Bajo</font></TableCell>
 
           criterios = <TableCell style={{backgroundColor: "#E6E7E8"}}><font size="1" face="arial"color="black" align="justify">Es necesario una mayor difusión de la política de prevención de riesgos
           psicosociales y programas para: la prevención de los factores de riesgo
@@ -3516,8 +3516,8 @@ export default class App extends React.Component {
           psicosocial, la promoción de un entorno organizacional favorable y la
           prevención de la violencia laboral.</font></TableCell>
         }else if(general>=75 && general < 99){
-          celda = <TableCell width="20%"  style={{backgroundColor: "#FFFF00"}}  className="text-left"><font size="1" face="arial"color="black" align="justify">MEDIO</font></TableCell>
-          celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="2" face="arial"color="black" align="justify">MEDIO</font></TableCell>
+          celda = <TableCell style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="1" face="arial"color="black" align="justify">Medio</font></TableCell>
+          celdaPrev = <TableCell width="10%"  style={{backgroundColor: "#FFFF00"}}  className="text-center"><font size="2" face="arial"color="black" align="justify">Medio</font></TableCell>
 
           criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">Se requiere revisar la política de prevención de riesgos psicosociales y
           programas para la prevención de los factores de riesgo psicosocial, la
@@ -3531,8 +3531,8 @@ export default class App extends React.Component {
           Programa de intervención.</font></TableCell>
 
         }else if(general>=99 && general < 140){
-        celda = <TableCell  width="20%" style={{backgroundColor: "#FFC000"}} className="text-left" ><font size="1" face="arial"color="black" align="justify">ALTO</font></TableCell>
-        celdaPrev = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="2" face="arial"color="black" align="justify">ALTO</font></TableCell>
+        celda = <TableCell style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="1" face="arial"color="black" align="justify">Alto</font></TableCell>
+        celdaPrev = <TableCell  width="10%" style={{backgroundColor: "#FFC000"}} className="text-center" ><font size="2" face="arial"color="black" align="justify">Alto</font></TableCell>
 
         criterios = <TableCell style={{backgroundColor: "#E6E7E8"}} ><font size="1" face="arial"color="black" align="justify">Se requiere realizar un análisis de cada categoría y dominio, de manera que
         se puedan determinar las acciones de intervención apropiadas a través de un
@@ -3553,8 +3553,8 @@ export default class App extends React.Component {
         aplicación y difusión.</font></TableCell>
         }
         else if( general > 140){
-          celda  = <TableCell width="20%"  style={{backgroundColor: "#FF0000"}} className="text-left"><font size="1" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
-          celdaPrev  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="2" face="arial"color="black" align="justify">MUY ALTO</font></TableCell>
+          celda  = <TableCell  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="1" face="arial"color="black" align="justify">Muy alto</font></TableCell>
+          celdaPrev  = <TableCell width="10%"  style={{backgroundColor: "#FF0000"}} className="text-center"><font size="2" face="arial"color="black" align="justify">Muy alto</font></TableCell>
         
         criterios= <TableCell style={{backgroundColor: "#F0F8FF"}} ><font size="1" face="arial"color="black" align="justify">Se requiere realizar el análisis de cada categoría y dominio para establecer
           las acciones de intervención apropiadas, mediante un Programa de
@@ -4357,11 +4357,10 @@ ponderacion=<React.Fragment>
                       
                             <MDBRow style={{marginBottom:10}}> 
                              <MDBCol>
+                             <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
                              <MDBTable component={Paper}  small borderless className="text-left">
                             <MDBTableBody>  
-                            <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
-
-                                <font size="3"face="arial"color="black">Reporte global de factores de riesgo psicosocial y evaluación de entorno organizacional en los centros de trabajo</font><br></br>  <br></br>  
+                              <font size="3"face="arial"color="black">Reporte global de factores de riesgo psicosocial y evaluación de entorno organizacional en los centros de trabajo</font><br></br>  <br></br>  
                               <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")} </font><br></br>  
                               <font size="1"face="arial"color="black">Filtrado por : <strong>{this.state.filtro6}&nbsp;{this.state.filtro1}&nbsp;&nbsp;{this.state.filtro2}&nbsp;&nbsp; {this.state.filtro3}&nbsp;&nbsp;{this.state.filtro4}&nbsp;&nbsp; {this.state.filtro5}&nbsp;&nbsp;{this.state.filtro7}&nbsp;&nbsp;{this.state.filtro8}</strong></font>
                               <br/><font size="1"face="arial"color="black">Total de Evaluaciones consideradas : <strong>{this.state.datosLength}</strong></font><br/>
@@ -4419,52 +4418,42 @@ ponderacion=<React.Fragment>
                               <br></br>
                               <br></br>
                               <br></br>
-                           
-                              <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-center mt-4 ">
+                              <center>
+                              <p  className ="text-center"><strong> <font size="1"face="arial"color="black">GUÍA DE REFERENCIA III  IDENTIFICACIÓN Y ANÁLISIS DE LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUACIÓN DEL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO </font></strong> </p>
+                              </center>
+                              <MDBTable bordless >
                               <MDBTableBody>
-                              <font size="1"
-                              face="arial"
-                              color="black" style = {{marginTop:25,marginLeft:20}}>GUÍA DE REFERENCIA III -
-                              CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y
-                              EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>   <br/>  
-                                </MDBTableBody>
-                                </MDBTable>
-                                <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
-                                    <MDBTableBody>
-                                    <tr>
-                                        <td width="25%"><font size="1" face="arial"color="black"><strong>{localStorage.getItem("razonsocial")}</strong></font></td>
-                                    <td width="15%"><font size="1" face="arial"color="black"><strong>{this.state.nombre3}</strong></font></td>
-                                    <td width="15%"><font size="1" face="arial"color="black"><strong>{this.state.nombre4}</strong></font></td>
-                                    <td width="15%"><font size="1" face="arial"color="black"><strong>{this.state.nombre5}</strong></font></td>
-                                    <td width="15%"><font size="1" face="arial"color="black"><strong>{this.state.nombre6}</strong></font></td>
-                                    <td width="15%"><font size="1" face="arial"color="black"><strong>{this.state.nombre7}</strong></font></td>
-                                   </tr>
-                                   </MDBTableBody>
-                                   </MDBTable>
-                                <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
-                                    <MDBTableBody>
-                                   <tr>
-                                   <td width="30%"><font size="1" face="arial"color="black">RESULTADO </font></td>
-                                   <td width="20%"><font size="1" face="arial"color="black">{general.toFixed(2)}</font></td>
-                                   <td width="20%"><font size="1" face="arial"color="black">Nivel de riesgo </font></td>
-                                    {celda}
-                                   </tr>                                  
-                                   </MDBTableBody>
-                                    </MDBTable>  
-                                    <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left ">
-                                    <MDBTableBody>
-                                    <tr>
-                                      <td ><font size="1" face="arial"color="black"><strong>Necesidad de la acción :</strong></font></td>
-                                   </tr>         
-                                   <tr>
-                                   {criterios}
-                                     </tr>                     
-                                   </MDBTableBody>
-                                    </MDBTable>  
-
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">I.- Resultados de la categoría</font>
+                              <tr>
+                                <td width="30%"><font size="1" face="arial"color="black"><strong>{localStorage.getItem("razonsocial")}</strong></font></td>
+                                <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre3}</strong></font></td>
+                                <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre4}</strong></font></td>
+                                <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre5}</strong></font></td>
+                                <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre6}</strong></font></td>
+                                <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre7}</strong></font></td>
+                              </tr> 
+                              </MDBTableBody>
+                              </MDBTable>
+                              <MDBTable  bordered large  className="text-center">
+                              <MDBTableBody>  
+                              <tr >                              
+                              <td width = "32%"><font size="1" face="arial"color="#283747" ><strong>Resultado:</strong></font></td>
+                              <td width = "13%" className="text-left"><font size="1" face="arial"color="#273746"><strong>   {general.toFixed(2)}</strong></font></td>
+                              <td width = "30%"><font size="1" face="arial"color="#283747"><strong> Nivel de riesgo:</strong></font></td>
+                              {celda}                                  
+                              </tr>   
+                              </MDBTableBody>                                              
+                              </MDBTable>
+                              <Table  responsive small bordless  className="text-left mb-2">
+                              <tr >                              
+                              <td width="100%"><font size="2" face="arial"color="black" ><strong>Necesidad de la acción : </strong></font></td>                                    
+                              </tr>
+                              <tr>
+                                <td width="100%"><font size="1" face="arial"color="black" >{criterios}</font></td>
+                              </tr>
+                              </Table>
+                                    <font color="red" style= {{marginTop:40}}  size="1">I.- Resultados de la categoría</font>
                      
-                                    <table width="500" style={{marginLeft:20}} className="table-bordered">                                           
+                                    <table width="550"  className="table-bordered">                                           
                                          <tr >                              
                                           <td  width="10%"><font size="1" face="arial"color="black" ></font></td>
                                           <td  width="60%"><font size="1" face="arial"color="black">Categoría</font></td>
@@ -4503,8 +4492,8 @@ ponderacion=<React.Fragment>
                                         </tr>
                                         </table>
                       
-                                    <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">II.- Resultados del dominio</font>         
-                                      <table width="500" style={{marginLeft:20}} className="table-bordered"> 
+                                    <font color="red" style= {{marginTop:40}}  size="1">II.- Resultados del dominio</font>         
+                                      <table width="550"  className="table-bordered"> 
 
                                          <tr >                              
                                           <td width="10%"><font size="1" face="arial"color="black" ></font></td>
@@ -4574,8 +4563,8 @@ ponderacion=<React.Fragment>
                                         </tr>
                                       </table>
                      
-                                    <font color="red" style= {{marginLeft:20}}  size="1">III.- Resultados por Dimensión</font>
-                                      <table width="500" style={{marginLeft:20}} className="table-bordered "> 
+                                    <font color="red"  size="1">III.- Resultados por Dimensión</font>
+                                      <table width="550"  className="table-bordered "> 
 
                                          <tr >                              
                                           <td width="10%"><font size="1" face="arial"color="black" ></font></td>
@@ -4735,7 +4724,6 @@ ponderacion=<React.Fragment>
                                       <br/>
                                       <br/>
                                       <br/>
-
                         </div>
                     </PDFExport>
                 </div>
@@ -7235,7 +7223,19 @@ ponderacion=<React.Fragment>
                     </table>
                     </center>
                     <br/> 
-
+                  <Table   responsive small borderless className="text-left">
+                    <TableHead>
+                    <TableRow>
+                      <TableCell  width="13%" style={{backgroundColor: "#E6E7E8"}}>Resultados Generales</TableCell>
+                      {celda1}{celda2}{celda3}{celda4}{celda5}
+                      <TableCell width="6%"  > <strong>   TOTAL {total}  Puntos </strong></TableCell>
+                      <TableCell width="2%" ></TableCell>
+                      <TableCell width="1%"  ></TableCell>
+                      {criterios}
+                    </TableRow>
+                    </TableHead>
+                    </Table>
+                    <br/>
                  <TableContainer  component={Paper} style={{marginBottom:30}}>
                     <Table  borderless  size="small" aria-label="a dense table" >
                     <TableRow>
@@ -7658,12 +7658,6 @@ ponderacion=<React.Fragment>
                             ref={(component) => this.pdfExportComponent = component}
                         >
                             <div style={{ width: "550px" }}>
-
-                            <MDBRow style={{marginBottom:10}}> 
-                            <MDBCol>                    
-                            <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,marginLeft:230,heigth:20}}/>
-                            </MDBCol> 
-                            </MDBRow> 
                             <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/>
                                 <MDBTable component={Paper}  small borderless className="text-left mt-4 ">
                                   
@@ -7698,43 +7692,43 @@ ponderacion=<React.Fragment>
                                   <br></br>
                                   <br></br>
                                   <br></br>
-                                  <font size="1"
-                                  face="arial"
-                                  color="black" style = {{marginTop:25,marginLeft:35}}>GUÍA DE REFERENCIA III
-                                  CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO </font>   <br/>  
-                                  <font size="1"  face="arial"
-                                  color="black" style = {{marginLeft:35}}>PSICOSOCIAL Y
-                                  EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>
-                                    <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
-                                        <MDBTableBody>
-                                        <tr>
-                                          <td width="40%"><font size="1" face="arial"color="black"><strong>{this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}</strong></font></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                       </tr>
-                                       <tr>
-                                       <td width="40%"><font size="1" face="arial"color="black">RESULTADO DEL CUESTIONARIO :  </font></td>
-                                       <td width="20%"><font size="1" face="arial"color="black">{total}</font></td>
-                                       <td width="20%"><font size="1" face="arial"color="black">Nivel de riesgo </font></td>
-                                        {color}
-                                       </tr>                                  
-                                       </MDBTableBody>
-                                        </MDBTable>  
-                                        <MDBTable  component={Paper}  style = {{marginLeft:20}} small  className="text-left mt-4 ">
-                                        <MDBTableBody>
-                                        <tr>
-                                          <td ><font size="1" face="arial"color="black"><strong>Necesidad de la acción :</strong></font></td>
-                                       </tr>         
-                                       <tr>
-                                       {criterios}
-                                         </tr>                     
-                                       </MDBTableBody>
-                                        </MDBTable>  
-    
+                                  <center>
+                                  <p  className ="text-center"><strong> <font size="1"face="arial"color="black">GUÍA DE REFERENCIA III  IDENTIFICACIÓN Y ANÁLISIS DE LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUACIÓN DEL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO </font></strong> </p>
+                                  </center>
+                            
+                                    <MDBTable bordless >
+                                    <MDBTableBody>
+                                    <tr>
+                                      <td width="30%"><font size="1" face="arial"color="black"><strong>{localStorage.getItem("razonsocial")}</strong></font></td>
+                                      <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre3}</strong></font></td>
+                                      <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre4}</strong></font></td>
+                                      <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre5}</strong></font></td>
+                                      <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre6}</strong></font></td>
+                                      <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre7}</strong></font></td>
+                                    </tr> 
+                                    </MDBTableBody>
+                                    </MDBTable>
+                                    <MDBTable  large bordered  className="text-center">
+                                    <MDBTableBody>  
+                                    <tr >                              
+                                    <td width = "32%"><font size="1" face="arial"color="#283747" ><strong>Resultado:</strong></font></td>
+                                    <td width = "13%" className="text-left"><font size="1" face="arial"color="#273746"><strong>   {total}</strong></font></td>
+                                    <td width = "30%"><font size="1" face="arial"color="#283747"><strong> Nivel de riesgo:</strong></font></td>
+                                    {color}                                  
+                                    </tr>   
+                                    </MDBTableBody>                                              
+                                    </MDBTable>
+                                    <Table  responsive small bordless  className="text-left mb-2">
+                                    <tr >                              
+                                    <td width="100%"><font size="2" face="arial"color="black" ><strong>Necesidad de la acción : </strong></font></td>                                
+                                    </tr>
+                                    <tr>
+                                      <td width="100%"><font size="1" face="arial"color="black" >{criterios}</font></td>
+                                    </tr>
+                                    </Table>
                                         <font color="red" style= {{marginTop:40,marginLeft:20}}  size="1">I.- Resultados de la categoría</font>
                                         
-                                        <table WIDTH="500"style={{marginLeft:20}} className="table-bordered">
+                                        <table width="500"style={{marginLeft:20}} className="table-bordered">
                                               
                                              <tr >                              
                                               <td width="10%"><font size="1" face="arial"color="black" ></font></td>
@@ -10766,39 +10760,38 @@ ponderacion=<React.Fragment>
       <br></br>
       <br></br>
       <center>
-      <font size="1"
-      face="arial"
-      color="black">GUÍA DE REFERENCIA III
-      CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y
-      EVALUAR EL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO</font>   <br/>  
-      </center>  
-    <MDBTable  component={Paper} small  className="text-left mt-4 ">
-    <MDBTableBody>
-    <tr>
-    <td width="40%"><font size="1" face="arial"color="black"><strong>{rows[0].nombre} {rows[0].ApellidoP} {rows[0].ApellidoM}</strong></font></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    </tr>
-    <tr>
-    <td width="40%"><font size="1" face="arial"color="black">RESULTADO:  </font></td>
-    <td width="20%"><font size="1" face="arial"color="black">{total}</font></td>
-    <td width="20%"><font size="1" face="arial"color="black">Nivel de riesgo </font></td>
-    {color}
-    </tr>                                  
-    </MDBTableBody>
-    </MDBTable>  
-    <MDBTable  component={Paper} small  className="text-left mt-4 ">
-    <MDBTableBody>
-    <tr>
-    <td ><font size="1" face="arial"color="black"><strong>Necesidad de la acción :</strong></font></td>
-    </tr>         
-    <tr>
-    {criterios}
-    </tr>                     
-    </MDBTableBody>
-    </MDBTable>  
-
+      <p  className ="text-center"><strong> <font size="1"face="arial"color="black">GUÍA DE REFERENCIA III  IDENTIFICACIÓN Y ANÁLISIS DE LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUACIÓN DEL ENTORNO ORGANIZACIONAL EN LOS CENTROS DE TRABAJO </font></strong> </p>
+      </center>
+      <MDBTable bordless >
+      <MDBTableBody>
+      <tr>
+        <td width="30%"><font size="1" face="arial"color="black"><strong>{localStorage.getItem("razonsocial")}</strong></font></td>
+        <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre3}</strong></font></td>
+        <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre4}</strong></font></td>
+        <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre5}</strong></font></td>
+        <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre6}</strong></font></td>
+        <td width="14%"><font size="1" face="arial"color="black"><strong>{this.state.nombre7}</strong></font></td>
+      </tr> 
+      </MDBTableBody>
+      </MDBTable>
+      <MDBTable  large bordered  className="text-center">
+      <MDBTableBody>  
+      <tr >                              
+      <td width = "32%"><font size="1" face="arial"color="#283747" ><strong>Resultado:</strong></font></td>
+      <td width = "13%" className="text-left"><font size="1" face="arial"color="#273746"><strong>   {total}</strong></font></td>
+      <td width = "30%"><font size="1" face="arial"color="#283747"><strong> Nivel de riesgo:</strong></font></td>
+      {color}                                  
+      </tr>   
+      </MDBTableBody>                                              
+      </MDBTable>
+      <Table  responsive small bordless  className="text-left mb-2">
+      <tr >                              
+      <td width="100%"><font size="2" face="arial"color="black" ><strong>Necesidad de la acción : </strong></font></td>                                    
+      </tr>
+      <tr>
+        <td width="100%"><font size="1" face="arial"color="black" >{criterios}</font></td>
+      </tr>
+      </Table>
     <table  component={Paper}  small  className="text-left ">
      <font color="red" style= {{marginTop:20,marginLeft:15}}  size="1">I.- Resultados de la categoría</font>
     </table>
@@ -12759,7 +12752,7 @@ if(ponderacionPromedio<50){
                         ref={(component) => this.pdfExportComponent = component}
                     >
                         <div style={{ width: "550px" }}>                                          
-                            <img src={logo} alt="logo" style = {{width:550,marginTop:30}}/>
+                            <img src={logo} alt="logo" style = {{width:550}}/>
                             
                             <MDBTable component={Paper}  small borderless className="text-left ">
                               
@@ -13285,7 +13278,6 @@ if(ponderacionPromedio<50){
               </center>
               </MDBCardBody>
               </MDBCard>
-
             </MDBCol> 
             <MDBCol style={{ maxWidth: "50rem" }}>
             <div style={{display: 'table', tableLayout:'fixed', width:'115%',marginLeft:"16%"}} >

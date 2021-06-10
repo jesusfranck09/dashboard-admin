@@ -616,7 +616,8 @@ pdfExportComponent ;
         },
         onFilterChange: (action, filtroTable) => {
           filtro=filtroTable
-          }     };
+          }     
+        };
 
           let tablaPeriodoActual;
           if(this.state.tablaPeriodoActual === true) {
@@ -1777,7 +1778,6 @@ pdfExportComponent ;
                                             )
                                           }
                                         })}            
-
                               </PDFExport>
                           </div>
                         </div>       
@@ -1786,26 +1786,23 @@ pdfExportComponent ;
                     } )  
             }
           </MDBContainer>
-    }
+      }
 
   } 
-
     return (
       <React.Fragment>
       <div>
           <Navbar/>
-          <div>
-          <div style={{marginTop:"5%", maxWidth:1140}}>
+          <div style={{marginTop:"5%"}}>
           <MDBRow>
           <MDBCol style={{ maxWidth: "30rem" }}> 
           <ReactFusioncharts
-          type="pie3d"
-          width="140%"
-          height="60%"
-          dataFormat="JSON"
-          dataSource={dataSource}
+            type="pie3d"
+            width="140%"
+            height="60%"
+            dataFormat="JSON"
+            dataSource={dataSource}
           />
-           
           <MDBCard style={{marginLeft:"20%",width:"101%"}}>
           <MDBCardHeader>
           <center>
@@ -1820,11 +1817,11 @@ pdfExportComponent ;
               open={Boolean(this.state.dropdown)}
               onClose={this.handleClose}
           >
-           { this.state.todosLosPeriodos.map((rows)=>{
+           {this.state.todosLosPeriodos.map((rows)=>{
              if(rows.Descripcion){
               return( <MenuItem value={rows.Descripcion} onClick={e=>this.cargarTablaPeriodoSeleccionado(rows.Descripcion)}><strong>{rows.Descripcion.toUpperCase()}</strong></MenuItem>
               ) }
-              })}
+            })}
              
           </Menu>
           </MDBCardHeader>
@@ -1843,8 +1840,7 @@ pdfExportComponent ;
           </MDBCard>
           </MDBCol> 
           <MDBCol style={{ maxWidth: "50rem" }}>
-          
-          <div style={{display: 'table', tableLayout:'fixed', width:'120%',marginLeft:"16%"}} >
+          <div style={{display: 'table', tableLayout:'fixed', width:'110%',marginLeft:"11%"}} >
             {tablaPeriodoActual}
             {tablaPeriodoSeleccionado}
             {pdfView1} 
@@ -1852,9 +1848,7 @@ pdfExportComponent ;
           </MDBCol>
           </MDBRow>         
           </div>
-          </div> 
       </div>
-        
       </React.Fragment>
         
       )

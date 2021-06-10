@@ -16,7 +16,7 @@ import axios from  'axios'
 import { Image } from 'semantic-ui-react'
 import AddressAdmin from  './addressAdmin'
 import { API} from '../utils/http'
-
+import Navbar from './navbar'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -107,7 +107,9 @@ export default function RecipeReviewCard() {
 
 
   return (
-    <MDBMask style={{marginTop:30}} className="d-flex justify-content-center align-items-center gradient">
+    <React.Fragment>
+     <Navbar/> 
+    <MDBMask style={{marginTop:70}} className="d-flex justify-content-center align-items-center gradient">
     <Card className={classes.card}>
       <CardHeader
         avatar={
@@ -115,38 +117,30 @@ export default function RecipeReviewCard() {
            { nombre[0]}
           </Avatar>
         }
-
-        
-    
         subheader={nombre}
         // subheader={FechaCompleta}
         action={
            <strong>{FechaCompleta}</strong> 
           }
       />
-<Image style={{marginLeft:240}} height={150} src={'https://image.flaticon.com/icons/svg/180/180677.svg'} />
-      {/* <div className={classes.bigAvatar}>
-      <Avatar alt="Remy Sharp" src="https://image.flaticon.com/icons/svg/180/180677.svg" />
-    </div> */}
-     
-                  
+      <Image style={{marginLeft:240}} height={150} src={'https://image.flaticon.com/icons/svg/180/180677.svg'} />                  
       <CardContent width={300}>
         <Typography variant="body2" color="textSecondary" component="p">
          Rol: Administrador
          <br/>   
-         Nombre : {nombre}
+         Nombre: {nombre}
          <br/>
-         Apellidos : {apellidos}
+         Apellidos: {apellidos}
          <br/>
-         RFC : {rfc}
+         RFC: {rfc}
          <br/>
-         Razón Social :{razonsocial}
+         Razón Social:{razonsocial}
          <br/>
-         Usuario : {usuario}
+         Usuario: {usuario}
          <br/>
-         correo : {correo}
+         correo: {correo}
          <br/>
-          Número de Trabajadores : {datosAdmin}
+          Número de Trabajadores: {datosAdmin}
         
         </Typography>
       </CardContent>
@@ -171,21 +165,17 @@ export default function RecipeReviewCard() {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent >
           <Typography paragraph>Dirección</Typography>
-        
          <AddressAdmin/>
-         
           <Typography paragraph>
-         undefined
           </Typography>
           <Typography paragraph>
-           undefined
           </Typography>
-          <Typography>
-          undefined          
+          <Typography>          
             </Typography>
         </CardContent>
       </Collapse>
     </Card>
     </MDBMask>
+    </React.Fragment>
   );
 }

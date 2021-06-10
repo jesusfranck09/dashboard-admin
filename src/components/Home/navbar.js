@@ -142,7 +142,7 @@ class Navbar extends React.Component {
                         <MenuItem ><a href = "http://eval.diagnostico035.com/rp">Realizar evaluación RP</a></MenuItem>
                         <MenuItem ><a href = "http://eval.diagnostico035.com/eeo">Realizar evaluación EEO</a></MenuItem>
                         <MenuItem onClick={this.handleclick}><i class="fas fa-address-card"></i> &nbsp;Mi Perfil</MenuItem>
-                        <MenuItem ><a href = "http://ads.com.mx"><i class="fab fa-buysellads"></i> &nbsp;Más sobre ADS</a></MenuItem>
+                        <MenuItem ><a href = "http://ads.com.mx"><i class="fab fa-buysellads" target="_blank"></i> &nbsp;Más sobre ADS</a></MenuItem>
 
 
                     </Menu>
