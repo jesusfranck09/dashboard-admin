@@ -75,7 +75,8 @@ pdfExportComponent ;
       todosLosPeriodos:[],
       evaluacionesTodosLosPeriodos:[],
       tablaPeriodoSeleccionado:false,
-      periodoSeleccionado:''
+      periodoSeleccionado:'',
+      tablaEmpleados:[]
     };
     this.ads = this.ads.bind(this);  
   }
@@ -90,18 +91,23 @@ pdfExportComponent ;
       NumeroDeMes=LaFecha.getMonth();
       FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
       this.setState({date:FechaCompleta}) 
-      await this.getGlobalEmployees()    
-    }
+      await this.getGlobalEmployees();
+      }
 
     ads(){
         this.setState({showModal2:true}) 
       }
+
        getGlobalEmployees = async () =>{
         let periodo =  localStorage.getItem("periodo")
         this.setState({spinner:true})
         var totalEmpleados = [];
         var datasort;
         var idAdmin  =  localStorage.getItem("idAdmin")    
+        let evaluacionesRealizadasPeriodoActual;
+        let evaluacionATS;
+        let result;
+        let resultOrdenado;
         await axios({
           url:  API,
           method:'post',
@@ -121,98 +127,131 @@ pdfExportComponent ;
         }).catch(err=>{
         })
 
-          await axios({
+        axios({
           url:  API,
           method:'post',
-          data:{ 
+          data:{
           query:`
-          query{
-            getEmployeesResolvesATS(data:"${[idAdmin]}"){
-              id
-              nombre
-              ApellidoP
-              ApellidoM
-              Sexo
-              AreaTrabajo
-              Puesto
-              periodo
-              CentroTrabajo
-              ATSDetectado
+           query{
+                getEmployeesPerido(data:"${[idAdmin]}"){
+                  id
+                  nombre
+                  ApellidoP
+                  ApellidoM
+                  CentroTrabajo
+                  idPeriodo
+                  periodo
+                  encuesta
+                  fk_empleados
+  
                 }
               }
-              `
+            `
           }
-          }).then(datos => {
-            // console.log("datos getEmployeesResolvesATS" , datos)
+        })
+        .then(datos => {	
+          evaluacionesRealizadasPeriodoActual =   datos.data.data.getEmployeesPerido;
+          evaluacionesRealizadasPeriodoActual.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
+          evaluacionATS = evaluacionesRealizadasPeriodoActual.filter(function(hero){
+            return hero.encuesta === "ATS"
+          })
 
-            datasort =  datos.data.data.getEmployeesResolvesATS
+          this.setState({evaluacionesTodosLosPeriodos:evaluacionATS}) 
 
-            datasort.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
-            
-            let arrayFilter = datasort.filter(e => e.periodo == periodo)
-
-            this.setState({empleados:arrayFilter}) 
-
-            this.setState({evaluacionesTodosLosPeriodos:datos.data.data.getEmployeesResolvesATS}) 
-
-            // console.log("datasort" , datasort) 
-            //////////////////////////// reporte global /////////////
-             datasort.map(rows=>{
-              //  console.log("rows " , rows)
-                axios({
-                  url:  API,
-                  method:'post',
-                  data:{
-                  query:`
-                    query{
-                      getresultGlobalSurveyATS(data:"${[rows.id,rows.periodo]}"){
-                      id 
-                      Respuestas 
-                      fk_preguntasATS
-                      fk_Empleados 
-                      nombre 
-                      ApellidoP 
-                      ApellidoM 
-                      Curp 
-                      RFC 
-                      FechaNacimiento 
-                      Sexo 
-                      EstadoCivil 
-                      AreaTrabajo 
-                      Puesto 
-                      TipoPuesto 
-                      NivelEstudios 
-                      TipoPersonal 
-                      JornadaTrabajo 
-                      TipoContratacion 
-                      TiempoPuesto 
-                      ExperienciaLaboral 
-                      RotacionTurnos 
-                      CentroTrabajo
-                      fk_administrador 
-                      fk_correos 
-                      ATSDetectado
-                      Periodo
-                          }
+          evaluacionATS.map(rows=>{
+            //  console.log("rows " , rows)
+              axios({
+                url:  API,
+                method:'post',
+                data:{
+                query:`
+                  query{
+                    getresultGlobalSurveyATS(data:"${[rows.id,rows.periodo]}"){
+                    id 
+                    Respuestas 
+                    fk_preguntasATS
+                    fk_Empleados 
+                    nombre 
+                    ApellidoP 
+                    ApellidoM 
+                    Curp 
+                    RFC 
+                    FechaNacimiento 
+                    Sexo 
+                    EstadoCivil 
+                    AreaTrabajo 
+                    Puesto 
+                    TipoPuesto 
+                    NivelEstudios 
+                    TipoPersonal 
+                    JornadaTrabajo 
+                    TipoContratacion 
+                    TiempoPuesto 
+                    ExperienciaLaboral 
+                    RotacionTurnos 
+                    CentroTrabajo
+                    fk_administrador 
+                    fk_correos 
+                    ATSDetectado
+                    Periodo
                         }
-                      `
-                  }
-                  }).then(datos => {  
-                    
-                    // console.log("datos peticion" , datos)
-                    totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
-                    // console.log("totalEmpleafos" , totalEmpleados)
-                    this.setState({peticion:totalEmpleados})   
-                   
-                  })
-                  .catch(err => {
-                  });  
+                      }
+                    `
+                }
+                }).then(datos => {  
+                  
+                  // console.log("datos peticion" , datos)
+                  totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
+                  // console.log("totalEmpleafos" , totalEmpleados)
+                  this.setState({peticion:totalEmpleados})   
+                 
                 })
-                }).catch(err=>{
-                  console.log("error" ,err)
-                }) 
-                this.setState({spinner:false})
-       }
+                .catch(err => {
+                });  
+              })
+              result = evaluacionATS.filter(function(hero){
+                return hero.periodo === periodo 
+              })
+              this.setState({empleados:result}) 
+
+            }).catch(err=>{
+              console.log("err" , err.response)
+              console.log("err" , err)
+            })
+            await axios({
+            url:  API,
+            method:'post',
+            data:{ 
+            query:`
+            query{
+              getEmployeesResolvesATS(data:"${[idAdmin]}"){
+                id
+                nombre
+                ApellidoP
+                ApellidoM
+                Sexo
+                AreaTrabajo
+                Puesto
+                periodo
+                CentroTrabajo
+                ATSDetectado
+                  }
+                }
+                `
+            }
+            }).then(datos => {
+              datasort =  datos.data.data.getEmployeesResolvesATS
+              datasort.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
+              
+              let arrayFilter = datasort.filter(e => e.periodo == periodo)
+
+              this.setState({tablaEmpleados:arrayFilter}) 
+
+              }).catch(err=>{
+                console.log("error" ,err)
+              }) 
+              this.setState({spinner:false})
+        }
 
       async cargarTablaPeriodoSeleccionado (parametro){
         let periodo = parametro
@@ -1141,8 +1180,8 @@ pdfExportComponent ;
       charts(FusionCharts);
 
         
-      if(this.state.empleados[0]){
-        this.state.empleados.map(rows=>{
+      if(this.state.tablaEmpleados[0]){
+        this.state.tablaEmpleados.map(rows=>{
           mapeo.push(rows.ATSDetectado)
             filtrar =  mapeo.filter(function(hero) {
             return hero==='true';

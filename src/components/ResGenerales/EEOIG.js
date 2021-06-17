@@ -206,7 +206,10 @@ export default class App extends React.Component {
     this.setState({spinner:true})
     let totalEmpleados=[];
     let totalEmpleadosResultados=[];
-    var idAdmin  =localStorage.getItem("idAdmin")       
+    var idAdmin  =localStorage.getItem("idAdmin")   
+    let evaluacionesRealizadasPeriodoActual;
+    let evaluacionEEO;
+    let result;    
     // const url = 'http://localhost:8000/graphql'
     await axios({
       url:  API,
@@ -227,165 +230,162 @@ export default class App extends React.Component {
     }).catch(err=>{
     })
 
-    await axios({
+    axios({
       url:  API,
       method:'post',
       data:{
       query:`
-      query{
-        getEmployeesResolvesEEO(data:"${idAdmin}"){
-          id
-          nombre
-          ApellidoP
-          ApellidoM
-          Sexo
-          AreaTrabajo
-          Puesto
-          CentroTrabajo
-          periodo
-          Respuestas 
-          fk_preguntasEEO
-          ponderacion
+       query{
+            getEmployeesPerido(data:"${[idAdmin]}"){
+              id
+              nombre
+              ApellidoP
+              ApellidoM
+              CentroTrabajo
+              idPeriodo
+              periodo
+              encuesta
+              fk_empleados
             }
           }
-          `
-       }
-       }).then((datos) => {
-          datasort =  datos.data.data.getEmployeesResolvesEEO
-          datasort.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );  
-          let arrayFilter = datasort.filter(e => e.periodo == periodo)
-          this.setState({empleados:arrayFilter}) 
-          this.setState({evaluacionesTodosLosPeriodos:datos.data.data.getEmployeesResolvesEEO}) 
-          // console.log("getEmployeesResolvesEEO" ,datos.data.data.getEmployeesResolvesEEO)    
-          datasort.map(rows=>{
-            axios({
-            url:  API,
-            method:'post',
-            data:{
-            query:`
-              query{
-                getresultGlobalSurveyEEO(data:"${[rows.id,rows.periodo]}"){
-                  id 
-                  Respuestas 
-                  fk_preguntasEEO
-                  fk_empleados 
-                  ponderacion
-                  nombre 
-                  ApellidoP 
-                  ApellidoM 
-                  Curp 
-                  RFC 
-                  FechaNacimiento 
-                  Sexo  
-                  EstadoCivil 
-                  correo 
-                  AreaTrabajo 
-                  Puesto 
-                  TipoPuesto 
-                  NivelEstudios 
-                  TipoPersonal 
-                  JornadaTrabajo 
-                  TipoContratacion 
-                  TiempoPuesto 
-                  ExperienciaLaboral 
-                  RotacionTurnos 
-                  fk_administrador 
-                  fk_correos 
-                  Periodo
-                    }
-                  }
-                `
-            }
-            }).then(datos => {   
-              // console.log("getresultGlobalSurveyEEO", datos.data.data.getresultGlobalSurveyEEO) 
-              totalEmpleados.push(datos.data.data.getresultGlobalSurveyEEO)  
-              
-              this.setState({resultadosInicio:totalEmpleados})
-              if(this.state.resultadosInicio.length == this.state.empleados.length){
-                this.setState({spinner:false})
-              }
-            })
-            .catch(err => {
-            }); 
-             axios({
-              url:  API,
-              method:'post',
-              data:{
-              query:`
-              query{
-              resultSingleSurveyEEO(data:"${[rows.id,rows.periodo]}"){
-                id 
-                Respuestas 
-                fk_preguntasEEO
-                fk_empleados
-                ponderacion
-                nombre 
-                ApellidoP 
-                ApellidoM 
-                Curp 
-                RFC 
-                FechaNacimiento 
-                Sexo 
-                EstadoCivil 
-                correo 
-                AreaTrabajo 
-                Puesto 
-                TipoPuesto 
-                NivelEstudios 
-                TipoPersonal 
-                JornadaTrabajo 
-                TipoContratacion 
-                TiempoPuesto 
-                ExperienciaLaboral 
-                RotacionTurnos 
-                fk_administrador 
-                fk_correos 
-                Periodo
-                    }
-                  }
-                `
-            }
-            }).then(datos => {     
-              // console.log("resultSingleSurveyEEO" ,datos.data.data.resultSingleSurveyEEO)
-              totalEmpleadosResultados.push(datos.data.data.resultSingleSurveyEEO)
-              this.setState({evaluacionMasivoResultados : totalEmpleadosResultados})  
-              this.setState({resultadosQueryMasivo : totalEmpleadosResultados})  
-              if(this.state.evaluacionMasivoResultados.length == this.state.empleados.length){
-                this.setState({spinner:false})
-              }    
-            })
-            .catch(err => {
-              console.log("el error es  ",err.response)
-            });  
-        })
-          }).catch(err=>{
-            console.log("error" ,err.response)
-          })
+        `
+      }
+    })
+    .then(datos => {	
+      evaluacionesRealizadasPeriodoActual =   datos.data.data.getEmployeesPerido;
+      evaluacionesRealizadasPeriodoActual.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
+      evaluacionEEO= evaluacionesRealizadasPeriodoActual.filter(function(hero){
+        return hero.encuesta === "EEO"
+      })
+      this.setState({evaluacionesTodosLosPeriodos:evaluacionEEO}) 
 
-          axios({
-            url:  API,
-            method:'post',
-            data:{
-            query:`
-              query{
-              getPonderacionEEO(data:"${[idAdmin]}"){
-                id
-                siempre
-                casisiempre
-                algunasveces
-                casinunca
-                nunca
-                    }
-                  }
-                `
-            }
-            }).then(datos => { 
-              console.log("getPonderacionEEO" , datos.data.data.getPonderacionEEO)
-              this.setState({getPonderacion: datos.data.data.getPonderacionEEO})
-            })
-            .catch(err => {
-              console.log("el error es  ",err.response)
-            }); 
+      evaluacionEEO.map(rows=>{
+        axios({
+        url:  API,
+        method:'post',
+        data:{
+        query:`
+          query{
+            getresultGlobalSurveyEEO(data:"${[rows.id,rows.periodo]}"){
+              id 
+              Respuestas 
+              fk_preguntasEEO
+              fk_empleados 
+              ponderacion
+              nombre 
+              ApellidoP 
+              ApellidoM 
+              Curp 
+              RFC 
+              FechaNacimiento 
+              Sexo  
+              EstadoCivil 
+              correo 
+              AreaTrabajo 
+              Puesto 
+              TipoPuesto 
+              NivelEstudios 
+              TipoPersonal 
+              JornadaTrabajo 
+              TipoContratacion 
+              TiempoPuesto 
+              ExperienciaLaboral 
+              RotacionTurnos 
+              fk_administrador 
+              fk_correos 
+              Periodo
+                }
+              }
+            `
+        }
+        }).then(datos => {   
+          totalEmpleados.push(datos.data.data.getresultGlobalSurveyEEO)  
+          this.setState({resultadosInicio:totalEmpleados})
+        })
+        .catch(err => {
+        }); 
+         axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+          query{
+          resultSingleSurveyEEO(data:"${[rows.id,rows.periodo]}"){
+            id 
+            Respuestas 
+            fk_preguntasEEO
+            fk_empleados
+            ponderacion
+            nombre 
+            ApellidoP 
+            ApellidoM 
+            Curp 
+            RFC 
+            FechaNacimiento 
+            Sexo 
+            EstadoCivil 
+            correo 
+            AreaTrabajo 
+            Puesto 
+            TipoPuesto 
+            NivelEstudios 
+            TipoPersonal 
+            JornadaTrabajo 
+            TipoContratacion 
+            TiempoPuesto 
+            ExperienciaLaboral 
+            RotacionTurnos 
+            fk_administrador 
+            fk_correos 
+            Periodo
+                }
+              }
+            `
+        }
+        }).then(datos => {     
+          // console.log("resultSingleSurveyEEO" ,datos.data.data.resultSingleSurveyEEO)
+          totalEmpleadosResultados.push(datos.data.data.resultSingleSurveyEEO)
+          this.setState({evaluacionMasivoResultados : totalEmpleadosResultados})  
+          this.setState({resultadosQueryMasivo : totalEmpleadosResultados})  
+          if(this.state.evaluacionMasivoResultados.length == this.state.empleados.length){
+            this.setState({spinner:false})
+          }    
+        })
+        .catch(err => {
+          console.log("el error es  ",err.response)
+        });  
+      })
+      result = evaluacionEEO.filter(function(hero){
+        return hero.periodo === periodo 
+      })
+      this.setState({empleados:result}) 
+      })
+      axios({
+        url:  API,
+        method:'post',
+        data:{
+        query:`
+          query{
+          getPonderacionEEO(data:"${[idAdmin]}"){
+            id
+            siempre
+            casisiempre
+            algunasveces
+            casinunca
+            nunca
+                }
+              }
+            `
+        }
+        }).then(datos => { 
+          console.log("getPonderacionEEO" , datos.data.data.getPonderacionEEO)
+          this.setState({getPonderacion: datos.data.data.getPonderacionEEO})
+        })
+        .catch(err => {
+          console.log("el error es  ",err.response)
+        }); 
+        this.setState({spinner:false})
+
          }
       async cargarTablaPeriodoSeleccionado (parametro){
       let periodo = parametro

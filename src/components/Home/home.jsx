@@ -173,18 +173,14 @@ class Home extends React.Component {
         this.setState({date:FechaCompleta}) 
   }
 
-  getEmployees(){
-    let array = [];
-    let array2 = [];
-    let array3 = [];
-    let array4 = [];
-    let array5 = [];
-    let array6 = [];
+  getEmployees = async() =>{
     let array7 = [];
  
-   const idAdmin= localStorage.getItem("idAdmin") 
+   const idAdmin= localStorage.getItem("idAdmin");
+   let periodo = localStorage.getItem("periodo"); 
+   let arrayDatos = [];
    // const url = 'http://localhost:8000/graphql'
-   axios({
+   await axios({
      url:  API,
      method:'post',
      data:{
@@ -224,67 +220,131 @@ class Home extends React.Component {
          }).then((datos) => {
             
            let datosEmpleados = datos.data.data.getUsersTableEmployees;
+           arrayDatos.push(datosEmpleados);
 
            if( datos.data.data.getUsersTableEmployees.length>0){
             localStorage.setItem("empleadoActivo","true")
            }else{
              localStorage.setItem("empleadoActivo","false")
            }
-           this.setState({totalEmpleados  : datosEmpleados.length})  
+           this.setState({totalEmpleados:datosEmpleados.length})  
            this.setState({empleadosTotales:datosEmpleados})
 
-           let resultados1 = datosEmpleados.filter(function(hero) {
-             return hero.ATSContestado == 'true';
-           });
-           array.push(resultados1)
-           this.setState({empleadosAts:array[0]})
-           this.setState({ATSContestado:array[0].length})
-           let resultados2 = datosEmpleados.filter(function(hero) {
-             return hero.ATSContestado == 'false';
-           });
-           array2.push(resultados2)
-           this.setState({empleadosAtsFalse:array2[0]})
-           this.setState({ATSNoContestado:array2[0].length})
- 
-           let resultados3 = datosEmpleados.filter(function(hero) {
-             return hero.RPContestado == 'true';
-           });
-           array3.push(resultados3)
-           this.setState({empleadosRP:array3[0]})
-           this.setState({RPContestado:array3[0].length})
- 
-           let resultados4 = datosEmpleados.filter(function(hero) {
-             return hero.RPContestado == 'false';
-           });
-           array4.push(resultados4)
-           this.setState({empleadosRPFalse:array4[0]})
-           this.setState({RPNoContestado:array4[0].length})
- 
-           let resultados5 = datosEmpleados.filter(function(hero) {
-             return hero.EEOContestado == 'true';
-           });
-           array5.push(resultados5)
-           this.setState({empleadosEEO:array5[0]})
-           this.setState({EEOContestado:array5[0].length})
- 
-           let resultados6 = datosEmpleados.filter(function(hero) {
-             return hero.EEOContestado == 'false';
-           });
-           array6.push(resultados6)
-           this.setState({empleadosEEOFalse:array6[0]})
-           this.setState({EEONoContestado:array6[0].length})
- 
            let resultados7 = datosEmpleados.filter(function(hero) {
              return hero.ATSDetectado == 'true';
            });
            array7.push(resultados7)
-           this.setState({AtsDetectado:array7[0]})
-
-          
+           this.setState({AtsDetectado:array7[0]})          
          })
  
          .catch((error) => {
-       });  
+         }); 
+
+         let evaluacionesRealizadasPeriodoActual;
+         let evaluacionATSContestado;
+         let resultATS;
+
+         let evaluacionRPContestado;
+         let resultRP;
+
+         let evaluacionEEOContestado;
+         let resultEEO;
+
+         axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+           query{
+                getEmployeesPerido(data:"${[idAdmin]}"){
+                  id
+                  nombre
+                  ApellidoP
+                  ApellidoM
+                  CentroTrabajo
+                  idPeriodo
+                  periodo
+                  encuesta
+                  fk_empleados
+  
+                }
+              }
+            `
+          }
+        })
+        .then(datos => {	
+          evaluacionesRealizadasPeriodoActual =   datos.data.data.getEmployeesPerido;
+          evaluacionesRealizadasPeriodoActual.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
+
+          evaluacionATSContestado = evaluacionesRealizadasPeriodoActual.filter(function(hero){
+            return hero.encuesta === "ATS"
+          }) 
+          resultATS = evaluacionATSContestado.filter(function(hero){
+            return hero.periodo === periodo 
+          })
+
+          this.setState({empleadosAts:resultATS})
+          this.setState({ATSContestado:resultATS.length})
+
+          let arrayInicial = arrayDatos[0];
+          var arrayATS = [];
+          for (var i = 0; i < arrayInicial.length; i++) {
+              var igual=false;
+              for (var j = 0; j < resultATS.length & !igual; j++) {
+                  if(arrayInicial[i].id == resultATS[j].id) 
+                          igual=true;
+              }
+              if(!igual)arrayATS.push(arrayInicial[i]);
+          }
+
+          this.setState({empleadosAtsFalse:arrayATS})
+          this.setState({ATSNoContestado:arrayATS.length})
+
+          evaluacionRPContestado = evaluacionesRealizadasPeriodoActual.filter(function(hero){
+            return hero.encuesta === "RP"
+          }) 
+          resultRP = evaluacionRPContestado.filter(function(hero){
+            return hero.periodo === periodo 
+          })
+
+          this.setState({empleadosRP:resultRP})
+          this.setState({RPContestado:resultRP.length})
+
+          var arrayRP = [];
+          for (var iRP = 0; iRP < arrayInicial.length; iRP++) {
+              var igualRP=false;
+              for (var jRP = 0; jRP < resultRP.length & !igualRP; jRP++) {
+                  if(arrayInicial[iRP].id == resultRP[jRP].id) 
+                          igualRP=true;
+              }
+              if(!igualRP)arrayRP.push(arrayInicial[iRP]);
+          }
+
+          this.setState({empleadosRPFalse:arrayRP})
+          this.setState({RPNoContestado:arrayRP.length})
+
+          evaluacionEEOContestado = evaluacionesRealizadasPeriodoActual.filter(function(hero){
+            return hero.encuesta === "EEO"
+          }) 
+          resultEEO = evaluacionEEOContestado.filter(function(hero){
+            return hero.periodo === periodo 
+          })
+
+          this.setState({empleadosEEO:resultEEO})
+          this.setState({EEOContestado:resultEEO.length})
+
+          var arrayEEO = [];
+          for (var iEEO = 0; iEEO < arrayInicial.length; iEEO++) {
+              var igualEEO=false;
+              for (var jEEO = 0; jEEO < resultEEO.length & !igualEEO; jEEO++) {
+                  if(arrayInicial[iEEO].id == resultEEO[jEEO].id) 
+                          igualEEO=true;
+              }
+              if(!igualEEO)arrayEEO.push(arrayInicial[iEEO]);
+          }
+          this.setState({empleadosEEOFalse:arrayEEO})
+          this.setState({EEONoContestado:arrayEEO.length})
+        })
     }
 
   handleFront = async () =>{
@@ -1276,7 +1336,6 @@ const options = {
 
     let tablaATSNoContestado;
     let botonTablaATSNoContestado;
-    console.log("empleadosatsFalse" , this.state.empleadosAtsFalse[0])
     
     if(this.state.empleadosAtsFalse[0] &&  this.state.tablaATSNoContestado == true){
    

@@ -1210,8 +1210,9 @@ class AdminGral extends React.Component {
           options: {filter: false,sort: true,}}, {name: "boton2",label: "Suspender",options: {filter: false,sort: true,}}];
 
          const data = this.state.datos.map((rows,i)=>{
+           console.log("rows" , rows)
          const boton2 = <div><MDBBtn  color ="warning" size="sm" onClick={e => this.mostrarModales(1,rows)}><i class="far fa-edit"></i></MDBBtn></div>
-         const boton =<div><MDBBtn  color ="danger" size="sm" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado ?.Los datos se perderán')) this.delete(i,rows.id)} } ><i class="far fa-trash-alt"></i></MDBBtn></div> 
+         const boton =<div><MDBBtn  color ="danger" size="sm" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado?, Los datos se perderán')) this.delete(i,rows.id)} } ><i class="far fa-trash-alt"></i></MDBBtn></div> 
          return([rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.CentroTrabajo,boton2,boton])
        })
 
@@ -1220,7 +1221,7 @@ class AdminGral extends React.Component {
 
        const dataCentro = this.state.datosSucursales.map((rows,i)=>{
          const botonUno = <div> <MDBBtn  color ="warning" size="sm" onClick={e=>this.mostrarModales(2,rows)} ><i class="far fa-edit"></i></MDBBtn></div>
-         const botonDos = <div><MDBBtn  color ="danger" size="sm" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a esta Sucursal ?.Los datos se perderán')) this.deleteSucursales(i,rows.id)} } ><i class="far fa-trash-alt"></i></MDBBtn></div>
+         const botonDos = <div><MDBBtn  color ="danger" size="sm" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a esta Sucursal?, Los datos se perderán')) this.deleteSucursales(i,rows.id)} } ><i class="far fa-trash-alt"></i></MDBBtn></div>
          return([rows.nombreSucursal,rows.calle ,rows.colonia ,rows.Ciudad,botonUno,botonDos])
        })
 
@@ -1228,7 +1229,7 @@ class AdminGral extends React.Component {
 
        const dataDeptos = this.state.datosDeptos.map((rows,i)=>{
          const boton1Uno = <div><MDBBtn  color ="warning" size="sm" onClick={ e=> this.mostrarModales(3,rows)}  ><i class="far fa-edit"></i></MDBBtn></div>
-         const boton2Dos = <div><MDBBtn  color ="danger" size="sm" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Departamento ?.Los datos se perderán')) this.deleteDepartamentos(i,rows.id)} } ><i class="far fa-trash-alt"></i></MDBBtn></div>
+         const boton2Dos = <div><MDBBtn  color ="danger" size="sm" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Departamento?, Los datos se perderán')) this.deleteDepartamentos(i,rows.id)} } ><i class="far fa-trash-alt"></i></MDBBtn></div>
          return([rows.nombre,boton1Uno,boton2Dos])
        })
 
@@ -1236,7 +1237,7 @@ class AdminGral extends React.Component {
 
        const dataPuestos = this.state.datosPuestos.map((rows,i)=>{
          const boton11 = <div><MDBBtn  color ="warning" size="sm" onClick={e=> this.mostrarModales(4,rows)}  ><i class="far fa-edit"></i></MDBBtn></div>
-         const boton22 = <div> <MDBBtn  color ="danger" size="sm" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Puesto ?.Los datos se perderán')) this.deletePuestos(i,rows.id)} } ><i class="far fa-trash-alt"></i></MDBBtn></div>
+         const boton22 = <div> <MDBBtn  color ="danger" size="sm" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Puesto?, Los datos se perderán')) this.deletePuestos(i,rows.id)} } ><i class="far fa-trash-alt"></i></MDBBtn></div>
          return([rows.nombre,boton11,boton22])
        })
              let cartaAdmin;

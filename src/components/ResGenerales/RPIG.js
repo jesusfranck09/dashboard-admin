@@ -187,7 +187,9 @@ pdfExportComponent ;
     let periodo =  localStorage.getItem("periodo")
     var datasort;
     let arrayFilter;
-
+    let evaluacionesRealizadasPeriodoActual;
+    let evaluacionRP;
+    let result;
 
     // const url = 'http://localhost:8000/graphql'
     await axios({
@@ -208,39 +210,38 @@ pdfExportComponent ;
       this.setState({todosLosPeriodos:datos.data.data.getallPeriodo})
     }).catch(err=>{
     })
-      await axios({
+
+    axios({
       url:  API,
       method:'post',
-      data:{ 
+      data:{
       query:`
-      query{
-        getEmployeesResolvesRP(data:"${id}"){
-          id
-          nombre
-          ApellidoP
-          ApellidoM
-          Sexo
-          AreaTrabajo
-          Puesto
-          CentroTrabajo
-          periodo
+       query{
+            getEmployeesPerido(data:"${[id]}"){
+              id
+              nombre
+              ApellidoP
+              ApellidoM
+              CentroTrabajo
+              idPeriodo
+              periodo
+              encuesta
+              fk_empleados
+
             }
           }
-          `
+        `
       }
-      }).then((datos) => {
+    })
+    .then(datos => {	
+      evaluacionesRealizadasPeriodoActual =   datos.data.data.getEmployeesPerido;
+      evaluacionesRealizadasPeriodoActual.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
+      evaluacionRP= evaluacionesRealizadasPeriodoActual.filter(function(hero){
+        return hero.encuesta === "RP"
+      })
+      this.setState({evaluacionesTodosLosPeriodos:evaluacionRP}) 
 
-        datasort =  datos.data.data.getEmployeesResolvesRP
-
-        datasort.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );  
-
-        arrayFilter = datasort.filter(e => e.periodo == periodo)
-
-        this.setState({empleados:arrayFilter}) 
-
-        this.setState({evaluacionesTodosLosPeriodos:datos.data.data.getEmployeesResolvesRP}) 
-
-        datasort.map(rows=>{
+      evaluacionRP.map(rows=>{
         axios({
         url:  API,
         method:'post',
@@ -336,11 +337,11 @@ pdfExportComponent ;
           console.log("el error es  ",err.response)
         });    
       })
-      
-      }).catch(err=>{
-        console.log("error" ,err.response)
+      result = evaluacionRP.filter(function(hero){
+        return hero.periodo === periodo 
       })
-
+      this.setState({empleados:result}) 
+      })
       axios({
         url:  API,
         method:'post',
@@ -1709,7 +1710,7 @@ pdfExportComponent ;
         customBodyRender: (data, type, row) => {return <pre>{data}</pre>},
         textLabels: {
                    body: {
-                     noMatch: "Consultando iformación",
+                     noMatch: "Consultando información",
                      toolTip: "Sort",
                      columnHeaderTooltip: column => `Sort for ${column.label}`
                    },
