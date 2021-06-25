@@ -267,9 +267,6 @@ pdfExportComponent ;
        consultarDatosFiltrados ( datos,filtro,periodoTabla){
         this.setState({botonDescargaMasivo:''})
         this.setState({botonDescargarIndividual:''})
-
-        // let arrayFilters = datasort.filter(e => e.periodo == periodo)
-
         var array=[];
         datos.forEach(rows=>{
           array.push(rows.data[0])
@@ -289,11 +286,17 @@ pdfExportComponent ;
 
           arrayFilter.map(row=>{
           filterArray = row.filter(function(hero){
-            return hero.periodo = periodoTabla[0]
+            return hero.Periodo === periodoTabla[0]
           })
           filtrado.push(filterArray)
           })
-          this.setState({peticion1:filtrado}) 
+          function array_equals(a, b){
+            return a.length === b.length && a.every((item,idx) => item === b[idx])
+           }
+           let tag = []
+
+           let filtrado2 = filtrado.filter(item => !array_equals(item, tag))
+           this.setState({peticion1:filtrado2}) 
 
      
             if(filtro!== undefined){
@@ -1842,7 +1845,7 @@ pdfExportComponent ;
             dataFormat="JSON"
             dataSource={dataSource}
           />
-          <MDBCard style={{marginLeft:"20%",width:"101%"}}>
+          <MDBCard style={{marginLeft:"20%",width:"100%"}}>
           <MDBCardHeader>
           <center>
           <Button style={{ color: 'green' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
@@ -1879,7 +1882,7 @@ pdfExportComponent ;
           </MDBCard>
           </MDBCol> 
           <MDBCol style={{ maxWidth: "50rem" }}>
-          <div style={{display: 'table', tableLayout:'fixed', width:'110%',marginLeft:"11%"}} >
+          <div style={{display: 'table', tableLayout:'fixed', width:'105%',marginLeft:"11%"}} >
             {tablaPeriodoActual}
             {tablaPeriodoSeleccionado}
             {pdfView1} 

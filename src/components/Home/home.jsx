@@ -275,10 +275,11 @@ class Home extends React.Component {
         .then(datos => {	
           evaluacionesRealizadasPeriodoActual =   datos.data.data.getEmployeesPerido;
           evaluacionesRealizadasPeriodoActual.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
-
           evaluacionATSContestado = evaluacionesRealizadasPeriodoActual.filter(function(hero){
-            return hero.encuesta === "ATS"
+            return hero.encuesta ==="ATS"
           }) 
+
+
           resultATS = evaluacionATSContestado.filter(function(hero){
             return hero.periodo === periodo 
           })

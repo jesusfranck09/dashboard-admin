@@ -418,21 +418,21 @@ pdfExportComponent ;
             //  console.log("arrayFilter" , element)
             }); 
       })
-      // let tag = []
-
-      // function array_equals(a, b){
-      //   return a.length === b.length && a.every((item,idx) => item === b[idx])
-      //  }
-      // var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
+    
 
       arrayFilter.map(row=>{
         filterArray = row.filter(function(hero){
-          return hero.periodo = periodoTabla[0]
+          return hero.Periodo === periodoTabla[0]
         })
         filtrado.push(filterArray)
         })
 
-      this.setState({peticion1:filtrado}) 
+        function array_equals(a, b){
+          return a.length === b.length && a.every((item,idx) => item === b[idx])
+         }
+         let tag = []
+       var filtrado2 = filtrado.filter(item => !array_equals(item, tag))
+      this.setState({peticion1:filtrado2}) 
       this.setState({spinner:false});
 
       if(filtro!== undefined){
@@ -539,13 +539,13 @@ pdfExportComponent ;
           filtrado.push(filterArray)
         })
 
-      // function array_equals(a, b){
-      //   return a.length === b.length && a.every((item,idx) => item === b[idx])
-      // }
-      // let tag = []
-      // var filtrado2 = arrayFilter.filter(item => !array_equals(item, tag))
+      function array_equals(a, b){
+        return a.length === b.length && a.every((item,idx) => item === b[idx])
+      }
+      let tag = []
+      var filtrado2 = filtrado.filter(item => !array_equals(item, tag))
 
-        this.setState({reporteImasivo:filtrado})
+        this.setState({reporteImasivo:filtrado2})
         this.setState({spinner:false});
 
       if(filtro!== undefined){
@@ -645,13 +645,11 @@ pdfExportComponent ;
         })
           filtrado.push(filterArray)
         })
-        console.log("filtrado" , filtrado)
       function array_equals(a, b){
         return a.length === b.length && a.every((item,idx) => item === b[idx])
         }
         let tag = []
         var filtrado2 = arrayFilter.filter(item => !array_equals(item, tag))
-       console.log("arrayFilter" , filtrado2)
   
         this.setState({resultadosEvaluacionMasivo:filtrado2})
         this.setState({spinner:false});
@@ -837,7 +835,6 @@ pdfExportComponent ;
     }).then(datos => {   
       if(datos.data.data.resultSingleSurveyRP.length > 0 ){
       this.setState({resultadosEvaluacion:''})
-      console.log("resultados del empleado" ,datos.data.data.resultSingleSurveyRP  )
       this.setState({resultadosEvaluacion :datos.data.data.resultSingleSurveyRP })                
       this.setState({resultados:[]}) 
     
@@ -2753,7 +2750,7 @@ pdfExportComponent ;
       
                       if(categoria1Grafica < 3){
                         colorCategoria1Grafica  = "#9BE0F7"
-                        textoCategoriaUno = "Nulo o despreciable"
+                        textoCategoriaUno = "Nulo"
                       }else if(categoria1Grafica >= 3 && categoria1Grafica < 5){
                         colorCategoria1Grafica ="#6BF56E"
                         textoCategoriaUno = "Bajo"
@@ -2772,7 +2769,7 @@ pdfExportComponent ;
                       categoria2Grafica = ((respuesta4+respuesta9+respuesta5+respuesta6+respuesta7+respuesta8+respuesta41+respuesta42+respuesta43+respuesta10+respuesta11+respuesta12+respuesta13+respuesta20+respuesta21+respuesta22+respuesta18+respuesta19+respuesta26+respuesta27)/length).toFixed(2);
                       if(categoria2Grafica < 10){
                         colorCategoria2Grafica  = "#9BE0F7"
-                        textoCategoriaDos = "Nulo o despreciable"
+                        textoCategoriaDos = "Nulo"
                       }else if(categoria2Grafica >= 10 && categoria2Grafica < 20){
                         colorCategoria2Grafica ="#6BF56E"
                         textoCategoriaDos = "Bajo"
@@ -2791,7 +2788,7 @@ pdfExportComponent ;
                       categoria3Grafica =( (respuesta14+respuesta15+respuesta16+respuesta17)/length).toFixed(2);
                       if(categoria3Grafica < 4){
                         colorCategoria3Grafica  = "#9BE0F7"
-                        textoCategoriaTre="Nulo o despreciable"
+                        textoCategoriaTre="Nulo"
                       }else if(categoria3Grafica >= 4 && categoria3Grafica < 6){
                         colorCategoria3Grafica ="#6BF56E"
                         textoCategoriaTre="Bajo"
@@ -2809,7 +2806,7 @@ pdfExportComponent ;
                       categoria4Grafica = ((respuesta23+respuesta24+respuesta25+respuesta28+respuesta29+respuesta30+respuesta31+respuesta32+respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40+respuesta44+respuesta45+respuesta46)/length).toFixed(2);
                       if(categoria4Grafica < 10){
                         colorCategoria4Grafica  = "#9BE0F7"
-                        textoCategoriaCuatro="Nulo o despreciable "
+                        textoCategoriaCuatro="Nulo "
                       }else if(categoria4Grafica >= 10 && categoria4Grafica < 18){
                         colorCategoria4Grafica ="#6BF56E"
                         textoCategoriaCuatro="Bajo"
@@ -10159,7 +10156,7 @@ if(DominioOcho < 7){
 
             </MDBCol> 
             <MDBCol style={{ maxWidth: "50rem" }}>
-            <div style={{display: 'table', tableLayout:'fixed', width:'115%',marginLeft:"16%"}} >
+            <div style={{display: 'table', tableLayout:'fixed', width:'119%',marginLeft:"14%"}} >
                 {tablaPeriodoActual}
                 {reporteIndividual}
                 {ponderacionIndividual}

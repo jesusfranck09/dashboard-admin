@@ -352,7 +352,7 @@ export default class App extends React.Component {
           }    
         })
         .catch(err => {
-          console.log("el error es  ",err.response)
+          console.log("el error es  ",err)
         });  
       })
       result = evaluacionEEO.filter(function(hero){
@@ -378,7 +378,6 @@ export default class App extends React.Component {
             `
         }
         }).then(datos => { 
-          console.log("getPonderacionEEO" , datos.data.data.getPonderacionEEO)
           this.setState({getPonderacion: datos.data.data.getPonderacionEEO})
         })
         .catch(err => {
@@ -435,13 +434,18 @@ export default class App extends React.Component {
       })      
       arrayFilter.map(row=>{
         filterArray = row.filter(function(hero){
-          return hero.periodo = periodoTabla[0]
+          return hero.Periodo === periodoTabla[0]
         })
         filtrado.push(filterArray)
         })
+        function array_equals(a, b){
+          return a.length === b.length && a.every((item,idx) => item === b[idx])
+         }
+         let tag = []
 
-      this.setState({peticion1:filtrado}) 
-       this.setState({spinner:false});
+      let filtrado2 = filtrado.filter(item => !array_equals(item, tag))
+      this.setState({peticion1:filtrado2}) 
+      this.setState({spinner:false});
            
       if(filtro !== undefined){
         
@@ -543,8 +547,15 @@ export default class App extends React.Component {
       })
         filtrado.push(filterArray)
       })
-      this.setState({reporteImasivo:filtrado}) 
+      function array_equals(a, b){
+        return a.length === b.length && a.every((item,idx) => item === b[idx])
+       }
+
+      let tag = []
+      var filtrado2 = filtrado.filter(item => !array_equals(item, tag))
+      this.setState({reporteImasivo:filtrado2}) 
       this.setState({spinner:false});
+
     if(filtro!== undefined){
       
       if(filtro[0].length>0){
@@ -617,39 +628,6 @@ export default class App extends React.Component {
 
   
   reporteImasivoResultados = async (datos,filtro,periodoTabla) =>{
-    // this.setState({botonDisabled:''})
-    // this.setState({botonResultados:''})
-    // this.setState({spinner:true})
-
-    // let array=[];
-    // let totalEmpleados=[];
-
-    // datos.map(rows=>{
-    //   array.push(rows.data[0])
-    // })
-
-    // let arrayFilter = []
-    // let filter;
-    // let filterArray;
-    // let filtrado = [];
-
-    // this.state.resultadosInicio.forEach(row=>{
-    //   array.forEach(element=>{
-    //   filter =row.filter(function(hero){
-    //     return hero.fk_empleados === element
-    //   })
-    //     arrayFilter.push(filter)
-    //   })
-    // })
-    // arrayFilter.map(fila=>{
-    //   console.log("fila" , fila)
-    //   filterArray = fila.filter(function(hero){
-    //     return hero.Periodo === periodoTabla[0]
-    //   })
-    //     filtrado.push(filterArray)
-    //   })
-    //   this.setState({reporteImasivo:filtrado}) 
-
     this.setState({botonDisabled:''})
     this.setState({botonResultados:''})
     this.setState({spinner:true})
@@ -680,14 +658,14 @@ export default class App extends React.Component {
         filtrado.push(filterArray)
       })
       
-    // function array_equals(a, b){
-    //   return a.length === b.length && a.every((item,idx) => item === b[idx])
-    //  }
-    //  let tag = []
-    //  var filtrado = arrayFilter.filter(item => !array_equals(item, tag))
+    function array_equals(a, b){
+      return a.length === b.length && a.every((item,idx) => item === b[idx])
+     }
+     let tag = []
+     var filtrado2 = filtrado.filter(item => !array_equals(item, tag))
    
 
-      this.setState({resultadosEvaluacionMasivo:filtrado})
+      this.setState({resultadosEvaluacionMasivo:filtrado2})
       this.setState({spinner:false});
 
     if(filtro!== undefined){
@@ -7664,7 +7642,9 @@ ponderacion=<React.Fragment>
                                 <MDBTableBody>     
                                 <font size="3"face="arial"color="black">Reporte de resultados del diagnóstico individual de factores de riesgo psicosocial y Evaluación de Entorno Organizacional en los centros de trabajo</font><br></br><br></br>
                                 <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
-                                <font size="1"face="arial"color="black">{this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}</font><br></br>
+                                <font size="1"face="arial"color="black">{this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}
+                                {console.log("resultadosQuery",this.state.resultadosQuery)}
+                                </font><br></br>
                                 <font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
                                 </MDBTableBody>
                                 <br></br>
@@ -9562,7 +9542,7 @@ ponderacion=<React.Fragment>
                 let categoriaUno = ((respuesta1+respuesta3+respuesta2+respuesta4+respuesta5)/length).toFixed(2);
                 if(categoriaUno < 5){
                   colorCategoriaUno  = "#9BE0F7"
-                  textoCategoriaUno = "Nulo o despreciable"
+                  textoCategoriaUno = "Nulo"
                 }else if(categoriaUno >= 5 && categoriaUno < 9){
                   colorCategoriaUno ="#6BF56E"
                   textoCategoriaUno = "Bajo"
@@ -9584,7 +9564,7 @@ ponderacion=<React.Fragment>
                 
                 if(categoriaDos < 15){
                   colorCategoriaDos  = "#9BE0F7"
-                  textoCategoriaDos = "Nulo o despreciable"
+                  textoCategoriaDos = "Nulo"
                 }else if(categoriaDos >= 15 && categoriaDos < 30){
                   colorCategoriaDos ="#6BF56E"
                   textoCategoriaDos = "Bajo"
@@ -9605,7 +9585,7 @@ ponderacion=<React.Fragment>
                 
                 if(categoriaTre < 5){
                   colorCategoriaTre  = "#9BE0F7"
-                  textoCategoriaTre="Nulo o despreciable"
+                  textoCategoriaTre="Nulo"
                 }else if(categoriaTre >= 5 && categoriaTre < 7){
                   colorCategoriaTre ="#6BF56E"
                   textoCategoriaTre="Bajo"
@@ -9626,7 +9606,7 @@ ponderacion=<React.Fragment>
 
                 if(categoriaCuatro < 14){
                   colorCategoriaCuatro  = "#9BE0F7"
-                  textoCategoriaCuatro="Nulo o despreciable "
+                  textoCategoriaCuatro="Nulo"
                 }else if(categoriaCuatro >= 14 && categoriaCuatro < 29){
                   colorCategoriaCuatro ="#6BF56E"
                   textoCategoriaCuatro="Bajo"
@@ -9646,7 +9626,7 @@ ponderacion=<React.Fragment>
                 let categoriaCinco = ((respuesta47+respuesta48+respuesta49+respuesta50+respuesta51+respuesta52+respuesta55+respuesta56+respuesta53+respuesta54)/length).toFixed(2);
                 if(categoriaCinco < 10){
                   colorCategoriaCinco  = "#9BE0F7"
-                  textoCategoriaCuatro="Nulo o despreciable "
+                  textoCategoriaCuatro="Nulo"
                 }else if(categoriaCinco >= 10 && categoriaCinco < 14){
                   colorCategoriaCinco ="#6BF56E"
                   textoCategoriaCuatro="Bajo"
@@ -13280,7 +13260,7 @@ if(ponderacionPromedio<50){
               </MDBCard>
             </MDBCol> 
             <MDBCol style={{ maxWidth: "50rem" }}>
-            <div style={{display: 'table', tableLayout:'fixed', width:'115%',marginLeft:"16%"}} >
+            <div style={{display: 'table', tableLayout:'fixed', width:'119%',marginLeft:"14%"}} >
                 {tablaPeriodoActual}
                 {reporteIndividual}
                 {ponderacionIndividual}
