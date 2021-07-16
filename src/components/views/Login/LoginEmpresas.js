@@ -105,6 +105,7 @@ handleInput = async (e) => {
   }
   
   handleData = async (data) => {
+    console.log("dataloginEmpresas", data.loginEmpresas)
     if (data.loginEmpresas.token === 'no hay token' && data.loginEmpresas.message==="ningun dato"){
       DialogUtility.alert({
         animationSettings: { effect: 'Zoom' },           
@@ -153,18 +154,9 @@ handleInput = async (e) => {
       window.location.reload();
     }, 2000); 
     }
-   if(data.loginEmpresas.message==='Login exitoso' && data.loginEmpresas.token){
+   if(data.loginEmpresas.message==='Login exitoso' && data.loginEmpresas.token && data.loginEmpresas.activo === "true"){
 
     let IP  = "000000";
-    
-    // var findIP = new Promise(r=>{var w=window,a=new (w.RTCPeerConnection||w.mozRTCPeerConnection||w.webkitRTCPeerConnection)({iceServers:[]}),b=()=>{};a.createDataChannel("");a.createOffer(c=>a.setLocalDescription(c,b,b),b);a.onicecandidate=c=>{try{c.candidate.candidate.match(/([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g).forEach(r)}catch(e){}}})
-
-/*Ejemplo de uso*/
-  //  await findIP.then(ip => {
-  //     IP = ip
-  //   }).catch(err=>{
-  //   })
-
     let rfc = data.loginEmpresas.RFC
     let idEmpresa = data.loginEmpresas.id
 
@@ -227,21 +219,20 @@ handleInput = async (e) => {
     })
         
   }
-  if(data.loginEmpresas.activo==='false'){
-
+  if(data.loginEmpresas.activo === 'false'){
     DialogUtility.alert({
       animationSettings: { effect: 'Zoom' },           
       title: 'Su licencia ha Expirado',
-      content: `Estimado cliente por el momento no puede iniciar sesión en el sistema de evaluaciones por favor contáctese con su Asesor de ADS para renovar su Suscripción`, 
-     
+      content: `Estimado cliente por el momento no puede iniciar sesión en el sistema de Administración ya que su suscripción ha terminado por favor contáctese con su asesor de ADS para renovar su licencia`,    
       position: "fixed",
   })
-
+  setTimeout(()=>{
+    window.location.reload();
+  },5000)
   }
   }
   render() {
     const { isPasswordShown } = this.state;
-
     const overlay = (
       <div
         id="sidenav-overlay"

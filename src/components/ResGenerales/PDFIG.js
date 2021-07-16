@@ -202,7 +202,6 @@ pdfExportComponent ;
                   
                   // console.log("datos peticion" , datos)
                   totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
-                  // console.log("totalEmpleafos" , totalEmpleados)
                   this.setState({peticion:totalEmpleados})   
                  
                 })
@@ -398,8 +397,15 @@ pdfExportComponent ;
           })
             filtrado.push(filterArray)
           })
+          function array_equals(a, b){
+            return a.length === b.length && a.every((item,idx) => item === b[idx])
+           }
+           let tag = []
 
-          this.setState({reporteImasivo:filtrado}) 
+           let filtrado2 = filtrado.filter(item => !array_equals(item, tag))
+
+          this.setState({reporteImasivo:filtrado2}) 
+          console.log("totalEmpleaos" ,filtrado2)
 
             if(filtro!== undefined){
             if(filtro[0].length>0){
