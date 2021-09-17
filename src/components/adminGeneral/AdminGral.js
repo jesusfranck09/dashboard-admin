@@ -142,7 +142,6 @@ class AdminGral extends React.Component {
         })
         .then(datos => {	
           this.setState({allperiodo:datos.data.data.getallPeriodo})
-          console.log("allperiodo" , datos.data.data.getallPeriodo)
         }).catch(err=>{
         })
 
@@ -660,7 +659,6 @@ class AdminGral extends React.Component {
                 const Puesto = values.Puesto
                 const TipoPuesto = values.TipoPuesto
                 const idAdmin = localStorage.getItem('idAdmin')
-                console.log("id" , id)
                 if(values.nombre){
                     axios({
                       url:  API,
@@ -1210,7 +1208,6 @@ class AdminGral extends React.Component {
           options: {filter: false,sort: true,}}, {name: "boton2",label: "Suspender",options: {filter: false,sort: true,}}];
 
          const data = this.state.datos.map((rows,i)=>{
-           console.log("rows" , rows)
          const boton2 = <div><MDBBtn  color ="warning" size="sm" onClick={e => this.mostrarModales(1,rows)}><i class="far fa-edit"></i></MDBBtn></div>
          const boton =<div><MDBBtn  color ="danger" size="sm" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado?, Los datos se perderán')) this.delete(i,rows.id)} } ><i class="far fa-trash-alt"></i></MDBBtn></div> 
          return([rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.CentroTrabajo,boton2,boton])

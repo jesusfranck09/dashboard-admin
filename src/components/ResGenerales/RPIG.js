@@ -433,72 +433,47 @@ pdfExportComponent ;
          let tag = []
        var filtrado2 = filtrado.filter(item => !array_equals(item, tag))
       this.setState({peticion1:filtrado2}) 
-      this.setState({spinner:false});
-
+      this.setState({spinner:false});    
       if(filtro!== undefined){
-      if(filtro[0].length>0){
-        this.setState({nombre1:filtro[0][0]})
-        this.setState({filtro1:"ID"})
-        this.setState({filtro6:""})
+        if(filtro[0].length>0){
+          this.setState({nombre1:filtro[0][0]})
+          this.setState({filtro1:"ID"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre1:''})
+          this.setState({filtro1:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[1].length>0){
+          this.setState({nombre2:filtro[1][0]})
+          this.setState({filtro2:"NOMBRE"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre2:''})
+          this.setState({filtro2:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[2].length>0){
+          this.setState({nombre3:filtro[2][0]})
+          this.setState({filtro3:"CENTRO DE TRABAJO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre3:''})
+          this.setState({filtro3:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[3].length>0){
+          this.setState({nombre4:filtro[3][0]})
+          this.setState({filtro4:"PERIODO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre4:''})
+          this.setState({filtro4:""})
+          this.setState({filtro6:""})
+        }
       }else{
-        this.setState({nombre1:''})
-        this.setState({filtro1:""})
-        this.setState({filtro6:""})
+        this.setState({filtro6:"SIN FILTRO"})
       }
-      if(filtro[1].length>0){
-        this.setState({nombre2:filtro[1][0]})
-        this.setState({filtro2:"NOMBRE"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre2:''})
-        this.setState({filtro2:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[2].length>0){
-        this.setState({nombre3:filtro[2][0]})
-        this.setState({filtro3:"SEXO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre3:''})
-        this.setState({filtro3:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[3].length>0){
-        this.setState({nombre4:filtro[3][0]})
-        this.setState({filtro4:"ÁREA DE TRABAJO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre4:''})
-        this.setState({filtro4:""})
-        this.setState({filtro6:""})
-      }if(filtro[4].length>0){
-        this.setState({nombre5:filtro[4][0]})
-        this.setState({filtro5:"PUESTO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre5:''})
-        this.setState({filtro5:""})
-        this.setState({filtro6:""})
-      }if(filtro[5].length>0){
-        this.setState({nombre6:filtro[5][0]})
-        this.setState({filtro7:"CENTRO DE TRABAJO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre6:''})
-        this.setState({filtro7:""})
-        this.setState({filtro6:""})
-      }if(filtro[6].length>0){
-        this.setState({nombre7:filtro[6][0]})
-        this.setState({filtro8:"PERIODO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre7:''})
-        this.setState({filtro8:""})
-        this.setState({filtro6:""})
-      }
-    }else{
-      this.setState({filtro6:"SIN FILTRO"})
-    }
      
     this.setState({datosLength:datos.length})
     }
@@ -546,73 +521,47 @@ pdfExportComponent ;
       var filtrado2 = filtrado.filter(item => !array_equals(item, tag))
 
         this.setState({reporteImasivo:filtrado2})
-        this.setState({spinner:false});
-
-      if(filtro!== undefined){
-      if(filtro[0].length>0){
-        this.setState({nombre1:filtro[0][0]})
-        this.setState({filtro1:"ID"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre1:''})
-        this.setState({filtro1:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[1].length>0){
-        this.setState({nombre2:filtro[1][0]})
-        this.setState({filtro2:"NOMBRE"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre2:''})
-        this.setState({filtro2:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[2].length>0){
-        this.setState({nombre3:filtro[2][0]})
-        this.setState({filtro3:"SEXO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre3:''})
-        this.setState({filtro3:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[3].length>0){
-        this.setState({nombre4:filtro[3][0]})
-        this.setState({filtro4:"ÁREA DE TRABAJO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre4:''})
-        this.setState({filtro4:""})
-        this.setState({filtro6:""})
-      }if(filtro[4].length>0){
-        this.setState({nombre5:filtro[4][0]})
-        this.setState({filtro5:"PUESTO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre5:''})
-        this.setState({filtro5:""})
-        this.setState({filtro6:""})
-      }if(filtro[5].length>0){
-        this.setState({nombre6:filtro[5][0]})
-        this.setState({filtro7:"CENTRO DE TRABAJO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre6:''})
-        this.setState({filtro7:""})
-        this.setState({filtro6:""})
-      }if(filtro[6].length>0){
-        this.setState({nombre7:filtro[6][0]})
-        this.setState({filtro8:"PERIODO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre7:''})
-        this.setState({filtro8:""})
-        this.setState({filtro6:""})
-      }
-    }else{
-      this.setState({filtro6:"SIN FILTRO"})
-    }
-      
+        this.setState({spinner:false});    
+        if(filtro!== undefined){
+          if(filtro[0].length>0){
+            this.setState({nombre1:filtro[0][0]})
+            this.setState({filtro1:"ID"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre1:''})
+            this.setState({filtro1:""})
+            this.setState({filtro6:""})
+          }
+          if(filtro[1].length>0){
+            this.setState({nombre2:filtro[1][0]})
+            this.setState({filtro2:"NOMBRE"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre2:''})
+            this.setState({filtro2:""})
+            this.setState({filtro6:""})
+          }
+          if(filtro[2].length>0){
+            this.setState({nombre3:filtro[2][0]})
+            this.setState({filtro3:"CENTRO DE TRABAJO"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre3:''})
+            this.setState({filtro3:""})
+            this.setState({filtro6:""})
+          }
+          if(filtro[3].length>0){
+            this.setState({nombre4:filtro[3][0]})
+            this.setState({filtro4:"PERIODO"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre4:''})
+            this.setState({filtro4:""})
+            this.setState({filtro6:""})
+          }
+        }else{
+          this.setState({filtro6:"SIN FILTRO"})
+        }
     this.setState({datosLength:datos.length})
     }
 
@@ -652,72 +601,47 @@ pdfExportComponent ;
         var filtrado2 = arrayFilter.filter(item => !array_equals(item, tag))
   
         this.setState({resultadosEvaluacionMasivo:filtrado2})
-        this.setState({spinner:false});
-
-      if(filtro!= undefined){
-      if(filtro[0].length>0){
-        this.setState({nombre1:filtro[0][0]})
-        this.setState({filtro1:"ID"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre1:''})
-        this.setState({filtro1:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[1].length>0){
-        this.setState({nombre2:filtro[1][0]})
-        this.setState({filtro2:"NOMBRE"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre2:''})
-        this.setState({filtro2:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[2].length>0){
-        this.setState({nombre3:filtro[2][0]})
-        this.setState({filtro3:"SEXO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre3:''})
-        this.setState({filtro3:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[3].length>0){
-        this.setState({nombre4:filtro[3][0]})
-        this.setState({filtro4:"ÁREA DE TRABAJO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre4:''})
-        this.setState({filtro4:""})
-        this.setState({filtro6:""})
-      }if(filtro[4].length>0){
-        this.setState({nombre5:filtro[4][0]})
-        this.setState({filtro5:"PUESTO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre5:''})
-        this.setState({filtro5:""})
-        this.setState({filtro6:""})
-      }if(filtro[5].length>0){
-        this.setState({nombre6:filtro[5][0]})
-        this.setState({filtro7:"CENTRO DE TRABAJO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre6:''})
-        this.setState({filtro7:""})
-        this.setState({filtro6:""})
-      }if(filtro[6].length>0){
-        this.setState({nombre7:filtro[6][0]})
-        this.setState({filtro8:"PERIODO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre7:''})
-        this.setState({filtro8:""})
-        this.setState({filtro6:""})
-      }
-    }else{
-      this.setState({filtro6:"SIN FILTRO"})
-    }
+        this.setState({spinner:false});    
+        if(filtro!== undefined){
+          if(filtro[0].length>0){
+            this.setState({nombre1:filtro[0][0]})
+            this.setState({filtro1:"ID"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre1:''})
+            this.setState({filtro1:""})
+            this.setState({filtro6:""})
+          }
+          if(filtro[1].length>0){
+            this.setState({nombre2:filtro[1][0]})
+            this.setState({filtro2:"NOMBRE"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre2:''})
+            this.setState({filtro2:""})
+            this.setState({filtro6:""})
+          }
+          if(filtro[2].length>0){
+            this.setState({nombre3:filtro[2][0]})
+            this.setState({filtro3:"CENTRO DE TRABAJO"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre3:''})
+            this.setState({filtro3:""})
+            this.setState({filtro6:""})
+          }
+          if(filtro[3].length>0){
+            this.setState({nombre4:filtro[3][0]})
+            this.setState({filtro4:"PERIODO"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre4:''})
+            this.setState({filtro4:""})
+            this.setState({filtro6:""})
+          }
+        }else{
+          this.setState({filtro6:"SIN FILTRO"})
+        }
     this.setState({datosLength:datos.length})   
     }
                   

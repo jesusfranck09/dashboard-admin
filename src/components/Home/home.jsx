@@ -149,7 +149,6 @@ class Home extends React.Component {
         if (eventoFinal){
           fechaFinal = eventoFinal.substring(4,34)
         }
-
         this.countdown(fechaFinal)
         this.alerta1(alert1)
         this.alerta2(alert2)

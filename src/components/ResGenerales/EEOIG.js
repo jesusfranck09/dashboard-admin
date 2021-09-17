@@ -299,7 +299,7 @@ export default class App extends React.Component {
             `
         }
         }).then(datos => {   
-          totalEmpleados.push(datos.data.data.getresultGlobalSurveyEEO)  
+          totalEmpleados.push(datos.data.data.getresultGlobalSurveyEEO) 
           this.setState({resultadosInicio:totalEmpleados})
         })
         .catch(err => {
@@ -445,12 +445,9 @@ export default class App extends React.Component {
 
       let filtrado2 = filtrado.filter(item => !array_equals(item, tag))
       this.setState({peticion1:filtrado2}) 
-      this.setState({spinner:false});
-           
-      if(filtro !== undefined){
-        
+      this.setState({spinner:false});    
+      if(filtro!== undefined){
         if(filtro[0].length>0){
-         
           this.setState({nombre1:filtro[0][0]})
           this.setState({filtro1:"ID"})
           this.setState({filtro6:""})
@@ -470,7 +467,7 @@ export default class App extends React.Component {
         }
         if(filtro[2].length>0){
           this.setState({nombre3:filtro[2][0]})
-          this.setState({filtro3:"SEXO"})
+          this.setState({filtro3:"CENTRO DE TRABAJO"})
           this.setState({filtro6:""})
         }else{
           this.setState({nombre3:''})
@@ -479,40 +476,16 @@ export default class App extends React.Component {
         }
         if(filtro[3].length>0){
           this.setState({nombre4:filtro[3][0]})
-          this.setState({filtro4:"ÁREA DE TRABAJO"})
+          this.setState({filtro4:"PERIODO"})
           this.setState({filtro6:""})
         }else{
           this.setState({nombre4:''})
           this.setState({filtro4:""})
           this.setState({filtro6:""})
-        }if(filtro[4].length>0){
-          this.setState({nombre5:filtro[4][0]})
-          this.setState({filtro5:"PUESTO"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre5:''})
-          this.setState({filtro5:""})
-          this.setState({filtro6:""})
-        }if(filtro[5].length>0){
-          this.setState({nombre6:filtro[5][0]})
-        this.setState({filtro7:"CENTRO DE TRABAJO"})
-        this.setState({filtro6:""})
+        }
       }else{
-        this.setState({nombre6:''})
-        this.setState({filtro7:""})
-        this.setState({filtro6:""})
-      }if(filtro[6].length>0){
-        this.setState({nombre7:filtro[6][0]})
-        this.setState({filtro8:"PERIODO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre7:''})
-        this.setState({filtro8:""})
-        this.setState({filtro6:""})
+        this.setState({filtro6:"SIN FILTRO"})
       }
-    }else{
-      this.setState({filtro6:"SIN FILTRO"})
-    }
       this.setState({datosLength:datos.length})
     }
 
@@ -554,74 +527,47 @@ export default class App extends React.Component {
       let tag = []
       var filtrado2 = filtrado.filter(item => !array_equals(item, tag))
       this.setState({reporteImasivo:filtrado2}) 
-      this.setState({spinner:false});
-
-    if(filtro!== undefined){
-      
-      if(filtro[0].length>0){
-       
-        this.setState({nombre1:filtro[0][0]})
-        this.setState({filtro1:"ID"})
-        this.setState({filtro6:""})
+      this.setState({spinner:false});    
+      if(filtro!== undefined){
+        if(filtro[0].length>0){
+          this.setState({nombre1:filtro[0][0]})
+          this.setState({filtro1:"ID"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre1:''})
+          this.setState({filtro1:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[1].length>0){
+          this.setState({nombre2:filtro[1][0]})
+          this.setState({filtro2:"NOMBRE"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre2:''})
+          this.setState({filtro2:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[2].length>0){
+          this.setState({nombre3:filtro[2][0]})
+          this.setState({filtro3:"CENTRO DE TRABAJO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre3:''})
+          this.setState({filtro3:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[3].length>0){
+          this.setState({nombre4:filtro[3][0]})
+          this.setState({filtro4:"PERIODO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre4:''})
+          this.setState({filtro4:""})
+          this.setState({filtro6:""})
+        }
       }else{
-        this.setState({nombre1:''})
-        this.setState({filtro1:""})
-        this.setState({filtro6:""})
+        this.setState({filtro6:"SIN FILTRO"})
       }
-      if(filtro[1].length>0){
-        this.setState({nombre2:filtro[1][0]})
-        this.setState({filtro2:"NOMBRE"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre2:''})
-        this.setState({filtro2:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[2].length>0){
-        this.setState({nombre3:filtro[2][0]})
-        this.setState({filtro3:"SEXO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre3:''})
-        this.setState({filtro3:""})
-        this.setState({filtro6:""})
-      }
-      if(filtro[3].length>0){
-        this.setState({nombre4:filtro[3][0]})
-        this.setState({filtro4:"ÁREA DE TRABAJO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre4:''})
-        this.setState({filtro4:""})
-        this.setState({filtro6:""})
-      }if(filtro[4].length>0){
-        this.setState({nombre5:filtro[4][0]})
-        this.setState({filtro5:"PUESTO"})
-        this.setState({filtro6:""})
-      }else{
-        this.setState({nombre5:''})
-        this.setState({filtro5:""})
-        this.setState({filtro6:""})
-      }if(filtro[5].length>0){
-        this.setState({nombre6:filtro[5][0]})
-      this.setState({filtro7:"CENTRO DE TRABAJO"})
-      this.setState({filtro6:""})
-    }else{
-      this.setState({nombre6:''})
-      this.setState({filtro7:""})
-      this.setState({filtro6:""})
-    }if(filtro[6].length>0){
-      this.setState({nombre7:filtro[6][0]})
-      this.setState({filtro8:"PERIODO"})
-      this.setState({filtro6:""})
-    }else{
-      this.setState({nombre7:''})
-      this.setState({filtro8:""})
-      this.setState({filtro6:""})
-    }
-  }else{
-    this.setState({filtro6:"SIN FILTRO"})
-  }
   
     this.setState({datosLength:datos.length})
   }
@@ -666,73 +612,47 @@ export default class App extends React.Component {
    
 
       this.setState({resultadosEvaluacionMasivo:filtrado2})
-      this.setState({spinner:false});
-
-    if(filtro!== undefined){
-    if(filtro[0].length>0){
-      this.setState({nombre1:filtro[0][0]})
-      this.setState({filtro1:"ID"})
-      this.setState({filtro6:""})
-    }else{
-      this.setState({nombre1:''})
-      this.setState({filtro1:""})
-      this.setState({filtro6:""})
-    }
-    if(filtro[1].length>0){
-      this.setState({nombre2:filtro[1][0]})
-      this.setState({filtro2:"NOMBRE"})
-      this.setState({filtro6:""})
-    }else{
-      this.setState({nombre2:''})
-      this.setState({filtro2:""})
-      this.setState({filtro6:""})
-    }
-    if(filtro[2].length>0){
-      this.setState({nombre3:filtro[2][0]})
-      this.setState({filtro3:"SEXO"})
-      this.setState({filtro6:""})
-    }else{
-      this.setState({nombre3:''})
-      this.setState({filtro3:""})
-      this.setState({filtro6:""})
-    }
-    if(filtro[3].length>0){
-      this.setState({nombre4:filtro[3][0]})
-      this.setState({filtro4:"ÁREA DE TRABAJO"})
-      this.setState({filtro6:""})
-    }else{
-      this.setState({nombre4:''})
-      this.setState({filtro4:""})
-      this.setState({filtro6:""})
-    }if(filtro[4].length>0){
-      this.setState({nombre5:filtro[4][0]})
-      this.setState({filtro5:"PUESTO"})
-      this.setState({filtro6:""})
-    }else{
-      this.setState({nombre5:''})
-      this.setState({filtro5:""})
-      this.setState({filtro6:""})
-    }if(filtro[5].length>0){
-      this.setState({nombre6:filtro[5][0]})
-      this.setState({filtro7:"CENTRO DE TRABAJO"})
-      this.setState({filtro6:""})
-    }else{
-      this.setState({nombre6:''})
-      this.setState({filtro7:""})
-      this.setState({filtro6:""})
-    }if(filtro[6].length>0){
-      this.setState({nombre7:filtro[6][0]})
-      this.setState({filtro8:"PERIODO"})
-      this.setState({filtro6:""})
-    }else{
-      this.setState({nombre7:''})
-      this.setState({filtro8:""})
-      this.setState({filtro6:""})
-    }
-  }else{
-    this.setState({filtro6:"SIN FILTRO"})
-  }
-   
+      this.setState({spinner:false});    
+      if(filtro!== undefined){
+        if(filtro[0].length>0){
+          this.setState({nombre1:filtro[0][0]})
+          this.setState({filtro1:"ID"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre1:''})
+          this.setState({filtro1:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[1].length>0){
+          this.setState({nombre2:filtro[1][0]})
+          this.setState({filtro2:"NOMBRE"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre2:''})
+          this.setState({filtro2:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[2].length>0){
+          this.setState({nombre3:filtro[2][0]})
+          this.setState({filtro3:"CENTRO DE TRABAJO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre3:''})
+          this.setState({filtro3:""})
+          this.setState({filtro6:""})
+        }
+        if(filtro[3].length>0){
+          this.setState({nombre4:filtro[3][0]})
+          this.setState({filtro4:"PERIODO"})
+          this.setState({filtro6:""})
+        }else{
+          this.setState({nombre4:''})
+          this.setState({filtro4:""})
+          this.setState({filtro6:""})
+        }
+      }else{
+        this.setState({filtro6:"SIN FILTRO"})
+      }
     this.setState({datosLength:datos.length})
       }
     reporteIndividual(id,periodo){
@@ -1322,7 +1242,6 @@ export default class App extends React.Component {
         array35.map(rows=>{  
           valor35.push(rows[0].ponderacion)          
       })
-      console.log("array35" , array35)
       this.setState({valor35:valor35})
                 })
       filtrado.map(rows=>{
@@ -1755,7 +1674,7 @@ export default class App extends React.Component {
         }
         if(filtro[2].length>0){
           this.setState({nombre3:filtro[2][0]})
-          this.setState({filtro3:"SEXO"})
+          this.setState({filtro3:"CENTRO DE TRABAJO"})
           this.setState({filtro6:""})
         }else{
           this.setState({nombre3:''})
@@ -1764,35 +1683,11 @@ export default class App extends React.Component {
         }
         if(filtro[3].length>0){
           this.setState({nombre4:filtro[3][0]})
-          this.setState({filtro4:"ÁREA DE TRABAJO"})
+          this.setState({filtro4:"PERIODO"})
           this.setState({filtro6:""})
         }else{
           this.setState({nombre4:''})
           this.setState({filtro4:""})
-          this.setState({filtro6:""})
-        }if(filtro[4].length>0){
-          this.setState({nombre5:filtro[4][0]})
-          this.setState({filtro5:"PUESTO"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre5:''})
-          this.setState({filtro5:""})
-          this.setState({filtro6:""})
-        }if(filtro[5].length>0){
-          this.setState({nombre6:filtro[5][0]})
-          this.setState({filtro7:"CENTRO DE TRABAJO"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre6:''})
-          this.setState({filtro7:""})
-          this.setState({filtro6:""})
-        }if(filtro[6].length>0){
-          this.setState({nombre7:filtro[6][0]})
-          this.setState({filtro8:"PERIODO"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre7:''})
-          this.setState({filtro8:""})
           this.setState({filtro6:""})
         }
       }else{
@@ -1920,6 +1815,7 @@ export default class App extends React.Component {
   
         onFilterChange: (action, filtroTable) => {
           filtro=filtroTable
+          console.log("filtro", filtro)
           }          
       };
  
@@ -7643,7 +7539,6 @@ ponderacion=<React.Fragment>
                                 <font size="3"face="arial"color="black">Reporte de resultados del diagnóstico individual de factores de riesgo psicosocial y Evaluación de Entorno Organizacional en los centros de trabajo</font><br></br><br></br>
                                 <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>          
                                 <font size="1"face="arial"color="black">{this.state.resultadosQuery[0].nombre} {this.state.resultadosQuery[0].ApellidoP} {this.state.resultadosQuery[0].ApellidoM}
-                                {console.log("resultadosQuery",this.state.resultadosQuery)}
                                 </font><br></br>
                                 <font size="1"face="arial"color="black">Fecha de emisión : <strong>{this.state.date}</strong></font>
                                 </MDBTableBody>
@@ -11148,7 +11043,6 @@ ponderacion=<React.Fragment>
                   return hero.fk_preguntasEEO == 6;
                 });
                 value6 = filtrar6.pop();
-                console.log("value6" , value6)
           
                 let filtrar7;
                 filtrar7 = rows.filter(function(hero) {
