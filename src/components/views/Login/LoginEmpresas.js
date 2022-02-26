@@ -1,26 +1,58 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { InputGroup, InputGroupAddon, InputGroupText,Input } from 'reactstrap';
+import { AppNavbarBrand } from '@coreui/react';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import diagnostico from '../../images/diagnostico.png'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
-import 'antd/dist/antd.css';
 import axios from 'axios'
-import { Form } from 'reactstrap';
-import { Card } from 'antd';
-
 import {
   MDBInput,
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarNav,
+  MDBNavbarToggler,
+  MDBCollapse,
   MDBMask,
   MDBRow,
+  MDBCol,
   MDBBtn,
   MDBView,
+  MDBContainer,
   MDBAnimation,
+  MDBCard,
   MDBCardBody,
+  MDBIcon,
+  MDBNavItem,
+  MDBNavLink,
+  MDBCardHeader
 } from "mdbreact";
 import "./index.css";
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import {API} from '../../utils/http'
+const LOGINEMPRESAS = gql`
+    mutation LOGINEMPRESAS($rfc: String!, $password: String!){
+        loginEmpresas(rfc: $rfc, password: $password){
+          activo
+          message 
+          token 
+          id
+          nombre
+          Apellidos
+          RFC
+          RazonSocial
+          correo
+          activo 
+          fechaRegistro
+          fk_superusuario
+        
+        }
+    }
+`
 
 class Login extends React.Component {
     constructor(props){
@@ -32,7 +64,7 @@ class Login extends React.Component {
         }
       }
 componentWillMount(){
-localStorage.removeItem("elToken")
+  localStorage.removeItem("elToken")
 localStorage.removeItem("nombre")
 localStorage.removeItem("apellidos")
 localStorage.removeItem("rfc")
@@ -52,241 +84,226 @@ localStorage.removeItem("urlLogo")
 localStorage.removeItem("periodo")
 localStorage.removeItem("fk_superusuario")
 }      
-
+handleInput = async (e) => {
+  const {id, value} = e.target
+  this.setState({
+    [id]:value,
+   });
+  }
 
   togglePasswordVisiblity = () => {
     const { isPasswordShown } = this.state;
     this.setState({ isPasswordShown: !isPasswordShown });
   };
 
-  onSubmitBtn(){
-    axios({
-      url:API,
+
+  handleForm = (e, login) => { 
+    e.preventDefault();
+    login({variables: { 
+        ...this.state
+    }});
+  }
+  
+  handleData = async (data) => {
+    console.log("dataloginEmpresas", data.loginEmpresas)
+    if (data.loginEmpresas.token === 'no hay token' && data.loginEmpresas.message==="ningun dato"){
+      DialogUtility.alert({
+        animationSettings: { effect: 'Zoom' },           
+        title: 'Por favor no deje espacios en blanco',
+        position: "fixed",
+    })
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000); 
+  }
+ if(data.loginEmpresas.token==='no hay token' && data.loginEmpresas.message==='usuario y contraseña incorrectos'){
+
+  let rfc = data.loginEmpresas.RFC
+  var date = new Date();
+  var hours = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+  var dd = String(date.getDate()).padStart(2, '0');
+  var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = date.getFullYear();
+
+  date = mm + '/' + dd + '/' + yyyy;
+  let IP = "00000000";
+    
+    await axios({
+      url:  API,
       method:'post',
       data:{
-          query:`
-          mutation{
-              loginEmpresas(data:"${[this.state.rfc,this.state.password]}"){
-                activo
-                message 
-                token 
-                id
-                nombre
-                Apellidos
-                RFC
-                RazonSocial
-                correo
-                activo 
-                fechaRegistro
-                fk_superusuario                  
-             } 
+      query:`
+      mutation{
+        transactions(data:"${[date,hours,IP,rfc]}"){
+          message
+            }
           }
           `
-      }   
-       }).then(response=>{
-        if (response.data.data.loginEmpresas.token === 'no hay token' && response.data.data.loginEmpresas.message==="ningun dato"){
-          DialogUtility.alert({
-            animationSettings: { effect: 'Zoom' },  
-            title:"Aviso!",         
-            content: 'Por favor no deje espacios en blanco',
-            position: "fixed",
-        })
       }
-      if(response.data.data.loginEmpresas.token==='no hay token' && response.data.data.loginEmpresas.message==='usuario y contraseña incorrectos'){
+      }).then((datos) => {
+      }).catch(err=>{
+        console.log("error" , err.response)
+        console.log("err" , err)
+      })  
+      DialogUtility.alert({
+      animationSettings: { effect: 'Zoom' },           
+      title: 'USUARIO Y CONTRASEÑA INCORRECTOS',
+      position: "fixed",
+    })  
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000); 
+    }
+   if(data.loginEmpresas.message==='Login exitoso' && data.loginEmpresas.token && data.loginEmpresas.activo === "true"){
 
-        let rfc = response.data.data.loginEmpresas.RFC
-        var date = new Date();
-        var hours = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-        var dd = String(date.getDate()).padStart(2, '0');
-        var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = date.getFullYear();
-      
-        date = mm + '/' + dd + '/' + yyyy;
-        let IP = "00000000";
-          
-            axios({
-            url:  API,
-            method:'post',
-            data:{
-            query:`
-            mutation{
-              transactions(data:"${[date,hours,IP,rfc]}"){
-                message
-                  }
-                }
-                `
+    let IP  = "000000";
+    let rfc = data.loginEmpresas.RFC
+    let idEmpresa = data.loginEmpresas.id
+
+    var date = new Date();
+    var hours = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    var dd = String(date.getDate()).padStart(2, '0');
+    var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = date.getFullYear();
+
+    date = mm + '/' + dd + '/' + yyyy;
+
+      await axios({
+        url:  API,
+        method:'post',
+        data:{
+        query:`
+        mutation{
+          transactions(data:"${[date,hours,IP,rfc,idEmpresa]}"){
+            message
+              }
             }
-            }).then((datos) => {
-            }).catch(err=>{
-              console.log("error" , err.response)
-              console.log("err" , err)
-            })  
-            DialogUtility.alert({
-            animationSettings: { effect: 'Zoom' }, 
-            title:"Aviso!",          
-            content: 'RFC o contraseña es incorrectos',
-            position: "fixed",
-          })  
-          }
-          if(response.data.data.loginEmpresas.message==='Login exitoso' && response.data.data.loginEmpresas.token && response.data.data.loginEmpresas.activo === "true"){
+            `
+        }
+        }).then((datos) => {
+        }).catch(err=>{
+          console.log("error" , err.response)
+          console.log("err" , err)
 
-            let IP  = "000000";
-            let rfc = response.data.data.loginEmpresas.RFC
-            let idEmpresa = response.data.data.loginEmpresas.id
-        
-            var date = new Date();
-            var hours = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-            var dd = String(date.getDate()).padStart(2, '0');
-            var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = date.getFullYear();
-        
-            date = mm + '/' + dd + '/' + yyyy;
-        
-         axios({
-                url:  API,
-                method:'post',
-                data:{
-                query:`
-                mutation{
-                  transactions(data:"${[date,hours,IP,rfc,idEmpresa]}"){
-                    message
-                      }
-                    }
-                    `
-                }
-                }).then((datos) => {
-                }).catch(err=>{
-                  console.log("error" , err.response)
-                  console.log("err" , err)
-        
-                })  
-        
-                localStorage.setItem('nombre', response.data.data.loginEmpresas.nombre)
-                localStorage.setItem('elToken', response.data.data.loginEmpresas.token)  
-                localStorage.setItem('apellidos', response.data.data.loginEmpresas.Apellidos) 
-                localStorage.setItem('rfc',response.data.data.loginEmpresas.RFC) 
+        })  
 
-                if(response.data.data.loginEmpresas.RazonSocial.length>60){
-                  localStorage.setItem('razonsocial', response.data.data.loginEmpresas.RazonSocial.substring(0,30) + "...") 
-                }else{
-                  localStorage.setItem('razonsocial', response.data.data.loginEmpresas.RazonSocial) 
-                }
-                localStorage.setItem('correo',response.data.data.loginEmpresas.correo)
-                localStorage.setItem('idAdmin', response.data.data.loginEmpresas.id) 
-                localStorage.setItem('fechaRegistro', response.data.data.loginEmpresas.fechaRegistro) 
-                localStorage.setItem('fk_superusuario', response.data.data.loginEmpresas.fk_superusuario) 
+        localStorage.setItem('nombre', data.loginEmpresas.nombre)
+        localStorage.setItem('elToken', data.loginEmpresas.token)  
+        localStorage.setItem('apellidos', data.loginEmpresas.Apellidos) 
+        localStorage.setItem('rfc',data.loginEmpresas.RFC) 
+        localStorage.setItem('razonsocial', data.loginEmpresas.RazonSocial) 
+        localStorage.setItem('correo',data.loginEmpresas.correo)
+        localStorage.setItem('idAdmin', data.loginEmpresas.id) 
+        localStorage.setItem('fechaRegistro', data.loginEmpresas.fechaRegistro) 
+        localStorage.setItem('fk_superusuario', data.loginEmpresas.fk_superusuario) 
+
+        this.props.history.push("/inicio")  
+
+        var texto = "";
+        var ahora=new Date(); 
+        var hora=ahora.getHours();
+        if (hora>=6 && hora<12) {
+            texto="Buenos días";  
+        } else if (hora>=12 && hora<=19) { 
+            texto="Buenas tardes";
+        } else { 
+            texto="Buenas noches";
+        }
+
+      DialogUtility.alert({
+        animationSettings: { effect: 'Zoom' },           
+        title: `Hola ${texto} ${data.loginEmpresas.nombre}`,
+        content:"Su sesón ha iniciado exitosamente" , 
+        position: "fixed",
         
-                this.props.history.push("/inicio")  
-        
-                var texto = "";
-                var ahora=new Date(); 
-                var hora=ahora.getHours();
-                if (hora>=6 && hora<12) {
-                    texto="Buenos días";  
-                } else if (hora>=12 && hora<=19) { 
-                    texto="Buenas tardes";
-                } else { 
-                    texto="Buenas noches";
-                }
-        
-              DialogUtility.alert({
-                animationSettings: { effect: 'Zoom' },           
-                title: `Hola ${texto} ${response.data.data.loginEmpresas.nombre}`,
-                content:"Su sesón ha iniciado exitosamente" , 
-                position: "fixed",
-                
-            })
-                
-          }if(response.data.data.loginEmpresas.activo === 'false'){
-            DialogUtility.alert({
-              animationSettings: { effect: 'Zoom' },           
-              title: 'Su licencia ha Expirado',
-              content: `Estimado cliente por el momento no puede iniciar sesión en el sistema de Administración ya que su suscripción ha terminado por favor contáctese con su asesor de ADS para renovar su licencia`,    
-              position: "fixed",
-          })
-          }
-       }).catch(err=>{
-         console.log("error",err.response)
-       })
-  }
-  onChangeInput =(e)=>{
-    const {id,value} = e.target;
-    this.setState({
-        [id]:value
     })
-}
-
+        
+  }
+  if(data.loginEmpresas.activo === 'false'){
+    DialogUtility.alert({
+      animationSettings: { effect: 'Zoom' },           
+      title: 'Su licencia ha Expirado',
+      content: `Estimado cliente por el momento no puede iniciar sesión en el sistema de Administración ya que su suscripción ha terminado por favor contáctese con su asesor de ADS para renovar su licencia`,    
+      position: "fixed",
+  })
+  setTimeout(()=>{
+    window.location.reload();
+  },5000)
+  }
+  }
   render() {
     const { isPasswordShown } = this.state;
+    const overlay = (
+      <div
+        id="sidenav-overlay"
+        style={{ backgroundColor: "transparent" }}
+        onClick={this.handleTogglerClick}
+      />
+    );
+    return (
+        <Mutation mutation={LOGINEMPRESAS}>
+        {
 
-
-    let titulo = <center><strong><h3>iniciar sesión</h3></strong></center>
-    return(
-       <React.Fragment>
-       <div id="apppage" >  
+    (login, {data, error}) => {
+    if (data){
+      this.handleData(data)
+    } 
+    return ( 
+        <React.Fragment>
+      <form onSubmit={e => this.handleForm(e,login)}>
+      <div id="apppage">        
         <MDBView>
           <MDBMask >
-          <div style={{marginLeft:"70%",marginTop:"3%"}}>
+            <MDBContainer>
               <MDBRow  >
+              <img src = {diagnostico} style={{width:250,marginTop:"38%",marginLeft:"28%",height:90}}/>
               <MDBAnimation type="fadeInRight" delay=".3s">
-              <Card title = {titulo} style={{width:"100%"}}>
-              <div className="h5 text-center">
-                <center>
-               <img src = {diagnostico} style={{width:180,height:60}}/>
-               </center>
-              </div>
-                  <MDBCardBody style={{padding:10}}className="mx-4">
-                  <Form onSubmit={this.onSubmitBtn}> 
-                  <MDBInput                          
-                   id="rfc"
-                   type="text"
-                   name="rfc"
-                   onChange={this.onChangeInput}
-                   value={this.state.rfc}
-                   required
-                   label="Ingrese su RFC"
-                   validate
-                   />    
-                   <MDBInput  
-                     size="md"
-                     id="password"
-                     type="password"
-                     name="password"
-                     onChange={this.onChangeInput}
-                     value={this.state.password}
-                     required                         
-                     label="Contraseña"  
-                     type={isPasswordShown ? "text" : "password"}
-                   ><i
-                      style={{marginTop:"5%"}} 
-                      className="fa fa-eye password-icon"
-                      onClick={this.togglePasswordVisiblity}
-                   /></MDBInput>
+              <MDBCard style={{width:"100%",marginTop:"2%",marginLeft:"70%"}} >
+                <div className="header pt-3 grey lighten-2">
+                  <MDBRow className="d-flex justify-content-center">
+                    <h3 className="deep-grey-text mt-3 mb-4 pb-1 mx-5">
+                      Iniciar sesión
+                    </h3>
+                  </MDBRow>
+                </div>
+                  <MDBCardBody className="mx-4 mt-4">
+                    <MDBInput label="Ingrese su RFC" group type="text" validate   id="rfc" onChange={this.handleInput} />
+                    <MDBInput
+                      id="password" 
+                      label="Contraseña"
+                      group
+                      type="password"
+                      validate
+                      containerClass="mb-0"
+                      onChange={this.handleInput} 
+                    />
                     <div className="text-center mb-4 mt-5">
                     <MDBBtn
                       color='success'
-                      onClick={e=> this.onSubmitBtn()}
+                      rounded
+                      type='submit'
                       className='btn-block z-depth-1'
-                      size="sm"
-                      >
-                      Iniciar sesión
+                    >
+                      Ingresar
                     </MDBBtn>
                     </div>
-                    </Form>
+                  
                   </MDBCardBody>
-                </Card>
+                </MDBCard>
                 </MDBAnimation>   
-              </MDBRow>  
-              </div>
-        
+|
+              </MDBRow>          
+            </MDBContainer>
           </MDBMask>
         </MDBView>
       </div>
-   </React.Fragment>
-
-
-    )        
-   
+      </form>
+      </React.Fragment>
+                 )
+            }
+        }
+      </Mutation>
+    );
   }
 }
 
