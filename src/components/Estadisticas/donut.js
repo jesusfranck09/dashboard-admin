@@ -389,7 +389,7 @@ class Donut extends Component {
 			/>
 			let graficas;
 			if(verGraficas === true){
-				graficaTitulo = <h6 style={{marginTop:"4%"}}><strong>Gráficas de distribucion en {localStorage.getItem("razonsocial")}</strong></h6>
+				graficaTitulo = <h6 style={{marginTop:"4%"}}><strong>Gráficas de distribución en {localStorage.getItem("razonsocial")}</strong></h6>
 				graficas = <div style={{marginTop:"5%"}} className="graficasEstadistica">
 				<FloatingButton>
 				<Item
