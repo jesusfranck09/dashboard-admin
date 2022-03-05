@@ -1565,7 +1565,7 @@ const options = {
         </MDBCardBody>
         </Card>
         <Card  type="inner" title={ <div><center>{titulo2}{progressInstanceRP}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
-        <MDBCardBody>        
+        <MDBCardBody style={{padding:"10px"}}>        
         <center>
          <MDBBtn color = "success" size  = "sm" onClick = {e => this.tablaRPContestado()}> Realizada </MDBBtn>  
          <MDBBtn color= "danger" size = "sm" onClick = {e => this.tablaRPNoContestado()}>No realizada</MDBBtn>
@@ -1573,7 +1573,7 @@ const options = {
         </MDBCardBody>
         </Card>
         <Card  type="inner" title={ <div><center>{titulo3}{progressInstanceEEO}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
-        <MDBCardBody>        
+        <MDBCardBody style={{padding:"10px"}}>        
          <center>        
          <MDBBtn color = "success" size  = "sm" onClick = { e => this.tablaEEOContestado()}> Realizada </MDBBtn>  
          <MDBBtn color= "danger" size = "sm" onClick = { e => this.tablaEEONoContestado()}>No realizada</MDBBtn>
