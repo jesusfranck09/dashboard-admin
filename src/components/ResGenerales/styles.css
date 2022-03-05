@@ -6,6 +6,8 @@
 .graficasATS{
   display: flex;
   justify-content: left;
+  width:"100%";
+
 }
 .cardATS {
   width:"100%";

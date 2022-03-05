@@ -584,7 +584,7 @@ class Estadisticas extends React.Component {
     let urlLogo = localStorage.getItem("urlLogo");
     let cardInicial;
     if(this.state.cardInicial === true){
-      cardInicial = <Card style={{marginTop:"5%",padding:"10px",width:"80%",marginLeft:"5%"}} title = {<h6><strong>Guía de referencia. V (Estadísticas generales)</strong></h6>} extra = { <Button  className = "text-white"  type="primary" onClick={(e)=>this.generarReporte(datosEmpleados)}>Generar reporte</Button>}>
+      cardInicial = <Card style={{marginTop:"3%",padding:"10px",width:"80%",marginLeft:"5%"}} title = {<h6><strong>Guía de referencia. V (Estadísticas generales)</strong></h6>} extra = { <Button  className = "text-white"  type="primary" onClick={(e)=>this.generarReporte(datosEmpleados)}>Generar reporte</Button>}>
       <MUIDataTable
         data={data}
         columns={columns}

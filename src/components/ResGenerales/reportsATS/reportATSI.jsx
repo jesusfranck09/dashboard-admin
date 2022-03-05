@@ -74,8 +74,7 @@ class ReportATSI extends Component {
         return ( 
         <React.Fragment>
             <center>
-            <Card style={{width:"90%",padding:"25px"}}title = {<h6><strong>Resultados individuales de la evaluación ATS</strong></h6>} extra = {<div><Button type="primary" className="text-white" onClick={(e) => { this.pdfExportComponent.save(); }}>Descargar reporte</Button>&nbsp;&nbsp;&nbsp;<Button type="dashed" danger onClick={e=>window.location.reload()}>Cerrar</Button></div>}>
-            <center>
+            <Card style={{width:"100%",padding:"25px"}}title = {<h6><strong>Resultados individuales de la evaluación ATS</strong></h6>} extra = {<div><Button type="primary" className="text-white" onClick={(e) => { this.pdfExportComponent.save(); }}>Descargar reporte</Button>&nbsp;&nbsp;&nbsp;<Button type="dashed" danger onClick={e=>window.location.reload()}>Cerrar</Button></div>}>
                 <table style={{width:"70%"}}>
                     <tr>
                         <td width="70%">
@@ -87,7 +86,7 @@ class ReportATSI extends Component {
                     </tr>
                 </table>    
                 &nbsp;&nbsp;&nbsp; 
-                <p  style={{marginTop:"2%"}}><strong>CUESTIONARIO PARA IDENTIFICAR LOS ACONTECIMIENTOS TRAUMÁTICOS SEVEROS EN LOS CENTROS DE TRABAJO<br/></strong></p></center>
+                <p  style={{marginTop:"2%"}}><strong>CUESTIONARIO PARA IDENTIFICAR LOS ACONTECIMIENTOS TRAUMÁTICOS SEVEROS EN LOS CENTROS DE TRABAJO<br/></strong></p>
             <table className="table table-borderless table-small" style={{marginTop:"5%",alignItems:"left"}}>
                 <tr>
                     <td>

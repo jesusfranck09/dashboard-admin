@@ -817,7 +817,6 @@ class App extends React.Component {
         let filtro7 = this.state.filtro7; let filtro8 = this.state.filtro8
         let descarga = this.state.descarga
         let peticion1 = this.state.peticion1
-        console.log("peticion1",peticion1)
         reporteGlobal = <ReportATSG fechaEmision = {this.state.date} evaluacionesConsideradas = {this.state.datosLength} filtro1={filtro1} filtro2={filtro2} filtro3={filtro3} filtro4={filtro4}
          filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8} descarga={descarga} filtrado = {filtrado} peticion1 = {peticion1}/>
         }

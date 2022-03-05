@@ -376,7 +376,7 @@ let DominioSeis = (valor23+valor24+valor25+valor28+valor29).toFixed(2);
       let titulo3 =<p className="textabla2"><font color="blue">III.- Resultados por Dimensión</font> </p>
   
       return ( 
-        <React.Fragment>
+        <React.Fragment> 
             <center>
             <Card style={{width:"70%",padding:"25px"}} title={<h6><strong>Resultados individuales de la aplicación de la evaluación RP</strong></h6>} extra = {<div>{botonDescargarReporteIndividualResultados}&nbsp;&nbsp;&nbsp;{cerrarReporte}</div>}>
             <table style={{width:"70%"}}>

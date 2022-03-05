@@ -70,7 +70,7 @@ class Home extends React.Component {
       tablaEEOContestado:false,
       tablaEEONoContestado:false,
       tablaATSDetectado:false,
-
+      graficaDistribucionInicial:true
       
     };
     this.ads = this.ads.bind(this);
@@ -933,6 +933,8 @@ tablaATSContestado(){
   this.setState({tablaEEOContestado:false})
   this.setState({tablaEEONoContestado:false})
   this.setState({tablaATSDetectado:false})
+  this.setState({graficaDistribucionInicial:false})
+
 }
 tablaATSNoContestado(){
   this.setState({tablaEmpleados:false})
@@ -943,6 +945,7 @@ tablaATSNoContestado(){
   this.setState({tablaEEOContestado:false})
   this.setState({tablaEEONoContestado:false})
   this.setState({tablaATSDetectado:false})
+  this.setState({graficaDistribucionInicial:false})
 }
 tablaRPContestado(){
   this.setState({tablaEmpleados:false})
@@ -953,6 +956,7 @@ tablaRPContestado(){
   this.setState({tablaEEOContestado:false})
   this.setState({tablaEEONoContestado:false})
   this.setState({tablaATSDetectado:false})
+  this.setState({graficaDistribucionInicial:false})
 }
 
 tablaRPNoContestado(){
@@ -964,6 +968,7 @@ tablaRPNoContestado(){
   this.setState({tablaEEOContestado:false})
   this.setState({tablaEEONoContestado:false})
   this.setState({tablaATSDetectado:false})
+  this.setState({graficaDistribucionInicial:false})
 }
 tablaEEOContestado(){
   this.setState({tablaEmpleados:false})
@@ -974,6 +979,7 @@ tablaEEOContestado(){
   this.setState({tablaEEOContestado:true})
   this.setState({tablaEEONoContestado:false})
   this.setState({tablaATSDetectado:false})
+  this.setState({graficaDistribucionInicial:false})
 }
 tablaEEONoContestado(){
   this.setState({tablaEmpleados:false})
@@ -984,6 +990,7 @@ tablaEEONoContestado(){
   this.setState({tablaEEOContestado:false})
   this.setState({tablaEEONoContestado:true})
   this.setState({tablaATSDetectado:false})
+  this.setState({graficaDistribucionInicial:false})
 }
 tablaATSDetectado(){
   this.setState({tablaEmpleados:false})
@@ -994,37 +1001,89 @@ tablaATSDetectado(){
   this.setState({tablaEEOContestado:false})
   this.setState({tablaEEONoContestado:false})
   this.setState({tablaATSDetectado:true})
+  this.setState({graficaDistribucionInicial:false})
 }
 cerraTablas(parametro){
 if(parametro === 1){
+  this.setState({graficaDistribucionInicial:true})
   this.setState({tablaEmpleados:true})
   this.setState({tablaATSContestado:false})
+  this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:false})
+  this.setState({tablaATSDetectado:false})
+  this.setState({tablaEEONoContestado:false})
 }
 else if(parametro === 2){
+  this.setState({graficaDistribucionInicial:true})
   this.setState({tablaEmpleados:true})
+  this.setState({tablaATSContestado:false})
   this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:false})
+  this.setState({tablaATSDetectado:false})
+  this.setState({tablaEEONoContestado:false})
+  
 }
 else if(parametro === 3){
+  this.setState({graficaDistribucionInicial:true})
   this.setState({tablaEmpleados:true})
+  this.setState({tablaATSContestado:false})
+  this.setState({tablaATSNoContestado:false})
   this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:false})
+  this.setState({tablaATSDetectado:false})
+  this.setState({tablaEEONoContestado:false})
 }
 else if(parametro === 4){
+  this.setState({graficaDistribucionInicial:true})
   this.setState({tablaEmpleados:true})
+  this.setState({tablaATSContestado:false})
+  this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:false})
   this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:false})
+  this.setState({tablaATSDetectado:false})
+  this.setState({tablaEEONoContestado:false})
 }
 else if(parametro === 5){
+  this.setState({graficaDistribucionInicial:true})
   this.setState({tablaEmpleados:true})
+  this.setState({tablaATSContestado:false})
+  this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:false})
   this.setState({tablaEEOContestado:false})
+  this.setState({tablaATSDetectado:false})
+  this.setState({tablaEEONoContestado:false})
 }
 else if(parametro === 6){
+  this.setState({graficaDistribucionInicial:true})
   this.setState({tablaEmpleados:true})
+  this.setState({tablaATSContestado:false})
+  this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:false})
+  this.setState({tablaATSDetectado:false})
   this.setState({tablaEEONoContestado:false})
 }
 else if(parametro === 7){
+  this.setState({graficaDistribucionInicial:true})
   this.setState({tablaEmpleados:true})
+  this.setState({tablaATSContestado:false})
+  this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:false})
   this.setState({tablaATSDetectado:false})
+  this.setState({tablaEEONoContestado:false})
 }
 else if(parametro === 8){
+  this.setState({graficaDistribucionInicial:true})
   this.setState({tablaEmpleados:true})
   this.setState({tablaATSContestado:false})
   this.setState({tablaATSNoContestado:false})
@@ -1125,7 +1184,7 @@ const options = {
     let tituloTablaVacia = <h6><strong>Por el momento no hay datos que mostrar</strong></h6>
     const dataATSContestado =  [];
     let tablaVacia  = 
-    <div style = {{width:680}}>
+    <div style = {{width:"56%"}}>
     <Card title={tituloTablaVacia} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(8)}>Cerrar</Boton></div>}><MUIDataTable
     data={dataATSContestado}
     columns={columnsATSContestado}
@@ -1241,7 +1300,7 @@ const options = {
 
     let tituloEmpleado = <h6><strong>Empleados registrados</strong></h6>
    if(this.state.tablaEmpleados === true && data[0]){
-    tablaEmpleados = <div style = {{width:"56%",marginLeft:"1%"}} >
+    tablaEmpleados = <div style={{width:"56%"}}>
     <Card title = {tituloEmpleado} extra={<div><label style={{color:'blue'}}><strong>Información del sistema</strong></label> &nbsp;<Boton type="dashed" onClick={this.handleDropdown}><i class="fas fa-mouse-pointer"></i></Boton></div>}>  
     <MUIDataTable
       data={data}
@@ -1263,7 +1322,7 @@ const options = {
     </Card>
     </div> 
    }else{
-    tablaEmpleados = <div style = {{width:680}} >
+    tablaEmpleados = <div style = {{width:"56%"}} >
     {Alerta}
     {dep}
     {suc}
@@ -1279,7 +1338,7 @@ const options = {
       return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
     })
     let tituloATSContesado = <h6><strong>Empleados que ya realizaron la evaluación ATS</strong></h6>
-    tablaATSContestado = <div style = {{width:680}} >
+    tablaATSContestado = <div style = {{width:"70%"}}>
     <Card title={tituloATSContesado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(1)}>Cerrar</Boton></div>}>  
     <MUIDataTable
       data={dataATSContestado}
@@ -1298,7 +1357,7 @@ const options = {
         return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
       })
       let tituloATSNoContestado = <h6><strong>Empleados que aun no realizan la evaluación ATS</strong></h6>
-      tablaATSNoContestado = <div style = {{width:680}} >
+      tablaATSNoContestado = <div style = {{width:"70%"}}>
       <Card title={tituloATSNoContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(2)}>Cerrar</Boton></div>}>  
 
       <MUIDataTable
@@ -1321,7 +1380,7 @@ const options = {
         })
         let tituloRPContestado = <h6><strong>Empleados que ya realizaron la evaluación RP</strong></h6>
         tablaRPContestado =
-        <div style = {{width:680}} >
+        <div  style = {{width:"70%"}}>
         <Card title={tituloRPContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(3)}>Cerrar</Boton></div>}>  
         <MUIDataTable
           data={dataRPContestado}
@@ -1343,7 +1402,7 @@ const options = {
           })
           let tituloRPNoContestado = <h6><strong>Empleados aun no realizan la evaluación RP</strong></h6>
           tablaRPNoContestado = 
-          <div style = {{width:680}} >
+          <div style = {{width:"70%"}}>
           <Card title={tituloRPNoContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(4)}>Cerrar</Boton></div>}>  
           <MUIDataTable
             data={dataRPNoContestado}
@@ -1367,7 +1426,7 @@ const options = {
             })
             let tituloEEOContestado = <h6><strong>Empleados que ya realizaron la evaluación EEO</strong></h6>
             tablaEEOContestado = 
-            <div style = {{width:680}} >
+            <div style = {{width:"70%"}}>
             <Card title={tituloEEOContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(5)}>Cerrar</Boton></div>}>  
             <MUIDataTable
               data={dataEEOContestado}
@@ -1388,7 +1447,7 @@ const options = {
               let tituloEEONoContestado = <h6><strong>Empleados aún no realizan la evaluación EEO</strong></h6>
 
               tablaEEONoContestado = 
-              <div style = {{width:680}} >
+              <div  style = {{width:"70%"}}>
               <Card title={tituloEEONoContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(6)}>Cerrar</Boton></div>}>  
               <MUIDataTable
                 data={dataEEONoContestado}
@@ -1411,7 +1470,7 @@ const options = {
                 })
                 let tituloAtsDetectado = <h6><strong>Empleados con ATS detectado</strong></h6>
                 tablaATSDetectado = 
-                <div style = {{marginLeft:"5%"}} >
+                <div  style = {{width:"70%"}}>
                 <Card title={tituloAtsDetectado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(7)}>Cerrar</Boton></div>}>  
                 <MUIDataTable
                   data={dataATSDetectado}
@@ -1445,6 +1504,52 @@ const options = {
       let edad6070 =  this.state.empleadosTotales.filter(function(rows){
         return rows.FechaNacimiento === "60 A 64" || rows.FechaNacimiento === "65 A 69" || rows.FechaNacimiento === "70 A más"
       })
+
+      let graficaDistribucionInicial;
+      if(this.state.graficaDistribucionInicial === true){
+        graficaDistribucionInicial =  <Card title={<h6><strong>Gráficas de distribución de empleados actuales</strong></h6>}>
+        <Card>
+        <Chart
+          width={'400px'}
+          height={'250px'}
+          chartType="PieChart"
+          loader={<div>Cargando distribución</div>}
+          data={[
+            ['Género', 'Total'],
+            ['Hombres', hombres.length],
+            ['Mujeres', mujeres.length],
+            
+          ]}
+          options={{
+            title: 'Distribución por Género',
+            is3D: true,
+          }}
+          rootProps={{ 'data-testid': '2' }}
+        />
+        </Card>
+        <Card>
+        <Chart
+          width={'400px'}
+          height={'250px'}
+          chartType="PieChart"
+          loader={<div>Cargando dostribución</div>}
+          data={[
+            ['Rango', 'Edad'],
+            ['De 15 a 29', edad1529.length],
+            ['De 30 a 34', edad3044.length],
+            ['De 45 a 59', edad4559.length],
+            ['De 60 a 70 años o más', edad6070.length],
+          ]}
+          options={{
+            title: 'Distribción por Edad',
+            is3D: true,
+          }}
+          rootProps={{ 'data-testid': '2' }}
+        />
+        </Card> 
+        
+        </Card>
+      }
       return (
       <React.Fragment>
       <div>
@@ -1476,61 +1581,25 @@ const options = {
        </MDBCardBody>
        </Card>
         </div>
-          <MDBRow style={{marginLeft:"10%",marginTop:"2%"}}>
+        <div style = {{marginTop:"2%"}} className = "tablaEmpleados">
           {tablaEmpleados}
-          {tablaATSContestado}
+          
+          {graficaDistribucionInicial}
+          
+        </div>
+        <center>
+        {tablaATSContestado}
           {tablaATSNoContestado}
           {tablaRPContestado}
           {tablaRPNoContestado}
           {tablaEEOContestado}
           {tablaEEONoContestado}
           {tablaATSDetectado}
-          <Card title={<h6><strong>Gráficas de distribución de empleados actuales</strong></h6>} style={{marginLeft:"3%"}}>
-          <Card>
-          <Chart
-            width={'400px'}
-            height={'250px'}
-            chartType="PieChart"
-            loader={<div>Cargando distribución</div>}
-            data={[
-              ['Género', 'Total'],
-              ['Hombres', hombres.length],
-              ['Mujeres', mujeres.length],
-              
-            ]}
-            options={{
-              title: 'Distribución por Género',
-              is3D: true,
-            }}
-            rootProps={{ 'data-testid': '2' }}
-          />
-          </Card>
-          <Card>
-          <Chart
-            width={'400px'}
-            height={'250px'}
-            chartType="PieChart"
-            loader={<div>Cargando dostribución</div>}
-            data={[
-              ['Rango', 'Edad'],
-              ['De 15 a 29', edad1529.length],
-              ['De 30 a 34', edad3044.length],
-              ['De 45 a 59', edad4559.length],
-              ['De 60 a 70 años o más', edad6070.length],
-            ]}
-            options={{
-              title: 'Distribción por Edad',
-              is3D: true,
-            }}
-            rootProps={{ 'data-testid': '2' }}
-          />
-          </Card> 
-          </Card>
-         </MDBRow> 
         {updateLogo}
         {modalInfoG}
         {cargarLogo}
         {modificarLogo}
+        </center>
         </div>
       </div>
       <div><ModalVideo channel='vimeo' isOpen={this.state.isOpen} videoId='461258739' onClose={() => this.setState({isOpen: false})} /></div>

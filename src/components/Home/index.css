@@ -7,7 +7,15 @@ html, body {
 }
 .cardPorcentaje{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   margin-left: 5%;
+}
+
+.tablaEmpleados{
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 3%;
+  width: 100%;
+  flex-direction: row;
 }
 
