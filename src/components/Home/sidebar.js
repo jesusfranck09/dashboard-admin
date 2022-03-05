@@ -12,18 +12,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
-// import MailIcon from '@material-ui/icons/Mail';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import {Link} from 'react-router-dom'
-import SettingsIcon from '@material-ui/icons/Settings';
-import SpellcheckIcon from '@material-ui/icons/Spellcheck';
-import DoneIcon from '@material-ui/icons/Done';
-import AssignmentTurnedInOutlinedIcon from '@material-ui/icons/AssignmentTurnedInOutlined';
-import HowToRegOutlinedIcon from '@material-ui/icons/HowToRegOutlined';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import R from '../images/r.svg'
-
 const drawerWidth = 340;
 
 const useStyles = makeStyles((theme) => ({
@@ -80,7 +70,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
   content: {
@@ -106,16 +95,7 @@ export default function MiniDrawer() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      {/* <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      > */}
-     
-      {/* </AppBar> */}
       <Drawer
-
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -128,11 +108,9 @@ export default function MiniDrawer() {
           }),
         }}
         open={open}
-      >
-         
-          
+      >          
         <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
+              <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
@@ -191,7 +169,7 @@ export default function MiniDrawer() {
  
         <Link to="/adminGral" style={{ textDecoration: 'none',color: 'blue' }}>
         <List >
-          {['Gestionar mi Empresa'].map((text) => (
+          {['Administración general'].map((text) => (
             <ListItem button key={text} >
               <ListItemIcon> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg> </ListItemIcon>
               <ListItemText primary={text} />

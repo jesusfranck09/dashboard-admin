@@ -1,76 +1,30 @@
 import React from 'react';
-
-import { MDBContainer} from 'mdbreact';
 import { API} from '../utils/http'
-import MenuIcon from '@material-ui/icons/Menu';
 import MUIDataTable from "mui-datatables";
-import Grow from "@material-ui/core/Grow";
-import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
-import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
-import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import '../Home/index.css'
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { MDBRow,MDBCol} from 'mdbreact'
-import Button from '@material-ui/core/Button';
+import {Button} from 'antd';
 import axios from 'axios'
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Navbar from './navbar'
-import Modal from 'react-modal';
-import {
-  Grid    
-} from '@material-ui/core';
-
+import { Tabs } from 'antd';
+import './style.css';
+import {Card} from 'antd'
+const { TabPane } = Tabs;
 
 class TableEmployees extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      collapse: false,
-      isOpen: false,
-      datos:[],
-      propiedades:[]   ,
-      showModal2: false,     
-      ATSContestado:'',
-      periodoActivo:'',
-      correosEnviados:'',
-      correos:[],
-      ventanaATS:'',
-      ventanaRP:'',
-      ventanaEEO:'',
-      empleadosATS:[],
-      empleadosRP:[],
-      empleadosEEO:[]
-   
-    };
-    this.onClick = this.onClick.bind(this);
-    this.handleclick = this.handleclick.bind(this);
-    this.handleLogOut = this.handleLogOut.bind(this);
-    this.ads = this.ads.bind(this);
-
-  }
-
-
+      constructor(props) {
+        super(props);
+        this.state = {
+          periodoActivo:'',
+          correos:[],
+          empleadosATS:[],
+          empleadosRP:[],
+          empleadosEEO:[],
+          size: 'large'
+        };
+      }
       componentWillMount(){
-        this.getEmployees()
-        var Nombre = localStorage.getItem("nombre")
-        var Apellidos = localStorage.getItem("apellidos")
-    
-    
-        var LaFecha=new Date();
-        var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
-        var diasemana=LaFecha.getDay();
-        var FechaCompleta="";
-        var NumeroDeMes="";    
-        NumeroDeMes=LaFecha.getMonth();
-        FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
-    
-        this.setState({date:FechaCompleta}) 
-        this.setState({nombre:Nombre}) 
-        this.setState({apellidos:Apellidos}) 
-
         let idAdmin = localStorage.getItem("idAdmin")
-        // const url = 'http://localhost:8000/graphql'
          axios({
           url:  API,
           method:'post',
@@ -89,167 +43,174 @@ class TableEmployees extends React.Component {
         })
         .then(datos => {	
         this.setState({periodoActivo : datos.data.data.getPeriodo.length})
-      
         }).catch(err=>{
           console.log("error",err.response)
         })
+        this.getEmployeesPeriodo()
       }
-      onClick() {
-        this.setState({
-          collapse: !this.state.collapse,
-        });
-      }
-    
+
     handleclick(){
     this.props.history.push("/profile")
     }
-    
-  getEmployees = async event => {
-    var idAdmin  = localStorage.getItem("idAdmin")  
-    // const url = 'http://localhost:8000/graphql'
-     await axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:`
-        query{
-          getUsersTableEmployees(data:"${[idAdmin]}"){
-            id
-            nombre
-            ApellidoP
-            ApellidoM
-            Curp
-            RFC
-            FechaNacimiento
-            Sexo
-            EstadoCivil
-            correo
-            AreaTrabajo
-            Puesto
-            TipoPuesto
-            NivelEstudios
-            TipoPersonal
-            JornadaTrabajo
-            TipoContratacion
-            TiempoPuesto
-            ExperienciaLaboral
-            RotacionTurnos
-            fk_administrador
-            ATSContestado
-            RPContestado
-            EEOContestado
-            CentroTrabajo
+    getEmployeesPeriodo = async() =>{
+    let array7 = [];
+  
+    const idAdmin= localStorage.getItem("idAdmin");
+    let periodo = localStorage.getItem("periodo"); 
+    let arrayDatos = [];
+    await axios({
+      url:  API,
+      method:'post',
+      data:{
+      query:`
+          query{
+            getUsersTableEmployees(data:"${idAdmin}"){
+              id
+              nombre
+              ApellidoP
+              ApellidoM
+              Curp
+              RFC
+              FechaNacimiento
+              Sexo
+              CentroTrabajo
+              EstadoCivil
+              correo
+              AreaTrabajo
+              Puesto
+              TipoPuesto
+              NivelEstudios
+              TipoPersonal
+              JornadaTrabajo
+              TipoContratacion
+              TiempoPuesto
+              ExperienciaLaboral
+              RotacionTurnos
+              fk_administrador
+              ATSContestado
+              RPContestado
+              EEOContestado
+              ATSDetectado
+                }
               }
-            }
+              `
+          }
+          }).then((datos) => {
+            
+            let datosEmpleados = datos.data.data.getUsersTableEmployees;
+            arrayDatos.push(datosEmpleados);                       
+          })
+          .catch((error) => {
+          }); 
+
+          let evaluacionesRealizadasPeriodoActual;
+          let evaluacionATSContestado;
+          let resultATS;
+          let evaluacionRPContestado;
+          let resultRP;
+          let evaluacionEEOContestado;
+          let resultEEO;
+
+          axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+            query{
+                getEmployeesPerido(data:"${[idAdmin]}"){
+                  id
+                  nombre
+                  ApellidoP
+                  ApellidoM
+                  CentroTrabajo
+                  idPeriodo
+                  periodo
+                  encuesta
+                  fk_empleados
+  
+                }
+              }
             `
-        }
-            }).then((datos) => {
-              this.setState({ datos: datos.data.data.getUsersTableEmployees});
-            })
-            .catch((error) => {
-              console.log(".cartch" , error.response)
-          });
-
-          axios({
-            url:  API,
-            method:'post',
-            data:{
-            query:`
-             query{
-              getCorreos(data:"${[idAdmin]}"){
-                    Encuesta
-                    fecha
-                    nombre
-                    ApellidoP
-                    ApellidoM
-                    Curp
-                     }
-                  }
-                `
-            }
-          })
-          .then(datos => {	
-          this.setState({correos:datos.data.data.getCorreos})
-          }).catch(err=>{
-            console.log("error",err)
-          })
-          
-
-          axios({
-            url:  API,
-            method:'post',
-            data:{
-            query:`
-             query{
-              getEmployeesResolvesSurveyATSFalse(data:"${[idAdmin]}"){
-                    id
-                    nombre
-                    ApellidoP
-                    ApellidoM
-                    correo
-                    CentroTrabajo
-                    }
-                  }
-                `
-              }
-          })
-          .then(datos => {	
-          this.setState({empleadosATS:datos.data.data.getEmployeesResolvesSurveyATSFalse})
-          }).catch(err=>{
-            console.log("error",err)
+          }
+        })
+        .then(datos => {	
+          evaluacionesRealizadasPeriodoActual =   datos.data.data.getEmployeesPerido;
+          evaluacionesRealizadasPeriodoActual.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
+          evaluacionATSContestado = evaluacionesRealizadasPeriodoActual.filter(function(hero){
+            return hero.encuesta ==="ATS"
           }) 
-
-          axios({
-            url:  API,
-            method:'post',
-            data:{
-            query:`
-             query{
-              getEmployeesResolvesSurveyRPFalse(data:"${[idAdmin]}"){
-                    id
-                    nombre
-                    ApellidoP
-                    ApellidoM
-                    correo
-                    CentroTrabajo
-                    }
-                  }
-                `
-              }
+          resultATS = evaluacionATSContestado.filter(function(hero){
+            return hero.periodo === periodo 
           })
-          .then(datos => {	
-          this.setState({empleadosRP:datos.data.data.getEmployeesResolvesSurveyRPFalse})
-          }).catch(err=>{
-            console.log("error",err)
-          }) 
-
-          axios({
-            url:  API,
-            method:'post',
-            data:{
-            query:`
-             query{
-              getEmployeesResolvesSurveyEEOFalse(data:"${[idAdmin]}"){
-                    id
-                    nombre
-                    ApellidoP
-                    ApellidoM
-                    correo
-                    CentroTrabajo
-                    }
-                  }
-                `
+          let arrayInicial = arrayDatos[0];
+          var arrayATS = [];
+          for (var i = 0; i < arrayInicial.length; i++) {
+              var igual=false;
+              for (var j = 0; j < resultATS.length & !igual; j++) {
+                  if(arrayInicial[i].id == resultATS[j].id) 
+                          igual=true;
               }
-          })
-          .then(datos => {	
-          this.setState({empleadosEEO:datos.data.data.getEmployeesResolvesSurveyEEOFalse})
-          }).catch(err=>{
-            console.log("error",err)
+              if(!igual)arrayATS.push(arrayInicial[i]);
+          }
+          this.setState({empleadosATS:arrayATS})
+          evaluacionRPContestado = evaluacionesRealizadasPeriodoActual.filter(function(hero){
+            return hero.encuesta === "RP"
           }) 
-
-
-        }
-
+          resultRP = evaluacionRPContestado.filter(function(hero){
+            return hero.periodo === periodo 
+          })
+      
+          var arrayRP = [];
+          for (var iRP = 0; iRP < arrayInicial.length; iRP++) {
+              var igualRP=false;
+              for (var jRP = 0; jRP < resultRP.length & !igualRP; jRP++) {
+                  if(arrayInicial[iRP].id == resultRP[jRP].id) 
+                          igualRP=true;
+              }
+              if(!igualRP)arrayRP.push(arrayInicial[iRP]);
+          }
+          this.setState({empleadosRP:arrayRP})
+          evaluacionEEOContestado = evaluacionesRealizadasPeriodoActual.filter(function(hero){
+            return hero.encuesta === "EEO"
+          }) 
+          resultEEO = evaluacionEEOContestado.filter(function(hero){
+            return hero.periodo === periodo 
+          })
+          var arrayEEO = [];
+          for (var iEEO = 0; iEEO < arrayInicial.length; iEEO++) {
+              var igualEEO=false;
+              for (var jEEO = 0; jEEO < resultEEO.length & !igualEEO; jEEO++) {
+                  if(arrayInicial[iEEO].id == resultEEO[jEEO].id) 
+                          igualEEO=true;
+              }
+              if(!igualEEO)arrayEEO.push(arrayInicial[iEEO]);
+          }
+          this.setState({empleadosEEO:arrayEEO})
+        })
+        axios({
+          url:  API,
+          method:'post',
+          data:{
+          query:`
+           query{
+            getCorreos(data:"${[idAdmin]}"){
+                  Encuesta
+                  fecha
+                  nombre
+                  ApellidoP
+                  ApellidoM
+                  Curp
+                   }
+                }
+              `
+          }
+        })
+        .then(datos => {	
+        this.setState({correos:datos.data.data.getCorreos})
+        }).catch(err=>{
+          console.log("error",err)
+        })
+    }
     handleLogOut(){
     localStorage.removeItem("elToken")
     localStorage.removeItem("nombre")
@@ -264,25 +225,12 @@ class TableEmployees extends React.Component {
       animationSettings: { effect: 'Fade' },           
       title: 'Hasta luego...!',
       position: "fixed",
-    
     }
     )
     }
-             
-    ads(){
-    
-      this.setState({showModal2:true})
-      
-    }
-
-     sendMailATS =  (datosEmpleados) =>{
-       console.log("datosEmpleados" , datosEmpleados)
-      const idAdmin = localStorage.getItem("idAdmin")
-      let array=[]
-        datosEmpleados.map(rows=>{
-         array.push(rows.data[0],[rows.data[4]])
-        })
-        console.log("periodo" , this.state.periodo)
+     sendMail =  (datosEmpleados,param) =>{
+      if(datosEmpleados && datosEmpleados[0]){
+        const idAdmin = localStorage.getItem("idAdmin")
         if ( this.state.periodoActivo > 0){
         axios({
         url:  API,
@@ -290,7 +238,7 @@ class TableEmployees extends React.Component {
         data:{
         query:` 
         mutation{
-          sendMail(data:"${[array,1,idAdmin]}"){
+          sendMail(data:"${[datosEmpleados,param,idAdmin]}"){
               message
                 }
               }
@@ -300,390 +248,300 @@ class TableEmployees extends React.Component {
               console.log("entro" ) 
               DialogUtility.alert({
                 animationSettings: { effect: 'Zoom' },           
-                content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,
+                content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados`,
                 title: 'Aviso!',
                 position: "fixed"
                 })
-                  setTimeout(() => {
-                    window.location.reload()
-                  },1000);
             }).catch(err=>{
               console.log("error", err.response)
             })
       }
-    }    
-        ///////////////////////////////////////////////////////////////////////////////////////
+      }else{
+        DialogUtility.alert({
+          animationSettings: { effect: 'Zoom' },           
+          content: `Por favor seleccione al menos un empleado para enviar el correo`,
+          title: 'Aviso!',
+          position: "fixed"
+          })
 
-     sendMailRP =(datosEmpleados) =>{
-      const idAdmin = localStorage.getItem("idAdmin")
-        let array=[]
-        datosEmpleados.map(rows=>{
-        array.push(rows.data[0],[rows.data[4]])
-        })
-      if ( this.state.periodoActivo > 0){
-          axios({
-          url:  API,
-          method:'post',
-          data:{
-          query:`
-          mutation{
-            sendMail(data:"${[array,2,idAdmin]}"){
-                message
-                  }
-                }
-              `
-          }
-              }).then(datos => {  
-                DialogUtility.alert({
-                  animationSettings: { effect: 'Zoom' },           
-                  content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,      
-                  title: 'Aviso!',
-                  position: "fixed"
-                  });
-                  setTimeout(() => {
-                    window.location.reload()
-                  }, 1000);
-              });    
-        }           
-        }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-     sendMailEEO =  async  (datosEmpleados) =>{
-      const idAdmin = localStorage.getItem("idAdmin")
-      let array=[]
-      datosEmpleados.map(rows=>{
-      array.push(rows.data[0],[rows.data[4]])
-      })
-      if (this.state.periodoActivo > 0){
-      
-          axios({
-          url:  API,
-          method:'post',
-          data:{
-          query:`
-          mutation{
-            sendMail(data:"${[array,3,idAdmin]}"){
-                message
-                  }
-                }
-              `
-          }
-              }).then(datos => {  
-                DialogUtility.alert({
-                  animationSettings: { effect: 'Zoom' },           
-                  content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados  espere por favor ...`,      
-                  title: 'Aviso!',
-                  position: "fixed"
-                  });
-                  setTimeout(() => {
-                    window.location.reload()
-                  }, 1000);
-              });
-           }     
-      }
+          setTimeout(()=>{
+            window.location.reload()
+          },2000)
+      } 
+    }    
+      onChange = e => {
+        this.setState({ size: e.target.value });
+      };
 
   render() {
-    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Correo","Centro de trabajo"];
-
+    const { size } = this.state;
+    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Correo","Centro de trabajo","Puesto"];
     const data = this.state.empleadosATS.map(rows=>{
-      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo])
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo,rows.Puesto])
     })
-
     const dataRP = this.state.empleadosRP.map(rows=>{
-      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo])
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo,rows.Puesto])
     })
     const dataEEO = this.state.empleadosEEO.map(rows=>{
-      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo])
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo,rows.Puesto])
     })
-
-    const columnss = ["Evaluación","Fecha", "Nombre",  "Apellido P.","Apellido M.","Curp"];
-
+    const columnss = ["Evaluación","Fecha", "Nombre",  "Apellido P.","Apellido M.","Curp","Status"];
     const datas = this.state.correos.map(rows=>{
-      return([rows.Encuesta,rows.fecha,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Curp])
+      console.log("data",rows)
+
+      return([rows.Encuesta,rows.fecha,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Curp,"Enviado"])
     })
 
     let datosEmpleados;
     let datosEmpleadosRP;
-    let filtroRP;
     let datosEmpleadosEEO;
-    let filtroEEO;
-    let filtro;
     const options = {
+        elevation:0,  
+        print:false,
+        download:false,
+        viewColumns:false, 
         filterType: "dropdown",
         responsive: "stacked",
         textLabels: {
-                   body: {
-                     noMatch: "Consultando información",
-                     toolTip: "Sort",
-                     columnHeaderTooltip: column => `Sort for ${column.label}`
-                   },
-                   pagination: {
-                     next: "Siguiente Página",
-                     previous: "Anterior Página",
-                     rowsPerPage: "Filas por Página:",
-                     displayRows: "de",
-                   },
-                   toolbar: {
-                     search: "Buscar",
-                     downloadCsv: "Descargar CSV",
-                     print: "Imprimir",
-                     viewColumns: "Ver Columnas",
-                     filterTable: "Filtrar Tabla",
-                   },
-                   filter: {
-                     all: "Todos",
-                     title: "Filtros",
-                     reset: "Deshacer",
-                   },
-                   viewColumns: {
-                     title: "Mostrar Columnas",
-                     titleAria: "Show/Hide Table Columns",
-                   },
-                   selectedRows: {
-                     text: "Filas Selecionadas",
-                     delete: "Borrar",
-                     deleteAria: "Eliminar Filas Seleccionadas",
-                   },
-                 },
-      
+          body: {
+            noMatch: "Consultando información",
+            toolTip: "Sort",
+            columnHeaderTooltip: column => `Sort for ${column.label}`
+          },
+          pagination: {
+            next: "Siguiente Página",
+            previous: "Anterior Página",
+            rowsPerPage: "Filas por Página:",
+            displayRows: "de",
+          },
+          toolbar: {
+            search: "Buscar",
+            downloadCsv: "Descargar CSV",
+            print: "Imprimir",
+            viewColumns: "Ver Columnas",
+            filterTable: "Filtrar Tabla",
+          },
+          filter: {
+            all: "Todos",
+            title: "Filtros",
+            reset: "Deshacer",
+          },
+          viewColumns: {
+            title: "Mostrar Columnas",
+            titleAria: "Show/Hide Table Columns",
+          },
+          selectedRows: {
+            text: "Filas Selecionadas",
+            delete: "Borrar",
+            deleteAria: "Eliminar Filas Seleccionadas",
+          },
+        },
+                 
         onTableChange: (action, tableState) => {
-        datosEmpleados = tableState.displayData
+          let array2 = []
+          let param1 = tableState.selectedRows.data
+          if(param1[0]){
+            let array = []
+            param1.map(param =>{
+              let filter = tableState.data.filter(function(rows){
+                return  rows.index  === param.index
+              })
+
+              array.push(filter)
+            })
+            if(array[0]){
+              array.map(rows=>{
+                if(rows[0]){
+                  array2.push([rows[0].data[0],rows[0].data[4]])
+                }
+              })
+            }
+          }
+        datosEmpleados = array2
         },
         onFilterChange: (action, filtroTable) => {
-          filtro=filtroTable
-          }     };
+          }     
+        };
 
           const optionsRP = {
+            print:false,
+            download:false,
+            viewColumns:false,
+            elevation:0,  
             filterType: "dropdown",
             responsive: "stacked",
             textLabels: {
-                       body: {
-                         noMatch: "Consultando información",
-                         toolTip: "Sort",
-                         columnHeaderTooltip: column => `Sort for ${column.label}`
-                       },
-                       pagination: {
-                         next: "Siguiente Página",
-                         previous: "Anterior Página",
-                         rowsPerPage: "Filas por Página:",
-                         displayRows: "de",
-                       },
-                       toolbar: {
-                         search: "Buscar",
-                         downloadCsv: "Descargar CSV",
-                         print: "Imprimir",
-                         viewColumns: "Ver Columnas",
-                         filterTable: "Filtrar Tabla",
-                       },
-                       filter: {
-                         all: "Todos",
-                         title: "Filtros",
-                         reset: "Deshacer",
-                       },
-                       viewColumns: {
-                         title: "Mostrar Columnas",
-                         titleAria: "Show/Hide Table Columns",
-                       },
-                       selectedRows: {
-                         text: "Filas Selecionadas",
-                         delete: "Borrar",
-                         deleteAria: "Eliminar Filas Seleccionadas",
-                       },
-                     },
+              body: {
+                noMatch: "Consultando información",
+                toolTip: "Sort",
+                columnHeaderTooltip: column => `Sort for ${column.label}`
+              },
+              pagination: {
+                next: "Siguiente Página",
+                previous: "Anterior Página",
+                rowsPerPage: "Filas por Página:",
+                displayRows: "de",
+              },
+              toolbar: {
+                search: "Buscar",
+                downloadCsv: "Descargar CSV",
+                print: "Imprimir",
+                viewColumns: "Ver Columnas",
+                filterTable: "Filtrar Tabla",
+              },
+              filter: {
+                all: "Todos",
+                title: "Filtros",
+                reset: "Deshacer",
+              },
+              viewColumns: {
+                title: "Mostrar Columnas",
+                titleAria: "Show/Hide Table Columns",
+              },
+              selectedRows: {
+                text: "Filas Selecionadas",
+                delete: "Borrar",
+                deleteAria: "Eliminar Filas Seleccionadas",
+              },
+            },
           
             onTableChange: (action, tableState) => {
-            datosEmpleadosRP = tableState.displayData
+              let array2 = []
+              let param1 = tableState.selectedRows.data
+              if(param1[0]){
+                let array = []
+                param1.map(param =>{
+                  let filter = tableState.data.filter(function(rows){
+                    return  rows.index  === param.index
+                  })
+    
+                  array.push(filter)
+                })
+                if(array[0]){
+                  array.map(rows=>{
+                    if(rows[0]){
+                      array2.push([rows[0].data[0],rows[0].data[4]])
+                    }                  })
+                }
+              }
+            datosEmpleadosRP = array2
             },
             onFilterChange: (action, filtroTable) => {
-              filtroRP=filtroTable
-              }     };
+              } };
 
               const optionsEEO = {
+                print:false,
+                download:false,
+                viewColumns:false,
+                elevation:0,  
                 filterType: "dropdown",
                 responsive: "stacked",
                 textLabels: {
-                           body: {
-                             noMatch: "Consultando información",
-                             toolTip: "Sort",
-                             columnHeaderTooltip: column => `Sort for ${column.label}`
-                           },
-                           pagination: {
-                             next: "Siguiente Página",
-                             previous: "Anterior Página",
-                             rowsPerPage: "Filas por Página:",
-                             displayRows: "de",
-                           },
-                           toolbar: {
-                             search: "Buscar",
-                             downloadCsv: "Descargar CSV",
-                             print: "Imprimir",
-                             viewColumns: "Ver Columnas",
-                             filterTable: "Filtrar Tabla",
-                           },
-                           filter: {
-                             all: "Todos",
-                             title: "Filtros",
-                             reset: "Deshacer",
-                           },
-                           viewColumns: {
-                             title: "Mostrar Columnas",
-                             titleAria: "Show/Hide Table Columns",
-                           },
-                           selectedRows: {
-                             text: "Filas Selecionadas",
-                             delete: "Borrar",
-                             deleteAria: "Eliminar Filas Seleccionadas",
-                           },
-                         },
+                    body: {
+                      noMatch: "Consultando información",
+                      toolTip: "Sort",
+                      columnHeaderTooltip: column => `Sort for ${column.label}`
+                    },
+                    pagination: {
+                      next: "Siguiente Página",
+                      previous: "Anterior Página",
+                      rowsPerPage: "Filas por Página:",
+                      displayRows: "de",
+                    },
+                    toolbar: {
+                      search: "Buscar",
+                      downloadCsv: "Descargar CSV",
+                      print: "Imprimir",
+                      viewColumns: "Ver Columnas",
+                      filterTable: "Filtrar Tabla",
+                    },
+                    filter: {
+                      all: "Todos",
+                      title: "Filtros",
+                      reset: "Deshacer",
+                    },
+                    viewColumns: {
+                      title: "Mostrar Columnas",
+                      titleAria: "Show/Hide Table Columns",
+                    },
+                    selectedRows: {
+                      text: "Filas Selecionadas",
+                      delete: "Borrar",
+                      deleteAria: "Eliminar Filas Seleccionadas",
+                    },
+                  },
               
                 onTableChange: (action, tableState) => {
-                datosEmpleadosEEO = tableState.displayData
+                  let array2 = []
+                  let param1 = tableState.selectedRows.data
+                  if(param1[0]){
+                    let array = []
+                    param1.map(param =>{
+                      let filter = tableState.data.filter(function(rows){
+                        return  rows.index  === param.index
+                      })
+                      array.push(filter)
+                    })
+                    if(array[0]){
+                      array.map(rows=>{
+                        if(rows[0]){
+                          array2.push([rows[0].data[0],rows[0].data[4]])
+                        }                      })
+                    }
+                  }
+                datosEmpleadosEEO = array2
                 },
                 onFilterChange: (action, filtroTable) => {
-                  filtroEEO=filtroTable
-                  }     };
-
-          const options2 = {
-            filterType: "dropdown",
-            responsive: "stacked",
-            textLabels: {
-                       body: {
-                         noMatch: "Consultando información",
-                         toolTip: "Sort",
-                         columnHeaderTooltip: column => `Sort for ${column.label}`
-                       },
-                       pagination: {
-                         next: "Siguiente Página",
-                         previous: "Anterior Página",
-                         rowsPerPage: "Filas por Página:",
-                         displayRows: "de",
-                       },
-                       toolbar: {
-                         search: "Buscar",
-                         downloadCsv: "Descargar CSV",
-                         print: "Imprimir",
-                         viewColumns: "Ver Columnas",
-                         filterTable: "Filtrar Tabla",
-                       },
-                       filter: {
-                         all: "Todos",
-                         title: "Filtros",
-                         reset: "Deshacer",
-                       },
-                       viewColumns: {
-                         title: "Mostrar Columnas",
-                         titleAria: "Show/Hide Table Columns",
-                       },
-                       selectedRows: {
-                         text: "Filas Selecionadas",
-                         delete: "Borrar",
-                         deleteAria: "Eliminar Filas Seleccionadas",
-                       },
-                     },
-         
-                       };
-    
-
-                      let correosEnviados;
-                      if(this.state.correosEnviados==='1'){
-                        correosEnviados =<MDBContainer style={{marginBottom:20}}>
-                          <MUIDataTable
-                            title={`Mis Correos`}
-                            data={datas}
-                            columns={columnss}
-                            options={options2}
-                          />
-                      </MDBContainer>  
-                      }
-                      
-    const container = { width: 2500, height: 1300 }
+                } };
+              
     return (
        <React.Fragment>
-          <div>
-              <Navbar/>
-             <MDBContainer style={container} className="text-center pt-5">
-            <MDBContainer style={container} className="text-center pt-2">
-            <ul>
-            <MDBRow>
-            <MDBCol> 
-           </MDBCol>
-            </MDBRow>   
-            </ul>        
-            <div style={{ height: "110%"}}>
-            <Button  startIcon={<MenuIcon />} color="primary" onClick={(e)=>this.setState({correosEnviados:'1'})} style={{marginBottom:20}}>
-              correos Enviados
-            </Button>
-            <Button  startIcon={<CloseOutlinedIcon />} color="secondary" onClick={(e)=>this.setState({correosEnviados:''})} style={{marginBottom:20}}>
-              Cerrar Correos
-            </Button>
-            <br></br>
-            
-            {correosEnviados}
-        
-            <Grow in={true}>
-                <div >
-                {/* <Alert variant="outlined" severity="warning">
-                  This is a warning alert — check it out!
-                </Alert> */}
-                  <MUIDataTable
-                    title={`Enviar evaluación ATS`}
+        <div >
+        <Navbar modulo = {"ENVÍO DE EVALUACIONES"} />
+        <div className="tabs" style={{marginTop:"5%",marginLeft:"5%"}}>
+              <Tabs type="card" defaultActiveKey="1"  size={size}>
+                <TabPane tab="Evaluación ATS" key="1">
+                <Card className="card" title = {<h6><strong>Evaluación ATS</strong></h6>} extra={ <Button outline type="primary" onClick={(e)=>this.sendMail(datosEmpleados,1)}>Enviar evaluación ATS &nbsp;<i class="fas fa-arrow-circle-right"></i></Button>}>    
+                <MUIDataTable
                     data={data}
                     columns={columns}
                     options={options}
                   />
-                  <MDBRow style={{marginTop:10}}>
-                  <MDBCol  sm="4"></MDBCol>  
-                </MDBRow>
-                <Button style={{marginBottom:40}} startIcon={<CheckOutlinedIcon />}  outline color="secondary" onClick={(e)=>this.sendMailATS(datosEmpleados)}>
-                      Enviar evaluación ATS
-                  </Button>
-                
-                </div> 
-              </Grow>  
-              <Grow in={true}>
-                <div >
-
-                  <MUIDataTable
-                    title={`Enviar evaluación RP`}
+                </Card>
+                </TabPane>
+                <TabPane tab="Evaluación RP" key="2">
+                <Card className="card" title = {<h6><strong>Evaluación RP</strong></h6>} extra={ <Button outline type="danger" onClick={(e)=>this.sendMail(datosEmpleadosRP,2)}>Enviar evaluación RP &nbsp;<i class="fas fa-angle-double-right"></i></Button>}>    
+                <MUIDataTable
                     data={dataRP}
                     columns={columns}
                     options={optionsRP}
                   />
-                  <MDBRow style={{marginTop:10}}>
-                  <MDBCol  sm="4"></MDBCol>  
-                </MDBRow>
-              
-                  <Button style={{marginBottom:40}}  startIcon={<ArrowForwardIcon />} outline color="default" onClick={(e)=>this.sendMailRP(datosEmpleadosRP)}>
-                      Enviar evaluación RP
-                  </Button>
-                  
-                </div> 
-              </Grow> 
-              <Grow in={true}>
-                <div >
-                  <MUIDataTable
-                    title={`Enviar evaluación EEO`}
+                </Card>
+                </TabPane>
+                <TabPane tab="Evaluación EEO" key="3">
+                <Card className="card" title = {<h6><strong>Evaluación EEO</strong></h6>} extra={ <Button outline type="success" onClick={(e)=>this.sendMail(datosEmpleadosEEO,3)}>Enviar evaluación EEO &nbsp;<i class="fas fa-file-import"></i></Button>}>    
+                <MUIDataTable
                     data={dataEEO}
                     columns={columns}
                     options={optionsEEO}
                   />
-                  <MDBRow style={{marginTop:10}}>
-                  <MDBCol  sm="4"></MDBCol>  
-                </MDBRow>
-              
-                  <Button style={{marginBottom:60}}  startIcon={<CheckCircleOutlineOutlinedIcon />} outline color="primary" onClick={(e)=>this.sendMailEEO(datosEmpleadosEEO)}>
-                      Enviar evaluación EEO
-                  </Button>
-                </div> 
-              </Grow>
+                  
+                </Card> 
+                </TabPane>
+                <TabPane tab="Correos enviados" key="4">
+                <Card className="card" title = {<h6><strong>Correos enviados</strong></h6>}>    
+                  <MUIDataTable
+                    data={datas}
+                    columns={columnss}
+                    options={options}
+                  />
+                </Card>  
+                  </TabPane>
+              </Tabs>
             </div>
-            </MDBContainer >
-
-  </MDBContainer>
-</div>   
-</React.Fragment>
-);
-}
-}
-
-
+        </div>   
+        </React.Fragment>
+        );
+      }
+    }
 export default TableEmployees

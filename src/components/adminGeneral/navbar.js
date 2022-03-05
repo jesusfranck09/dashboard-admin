@@ -1,9 +1,8 @@
 import React from 'react'
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem} from 'mdbreact';
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse} from 'mdbreact';
 import Sidebar from './sidebarAdminGral'
 import diagnostico from '../images/diagnostico.png'
 import { AppNavbarBrand } from '@coreui/react';
-import {MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdbreact";
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import "./styles.scss";
 import { withRouter } from 'react-router-dom';
@@ -79,9 +78,11 @@ class Navbar extends React.Component {
           };
 
     render(){
+    const {modulo} = this.props 
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
-        return(
-      
+    let periodo=<label style={{color:'green'}}><strong>{localStorage.getItem("periodo").toUpperCase()}</strong></label>
+ 
+      return(
                 <header>
                 <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
                     <Sidebar/>
@@ -89,31 +90,22 @@ class Navbar extends React.Component {
                     <MDBNavbarBrand a href="./inicio">
                         <AppNavbarBrand full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico035' }} />               
                     </MDBNavbarBrand>
-                        <MDBNavbarToggler onClick={this.onClick} />
-                    <MDBCollapse isOpen={this.state.collapse} navbar>
-
                     <MDBNavbarNav left>
-                        <strong>{this.state.nombre} </strong>&nbsp;<strong>  {this.state.apellidos}  &nbsp; </strong>
-                        &nbsp;
-                        </MDBNavbarNav>
+                      &nbsp; &nbsp; &nbsp;<strong>{this.state.nombre} </strong>&nbsp;<strong>  {this.state.apellidos}  &nbsp; </strong>
+                    </MDBNavbarNav>
+
+                    <MDBCollapse isOpen={this.state.collapse} navbar>                        
                         <MDBNavbarNav left>
-                        <strong>{localStorage.getItem("razonsocial")}</strong> 
+                        <strong>-- {localStorage.getItem("razonsocial")}</strong> 
                         </MDBNavbarNav>
-                        <MDBNavbarNav left>
-                        <strong>Versión 2.0</strong> 
+                        <MDBNavbarNav style={{marginTop:"1%"}}left>
+                        <strong> {modulo} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{periodo}</strong>
                         </MDBNavbarNav>
                         <MDBNavbarNav left>
                         <Button  style={{ color: '#FC1B99' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
-                          Herramientas del usuario &nbsp;<i class="fas fa-cog"> </i> 
+                          Herramientas &nbsp;<i class="fas fa-cog"> </i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Version 2.0
                         </Button>
-                        </MDBNavbarNav>
-                        <MDBNavbarBrand>  
-                                     
-                        <AppNavbarBrand full={{ src: localStorage.getItem("urlLogo") , width: 30, height: 25, alt: 'logo' }} />               
-                             
-                        </MDBNavbarBrand>
-                       
-                      
+                        </MDBNavbarNav>                                            
                      </MDBCollapse>
                      
                     <Menu

@@ -3,8 +3,7 @@ import { storage } from "./firebase";
 import {MDBBtn} from 'mdbreact'
 import axios from 'axios'
 import {API} from '../utils/http'
-import Button from '@material-ui/core/Button'
-
+import {Card} from 'antd'
 
 const ReactFirebaseFileUpdate = () => {
   const [image, setImage] = useState(null);
@@ -66,9 +65,9 @@ const ReactFirebaseFileUpdate = () => {
                 setMensaje2(` ... Actualizando por favor espere ... `) 
 
                 setDisabledButton("")
-                // setTimeout(()=>{
-                // window.location.reload()
-                // },5000)     
+                setTimeout(()=>{
+                window.location.reload()
+                },5000)     
         }
           });
       }
@@ -77,14 +76,19 @@ const ReactFirebaseFileUpdate = () => {
 
   return (
     <div>
-      <progress style = {{width: 460}} value={progress} max="100" /><br/>
-      <strong style={{marginLeft:20}}>{cargando}  {mensaje}<br/><br/>&nbsp;&nbsp;&nbsp;{mensaje2}</strong>
+      <Card title = "Progreso de la carga" type="inner" extra = {<progress value={progress} max="100" />}>
+      <strong style={{marginLeft:20}}>{cargando}  {mensaje}<br/><br/></strong>
       <br />
       <input type="file"  accept="image/x-png,image/gif,image/jpeg/,image/png" onChange={handleChange} />
-      <MDBBtn style={{marginLeft:20}} disabled={!image} color ="primary " onClick={(e) => { if (window.confirm('Su logo será remplazado por la imagen actual , ¿Desea continuar?')) handleUpload()} }>Actualizar logo</MDBBtn>
+      <center>
+      <MDBBtn size="sm" style={{marginTop:"10%"}} disabled={!image} color ="primary " onClick={(e) => { if (window.confirm('Su logo será remplazado por la imagen actual , ¿Desea continuar?')) handleUpload()} }>Actualizar logo</MDBBtn>
+      <br/><br/>
+      {mensaje2}
+      </center>  
       <br />
       <br />
       <img width="400" height="400" src={url || "https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png"}  alt="firebase-image" />
+      </Card>
     </div>
   );
 };

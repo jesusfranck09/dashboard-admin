@@ -1,0 +1,46 @@
+.tabInicio{
+    display: flex;
+    width:"100%";
+    justify-content: center;
+}
+.select{
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+
+}
+
+.select2{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4%;
+}
+.formperiodo{
+ display: flex;
+ align-items: center;
+ justify-content: space-between; 
+ flex-direction: row-reverse;   
+}
+.tablaEditar {
+    margin-left: 10%;
+    display: flex;
+    width:80%;
+    margin-top: 5%;
+    justify-content: center;
+}
+.cardCentros{
+    margin-top: 5%;
+    width:45%; 
+}
+.cardPuestosDeptos{
+    margin-top: 5%;
+    width:55%; 
+
+}
+.cardEmpleados{
+    margin-top: 5%;
+    width:50%; 
+}

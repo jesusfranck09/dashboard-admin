@@ -1,5 +1,5 @@
 import React from 'react'
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem} from 'mdbreact';
+import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse} from 'mdbreact';
 import Sidebar from './sidebar'
 import diagnostico from '../images/diagnostico.png'
 import { AppNavbarBrand } from '@coreui/react';
@@ -7,12 +7,10 @@ import { DialogUtility } from '@syncfusion/ej2-popups';
 import "./styles.scss";
 import { withRouter } from 'react-router-dom';
 import {
-    Grid,
     Button,
   } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Modal from 'react-modal';
 class Navbar extends React.Component {
     constructor(props){
         super(props)
@@ -34,8 +32,8 @@ class Navbar extends React.Component {
     
     
         var LaFecha=new Date();
-        var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
+        var Mes=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+        var diasem=['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
         var diasemana=LaFecha.getDay();
         var FechaCompleta="";
         var NumeroDeMes="";    
@@ -94,6 +92,9 @@ class Navbar extends React.Component {
           
           };
     render(){
+      
+      let periodo =<label style={{color:'green'}}><strong>{localStorage.getItem("periodo")}</strong></label>
+      const {modulo} = this.props
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
         return(
                 <React.Fragment>
@@ -104,33 +105,23 @@ class Navbar extends React.Component {
                     <MDBNavbarBrand a href="./inicio">
                         <AppNavbarBrand full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico035' }} />               
                     </MDBNavbarBrand>
-                    <MDBNavbarToggler onClick={this.onClick} />
-                    <MDBCollapse isOpen={this.state.collapse} navbar>
+                    <MDBNavbarNav left>
+                      &nbsp; &nbsp; &nbsp;<strong>{this.state.nombre} </strong>&nbsp;<strong>  {this.state.apellidos}  &nbsp; </strong>
+                    </MDBNavbarNav>
 
+                    <MDBCollapse isOpen={this.state.collapse} navbar>                        
                         <MDBNavbarNav left>
-                        <strong>{this.state.nombre} </strong>&nbsp;<strong>  {this.state.apellidos}  &nbsp; </strong>
-                        &nbsp;
+                        <strong>-- {localStorage.getItem("razonsocial")}</strong> 
                         </MDBNavbarNav>
-                        <MDBNavbarNav left>
-                        <strong>{localStorage.getItem("razonsocial")}</strong> 
-                        </MDBNavbarNav>
-                        <MDBNavbarNav left>
-                        <strong>Versión 2.0</strong> 
+                        <MDBNavbarNav style={{marginTop:"1%"}}left>
+                        <strong> {modulo} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{periodo}</strong>
                         </MDBNavbarNav>
                         <MDBNavbarNav left>
                         <Button  style={{ color: '#FC1B99' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
-                          Herramientas del usuario &nbsp;<i class="fas fa-cog"> </i> 
+                          Herramientas &nbsp;<i class="fas fa-cog"> </i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </Button>
-                        </MDBNavbarNav>
-                        <MDBNavbarBrand>  
-                                     
-                        <AppNavbarBrand full={{ src: localStorage.getItem("urlLogo") , width: 30, height: 25, alt: 'logo' }} />               
-                             
-                        </MDBNavbarBrand>
-                       
-                      
+                        </MDBNavbarNav>                                            
                      </MDBCollapse>
-                     
                     <Menu
                         id="simple-menu"
                         anchorEl={this.state.dropdown}
@@ -142,9 +133,7 @@ class Navbar extends React.Component {
                         <MenuItem ><a href = "http://eval.diagnostico035.com/rp">Realizar evaluación RP</a></MenuItem>
                         <MenuItem ><a href = "http://eval.diagnostico035.com/eeo">Realizar evaluación EEO</a></MenuItem>
                         <MenuItem onClick={this.handleclick}><i class="fas fa-address-card"></i> &nbsp;Mi Perfil</MenuItem>
-                        <MenuItem ><a href = "http://ads.com.mx"><i class="fab fa-buysellads" target="_blank"></i> &nbsp;Más sobre ADS</a></MenuItem>
-
-
+                        <MenuItem ><a href = "http://ads.com.mx"><i class="fab fa-buysellads" ></i> &nbsp;Más sobre ADS</a></MenuItem>
                     </Menu>
                 </MDBNavbar>
                 </header>

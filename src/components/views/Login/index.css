@@ -28,7 +28,10 @@
   } */
   
   #apppage .view {
-    background-image: url("https://images.pexels.com/photos/3788864/pexels-photo-3788864.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+    
+    background-image: url("https://images.pexels.com/photos/6120211/pexels-photo-6120211.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+
+    /* background-image: url("https://images.pexels.com/photos/3788864/pexels-photo-3788864.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"); */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -136,3 +139,4 @@
     -webkit-transform-origin: 100% 100%;
     -ms-transform-origin: 100% 100%;
     transform-origin: 100% 100%; }
+  

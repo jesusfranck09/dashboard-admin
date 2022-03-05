@@ -1,2 +1,13 @@
 .navbar { padding: 0px 0px !important;
-  }
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.cardPorcentaje{
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 5%;
+}
+

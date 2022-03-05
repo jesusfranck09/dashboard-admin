@@ -8,3 +8,17 @@
   .navbar{
     margin-bottom: 60px;
   }
+
+  .tabs {
+    display: flex;
+    width:"100%";
+    justify-content: center;
+  }
+
+  .ant-card-body {
+    padding: 5px;
+}
+.card {
+  width:"100%";
+  padding: 25px;
+}

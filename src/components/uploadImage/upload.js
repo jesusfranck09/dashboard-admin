@@ -3,7 +3,9 @@ import { storage } from "./firebase";
 import {MDBBtn} from 'mdbreact'
 import axios from 'axios'
 import {API} from '../utils/http'
-
+import {Card} from 'antd'
+import 'antd/dist/antd.css'
+import 'antd-button-color/dist/css/style.css'
 
 const ReactFirebaseFileUpload = () => {
   const [image, setImage] = useState(null);
@@ -76,14 +78,20 @@ const ReactFirebaseFileUpload = () => {
 
   return (
     <div>
-      <progress style = {{width: 460}} value={progress} max="100" /><br/>
-      <strong style={{marginLeft:20}}>{cargando}  {mensaje}<br/><br/>&nbsp;&nbsp;&nbsp;{mensaje2}</strong>
+      <Card title = "Progreso de la carga" type="inner" extra = {<progress value={progress} max="100" />}>
+      <strong style={{marginLeft:20}}>{cargando}  {mensaje}<br/><br/></strong>
       <br />
       <input type="file"  accept="image/x-png,image/gif,image/jpeg/,image/png" onChange={handleChange} />
-      <MDBBtn disabled={!image} color ="success" onClick={handleUpload}>Cargar</MDBBtn>
+      <center>
+        <MDBBtn style={{marginTop:"10%"}} disabled={!image} size="sm" color="success" onClick={handleUpload}>Cargar</MDBBtn>
+        <br/>
+        <br/>
+        {mensaje2}
+      </center>
       <br />
       <br />
-      <img width="400" height="400" src={url || "https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png"}  alt="firebase-image" />
+      <img width="150" height="100" src={url || "https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png"}  alt="firebase-image" />
+      </Card>
     </div>
   );
 };

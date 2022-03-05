@@ -1,39 +1,25 @@
 import React from 'react';
-import {MDBRow, MDBContainer, MDBCol,MDBBtn, MDBCardHeader} from 'mdbreact';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import { DialogUtility } from '@syncfusion/ej2-popups';
-import Modal from 'react-modal';
-import Grow from "@material-ui/core/Grow";
-
-import {
-  Grid,
-  Button,
-} from '@material-ui/core';
+import {MDBRow, MDBContainer,MDBBtn} from 'mdbreact';
 import axios from 'axios'
 import {Alert} from 'reactstrap';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import IconButton from "@material-ui/core/IconButton";
 import RemoveRedEyeOutlinedIcon from '@material-ui/icons/RemoveRedEyeOutlined';
 import { API} from '../utils/http'
 import ModalVideo from 'react-modal-video'
 import "./styles.scss";
+import "./index.css"
 import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined';
 import Upload from '../uploadImage/upload'
 import UpdateLogo from '../uploadImage/updateLogo'
-import { MDBModal, MDBModalBody, MDBModalHeader} from "mdbreact";
-import { MDBCard, MDBCardBody, MDBCardTitle } from 'mdbreact';
+import { MDBModal, MDBModalBody} from "mdbreact";
+import {MDBCardBody} from 'mdbreact';
 import {ProgressBar} from 'react-bootstrap' 
 import Navbar from './navbar'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MUIDataTable from "mui-datatables";
+import {Card, Button as Boton} from 'antd'
+import { Chart } from "react-google-charts";
 
 class Home extends React.Component {
   constructor(props) {
@@ -63,7 +49,6 @@ class Home extends React.Component {
       AtsDetectado:[],
       empleadosEEO:[],
       empleadosEEOFalse:[],
-      // resultadosInicio:[],
       dias:'',
       horas:'',
       minutos:'',
@@ -84,17 +69,16 @@ class Home extends React.Component {
       tablaRPNoContestado:false,
       tablaEEOContestado:false,
       tablaEEONoContestado:false,
-      tablaATSDetectado:false
-    };
+      tablaATSDetectado:false,
 
+      
+    };
     this.ads = this.ads.bind(this);
     this.openModal = this.openModal.bind(this)
-
   }
 
   async componentWillMount(){
     let idAdmin = localStorage.getItem("idAdmin")
-      // const url = 'http://localhost:8000/graphql'
      await  axios({
         url:  API,
         method:'post',
@@ -161,8 +145,8 @@ class Home extends React.Component {
         await this.verifyTables();
         await this.getUrlLogo();
         var LaFecha=new Date();
-        var Mes=new Array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        var diasem=new Array('Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado');
+        var Mes=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+        var diasem=['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
         var diasemana=LaFecha.getDay();
         var FechaCompleta="";
         var NumeroDeMes="";    
@@ -178,7 +162,6 @@ class Home extends React.Component {
    const idAdmin= localStorage.getItem("idAdmin");
    let periodo = localStorage.getItem("periodo"); 
    let arrayDatos = [];
-   // const url = 'http://localhost:8000/graphql'
    await axios({
      url:  API,
      method:'post',
@@ -217,10 +200,8 @@ class Home extends React.Component {
               `
           }
          }).then((datos) => {
-            
            let datosEmpleados = datos.data.data.getUsersTableEmployees;
            arrayDatos.push(datosEmpleados);
-
            if( datos.data.data.getUsersTableEmployees.length>0){
             localStorage.setItem("empleadoActivo","true")
            }else{
@@ -228,9 +209,8 @@ class Home extends React.Component {
            }
            this.setState({totalEmpleados:datosEmpleados.length})  
            this.setState({empleadosTotales:datosEmpleados})
-
            let resultados7 = datosEmpleados.filter(function(hero) {
-             return hero.ATSDetectado == 'true';
+             return hero.ATSDetectado === 'true';
            });
            array7.push(resultados7)
            this.setState({AtsDetectado:array7[0]})          
@@ -242,10 +222,8 @@ class Home extends React.Component {
          let evaluacionesRealizadasPeriodoActual;
          let evaluacionATSContestado;
          let resultATS;
-
          let evaluacionRPContestado;
          let resultRP;
-
          let evaluacionEEOContestado;
          let resultEEO;
 
@@ -277,21 +255,18 @@ class Home extends React.Component {
           evaluacionATSContestado = evaluacionesRealizadasPeriodoActual.filter(function(hero){
             return hero.encuesta ==="ATS"
           }) 
-
-
           resultATS = evaluacionATSContestado.filter(function(hero){
             return hero.periodo === periodo 
           })
 
           this.setState({empleadosAts:resultATS})
           this.setState({ATSContestado:resultATS.length})
-
           let arrayInicial = arrayDatos[0];
           var arrayATS = [];
           for (var i = 0; i < arrayInicial.length; i++) {
               var igual=false;
               for (var j = 0; j < resultATS.length & !igual; j++) {
-                  if(arrayInicial[i].id == resultATS[j].id) 
+                  if(arrayInicial[i].id === resultATS[j].id) 
                           igual=true;
               }
               if(!igual)arrayATS.push(arrayInicial[i]);
@@ -299,14 +274,12 @@ class Home extends React.Component {
 
           this.setState({empleadosAtsFalse:arrayATS})
           this.setState({ATSNoContestado:arrayATS.length})
-
           evaluacionRPContestado = evaluacionesRealizadasPeriodoActual.filter(function(hero){
             return hero.encuesta === "RP"
           }) 
           resultRP = evaluacionRPContestado.filter(function(hero){
             return hero.periodo === periodo 
           })
-
           this.setState({empleadosRP:resultRP})
           this.setState({RPContestado:resultRP.length})
 
@@ -314,7 +287,7 @@ class Home extends React.Component {
           for (var iRP = 0; iRP < arrayInicial.length; iRP++) {
               var igualRP=false;
               for (var jRP = 0; jRP < resultRP.length & !igualRP; jRP++) {
-                  if(arrayInicial[iRP].id == resultRP[jRP].id) 
+                  if(arrayInicial[iRP].id === resultRP[jRP].id) 
                           igualRP=true;
               }
               if(!igualRP)arrayRP.push(arrayInicial[iRP]);
@@ -337,7 +310,7 @@ class Home extends React.Component {
           for (var iEEO = 0; iEEO < arrayInicial.length; iEEO++) {
               var igualEEO=false;
               for (var jEEO = 0; jEEO < resultEEO.length & !igualEEO; jEEO++) {
-                  if(arrayInicial[iEEO].id == resultEEO[jEEO].id) 
+                  if(arrayInicial[iEEO].id === resultEEO[jEEO].id) 
                           igualEEO=true;
               }
               if(!igualEEO)arrayEEO.push(arrayInicial[iEEO]);
@@ -351,9 +324,6 @@ class Home extends React.Component {
   
   let em;
   let idSuperUsuario;
-  let max;
-  let idAdmin = localStorage.getItem("idAdmin")
-  // const url = 'http://localhost:8000/graphql'
   idSuperUsuario =localStorage.getItem("fk_superusuario")
     axios({
 		  url:  API,
@@ -372,13 +342,11 @@ class Home extends React.Component {
       em =datos.data.data.verifyPackSuperUser.empleados
       this.setState({empleados:em})
 		}).catch(err=>{
-			// console.log("error" , err.response)
 		}) 
   }
 
   verifyTables = async () =>{
   const idAdmin   = await localStorage.getItem('idAdmin')
-  // const url = 'http://localhost:8000/graphql'
   await axios({
     url:  API,
     method:'post',
@@ -400,7 +368,6 @@ class Home extends React.Component {
       }
   
     }).catch(err=>{
-      // console.log("este es el error " , err.response)
     })
     await axios({
       url:  API,
@@ -421,9 +388,7 @@ class Home extends React.Component {
         }else{
           localStorage.setItem("SucursalActiva","false")
         }
-    
       }).catch(err=>{
-        // console.log("este es el error " , err.response)
       })
     await axios({
       url:  API,
@@ -444,13 +409,9 @@ class Home extends React.Component {
         }else{
           localStorage.setItem("PuestoActivo","false")
         }
-    
       }).catch(err=>{
-        // console.log("este es el error " , err.response)
       })
   }
-
-
       getUrlLogo(){
         let idAdmin = localStorage.getItem("idAdmin")
         axios({
@@ -479,9 +440,6 @@ class Home extends React.Component {
       this.setState({showModal2:true})
     }
 
-
- 
-
     toggle = (nr) => () => {  
       let modalNumber = 'modal' + nr
       this.setState({
@@ -492,12 +450,12 @@ class Home extends React.Component {
     countdown =  (deadline) => {
       const timerUpdate = setInterval( async () => {
         let t = this.getRemainingTime(deadline);
-        let descripcion;
+        // let descripcion;
         // console.log("remine time",t )
         if(t.remainTime <= 1) {
           clearInterval(timerUpdate);
-          let idAdmin = localStorage.getItem("idAdmin")
-          descripcion = this.state.periodo
+          // let idAdmin = localStorage.getItem("idAdmin")
+          // descripcion = this.state.periodo
           // axios({
           //   url:  API,
           //   method:'post',
@@ -523,8 +481,6 @@ class Home extends React.Component {
         }
       }, 1000)
     };
-
-
       alerta1 =  (deadline) => {
         const timerUpdate = setInterval( async () => {
         let t = this.getRemainingTime(deadline);
@@ -536,7 +492,6 @@ class Home extends React.Component {
 
         Eventos = this.state.datosEventos.idEventos;
         alerta1Enviada = this.state.datosEventos.Alerta1Enviada;
-
         if(t.remainTime <= 1 && alerta1Enviada==='false') {
           clearInterval(timerUpdate);
           let idAdmin = localStorage.getItem("idAdmin")
@@ -581,7 +536,6 @@ class Home extends React.Component {
               })
             }).catch(err=>{
             })  
-      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
           await axios({
             url:  API,
             method:'post',
@@ -621,7 +575,6 @@ class Home extends React.Component {
             })
             }).catch(err=>{
             }) 
-        ///////////////////////////////////////////////////////////////////////////////////////////
         await axios({
           url:  API,
           method:'post',
@@ -664,10 +617,6 @@ class Home extends React.Component {
           }
         }, 1000)
       };
-
-          
-
-
     getRemainingTime = deadline => {
       let now = new Date(),
           remainTime = (new Date(deadline) - now + 1000) / 1000,
@@ -675,7 +624,6 @@ class Home extends React.Component {
           remainMinutes = ('0' + Math.floor(remainTime / 60 % 60)).slice(-2),
           remainHours = ('0' + Math.floor(remainTime / 3600 % 24)).slice(-2),
           remainDays = Math.floor(remainTime / (3600 * 24));
-
       return {
         remainSeconds,
         remainMinutes,
@@ -685,22 +633,17 @@ class Home extends React.Component {
       }
     };
 
-
     alerta2 =  (deadline) => {
     const timerUpdate = setInterval( async () => {
       let t = this.getRemainingTime(deadline);
-      const idAdmin  = await localStorage.getItem("idAdmin")
       let alerta2Enviada;
       let ATS;
       let RP;
       let EEO;
       let Eventos;
-
       Eventos = this.state.datosEventos.idEventos;
       alerta2Enviada = this.state.datosEventos.Alerta2Enviada;
-
-
-      if(t.remainTime <= 1 && alerta2Enviada=='false') {
+      if(t.remainTime <= 1 && alerta2Enviada === 'false') {
         clearInterval(timerUpdate);
         let idAdmin = localStorage.getItem("idAdmin")
         await axios({
@@ -719,33 +662,32 @@ class Home extends React.Component {
                 }
               `
           }
-              }).then((datos) => {
-              ATS=datos.data.data.getEmployeesResolvesSurveyATSFalse
-              const correo  = localStorage.getItem("correo")
-              const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación ATS por favor realice la actividad lo mas pronto posible"
-              ATS.map(rows=>{
-                  axios({
-                  url:  API,
-                  method:'post',
-                  data:{
-                  query:`
-                    mutation{
-                    alert2(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
-                      message
-                          }
-                        }
-                      `
-                  }
-                })
-                .then(datos => {	
-                // descripcion = datos.data.data.getPeriodo[0].Descripcion
-                }).catch(err=>{
-                })
-  
-              })
-              }).catch(err=>{
-              })  
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+          }).then((datos) => {
+          ATS=datos.data.data.getEmployeesResolvesSurveyATSFalse
+          const correo  = localStorage.getItem("correo")
+          const mensaje = "Estimado Colaborador le recordamos que aun no resuelve su evaluación ATS por favor realice la actividad lo mas pronto posible"
+          ATS.map(rows=>{
+              axios({
+              url:  API,
+              method:'post',
+              data:{
+              query:`
+                mutation{
+                alert2(data:"${[rows.correo ,correo,mensaje,Eventos]}"){
+                  message
+                      }
+                    }
+                  `
+              }
+            })
+            .then(datos => {	
+            }).catch(err=>{
+            })
+
+            })
+            }).catch(err=>{
+            })  
+
         await axios({
           url:  API,
           method:'post',
@@ -1054,43 +996,53 @@ tablaATSDetectado(){
   this.setState({tablaATSDetectado:true})
 }
 cerraTablas(parametro){
-if(parametro == 1){
+if(parametro === 1){
   this.setState({tablaEmpleados:true})
   this.setState({tablaATSContestado:false})
 }
-else if(parametro == 2){
+else if(parametro === 2){
   this.setState({tablaEmpleados:true})
   this.setState({tablaATSNoContestado:false})
 }
-else if(parametro == 3){
+else if(parametro === 3){
   this.setState({tablaEmpleados:true})
   this.setState({tablaRPContestado:false})
 }
-else if(parametro == 4){
+else if(parametro === 4){
   this.setState({tablaEmpleados:true})
   this.setState({tablaRPNoContestado:false})
 }
-else if(parametro == 5){
+else if(parametro === 5){
   this.setState({tablaEmpleados:true})
   this.setState({tablaEEOContestado:false})
 }
-else if(parametro == 6){
+else if(parametro === 6){
   this.setState({tablaEmpleados:true})
   this.setState({tablaEEONoContestado:false})
 }
-else if(parametro == 7){
+else if(parametro === 7){
   this.setState({tablaEmpleados:true})
   this.setState({tablaATSDetectado:false})
+}
+else if(parametro === 8){
+  this.setState({tablaEmpleados:true})
+  this.setState({tablaATSContestado:false})
+  this.setState({tablaATSNoContestado:false})
+  this.setState({tablaRPContestado:false})
+  this.setState({tablaRPNoContestado:false})
+  this.setState({tablaEEOContestado:false})
+  this.setState({tablaATSDetectado:false})
+  this.setState({tablaEEONoContestado:false})
 }
 }
   render() {
     let periodoActivo;
-
     if(this.state.periodo){
-      periodoActivo= <h6 style={{color:'green'}}><strong>{this.state.periodo}</strong></h6>
+      periodoActivo= <label style={{color:'green'}}><strong>{this.state.periodo.toUpperCase()}</strong></label>
     }
     else{
-      periodoActivo= <h6 style={{color:'red'}}><strong>Su periodo ha finalizado</strong></h6>
+      let periodoString =  "Periodo finalizado"
+      periodoActivo= <label style={{color:'red'}}><strong>{periodoString.toUpperCase()}</strong></label>
     }
     let Alerta;
     let dep;
@@ -1111,50 +1063,22 @@ else if(parametro == 7){
     }if(alertaPuesto==="false"){
       pues =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Puesto Registrado</Alert>
     }
-
-
     let expiro;
     if(this.state.licencia){
-
       expiro = <Alert color="danger" className="text-center ">{this.state.licencia}</Alert>
+    }
 
-    }
-    let updateLogo;
-    if(this.state.modal21){
- 
-     updateLogo  =  <MDBContainer >
-       <MDBModal isOpen={this.state.modal21} toggle={this.toggle(21)}  tabindex="-1"  size="md">
-         <MDBModalHeader toggle={this.toggle(21)}>
-           Modificar logo
-         </MDBModalHeader>
-         <MDBModalBody>
-         <UpdateLogo/>
-         </MDBModalBody>   
-       </MDBModal>
-     </MDBContainer>
- 
-    }
- 
-    let logo;
-    if(!this.state.urlLogo){
-    logo = <div>
-     <strong style={{ color: '#BC71F3'}}>Adjuntar logo de mi empresa</strong>
-     <IconButton onClick={this.toggle(20)} color="#BC71F3"> <PublishOutlinedIcon /></IconButton>
-    </div>
-    }
- 
-    let modificarLogo;
-    if(this.state.urlLogo){
-     logo = <div>
-     <strong style={{ color: '#BC71F3' }}>Modificar mi logo</strong>
-     <IconButton onClick={this.toggle(21)} color="#BC71F3"> <PublishOutlinedIcon /></IconButton>
-    </div>
-    }
-/////////////////////////////////////////////////////////////////////////////////////////////
-//////Opciones de las tablas
+        //////Opciones de las tablas
 const options = {
   filterType: "dropdown",
   responsive: "stacked",
+  search:false,
+  print:false,
+  download:false,
+  sort:false,
+  filter:false,
+  viewColumns:false,
+  elevation:0,
   textLabels: {
             body: {
               noMatch: empleadoNoEncontrado,
@@ -1191,22 +1115,58 @@ const options = {
           },
 
   onTableChange: (action, tableState) => {
-  datosEmpleados = tableState.displayData
+  // datosEmpleados = tableState.displayData
   },
   onFilterChange: (action, filtroTable) => {
-    filtro=filtroTable
+    // filtro=filtroTable
     }     };
+  
+    const columnsATSContestado = [];
+    let tituloTablaVacia = <h6><strong>Por el momento no hay datos que mostrar</strong></h6>
+    const dataATSContestado =  [];
+    let tablaVacia  = 
+    <div style = {{width:680}}>
+    <Card title={tituloTablaVacia} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(8)}>Cerrar</Boton></div>}><MUIDataTable
+    data={dataATSContestado}
+    columns={columnsATSContestado}
+    options={options}
+     />
+    </Card>
+    </div> 
+    let updateLogo;
+    if(this.state.modal21){
+     updateLogo  =  
+       <MDBModal isOpen={this.state.modal21} toggle={this.toggle(21)}  tabindex="-1"  size="md">
+         <Card title = {<h6><strong>Modificar logo</strong></h6>}>
+         <MDBModalBody>
+         <UpdateLogo/>
+         </MDBModalBody>   
+         </Card>
 
+       </MDBModal>
+    }
+    let logo;
+    if(!this.state.urlLogo){
+    logo = <div>
+     <strong style={{ color: 'blue'}}>Adjuntar logo de mi empresa</strong>
+     <IconButton onClick={this.toggle(20)} color="green"> <PublishOutlinedIcon /></IconButton>
+    </div>
+    }
+ 
+    let modificarLogo;
+    if(this.state.urlLogo){
+     logo = <div>
+     <strong style={{ color: 'blue' }}>Modificar logo</strong>
+     <IconButton onClick={this.toggle(21)} color="green"> <PublishOutlinedIcon /></IconButton>
+    </div>
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////
      let modalInfoG;
      if(this.state.modal16){
-    
-
-        modalInfoG  =  <MDBContainer >
+        modalInfoG  =  
         <MDBModal isOpen={this.state.modal16} toggle={this.toggle(16)} size="lg">
-          <MDBModalHeader toggle={this.toggle(16)}>
-           Información General
-          </MDBModalHeader>
           <MDBModalBody>
+          <Card title = {<div><h6><strong>Información general</strong></h6></div>} >
           <strong>Licencia de {this.state.empleados} Empleados</strong>
           <br/>
           <br/>
@@ -1215,24 +1175,18 @@ const options = {
           <br/>
           <strong>Empleados por registrar : {(this.state.empleados-this.state.totalEmpleados)}</strong><br/>
           <br/>
-          
-           
           {expiro}
+          </Card>
           </MDBModalBody>   
         </MDBModal>
-        </MDBContainer>
      }
  let cargarLogo;
    if(this.state.modal20){
-
     cargarLogo  =  <MDBContainer >
       <MDBModal isOpen={this.state.modal20} toggle={this.toggle(20)}  tabindex="-1"  size="md">
-        <MDBModalHeader toggle={this.toggle(20)}>
-          Cargar logo
-        </MDBModalHeader>
-        <MDBModalBody>
+        <Card title={<div><h6><strong>Adjuntar logo</strong></h6></div>}>
         <Upload/>
-        </MDBModalBody>   
+        </Card>  
       </MDBModal>
     </MDBContainer>
 
@@ -1266,297 +1220,263 @@ const options = {
    if(intPorcentajeATS || intPorcentajeATSFalse ){
     progressInstanceATS =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={intPorcentajeATS}  label={`${intPorcentajeATS}%`} /><ProgressBar variant="danger" animated now={intPorcentajeATSFalse}  label={`${intPorcentajeATSFalse}%`} /></ProgressBar>;
    }else{
-    progressInstanceATS =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
+    progressInstanceATS =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Porcentaje no calculado`} /><ProgressBar variant="danger" animated now={50}  label={`Porcentaje no calculado`} /></ProgressBar>;
    }
    if(intPorcentajeRP || intPorcentajeRPFalse ){
     progressInstanceRP=<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={intPorcentajeRP}  label={`${intPorcentajeRP}%`} /><ProgressBar variant="danger" animated now={intPorcentajeRPFalse}  label={`${intPorcentajeRPFalse}%`} /></ProgressBar>;
    }else{
-    progressInstanceRP =<ProgressBar style ={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
+    progressInstanceRP =<ProgressBar style ={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Porcentaje no calculado`} /><ProgressBar variant="danger" animated now={50}  label={`Porcentaje no calculado`} /></ProgressBar>;
    }
    if(intPorcentajeEEO || intPorcentajeEEOFalse ){
     progressInstanceEEO=<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={intPorcentajeEEO}  label={`${intPorcentajeEEO}%`} /><ProgressBar variant="danger" animated now={intPorcentajeEEOFalse}  label={`${intPorcentajeEEOFalse}%`} /></ProgressBar>;
    }else{
-    progressInstanceEEO =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Sin porcentaje`} /><ProgressBar variant="danger" animated now={50}  label={`Sin porcentaje`} /></ProgressBar>;
+    progressInstanceEEO =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Porcentaje no calculado`} /><ProgressBar variant="danger" animated now={50}  label={`Porcentaje no calculado`} /></ProgressBar>;
    }
-   ////////////////////////////////////////////////////////
    // TablaEmpleados de inicio
    let tablaEmpleados;
    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
-
-    const data = this.state.empleadosTotales.map(rows=>{
+   const data = this.state.empleadosTotales.map(rows=>{
       return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
-    })
-    let datosEmpleados;
-    let filtro;
-   
-   if(this.state.tablaEmpleados == true){
-    tablaEmpleados = <div style = {{width:680,marginLeft:"1%"}} >
+   })
+
+    let tituloEmpleado = <h6><strong>Empleados registrados</strong></h6>
+   if(this.state.tablaEmpleados === true && data[0]){
+    tablaEmpleados = <div style = {{width:"56%",marginLeft:"1%"}} >
+    <Card title = {tituloEmpleado} extra={<div><label style={{color:'blue'}}><strong>Información del sistema</strong></label> &nbsp;<Boton type="dashed" onClick={this.handleDropdown}><i class="fas fa-mouse-pointer"></i></Boton></div>}>  
     <MUIDataTable
-      title={`Mis empleados`}
       data={data}
       columns={columns}
       options={options}
     />
-  </div> 
+     <Menu
+              id="simple-menu"
+              anchorEl={this.state.dropdown}
+              keepMounted
+              open={Boolean(this.state.dropdown)}
+              onClose={this.handleClose}
+          >
+              <MenuItem style={{color:'blue'}} onClick={this.toggle(16)}>Datos generales</MenuItem>
+              <MenuItem style={{color:'blue'}} onClick={this.handleClose}>{logo} </MenuItem>
+              <MenuItem style={{ color: 'blue' }}> Tutorial de Diagnóstico035 <IconButton onClick={this.openModal} color="secondary"> <RemoveRedEyeOutlinedIcon /></IconButton></MenuItem>
+              <MenuItem style={{ color: 'blue' }} onClick = { e => this.tablaATSDetectado()}>Empleados con ATS detectado : &nbsp; <strong>{this.state.AtsDetectado.length}</strong></MenuItem>
+    </Menu>
+    </Card>
+    </div> 
+   }else{
+    tablaEmpleados = <div style = {{width:680}} >
+    {Alerta}
+    {dep}
+    {suc}
+    {pues}
+    </div>
    }
-////////////////////////////////////////////////////////////////////////////////////////////////7
 
 ////////////////////// evaluación ATS
   let tablaATSContestado;
-  let botonTablaATSContestado;
-  if(this.state.empleadosAts[0] &&  this.state.tablaATSContestado == true){
-   
+  if(this.state.empleadosAts[0] &&  this.state.tablaATSContestado === true){
     const columnsATSContestado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
-
     const dataATSContestado = this.state.empleadosAts.map(rows=>{
       return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
     })
-    botonTablaATSContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(1)}> Cerrar tabla Eval. ATS contestado</MDBBtn>
-    tablaATSContestado = <div style = {{width:680,marginLeft:"1%"}} >
+    let tituloATSContesado = <h6><strong>Empleados que ya realizaron la evaluación ATS</strong></h6>
+    tablaATSContestado = <div style = {{width:680}} >
+    <Card title={tituloATSContesado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(1)}>Cerrar</Boton></div>}>  
     <MUIDataTable
-      title={`Empleados que ya realizaron la evaluación ATS`}
       data={dataATSContestado}
       columns={columnsATSContestado}
       options={options}
     />
+    </Card>
   </div> 
-    } else if (this.state.empleadosAts[0] == undefined  &&  this.state.tablaATSContestado == true ) {
-      botonTablaATSContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(1)}> Cerrar tabla Eval. ATS contestado</MDBBtn>
-
-      const columnsATSContestado = [];
-
-      const dataATSContestado =  [];
-      tablaATSContestado = <MUIDataTable
-      title={"Por el momento no hay datos que mostrar"}
-      data={dataATSContestado}
-      columns={columnsATSContestado}
-      options={options}
-    />
+    } else if (this.state.empleadosAts[0] === undefined  &&  this.state.tablaATSContestado === true ) {
+      tablaATSContestado = tablaVacia
     }
-
     let tablaATSNoContestado;
-    let botonTablaATSNoContestado;
-    
-    if(this.state.empleadosAtsFalse[0] &&  this.state.tablaATSNoContestado == true){
-   
+    if(this.state.empleadosAtsFalse[0] &&  this.state.tablaATSNoContestado === true){
       const columnsATSNoContestado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
-  
       const dataATSNoContestado = this.state.empleadosAtsFalse.map(rows=>{
         return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
       })
-      botonTablaATSNoContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(2)}> Cerrar tabla Eval. ATS no realizadas</MDBBtn>
-      tablaATSNoContestado = <div style = {{width:680,marginLeft:"1%"}} >
+      let tituloATSNoContestado = <h6><strong>Empleados que aun no realizan la evaluación ATS</strong></h6>
+      tablaATSNoContestado = <div style = {{width:680}} >
+      <Card title={tituloATSNoContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(2)}>Cerrar</Boton></div>}>  
+
       <MUIDataTable
-        title={`Empleados que aun no realizan la evaluación ATS`}
         data={dataATSNoContestado}
         columns={columnsATSNoContestado}
         options={options}
       />
+      </Card>
     </div> 
-      }else if (this.state.empleadosAtsFalse[0] == undefined &&  this.state.tablaATSNoContestado == true) {
-        botonTablaATSNoContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(2)}> Cerrar tabla Eval. ATS no realizadas</MDBBtn>
-
-        const columnsATSContestado = [];
-  
-        const dataATSContestado =  [];
-        tablaATSContestado = <MUIDataTable
-        title={"Por el momento no hay datos que mostrar"}
-        data={dataATSContestado}
-        columns={columnsATSContestado}
-        options={options}
-      />
+      }else if (this.state.empleadosAtsFalse[0] === undefined &&  this.state.tablaATSNoContestado === true) {
+        tablaATSNoContestado = tablaVacia
       }
       /////////////////////////////////////////////////////////////////////////////////////
       // Evaluación RP
-
       let tablaRPContestado;
-      let botonTablaRPContestado;
-      if(this.state.empleadosRP[0] &&  this.state.tablaRPContestado == true){
+      if(this.state.empleadosRP[0] &&  this.state.tablaRPContestado === true){
         const columnsRPContestado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
         const dataRPContestado = this.state.empleadosRP.map(rows=>{
           return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
         })
-        botonTablaRPContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(3)}> Cerrar tabla Eval. RP contestado</MDBBtn>
-        tablaRPContestado = <div style = {{width:680,marginLeft:"1%"}} >
+        let tituloRPContestado = <h6><strong>Empleados que ya realizaron la evaluación RP</strong></h6>
+        tablaRPContestado =
+        <div style = {{width:680}} >
+        <Card title={tituloRPContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(3)}>Cerrar</Boton></div>}>  
         <MUIDataTable
-          title={`Empleados que ya realizaron la evaluación RP`}
           data={dataRPContestado}
           columns={columnsRPContestado}
           options={options}
         />
+        </Card>
       </div> 
-        } else if (this.state.empleadosRP[0] == undefined  &&  this.state.tablaRPContestado == true ) {
-          botonTablaRPContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(3)}> Cerrar tabla Eval. RP contestado</MDBBtn>
-          const columnsRPContestado = [];
-          const dataRPContestado =  [];
-          tablaRPContestado = <MUIDataTable
-          title={"Por el momento no hay datos que mostrar"}
-          data={dataRPContestado}
-          columns={columnsRPContestado}
-          options={options}
-        />
+        } else if (this.state.empleadosRP[0] === undefined  &&  this.state.tablaRPContestado === true ) {
+          tablaRPContestado =  tablaVacia
         }
+
         let tablaRPNoContestado;
-        let botonTablaRPNoContestado;
-        if(this.state.empleadosRPFalse[0] &&  this.state.tablaRPNoContestado == true){
+        if(this.state.empleadosRPFalse[0] &&  this.state.tablaRPNoContestado === true){
          
           const columnsRPNoContestado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
           const dataRPNoContestado = this.state.empleadosRPFalse.map(rows=>{
             return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
           })
-          botonTablaRPNoContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(4)}> Cerrar tabla Eval. RP no contestado</MDBBtn>
-          tablaRPNoContestado = <div style = {{width:680,marginLeft:"1%"}} >
+          let tituloRPNoContestado = <h6><strong>Empleados aun no realizan la evaluación RP</strong></h6>
+          tablaRPNoContestado = 
+          <div style = {{width:680}} >
+          <Card title={tituloRPNoContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(4)}>Cerrar</Boton></div>}>  
           <MUIDataTable
-            title={`Empleados aun no realizan la evaluación RP`}
             data={dataRPNoContestado}
             columns={columnsRPNoContestado}
             options={options}
           />
+          </Card>
         </div> 
-          } else if (this.state.empleadosRPFalse[0] == undefined  &&  this.state.tablaRPNoContestado == true ) {
-            botonTablaRPNoContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(4)}> Cerrar tabla Eval. RP no contestado</MDBBtn>
-      
-            const columnsRPNoContestado = [];
-      
-            const dataRPNoContestado =  [];
-            tablaRPContestado = <MUIDataTable
-            title={"Por el momento no hay datos que mostrar"}
-            data={dataRPNoContestado}
-            columns={columnsRPNoContestado}
-            options={options}
-          />
+          } else if (this.state.empleadosRPFalse[0] === undefined  &&  this.state.tablaRPNoContestado === true ) {
+            tablaRPContestado = tablaVacia
           }
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Evaluación EEO
           let tablaEEOContestado;
-          let botonTablaEEOContestado;
-          if(this.state.empleadosEEO[0] &&  this.state.tablaEEOContestado == true){
+          if(this.state.empleadosEEO[0] &&  this.state.tablaEEOContestado === true){
           
             const columnsEEOContestado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
 
             const dataEEOContestado = this.state.empleadosEEO.map(rows=>{
               return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
             })
-            botonTablaEEOContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(5)}> Cerrar tabla Eval. EEO contestado</MDBBtn>
-            tablaEEOContestado = <div style = {{width:680,marginLeft:"1%"}} >
+            let tituloEEOContestado = <h6><strong>Empleados que ya realizaron la evaluación EEO</strong></h6>
+            tablaEEOContestado = 
+            <div style = {{width:680}} >
+            <Card title={tituloEEOContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(5)}>Cerrar</Boton></div>}>  
             <MUIDataTable
-              title={`Empleados que ya realizaron la evaluación EEO`}
               data={dataEEOContestado}
               columns={columnsEEOContestado}
               options={options}
             />
+            </Card>
           </div> 
-            } else if (this.state.empleadosEEO[0] == undefined  &&  this.state.tablaEEOContestado == true ) {
-              botonTablaEEOContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(5)}> Cerrar tabla Eval. EEO contestado</MDBBtn>
-              const columnsEEOContestado = [];
-              const dataEEOContestado =  [];
-              tablaEEOContestado = <MUIDataTable
-              title={"Por el momento no hay datos que mostrar"}
-              data={dataEEOContestado}
-              columns={columnsEEOContestado}
-              options={options}
-            />
+            } else if (this.state.empleadosEEO[0] === undefined  &&  this.state.tablaEEOContestado === true ) {
+              tablaEEOContestado = tablaVacia
             }
             let tablaEEONoContestado;
-            let botonTablaEEONoContestado;
-            if(this.state.empleadosEEOFalse[0] &&  this.state.tablaEEONoContestado == true){
+            if(this.state.empleadosEEOFalse[0] &&  this.state.tablaEEONoContestado === true){
               const columnsEEONoContestado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
               const dataEEONoContestado = this.state.empleadosEEOFalse.map(rows=>{
                 return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
               })
-              botonTablaEEONoContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(6)}> Cerrar tabla Eval. EEO no contestado</MDBBtn>
-              tablaEEONoContestado = <div style = {{width:680,marginLeft:"1%"}} >
+              let tituloEEONoContestado = <h6><strong>Empleados aún no realizan la evaluación EEO</strong></h6>
+
+              tablaEEONoContestado = 
+              <div style = {{width:680}} >
+              <Card title={tituloEEONoContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(6)}>Cerrar</Boton></div>}>  
               <MUIDataTable
-                title={`Empleados aún no realizan la evaluación EEO`}
                 data={dataEEONoContestado}
                 columns={columnsEEONoContestado}
                 options={options}
               />
+              </Card>
             </div> 
-              } else if (this.state.empleadosEEOFalse[0] == undefined  &&  this.state.tablaEEONoContestado == true ) {
-                botonTablaEEONoContestado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(6)}> Cerrar tabla Eval. EEO no contestado</MDBBtn>
-                const columnsEEONoContestado = [];
-                const dataEEONoContestado =  [];
-                tablaEEONoContestado = <MUIDataTable
-                title={"Por el momento no hay datos que mostrar"}
-                data={dataEEONoContestado}
-                columns={columnsEEONoContestado}
-                options={options}
-              />
+              } else if (this.state.empleadosEEOFalse[0] === undefined  &&  this.state.tablaEEONoContestado === true ) {
+                tablaEEONoContestado = tablaVacia
               }
               ///////////////////////////////////////////////////////////////////////////////////////////////////
               /// Empleados con ATSDetectado 
-
               let tablaATSDetectado;
-              let botonTablaATSDetectado;
-              if(this.state.AtsDetectado[0] &&  this.state.tablaATSDetectado== true){
+              if(this.state.AtsDetectado[0] &&  this.state.tablaATSDetectado === true){
                 const columnsATSDetectado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
     
                 const dataATSDetectado= this.state.AtsDetectado.map(rows=>{
                   return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
                 })
-                botonTablaATSDetectado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(7)}> Cerrar tabla ATS detectado</MDBBtn>
-                tablaATSDetectado = <div style = {{width:680,marginLeft:"1%"}} >
+                let tituloAtsDetectado = <h6><strong>Empleados con ATS detectado</strong></h6>
+                tablaATSDetectado = 
+                <div style = {{marginLeft:"5%"}} >
+                <Card title={tituloAtsDetectado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(7)}>Cerrar</Boton></div>}>  
                 <MUIDataTable
-                  title={`Empleados con ATS detectado`}
                   data={dataATSDetectado}
                   columns={columnsATSDetectado}
                   options={options}
                 />
+                </Card>
               </div> 
-                } else if (this.state.AtsDetectado[0] == undefined  &&  this.state.tablaATSDetectado == true ) {
-                  botonTablaATSDetectado = <MDBBtn color="danger" size = "md" onClick = { e=> this.cerraTablas(7)}>Cerrar tabla ATS detectado</MDBBtn>
-                  const columnsATSDetectado = [];
-                  const dataATSDetectado =  [];
-                  tablaATSDetectado = <MUIDataTable
-                  title={"Por el momento no hay datos que mostrar"}
-                  data={dataATSDetectado}
-                  columns={columnsATSDetectado}
-                  options={options}
-                />
+                } else if (this.state.AtsDetectado[0] === undefined  &&  this.state.tablaATSDetectado === true ) {
+                  tablaATSDetectado = tablaVacia
                 }
-       return (
+      let titulo1 = <h6><strong>Progreso evaluación ATS </strong></h6>;
+      let titulo2 = <h6><strong>Progreso evaluación RP </strong></h6>;
+      let titulo3 = <h6><strong>Progreso evaluación EEO </strong></h6>;
+      let hombres =  this.state.empleadosTotales.filter(function(rows){
+          return rows.Sexo === "MASCULINO"
+      })
+      let mujeres =  this.state.empleadosTotales.filter(function(rows){
+        return rows.Sexo === "FEMENINO"
+      })
+      let edad1529 =  this.state.empleadosTotales.filter(function(rows){
+        return rows.FechaNacimiento === "15 A 19" || rows.FechaNacimiento === "20 A 24" || rows.FechaNacimiento === "25 A 29"
+      })
+
+      let edad3044 =  this.state.empleadosTotales.filter(function(rows){
+        return rows.FechaNacimiento === "30 A 34" || rows.FechaNacimiento === "35 A 39" || rows.FechaNacimiento === "40 A 44"
+      })
+      let edad4559 =  this.state.empleadosTotales.filter(function(rows){
+        return rows.FechaNacimiento === "45 A 49" || rows.FechaNacimiento === "50 A 54" || rows.FechaNacimiento === "55 A 59"
+      })
+      let edad6070 =  this.state.empleadosTotales.filter(function(rows){
+        return rows.FechaNacimiento === "60 A 64" || rows.FechaNacimiento === "65 A 69" || rows.FechaNacimiento === "70 A más"
+      })
+      return (
       <React.Fragment>
       <div>
-        <Navbar/>
-        <div style = {{marginTop:"5%" ,marginLeft:"13%"}}>
-        <MDBRow >
-         <MDBCard style={{ width: "22rem",marginLeft:"1%"}}>
-          <MDBCardBody>        
-          <center><h6><strong>Progreso evaluación ATS </strong></h6></center>
-         {progressInstanceATS}
-         <MDBRow style = {{marginTop:"10%" , marginLeft : "8%"}}>
+        <Navbar periodo = {periodoActivo}/>
+        <div style = {{marginTop:"5%"}}>
+        <div className = "cardPorcentaje">  
+         <Card type="inner" title={ <div><center>{titulo1}{progressInstanceATS}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
+         <MDBCardBody style={{padding:"10px"}}> 
+         <center>       
          <MDBBtn color = "success" size  = "sm" onClick = { e => this.tablaATSContestado()}> Realizada </MDBBtn>  
          <MDBBtn color= "danger" size = "sm" onClick = { e => this.tablaATSNoContestado()}>No realizada</MDBBtn>
-         </MDBRow>
+         </center>
         </MDBCardBody>
-        </MDBCard>
-        <MDBCard style={{ width: "22rem",marginLeft:"1%"}}>
-          <MDBCardBody>        
-          <center><h6><strong>Progreso evaluación RP </strong></h6></center>           
-         {progressInstanceRP}
-         <MDBRow style = {{marginTop:"10%" , marginLeft : "8%"}}>
-        
+        </Card>
+        <Card  type="inner" title={ <div><center>{titulo2}{progressInstanceRP}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
+        <MDBCardBody>        
+        <center>
          <MDBBtn color = "success" size  = "sm" onClick = {e => this.tablaRPContestado()}> Realizada </MDBBtn>  
          <MDBBtn color= "danger" size = "sm" onClick = {e => this.tablaRPNoContestado()}>No realizada</MDBBtn>
-        
-         </MDBRow>
+        </center>
         </MDBCardBody>
-        </MDBCard>
-        <MDBCard style={{ width: "22rem",marginLeft:"1%"}}>
-          <MDBCardBody>        
-          <center><h6><strong>Progreso evaluación EEO </strong></h6></center>
-         {progressInstanceEEO}
-         <MDBRow style = {{marginTop:"10%" , marginLeft : "8%"}}>
-        
+        </Card>
+        <Card  type="inner" title={ <div><center>{titulo3}{progressInstanceEEO}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
+        <MDBCardBody>        
+         <center>        
          <MDBBtn color = "success" size  = "sm" onClick = { e => this.tablaEEOContestado()}> Realizada </MDBBtn>  
          <MDBBtn color= "danger" size = "sm" onClick = { e => this.tablaEEONoContestado()}>No realizada</MDBBtn>
-        
-         </MDBRow>
+         </center>
        </MDBCardBody>
-       </MDBCard>
-        </MDBRow>
-       <MDBRow>
+       </Card>
+        </div>
+          <MDBRow style={{marginLeft:"10%",marginTop:"2%"}}>
           {tablaEmpleados}
           {tablaATSContestado}
           {tablaATSNoContestado}
@@ -1565,51 +1485,50 @@ const options = {
           {tablaEEOContestado}
           {tablaEEONoContestado}
           {tablaATSDetectado}
-          <MDBCard style={{ width: "22rem",marginLeft:"4%" }}>
-          
-          <MDBCardHeader>
-          <center>
-          <Button style={{ color: 'green' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
-          <strong>&nbsp;Información del Sistema <br/><i class="fas fa-mouse-pointer"></i></strong>
-          </Button>
-          </center>
-          <Menu
-              id="simple-menu"
-              anchorEl={this.state.dropdown}
-              keepMounted
-              open={Boolean(this.state.dropdown)}
-              onClose={this.handleClose}
-          >
-              <MenuItem onClick={this.toggle(16)}><i class="fas fa-info-circle"></i> &nbsp;  Información General</MenuItem>
-              <MenuItem onClick={this.handleClose}><i class="fas fa-cloud-upload-alt"></i> &nbsp;{logo} </MenuItem>
-              <MenuItem style={{ color: 'purple' }}><i class="fas fa-question"></i>&nbsp;  ¿Como usar Diagnóstico035?  <IconButton onClick={this.openModal} color="secondary"> <RemoveRedEyeOutlinedIcon /></IconButton></MenuItem>
-              <MenuItem style={{ color: 'orange' }} onClick = { e => this.tablaATSDetectado()}><i class="fas fa-exclamation-triangle"></i>&nbsp; Empleados con ATS detectado : &nbsp; <strong>{this.state.AtsDetectado.length}</strong></MenuItem>
-          </Menu>
-          </MDBCardHeader>
-          <MDBCardBody>
-          <center><strong>{this.state.date}</strong> <br/>
-          <br/>
-          <strong>Periodo actual &nbsp;</strong> {periodoActivo}<br></br>
-          {botonTablaATSContestado}
-          {botonTablaATSNoContestado}
-          {botonTablaRPContestado}
-          {botonTablaRPNoContestado}
-          {botonTablaEEOContestado}
-          {botonTablaEEONoContestado}
-          {botonTablaATSDetectado}
-          {Alerta}
-          {dep}
-          {suc}
-          {pues}
-          </center>
-          </MDBCardBody>
-          </MDBCard> 
-          </MDBRow>
-
+          <Card title={<h6><strong>Gráficas de distribución de empleados actuales</strong></h6>} style={{marginLeft:"3%"}}>
+          <Card>
+          <Chart
+            width={'400px'}
+            height={'250px'}
+            chartType="PieChart"
+            loader={<div>Cargando distribución</div>}
+            data={[
+              ['Género', 'Total'],
+              ['Hombres', hombres.length],
+              ['Mujeres', mujeres.length],
+              
+            ]}
+            options={{
+              title: 'Distribución por Género',
+              is3D: true,
+            }}
+            rootProps={{ 'data-testid': '2' }}
+          />
+          </Card>
+          <Card>
+          <Chart
+            width={'400px'}
+            height={'250px'}
+            chartType="PieChart"
+            loader={<div>Cargando dostribución</div>}
+            data={[
+              ['Rango', 'Edad'],
+              ['De 15 a 29', edad1529.length],
+              ['De 30 a 34', edad3044.length],
+              ['De 45 a 59', edad4559.length],
+              ['De 60 a 70 años o más', edad6070.length],
+            ]}
+            options={{
+              title: 'Distribción por Edad',
+              is3D: true,
+            }}
+            rootProps={{ 'data-testid': '2' }}
+          />
+          </Card> 
+          </Card>
+         </MDBRow> 
         {updateLogo}
-     
         {modalInfoG}
-        {/* {modalAcciones} */}
         {cargarLogo}
         {modificarLogo}
         </div>
@@ -1619,8 +1538,5 @@ const options = {
     );
   }
 }
-
-
-
 export default Home;
 

@@ -2,3 +2,55 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.graficasATS{
+  display: flex;
+  justify-content: left;
+}
+.cardATS {
+  width:"100%";
+  padding: 10px;
+  
+}
+.tabsATS {
+  display: flex;
+  width:"100%";
+  justify-content: center;
+  margin-top: 5%;
+}
+.textabla3{
+  font:73% serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+  padding: 0px 0px 0px 0px;
+}
+.textabla2{
+  font:90% serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
+.textabla1{
+  font:100% serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
+/* table.table th, table.table td{
+  padding-top:2px;
+  padding-bottom: 2px;
+} */
+.panel{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.inputLogin{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.textEEO1{
+  font:100% serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
+.resultado{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
