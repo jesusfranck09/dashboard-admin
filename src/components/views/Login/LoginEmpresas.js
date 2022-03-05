@@ -207,6 +207,8 @@ localStorage.removeItem("fk_superusuario")
           }
        }).catch(err=>{
          console.log("error",err.response)
+         console.log("error",err)
+
        })
   }
   onChangeInput =(e)=>{
@@ -250,7 +252,6 @@ localStorage.removeItem("fk_superusuario")
                    <MDBInput  
                      size="md"
                      id="password"
-                     type="password"
                      name="password"
                      onChange={this.onChangeInput}
                      value={this.state.password}
