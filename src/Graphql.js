@@ -5,7 +5,8 @@ import { createUploadLink } from 'apollo-upload-client';
 
 //  const API_URL = 'https://backenddiagnostico035.herokuapp.com/graphql'; //URL
 
-const API_URL = 'http://localhost:4000/graphql'; //URL
+const API_URL = 'https://backdiagnosticoprueba.herokuapp.com/graphql'
+// const API_URL = 'http://localhost:4000/graphql'; //URL
 
 const httpLink = createUploadLink({
     uri: `${API_URL}`
