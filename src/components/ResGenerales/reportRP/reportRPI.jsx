@@ -31,7 +31,7 @@ class ReportRP extends Component {
         return (
             <React.Fragment>
             <center>
-            <Card style={{width:"70%",padding:"25px"}}title = {<h6><strong>Resultados de la Aplicación de la evaluación RP </strong></h6>} extra = {<div><Button type="primary" className="text-white" onClick={(e) => { this.pdfExportComponent.save(); }}>Descargar reporte</Button>&nbsp;&nbsp;&nbsp;<Button type="dashed" danger onClick={e=>window.location.reload()}>Cerrar</Button></div>}>
+            <Card style={{width:"100%",padding:"25px"}}title = {<h6><strong>Resultados de la Aplicación de la evaluación RP </strong></h6>} extra = {<div><Button type="primary" className="text-white" onClick={(e) => { this.pdfExportComponent.save(); }}>Descargar reporte</Button>&nbsp;&nbsp;&nbsp;<Button type="dashed" danger onClick={e=>window.location.reload()}>Cerrar</Button></div>}>
                 <table style={{width:"70%"}}>
                     <tr>
                         <td width="70%">
