@@ -1131,9 +1131,9 @@ else if(parametro === 8){
 const options = {
   filterType: "dropdown",
   responsive: "stacked",
-  search:false,
-  print:false,
-  download:false,
+  search:true,
+  print:true,
+  download:true,
   sort:false,
   filter:false,
   viewColumns:false,
