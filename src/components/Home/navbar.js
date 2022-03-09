@@ -117,6 +117,10 @@ class Navbar extends React.Component {
                         <strong> {modulo} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{periodo}</strong>
                         </MDBNavbarNav>
                         <MDBNavbarNav left>
+                          <strong>Versión 3.0</strong>
+                        </MDBNavbarNav>
+                        <MDBNavbarNav left>
+                        
                         <Button  style={{ color: '#FC1B99' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
                           Herramientas &nbsp;<i class="fas fa-cog"> </i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </Button>

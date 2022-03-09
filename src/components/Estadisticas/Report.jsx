@@ -52,13 +52,13 @@ class ReportEstadisticas extends Component {
                     
                            <center> <img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/></center>
                             <Card style = {{width:550}} className="text-left mt-4 ">
-                            <center><font  size="2"face="arial"color="black"> <strong>ESTADÍSTICA GUÍA DE REFERENCIA V</strong><br></br></font></center><br/>
-                            <font size="1"face="arial"color="black"> {localStorage.getItem("razonsocial")}</font><br></br>   
-                            <font size="1"face="arial"color="black">Representante: <strong>{representante}</strong></font><br/>
-                            <font size="1"face="arial"color="black">Total de Empleados Considerados : <strong>{epleadosTotales}</strong></font>
-                            <br/><font size="1"face="arial"color="black">Periodo de evaluación : <strong>{periodoEvaluacion}</strong></font><br/>
+                            <center><p className='textabla1'> <strong>ESTADÍSTICA GUÍA DE REFERENCIA V</strong><br></br></p></center><br/>
+                            <p className='textabla2'> {localStorage.getItem("razonsocial")}</p>   
+                            <p className='textabla2'>Representante: <strong>{representante}</strong></p>
+                            <p className='textabla2'>Total de Empleados Considerados : <strong>{epleadosTotales}</strong></p>
+                            <p className='textabla2'>Periodo de evaluación : <strong>{periodoEvaluacion}</strong></p>
                             <div style={{ position: "absolute", bottom: "10px", left: "360px" }}>
-                            <font size="1"face="arial"color="black"><strong>{fechaCompleta}</strong></font>
+                            <p className='textabla2'><strong>{fechaCompleta}</strong></p>
                             </div>
                             <center><img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,heigth:20}}/></center>
                             </Card>
@@ -95,34 +95,34 @@ class ReportEstadisticas extends Component {
                               <br></br>
                               <br></br>
                               <br></br>
-                                <center><font size="2" face="arial" color="black"><strong>GUÍA DE REFERENCIA V - DATOS DEL TRABAJADOR</strong></font></center>    <br/>                                                  
-                                    <center><font size="1" face="arial" color="black"><strong>Reporte de datos demográficos generales.</strong></font></center><br/>
+                                <center><p className='textabla1'><strong>GUÍA DE REFERENCIA V - DATOS DEL TRABAJADOR</strong></p></center>    <br/>                                                  
+                                    <center><p className='textabla2'><strong>Reporte de datos demográficos generales.</strong></p></center><br/>
                                     <center>
                                     <div style={{width:"85%"}}>
                                       {titulo1}
                                       <MDBTable striped bordered  small style={{marginTop:"2%"}}> 
                                       <MDBTableHead>
-                                        <tr >                              
-                                        <td width="25px" className="text-center"><font size="1" face="arial"color="black" >Género</font></td>
-                                        <td width="25px" className="text-center"><font size="1" face="arial"color="black">No.Empleados</font></td>
-                                        <td width="25px" className="text-center"><font size="1" face="arial"color="black">Porcentaje</font></td>
+                                        <tr style={{paddingTop:"2px",paddingBottom:"2px"}}>                              
+                                        <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-center textabla3">Género</td>
+                                        <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-center textabla3">No.Empleados</td>
+                                        <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-center textabla3">Porcentaje</td>
                                         </tr>
                                       </MDBTableHead>  
                                       <MDBTableBody>                               
                                         <tr >  
-                                        <td width="25px" className="text-center"><font size="1" face="arial"color="black" >Hombres</font></td>
-                                            <td width="25px" className="text-center"><font size="1" face="arial"color="black">{genero[0][0][0].length}</font></td>
-                                            <td width="25px" className="text-center"><font size="1" face="arial"color="black">{genero[0][1]} %</font></td>
+                                        <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-left textabla3">Hombres</td>
+                                            <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-center textabla3">{genero[0][0][0].length}</td>
+                                            <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-center textabla3">{genero[0][1]} %</td>
                                         </tr>
                                         <tr >  
-                                        <td width="25px" className="text-center"><font size="1" face="arial"color="black" >Mujeres</font></td>
-                                            <td width="25px" className="text-center"><font size="1" face="arial"color="black">{genero[1][0][0].length}</font></td>
-                                            <td width="25px" className="text-center"><font size="1" face="arial"color="black">{genero[1][1]} %</font></td>
+                                        <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-left textabla3">Mujeres</td>
+                                            <td  style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-center textabla3">{genero[1][0][0].length}</td>
+                                            <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-center textabla3">{genero[1][1]} %</td>
                                         </tr>
                                         <tr >  
-                                        <td width="25px" className="text-center"><font size="1" face="arial"color="black" >Total</font></td>
-                                            <td width="25px" className="text-center"><font size="1" face="arial"color="black">{totalPersonasGenero}</font></td>
-                                            <td width="25px" className="text-center"><font size="1" face="arial"color="black">100 %</font></td>
+                                        <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-left textabla3">Total</td>
+                                            <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-center textabla3">{totalPersonasGenero}</td>
+                                            <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-center textabla3">100 %</td>
                                         </tr>
                                         </MDBTableBody>
                                       </MDBTable>
@@ -132,16 +132,16 @@ class ReportEstadisticas extends Component {
                                     <MDBTable bordered striped small style={{marginTop:"2%"}}> 
                                       <MDBTableHead>
                                         <tr >  
-                                        <td className="text-center" width="75px"><font size="1" face="arial"color="black" >Centros de Trabajo</font></td>
-                                        <td width="25px" className="text-center"><font size="1" face="arial"color="black">No.Empleados</font></td>
+                                        <td style={{paddingTop:"2px",paddingBottom:"2px"}} className="text-left textabla3" width="75px">Centros de Trabajo</td>
+                                        <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="25px" className="text-center textabla3">No.Empleados</td>
                                         </tr>
                                       </MDBTableHead>
                                       <MDBTableBody>
                                         {centroTrabajo.map(rows=>{
                                           return(
                                             <tr >                              
-                                            <td ><font size="1" face="arial"color="black" >{rows[0]}</font></td>
-                                            <td className="text-center"><font size="1" face="arial"color="black" >{rows[1]}</font></td>  
+                                            <td style={{paddingTop:"2px",paddingBottom:"2px"}} className="text-left textabla3">{rows[0]}</td>
+                                            <td style={{paddingTop:"2px",paddingBottom:"2px"}} className="text-center textabla3">{rows[1]}</td>  
                                             </tr>
                                           )
                                         })}   
@@ -153,76 +153,76 @@ class ReportEstadisticas extends Component {
                                        <MDBTable bordered striped small style={{marginTop:"2%"}}> 
                                        <MDBTableHead>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Rango</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Empleados</font></td>   
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Porcentaje</font></td>                             
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Rango</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">Empleados</td>   
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">Porcentaje</td>                             
                                         </tr>   
                                        </MDBTableHead>
                                        <MDBTableBody>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >15 a 19 Años</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{edad[0][0]}</font></td>                                                                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">{edad[0][1]} %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">15 a 19 Años</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{edad[0][0]}</td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{edad[0][1]} %</td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >20 a 24 Años</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{edad[1][0]}</font></td>    
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">{edad[1][1]} %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">20 a 24 Años</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{edad[1][0]}</td>    
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{edad[1][1]} %</td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >25 a 29 Años</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{edad[2][0]}</font></td>      
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">{edad[2][1]} %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">25 a 29 Años</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{edad[2][0]}</td>      
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{edad[2][1]} %</td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >30 a 34 Años</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{edad[3][0]}</font></td>  
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">{edad[3][1]} %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">30 a 34 Años</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{edad[3][0]}</td>  
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{edad[3][1]} %</td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >35 a 39 Años</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{edad[4][0]}</font></td>    
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">{edad[4][1]} %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">35 a 39 Años</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{edad[4][0]}</td>    
+                                          <td  style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{edad[4][1]} %</td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >40 a 44 Años</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{edad[5][0]}</font></td>  
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">{edad[5][1]} %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">40 a 44 Años</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{edad[5][0]}</td>  
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{edad[5][1]} %</td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >45 a 49 Años</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{edad[6][0]}</font></td>   
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">{edad[6][1]} %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">45 a 49 Años</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{edad[6][0]}</td>   
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{edad[6][1]} %</td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >50 a 54 Años</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{edad[7][0]}</font></td> 
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">{edad[7][1]} %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">50 a 54 Años</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{edad[7][0]}</td> 
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{edad[7][1]} %</td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >55 a 59 Años</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{edad[8][0]}</font></td> 
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">{edad[8][1]} %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">55 a 59 Años</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{edad[8][0]}</td> 
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{edad[8][1]} %</td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >60 a 64 Años</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{edad[9][0]}</font></td>   
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">{edad[9][1]} %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">60 a 64 Años</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{edad[9][0]}</td>   
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{edad[9][1]} %</td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >65 a 69 Años</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{edad[10][0]}</font></td> 
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">{edad[10][0]} %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">65 a 69 Años</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{edad[10][0]}</td> 
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{edad[10][0]} %</td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >70 o más</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{edad[11][0]}</font></td>   
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">{edad[11][1]} %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">70 o más</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{edad[11][0]}</td>   
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{edad[11][1]} %</td>                                                                              
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Total</font></td>
-                                          <td width="70px" className="text-center"><font size="1" face="arial"color="black">{edad[12]}</font></td>  
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black">100 %</font></td>                                                                              
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Total</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="70px" className="text-center textabla3">{edad[12]}</td>  
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">100 %</td>                                                                              
                                         </tr>
                                       </MDBTableBody>
                                       </MDBTable>
@@ -232,51 +232,51 @@ class ReportEstadisticas extends Component {
                                       <MDBTable bordered striped small style={{marginTop:"2%"}}> 
                                       <MDBTableHead>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Estudios</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Empleados</font></td>  
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Porcentaje</font></td>                             
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Estudios</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">Empleados</td>  
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">Porcentaje</td>                             
                                         </tr>  
                                       </MDBTableHead> 
                                       <MDBTableBody> 
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Sin estudios</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{formacion[0][0]}</font></td> 
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >{formacion[0][1]} %</font></td>                             
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Sin estudios</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{formacion[0][0]}</td> 
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{formacion[0][1]} %</td>                             
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Primaria</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{formacion[1][0]}</font></td>   
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >{formacion[1][1]} %</font></td>                             
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Primaria</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{formacion[1][0]}</td>   
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{formacion[1][1]} %</td>                             
                                         </tr>
                                       <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Secundaria</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{formacion[2][0]}</font></td> 
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >{formacion[2][1]} %</font></td>                             
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Secundaria</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{formacion[2][0]}</td> 
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{formacion[2][1]} %</td>                             
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Preparatoria O Bachillerato</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{formacion[3][0]}</font></td>    
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >{formacion[3][1]} %</font></td>                             
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Preparatoria O Bachillerato</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{formacion[3][0]}</td>    
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{formacion[3][1]} %</td>                             
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Licenciatura</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{formacion[4][0]}</font></td>    
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >{formacion[4][1]} %</font></td>                             
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Licenciatura</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{formacion[4][0]}</td>    
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{formacion[4][1]} %</td>                             
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Maestría</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{formacion[5][0]}</font></td>
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >{formacion[5][1]} %</font></td>                             
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Maestría</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{formacion[5][0]}</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{formacion[5][1]} %</td>                             
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Doctorado</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{formacion[6][0]}</font></td> 
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >{formacion[6][1]} %</font></td>                             
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Doctorado</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{formacion[6][0]}</td> 
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{formacion[6][1]} %</td>                             
                                         </tr>
                                         <tr >                              
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Total</font></td>
-                                          <td width="40px" className="text-center"><font size="1" face="arial"color="black">{epleadosTotales}</font></td> 
-                                          <td width="30px" className="text-center"><font size="1" face="arial"color="black" >100 %</font></td>                             
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Total</td>
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{epleadosTotales}</td> 
+                                          <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">100 %</td>                             
                                         </tr>
                                     </MDBTableBody>
                                     </MDBTable>
@@ -286,56 +286,56 @@ class ReportEstadisticas extends Component {
                                     <MDBTable  bordered striped small style={{marginTop:"2%"}}> 
                                     <MDBTableHead>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Experiencia</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Empleados</font></td>     
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Porcentaje</font></td>                             
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Experiencia</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">Empleados</td>     
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">Porcentaje</td>                             
                                     </tr>      
                                     </MDBTableHead>
                                     <MDBTableBody>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Menos de 6 Meses</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[0][0]}</font></td>  
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[0][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Menos de 6 Meses</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{experienciaLAboral[0][0]}</td>  
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{experienciaLAboral[0][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Entre 6 meses y 1 Año</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[1][0]}</font></td>      
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[1][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Entre 6 meses y 1 Año</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{experienciaLAboral[1][0]}</td>      
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{experienciaLAboral[1][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Entre 1 A 4 Años</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[2][0]}</font></td> 
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[2][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Entre 1 A 4 Años</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{experienciaLAboral[2][0]}</td> 
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{experienciaLAboral[2][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Entre 5 A 9 Años</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[3][0]}</font></td> 
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[3][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Entre 5 A 9 Años</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{experienciaLAboral[3][0]}</td> 
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{experienciaLAboral[3][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Entre 10 A 14 Años</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[4][0]}</font></td>  
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[4][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Entre 10 A 14 Años</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{experienciaLAboral[4][0]}</td>  
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{experienciaLAboral[4][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Entre 15 A 19 Años</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[5][0]}</font></td>                                                                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[5][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Entre 15 A 19 Años</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{experienciaLAboral[5][0]}</td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{experienciaLAboral[5][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Entre 20 A 24 Años</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[6][0]}</font></td>  
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[6][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Entre 20 A 24 Años</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{experienciaLAboral[6][0]}</td>  
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{experienciaLAboral[6][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >25 Años o más</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[7][0]}</font></td>   
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{experienciaLAboral[7][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">25 Años o más</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{experienciaLAboral[7][0]}</td>   
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{experienciaLAboral[7][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Total</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{epleadosTotales}</font></td>  
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">100%</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Total</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{epleadosTotales}</td>  
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">100%</td>                                                                              
                                     </tr>
                                   </MDBTableBody>
                                   </MDBTable>
@@ -345,55 +345,55 @@ class ReportEstadisticas extends Component {
                                   <MDBTable  bordered striped small style={{marginTop:"2%"}}> 
                                   <MDBTableHead>
                                     <tr >                              
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Antiguedad</font></td>
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Empleados</font></td>    
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Porcentaje</font></td>                             
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-left textabla3">Antiguedad</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">Empleados</td>    
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">Porcentaje</td>                             
                                     </tr>
                                   </MDBTableHead>  
                                   <MDBTableBody>
                                     <tr >                              
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Menos de 6 Meses</font></td>
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[0][0]}</font></td>  
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[0][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-left textabla3">Menos de 6 Meses</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[0][0]}</td>  
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[0][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Entre 6 meses y 1 Año</font></td>
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[1][0]}</font></td>   
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[1][1]} %</font></td>                                                                                                                  </tr>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-left textabla3">Entre 6 meses y 1 Año</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[1][0]}</td>   
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[1][1]} %</td>                                                                                                                  </tr>
                                     <tr >                              
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Entre 1 A 4 Años</font></td>
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[2][0]}</font></td> 
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[2][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-left textabla3">Entre 1 A 4 Años</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[2][0]}</td> 
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[2][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Entre 5 A 9 Años</font></td>
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[3][0]}</font></td>   
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[3][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-left textabla3">Entre 5 A 9 Años</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[3][0]}</td>   
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[3][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Entre 10 A 14 Años</font></td>
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[4][0]}</font></td>     
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[4][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-left textabla3">Entre 10 A 14 Años</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[4][0]}</td>     
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[4][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Entre 15 A 19 Años</font></td>
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[5][0]}</font></td>   
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[5][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-left textabla3">Entre 15 A 19 Años</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[5][0]}</td>   
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[5][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Entre 20 A 24 Años</font></td>
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[6][0]}</font></td>   
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[6][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-left textabla3">Entre 20 A 24 Años</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[6][0]}</td>   
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[6][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black" >25 Años o más</font></td>
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[7][0]}</font></td> 
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{antiguedad[7][1]} %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-left textabla3">25 Años o más</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[7][0]}</td> 
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{antiguedad[7][1]} %</td>                                                                              
                                     </tr>
                                     <tr >                              
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Total</font></td>
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">{epleadosTotales}</font></td>  
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black">100 %</font></td>                                                                              
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-left textabla3">Total</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{epleadosTotales}</td>  
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">100 %</td>                                                                              
                                     </tr>
                                   </MDBTableBody>  
                                   </MDBTable>
@@ -403,41 +403,41 @@ class ReportEstadisticas extends Component {
                                   <MDBTable bordered striped small style={{marginTop:"2%"}}> 
                                   <MDBTableHead>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Puestos</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black" >Empleados</font></td>
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Porcentaje</font></td>                             
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Puestos</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">Empleados</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">Porcentaje</td>                             
                                     </tr> 
                                   </MDBTableHead>  
                                   <MDBTableBody>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Operativo</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{puesto[0][0]}</font></td>  
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >{puesto[1][0]} %</font></td>                             
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Operativo</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{puesto[0][0]}</td>  
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{puesto[1][0]} %</td>                             
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Profesional o Técnico</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{puesto[1][0]}</font></td>  
-                                    <td width="30px" className="text-center"><font size="1" face="arial"color="black" >{puesto[1][1]} %</font></td>                             
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Profesional o Técnico</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{puesto[1][0]}</td>  
+                                    <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{puesto[1][1]} %</td>                             
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Supervisor</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{puesto[2][0]}</font></td>   
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >{puesto[2][1]} %</font></td>                             
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Supervisor</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{puesto[2][0]}</td>   
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{puesto[2][1]} %</td>                             
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Gerencial</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{puesto[3][0]}</font></td>  
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >{puesto[3][1]} %</font></td>                             
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Gerencial</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{puesto[3][0]}</td>  
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{puesto[3][1]} %</td>                             
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Directivo</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{puesto[4][0]}</font></td>                                 
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >{puesto[4][1]} %</font></td>                             
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Directivo</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{puesto[4][0]}</td>                                 
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-center textabla3">{puesto[4][1]} %</td>                             
                                     </tr>
                                     <tr >                              
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >Total</font></td>
-                                      <td width="40px" className="text-center"><font size="1" face="arial"color="black">{epleadosTotales}</font></td>  
-                                      <td width="30px" className="text-center"><font size="1" face="arial"color="black" >100 %</font></td>                             
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="30px" className="text-left textabla3">Total</td>
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="40px" className="text-center textabla3">{epleadosTotales}</td>  
+                                      <td style={{paddingTop:"2px",paddingBottom:"2px"}}width="30px" className="text-center textabla3">100 %</td>                             
                                     </tr>
                                     </MDBTableBody>
                                     </MDBTable>
