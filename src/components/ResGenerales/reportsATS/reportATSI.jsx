@@ -231,7 +231,7 @@ class ReportATSI extends Component {
                             <div style={{ width: "530px" }}>
                                 <center><img src={logo} alt="logo" style = {{width:550,marginBottom:20}}/></center>  
                                 <Card style = {{width:550}} className="text-left mt-2 ">   
-                                <center><p className="textabla1">REPORTE INDIVIDUAL DEL DIAGNÓSTICO DE ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</p></center><br/><br></br>
+                                <center><p className="textabla1">REPORTE INDIVIDUAL DEL DIAGNÓSTICO DE ACONTECIMIENTOS TRAUMÁTICOS SEVEROS</p></center><br/>
                                 <p className="textabla2"> <strong>{localStorage.getItem("razonsocial")}</strong></p>
                                 <p className="textabla2">Representante: <strong>{representante}</strong></p>         
                                 <p className="textabla2">{estadoResultados[0].nombre} {estadoResultados[0].ApellidoP} {estadoResultados[0].ApellidoM}</p>
@@ -241,7 +241,6 @@ class ReportATSI extends Component {
                                 </div>
                                 </Card>  
                                 <center><img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:90,heigth:20}}/></center>
-                                <br></br>
                                 <br></br>
                                 <br></br>
                                 <br></br>
