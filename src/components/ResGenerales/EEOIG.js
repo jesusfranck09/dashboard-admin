@@ -100,7 +100,7 @@ export default class App extends React.Component {
     title: 'Hasta luego...!',
     position: "fixed",})}
 
-  getGlobalEmployees = async ( ) => {
+  getGlobalEmployees( ){
     let periodo =  localStorage.getItem("periodo")
     this.setState({spinner:true})
     let totalEmpleados=[];
@@ -108,7 +108,7 @@ export default class App extends React.Component {
     let evaluacionesRealizadasPeriodoActual;
     let evaluacionEEO;
     let result;    
-    await axios({
+     axios({
       url:  API,
       method:'post',
       data:{
@@ -234,7 +234,7 @@ export default class App extends React.Component {
           console.log("el error es  ",err.response)
         }); 
          this.setState({spinner:false})
-         }
+      }
       async cargarTablaPeriodoSeleccionado (parametro){
       this.setState({collapse:false})
       let periodo = parametro

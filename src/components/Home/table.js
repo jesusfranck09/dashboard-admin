@@ -230,7 +230,7 @@ class TableEmployees extends React.Component {
     }
      sendMail =  (datosEmpleados,param) =>{
       if(datosEmpleados && datosEmpleados[0]){
-        const idAdmin = localStorage.getItem("idAdmin")
+        const idAdmin = localStorage.getItem("idAdmin");
         if ( this.state.periodoActivo > 0){
         axios({
         url:  API,
@@ -244,17 +244,16 @@ class TableEmployees extends React.Component {
               }
             `
         }
-            }).then(datos => { 
-              console.log("entro" ) 
-              DialogUtility.alert({
-                animationSettings: { effect: 'Zoom' },           
-                content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados`,
-                title: 'Aviso!',
-                position: "fixed"
-                })
-            }).catch(err=>{
-              console.log("error", err.response)
+        }).then(datos => { 
+          DialogUtility.alert({
+            animationSettings: { effect: 'Zoom' },           
+            content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados`,
+            title: 'Aviso!',
+            position: "fixed"
             })
+        }).catch(err=>{
+          console.log("error", err.response)
+        })
       }
       }else{
         DialogUtility.alert({
@@ -263,7 +262,6 @@ class TableEmployees extends React.Component {
           title: 'Aviso!',
           position: "fixed"
           })
-
           setTimeout(()=>{
             window.location.reload()
           },2000)
@@ -272,6 +270,50 @@ class TableEmployees extends React.Component {
       onChange = e => {
         this.setState({ size: e.target.value });
       };
+      // sendMailEEO =  (datosEmpleados) =>{
+      //   if(datosEmpleados && datosEmpleados[0]){
+      //     const idAdmin = localStorage.getItem("idAdmin")
+      //     if ( this.state.periodoActivo > 0){
+      //     axios({
+      //     url:  API,
+      //     method:'post',
+      //     data:{
+      //     query:` 
+      //     mutation{
+      //       sendMail(data:"${[datosEmpleados,3,idAdmin]}"){
+      //           message
+      //             }
+      //           }
+      //         `
+      //     }
+      //         }).then(datos => { 
+      //           console.log("datos",datos)
+      //           DialogUtility.alert({
+      //             animationSettings: { effect: 'Zoom' },           
+      //             content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados`,
+      //             title: 'Aviso!',
+      //             position: "fixed"
+      //             })
+      //         }).catch(err=>{
+      //           console.log("error", err.response)
+      //         })
+      //   }
+      //   }else{
+      //     DialogUtility.alert({
+      //       animationSettings: { effect: 'Zoom' },           
+      //       content: `Por favor seleccione al menos un empleado para enviar el correo`,
+      //       title: 'Aviso!',
+      //       position: "fixed"
+      //       })
+  
+      //       setTimeout(()=>{
+      //         window.location.reload()
+      //       },2000)
+      //   } 
+      // }    
+        onChange = e => {
+          this.setState({ size: e.target.value });
+        };
 
   render() {
     const { size } = this.state;
@@ -287,8 +329,6 @@ class TableEmployees extends React.Component {
     })
     const columnss = ["Evaluación","Fecha", "Nombre",  "Apellido P.","Apellido M.","Curp","Status"];
     const datas = this.state.correos.map(rows=>{
-      console.log("data",rows)
-
       return([rows.Encuesta,rows.fecha,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.Curp,"Enviado"])
     })
 

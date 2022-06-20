@@ -1,58 +1,57 @@
-import React from "react";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import diagnostico from '../../images/diagnostico.png'
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import "bootstrap-css-only/css/bootstrap.min.css";
-import "mdbreact/dist/css/mdb.css";
-import 'antd/dist/antd.css';
-import axios from 'axios'
-import { Form } from 'reactstrap';
-import { Card } from 'antd';
+  import React from "react";
+  import "@fortawesome/fontawesome-free/css/all.min.css";
+  import diagnostico from '../../images/diagnostico.png'
+  import '@fortawesome/fontawesome-free/css/all.min.css';
+  import "bootstrap-css-only/css/bootstrap.min.css";
+  import "mdbreact/dist/css/mdb.css";
+  import 'antd/dist/antd.css';
+  import axios from 'axios'
+  import { Form } from 'reactstrap';
+  import { Card } from 'antd';
+  import {
+    MDBInput,
+    MDBMask,
+    MDBRow,
+    MDBBtn,
+    MDBView,
+    MDBAnimation,
+    MDBCardBody,
+  } from "mdbreact";
+  import "./index.css";
+  import { DialogUtility } from '@syncfusion/ej2-popups';
+  import {API} from '../../utils/http';
 
-import {
-  MDBInput,
-  MDBMask,
-  MDBRow,
-  MDBBtn,
-  MDBView,
-  MDBAnimation,
-  MDBCardBody,
-} from "mdbreact";
-import "./index.css";
-import { DialogUtility } from '@syncfusion/ej2-popups';
-import {API} from '../../utils/http'
 
-class Login extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            rfc: '',
-            password: '',
-            isPasswordShown: false,
+  class Login extends React.Component {
+      constructor(props){
+          super(props);
+          this.state = {
+              rfc: '',
+              password: '',
+              isPasswordShown: false,
+          }
         }
-      }
-componentWillMount(){
-localStorage.removeItem("elToken")
-localStorage.removeItem("nombre")
-localStorage.removeItem("apellidos")
-localStorage.removeItem("rfc")
-localStorage.removeItem("razonsocial")
-localStorage.removeItem("usuario")
-localStorage.removeItem("correo")
-localStorage.removeItem("max")
-localStorage.removeItem("idAdmin")
-localStorage.removeItem("fechaRegistro")
-localStorage.removeItem("fechaRegistroSuperusuario")
-localStorage.removeItem("ok")
-localStorage.removeItem("empleadoActivo")
-localStorage.removeItem("DepartamentoActivo")
-localStorage.removeItem("SucursalActiva")
-localStorage.removeItem("PuestoActivo")
-localStorage.removeItem("urlLogo")
-localStorage.removeItem("periodo")
-localStorage.removeItem("fk_superusuario")
-}      
-
+  componentWillMount(){
+  localStorage.removeItem("elToken")
+  localStorage.removeItem("nombre")
+  localStorage.removeItem("apellidos")
+  localStorage.removeItem("rfc")
+  localStorage.removeItem("razonsocial")
+  localStorage.removeItem("usuario")
+  localStorage.removeItem("correo")
+  localStorage.removeItem("max")
+  localStorage.removeItem("idAdmin")
+  localStorage.removeItem("fechaRegistro")
+  localStorage.removeItem("fechaRegistroSuperusuario")
+  localStorage.removeItem("ok")
+  localStorage.removeItem("empleadoActivo")
+  localStorage.removeItem("DepartamentoActivo")
+  localStorage.removeItem("SucursalActiva")
+  localStorage.removeItem("PuestoActivo")
+  localStorage.removeItem("urlLogo")
+  localStorage.removeItem("periodo")
+  localStorage.removeItem("fk_superusuario")
+  }      
 
   togglePasswordVisiblity = () => {
     const { isPasswordShown } = this.state;
@@ -93,14 +92,12 @@ localStorage.removeItem("fk_superusuario")
         })
       }
       if(response.data.data.loginEmpresas.token==='no hay token' && response.data.data.loginEmpresas.message==='usuario y contraseña incorrectos'){
-
         let rfc = response.data.data.loginEmpresas.RFC
         var date = new Date();
         var hours = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         var dd = String(date.getDate()).padStart(2, '0');
         var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = date.getFullYear();
-      
         date = mm + '/' + dd + '/' + yyyy;
         let IP = "00000000";
           
@@ -129,17 +126,14 @@ localStorage.removeItem("fk_superusuario")
           })  
           }
           if(response.data.data.loginEmpresas.message==='Login exitoso' && response.data.data.loginEmpresas.token && response.data.data.loginEmpresas.activo === "true"){
-
             let IP  = "000000";
             let rfc = response.data.data.loginEmpresas.RFC
             let idEmpresa = response.data.data.loginEmpresas.id
-        
             var date = new Date();
             var hours = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
             var dd = String(date.getDate()).padStart(2, '0');
             var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = date.getFullYear();
-        
             date = mm + '/' + dd + '/' + yyyy;
         
          axios({
@@ -158,14 +152,12 @@ localStorage.removeItem("fk_superusuario")
                 }).catch(err=>{
                   console.log("error" , err.response)
                   console.log("err" , err)
-        
                 })  
         
                 localStorage.setItem('nombre', response.data.data.loginEmpresas.nombre)
                 localStorage.setItem('elToken', response.data.data.loginEmpresas.token)  
                 localStorage.setItem('apellidos', response.data.data.loginEmpresas.Apellidos) 
                 localStorage.setItem('rfc',response.data.data.loginEmpresas.RFC) 
-
                 if(response.data.data.loginEmpresas.RazonSocial.length>60){
                   localStorage.setItem('razonsocial', response.data.data.loginEmpresas.RazonSocial.substring(0,30) + "...") 
                 }else{
@@ -175,9 +167,7 @@ localStorage.removeItem("fk_superusuario")
                 localStorage.setItem('idAdmin', response.data.data.loginEmpresas.id) 
                 localStorage.setItem('fechaRegistro', response.data.data.loginEmpresas.fechaRegistro) 
                 localStorage.setItem('fk_superusuario', response.data.data.loginEmpresas.fk_superusuario) 
-        
                 this.props.history.push("/inicio")  
-        
                 var texto = "";
                 var ahora=new Date(); 
                 var hora=ahora.getHours();
@@ -188,13 +178,11 @@ localStorage.removeItem("fk_superusuario")
                 } else { 
                     texto="Buenas noches";
                 }
-        
               DialogUtility.alert({
                 animationSettings: { effect: 'Zoom' },           
                 title: `Hola ${texto} ${response.data.data.loginEmpresas.nombre}`,
                 content:"Su sesón ha iniciado exitosamente" , 
                 position: "fixed",
-                
             })
                 
           }if(response.data.data.loginEmpresas.activo === 'false'){
@@ -208,23 +196,20 @@ localStorage.removeItem("fk_superusuario")
        }).catch(err=>{
          console.log("error",err.response)
          console.log("error",err)
-
        })
-  }
-  onChangeInput =(e)=>{
-    const {id,value} = e.target;
-    this.setState({
-        [id]:value
-    })
-}
+      }
+    onChangeInput =(e)=>{
+      const {id,value} = e.target;
+      this.setState({
+          [id]:value
+      })
+    }
 
   render() {
     const { isPasswordShown } = this.state;
-
-
-    let titulo = <center><strong><h3>iniciar sesión</h3></strong></center>
+    let titulo = <center><strong><h3>Iniciar sesión</h3></strong></center>
     return(
-       <React.Fragment>
+      <React.Fragment>
        <div id="apppage" >  
         <MDBView>
           <MDBMask >
@@ -234,8 +219,8 @@ localStorage.removeItem("fk_superusuario")
               <Card title = {titulo} style={{width:"100%"}}>
               <div className="h5 text-center">
                 <center>
-               <img src = {diagnostico} style={{width:180,height:60}}/>
-               </center>
+                  <img src = {diagnostico} style={{width:180,height:60}}/>
+                </center>
               </div>
                   <MDBCardBody style={{padding:10}}className="mx-4">
                   <Form onSubmit={this.onSubmitBtn}> 
@@ -279,15 +264,11 @@ localStorage.removeItem("fk_superusuario")
                 </MDBAnimation>   
               </MDBRow>  
               </div>
-        
           </MDBMask>
         </MDBView>
       </div>
-   </React.Fragment>
-
-
+      </React.Fragment>
     )        
-   
   }
 }
 
