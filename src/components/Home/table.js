@@ -229,6 +229,7 @@ class TableEmployees extends React.Component {
     )
     }
      sendMail =  (datosEmpleados,param) =>{
+      console.log("datosRecibidos",datosEmpleados,param)
       if(datosEmpleados && datosEmpleados[0]){
         const idAdmin = localStorage.getItem("idAdmin");
         if ( this.state.periodoActivo > 0){
@@ -335,6 +336,7 @@ class TableEmployees extends React.Component {
     let datosEmpleados;
     let datosEmpleadosRP;
     let datosEmpleadosEEO;
+    let datos;
     const options = {
         elevation:0,  
         print:false,
@@ -384,7 +386,7 @@ class TableEmployees extends React.Component {
             let array = []
             param1.map(param =>{
               let filter = tableState.data.filter(function(rows){
-                return  rows.index  === param.index
+                return  rows.index  === param.dataIndex
               })
 
               array.push(filter)
@@ -452,7 +454,7 @@ class TableEmployees extends React.Component {
                 let array = []
                 param1.map(param =>{
                   let filter = tableState.data.filter(function(rows){
-                    return  rows.index  === param.index
+                    return  rows.index  === param.dataIndex
                   })
     
                   array.push(filter)
@@ -518,7 +520,7 @@ class TableEmployees extends React.Component {
                     let array = []
                     param1.map(param =>{
                       let filter = tableState.data.filter(function(rows){
-                        return  rows.index  === param.index
+                        return  rows.index  === param.dataIndex
                       })
                       array.push(filter)
                     })
@@ -526,10 +528,16 @@ class TableEmployees extends React.Component {
                       array.map(rows=>{
                         if(rows[0]){
                           array2.push([rows[0].data[0],rows[0].data[4]])
-                        }                      })
+                        }                     
+                      })
                     }
                   }
-                datosEmpleadosEEO = array2
+
+                if(param1[0]){
+                  datosEmpleadosEEO = array2
+                }else{
+                  datosEmpleadosEEO = tableState.displayData
+                }   
                 },
                 onFilterChange: (action, filtroTable) => {
                 } };
