@@ -99,11 +99,11 @@ class Navbar extends React.Component {
                         <strong>-- {localStorage.getItem("razonsocial")}</strong> 
                         </MDBNavbarNav>
                         <MDBNavbarNav style={{marginTop:"1%"}}left>
-                        <strong> {modulo} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{periodo}</strong>
+                        <strong> {modulo} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong>
                         </MDBNavbarNav>
                         <MDBNavbarNav left>
                         <Button  style={{ color: '#FC1B99' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
-                          Herramientas &nbsp;<i class="fas fa-cog"> </i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Version 2.0
+                          Herramientas &nbsp;<i class="fas fa-cog"> </i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Version 3.1
                         </Button>
                         </MDBNavbarNav>                                            
                      </MDBCollapse>

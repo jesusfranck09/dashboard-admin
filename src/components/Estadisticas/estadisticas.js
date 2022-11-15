@@ -28,7 +28,9 @@ class Estadisticas extends React.Component {
       visible2:false,
       confirmLoading2:false,
       cardInicial:true,
-      graficas:false
+      graficas:false,
+      disabledButtons:false,
+      leyendaDemo:''
     };
     this.onClick = this.onClick.bind(this);
     this.handleclick = this.handleclick.bind(this);
@@ -39,6 +41,12 @@ class Estadisticas extends React.Component {
         var Apellidos = localStorage.getItem("apellidos")      
         this.setState({nombre:Nombre}) 
         this.setState({apellidos:Apellidos}) 
+        let paquete = localStorage.getItem("paqueteAdquirido")
+      if(paquete === "40" || paquete === "41" || paquete === "42"){
+        console.log("entro",paquete)
+        this.setState({disabledButtons:true})
+        this.setState({leyendaDemo:"Licencia demo adquirida, funciones principales no disponibles"})
+      }
       }
       onClick() {
         this.setState({
@@ -143,6 +151,12 @@ class Estadisticas extends React.Component {
   }
 
   render() {
+    let leyendaDemo;
+    if(this.state.leyendaDemo){
+      leyendaDemo = <font color = "red">{this.state.leyendaDemo}</font>
+    }else{
+      leyendaDemo = <font color = "green">Licencia vigente</font>
+    }
     const columns = ["ID","Nombre", "Apellido P.","Apellido M.","Centro de Trabajo","Genero"];
     const data = this.state.datos.map(rows=>{
       return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo,rows.Sexo])
@@ -584,7 +598,8 @@ class Estadisticas extends React.Component {
     let urlLogo = localStorage.getItem("urlLogo");
     let cardInicial;
     if(this.state.cardInicial === true){
-      cardInicial = <Card style={{marginTop:"3%",padding:"10px",width:"80%",marginLeft:"5%"}} title = {<h6><strong>Guía de referencia. V (Estadísticas generales)</strong></h6>} extra = { <Button  className = "text-white"  type="primary" onClick={(e)=>this.generarReporte(datosEmpleados)}>Generar reporte</Button>}>
+      cardInicial = <Card style={{marginTop:"3%",padding:"10px",width:"80%",marginLeft:"5%"}} title = {<h6><strong>Guía de referencia. V (Estadísticas generales)</strong></h6>} extra = { <Button  className = "text-white"  type="primary" onClick={(e)=>this.generarReporte(datosEmpleados)}  disabled={this.state.disabledButtons}>Generar reporte</Button>}>
+      {leyendaDemo}
       <MUIDataTable
         data={data}
         columns={columns}

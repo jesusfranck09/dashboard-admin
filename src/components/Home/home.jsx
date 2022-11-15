@@ -20,6 +20,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MUIDataTable from "mui-datatables";
 import {Card, Button as Boton} from 'antd'
 import { Chart } from "react-google-charts";
+import { ValuesOfCorrectType } from 'graphql/validation/rules/ValuesOfCorrectType';
 
 class Home extends React.Component {
   constructor(props) {
@@ -70,8 +71,9 @@ class Home extends React.Component {
       tablaEEOContestado:false,
       tablaEEONoContestado:false,
       tablaATSDetectado:false,
-      graficaDistribucionInicial:true
-      
+      graficaDistribucionInicial:true,
+      disabledButtons:false,
+      leyendaDemo:''
     };
     this.ads = this.ads.bind(this);
     this.openModal = this.openModal.bind(this)
@@ -332,14 +334,30 @@ class Home extends React.Component {
 		  query:`
 		   query{
 		  	verifyPackSuperUser(data:"${[idSuperUsuario]}"){
-				empleados
+          empresas
+          empleados
+          id
+          nombre
+          apellidos
+          RazonSocial
+          telefono
+          correo
+          activo
+          fechaRegistro
+          fk_paquetes
 				  }
 				}
 			  `
 		  }
 		})
 		.then(datos => {		
-      em =datos.data.data.verifyPackSuperUser.empleados
+      em =datos.data.data.verifyPackSuperUser[0].empleados
+      let values = datos.data.data.verifyPackSuperUser[0]
+      if(values.fk_paquetes === "40" || values.fk_paquetes === "41" || values.fk_paquetes === "42"){
+        this.setState({disabledButtons:true})
+        this.setState({leyendaDemo:"Licencia demo adquirida, funciones principales no disponibles"})
+      }
+      localStorage.setItem("paqueteAdquirido",values.fk_paquetes)
       this.setState({empleados:em})
 		}).catch(err=>{
 		}) 
@@ -432,7 +450,7 @@ class Home extends React.Component {
             }
             this.setState({urlLogo:datos.data.data.getLogo.url})
           }).catch(err=>{
-            console.log("datos error url " , err)
+            console.log("datos error url " , err.response)
           })
       }
 
@@ -1300,7 +1318,14 @@ const options = {
 
     let tituloEmpleado = <h6><strong>Empleados registrados</strong></h6>
    if(this.state.tablaEmpleados === true && data[0]){
+    let leyendaDemo;
+    if(this.state.leyendaDemo){
+      leyendaDemo = <font color = "red">{this.state.leyendaDemo}</font>
+    }else{
+      leyendaDemo = <font color = "green">Licencia vigente  {localStorage.getItem("periodo")}</font>
+    }
     tablaEmpleados = <div style={{width:"56%"}}>
+    {leyendaDemo} 
     <Card title = {tituloEmpleado} extra={<div><label style={{color:'blue'}}><strong>Información del sistema</strong></label> &nbsp;<Boton type="dashed" onClick={this.handleDropdown}><i class="fas fa-mouse-pointer"></i></Boton></div>}>  
     <MUIDataTable
       data={data}
@@ -1559,24 +1584,24 @@ const options = {
          <Card type="inner" title={ <div><center>{titulo1}{progressInstanceATS}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
          <MDBCardBody style={{padding:"10px"}}> 
          <center>       
-         <MDBBtn color = "success" size  = "sm" onClick = { e => this.tablaATSContestado()}> Realizada </MDBBtn>  
-         <MDBBtn color= "danger" size = "sm" onClick = { e => this.tablaATSNoContestado()}>No realizada</MDBBtn>
+         <MDBBtn color = "success" size  = "sm" onClick = { e => this.tablaATSContestado()} disabled={this.state.disabledButtons}> Realizada </MDBBtn>  
+         <MDBBtn color= "danger" size = "sm" onClick = { e => this.tablaATSNoContestado()} disabled={this.state.disabledButtons}>No realizada</MDBBtn>
          </center>
         </MDBCardBody>
         </Card>
         <Card  type="inner" title={ <div><center>{titulo2}{progressInstanceRP}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
         <MDBCardBody style={{padding:"10px"}}>        
         <center>
-         <MDBBtn color = "success" size  = "sm" onClick = {e => this.tablaRPContestado()}> Realizada </MDBBtn>  
-         <MDBBtn color= "danger" size = "sm" onClick = {e => this.tablaRPNoContestado()}>No realizada</MDBBtn>
+         <MDBBtn color = "success" size  = "sm" onClick = {e => this.tablaRPContestado()} disabled={this.state.disabledButtons}> Realizada </MDBBtn>  
+         <MDBBtn color= "danger" size = "sm" onClick = {e => this.tablaRPNoContestado()} disabled={this.state.disabledButtons}>No realizada</MDBBtn>
         </center>
         </MDBCardBody>
         </Card>
         <Card  type="inner" title={ <div><center>{titulo3}{progressInstanceEEO}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
         <MDBCardBody style={{padding:"10px"}}>        
          <center>        
-         <MDBBtn color = "success" size  = "sm" onClick = { e => this.tablaEEOContestado()}> Realizada </MDBBtn>  
-         <MDBBtn color= "danger" size = "sm" onClick = { e => this.tablaEEONoContestado()}>No realizada</MDBBtn>
+         <MDBBtn color = "success" size  = "sm" onClick = { e => this.tablaEEOContestado()} disabled={this.state.disabledButtons}> Realizada </MDBBtn>  
+         <MDBBtn color= "danger" size = "sm" onClick = { e => this.tablaEEONoContestado()} disabled={this.state.disabledButtons}>No realizada</MDBBtn>
          </center>
        </MDBCardBody>
        </Card>

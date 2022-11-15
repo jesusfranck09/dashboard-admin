@@ -51,6 +51,8 @@
   localStorage.removeItem("urlLogo")
   localStorage.removeItem("periodo")
   localStorage.removeItem("fk_superusuario")
+  localStorage.removeItem("paqueteAdquirido")
+
   }      
 
   togglePasswordVisiblity = () => {

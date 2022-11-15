@@ -29,7 +29,8 @@ class Navbar extends React.Component {
     componentWillMount(){
         var Nombre = localStorage.getItem("nombre")
         var Apellidos = localStorage.getItem("apellidos")
-    
+        let nombreCompleto =  Nombre + " " + Apellidos
+        let result = nombreCompleto.slice(0, 15);
     
         var LaFecha=new Date();
         var Mes=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
@@ -41,8 +42,7 @@ class Navbar extends React.Component {
         FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
     
         this.setState({date:FechaCompleta}) 
-        this.setState({nombre:Nombre}) 
-        this.setState({apellidos:Apellidos}) 
+        this.setState({nombre:result}) 
     
     }
 
@@ -93,13 +93,53 @@ class Navbar extends React.Component {
           };
     render(){
       
-      let periodo =<label style={{color:'green'}}><strong>{localStorage.getItem("periodo")}</strong></label>
+      let periodo =<label style={{color:'green',marginTop:"2%"}}><strong>{localStorage.getItem("periodo")}</strong></label>
       const {modulo} = this.props
     const bgPink = { backgroundColor: 'rgba(4, 180, 174,0.5)' }
         return(
                 <React.Fragment>
                 <header>
                 <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
+                    <Sidebar/>
+                    
+                    <MDBNavbarBrand a href="./inicio">
+                        <AppNavbarBrand full={{ src: diagnostico, width: 100, height: 33, alt: 'Diagnostico035' }} />               
+                    </MDBNavbarBrand>
+                    <MDBNavbarNav left>
+                      &nbsp; &nbsp; &nbsp;<strong>{this.state.nombre}&nbsp; &nbsp; &nbsp; </strong>
+                    </MDBNavbarNav>
+
+                    <MDBCollapse isOpen={this.state.collapse} navbar>                        
+                        <MDBNavbarNav left>
+                        <strong>  -- &nbsp; &nbsp; &nbsp; {localStorage.getItem("razonsocial")}</strong> 
+                        </MDBNavbarNav>
+                        <MDBNavbarNav style={{marginTop:"1%"}}left>
+                        <strong> {modulo} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong>
+                        </MDBNavbarNav>
+                        <MDBNavbarNav left>
+                        <Button  style={{ color: '#FC1B99' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
+                          Herramientas &nbsp;<i class="fas fa-cog"> </i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Version 3.1 
+                        </Button>
+                        </MDBNavbarNav>                                            
+                     </MDBCollapse>
+                     
+                    <Menu
+                        id="simple-menu"
+                        anchorEl={this.state.dropdown}
+                        keepMounted
+                        open={Boolean(this.state.dropdown)}
+                        onClose={this.handleClose}
+                    >
+                        <MenuItem ><a href = "http://eval.diagnostico035.com/ats">Realizar evaluación ATS</a></MenuItem>
+                        <MenuItem ><a href = "http://eval.diagnostico035.com/rp">Realizar evaluación RP</a></MenuItem>
+                        <MenuItem ><a href = "http://eval.diagnostico035.com/eeo">Realizar evaluación EEO</a></MenuItem>
+                        <MenuItem onClick={this.handleclick}><i class="fas fa-address-card"></i> &nbsp;Mi Perfil</MenuItem>
+                        <MenuItem ><a href = "http://ads.com.mx"><i class="fab fa-buysellads"></i> &nbsp;Más sobre ADS</a></MenuItem>
+
+
+                    </Menu>
+                </MDBNavbar>
+                {/* <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
                     <Sidebar/>
                     
                     <MDBNavbarBrand a href="./inicio">
@@ -139,7 +179,7 @@ class Navbar extends React.Component {
                         <MenuItem onClick={this.handleclick}><i class="fas fa-address-card"></i> &nbsp;Mi Perfil</MenuItem>
                         <MenuItem ><a href = "http://ads.com.mx"><i class="fab fa-buysellads" ></i> &nbsp;Más sobre ADS</a></MenuItem>
                     </Menu>
-                </MDBNavbar>
+                </MDBNavbar> */}
                 </header>
                 </React.Fragment>
         )

@@ -73,12 +73,20 @@ export default class App extends React.Component {
       descarga3:false,
       parametro:'',
       parametroRenderizado:'',
-      collapse:true
+      collapse:true,
+      disabledButtons:false,
+      leyendaDemo:''
     };
     this.handleLogOut = this.handleLogOut.bind(this);
     this.reporteEjecutivo = this.reporteEjecutivo.bind(this);  
   }
   componentWillMount(){
+    let paquete = localStorage.getItem("paqueteAdquirido")
+    if(paquete === "40" || paquete === "41" || paquete === "42"){
+      console.log("entro",paquete)
+      this.setState({disabledButtons:true})
+      this.setState({leyendaDemo:"Licencia demo adquirida, funciones principales no disponibles"})
+    }
     this.getGlobalEmployees();
   }
   componentDidMount() {
@@ -685,6 +693,12 @@ export default class App extends React.Component {
       this.setState({collapse:true})
     }
   render() {
+    let leyendaDemo;
+    if(this.state.leyendaDemo){
+      leyendaDemo = <font color = "red">{this.state.leyendaDemo}</font>
+    }else{
+      leyendaDemo = <font color = "green">Licencia vigente</font>
+    }
     var LaFecha=new Date();
     var Mes = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
     var diasem = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
@@ -2765,17 +2779,17 @@ export default class App extends React.Component {
       const columns = ["Id" , "Nombre","Centro de Trabajo","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
       const data = this.state.empleados.map(rows=>{
         if(rows) {
-          let botonRespuestas = <Button  className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,1)}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
-          let botonResultados = <Button  style={{backgroundColor:"bisque"}} onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,2)}>Resultados &nbsp;&nbsp; <i class="far fa-chart-bar"></i></Button>
+          let botonRespuestas = <Button  disabled={this.state.disabledButtons} className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,1)}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
+          let botonResultados = <Button  disabled={this.state.disabledButtons} style={{backgroundColor:"bisque"}} onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,2)}>Resultados &nbsp;&nbsp; <i class="far fa-chart-bar"></i></Button>
           return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
         }
       })
       let tituloTabla = <h6><strong>Reportes EEO {periodo}</strong></h6>
       tablaPeriodoActual  = <Card className="cardATS" extra = {<div>
-      <Button type="danger" onClick = {e=>this.showModal3()}>Reporte global&nbsp;&nbsp;<i class="fas fa-file-pdf"></i></Button>&nbsp;&nbsp;&nbsp;
-      <Button type="success" onClick = {e=>this.showModal4()}>Reporte ejecutivo&nbsp;&nbsp;<i class="fas fa-file-medical-alt"></i></Button>&nbsp;&nbsp;&nbsp;
-      <Button type="primary"  onClick={e=>this.showModal2()}>Respuestas masivas&nbsp;&nbsp;<i class="fas fa-hdd"></i></Button>&nbsp;&nbsp;&nbsp;
-      <Button style={{backgroundColor:"bisque"}} onClick={e=>this.showModal()}>Resultados masivos&nbsp;&nbsp;<i class="fas fa-chart-line"></i></Button>
+      <Button type="danger" onClick = {e=>this.showModal3()}  disabled={this.state.disabledButtons}>Reporte global&nbsp;&nbsp;<i class="fas fa-file-pdf"></i></Button>&nbsp;&nbsp;&nbsp;
+      <Button type="success" onClick = {e=>this.showModal4()}  disabled={this.state.disabledButtons}>Reporte ejecutivo&nbsp;&nbsp;<i class="fas fa-file-medical-alt"></i></Button>&nbsp;&nbsp;&nbsp;
+      <Button type="primary"  onClick={e=>this.showModal2()}  disabled={this.state.disabledButtons}>Respuestas masivas&nbsp;&nbsp;<i class="fas fa-hdd"></i></Button>&nbsp;&nbsp;&nbsp;
+      <Button style={{backgroundColor:"bisque"}} onClick={e=>this.showModal()}  disabled={this.state.disabledButtons}>Resultados masivos&nbsp;&nbsp;<i class="fas fa-chart-line"></i></Button>
       </div>}>    
       <MUIDataTable
         title={tituloTabla}
@@ -2791,17 +2805,17 @@ export default class App extends React.Component {
       const columns = ["Id" , "Nombre","Centro de Trabajo","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
       const data = this.state.empleados.map(rows=>{
         if(rows){
-          let botonRespuestas = <Button  className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,1)}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
-          let botonResultados = <Button  style={{backgroundColor:"bisque"}} onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,2)}>Resultados &nbsp;&nbsp; <i class="far fa-chart-bar"></i></Button>
+          let botonRespuestas = <Button  disabled={this.state.disabledButtons} className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,1)}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
+          let botonResultados = <Button  disabled={this.state.disabledButtons} style={{backgroundColor:"bisque"}} onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,2)}>Resultados &nbsp;&nbsp; <i class="far fa-chart-bar"></i></Button>
           return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
         }
       })
       let tituloTablaPeriodoSeleccionado = <h6><strong>Reportes EEO {this.state.periodoSeleccionado}</strong></h6>
       tablaPeriodoSeleccionado = <Card className="cardATS" extra = {<div>
-        <Button type="danger" onClick = {e=>this.showModal3()}>Reporte global&nbsp;&nbsp;<i class="fas fa-file-pdf"></i></Button>&nbsp;&nbsp;&nbsp;
-        <Button type="success" onClick = {e=>this.showModal4()}>Reporte ejecutivo&nbsp;&nbsp;<i class="fas fa-file-medical-alt"></i></Button>&nbsp;&nbsp;&nbsp;
-        <Button type="primary"  onClick={e=>this.showModal2()}>Respuestas masivas&nbsp;&nbsp;<i class="fas fa-hdd"></i></Button>&nbsp;&nbsp;&nbsp;
-        <Button style={{backgroundColor:"bisque"}} onClick={e=>this.showModal()}>Resultados masivos&nbsp;&nbsp;<i class="fas fa-chart-line"></i></Button>
+        <Button type="danger" onClick = {e=>this.showModal3()}  disabled={this.state.disabledButtons}>Reporte global&nbsp;&nbsp;<i class="fas fa-file-pdf"></i></Button>&nbsp;&nbsp;&nbsp;
+        <Button type="success" onClick = {e=>this.showModal4()}  disabled={this.state.disabledButtons}>Reporte ejecutivo&nbsp;&nbsp;<i class="fas fa-file-medical-alt"></i></Button>&nbsp;&nbsp;&nbsp;
+        <Button type="primary"  onClick={e=>this.showModal2()}  disabled={this.state.disabledButtons}>Respuestas masivas&nbsp;&nbsp;<i class="fas fa-hdd"></i></Button>&nbsp;&nbsp;&nbsp;
+        <Button style={{backgroundColor:"bisque"}} onClick={e=>this.showModal()}  disabled={this.state.disabledButtons}>Resultados masivos&nbsp;&nbsp;<i class="fas fa-chart-line"></i></Button>
         &nbsp;&nbsp;<Button shape="circle" size="middle" type="danger" onClick={e=>this.cerrarTablaPeriodos()}><MDBIcon icon="times" /></Button>
       </div>}>   
       <MUIDataTable
@@ -2905,6 +2919,7 @@ export default class App extends React.Component {
           {spinner}  
           </TabPane> 
           <TabPane tab="Generar reportes periodo vigente" key="2">
+           {leyendaDemo}
            {tablaPeriodoActual}
            {reporteIndividual}
            {ponderacionIndividual}

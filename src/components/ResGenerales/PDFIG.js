@@ -69,7 +69,9 @@ class App extends React.Component {
       confirmLoading2:false,
       descarga:false,
       descarga2:false,
-      collapse:true
+      collapse:true,
+      disabledButtons:false,
+      leyendaDemo:''
     };
   }
 
@@ -84,6 +86,12 @@ class App extends React.Component {
       FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
       this.setState({date:FechaCompleta}) 
       await this.getGlobalEmployees();
+      let paquete = localStorage.getItem("paqueteAdquirido")
+      if(paquete === "40" || paquete === "41" || paquete === "42"){
+        console.log("entro",paquete)
+        this.setState({disabledButtons:true})
+        this.setState({leyendaDemo:"Licencia demo adquirida, funciones principales no disponibles"})
+      }
       }
 
        getGlobalEmployees = async () =>{
@@ -185,7 +193,6 @@ class App extends React.Component {
                 }).then(datos => {  
                   totalEmpleados.push(datos.data.data.getresultGlobalSurveyATS)
                   this.setState({peticion:totalEmpleados})
-                  console.log("datos",datos.data.data.getresultGlobalSurveyATS)   
                 })
                 .catch(err => {
                   console.log("err",err.response)
@@ -532,7 +539,7 @@ class App extends React.Component {
         };
 
         callback(key) {
-          console.log(key);
+          // console.log(key);
         }
         cerrarTablaPeriodos(){
           this.setState({tablaPeriodoActual:true})
@@ -642,6 +649,12 @@ class App extends React.Component {
           filtro = filtroTable
           }     
         };
+        let leyendaDemo;
+        if(this.state.leyendaDemo){
+          leyendaDemo = <font color = "red">{this.state.leyendaDemo}</font>
+        }else{
+          leyendaDemo = <font color = "green">Licencia vigente</font>
+        }
       let tablaPeriodoActual;
       if(this.state.tablaPeriodoActual === true) {
       let periodo;
@@ -649,14 +662,16 @@ class App extends React.Component {
       const columns = ["ID","Nombre","Centro de Trabajo","Periodo","Evaluación","Status",{name: "Respuestas",label: "Respuestas",options:{filter: false,sort: true,}}];
       const data = this.state.empleados.map(rows=>{
         if(rows){
-          let boton =<Button  className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo)}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
+          let boton =<Button  className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo)} disabled={this.state.disabledButtons}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
           return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,rows.encuesta,"Vigente",boton])
         }
       })
+     
       let tituloTabla =  <h6><strong>Reportes ATS {periodo}</strong></h6>
         tablaPeriodoActual = 
         <div>
-          <Card className="cardATS" title={tituloTabla} extra = {<div><Button type="primary" onClick = {e=>this.showModal()}>Reporte global&nbsp;&nbsp;<i class="fas fa-file-pdf"></i></Button>&nbsp;&nbsp;&nbsp;<Button type="success"  onClick={e=>this.showModal2()}>Reporte masivo&nbsp;&nbsp;<i class="fas fa-hdd"></i></Button></div>}>    
+          {leyendaDemo}
+          <Card className="cardATS" title={tituloTabla} extra = {<div><Button type="primary" onClick = {e=>this.showModal()} disabled={this.state.disabledButtons}>Reporte global&nbsp;&nbsp;<i class="fas fa-file-pdf"></i></Button>&nbsp;&nbsp;&nbsp;<Button type="success"  onClick={e=>this.showModal2()} disabled={this.state.disabledButtons}>Reporte masivo&nbsp;&nbsp;<i class="fas fa-hdd"></i></Button></div>}>    
             <MUIDataTable
             data={data}
             columns={columns}
@@ -670,12 +685,13 @@ class App extends React.Component {
       const columns = ["ID","Nombre","Centro de Trabajo","Periodo","Evaluación","Status",{name: "Respuestas",label: "Respuestas",options:{filter: false,sort: true,}}];
       const data = this.state.empleados.map(rows=>{
         if(rows){
-          let boton =<Button  className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo)}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
+          let boton =<Button  className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo)} disabled={this.state.disabledButtons}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
           return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,rows.encuesta,"Vigente",boton])
         }
       })
       tablaPeriodoSeleccionado = <div>
-        <Card className="cardATS" title = {<div><h6><strong>Reportes ATS {this.state.periodoSeleccionado}</strong></h6></div>} extra = {<div><Button type="primary" onClick = {e=>this.showModal()}>Reporte global&nbsp;&nbsp;<i class="fas fa-file-pdf"></i></Button>&nbsp;&nbsp;&nbsp;<Button type="success"  onClick={e=>this.showModal2()}>Reporte masivo&nbsp;&nbsp;<i class="fas fa-hdd"></i></Button>&nbsp;&nbsp;<Button shape="circle" size="middle" type="danger" onClick={e=>this.cerrarTablaPeriodos()}><MDBIcon icon="times" /></Button></div>}>    
+        {leyendaDemo}
+        <Card className="cardATS" title = {<div><h6><strong>Reportes ATS {this.state.periodoSeleccionado}</strong></h6></div>} extra = {<div><Button type="primary" onClick = {e=>this.showModal()} disabled={this.state.disabledButtons}>Reporte global&nbsp;&nbsp;<i class="fas fa-file-pdf"></i></Button>&nbsp;&nbsp;&nbsp;<Button type="success"  onClick={e=>this.showModal2()} disabled={this.state.disabledButtons}>Reporte masivo&nbsp;&nbsp;<i class="fas fa-hdd"></i></Button>&nbsp;&nbsp;<Button shape="circle" size="middle" type="danger" onClick={e=>this.cerrarTablaPeriodos()}><MDBIcon icon="times" /></Button></div>}>    
           <MUIDataTable
           data={data}
           columns={columns}
