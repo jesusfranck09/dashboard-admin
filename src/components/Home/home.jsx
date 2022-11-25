@@ -6,7 +6,6 @@ import IconButton from "@material-ui/core/IconButton";
 import RemoveRedEyeOutlinedIcon from '@material-ui/icons/RemoveRedEyeOutlined';
 import { API} from '../utils/http'
 import ModalVideo from 'react-modal-video'
-import "./styles.scss";
 import "./index.css"
 import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined';
 import Upload from '../uploadImage/upload'
@@ -20,7 +19,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MUIDataTable from "mui-datatables";
 import {Card, Button as Boton} from 'antd'
 import { Chart } from "react-google-charts";
-import { ValuesOfCorrectType } from 'graphql/validation/rules/ValuesOfCorrectType';
 
 class Home extends React.Component {
   constructor(props) {

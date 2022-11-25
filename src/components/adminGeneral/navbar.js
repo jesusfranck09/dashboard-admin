@@ -4,7 +4,6 @@ import Sidebar from './sidebarAdminGral'
 import diagnostico from '../images/diagnostico.png'
 import { AppNavbarBrand } from '@coreui/react';
 import { DialogUtility } from '@syncfusion/ej2-popups';
-import "./styles.scss";
 import { withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';

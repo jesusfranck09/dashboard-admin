@@ -1,5 +1,4 @@
   
-import '../src/App.scss';
 import { ApolloProvider } from 'react-apollo';
 import client from './Graphql';
 import checkToken from '../src/resolvers/checkToken';
