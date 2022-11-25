@@ -1551,7 +1551,7 @@ const options = {
       }else{
         leyendaDemo = <strong><font color = "green">Licencia vigente  {localStorage.getItem("periodo")}</font></strong>
       }
-      cardInicial  = <div style={{width:"88%"}}>
+      cardInicial  = <div style={{width:"90%"}}>
       {leyendaDemo}   
       <Card title = {tituloEmpleado}>  
       <div className='distribucion'>
@@ -1572,7 +1572,7 @@ const options = {
           {logo} 
       </Space>
       <Space>
-        <Button type="primary" icon = {<VideoCameraOutlined />} onClick={e=>this.showModal2()}>Tutorial del sistema</Button>
+        <Button type="primary" icon = {<VideoCameraOutlined />} onClick={e=>this.showModal2()}>Videos tutoriales</Button>
       </Space>
       <Space>
         <Button  type="primary" icon = {<UserSwitchOutlined />} onClick = {e=>this.showModal(1)}>ATS detectado</Button>
