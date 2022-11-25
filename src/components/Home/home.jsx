@@ -1233,14 +1233,14 @@ const options = {
     }
     let logo;
     if(!this.state.urlLogo){
-    logo =  <Button icon={<CloudUploadOutlined />} type='primary' onClick={this.toggle(20)}>
+    logo =  <Button  style={{width:"200px" }}  icon={<CloudUploadOutlined />} type='primary' onClick={this.toggle(20)}>
     Adjuntar logo
     </Button>
     }
  
     let modificarLogo;
     if(this.state.urlLogo){
-     logo = <Button icon={<CloudUploadOutlined />} type='primary' onClick={this.toggle(21)}>
+     logo = <Button  style={{width:"200px" }}  icon={<CloudUploadOutlined />} type='primary' onClick={this.toggle(21)}>
         Modificar logo
      </Button>
     }
@@ -1560,22 +1560,22 @@ const options = {
             {graficaDistribucionInicial}
       <div  style={{marginTop:"1%"}}>
       <Space className='spaceButtons' direction="vertical">
-      <Button  style={{ color: '#FC1B99' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
+      <Button  style={{ color: '#FC1B99',width:"200px" }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
                           Herramientas &nbsp;<i class="fas fa-cog"> </i>
        </Button>
       <Space>
       </Space> 
       <Space>
-        <Button icon = { <BarChartOutlined />} type="primary" onClick={this.toggle(16)}>Datos generales</Button>
+        <Button icon = { <BarChartOutlined />} style={{width:"200px" }}  type="primary" onClick={this.toggle(16)}>Datos generales</Button>
       </Space>
       <Space>
           {logo} 
       </Space>
       <Space>
-        <Button type="primary" icon = {<VideoCameraOutlined />} onClick={e=>this.showModal2()}>Videos tutoriales</Button>
+        <Button type="primary"  style={{width:"200px" }}  icon = {<VideoCameraOutlined />} onClick={e=>this.showModal2()}>Videos tutoriales</Button>
       </Space>
       <Space>
-        <Button  type="primary" icon = {<UserSwitchOutlined />} onClick = {e=>this.showModal(1)}>ATS detectado</Button>
+        <Button  type="primary"  style={{width:"200px" }}  icon = {<UserSwitchOutlined />} onClick = {e=>this.showModal(1)}>ATS detectado</Button>
       </Space>
       <Space>
       
