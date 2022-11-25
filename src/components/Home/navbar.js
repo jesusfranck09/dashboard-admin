@@ -83,13 +83,7 @@ class Navbar extends React.Component {
         )
         this.props.history.push("/")
         }
-        handleClose = () => {
-            this.setState({dropdown: null});
-          };
-          handleDropdown = (event) => {
-            this.setState({dropdown: event.currentTarget});
-          
-          };
+   
     render(){
       
       let periodo =<label style={{color:'green',marginTop:"2%"}}><strong>{localStorage.getItem("periodo")}</strong></label>
@@ -110,33 +104,24 @@ class Navbar extends React.Component {
 
                     <MDBCollapse isOpen={this.state.collapse} navbar>                        
                         <MDBNavbarNav left>
-                        <strong>  -- &nbsp; &nbsp; &nbsp; {localStorage.getItem("razonsocial")}</strong> 
+                        <strong> &nbsp; &nbsp; &nbsp; {localStorage.getItem("razonsocial")}</strong> 
                         </MDBNavbarNav>
                         <MDBNavbarNav style={{marginTop:"1%"}}left>
                         <strong> {modulo} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong>
                         </MDBNavbarNav>
                         <MDBNavbarNav left>
-                        <Button  style={{ color: '#FC1B99' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
-                          Herramientas &nbsp;<i class="fas fa-cog"> </i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Version 3.1 
-                        </Button>
-                        </MDBNavbarNav>                                            
+                        </MDBNavbarNav>  
+                        <MDBNavbarNav left>
+                        </MDBNavbarNav>  
+                        <MDBNavbarNav left>
+                        </MDBNavbarNav>
+                        <MDBNavbarNav left>
+                        <strong>Version 3.1.1</strong>
+                        </MDBNavbarNav>  
+                        <MDBNavbarNav left>
+                        <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:50,heigth:20}}/>                                          
+                        </MDBNavbarNav>  
                      </MDBCollapse>
-                     
-                    <Menu
-                        id="simple-menu"
-                        anchorEl={this.state.dropdown}
-                        keepMounted
-                        open={Boolean(this.state.dropdown)}
-                        onClose={this.handleClose}
-                    >
-                        <MenuItem ><a href = "http://eval.diagnostico035.com/ats">Realizar evaluación ATS</a></MenuItem>
-                        <MenuItem ><a href = "http://eval.diagnostico035.com/rp">Realizar evaluación RP</a></MenuItem>
-                        <MenuItem ><a href = "http://eval.diagnostico035.com/eeo">Realizar evaluación EEO</a></MenuItem>
-                        <MenuItem onClick={this.handleclick}><i class="fas fa-address-card"></i> &nbsp;Mi Perfil</MenuItem>
-                        <MenuItem ><a href = "http://ads.com.mx"><i class="fab fa-buysellads"></i> &nbsp;Más sobre ADS</a></MenuItem>
-
-
-                    </Menu>
                 </MDBNavbar>
                 {/* <MDBNavbar className = "navbar" style={bgPink} dark expand="sm" scrolling fixed="top">
                     <Sidebar/>

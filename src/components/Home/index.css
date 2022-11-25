@@ -18,4 +18,25 @@ html, body {
   width: 100%;
   flex-direction: row;
 }
+.distribucion{
+  display: flex;
+  flex-direction: row;
+}
+
+.spaceButtons{
+  display: flex;
+  align-items: flex-start;
+}
+.modalVideo{
+  display: flex;
+  align-content:flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+.row{
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+}
 

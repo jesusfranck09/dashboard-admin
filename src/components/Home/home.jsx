@@ -1,24 +1,27 @@
 import React from 'react';
-import {MDBRow, MDBContainer,MDBBtn} from 'mdbreact';
+import {MDBBtn} from 'mdbreact';
 import axios from 'axios'
 import {Alert} from 'reactstrap';
 import IconButton from "@material-ui/core/IconButton";
-import RemoveRedEyeOutlinedIcon from '@material-ui/icons/RemoveRedEyeOutlined';
+// import RemoveRedEyeOutlinedIcon from '@material-ui/icons/RemoveRedEyeOutlined';
 import { API} from '../utils/http'
 import ModalVideo from 'react-modal-video'
 import "./index.css"
 import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined';
 import Upload from '../uploadImage/upload'
 import UpdateLogo from '../uploadImage/updateLogo'
-import { MDBModal, MDBModalBody} from "mdbreact";
+import { MDBModal, MDBModalBody,MDBContainer} from "mdbreact";
 import {MDBCardBody} from 'mdbreact';
 import {ProgressBar} from 'react-bootstrap' 
 import Navbar from './navbar'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MUIDataTable from "mui-datatables";
-import {Card, Button as Boton} from 'antd'
+import {Card, Button as Boton,Modal} from 'antd'
 import { Chart } from "react-google-charts";
+// import { ValuesOfCorrectType } from 'graphql/validation/rules/ValuesOfCorrectType';
+import {Button,Space} from 'antd'
+import { CloudUploadOutlined, BarChartOutlined, VideoCameraOutlined,UserSwitchOutlined } from '@ant-design/icons';
 
 class Home extends React.Component {
   constructor(props) {
@@ -71,12 +74,56 @@ class Home extends React.Component {
       tablaATSDetectado:false,
       graficaDistribucionInicial:true,
       disabledButtons:false,
-      leyendaDemo:''
+      leyendaDemo:'',
+      openModal:false,
+      confirmLoading:false,
+      visible:false,
+      visible2:false
     };
-    this.ads = this.ads.bind(this);
-    this.openModal = this.openModal.bind(this)
-  }
+    this.showModal = this.showModal.bind(this)
+    this.showModal2 = this.showModal2.bind(this)
 
+  }
+  showModal = (param) => {
+    this.setState({visible:true})
+    if(param === 1){
+      this.tablaATSDetectado()
+    }else if(param === 2){
+      this.tablaATSNoContestado()
+    }else if(param === 3){
+      this.tablaATSContestado()
+    }else if(param === 4){
+      this.tablaRPContestado()
+    }else if(param === 5){
+      this.tablaRPNoContestado()
+    }else if(param === 6){
+      this.tablaEEOContestado()
+    }else if(param === 7){
+      this.tablaEEONoContestado()
+    }
+    
+  };
+  handleOk = () => {
+      this.setState({confirmLoading:true})
+      setTimeout(() => {
+        this.setState({visible:false})
+        this.setState({confirmLoading:false})
+      }, 1000);
+  };
+  showModal2 = () => {
+    this.setState({visible2:true})
+    this.setState({isOpen: true})
+  };
+  handleOk2 = () => {
+    this.setState({isOpen: false})
+    this.setState({visible2:false})
+  };
+  handleCloseDropdown = () => {
+    this.setState({dropdown: null});
+  };
+  handleDropdown = (event) => {
+    this.setState({dropdown: event.currentTarget});
+  };
   async componentWillMount(){
     let idAdmin = localStorage.getItem("idAdmin")
      await  axios({
@@ -105,7 +152,6 @@ class Home extends React.Component {
       })
       .then(datos => {	
         let periodo = datos.data.data.getPeriodo[0].Descripcion ;
-        localStorage.setItem("periodo" ,datos.data.data.getPeriodo[0].Descripcion )
         this.setState({periodo:periodo})
         this.setState({datosEventos:datos.data.data.getPeriodo[0]})
         
@@ -138,12 +184,12 @@ class Home extends React.Component {
         this.alerta2(alert2)
         this.alerta3(alert3)
       }).catch(err=>{
-        
+        console.log("err",err.response)
       })
         await this.getEmployees();
         await this.handleFront();
         await this.verifyTables();
-        await this.getUrlLogo();
+        this.getUrlLogo();
         var LaFecha=new Date();
         var Mes=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
         var diasem=['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
@@ -451,11 +497,6 @@ class Home extends React.Component {
             console.log("datos error url " , err.response)
           })
       }
-
-    ads(){
-      this.setState({showModal2:true})
-    }
-
     toggle = (nr) => () => {  
       let modalNumber = 'modal' + nr
       this.setState({
@@ -930,9 +971,6 @@ alerta3 =  (deadline) => {
   }, 1000)
 };
 
-openModal () {
-  this.setState({isOpen: true})
-}
 handleDropdown = (event) => {
   this.setState({dropdown: event.currentTarget});
 };
@@ -941,7 +979,6 @@ handleClose = () => {
 };
 
 tablaATSContestado(){
-  this.setState({tablaEmpleados:false})
   this.setState({tablaATSContestado:true})
   this.setState({tablaATSNoContestado:false})
   this.setState({tablaRPContestado:false})
@@ -949,11 +986,9 @@ tablaATSContestado(){
   this.setState({tablaEEOContestado:false})
   this.setState({tablaEEONoContestado:false})
   this.setState({tablaATSDetectado:false})
-  this.setState({graficaDistribucionInicial:false})
 
 }
 tablaATSNoContestado(){
-  this.setState({tablaEmpleados:false})
   this.setState({tablaATSNoContestado:true})
   this.setState({tablaATSContestado:false})
   this.setState({tablaRPContestado:false})
@@ -961,10 +996,8 @@ tablaATSNoContestado(){
   this.setState({tablaEEOContestado:false})
   this.setState({tablaEEONoContestado:false})
   this.setState({tablaATSDetectado:false})
-  this.setState({graficaDistribucionInicial:false})
 }
 tablaRPContestado(){
-  this.setState({tablaEmpleados:false})
   this.setState({tablaATSContestado:false})
   this.setState({tablaATSNoContestado:false})
   this.setState({tablaRPContestado:true})
@@ -972,11 +1005,9 @@ tablaRPContestado(){
   this.setState({tablaEEOContestado:false})
   this.setState({tablaEEONoContestado:false})
   this.setState({tablaATSDetectado:false})
-  this.setState({graficaDistribucionInicial:false})
 }
 
 tablaRPNoContestado(){
-  this.setState({tablaEmpleados:false})
   this.setState({tablaATSContestado:false})
   this.setState({tablaATSNoContestado:false})
   this.setState({tablaRPContestado:false})
@@ -984,10 +1015,8 @@ tablaRPNoContestado(){
   this.setState({tablaEEOContestado:false})
   this.setState({tablaEEONoContestado:false})
   this.setState({tablaATSDetectado:false})
-  this.setState({graficaDistribucionInicial:false})
 }
 tablaEEOContestado(){
-  this.setState({tablaEmpleados:false})
   this.setState({tablaATSContestado:false})
   this.setState({tablaATSNoContestado:false})
   this.setState({tablaRPContestado:false})
@@ -995,10 +1024,8 @@ tablaEEOContestado(){
   this.setState({tablaEEOContestado:true})
   this.setState({tablaEEONoContestado:false})
   this.setState({tablaATSDetectado:false})
-  this.setState({graficaDistribucionInicial:false})
 }
 tablaEEONoContestado(){
-  this.setState({tablaEmpleados:false})
   this.setState({tablaATSContestado:false})
   this.setState({tablaATSNoContestado:false})
   this.setState({tablaRPContestado:false})
@@ -1006,10 +1033,8 @@ tablaEEONoContestado(){
   this.setState({tablaEEOContestado:false})
   this.setState({tablaEEONoContestado:true})
   this.setState({tablaATSDetectado:false})
-  this.setState({graficaDistribucionInicial:false})
 }
 tablaATSDetectado(){
-  this.setState({tablaEmpleados:false})
   this.setState({tablaATSContestado:false})
   this.setState({tablaATSNoContestado:false})
   this.setState({tablaRPContestado:false})
@@ -1017,7 +1042,6 @@ tablaATSDetectado(){
   this.setState({tablaEEOContestado:false})
   this.setState({tablaEEONoContestado:false})
   this.setState({tablaATSDetectado:true})
-  this.setState({graficaDistribucionInicial:false})
 }
 cerraTablas(parametro){
 if(parametro === 1){
@@ -1077,17 +1101,6 @@ else if(parametro === 5){
   this.setState({tablaEEONoContestado:false})
 }
 else if(parametro === 6){
-  this.setState({graficaDistribucionInicial:true})
-  this.setState({tablaEmpleados:true})
-  this.setState({tablaATSContestado:false})
-  this.setState({tablaATSNoContestado:false})
-  this.setState({tablaRPContestado:false})
-  this.setState({tablaRPNoContestado:false})
-  this.setState({tablaEEOContestado:false})
-  this.setState({tablaATSDetectado:false})
-  this.setState({tablaEEONoContestado:false})
-}
-else if(parametro === 7){
   this.setState({graficaDistribucionInicial:true})
   this.setState({tablaEmpleados:true})
   this.setState({tablaATSContestado:false})
@@ -1197,17 +1210,15 @@ const options = {
     }     };
   
     const columnsATSContestado = [];
-    let tituloTablaVacia = <h6><strong>Por el momento no hay datos que mostrar</strong></h6>
+    let tituloTablaVacia = <h6><strong>La tabla no contiene datos</strong></h6>
     const dataATSContestado =  [];
     let tablaVacia  = 
-    <div style = {{width:"56%"}}>
-    <Card title={tituloTablaVacia} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(8)}>Cerrar</Boton></div>}><MUIDataTable
-    data={dataATSContestado}
-    columns={columnsATSContestado}
-    options={options}
-     />
+    <center>
+    <div style={{width:"100%"}}>
+    <Card type="inner"title={tituloTablaVacia}>
     </Card>
     </div> 
+    </center>
     let updateLogo;
     if(this.state.modal21){
      updateLogo  =  
@@ -1222,18 +1233,16 @@ const options = {
     }
     let logo;
     if(!this.state.urlLogo){
-    logo = <div>
-     <strong style={{ color: 'blue'}}>Adjuntar logo de mi empresa</strong>
-     <IconButton onClick={this.toggle(20)} color="green"> <PublishOutlinedIcon /></IconButton>
-    </div>
+    logo =  <Button icon={<CloudUploadOutlined />} type='primary' onClick={this.toggle(20)}>
+    Adjuntar logo
+    </Button>
     }
  
     let modificarLogo;
     if(this.state.urlLogo){
-     logo = <div>
-     <strong style={{ color: 'blue' }}>Modificar logo</strong>
-     <IconButton onClick={this.toggle(21)} color="green"> <PublishOutlinedIcon /></IconButton>
-    </div>
+     logo = <Button icon={<CloudUploadOutlined />} type='primary' onClick={this.toggle(21)}>
+        Modificar logo
+     </Button>
     }
 /////////////////////////////////////////////////////////////////////////////////////////////
      let modalInfoG;
@@ -1241,7 +1250,7 @@ const options = {
         modalInfoG  =  
         <MDBModal isOpen={this.state.modal16} toggle={this.toggle(16)} size="lg">
           <MDBModalBody>
-          <Card title = {<div><h6><strong>Información general</strong></h6></div>} >
+          <Card type='inner' title = {<div><h6><strong>Información general</strong></h6></div>} >
           <strong>Licencia de {this.state.empleados} Empleados</strong>
           <br/>
           <br/>
@@ -1314,44 +1323,67 @@ const options = {
       return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
    })
 
-    let tituloEmpleado = <h6><strong>Empleados registrados</strong></h6>
-   if(this.state.tablaEmpleados === true && data[0]){
-    let leyendaDemo;
-    if(this.state.leyendaDemo){
-      leyendaDemo = <font color = "red">{this.state.leyendaDemo}</font>
-    }else{
-      leyendaDemo = <font color = "green">Licencia vigente  {localStorage.getItem("periodo")}</font>
-    }
-    tablaEmpleados = <div style={{width:"56%"}}>
-    {leyendaDemo} 
-    <Card title = {tituloEmpleado} extra={<div><label style={{color:'blue'}}><strong>Información del sistema</strong></label> &nbsp;<Boton type="dashed" onClick={this.handleDropdown}><i class="fas fa-mouse-pointer"></i></Boton></div>}>  
-    <MUIDataTable
-      data={data}
-      columns={columns}
-      options={options}
-    />
-     <Menu
-              id="simple-menu"
-              anchorEl={this.state.dropdown}
-              keepMounted
-              open={Boolean(this.state.dropdown)}
-              onClose={this.handleClose}
-          >
-              <MenuItem style={{color:'blue'}} onClick={this.toggle(16)}>Datos generales</MenuItem>
-              <MenuItem style={{color:'blue'}} onClick={this.handleClose}>{logo} </MenuItem>
-              <MenuItem style={{ color: 'blue' }}> Tutorial de Diagnóstico035 <IconButton onClick={this.openModal} color="secondary"> <RemoveRedEyeOutlinedIcon /></IconButton></MenuItem>
-              <MenuItem style={{ color: 'blue' }} onClick = { e => this.tablaATSDetectado()}>Empleados con ATS detectado : &nbsp; <strong>{this.state.AtsDetectado.length}</strong></MenuItem>
-    </Menu>
-    </Card>
-    </div> 
-   }else{
-    tablaEmpleados = <div style = {{width:"56%"}} >
-    {Alerta}
-    {dep}
-    {suc}
-    {pues}
-    </div>
+   let hombres =  this.state.empleadosTotales.filter(function(rows){
+    return rows.Sexo === "MASCULINO"
+  })
+  let mujeres =  this.state.empleadosTotales.filter(function(rows){
+    return rows.Sexo === "FEMENINO"
+  })
+  let edad1529 =  this.state.empleadosTotales.filter(function(rows){
+    return rows.FechaNacimiento === "15 A 19" || rows.FechaNacimiento === "20 A 24" || rows.FechaNacimiento === "25 A 29"
+  })
+
+  let edad3044 =  this.state.empleadosTotales.filter(function(rows){
+    return rows.FechaNacimiento === "30 A 34" || rows.FechaNacimiento === "35 A 39" || rows.FechaNacimiento === "40 A 44"
+  })
+  let edad4559 =  this.state.empleadosTotales.filter(function(rows){
+    return rows.FechaNacimiento === "45 A 49" || rows.FechaNacimiento === "50 A 54" || rows.FechaNacimiento === "55 A 59"
+  })
+  let edad6070 =  this.state.empleadosTotales.filter(function(rows){
+    return rows.FechaNacimiento === "60 A 64" || rows.FechaNacimiento === "65 A 69" || rows.FechaNacimiento === "70 A más"
+  })
+   
+   let graficaDistribucionInicial;
+   if(this.state.graficaDistribucionInicial === true){
+     graficaDistribucionInicial =  <div>
+     <Chart
+       width={'400px'}
+       height={'250px'}
+       chartType="PieChart"
+       loader={<div>Cargando distribución</div>}
+       data={[
+         ['Género', 'Total'],
+         ['Hombres', hombres.length],
+         ['Mujeres', mujeres.length],
+         
+       ]}
+       options={{
+         title: 'Distribución por Género',
+         is3D: true,
+       }}
+       rootProps={{ 'data-testid': '2' }}
+     />
+     <Chart
+       width={'400px'}
+       height={'250px'}
+       chartType="PieChart"
+       loader={<div>Cargando dostribución</div>}
+       data={[
+         ['Rango', 'Edad'],
+         ['De 15 a 29', edad1529.length],
+         ['De 30 a 34', edad3044.length],
+         ['De 45 a 59', edad4559.length],
+         ['De 60 a 70 años o más', edad6070.length],
+       ]}
+       options={{
+         title: 'Distribción por Edad',
+         is3D: true,
+       }}
+       rootProps={{ 'data-testid': '2' }}
+     />        
+     </div>
    }
+
 
 ////////////////////// evaluación ATS
   let tablaATSContestado;
@@ -1360,15 +1392,13 @@ const options = {
     const dataATSContestado = this.state.empleadosAts.map(rows=>{
       return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
     })
-    let tituloATSContesado = <h6><strong>Empleados que ya realizaron la evaluación ATS</strong></h6>
-    tablaATSContestado = <div style = {{width:"70%"}}>
-    <Card title={tituloATSContesado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(1)}>Cerrar</Boton></div>}>  
+    tablaATSContestado = <div style = {{width:"100%"}}>
     <MUIDataTable
+      title="Empleados que ya realizaron la evaluación ATS"
       data={dataATSContestado}
       columns={columnsATSContestado}
       options={options}
     />
-    </Card>
   </div> 
     } else if (this.state.empleadosAts[0] === undefined  &&  this.state.tablaATSContestado === true ) {
       tablaATSContestado = tablaVacia
@@ -1379,16 +1409,15 @@ const options = {
       const dataATSNoContestado = this.state.empleadosAtsFalse.map(rows=>{
         return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
       })
-      let tituloATSNoContestado = <h6><strong>Empleados que aun no realizan la evaluación ATS</strong></h6>
-      tablaATSNoContestado = <div style = {{width:"70%"}}>
-      <Card title={tituloATSNoContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(2)}>Cerrar</Boton></div>}>  
+      tablaATSNoContestado = <div style = {{width:"100%"}}>
 
       <MUIDataTable
+        title="Empleados que aun no realizan la evaluación ATS"
         data={dataATSNoContestado}
         columns={columnsATSNoContestado}
         options={options}
       />
-      </Card>
+      
     </div> 
       }else if (this.state.empleadosAtsFalse[0] === undefined &&  this.state.tablaATSNoContestado === true) {
         tablaATSNoContestado = tablaVacia
@@ -1401,16 +1430,14 @@ const options = {
         const dataRPContestado = this.state.empleadosRP.map(rows=>{
           return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
         })
-        let tituloRPContestado = <h6><strong>Empleados que ya realizaron la evaluación RP</strong></h6>
         tablaRPContestado =
-        <div  style = {{width:"70%"}}>
-        <Card title={tituloRPContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(3)}>Cerrar</Boton></div>}>  
+        <div  style = {{width:"100%"}}>
         <MUIDataTable
+          title="Empleados que ya realizaron la evaluación RP"
           data={dataRPContestado}
           columns={columnsRPContestado}
           options={options}
         />
-        </Card>
       </div> 
         } else if (this.state.empleadosRP[0] === undefined  &&  this.state.tablaRPContestado === true ) {
           tablaRPContestado =  tablaVacia
@@ -1423,16 +1450,14 @@ const options = {
           const dataRPNoContestado = this.state.empleadosRPFalse.map(rows=>{
             return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
           })
-          let tituloRPNoContestado = <h6><strong>Empleados aun no realizan la evaluación RP</strong></h6>
           tablaRPNoContestado = 
-          <div style = {{width:"70%"}}>
-          <Card title={tituloRPNoContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(4)}>Cerrar</Boton></div>}>  
+          <div style = {{width:"100%"}}>
           <MUIDataTable
+            title="Empleados aun no realizan la evaluación RP"
             data={dataRPNoContestado}
             columns={columnsRPNoContestado}
             options={options}
           />
-          </Card>
         </div> 
           } else if (this.state.empleadosRPFalse[0] === undefined  &&  this.state.tablaRPNoContestado === true ) {
             tablaRPContestado = tablaVacia
@@ -1447,16 +1472,14 @@ const options = {
             const dataEEOContestado = this.state.empleadosEEO.map(rows=>{
               return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
             })
-            let tituloEEOContestado = <h6><strong>Empleados que ya realizaron la evaluación EEO</strong></h6>
             tablaEEOContestado = 
-            <div style = {{width:"70%"}}>
-            <Card title={tituloEEOContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(5)}>Cerrar</Boton></div>}>  
+            <div style = {{width:"100%"}}>
             <MUIDataTable
+              title = "Empleados que ya realizaron la evaluación EEO"
               data={dataEEOContestado}
               columns={columnsEEOContestado}
               options={options}
             />
-            </Card>
           </div> 
             } else if (this.state.empleadosEEO[0] === undefined  &&  this.state.tablaEEOContestado === true ) {
               tablaEEOContestado = tablaVacia
@@ -1467,18 +1490,14 @@ const options = {
               const dataEEONoContestado = this.state.empleadosEEOFalse.map(rows=>{
                 return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
               })
-              let tituloEEONoContestado = <h6><strong>Empleados aún no realizan la evaluación EEO</strong></h6>
-
-              tablaEEONoContestado = 
-              <div  style = {{width:"70%"}}>
-              <Card title={tituloEEONoContestado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(6)}>Cerrar</Boton></div>}>  
+              tablaEEONoContestado = <div  style = {{width:"100%"}}>
               <MUIDataTable
+                title= "Empleados aún no realizan la evaluación EEO"
                 data={dataEEONoContestado}
                 columns={columnsEEONoContestado}
                 options={options}
               />
-              </Card>
-            </div> 
+              </div>
               } else if (this.state.empleadosEEOFalse[0] === undefined  &&  this.state.tablaEEONoContestado === true ) {
                 tablaEEONoContestado = tablaVacia
               }
@@ -1491,88 +1510,121 @@ const options = {
                 const dataATSDetectado= this.state.AtsDetectado.map(rows=>{
                   return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
                 })
-                let tituloAtsDetectado = <h6><strong>Empleados con ATS detectado</strong></h6>
                 tablaATSDetectado = 
-                <div  style = {{width:"70%"}}>
-                <Card title={tituloAtsDetectado} extra = {<div><Boton type="dashed" danger onClick = { e=> this.cerraTablas(7)}>Cerrar</Boton></div>}>  
+                <div  style = {{width:"100%"}}>
                 <MUIDataTable
+                title="Empleados con ATS detectado"
                   data={dataATSDetectado}
                   columns={columnsATSDetectado}
                   options={options}
                 />
-                </Card>
               </div> 
                 } else if (this.state.AtsDetectado[0] === undefined  &&  this.state.tablaATSDetectado === true ) {
                   tablaATSDetectado = tablaVacia
                 }
+   
+    let cardInicial
       let titulo1 = <h6><strong>Progreso evaluación ATS </strong></h6>;
       let titulo2 = <h6><strong>Progreso evaluación RP </strong></h6>;
       let titulo3 = <h6><strong>Progreso evaluación EEO </strong></h6>;
-      let hombres =  this.state.empleadosTotales.filter(function(rows){
-          return rows.Sexo === "MASCULINO"
-      })
-      let mujeres =  this.state.empleadosTotales.filter(function(rows){
-        return rows.Sexo === "FEMENINO"
-      })
-      let edad1529 =  this.state.empleadosTotales.filter(function(rows){
-        return rows.FechaNacimiento === "15 A 19" || rows.FechaNacimiento === "20 A 24" || rows.FechaNacimiento === "25 A 29"
-      })
-
-      let edad3044 =  this.state.empleadosTotales.filter(function(rows){
-        return rows.FechaNacimiento === "30 A 34" || rows.FechaNacimiento === "35 A 39" || rows.FechaNacimiento === "40 A 44"
-      })
-      let edad4559 =  this.state.empleadosTotales.filter(function(rows){
-        return rows.FechaNacimiento === "45 A 49" || rows.FechaNacimiento === "50 A 54" || rows.FechaNacimiento === "55 A 59"
-      })
-      let edad6070 =  this.state.empleadosTotales.filter(function(rows){
-        return rows.FechaNacimiento === "60 A 64" || rows.FechaNacimiento === "65 A 69" || rows.FechaNacimiento === "70 A más"
-      })
-
-      let graficaDistribucionInicial;
-      if(this.state.graficaDistribucionInicial === true){
-        graficaDistribucionInicial =  <Card title={<h6><strong>Gráficas de distribución de empleados actuales</strong></h6>}>
-        <Card>
-        <Chart
-          width={'400px'}
-          height={'250px'}
-          chartType="PieChart"
-          loader={<div>Cargando distribución</div>}
-          data={[
-            ['Género', 'Total'],
-            ['Hombres', hombres.length],
-            ['Mujeres', mujeres.length],
-            
-          ]}
-          options={{
-            title: 'Distribución por Género',
-            is3D: true,
-          }}
-          rootProps={{ 'data-testid': '2' }}
-        />
-        </Card>
-        <Card>
-        <Chart
-          width={'400px'}
-          height={'250px'}
-          chartType="PieChart"
-          loader={<div>Cargando dostribución</div>}
-          data={[
-            ['Rango', 'Edad'],
-            ['De 15 a 29', edad1529.length],
-            ['De 30 a 34', edad3044.length],
-            ['De 45 a 59', edad4559.length],
-            ['De 60 a 70 años o más', edad6070.length],
-          ]}
-          options={{
-            title: 'Distribción por Edad',
-            is3D: true,
-          }}
-          rootProps={{ 'data-testid': '2' }}
-        />
-        </Card> 
-        
-        </Card>
+      let tituloEmpleado = <h6><strong>Empleados registrados, Gráficas de distribución y herramientas del sistema.</strong></h6>
+      if(this.state.tablaEmpleados === true && data[0]){
+      
+      tablaEmpleados = <div  style = {{width:"100%"}}>
+      <MUIDataTable
+       data={data}
+       columns={columns}
+       options={options}
+     />
+     </div> 
+      }else{
+       tablaEmpleados = <div style = {{width:"100%"}} >
+       {Alerta}
+       {dep}
+       {suc}
+       {pues}
+       </div>
       }
+      let leyendaDemo;
+      if(this.state.leyendaDemo){
+        leyendaDemo = <font color = "red"><strong>{this.state.leyendaDemo}</strong></font>
+      }else{
+        leyendaDemo = <strong><font color = "green">Licencia vigente  {localStorage.getItem("periodo")}</font></strong>
+      }
+      cardInicial  = <div style={{width:"88%"}}>
+      {leyendaDemo}   
+      <Card title = {tituloEmpleado}>  
+      <div className='distribucion'>
+            {tablaEmpleados}
+            
+            {graficaDistribucionInicial}
+      <div  style={{marginTop:"1%"}}>
+      <Space className='spaceButtons' direction="vertical">
+      <Button  style={{ color: '#FC1B99' }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
+                          Herramientas &nbsp;<i class="fas fa-cog"> </i>
+       </Button>
+      <Space>
+      </Space> 
+      <Space>
+        <Button icon = { <BarChartOutlined />} type="primary" onClick={this.toggle(16)}>Datos generales</Button>
+      </Space>
+      <Space>
+          {logo} 
+      </Space>
+      <Space>
+        <Button type="primary" icon = {<VideoCameraOutlined />} onClick={e=>this.showModal2()}>Tutorial del sistema</Button>
+      </Space>
+      <Space>
+        <Button  type="primary" icon = {<UserSwitchOutlined />} onClick = {e=>this.showModal(1)}>ATS detectado</Button>
+      </Space>
+      <Space>
+      
+      </Space>
+      </Space>
+      </div>
+      </div>
+      </Card>
+      </div> 
+      let modal =   <Modal
+      type="inner"
+      width={1100}
+      title={"Tabla de resultados"}
+      cancelText="Cancelar"
+      okText="Aceptar"
+      visible={this.state.visible}
+      onOk={e=>this.handleOk()}
+      confirmLoading={this.state.confirmLoading}
+      onCancel={e=>this.handleOk()}
+    >
+      {tablaATSDetectado}
+      {tablaATSContestado}
+      {tablaATSNoContestado}
+      {tablaRPContestado}
+      {tablaRPNoContestado}
+      {tablaEEOContestado}
+      {tablaEEONoContestado}
+    </Modal>
+    let modalTutorial =   <Modal
+        type="inner"
+        width={1200}
+        title={"Tutoriales de Diagnóstico035"}
+        cancelText="Cancelar"
+        okText="Aceptar"
+        visible={this.state.visible2}
+        onOk={e=>this.handleOk2()}
+        onCancel={e=>this.handleOk2()}
+      >
+        <div className="modalVideo">
+        <div className='row'> 
+        <iframe style={{margin:"1"}} width="400" height="230"src="https://www.youtube.com/embed/Gf9OqyhVC0o" title="Primeros pasos en Diagnostico035 2.0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <ModalVideo style={{margin:"1%"}} channel='vimeo' isOpen={this.state.isOpen} videoId='461258739' onClose={() => this.setState({isOpen: false})} />
+        </div> 
+        <div className='row'>
+        <iframe width="400" height="300" src="https://www.youtube.com/embed/8Q0H9v6xSas" title="Como dar de baja empleados en Diagnostico035" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="400" style={{marginLeft:"1%"}} height="300" src="https://www.youtube.com/embed/Kedg-1OfoNA" title="Como generar un informe ejecutivo ATS con Diagnostico035" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        </div>
+      </Modal>
       return (
       <React.Fragment>
       <div>
@@ -1582,50 +1634,56 @@ const options = {
          <Card type="inner" title={ <div><center>{titulo1}{progressInstanceATS}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
          <MDBCardBody style={{padding:"10px"}}> 
          <center>       
-         <MDBBtn color = "success" size  = "sm" onClick = { e => this.tablaATSContestado()} disabled={this.state.disabledButtons}> Realizada </MDBBtn>  
-         <MDBBtn color= "danger" size = "sm" onClick = { e => this.tablaATSNoContestado()} disabled={this.state.disabledButtons}>No realizada</MDBBtn>
+         <MDBBtn color = "success" size  = "sm" onClick = { e => this.showModal(2)} disabled={this.state.disabledButtons}> Realizada </MDBBtn>  
+         <MDBBtn color= "danger" size = "sm" onClick = { e => this.showModal(3)} disabled={this.state.disabledButtons}>No realizada</MDBBtn>
          </center>
         </MDBCardBody>
         </Card>
         <Card  type="inner" title={ <div><center>{titulo2}{progressInstanceRP}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
         <MDBCardBody style={{padding:"10px"}}>        
         <center>
-         <MDBBtn color = "success" size  = "sm" onClick = {e => this.tablaRPContestado()} disabled={this.state.disabledButtons}> Realizada </MDBBtn>  
-         <MDBBtn color= "danger" size = "sm" onClick = {e => this.tablaRPNoContestado()} disabled={this.state.disabledButtons}>No realizada</MDBBtn>
+         <MDBBtn color = "success" size  = "sm" onClick = {e => this.showModal(4)} disabled={this.state.disabledButtons}> Realizada </MDBBtn>  
+         <MDBBtn color= "danger" size = "sm" onClick = {e => this.showModal(5)} disabled={this.state.disabledButtons}>No realizada</MDBBtn>
         </center>
         </MDBCardBody>
         </Card>
         <Card  type="inner" title={ <div><center>{titulo3}{progressInstanceEEO}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
         <MDBCardBody style={{padding:"10px"}}>        
          <center>        
-         <MDBBtn color = "success" size  = "sm" onClick = { e => this.tablaEEOContestado()} disabled={this.state.disabledButtons}> Realizada </MDBBtn>  
-         <MDBBtn color= "danger" size = "sm" onClick = { e => this.tablaEEONoContestado()} disabled={this.state.disabledButtons}>No realizada</MDBBtn>
+         <MDBBtn color = "success" size  = "sm" onClick = { e => this.showModal(6)} disabled={this.state.disabledButtons}> Realizada </MDBBtn>  
+         <MDBBtn color= "danger" size = "sm" onClick = { e => this.showModal(7)} disabled={this.state.disabledButtons}>No realizada</MDBBtn>
          </center>
        </MDBCardBody>
        </Card>
         </div>
         <div style = {{marginTop:"2%"}} className = "tablaEmpleados">
-          {tablaEmpleados}
-          
-          {graficaDistribucionInicial}
-          
+        {cardInicial}
         </div>
         <center>
-        {tablaATSContestado}
-          {tablaATSNoContestado}
-          {tablaRPContestado}
-          {tablaRPNoContestado}
-          {tablaEEOContestado}
-          {tablaEEONoContestado}
-          {tablaATSDetectado}
         {updateLogo}
         {modalInfoG}
         {cargarLogo}
         {modificarLogo}
+        {modal}
+        {modalTutorial}
         </center>
         </div>
+        <Menu
+            id="simple-menu"
+            anchorEl={this.state.dropdown}
+            keepMounted
+            open={Boolean(this.state.dropdown)}
+            onClose={this.handleCloseDropdown}
+        >
+            <MenuItem ><a href = "http://eval.diagnostico035.com/ats">Realizar evaluación ATS</a></MenuItem>
+            <MenuItem ><a href = "http://eval.diagnostico035.com/rp">Realizar evaluación RP</a></MenuItem>
+            <MenuItem ><a href = "http://eval.diagnostico035.com/eeo">Realizar evaluación EEO</a></MenuItem>
+            <MenuItem onClick={this.handleclick}><i class="fas fa-address-card"></i> &nbsp;Mi Perfil</MenuItem>
+            <MenuItem ><a href = "http://ads.com.mx"><i class="fab fa-buysellads"></i> &nbsp;Más sobre ADS</a></MenuItem>
+
+
+        </Menu>
       </div>
-      <div><ModalVideo channel='vimeo' isOpen={this.state.isOpen} videoId='461258739' onClose={() => this.setState({isOpen: false})} /></div>
       </React.Fragment>
     );
   }
