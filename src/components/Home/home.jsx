@@ -152,6 +152,7 @@ class Home extends React.Component {
       })
       .then(datos => {	
         let periodo = datos.data.data.getPeriodo[0].Descripcion ;
+        localStorage.setItem("periodo" ,datos.data.data.getPeriodo[0].Descripcion )
         this.setState({periodo:periodo})
         this.setState({datosEventos:datos.data.data.getPeriodo[0]})
         
@@ -302,9 +303,11 @@ class Home extends React.Component {
             return hero.encuesta ==="ATS"
           }) 
           resultATS = evaluacionATSContestado.filter(function(hero){
+            console.log(periodo,"periodo")
             return hero.periodo === periodo 
           })
 
+          console.log("resultATS",resultATS)
           this.setState({empleadosAts:resultATS})
           this.setState({ATSContestado:resultATS.length})
           let arrayInicial = arrayDatos[0];
@@ -1276,46 +1279,6 @@ const options = {
 
    }
 
-   let totalAts = this.state.empleadosAts.length + this.state.empleadosAtsFalse.length
-   var porcentajeATS= (this.state.empleadosAts.length / totalAts)*100;
-   var intPorcentajeATS= Math.round( porcentajeATS);
-
-   var porcentajeATSFalse= (this.state.empleadosAtsFalse.length / totalAts)*100;
-   var intPorcentajeATSFalse= Math.round( porcentajeATSFalse);
-
-   
-   let totalRP = this.state.empleadosRP.length + this.state.empleadosRPFalse.length
-   var porcentajeRP= (this.state.empleadosRP.length / totalRP)*100;
-   var intPorcentajeRP= Math.round( porcentajeRP);
-
-   var porcentajeRPFalse= (this.state.empleadosRPFalse.length / totalRP)*100;
-   var intPorcentajeRPFalse= Math.round( porcentajeRPFalse);
-
-   let totalEEO = this.state.empleadosEEO.length + this.state.empleadosEEOFalse.length
-   var porcentajeEEO= (this.state.empleadosEEO.length / totalEEO)*100;
-   var intPorcentajeEEO= Math.round( porcentajeEEO);
-
-   var porcentajeEEOFalse= (this.state.empleadosEEOFalse.length / totalEEO)*100;
-   var intPorcentajeEEOFalse= Math.round( porcentajeEEOFalse);
-
-   let progressInstanceATS;
-   let progressInstanceRP;
-   let progressInstanceEEO;
-   if(intPorcentajeATS || intPorcentajeATSFalse ){
-    progressInstanceATS =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={intPorcentajeATS}  label={`${intPorcentajeATS}%`} /><ProgressBar variant="danger" animated now={intPorcentajeATSFalse}  label={`${intPorcentajeATSFalse}%`} /></ProgressBar>;
-   }else{
-    progressInstanceATS =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Porcentaje no calculado`} /><ProgressBar variant="danger" animated now={50}  label={`Porcentaje no calculado`} /></ProgressBar>;
-   }
-   if(intPorcentajeRP || intPorcentajeRPFalse ){
-    progressInstanceRP=<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={intPorcentajeRP}  label={`${intPorcentajeRP}%`} /><ProgressBar variant="danger" animated now={intPorcentajeRPFalse}  label={`${intPorcentajeRPFalse}%`} /></ProgressBar>;
-   }else{
-    progressInstanceRP =<ProgressBar style ={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Porcentaje no calculado`} /><ProgressBar variant="danger" animated now={50}  label={`Porcentaje no calculado`} /></ProgressBar>;
-   }
-   if(intPorcentajeEEO || intPorcentajeEEOFalse ){
-    progressInstanceEEO=<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={intPorcentajeEEO}  label={`${intPorcentajeEEO}%`} /><ProgressBar variant="danger" animated now={intPorcentajeEEOFalse}  label={`${intPorcentajeEEOFalse}%`} /></ProgressBar>;
-   }else{
-    progressInstanceEEO =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Porcentaje no calculado`} /><ProgressBar variant="danger" animated now={50}  label={`Porcentaje no calculado`} /></ProgressBar>;
-   }
    // TablaEmpleados de inicio
    let tablaEmpleados;
    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
@@ -1625,6 +1588,48 @@ const options = {
         </div>
         </div>
       </Modal>
+
+      
+   let totalAts = this.state.empleadosAts.length + this.state.empleadosAtsFalse.length
+   var porcentajeATS= (this.state.empleadosAts.length / totalAts)*100;
+   var intPorcentajeATS= Math.round( porcentajeATS);
+
+   var porcentajeATSFalse= (this.state.empleadosAtsFalse.length / totalAts)*100;
+   var intPorcentajeATSFalse= Math.round( porcentajeATSFalse);
+
+   
+   let totalRP = this.state.empleadosRP.length + this.state.empleadosRPFalse.length
+   var porcentajeRP= (this.state.empleadosRP.length / totalRP)*100;
+   var intPorcentajeRP= Math.round( porcentajeRP);
+
+   var porcentajeRPFalse= (this.state.empleadosRPFalse.length / totalRP)*100;
+   var intPorcentajeRPFalse= Math.round( porcentajeRPFalse);
+
+   let totalEEO = this.state.empleadosEEO.length + this.state.empleadosEEOFalse.length
+   var porcentajeEEO= (this.state.empleadosEEO.length / totalEEO)*100;
+   var intPorcentajeEEO= Math.round( porcentajeEEO);
+
+   var porcentajeEEOFalse= (this.state.empleadosEEOFalse.length / totalEEO)*100;
+   var intPorcentajeEEOFalse= Math.round( porcentajeEEOFalse);  
+
+   let progressInstanceATS;
+   let progressInstanceRP;
+   let progressInstanceEEO;
+   if(intPorcentajeATS || intPorcentajeATSFalse ){
+    progressInstanceATS =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={intPorcentajeATS}  label={`${intPorcentajeATS}%`} /><ProgressBar variant="danger" animated now={intPorcentajeATSFalse}  label={`${intPorcentajeATSFalse}%`} /></ProgressBar>;
+   }else{
+    progressInstanceATS =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Porcentaje no calculado`} /><ProgressBar variant="danger" animated now={50}  label={`Porcentaje no calculado`} /></ProgressBar>;
+   }
+   if(intPorcentajeRP || intPorcentajeRPFalse ){
+    progressInstanceRP=<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={intPorcentajeRP}  label={`${intPorcentajeRP}%`} /><ProgressBar variant="danger" animated now={intPorcentajeRPFalse}  label={`${intPorcentajeRPFalse}%`} /></ProgressBar>;
+   }else{
+    progressInstanceRP =<ProgressBar style ={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Porcentaje no calculado`} /><ProgressBar variant="danger" animated now={50}  label={`Porcentaje no calculado`} /></ProgressBar>;
+   }
+   if(intPorcentajeEEO || intPorcentajeEEOFalse ){
+    progressInstanceEEO=<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={intPorcentajeEEO}  label={`${intPorcentajeEEO}%`} /><ProgressBar variant="danger" animated now={intPorcentajeEEOFalse}  label={`${intPorcentajeEEOFalse}%`} /></ProgressBar>;
+   }else{
+    progressInstanceEEO =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Porcentaje no calculado`} /><ProgressBar variant="danger" animated now={50}  label={`Porcentaje no calculado`} /></ProgressBar>;
+   }
       return (
       <React.Fragment>
       <div>

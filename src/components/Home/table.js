@@ -229,7 +229,6 @@ class TableEmployees extends React.Component {
     )
     }
      sendMail =  (datosEmpleados,param) =>{
-      console.log("datosRecibidos",datosEmpleados,param)
       if(datosEmpleados && datosEmpleados[0]){
         const idAdmin = localStorage.getItem("idAdmin");
         if ( this.state.periodoActivo > 0){
