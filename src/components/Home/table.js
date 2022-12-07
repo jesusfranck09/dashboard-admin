@@ -20,7 +20,7 @@ class TableEmployees extends React.Component {
           empleadosATS:[],
           empleadosRP:[],
           empleadosEEO:[],
-          size: 'large'
+          size: 'middle'
         };
       }
       componentWillMount(){
@@ -229,6 +229,7 @@ class TableEmployees extends React.Component {
     )
     }
      sendMail =  (datosEmpleados,param) =>{
+      console.log("param",param)
       if(datosEmpleados && datosEmpleados[0]){
         const idAdmin = localStorage.getItem("idAdmin");
         if ( this.state.periodoActivo > 0){
@@ -245,6 +246,7 @@ class TableEmployees extends React.Component {
             `
         }
         }).then(datos => { 
+          console.log("datos",datos.data.data.sendMail)
           DialogUtility.alert({
             animationSettings: { effect: 'Zoom' },           
             content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados`,
@@ -270,47 +272,6 @@ class TableEmployees extends React.Component {
       onChange = e => {
         this.setState({ size: e.target.value });
       };
-      // sendMailEEO =  (datosEmpleados) =>{
-      //   if(datosEmpleados && datosEmpleados[0]){
-      //     const idAdmin = localStorage.getItem("idAdmin")
-      //     if ( this.state.periodoActivo > 0){
-      //     axios({
-      //     url:  API,
-      //     method:'post',
-      //     data:{
-      //     query:` 
-      //     mutation{
-      //       sendMail(data:"${[datosEmpleados,3,idAdmin]}"){
-      //           message
-      //             }
-      //           }
-      //         `
-      //     }
-      //         }).then(datos => { 
-      //           console.log("datos",datos)
-      //           DialogUtility.alert({
-      //             animationSettings: { effect: 'Zoom' },           
-      //             content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados`,
-      //             title: 'Aviso!',
-      //             position: "fixed"
-      //             })
-      //         }).catch(err=>{
-      //           console.log("error", err.response)
-      //         })
-      //   }
-      //   }else{
-      //     DialogUtility.alert({
-      //       animationSettings: { effect: 'Zoom' },           
-      //       content: `Por favor seleccione al menos un empleado para enviar el correo`,
-      //       title: 'Aviso!',
-      //       position: "fixed"
-      //       })
-  
-      //       setTimeout(()=>{
-      //         window.location.reload()
-      //       },2000)
-      //   } 
-      // }    
         onChange = e => {
           this.setState({ size: e.target.value });
         };
@@ -545,7 +506,8 @@ class TableEmployees extends React.Component {
        <React.Fragment>
         <div >
         <Navbar modulo = {"ENVÍO DE EVALUACIONES"} />
-        <div className="tabs" style={{marginTop:"5%",marginLeft:"5%"}}>
+        <center>
+        <div className="tabs" style={{marginTop:"5%",marginLeft:"5%", width:"90%"}}>
               <Tabs type="card" defaultActiveKey="1"  size={size}>
                 <TabPane tab="Evaluación ATS" key="1">
                 <Card className="card" title = {<h6><strong>Evaluación ATS</strong></h6>} extra={ <Button outline type="primary" onClick={(e)=>this.sendMail(datosEmpleados,1)}>Enviar evaluación ATS &nbsp;<i class="fas fa-arrow-circle-right"></i></Button>}>    
@@ -556,7 +518,7 @@ class TableEmployees extends React.Component {
                   />
                 </Card>
                 </TabPane>
-                <TabPane tab="Evaluación RP" key="2">
+                <TabPane  tab="Evaluación RP" key="2">
                 <Card className="card" title = {<h6><strong>Evaluación RP</strong></h6>} extra={ <Button outline type="danger" onClick={(e)=>this.sendMail(datosEmpleadosRP,2)}>Enviar evaluación RP &nbsp;<i class="fas fa-angle-double-right"></i></Button>}>    
                 <MUIDataTable
                     data={dataRP}
@@ -586,6 +548,7 @@ class TableEmployees extends React.Component {
                   </TabPane>
               </Tabs>
             </div>
+            </center>
         </div>   
         </React.Fragment>
         );
