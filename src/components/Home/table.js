@@ -507,7 +507,7 @@ class TableEmployees extends React.Component {
         <div >
         <Navbar modulo = {"ENVÍO DE EVALUACIONES"} />
         <center>
-        <div className="tabs" style={{marginTop:"5%",marginLeft:"5%", width:"90%"}}>
+        <div className="tabs" style={{marginTop:"5%",marginLeft:"5%", width:"80%"}}>
               <Tabs type="card" defaultActiveKey="1"  size={size}>
                 <TabPane tab="Evaluación ATS" key="1">
                 <Card className="card" title = {<h6><strong>Evaluación ATS</strong></h6>} extra={ <Button outline type="primary" onClick={(e)=>this.sendMail(datosEmpleados,1)}>Enviar evaluación ATS &nbsp;<i class="fas fa-arrow-circle-right"></i></Button>}>    
