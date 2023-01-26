@@ -266,7 +266,7 @@ class DataInput extends React.Component {
 		  }
 		})
 		.then(datos => {		
-			em =datos.data.data.verifyPackSuperUser.empleados
+			em =datos.data.data.verifyPackSuperUser[0].empleados
 		}).catch(err=>{
 			console.log("error" , err.response)
 		}) 
@@ -289,7 +289,7 @@ class DataInput extends React.Component {
 		    max=datos.data.data.authRegisterSingleEmployee[0].max
 			});
 			let empleadosRegistrados=parseInt(max)
-			if(empleadosRegistrados < empleadosPack ){
+			if(empleadosRegistrados <= empleadosPack ){
 			axios({
 			url:  API,
 			method:'post',

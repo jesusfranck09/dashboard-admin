@@ -9,6 +9,7 @@ import Navbar from './navbar'
 import { Tabs } from 'antd';
 import './style.css';
 import {Card} from 'antd'
+import swal from 'sweetalert'
 const { TabPane } = Tabs;
 
 class TableEmployees extends React.Component {
@@ -20,7 +21,8 @@ class TableEmployees extends React.Component {
           empleadosATS:[],
           empleadosRP:[],
           empleadosEEO:[],
-          size: 'middle'
+          size: 'middle',
+          evaluacionEnviada:false,
         };
       }
       componentWillMount(){
@@ -229,33 +231,54 @@ class TableEmployees extends React.Component {
     )
     }
      sendMail =  (datosEmpleados,param) =>{
-      console.log("param",param)
+      var array = []
       if(datosEmpleados && datosEmpleados[0]){
         const idAdmin = localStorage.getItem("idAdmin");
         if ( this.state.periodoActivo > 0){
-        axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:` 
-        mutation{
-          sendMail(data:"${[datosEmpleados,param,idAdmin]}"){
-              message
-                }
+          datosEmpleados.map(rows=>{
+            let año  = new Date().getFullYear()
+            function generateUUID() {
+                var d = new Date().getTime();
+                var uuid = 'xAxxyx'.replace(/[xy]/g, function (c) {
+                    var r = (d + Math.random() * 16) % 16 | 0;
+                    d = Math.floor(d / 16);
+                    return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+                });
+                return uuid;
+            }
+          let folio = (año + generateUUID()).toUpperCase();
+
+          array.push({"id":rows[0],"nombre":rows[1],"folio":folio})
+          })
+        for(let i = 0; i <= array.length; i ++){
+          if(array[i]){
+            axios({
+              url:  API,
+              method:'post',
+              data:{
+              query:` 
+              mutation{
+                sendMail(data:"${[array[i].nombre,array[i].id,param,idAdmin,array[i].folio]}"){
+                    message
+                      }
+                    }
+                  `
               }
-            `
+              }).then(datos => { 
+                if(datos.data.data.sendMail.message === "envio exitoso"){
+                  this.setState({evaluacionEnviada:true})
+                  if(this.state.evaluacionEnviada === true){
+                      swal("Notificación!",  `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados` , "success");
+                  }
+                }else{
+                  swal("Aviso!", "Algo salió mal!", "error");
+                }
+                
+              }).catch(err=>{
+                console.log("error", err.response)
+              })
+          }
         }
-        }).then(datos => { 
-          console.log("datos",datos.data.data.sendMail)
-          DialogUtility.alert({
-            animationSettings: { effect: 'Zoom' },           
-            content: `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados`,
-            title: 'Aviso!',
-            position: "fixed"
-            })
-        }).catch(err=>{
-          console.log("error", err.response)
-        })
       }
       }else{
         DialogUtility.alert({
