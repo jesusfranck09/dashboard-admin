@@ -435,8 +435,7 @@ class DataInput extends React.Component {
 			}
 			})
 			.then(datos => {		
-				em =datos.data.data.verifyPackSuperUser.empleados
-	
+				em =datos.data.data.verifyPackSuperUser[0].empleados	
 			}).catch(err=>{
 				console.log("error" , err.response)
 			}) 
@@ -632,7 +631,6 @@ class DataInput extends React.Component {
 		}
 		let spinner;	
 		this.state.message.map(rows =>{
-			console.log("rows",rows)
 		if(rows === 'correo existente'){
 			this.setState({empleadoNoRegistrado:this.state.empleadoNoExitoso})
 			this.setState({empleadoNoExitoso:[]})
