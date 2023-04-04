@@ -6,11 +6,15 @@ import {Button} from 'antd';
 import axios from 'axios'
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import Navbar from './navbar'
-import { Tabs } from 'antd';
+import { Tabs,message  } from 'antd';
 import './style.css';
-import {Card} from 'antd'
+import {Card,Modal,Input} from 'antd'
 import swal from 'sweetalert'
+import { MDBIcon } from 'mdbreact';
+import ReactWhatsapp from 'react-whatsapp';
+
 const { TabPane } = Tabs;
+
 
 class TableEmployees extends React.Component {
       constructor(props) {
@@ -23,7 +27,18 @@ class TableEmployees extends React.Component {
           empleadosEEO:[],
           size: 'middle',
           evaluacionEnviada:false,
+          folioRecibido:[],
+          dataEval:[],
+          modalEval:false,
+          dataModal:true,
+          detallesEmpleado:[],
+          details:false,
+          telefonoEmpleado:'',
+          urlWhatsapp:'',
+          whatsappButton:false,
+          dataEmpleadoWhatsapp:[]
         };
+        this.onOk = this.onOk.bind(this)
       }
       componentWillMount(){
         let idAdmin = localStorage.getItem("idAdmin")
@@ -54,6 +69,9 @@ class TableEmployees extends React.Component {
     handleclick(){
     this.props.history.push("/profile")
     }
+    onOk(){
+      window.location.reload()
+    }
     getEmployeesPeriodo = async() =>{
     let array7 = [];
   
@@ -77,6 +95,7 @@ class TableEmployees extends React.Component {
               Sexo
               CentroTrabajo
               EstadoCivil
+              telefono
               correo
               AreaTrabajo
               Puesto
@@ -93,6 +112,7 @@ class TableEmployees extends React.Component {
               RPContestado
               EEOContestado
               ATSDetectado
+
                 }
               }
               `
@@ -230,7 +250,7 @@ class TableEmployees extends React.Component {
     }
     )
     }
-     sendMail =  (datosEmpleados,param) =>{
+    sendMail =  (datosEmpleados,param) =>{
       var array = []
       if(datosEmpleados && datosEmpleados[0]){
         const idAdmin = localStorage.getItem("idAdmin");
@@ -250,6 +270,7 @@ class TableEmployees extends React.Component {
 
           array.push({"id":rows[0],"nombre":rows[1],"folio":folio})
           })
+          console.log("array",array)
         for(let i = 0; i <= array.length; i ++){
           if(array[i]){
             axios({
@@ -260,11 +281,13 @@ class TableEmployees extends React.Component {
               mutation{
                 sendMail(data:"${[array[i].nombre,array[i].id,param,idAdmin,array[i].folio]}"){
                     message
+                    folio
                       }
                     }
                   `
               }
               }).then(datos => { 
+                this.setState({folioRecibido:datos.data.data.sendMail})
                 if(datos.data.data.sendMail.message === "envio exitoso"){
                   this.setState({evaluacionEnviada:true})
                   if(this.state.evaluacionEnviada === true){
@@ -275,6 +298,8 @@ class TableEmployees extends React.Component {
                 }
                 
               }).catch(err=>{
+                console.log("error", err)
+
                 console.log("error", err.response)
               })
           }
@@ -299,17 +324,167 @@ class TableEmployees extends React.Component {
           this.setState({ size: e.target.value });
         };
 
+    generarLiga = async(param1, param2)=>{
+      console.log("param1",param1)
+      // await this.sendMail(param1,param2);
+      const idAdmin = localStorage.getItem("idAdmin");
+
+      let encuesta;
+      if(param2 === 1){
+        encuesta = "ATS";
+      }if(param2 === 2){
+        encuesta = "RP";
+      }
+      if(param2 === 3){
+        encuesta = "EEO";
+      }
+      let array2 = [];
+
+      let array = []
+
+      if(param1 ){
+        if(param1[0]){
+        param1.map(rows=>{
+        let año  = new Date().getFullYear()
+        function generateUUID() {
+            var d = new Date().getTime();
+            var uuid = 'xAxxyx'.replace(/[xy]/g, function (c) {
+                var r = (d + Math.random() * 16) % 16 | 0;
+                d = Math.floor(d / 16);
+                return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+            return uuid;
+        }
+        let folio = (año + generateUUID()).toUpperCase();
+
+       array2.push({"id":rows[0],"nombre":rows[1],"folio":folio})
+          
+        })
+        let arrayEmpleados = [] 
+        for(let i = 0; i <= array2.length; i ++){
+          if(array2[i]){
+             axios({
+              url:  API,
+              method:'post',
+              data:{
+              query:` 
+              query{
+                verifySurvey(data:"${[array2[i].nombre,array2[i].id,encuesta,idAdmin,array2[i].folio]}"){
+                  idtokenEvaluaciones
+                  codigoSeguridad
+                  fechaCreacionToken
+                  fechaExpiraicionToken
+                  statusToken
+                  evaluacion
+                  fk_empleados
+                      }
+                    }
+                  `
+              }
+              }).then(datos => { 
+                let data = datos.data.data.verifySurvey[0];
+                if(data){  
+                  array.push(data)
+                  this.setState({dataEval:array})
+                  this.setState({modalEval:true})
+                  console.log("array",array)
+                }
+              }).catch(err=>{
+                console.log("error", err)
+      
+                console.log("error", err.response)
+            })
+          }
+        }
+       
+      }else{
+        swal("Notificación!",  `Seleccione una opción válida ` , "error");
+      }
+      // 
+    }else{
+      swal("Notificación!",  `Seleccione una opción válida ` , "error");
+    }
+    }
+    details(param,index){
+      if(index === 1){
+        let dataEmpleado = this.state.empleadosATS.filter(function(rows){
+          return rows.id === param.fk_empleados
+        })
+
+        this.setState({detallesEmpleado:dataEmpleado})
+        this.setState({dataModal:false})
+        this.setState({details:true})
+
+    }
+    }
+    closeDetails(){
+        this.setState({dataModal:true})
+        this.setState({details:false})
+    
+    }
+    copytext(param){
+      message.info('Aviso!');
+      message.info('URL copiado!');
+
+      navigator.clipboard.writeText("https://eval.diagnostico035.com/politicaPrivacidad:&" + param.fk_empleados + "%" + param.codigoSeguridad)
+    }
+    sendWhatsapp(rows,param){
+      if(param === 1){
+        this.setState({whatsappButton:true})
+        this.setState({dataModal:false})
+        this.setState({details:false})
+
+        let idEmpleado = rows.fk_empleados
+        let datosEmpleados = this.state.empleadosATS
+  
+        let dataEmpleado = datosEmpleados.filter(function(hero){
+          return hero.id === idEmpleado
+        })
+        if(dataEmpleado[0].telefono){
+          let telefono = dataEmpleado[0].telefono
+          let urlWhatsapp = `https://eval.diagnostico035.com/politicaPrivacidad:&${rows.fk_empleados}%${rows.codigoSeguridad}`
+          const parser = new DOMParser();
+          const decodedString = parser.parseFromString(`<!doctype html><body>${urlWhatsapp}`,'text/html').body.textContent;
+          this.setState({telefonoEmpleado:telefono})
+          this.setState({urlWhatsapp:decodedString})
+          this.setState({dataEmpleadoWhatsapp:dataEmpleado})
+        }else{
+          swal("Notificación!",  `El empleado no cuenta con un número registrado, agregue uno en "Administración general/Editar empleado/ Teléfono" e inténtelo nuevamente` , "warning");
+
+        }
+      
+      }
+      
+    }
   render() {
     const { size } = this.state;
-    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Correo","Centro de trabajo","Puesto"];
+    const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Telefono","Correo","Centro de trabajo","Puesto"];
     const data = this.state.empleadosATS.map(rows=>{
-      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo,rows.Puesto])
+      let telefono;
+      if(rows.telefono){
+        telefono = rows.telefono
+      }else{
+        telefono = "No proporcionado"
+      }
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,telefono,rows.correo,rows.CentroTrabajo,rows.Puesto])
     })
     const dataRP = this.state.empleadosRP.map(rows=>{
-      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo,rows.Puesto])
+      let telefono;
+      if(rows.telefono){
+        telefono = rows.telefono
+      }else{
+        telefono = "No proporcionado"
+      }
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,telefono,rows.correo,rows.CentroTrabajo,rows.Puesto])
     })
     const dataEEO = this.state.empleadosEEO.map(rows=>{
-      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.correo,rows.CentroTrabajo,rows.Puesto])
+      let telefono;
+      if(rows.telefono){
+        telefono = rows.telefono
+      }else{
+        telefono = "No proporcionado"
+      }
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,telefono ,rows.correo,rows.CentroTrabajo,rows.Puesto])
     })
     const columnss = ["Evaluación","Fecha", "Nombre",  "Apellido P.","Apellido M.","Curp","Status"];
     const datas = this.state.correos.map(rows=>{
@@ -524,6 +699,101 @@ class TableEmployees extends React.Component {
                 },
                 onFilterChange: (action, filtroTable) => {
                 } };
+
+                let whatsapp;
+                let modalEval;
+                if(this.state.modalEval === true){
+                  let dataDetails;  
+                  if(this.state.details === true){
+                  if(this.state.detallesEmpleado[0]){
+                    let dataEmpleado = this.state.detallesEmpleado[0]
+                      dataDetails = <div className='detailsEmpleados'>
+                        <table className='table table-bordered  table-small  table-striped'>
+                        <Button type='danger' onClick={e=>this.closeDetails()}><MDBIcon fas icon="times" /></Button>
+                          <tr>
+                            <td>ID:</td>
+                            <td>{dataEmpleado.id}</td>
+                          </tr>
+                          <tr>
+                            <td>Nombre:</td>
+                            <td>{dataEmpleado.nombre + " " + dataEmpleado.ApellidoP + " " + dataEmpleado.ApellidoM }</td>
+                          </tr>
+                          <tr>
+                            <td>RFC:</td>
+                            <td>{dataEmpleado.RFC}</td>
+                          </tr>
+                          <tr>
+                            <td>Centro de trabajo:</td>
+                            <td>{dataEmpleado.CentroTrabajo}</td>
+                          </tr>
+                          <tr>
+                            <td>Correo:</td>
+                            <td>{dataEmpleado.correo}</td>
+                          </tr>
+                          <tr>
+                            <td>Puesto:</td>
+                            <td>{dataEmpleado.Puesto}</td>
+                          </tr>
+                        </table>
+                      </div>
+                  }
+                }
+                  let dataModal;
+                  if(this.state.dataModal === true ){
+                    dataModal = this.state.dataEval.map(rows=>{
+                      if(rows){
+                        return(
+                          <div className='row'>
+                           <div className='input'>
+                            <input  value={"ID: "+ rows.fk_empleados } disabled style={{width:"10%",fontWeight:"bold"}}></input><Input  value={"https://eval.diagnostico035.com/politicaPrivacidad:&" + rows.fk_empleados + "%" + rows.codigoSeguridad}></Input>
+                            </div>
+                            <div className='button'>
+                              <Button  class="addMore" title="Detalles del empleado" shape="circle" type='primary' onClick={e=>this.details(rows,1)}><MDBIcon fas icon="info" /></Button>
+                              <Button size='large' class="addMore" title="Copiar texto" shape="circle" type='link' onClick={(e) => {this.copytext(rows)}}><MDBIcon fas icon="copy" /></Button>
+                              <Button  class="addMore" title="Enviar por whatsapp" shape="circle" type="success" onClick={(e) => {this.sendWhatsapp(rows,1)}}><MDBIcon fab icon="whatsapp" /></Button>
+                            </div >
+                            <br></br><br></br>
+                          </div>
+                        )
+                      }
+                    })
+                  }
+                  if(this.state.whatsappButton === true){
+                    if(this.state.telefonoEmpleado && this.state.urlWhatsapp){
+                      let param = this.state.dataEmpleadoWhatsapp[0]
+                      const parser = new DOMParser();
+                      const decodedString = parser.parseFromString(`<!doctype html><body>${this.state.urlWhatsapp}`,'text/html').body.textContent;
+
+                      whatsapp = 
+                      <div>
+                      <table className='table table-bordered table table-small table table-striped'>
+                        <tr>
+                          <td>Nombre del empleado:</td>
+                          <td>{param.nombre +  " " + param.ApellidoP + " " + param.ApellidoM}</td>
+                        </tr>
+                        <tr>
+                          <td>Teléfono</td>
+                          <td>{param.telefono}</td>
+                        </tr>
+                      </table>
+                      <div className='input'>
+                      <strong>Enlace para copiar</strong> <br></br><br></br>
+                      <Input value={this.state.urlWhatsapp}></Input>
+                      </div>
+                      <br/>
+                      <center><ReactWhatsapp className='button1' number={this.state.telefonoEmpleado} message= {`Adjunto en este mensaje la liga de acceso al sistema de evaluaciones. No olvide completar de forma satisfactoria el total de preguntas antes de enviar su evaluación. Acceda al siguiente link para completar el proceso.
+                      
+                      `}>Abrir link</ReactWhatsapp></center>
+                      </div>
+                    }
+                  }
+                    modalEval = <Modal width={"70%"} title={"Enlaces generados"} visible = {this.state.modalEval} onOk={this.onOk} onCancel = {this.onOk}>
+                    {dataModal}
+                    {dataDetails}
+                    {whatsapp}
+                  </Modal>                 
+                }
+               
               
     return (
        <React.Fragment>
@@ -533,7 +803,7 @@ class TableEmployees extends React.Component {
         <div className="tabs" style={{marginTop:"5%",marginLeft:"5%", width:"80%"}}>
               <Tabs type="card" defaultActiveKey="1"  size={size}>
                 <TabPane tab="Evaluación ATS" key="1">
-                <Card className="card" title = {<h6><strong>Evaluación ATS</strong></h6>} extra={ <Button outline type="primary" onClick={(e)=>this.sendMail(datosEmpleados,1)}>Enviar evaluación ATS &nbsp;<i class="fas fa-arrow-circle-right"></i></Button>}>    
+                <Card className="card" title = {<h6><strong>Evaluación ATS</strong></h6>} extra={<div><Button outline type="primary" onClick={(e)=>this.sendMail(datosEmpleados,1)}>Enviar evaluación ATS &nbsp;<i class="fas fa-arrow-circle-right"></i></Button>&nbsp;&nbsp;&nbsp;<Button shape='cicle' size='middle' type='warning' onClick = {e=> this.generarLiga(datosEmpleados,1)}>Generar URL  &nbsp;<MDBIcon fas icon="share" /></Button></div> }>    
                 <MUIDataTable
                     data={data}
                     columns={columns}
@@ -542,7 +812,7 @@ class TableEmployees extends React.Component {
                 </Card>
                 </TabPane>
                 <TabPane  tab="Evaluación RP" key="2">
-                <Card className="card" title = {<h6><strong>Evaluación RP</strong></h6>} extra={ <Button outline type="danger" onClick={(e)=>this.sendMail(datosEmpleadosRP,2)}>Enviar evaluación RP &nbsp;<i class="fas fa-angle-double-right"></i></Button>}>    
+                <Card className="card" title = {<h6><strong>Evaluación RP</strong></h6>} extra={<div><Button outline type="danger" onClick={(e)=>this.sendMail(datosEmpleadosRP,2)}>Enviar evaluación RP &nbsp;<i class="fas fa-angle-double-right"></i></Button>&nbsp;&nbsp;&nbsp;<Button shape='cicle' size='middle' type='warning' onClick = {e=> this.generarLiga(datosEmpleadosRP,2)}>Generar URL  &nbsp;<MDBIcon fas icon="share" /></Button></div>}>    
                 <MUIDataTable
                     data={dataRP}
                     columns={columns}
@@ -551,7 +821,7 @@ class TableEmployees extends React.Component {
                 </Card>
                 </TabPane>
                 <TabPane tab="Evaluación EEO" key="3">
-                <Card className="card" title = {<h6><strong>Evaluación EEO</strong></h6>} extra={ <Button outline type="success" onClick={(e)=>this.sendMail(datosEmpleadosEEO,3)}>Enviar evaluación EEO &nbsp;<i class="fas fa-file-import"></i></Button>}>    
+                <Card className="card" title = {<h6><strong>Evaluación EEO</strong></h6>} extra={<div> <Button outline type="success" onClick={(e)=>this.sendMail(datosEmpleadosEEO,3)}>Enviar evaluación EEO &nbsp;<i class="fas fa-file-import"></i></Button> &nbsp;&nbsp;&nbsp;<Button shape='cicle' size='middle' type='warning' onClick = {e=> this.generarLiga(datosEmpleadosEEO,3)}>Generar URL  &nbsp;<MDBIcon fas icon="share" /></Button></div>}>    
                 <MUIDataTable
                     data={dataEEO}
                     columns={columns}
@@ -573,6 +843,7 @@ class TableEmployees extends React.Component {
             </div>
             </center>
         </div>   
+        {modalEval}
         </React.Fragment>
         );
       }

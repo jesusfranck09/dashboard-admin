@@ -1680,9 +1680,8 @@ const options = {
             open={Boolean(this.state.dropdown)}
             onClose={this.handleCloseDropdown}
         >
-            <MenuItem ><a href = "http://eval.diagnostico035.com/ats">Realizar evaluación ATS</a></MenuItem>
-            <MenuItem ><a href = "http://eval.diagnostico035.com/rp">Realizar evaluación RP</a></MenuItem>
-            <MenuItem ><a href = "http://eval.diagnostico035.com/eeo">Realizar evaluación EEO</a></MenuItem>
+            <MenuItem ><a href = "https://www.youtube.com/@diagnostico0355">Canal de youtube</a></MenuItem>
+            <MenuItem ><a href = "http://madmin.diagnostico035.com/rp">Plataforma multi RFC</a></MenuItem>
             <MenuItem onClick={this.handleclick}><i class="fas fa-address-card"></i> &nbsp;Mi Perfil</MenuItem>
             <MenuItem ><a href = "http://ads.com.mx"><i class="fab fa-buysellads"></i> &nbsp;Más sobre ADS</a></MenuItem>
 

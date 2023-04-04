@@ -62,6 +62,7 @@
     "react-select": "^3.0.8",
     "react-table-6": "^6.11.0",
     "react-toastify": "^5.4.0",
+    "react-whatsapp": "^0.3.0",
     "reactstrap": "^8.0.1",
     "recharts": "^2.0.0-beta.1",
     "semantic-ui-react": "^0.88.1",

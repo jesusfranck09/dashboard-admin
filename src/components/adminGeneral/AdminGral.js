@@ -141,6 +141,7 @@
               CentroTrabajo
               EstadoCivil
               correo
+              telefono
               AreaTrabajo
               Puesto
               TipoPuesto
@@ -525,6 +526,8 @@
           const Curp = values.Curp
           const rfc = values.rfc
           const sexo = values.sexo
+          const telefono = values.telefono
+
           const centro = values.centrotrabajo
           const correoEmployee =values.correo
           const AreaTrabajo= values.AreaTrabajo
@@ -538,7 +541,7 @@
                 data:{
                 query:`
                   mutation{
-                  updateEmployees(data:"${[nombre,ApellidoP,ApellidoM,Curp,rfc,sexo,centro,correoEmployee,AreaTrabajo,Puesto,TipoPuesto,id,idAdmin]}"){
+                  updateEmployees(data:"${[nombre,ApellidoP,ApellidoM,Curp,rfc,sexo,centro,correoEmployee,AreaTrabajo,Puesto,TipoPuesto,id,idAdmin,telefono]}"){
                       message
                         }
                       }
@@ -1048,7 +1051,7 @@
                         </Grid>
                         <Grid item xs={4}>
                           <Field fullWidth required name="sexo" component={TextField} type="text"
-                            defaultValue={this.state.updateRows.Sexo} label = "Sexo"/>
+                            defaultValue={this.state.updateRows.Sexo} label = "Género"/>
                         </Grid>
                         <Grid item xs={4}>
                         <Field fullWidth required name="centrotrabajo"type="text"
@@ -1061,6 +1064,10 @@
                         <Grid item xs={4}>
                           <Field fullWidth required name="correo" component={TextField} type="text"
                             defaultValue={this.state.updateRows.correo} label  = "Correo"/>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Field fullWidth required name="telefono" component={TextField} type="text"
+                            defaultValue={this.state.updateRows.telefono} label  = "Teléfono"/>
                         </Grid>
                         <Grid item xs={4}>
                           <Field fullWidth required name="AreaTrabajo" type="text"
