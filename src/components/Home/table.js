@@ -63,6 +63,7 @@ class TableEmployees extends React.Component {
         }).catch(err=>{
           console.log("error",err.response)
         })
+        console.log("entro")
         this.getEmployeesPeriodo()
       }
 
@@ -250,12 +251,12 @@ class TableEmployees extends React.Component {
     }
     )
     }
-    sendMail =  (datosEmpleados,param) =>{
-      var array = []
-      if(datosEmpleados && datosEmpleados[0]){
+    sendMail =  (dataEmpleados,param) =>{
+      var arrayEm = []
+      if(dataEmpleados && dataEmpleados[0]){
         const idAdmin = localStorage.getItem("idAdmin");
         if ( this.state.periodoActivo > 0){
-          datosEmpleados.map(rows=>{
+          dataEmpleados.map(rows=>{
             let año  = new Date().getFullYear()
             function generateUUID() {
                 var d = new Date().getTime();
@@ -267,19 +268,17 @@ class TableEmployees extends React.Component {
                 return uuid;
             }
           let folio = (año + generateUUID()).toUpperCase();
-
-          array.push({"id":rows[0],"nombre":rows[1],"folio":folio})
+          arrayEm.push({"id":rows[0],"nombre":rows[1],"folio":folio,"correo":rows[2]})
           })
-          console.log("array",array)
-        for(let i = 0; i <= array.length; i ++){
-          if(array[i]){
+        for(let i = 0; i <= arrayEm.length; i ++){
+          if(arrayEm[i]){
             axios({
               url:  API,
               method:'post',
               data:{
               query:` 
               mutation{
-                sendMail(data:"${[array[i].nombre,array[i].id,param,idAdmin,array[i].folio]}"){
+                sendMail(data:"${[arrayEm[i].nombre,arrayEm[i].id,param,idAdmin,arrayEm[i].folio,arrayEm[i].correo]}"){
                     message
                     folio
                       }
@@ -291,7 +290,7 @@ class TableEmployees extends React.Component {
                 if(datos.data.data.sendMail.message === "envio exitoso"){
                   this.setState({evaluacionEnviada:true})
                   if(this.state.evaluacionEnviada === true){
-                      swal("Notificación!",  `Su evaluación fue enviada exitosamente a ${datosEmpleados.length} Empleados` , "success");
+                      swal("Notificación!",  `Su evaluación fue enviada exitosamente a ${dataEmpleados.length} Empleados` , "success");
                   }
                 }else{
                   swal("Aviso!", "Algo salió mal!", "error");
@@ -325,7 +324,6 @@ class TableEmployees extends React.Component {
         };
 
     generarLiga = async(param1, param2)=>{
-      console.log("param1",param1)
       // await this.sendMail(param1,param2);
       const idAdmin = localStorage.getItem("idAdmin");
 
@@ -552,7 +550,7 @@ class TableEmployees extends React.Component {
             if(array[0]){
               array.map(rows=>{
                 if(rows[0]){
-                  array2.push([rows[0].data[0],rows[0].data[4]])
+                  array2.push([rows[0].data[0],rows[0].data[4],rows[0].data[5]])
                 }
               })
             }
@@ -620,7 +618,7 @@ class TableEmployees extends React.Component {
                 if(array[0]){
                   array.map(rows=>{
                     if(rows[0]){
-                      array2.push([rows[0].data[0],rows[0].data[4]])
+                      array2.push([rows[0].data[0],rows[0].data[4],rows[0].data[5]])
                     }                  })
                 }
               }
@@ -685,7 +683,7 @@ class TableEmployees extends React.Component {
                     if(array[0]){
                       array.map(rows=>{
                         if(rows[0]){
-                          array2.push([rows[0].data[0],rows[0].data[4]])
+                          array2.push([rows[0].data[0],rows[0].data[4],rows[0].data[5]])
                         }                     
                       })
                     }
