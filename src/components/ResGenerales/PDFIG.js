@@ -71,7 +71,8 @@ class App extends React.Component {
       descarga2:false,
       collapse:true,
       disabledButtons:false,
-      leyendaDemo:''
+      leyendaDemo:'',
+      filtroTabla:''
     };
   }
 
@@ -249,7 +250,7 @@ class App extends React.Component {
         this.setState({reporteIndividual:false})
       }
  
-       consultarDatosFiltrados = async(datos,filtro,periodoTabla)=>{
+       consultarDatosFiltrados = async(datos,periodoTabla)=>{
         await this.setState({confirmLoading:true})
         await setTimeout(() => {
           this.setState({visible:false})
@@ -284,9 +285,11 @@ class App extends React.Component {
            let tag = []
            let filtrado2 = filtrado.filter(item => !array_equals(item, tag))
            this.setState({peticion1:filtrado2}) 
-            if(filtro!== undefined){
-            if(filtro[0].length>0){
-              this.setState({nombre1:filtro[0][0]})
+
+           let filtro = this.state.filtroTabla
+          if(filtro[0]){
+            if(filtro[0].id.length>0){
+              this.setState({nombre1:filtro[0].id})
               this.setState({filtro1:"ID"})
               this.setState({filtro6:""})
             }else{
@@ -294,8 +297,12 @@ class App extends React.Component {
               this.setState({filtro1:""})
               this.setState({filtro6:""})
             }
-            if(filtro[1].length>0){
-              this.setState({nombre2:filtro[1][0]})
+          }else{
+            this.setState({filtro6:"SIN FILTRO"})
+          }
+          if(filtro[1]){
+            if(filtro[1].nombre.length>0){
+              this.setState({nombre2:filtro[1].nombre})
               this.setState({filtro2:"NOMBRE"})
               this.setState({filtro6:""})
             }else{
@@ -303,51 +310,54 @@ class App extends React.Component {
               this.setState({filtro2:""})
               this.setState({filtro6:""})
             }
-            if(filtro[2].length>0){
-              this.setState({nombre3:filtro[2][0]})
-              this.setState({filtro3:"SEXO"})
-              this.setState({filtro6:""})
-            }else{
-              this.setState({nombre3:''})
-              this.setState({filtro3:""})
-              this.setState({filtro6:""})
-            }
-            if(filtro[3].length>0){
-              this.setState({nombre4:filtro[3][0]})
-              this.setState({filtro4:"ÁREA DE TRABAJO"})
+          }
+          if(filtro[2]){
+            if(filtro[2].centroTrabajo.length>0){
+              this.setState({nombre4:filtro[2].centroTrabajo})
+              this.setState({filtro4:"CENTRO DE TRABAJO"})
               this.setState({filtro6:""})
             }else{
               this.setState({nombre4:''})
               this.setState({filtro4:""})
               this.setState({filtro6:""})
-            }if(filtro[4].length>0){
-              this.setState({nombre5:filtro[4][0]})
-              this.setState({filtro5:"PUESTO"})
+            }
+          }
+          if(filtro[3]){
+  
+            if(filtro[3].periodo.length>0){
+              this.setState({nombre5:filtro[3].periodo})
+              this.setState({filtro5:"PERIODO"})
               this.setState({filtro6:""})
             }else{
               this.setState({nombre5:''})
               this.setState({filtro5:""})
               this.setState({filtro6:""})
-            }if(filtro[5].length>0){
-              this.setState({nombre6:filtro[5][0]})
-              this.setState({filtro7:"CENTRO DE TRABAJO"})
+            }
+          }  
+          if(filtro[4]){
+            if(filtro[4].evaluacion.length>0){
+              this.setState({nombre6:filtro[4].evaluacion})
+              this.setState({filtro7:"EVALUACIÓN"})
               this.setState({filtro6:""})
             }else{
               this.setState({nombre6:''})
               this.setState({filtro7:""})
               this.setState({filtro6:""})
-            }if(filtro[6].length>0){
-              this.setState({nombre7:filtro[6][0]})
-              this.setState({filtro8:"PERIODO"})
+            }
+          }
+          if(filtro[5]){
+
+          if(filtro[5].status.length>0){
+              this.setState({nombre7:filtro[5].status})
+              this.setState({filtro8:"STATUS"})
               this.setState({filtro6:""})
             }else{
               this.setState({nombre7:''})
               this.setState({filtro8:""})
               this.setState({filtro6:""})
             }
-          }else{
-            this.setState({filtro6:"SIN FILTRO"})
           }
+       
           this.setState({datosLength:datos.length})
           this.setState({spinner:false})
           await this.setState({descarga:true})
@@ -355,7 +365,7 @@ class App extends React.Component {
 
           }
 
-        reporteImasivo = async(datos,filtro,periodoTabla)=>{
+        reporteImasivo = async(datos,periodoTabla)=>{
          await this.setState({confirmLoading2:true})
          await setTimeout(() => {
           this.setState({visible2:false})
@@ -389,9 +399,10 @@ class App extends React.Component {
           let tag = []
           let filtrado2 = filtrado.filter(item => !array_equals(item, tag))
           this.setState({reporteImasivo:filtrado2}) 
-            if(filtro!== undefined){
-            if(filtro[0].length>0){
-              this.setState({nombre1:filtro[0][0]})
+          let filtro = this.state.filtroTabla
+          if(filtro[0]){
+            if(filtro[0].id.length>0){
+              this.setState({nombre1:filtro[0].id})
               this.setState({filtro1:"ID"})
               this.setState({filtro6:""})
             }else{
@@ -399,8 +410,12 @@ class App extends React.Component {
               this.setState({filtro1:""})
               this.setState({filtro6:""})
             }
-            if(filtro[1].length>0){
-              this.setState({nombre2:filtro[1][0]})
+          }else{
+            this.setState({filtro6:"SIN FILTRO"})
+          }
+          if(filtro[1]){
+            if(filtro[1].nombre.length>0){
+              this.setState({nombre2:filtro[1].nombre})
               this.setState({filtro2:"NOMBRE"})
               this.setState({filtro6:""})
             }else{
@@ -408,51 +423,54 @@ class App extends React.Component {
               this.setState({filtro2:""})
               this.setState({filtro6:""})
             }
-            if(filtro[2].length>0){
-              this.setState({nombre3:filtro[2][0]})
-              this.setState({filtro3:"SEXO"})
-              this.setState({filtro6:""})
-            }else{
-              this.setState({nombre3:''})
-              this.setState({filtro3:""})
-              this.setState({filtro6:""})
-            }
-            if(filtro[3].length>0){
-              this.setState({nombre4:filtro[3][0]})
-              this.setState({filtro4:"ÁREA DE TRABAJO"})
+          }
+          if(filtro[2]){
+            if(filtro[2].centroTrabajo.length>0){
+              this.setState({nombre4:filtro[2].centroTrabajo})
+              this.setState({filtro4:"CENTRO DE TRABAJO"})
               this.setState({filtro6:""})
             }else{
               this.setState({nombre4:''})
               this.setState({filtro4:""})
               this.setState({filtro6:""})
-            }if(filtro[4].length>0){
-              this.setState({nombre5:filtro[4][0]})
-              this.setState({filtro5:"PUESTO"})
+            }
+          }
+          if(filtro[3]){
+  
+            if(filtro[3].periodo.length>0){
+              this.setState({nombre5:filtro[3].periodo})
+              this.setState({filtro5:"PERIODO"})
               this.setState({filtro6:""})
             }else{
               this.setState({nombre5:''})
               this.setState({filtro5:""})
               this.setState({filtro6:""})
-            }if(filtro[5].length>0){
-              this.setState({nombre6:filtro[5][0]})
-              this.setState({filtro7:"CENTRO DE TRABAJO"})
+            }
+          }  
+          if(filtro[4]){
+            if(filtro[4].evaluacion.length>0){
+              this.setState({nombre6:filtro[4].evaluacion})
+              this.setState({filtro7:"EVALUACIÓN"})
               this.setState({filtro6:""})
             }else{
               this.setState({nombre6:''})
               this.setState({filtro7:""})
               this.setState({filtro6:""})
-            }if(filtro[6].length>0){
-              this.setState({nombre7:filtro[6][0]})
-              this.setState({filtro8:"PERIODO"})
+            }
+          }
+          if(filtro[5]){
+
+          if(filtro[5].status.length>0){
+              this.setState({nombre7:filtro[5].status})
+              this.setState({filtro8:"STATUS"})
               this.setState({filtro6:""})
             }else{
               this.setState({nombre7:''})
               this.setState({filtro8:""})
               this.setState({filtro6:""})
             }
-          }else{
-            this.setState({filtro6:"SIN FILTRO"})
           }
+       
          await this.setState({descarga2:true});
          this.setState({descarga2:false})
          this.setState({datosLength:datos.length})
@@ -600,6 +618,7 @@ class App extends React.Component {
     let datosEmpleados;
     let filtro;
     let periodoTabla;
+    let arrayFilter2 = [];
     const options = {
         elevation:0,
         viewColumns:false, 
@@ -647,6 +666,20 @@ class App extends React.Component {
         },
         onFilterChange: (action, filtroTable) => {
           filtro = filtroTable
+          if(filtro[0]){
+            arrayFilter2.push({id:filtro[0]})
+          }if(filtro[1]){
+            arrayFilter2.push({nombre:filtro[1]})
+          }if(filtro[2]){
+            arrayFilter2.push({centroTrabajo:filtro[2]})
+          }if(filtro[3]){
+            arrayFilter2.push({periodo:filtro[3]})
+          }if(filtro[4]){
+            arrayFilter2.push({evaluacion:filtro[4]})
+          }if(filtro[5]){
+            arrayFilter2.push({status:filtro[5]})
+          }
+          this.setState({filtroTabla:arrayFilter2})
           }     
         };
         let leyendaDemo;
@@ -884,7 +917,7 @@ class App extends React.Component {
       cancelText="Cancelar"
       okText="Descargar reporte global"
       visible={this.state.visible}
-      onOk={e=>this.consultarDatosFiltrados(datosEmpleados,filtro,periodoTabla)}
+      onOk={e=>this.consultarDatosFiltrados(datosEmpleados,periodoTabla)}
       confirmLoading={this.state.confirmLoading}
       onCancel={e=>this.handleCancel()}
       >
@@ -896,7 +929,7 @@ class App extends React.Component {
       cancelText="Cancelar"
       okText="Descargar reporte masivo"
       visible={this.state.visible2}
-      onOk={e=>this.reporteImasivo(datosEmpleados,filtro,periodoTabla)}
+      onOk={e=>this.reporteImasivo(datosEmpleados,periodoTabla)}
       confirmLoading={this.state.confirmLoading2}
       onCancel={e=>this.handleCancel2()}
     >

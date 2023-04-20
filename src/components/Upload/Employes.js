@@ -467,7 +467,7 @@ class DataInput extends React.Component {
 		for (var i=2; i< this.state.data.length; i++){
 			var estado = this.state.data[i]	
 			console.log("estado",estado)
-			if(this.state.data[i].length===21  ){	
+			if(this.state.data[i].length === 21  ){	
 			const query =  `
 			mutation {
 				registerEmployee(
@@ -522,7 +522,7 @@ class DataInput extends React.Component {
 					console.log(".cartch" , error.response)
 			});
 			
-			}else if(( this.state.data[i].length < 20 || this.state.data[i].length > 20 ) && this.state.data[i].length !=0 ) {
+			}else if(( this.state.data[i].length < 21 || this.state.data[i].length > 21 ) && this.state.data[i].length !== 0 ) {
 				DialogUtility.alert({
 				animationSettings: { effect: 'Zoom' },           
 				title: "Su archivo no cumple con los requisitos",

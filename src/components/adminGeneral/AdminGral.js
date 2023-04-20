@@ -1006,8 +1006,8 @@
             //  filtro=filtroTable
           }     };
 
-          const columns = ["Nombre","Apellido P", "Apellido M.", "Centro de Trabajo","Puesto","Status", {name: "boton1",label: "Editar",
-          options: {filter: false,sort: true,}}, {name: "boton2",label: "Suspender",options: {filter: false,sort: true,}}, {name: "boton3",label: "Eliminar",options: {filter: false,sort: true,}}];
+        const columns = ["Nombre","Apellido P", "Apellido M.", "Centro de Trabajo","Puesto","Status", {name: "boton1",label: "Editar",
+        options: {filter: false,sort: true,}}, {name: "boton2",label: "Suspender",options: {filter: false,sort: true,}}, {name: "boton3",label: "Eliminar",options: {filter: false,sort: true,}}];
 
          const data = this.state.datos.map((rows,i)=>{
          const boton2 = <div><Button shape="circle" size="large" type="primary" onClick={e => this.edicionDatos(1,rows)}><MDBIcon icon="user-edit" /></Button></div>
@@ -1229,7 +1229,7 @@
         tablaInicial =  <div className="tabInicio" style={{marginTop:"5%"}}>                         
             <Tabs defaultActiveKey="1" type="card" size={size}>
             <TabPane tab="Empleados" key="1">
-            <Card className="card" title = {<h6><strong>Empleados Registrados {localStorage.getItem("razonsocial")}</strong></h6>} extra={<Button type="success" onClick = {e=>this.showModal3()}>Información general</Button>}>
+            <Card style={{width:"100%"}} className="card" title = {<h6><strong>Empleados Registrados {localStorage.getItem("razonsocial")}</strong></h6>} extra={<Button type="success" onClick = {e=>this.showModal3()}>Información general</Button>}>
             <MUIDataTable
               data={data}
               columns={columns}
@@ -1238,7 +1238,7 @@
             </Card>
             </TabPane>
             <TabPane tab="Centros de trabajo" key="2">
-            <Card  className="card" title = {<h6><strong>Centros de trabajo de {localStorage.getItem("razonsocial")}</strong></h6>}>
+            <Card  style={{width:"100%"}} className="card" title = {<h6><strong>Centros de trabajo de {localStorage.getItem("razonsocial")}</strong></h6>}>
               <MUIDataTable
               data={dataCentro}
               columns={columnsCentro}
@@ -1247,7 +1247,7 @@
             </Card>
             </TabPane>
             <TabPane tab="Puestos de trabajo" key="3">
-            <Card className="card" title = {<h6><strong>Puestos de trabajo de  {localStorage.getItem("razonsocial")}</strong></h6>}>
+            <Card style={{width:"100%"}} className="card" title = {<h6><strong>Puestos de trabajo de  {localStorage.getItem("razonsocial")}</strong></h6>}>
             <MUIDataTable
               data={dataPuestos}
               columns={columnsPuestos}
@@ -1256,13 +1256,14 @@
             </Card>
             </TabPane>
             <TabPane tab="Departamentos de trabajo" key="4">
-              <Card className="card" title = {<h6><strong>Departamentos registrados de  {localStorage.getItem("razonsocial")}</strong></h6>}>
+              <Card style={{width:"100%"}} className="card" title = {<h6><strong>Departamentos registrados de  {localStorage.getItem("razonsocial")}</strong></h6>}>
               <MUIDataTable
               data={dataDeptos}
               columns={columnsDeptos}
               options={options}
               />
               </Card>
+              
             </TabPane>
             <TabPane tab="Registrar periodo" key="5">
             <Card style={{ width:"100%",padding:"10px" }} title={<h6><strong>Agregar y eliminar periodo</strong></h6>}>
@@ -1429,7 +1430,9 @@
         <React.Fragment>
           <div>
               <Navbar modulo = {"ADMINISTRACIÓN GENERAL"} />
+              <center>
               {tablaInicial}
+              </center>
               <div className="tablaEditar">
               {editarEmpleados}
               {editarCentroT}

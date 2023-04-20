@@ -296,46 +296,57 @@ export default class App extends React.Component {
       let tag = []
       let filtrado2 = filtrado.filter(item => !array_equals(item, tag))
       await this.setState({peticion1:filtrado2}) 
-      if(filtro!== undefined){
-        if(filtro[0].length>0){
-          this.setState({nombre1:filtro[0][0]})
-          this.setState({filtro1:"ID"})
-          this.setState({filtro6:""})
+      let filtros = this.state.filtroTabla
+      if(filtros){
+        if(filtros[0]){
+          if(filtros[0].id.length>0){
+            this.setState({nombre1:filtros[0].id})
+            this.setState({filtro1:"ID"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre1:''})
+            this.setState({filtro1:""})
+            this.setState({filtro6:""})
+          }
         }else{
-          this.setState({nombre1:''})
-          this.setState({filtro1:""})
-          this.setState({filtro6:""})
+          this.setState({filtro6:"SIN FILTRO"})
         }
-        if(filtro[1].length>0){
-          this.setState({nombre2:filtro[1][0]})
-          this.setState({filtro2:"NOMBRE"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre2:''})
-          this.setState({filtro2:""})
-          this.setState({filtro6:""})
+        if(filtros[1]){
+          if(filtros[1].nombre.length>0){
+            this.setState({nombre2:filtros[1].nombre})
+            this.setState({filtro2:"NOMBRE"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre2:''})
+            this.setState({filtro2:""})
+            this.setState({filtro6:""})
+          }
         }
-        if(filtro[2].length>0){
-          this.setState({nombre3:filtro[2][0]})
-          this.setState({filtro3:"CENTRO DE TRABAJO"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre3:''})
-          this.setState({filtro3:""})
-          this.setState({filtro6:""})
+        if(filtros[2]){
+          if(filtros[2].centroTrabajo.length>0){
+            this.setState({nombre4:filtros[2].centroTrabajo})
+            this.setState({filtro4:"CENTRO DE TRABAJO"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre4:''})
+            this.setState({filtro4:""})
+            this.setState({filtro6:""})
+          }
         }
-        if(filtro[3].length>0){
-          this.setState({nombre4:filtro[3][0]})
-          this.setState({filtro4:"PERIODO"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre4:''})
-          this.setState({filtro4:""})
-          this.setState({filtro6:""})
+        if(filtros[3]){
+          if(filtros[3].periodo.length>0){
+            this.setState({nombre5:filtros[3].periodo})
+            this.setState({filtro5:"PERIODO"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre5:''})
+            this.setState({filtro5:""})
+            this.setState({filtro6:""})
+          }
         }
       }else{
         this.setState({filtro6:"SIN FILTRO"})
-      }
+      } 
       this.setState({datosLength:datos.length})
       if(parametro === 1){
         this.setState({tablaPeriodoActual:false})
@@ -381,46 +392,58 @@ export default class App extends React.Component {
       var filtrado2 = filtrado.filter(item => !array_equals(item, tag))
       this.setState({reporteImasivo:filtrado2}) 
       this.setState({spinner:false});    
-      if(filtro!== undefined){
-        if(filtro[0].length>0){
-          this.setState({nombre1:filtro[0][0]})
-          this.setState({filtro1:"ID"})
-          this.setState({filtro6:""})
+      let filtros = this.state.filtroTabla
+
+      if(filtros){
+        if(filtros[0]){
+          if(filtros[0].id.length>0){
+            this.setState({nombre1:filtros[0].id})
+            this.setState({filtro1:"ID"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre1:''})
+            this.setState({filtro1:""})
+            this.setState({filtro6:""})
+          }
         }else{
-          this.setState({nombre1:''})
-          this.setState({filtro1:""})
-          this.setState({filtro6:""})
+          this.setState({filtro6:"SIN FILTRO"})
         }
-        if(filtro[1].length>0){
-          this.setState({nombre2:filtro[1][0]})
-          this.setState({filtro2:"NOMBRE"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre2:''})
-          this.setState({filtro2:""})
-          this.setState({filtro6:""})
+        if(filtros[1]){
+          if(filtros[1].nombre.length>0){
+            this.setState({nombre2:filtros[1].nombre})
+            this.setState({filtro2:"NOMBRE"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre2:''})
+            this.setState({filtro2:""})
+            this.setState({filtro6:""})
+          }
         }
-        if(filtro[2].length>0){
-          this.setState({nombre3:filtro[2][0]})
-          this.setState({filtro3:"CENTRO DE TRABAJO"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre3:''})
-          this.setState({filtro3:""})
-          this.setState({filtro6:""})
+        if(filtros[2]){
+          if(filtros[2].centroTrabajo.length>0){
+            this.setState({nombre4:filtros[2].centroTrabajo})
+            this.setState({filtro4:"CENTRO DE TRABAJO"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre4:''})
+            this.setState({filtro4:""})
+            this.setState({filtro6:""})
+          }
         }
-        if(filtro[3].length>0){
-          this.setState({nombre4:filtro[3][0]})
-          this.setState({filtro4:"PERIODO"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre4:''})
-          this.setState({filtro4:""})
-          this.setState({filtro6:""})
+        if(filtros[3]){
+          if(filtros[3].periodo.length>0){
+            this.setState({nombre5:filtros[3].periodo})
+            this.setState({filtro5:"PERIODO"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre5:''})
+            this.setState({filtro5:""})
+            this.setState({filtro6:""})
+          }
         }
       }else{
         this.setState({filtro6:"SIN FILTRO"})
-      }
+      } 
     await this.setState({descarga:true});
     this.setState({descarga:false})  
     this.setState({datosLength:datos.length})
@@ -460,46 +483,58 @@ export default class App extends React.Component {
      let tag = []
      var filtrado2 = filtrado.filter(item => !array_equals(item, tag))
       this.setState({resultadosEvaluacionMasivo:filtrado2})
-      if(filtro!== undefined){
-        if(filtro[0].length>0){
-          this.setState({nombre1:filtro[0][0]})
-          this.setState({filtro1:"ID"})
-          this.setState({filtro6:""})
+      let filtros = this.state.filtroTabla
+
+      if(filtros){
+        if(filtros[0]){
+          if(filtros[0].id.length>0){
+            this.setState({nombre1:filtros[0].id})
+            this.setState({filtro1:"ID"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre1:''})
+            this.setState({filtro1:""})
+            this.setState({filtro6:""})
+          }
         }else{
-          this.setState({nombre1:''})
-          this.setState({filtro1:""})
-          this.setState({filtro6:""})
+          this.setState({filtro6:"SIN FILTRO"})
         }
-        if(filtro[1].length>0){
-          this.setState({nombre2:filtro[1][0]})
-          this.setState({filtro2:"NOMBRE"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre2:''})
-          this.setState({filtro2:""})
-          this.setState({filtro6:""})
+        if(filtros[1]){
+          if(filtros[1].nombre.length>0){
+            this.setState({nombre2:filtros[1].nombre})
+            this.setState({filtro2:"NOMBRE"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre2:''})
+            this.setState({filtro2:""})
+            this.setState({filtro6:""})
+          }
         }
-        if(filtro[2].length>0){
-          this.setState({nombre3:filtro[2][0]})
-          this.setState({filtro3:"CENTRO DE TRABAJO"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre3:''})
-          this.setState({filtro3:""})
-          this.setState({filtro6:""})
+        if(filtros[2]){
+          if(filtros[2].centroTrabajo.length>0){
+            this.setState({nombre4:filtros[2].centroTrabajo})
+            this.setState({filtro4:"CENTRO DE TRABAJO"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre4:''})
+            this.setState({filtro4:""})
+            this.setState({filtro6:""})
+          }
         }
-        if(filtro[3].length>0){
-          this.setState({nombre4:filtro[3][0]})
-          this.setState({filtro4:"PERIODO"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre4:''})
-          this.setState({filtro4:""})
-          this.setState({filtro6:""})
+        if(filtros[3]){
+          if(filtros[3].periodo.length>0){
+            this.setState({nombre5:filtros[3].periodo})
+            this.setState({filtro5:"PERIODO"})
+            this.setState({filtro6:""})
+          }else{
+            this.setState({nombre5:''})
+            this.setState({filtro5:""})
+            this.setState({filtro6:""})
+          }
         }
       }else{
         this.setState({filtro6:"SIN FILTRO"})
-      }
+      } 
       await this.setState({descarga2:true});
       this.setState({descarga2:false})  
       this.setState({datosLength:datos.length})
@@ -610,46 +645,58 @@ export default class App extends React.Component {
         }
         var filtrado = filtrado2.filter(item => !array_equals(item, tag))
         await this.setState({peticion1:filtrado})
-      if(filtro!== undefined){
-        if(filtro[0].length>0){
-          this.setState({nombre1:filtro[0][0]})
-          this.setState({filtro1:"ID"})
-          this.setState({filtro6:""})
+        let filtros = this.state.filtroTabla
+
+        if(filtros){
+          if(filtros[0]){
+            if(filtros[0].id.length>0){
+              this.setState({nombre1:filtros[0].id})
+              this.setState({filtro1:"ID"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre1:''})
+              this.setState({filtro1:""})
+              this.setState({filtro6:""})
+            }
+          }else{
+            this.setState({filtro6:"SIN FILTRO"})
+          }
+          if(filtros[1]){
+            if(filtros[1].nombre.length>0){
+              this.setState({nombre2:filtros[1].nombre})
+              this.setState({filtro2:"NOMBRE"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre2:''})
+              this.setState({filtro2:""})
+              this.setState({filtro6:""})
+            }
+          }
+          if(filtros[2]){
+            if(filtros[2].centroTrabajo.length>0){
+              this.setState({nombre4:filtros[2].centroTrabajo})
+              this.setState({filtro4:"CENTRO DE TRABAJO"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre4:''})
+              this.setState({filtro4:""})
+              this.setState({filtro6:""})
+            }
+          }
+          if(filtros[3]){
+            if(filtros[3].periodo.length>0){
+              this.setState({nombre5:filtros[3].periodo})
+              this.setState({filtro5:"PERIODO"})
+              this.setState({filtro6:""})
+            }else{
+              this.setState({nombre5:''})
+              this.setState({filtro5:""})
+              this.setState({filtro6:""})
+            }
+          }
         }else{
-          this.setState({nombre1:''})
-          this.setState({filtro1:""})
-          this.setState({filtro6:""})
-        }
-        if(filtro[1].length>0){
-          this.setState({nombre2:filtro[1][0]})
-          this.setState({filtro2:"NOMBRE"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre2:''})
-          this.setState({filtro2:""})
-          this.setState({filtro6:""})
-        }
-        if(filtro[2].length>0){
-          this.setState({nombre3:filtro[2][0]})
-          this.setState({filtro3:"CENTRO DE TRABAJO"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre3:''})
-          this.setState({filtro3:""})
-          this.setState({filtro6:""})
-        }
-        if(filtro[3].length>0){
-          this.setState({nombre4:filtro[3][0]})
-          this.setState({filtro4:"PERIODO"})
-          this.setState({filtro6:""})
-        }else{
-          this.setState({nombre4:''})
-          this.setState({filtro4:""})
-          this.setState({filtro6:""})
-        }
-      }else{
-        this.setState({filtro6:"SIN FILTRO"})
-      }
+          this.setState({filtro6:"SIN FILTRO"})
+        } 
       this.setState({datosLength:datos.length})
       await this.setState({parametro:2})
       // this.setState({parametro:''})
@@ -694,6 +741,7 @@ export default class App extends React.Component {
     }
   render() {
     let leyendaDemo;
+    let arrayFilter2 = [];
     if(this.state.leyendaDemo){
       leyendaDemo = <font color = "red">{this.state.leyendaDemo}</font>
     }else{
@@ -756,8 +804,17 @@ export default class App extends React.Component {
         periodoTabla = tableState.filterData[3]
         },
         onFilterChange: (action, filtroTable) => {
-          filtro=filtroTable
-          console.log("filtro", filtro)
+          filtro = filtroTable
+          if(filtro[0]){
+            arrayFilter2.push({id:filtro[0]})
+          }if(filtro[1]){
+            arrayFilter2.push({nombre:filtro[1]})
+          }if(filtro[2]){
+            arrayFilter2.push({centroTrabajo:filtro[2]})
+          }if(filtro[3]){
+            arrayFilter2.push({periodo:filtro[3]})
+          }
+          this.setState({filtroTabla:arrayFilter2})
           }          
       };
     let dataSource;
