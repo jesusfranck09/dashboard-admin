@@ -89,9 +89,9 @@ class Home extends React.Component {
     if(param === 1){
       this.tablaATSDetectado()
     }else if(param === 2){
-      this.tablaATSNoContestado()
-    }else if(param === 3){
       this.tablaATSContestado()
+    }else if(param === 3){
+      this.tablaATSNoContestado()
     }else if(param === 4){
       this.tablaRPContestado()
     }else if(param === 5){

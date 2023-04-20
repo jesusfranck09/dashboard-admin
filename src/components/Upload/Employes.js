@@ -216,7 +216,7 @@ class DataInput extends React.Component {
 		const fechaN = values.fechaN
 		const sexo = values.stooge
 		const Estado_Civil= values.Estado_Civil
-		const CentroTrabajo= values.CentroTrabajo.replace(/,/g, "");
+		const CentroTrabajo = values.CentroTrabajo.replace(/,/g, "");
 		const area = values.area.replace(/,/g, "");
 		const puesto = values.puesto.replace(/,/g, "");
 		const tipoPuesto =  values.tipoPuesto.replace(/,/g, "");
@@ -228,6 +228,9 @@ class DataInput extends React.Component {
 		const experiencia_Laboral = values.experiencia_Laboral  
 		const rotacion = values.rotacion
 		const correos  = values.Correo
+		const telefono  = values.telefono
+		console.log("values",values)
+
 		const Correo = correos.replace(/ /g, "")
 	    let idSuperUsuario;
 		const idAdmin =  localStorage.getItem("idAdmin")
@@ -250,7 +253,7 @@ class DataInput extends React.Component {
 			  console.log("error" , err.response)
 		  }) 
 		
-		if(Nombre && ApellidoP && ApellidoM && curp && rfc && fechaN && sexo && Estado_Civil && CentroTrabajo && Correo && area && puesto && tipoPuesto && estudios && personal && Jornada && contratacion && Tiempo_puestoActual && experiencia_Laboral && rotacion){
+		if(Nombre && ApellidoP && ApellidoM && curp && rfc && fechaN && sexo && Estado_Civil && CentroTrabajo && telefono && Correo && area && puesto && tipoPuesto && estudios && personal && Jornada && contratacion && Tiempo_puestoActual && experiencia_Laboral && rotacion){
 		let em;
 		await axios({
 		  url:  API,
@@ -296,7 +299,7 @@ class DataInput extends React.Component {
 			data:{
 			query:`
 			mutation{
-				registerEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,Estado_Civil,Correo,area,puesto,tipoPuesto,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,CentroTrabajo,idAdmin]}"){
+				registerEmployee(data:"${[Nombre,ApellidoP,ApellidoM,curp,rfc,fechaN,sexo,Estado_Civil,Correo,area,puesto,tipoPuesto,estudios,personal,Jornada,contratacion,Tiempo_puestoActual,experiencia_Laboral,rotacion,CentroTrabajo,telefono,idAdmin]}"){
 					message
 					}
 					}
@@ -463,7 +466,8 @@ class DataInput extends React.Component {
 		if(empleadosRegistrados < empleadosPack ){
 		for (var i=2; i< this.state.data.length; i++){
 			var estado = this.state.data[i]	
-			if(this.state.data[i].length===20  ){	
+			console.log("estado",estado)
+			if(this.state.data[i].length===21  ){	
 			const query =  `
 			mutation {
 				registerEmployee(
@@ -800,12 +804,16 @@ class DataInput extends React.Component {
 							})}
 							</Field>
 						</Grid>
-						<Grid item xs={12}>
+						<Grid item xs={6}>
 							<Field fullWidth name="CentroTrabajo" label="Centro de trabajo" component={Select} formControlProps={{ fullWidth: true }} >
 							{this.state.sucursalJs.map(row=>{
 								return(<MenuItem value={row.nombreSucursal}>{row.nombreSucursal}</MenuItem>)
 							})}
 							</Field>
+							
+							</Grid>
+							<Grid item xs={6}>
+							<Field fullWidth name="telefono" component={TextField} type="text" label="Teléfono" />
 							</Grid>
 							<Grid item xs={12} style ={{marginTop:20}}>
 							<strong><Alert message="Datos del trabajador" type="success" ></Alert></strong>

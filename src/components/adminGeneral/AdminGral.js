@@ -263,12 +263,13 @@
                 console.log(".cartch" , error.response)
             });}
 
-         delete(i,id){
-          let rows = [...this.state.datos]
-          rows.splice(i, 1)
-          this.setState({ 
-            datos: rows
-          })
+         delete(id){
+          // let rows = [...this.state.datos]
+          // rows.splice(i, 1)
+          // console.log("rows", rows.splice(i, 1))
+          // this.setState({ 
+          //   datos: rows
+          // })
           var correo  =localStorage.getItem("correo")       
           axios({
             url:  API,
@@ -286,20 +287,19 @@
               DialogUtility.alert({
                 animationSettings: { effect: 'Fade' },        
                 title:"AVISO!",   
-                content: 'Empleado Eliminado Exitosamente',
+                content: 'Empleado desactivado exitosamente',
                 position: "fixed",
               })
+          setTimeout(()=>{
+            window.location.reload();
+          },2000)
             })
             .catch((error) => {
               console.log(".cartch" , error.response)
-            });}
+            });
+        }
 
-          deleteSucursales(i,id){
-            let rows = [...this.state.datosSucursales]
-            rows.splice(i, 1)
-            this.setState({ 
-              datosSucursales: rows
-            })
+          deleteSucursales(id){
             var correo  = localStorage.getItem("correo")       
             axios({
               url:  API,
@@ -317,20 +317,18 @@
               DialogUtility.alert({
                 animationSettings: { effect: 'Fade' },        
                 title:"AVISO!",   
-                content: 'Sucursal Eliminada Exitosamente',
+                content: 'Centro de trabajo eliminado exitosamente',
                 position: "fixed",
               })
+              setTimeout(()=>{
+                window.location.reload();
+              },2000)
               }).catch((error) => {
                   console.log(".cartch" , error.response)
               });  
             }
 
-          deleteDepartamentos(i,id){
-            let rows = [...this.state.datosDeptos]
-            rows.splice(i, 1)
-            this.setState({ 
-              datosDeptos: rows
-            })
+          deleteDepartamentos(id){
             var correo  = localStorage.getItem("correo")       
             axios({
               url:  API,
@@ -348,19 +346,47 @@
                 DialogUtility.alert({
                   animationSettings: { effect: 'Fade' },        
                   title:"AVISO!",   
-                  content: 'Departamento Eliminado Exitosamente',
+                  content: 'Departamento eliminado exitosamente',
                   position: "fixed",
               })
+              setTimeout(()=>{
+                window.location.reload();
+              },2000)
               }).catch((error) => {
                 console.log(".cartch" , error.response)
           });}
 
-          deletePuestos(i,id){
-            let rows = [...this.state.datosPuestos]
-            rows.splice(i, 1)
-            this.setState({ 
-              datosPuestos: rows
+          deletePermanent(id){
+            axios({
+              url:  API,
+              method:'post',
+              data:{
+              query:`
+              mutation{
+                deleteEmpleadosPermanente(data:"${[id]}"){
+                  message               
+                    }
+                  }
+                  `
+              }
+              }).then((datos) => {
+                if(datos.data.data.deleteEmpleadosPermanente.message === "empleado eliminado"){
+                  DialogUtility.alert({
+                    animationSettings: { effect: 'Fade' },        
+                    title:"AVISO!",   
+                    content: 'El expediente del empleado fue eliminado exitosamente',
+                    position: "fixed",
+                  })
+                  setTimeout(()=>{
+                    window.location.reload();
+                  },2000)
+                }
+              }).catch((error) => {
+              console.log(".cartch" , error.response)
             })
+          }
+
+          deletePuestos(id){
             var correo  = localStorage.getItem("correo")           
             axios({
               url:  API,
@@ -378,9 +404,12 @@
               DialogUtility.alert({
                 animationSettings: { effect: 'Fade' },        
                 title:"AVISO!",   
-                content: 'El Puesto fue Eliminado Exitosamente',
+                content: 'El Puesto fue eliminado exitosamente',
                 position: "fixed",
               })
+              setTimeout(()=>{
+                window.location.reload();
+              },2000)
               }).catch((error) => {
               console.log(".cartch" , error.response)
             });}
@@ -978,33 +1007,35 @@
           }     };
 
           const columns = ["Nombre","Apellido P", "Apellido M.", "Centro de Trabajo","Puesto","Status", {name: "boton1",label: "Editar",
-          options: {filter: false,sort: true,}}, {name: "boton2",label: "Suspender",options: {filter: false,sort: true,}}];
+          options: {filter: false,sort: true,}}, {name: "boton2",label: "Suspender",options: {filter: false,sort: true,}}, {name: "boton3",label: "Eliminar",options: {filter: false,sort: true,}}];
 
          const data = this.state.datos.map((rows,i)=>{
          const boton2 = <div><Button shape="circle" size="large" type="primary" onClick={e => this.edicionDatos(1,rows)}><MDBIcon icon="user-edit" /></Button></div>
-         const boton =<div><Button shape="circle" size="large" type="danger" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Empleado?, Los datos se perderán')) this.delete(i,rows.id)} } ><MDBIcon icon="user-times" /></Button></div> 
-         return([rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.CentroTrabajo,rows.Puesto,"Vigente",boton2,boton])
+         const boton =<div><Button shape="circle" size="large" type='primary' style={{backgroundColor:'darkorange',borderColor:"orange"}} onClick={(e) => { if (window.confirm('¿Está seguro de desactivar a este empleado?, el empleado no aparecerá en su catálogo, pero su expediente seguirá vigente de esta manera podrá recuperar la información más adelante.')) this.delete(rows.id)} } ><MDBIcon icon="user-times" /></Button></div> 
+         const boton3 =<div><Button shape="circle" size="large" type="danger" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este empleado?, Los datos se perderán y no podrá recuperar su expediente en el futuro')) this.deletePermanent(rows.id)} } ><MDBIcon fas icon="trash" /></Button></div> 
+
+         return([rows.nombre,rows.ApellidoP ,rows.ApellidoM ,rows.CentroTrabajo,rows.Puesto,"Vigente",boton2,boton,boton3])
        })
 
        const columnsCentro = ["Centro de Trabajo","Calle", "Colonia",  "Ciudad",{name: "boton1",label: "Editar",
         options: {filter: false,sort: true}}, {name: "boton2",label: "Suspender",options: {filter: false,sort: true}}];
        const dataCentro = this.state.datosSucursales.map((rows,i)=>{
          const botonUno = <div> <Button shape="circle" size="large" type="primary" onClick={e=>this.edicionDatos(2,rows)} ><MDBIcon icon="pen-square" /></Button></div>
-         const botonDos = <div><Button shape="circle" size="large" type="danger" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a esta Sucursal?, Los datos se perderán')) this.deleteSucursales(i,rows.id)} } ><MDBIcon icon="trash-alt" /></Button></div>
+         const botonDos = <div><Button shape="circle" size="large" type="danger" onClick={(e) => { if (window.confirm('¿Está seguro de eliminar a este centro de trabajo?, Los datos se perderán')) this.deleteSucursales(rows.id)} } ><MDBIcon icon="trash-alt" /></Button></div>
          return([rows.nombreSucursal,rows.calle ,rows.colonia ,rows.Ciudad,botonUno,botonDos])
        })
 
        const columnsDeptos = ["Id","Id administrador","Nombre",{name: "boton1",label: "Editar",options:{filter: false,sort: true,}},{name: "boton2",label: "Eliminar",options:{filter: false,sort: true,}}];
        const dataDeptos = this.state.datosDeptos.map((rows,i)=>{
          const boton1Uno = <div><Button shape="circle" size="large" type="primary" onClick={ e=> this.edicionDatos(3,rows)}  ><MDBIcon icon="marker" /></Button></div>
-         const boton2Dos = <div><Button shape="circle" size="large" type="danger" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Departamento?, Los datos se perderán')) this.deleteDepartamentos(i,rows.id)} } ><MDBIcon icon="trash" /></Button></div>
+         const boton2Dos = <div><Button shape="circle" size="large" type="danger" onClick={(e) => { if (window.confirm('¿Está seguro de eliminar a este departamento?, Los datos se perderán')) this.deleteDepartamentos(rows.id)} } ><MDBIcon icon="trash" /></Button></div>
          return([rows.id,rows.fk_Administrador,rows.nombre,boton1Uno,boton2Dos])
        })
 
        const columnsPuestos = ["Id","Id administrador","Nombre",{name: "boton1",label: "Editar",options:{filter: false,sort: true,}},{name: "boton2",label: "Eliminar",options:{filter: false,sort: true,}}];
        const dataPuestos = this.state.datosPuestos.map((rows,i)=>{
          const boton11 = <div><Button shape="circle" size="large" type="primary" onClick={e=> this.edicionDatos(4,rows)}  ><MDBIcon icon="pencil-alt" /></Button></div>
-         const boton22 = <div> <Button shape="circle" size="large" type="danger" onClick={(e) => { if (window.confirm('¿Está seguro de Eliminar a este Puesto?, Los datos se perderán')) this.deletePuestos(i,rows.id)} } ><MDBIcon far icon="trash-alt" /></Button></div>
+         const boton22 = <div> <Button shape="circle" size="large" type="danger" onClick={(e) => { if (window.confirm('¿Está seguro de eliminar a este puesto?, Los datos se perderán')) this.deletePuestos(rows.id)} } ><MDBIcon far icon="trash-alt" /></Button></div>
          return([rows.id,rows.fk_Administrador,rows.nombre,boton11,boton22])
        })
              let cartaAdmin;
@@ -1344,7 +1375,6 @@
               <TableCell > <strong>Alerta3</strong></TableCell>             
               <TableBody>
                   {this.state.allperiodo.map(rows => {
-                    console.log("rows",rows)
                     let evento;
                     let descripcion;
                     let eventoFinal;
