@@ -420,7 +420,7 @@ class ReportRP extends Component {
                           <br/>
                           <br/>
                           <center>
-                          <p className="textabla2"><strong>GUÍA DE REFERENCIA III CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</strong></p> <br/>
+                          <p className="textabla2"><strong>GUÍA DE REFERENCIA II CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN LOS CENTROS DE TRABAJO</strong></p> <br/>
                           </center>
                           <center>{titulo1}</center>    
                           <MDBTable width="500" className="table" striped bordered small>
