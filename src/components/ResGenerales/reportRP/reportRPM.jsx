@@ -290,7 +290,7 @@ class ReportRPM extends Component {
                      <br/>
                      <br/>
                      <center>
-                         <p className="textabla2"><strong>GUÍA DE REFERENCIA III
+                         <p className="textabla2"><strong>GUÍA DE REFERENCIA II
                              CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN
                              LOS CENTROS DE TRABAJO</strong></p> <br/>
                          </center>
