@@ -1802,13 +1802,13 @@ class ReportRPGE extends Component {
                                   </tr>
                                   <tr>
                                       <td className="textabla3" width="10%" style={{paddingTop:"2px",paddingBottom:"2px"}}>1</td>
-                                      <td className="textabla3" width="60%" style={{paddingTop:"2px",paddingBottom:"2px"}} align="left">Carga de Trabajo</td>
+                                      <td className="textabla3" width="60%" style={{paddingTop:"2px",paddingBottom:"2px"}} align="left">Condiciones en el ambiente de trabajo</td>
                                       <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="20%" className="textabla3" align="center">{DominioUno}</td>
                                       {colorDominioUno}
                                   </tr>
                                   <tr>
                                       <td className="textabla3" width="10%" style={{paddingTop:"2px",paddingBottom:"2px"}}>2</td>
-                                      <td className="textabla3" width="60%" style={{paddingTop:"2px",paddingBottom:"2px"}} align="left">Condiciones en el ambiente de trabajo</td>
+                                      <td className="textabla3" width="60%" style={{paddingTop:"2px",paddingBottom:"2px"}} align="left">Carga de Trabajo</td>
                                       <td style={{paddingTop:"2px",paddingBottom:"2px"}} width="20%" className="textabla3" align="center">{DominioDos}</td>
                                       {colorDominioDos} 
                                   </tr>
