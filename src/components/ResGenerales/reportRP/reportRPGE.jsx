@@ -2298,7 +2298,7 @@ class ReportRPGE extends Component {
                                                 <br></br>     
                                                 <center>
                                                     <p className="textabla2"><strong>GUÍA DE REFERENCIA II
-                                                    CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL Y EVALUAR EL ENTORNO ORGANIZACIONAL EN
+                                                    CUESTIONARIO PARA IDENTIFICAR LOS FACTORES DE RIESGO PSICOSOCIAL EN
                                                     LOS CENTROS DE TRABAJO</strong></p> 
                                                 </center>
                                                 <center>
