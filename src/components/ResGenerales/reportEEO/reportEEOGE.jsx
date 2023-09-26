@@ -1862,6 +1862,7 @@ class ReportEEOG extends Component {
         /////////////////////////////////////////// renderizado ////////////////////////////////////////////////7    
 
         if(parametro === 1){
+          console.log("datosLength",datosLength)
             renderizadoGlobal =  <Card style={{width:"70%",padding:"25px"}} title={<h6><strong>Resultados Globales en la aplicación de la evaluación EEO</strong></h6>} extra = {<div>{botonDescargarReporteIndividualResultados}&nbsp;&nbsp;&nbsp;{cerrarReporte}</div>}>
                 <table style={{width:"70%"}}>
                     <tr>

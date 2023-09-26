@@ -759,9 +759,6 @@ class TableEmployees extends React.Component {
                   if(this.state.whatsappButton === true){
                     if(this.state.telefonoEmpleado && this.state.urlWhatsapp){
                       let param = this.state.dataEmpleadoWhatsapp[0]
-                      const parser = new DOMParser();
-                      const decodedString = parser.parseFromString(`<!doctype html><body>${this.state.urlWhatsapp}`,'text/html').body.textContent;
-
                       whatsapp = 
                       <div>
                       <table className='table table-bordered table table-small table table-striped'>

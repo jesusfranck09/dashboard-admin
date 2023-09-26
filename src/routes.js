@@ -22,6 +22,9 @@ import PDFPrueba from './components/ResGenerales/pdfPrueba'
 import ATS from './components/ResGenerales/PDFIG'
 import RP from './components/ResGenerales/RPIG'
 import EEO from './components/ResGenerales/EEOIG'
+import EmptyClass from './components/Home/empty'
+import VSS from './components/ResGenerales/reportVSS/VSS'
+import LOCK from './components/Home/lock.js'
 
 class Routes extends Component{
   
@@ -39,6 +42,7 @@ class Routes extends Component{
               <Route exact path='/' component={Login}/>
                   <PrivateRoute exact path='/upload' component={Upload}/>
                   <PrivateRoute exact path='/atsDemoIG' component={PDFPrueba}/>
+                  <PrivateRoute exact path='/empty' component={EmptyClass}/>
 
                   <PrivateRoute exact path='/inicio' component={Home}/>
                   <PrivateRoute exact path='/employees' component={Employees}/>
@@ -52,6 +56,9 @@ class Routes extends Component{
                   <PrivateRoute exact path='/resultsRPIGRM' component={RP}/>
                   <PrivateRoute exact path='/resultsEEOIGRM' component={EEO}/>
                   <PrivateRoute exact path='/donut' component={Donut}/>
+                  <PrivateRoute exact path='/evaluationVSSByToken' component={VSS}/>
+                  <PrivateRoute exact path='/lock' component={LOCK}/>
+
               </main>
               </Switch>
           </Router>

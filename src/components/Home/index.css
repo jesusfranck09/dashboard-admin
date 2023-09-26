@@ -10,6 +10,54 @@ html, body {
   justify-content: space-around;
   margin-left: 5%;
 }
+.borderNone{
+  padding: 0;
+  border: none;
+  background: none;
+}
+.family{
+  font-family: 'Rubik', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  outline: none;
+  text-align: center;
+}
+.familyButton{
+  font-family: 'Rubik', sans-serif;
+}
+.tabs{
+  margin:0 auto;
+  position: relative;
+  width: 100%;
+  margin-left: 13%;
+}
+
+.gambeta{
+  font-size: 14px;
+  text-transform: uppercase;
+  font-family: 'Rubik', sans-serif;
+  letter-spacing: 2px;
+  transition: 700ms ease;
+  font-variation-settings: "wght" 311;
+  margin-bottom: 0.8rem;
+  outline: none;
+  text-align: center;
+}
+.gambeta:hover {
+  font-variation-settings: "wght" 582; 
+  letter-spacing: 1px;
+}
+.opcionesGenerales{
+  display: flex;
+  align-items: flex-start;
+}
+.alignButton {
+  text-align: left;
+}
+.graficasDistribucion{
+  display: flex;
+  flex-direction: row;
+}
 
 .tablaEmpleados{
   display: flex;

@@ -9,6 +9,9 @@
   width:"100%";
 
 }
+td {
+  font-size: 2vmin;
+}
 .cardATS {
   width:"100%";
   padding: 10px;

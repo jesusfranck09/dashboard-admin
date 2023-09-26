@@ -2,12 +2,10 @@ import React from 'react';
 import {MDBBtn} from 'mdbreact';
 import axios from 'axios'
 import {Alert} from 'reactstrap';
-import IconButton from "@material-ui/core/IconButton";
 // import RemoveRedEyeOutlinedIcon from '@material-ui/icons/RemoveRedEyeOutlined';
 import { API} from '../utils/http'
 import ModalVideo from 'react-modal-video'
 import "./index.css"
-import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined';
 import Upload from '../uploadImage/upload'
 import UpdateLogo from '../uploadImage/updateLogo'
 import { MDBModal, MDBModalBody,MDBContainer} from "mdbreact";
@@ -17,11 +15,12 @@ import Navbar from './navbar'
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MUIDataTable from "mui-datatables";
-import {Card, Button as Boton,Modal} from 'antd'
+import {Card, Button as Boton,Modal, Input} from 'antd'
 import { Chart } from "react-google-charts";
 // import { ValuesOfCorrectType } from 'graphql/validation/rules/ValuesOfCorrectType';
 import {Button,Space} from 'antd'
 import { CloudUploadOutlined, BarChartOutlined, VideoCameraOutlined,UserSwitchOutlined } from '@ant-design/icons';
+import { DialogUtility } from '@syncfusion/ej2-popups';
 
 class Home extends React.Component {
   constructor(props) {
@@ -64,7 +63,7 @@ class Home extends React.Component {
       dropdown:null,
       date:'',
       empleadosTotales : [],
-      tablaEmpleados:true,
+      tablaEmpleados:false,
       tablaATSContestado:false,
       tablaATSNoContestado:false,
       tablaRPContestado:false,
@@ -78,11 +77,30 @@ class Home extends React.Component {
       openModal:false,
       confirmLoading:false,
       visible:false,
-      visible2:false
+      visible2:false,
+      cardInicial:true,
+      accesoPortal:false,
+      modalAdministracion:false,
+      dataAdminEmpleado : [],
+      habilitarAcceso:true,
+      confirmar:false,
+      valueInput:'',
+      valueInputPass:'',
+      tableDetallesPortal:false,
+      tablaDetalles:false,
+      tablaTeletrabajo:false,
+      arrayTeletrabajo:[],
+      seleccionTeletrabajo:[],
+      modalTeletrabajo:false,
+      tablaTeletrabajoAsignado:false,
+      arrayTeletrabajoAsignado:[],
+      datosGeneralesEmpleados:[]
     };
     this.showModal = this.showModal.bind(this)
     this.showModal2 = this.showModal2.bind(this)
-
+    this.onOkModalAdministracion = this.onOkModalAdministracion.bind(this)
+    this.onChangeInputCorreo = this.onChangeInputCorreo.bind(this)  
+    this.onChangeInputPass = this.onChangeInputPass.bind(this)  
   }
   showModal = (param) => {
     this.setState({visible:true})
@@ -150,7 +168,7 @@ class Home extends React.Component {
             `
         }
       })
-      .then(datos => {	
+      .then(datos => {
         let periodo = datos.data.data.getPeriodo[0].Descripcion ;
         localStorage.setItem("periodo" ,datos.data.data.getPeriodo[0].Descripcion )
         this.setState({periodo:periodo})
@@ -201,6 +219,7 @@ class Home extends React.Component {
         FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
     
         this.setState({date:FechaCompleta}) 
+        
   }
 
   getEmployees = async() =>{
@@ -242,12 +261,31 @@ class Home extends React.Component {
               RPContestado
               EEOContestado
               ATSDetectado
+              accesoPortal
+              passwordPortal
+              teletrabajo
                 }
               }
               `
           }
          }).then((datos) => {
            let datosEmpleados = datos.data.data.getUsersTableEmployees;
+           this.setState({datosGeneralesEmpleados:datos.data.data.getUsersTableEmployees})
+           let arrayTeletrabajo = [];
+           let arrayTeletrabajoAsignado = [];
+
+           let teletrabajo = datosEmpleados.filter(function(hero){
+               return hero.teletrabajo === "false"
+           })
+           let teletrabajoAsignado = datosEmpleados.filter(function(hero){
+            return hero.teletrabajo === "true"
+           })
+           arrayTeletrabajo.push(teletrabajo)
+           this.setState({arrayTeletrabajo:arrayTeletrabajo[0]})
+
+           arrayTeletrabajoAsignado.push(teletrabajoAsignado)
+           this.setState({arrayTeletrabajoAsignado:arrayTeletrabajoAsignado[0]})
+
            arrayDatos.push(datosEmpleados);
            if( datos.data.data.getUsersTableEmployees.length>0){
             localStorage.setItem("empleadoActivo","true")
@@ -303,11 +341,9 @@ class Home extends React.Component {
             return hero.encuesta ==="ATS"
           }) 
           resultATS = evaluacionATSContestado.filter(function(hero){
-            console.log(periodo,"periodo")
             return hero.periodo === periodo 
           })
 
-          console.log("resultATS",resultATS)
           this.setState({empleadosAts:resultATS})
           this.setState({ATSContestado:resultATS.length})
           let arrayInicial = arrayDatos[0];
@@ -1126,33 +1162,315 @@ else if(parametro === 8){
   this.setState({tablaEEONoContestado:false})
 }
 }
+
+  adminEmpleados(){
+    this.setState({tablaEmpleados:true})
+    this.setState({cardInicial:false})
+  }
+
+  cerrarProceso(){
+    this.setState({tablaEmpleados:false})
+    this.setState({cardInicial:true})
+    this.setState({tablaDetalles:false})
+    this.setState({tableDetallesPortal:false})
+    this.setState({tablaTeletrabajo:false})
+    this.setState({tablaTeletrabajoAsignado:false})
+  }
+  cerrarDetalles(){
+    this.setState({tablaEmpleados:false})
+    this.setState({tablaDetalles:false})
+    this.setState({cardInicial:true})
+    this.setState({tableDetallesPortal:false})
+    this.setState({tablaTeletrabajo:false})
+    this.setState({tablaTeletrabajoAsignado:false})
+  } 
+  cerrarDetallesPortal(){
+    this.setState({tablaEmpleados:false})
+    this.setState({tablaDetalles:false})
+    this.setState({cardInicial:true})
+    this.setState({tableDetallesPortal:false})
+    this.setState({tablaTeletrabajo:false})
+    this.setState({tablaTeletrabajoAsignado:false})
+  }
+  cerrarTablaTeleTrabajo(){
+    this.setState({tablaEmpleados:false})
+    this.setState({tablaDetalles:false})
+    this.setState({cardInicial:true})
+    this.setState({tableDetallesPortal:false})
+    this.setState({tablaTeletrabajo:false})
+    this.setState({tablaTeletrabajoAsignado:false})
+  }
+  cerrarTablaTeleTrabajoAsignado(){
+    this.setState({tablaEmpleados:false})
+    this.setState({tablaDetalles:false})
+    this.setState({cardInicial:true})
+    this.setState({tableDetallesPortal:false})
+    this.setState({tablaTeletrabajo:false})
+    this.setState({tablaTeletrabajoAsignado:false})
+  }
+  administrarEmpleados(rows){
+    this.setState({modalAdministracion:true})
+    this.setState({dataAdminEmpleado: rows})
+  }
+  onOkModalAdministracion(){
+    this.setState({modalAdministracion:false})
+
+  }
+  habilitarAcceso(){
+    this.setState({accesoPortal:true})
+    this.setState({habilitarAcceso:false})
+  }
+  cancelarHabilitarAcceso(){
+    this.setState({confirmar:false})
+    this.setState({accesoPortal:false})
+    this.setState({habilitarAcceso:true})
+  }
+
+  onChangeInputCorreo(e){
+    this.setState({valueInput:e.target.value})
+  }
+  onChangeInputPass(e){
+    this.setState({confirmar:true})
+    this.setState({valueInputPass:e.target.value})
+  }
+  confirmAccess(){
+    let dataEmpleado =  this.state.dataAdminEmpleado
+
+    if(this.state.valueInputPass){
+      axios({
+        url:  API,
+        method:'post',
+        data:{
+        query:`
+        mutation{
+            accesoPortal(data:"${[dataEmpleado.id,this.state.valueInputPass]}"){
+            message
+                }
+              }
+            `
+        }
+      })
+      .then(datos => {	
+        if(datos.data.data.accesoPortal.message){
+          DialogUtility.alert({
+            animationSettings: { effect: 'FadeZoom' },           
+            title:'Aviso',
+            content: `Acceso al portal de ${dataEmpleado.nombre + " " + dataEmpleado.ApellidoP + " " + dataEmpleado.ApellidoM}`,
+            position: "fixed",
+          })
+        }
+        setTimeout(()=>{
+          window.location.reload()
+        },2000)
+      }).catch(err=>{
+      })
+    }else{
+      DialogUtility.alert({
+        animationSettings: { effect: 'Fade' },           
+        title:'Aviso',
+        content: 'Ingrese un valor válido',
+        position: "fixed",
+      }
+      )
+    }
+  }
+  suspendAccess(rows){
+      axios({
+        url:  API,
+        method:'post',
+        data:{
+        query:`
+        mutation{
+            suspenderAccesoPortal(data:"${[rows.id]}"){
+            message
+                }
+              }
+            `
+        }
+      })
+      .then(datos => {	
+        if(datos.data.data.suspenderAccesoPortal.message){
+          DialogUtility.alert({
+            animationSettings: { effect: 'FadeZoom' },           
+            title:'Aviso',
+            content: `Sin acceso al portal de ${rows.nombre + " " + rows.ApellidoP + " " + rows.ApellidoM}`,
+            position: "fixed",
+          })
+        }
+        setTimeout(()=>{
+          window.location.reload()
+        },2000)
+      }).catch(err=>{
+      })
+    
+  }
+  detallesPortal(){
+    this.setState({tablaEmpleados:false})
+    this.setState({cardInicial:false})
+    this.setState({tableDetallesPortal:true})
+    this.setState({tablaDetalles:false})
+    this.setState({tablaTeletrabajo:false})
+    this.setState({tablaTeletrabajoAsignado:false})
+  }
+  tablaDetalles(){
+    this.setState({tablaEmpleados:false})
+    this.setState({cardInicial:false})
+    this.setState({tableDetallesPortal:false})
+    this.setState({tablaDetalles:true})
+    this.setState({tablaTeletrabajo:false})
+    this.setState({tablaTeletrabajoAsignado:false})
+  }
+  tablaTeletrabajo(){
+    this.setState({tablaEmpleados:false})
+    this.setState({cardInicial:false})
+    this.setState({tableDetallesPortal:false})
+    this.setState({tablaDetalles:false})
+    this.setState({tablaTeletrabajo:true})
+    this.setState({tablaTeletrabajoAsignado:false})
+  }
+  tablaTeletrabajoAsignado(){
+    this.setState({tablaEmpleados:false})
+    this.setState({cardInicial:false})
+    this.setState({tableDetallesPortal:false})
+    this.setState({tablaDetalles:false})
+    this.setState({tablaTeletrabajo:false})
+    this.setState({tablaTeletrabajoAsignado:true})
+  }
+
+  anadirPlantillaTeletrabajo(param){
+    if(param){
+    if(param[0]){
+
+    let array = []
+    let datosEmpleados = this.state.empleadosTotales
+    let dataFilter;    
+    param.map(rows=>{
+    dataFilter =  datosEmpleados.filter(function(hero){
+        return hero.id === rows[0]
+    })
+    array.push(dataFilter[0])  
+    })
+
+
+    this.setState({seleccionTeletrabajo:array})
+    this.setState({modalTeletrabajo:true})
+    }else{
+      DialogUtility.alert({
+        animationSettings: { effect: 'FadeZoom' },           
+        title:'Aviso',
+        content: `Seleccione al menos un empleado`,
+        position: "fixed",
+      })
+    }
+    }else{
+      DialogUtility.alert({
+        animationSettings: { effect: 'FadeZoom' },           
+        title:'Aviso',
+        content: `Seleccione al menos un empleado`,
+        position: "fixed",
+      })
+    }
+  }
+
+  registrarPlantilla(){
+    for(let i = 0; i <= this.state.seleccionTeletrabajo.length; i ++){
+      if(this.state.seleccionTeletrabajo[i]){
+      axios({
+            url:  API,
+            method:'post',
+            data:{
+            query:`
+            mutation{
+                registerPlantilla(data:"${[this.state.seleccionTeletrabajo[i].id]}"){
+                message
+                    }
+                  }
+                `
+            }
+          })
+          .then(datos => {	
+            if(datos.data.data.registerPlantilla.message){
+              DialogUtility.alert({
+                animationSettings: { effect: 'FadeZoom' },           
+                title:'Aviso',
+                content: `Acceso a modalidad teletrabajo`,
+                position: "fixed",
+              })
+              setTimeout(()=>{
+                window.location.reload();                
+              },2000)
+            }
+          }).catch(err=>{
+      })
+    }
+    }
+    // this.state.seleccionTeletrabajo.map(rows=>{
+    
+    // })
+  }
+  cancelarPlantilla(){
+    this.setState({modalTeletrabajo:false})
+  }
+
+  quitarAccesoTeletrabajo(rows){
+    axios({
+      url:  API,
+      method:'post',
+      data:{
+      query:`
+      mutation{
+        quitarAccesoTeletrabajo(data:"${[rows.id]}"){
+          message
+              }
+            }
+          `
+      }
+    })
+    .then(datos => {	
+      if(datos.data.data.quitarAccesoTeletrabajo.message){
+        DialogUtility.alert({
+          animationSettings: { effect: 'FadeZoom' },           
+          title:'Aviso',
+          content: `Modaldad cancelada`,
+          position: "fixed",
+        })
+        setTimeout(()=>{
+          window.location.reload();                
+        },2000)
+      }
+    }).catch(err=>{
+})
+  }
+
   render() {
     let periodoActivo;
+    let datosEmpleados;
+    let filtro;
     if(this.state.periodo){
       periodoActivo= <label style={{color:'green'}}><strong>{this.state.periodo.toUpperCase()}</strong></label>
     }
     else{
       let periodoString =  "Periodo finalizado"
       periodoActivo= <label style={{color:'red'}}><strong>{periodoString.toUpperCase()}</strong></label>
-    }
+    } 
     let Alerta;
     let dep;
     let suc;
     let pues;
     let alertaPuesto = localStorage.getItem("PuestoActivo")
-    let alertaSucursal=localStorage.getItem("SucursalActiva")
+    let alertaSucursal = localStorage.getItem("SucursalActiva")
     let AlertaDepartamento = localStorage.getItem("DepartamentoActivo")
     let empleadoNoEncontrado;
     let empleadoAc=localStorage.getItem("empleadoActivo")
     if(empleadoAc==="false"){
       empleadoNoEncontrado  = "Actualmente el sistema no contiene empleados registrados" 
-       Alerta =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Empleado Registrado</Alert>
+       Alerta =   <Alert color="danger">Para comenzar a usar Diagnóstico035 usted debe contar con al menos 1 Empleado Registrado</Alert>
     }if(AlertaDepartamento==="false"){
-      dep =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Departamento Registrado</Alert>
+      dep =   <Alert color="danger">Para comenzar a usar Diagnóstico035 usted debe Contar con al menos 1 Departamento Registrado</Alert>
     }if(alertaSucursal==="false"){
-      suc =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Centro de Trabajo Registrado</Alert>
+      suc =   <Alert color="danger">Para comenzar a usar Diagnóstico035 usted debe Contar con al menos 1 Centro de Trabajo Registrado</Alert>
     }if(alertaPuesto==="false"){
-      pues =   <Alert color="danger"> Estimado Usuario usted debe Contar con almenos 1 Puesto Registrado</Alert>
+      pues =   <Alert color="danger">Para comenzar a usar Diagnóstico035 usted debe Contar con al menos 1 Puesto Registrado</Alert>
     }
     let expiro;
     if(this.state.licencia){
@@ -1164,10 +1482,10 @@ const options = {
   filterType: "dropdown",
   responsive: "stacked",
   search:true,
-  print:true,
-  download:true,
+  print:false,
+  download:false,
   sort:false,
-  filter:false,
+  filter:true,
   viewColumns:false,
   elevation:0,
   textLabels: {
@@ -1206,11 +1524,82 @@ const options = {
           },
 
   onTableChange: (action, tableState) => {
-  // datosEmpleados = tableState.displayData
+    let array2 = []
+    let param1 = tableState.selectedRows.data
+      if(param1[0]){
+        let array = []
+        param1.map(param =>{
+          let filter = tableState.data.filter(function(rows){
+            return  rows.index  === param.dataIndex
+          })
+
+          array.push(filter)
+        })
+        if(array[0]){
+          array.map(rows=>{
+            if(rows[0]){
+              array2.push([rows[0].data[0],rows[0].data[4],rows[0].data[5]])
+            }
+          })
+        }
+      }
+    datosEmpleados = array2
   },
   onFilterChange: (action, filtroTable) => {
-    // filtro=filtroTable
+  filtro=filtroTable
+
     }     };
+  const options2 = {
+    filterType: "dropdown",
+    responsive: "stacked",
+    search:true,
+    print:true,
+    download:true,
+    sort:true,
+    filter:true,
+    viewColumns:true,
+    elevation:0,
+    textLabels: {
+              body: {
+                noMatch: empleadoNoEncontrado,
+                toolTip: "Sort",
+                columnHeaderTooltip: column => `Sort for ${column.label}`
+              },
+              pagination: {
+                next: "Siguiente Página",
+                previous: "Anterior Página",
+                rowsPerPage: "Filas por Página:",
+                displayRows: "de",
+              },
+              toolbar: {
+                search: "Buscar",
+                downloadCsv: "Descargar CSV",
+                print: "Imprimir",
+                viewColumns: "Ver Columnas",
+                filterTable: "Filtrar Tabla",
+              },
+              filter: {
+                all: "Todos",
+                title: "Filtros",
+                reset: "Deshacer",
+              },
+              viewColumns: {
+                title: "Mostrar Columnas",
+                titleAria: "Show/Hide Table Columns",
+              },
+              selectedRows: {
+                text: "Filas Selecionadas",
+                delete: "Borrar",
+                deleteAria: "Eliminar Filas Seleccionadas",
+              },
+            },
+  
+    onTableChange: (action, tableState) => {
+    // datosEmpleados = tableState.displayData
+    },
+    onFilterChange: (action, filtroTable) => {
+      // filtro=filtroTable
+      }     };  
   
     const columnsATSContestado = [];
     let tituloTablaVacia = <h6><strong>La tabla no contiene datos</strong></h6>
@@ -1236,14 +1625,14 @@ const options = {
     }
     let logo;
     if(!this.state.urlLogo){
-    logo =  <Button  style={{width:"200px" }}  icon={<CloudUploadOutlined />} type='primary' onClick={this.toggle(20)}>
+    logo =  <Button className="borderNone"  style={{width:"200px" }}  icon={<CloudUploadOutlined />} type='link' onClick={this.toggle(20)}>
     Adjuntar logo
     </Button>
     }
  
     let modificarLogo;
     if(this.state.urlLogo){
-     logo = <Button  style={{width:"200px" }}  icon={<CloudUploadOutlined />} type='primary' onClick={this.toggle(21)}>
+     logo = <Button className="borderNone"  style={{width:"200px" }}  icon={<CloudUploadOutlined />} type='link' onClick={this.toggle(21)}>
         Modificar logo
      </Button>
     }
@@ -1281,10 +1670,59 @@ const options = {
 
    // TablaEmpleados de inicio
    let tablaEmpleados;
-   const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo"];
+   const columns = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo", "Servicios del portal", "Administrar", "Quitar acceso"];
    const data = this.state.empleadosTotales.map(rows=>{
-      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo])
+      let serviciosPortal;
+      let button2;
+      if(rows.accesoPortal === "true"){
+        serviciosPortal = <font color = "#0751AF"><strong>Acceso Activo</strong></font>
+        button2 = <Button style={{backgroundColor:"#AF0774", color:"white"}}  onClick = {e=> this.suspendAccess(rows)}>Suspender &nbsp; <i class="fas fa-solid fa-ban"></i></Button>
+      }else if(rows.accesoPortal === "false"){
+        button2 = <font color="#AF0784"><strong>Sin acceso</strong></font>
+        serviciosPortal = <font color="#AF0784"><strong>Sin acceso</strong></font>
+      }else{
+        serviciosPortal = "ERROR"
+      } 
+      let button = <Button style={{backgroundColor:"#5DB195", color:"white"}} onClick = {e=> this.administrarEmpleados(rows)}>Administrar &nbsp; <i class="fas fa-cog"> </i></Button>
+      return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo, serviciosPortal,button, button2])
    })
+
+  const columnsTablaDetalles = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo","Correo","Género","Puesto"];
+
+  let dataTablaDetalles = this.state.empleadosTotales.map(rows=>{
+     return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo,rows.correo,rows.Sexo,rows.Puesto]) 
+   })
+
+   const columnsAccesoPortal = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo","Acceso al portal","Correo de acceso","Contraseña"];
+
+   let dataTablaAccesoPortal = this.state.empleadosTotales.map(rows=>{
+    let serviciosPortal;
+    let contraseña;
+    if(rows.accesoPortal === "true"){
+      serviciosPortal = <font color = "#0751AF"><strong>Acceso Activo</strong></font>
+    }else if(rows.accesoPortal === "false"){
+      serviciosPortal = <font color="#AF0784"><strong>Sin acceso</strong></font>
+    }else{
+      serviciosPortal = "ERROR"
+    } 
+    if(rows.accesoPortal=== "true" && rows.passwordPortal){
+      contraseña = <font color="green"><strong>{rows.passwordPortal}</strong></font> 
+    }else{
+      contraseña = <strong>No asignado</strong>
+    }
+     return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo,serviciosPortal,rows.correo,contraseña]) 
+   })
+
+   const columnsTeleTrabajo = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo","Correo","Género","Puesto"];
+    let dataTeleTrabajo = this.state.arrayTeletrabajo.map(rows=>{
+     return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo,rows.correo,rows.Sexo,rows.Puesto]) 
+   })
+
+   const columnsTeleTrabajoAsignado = ["ID","Nombre", "Apellido P.",  "Apellido M.","Centro de trabajo","Correo","Status","Suprimir acceso"];
+   let dataTeleTrabajoAsignado = this.state.arrayTeletrabajoAsignado.map(rows=>{
+    let button = <Button type="danger" onClick={e=> this.quitarAccesoTeletrabajo(rows)}>Suspender modalidad</Button>
+    return([rows.id,rows.nombre,rows.ApellidoP ,rows.ApellidoM,rows.CentroTrabajo,rows.correo,"Teletrabajo Asignado",button]) 
+  })
 
    let hombres =  this.state.empleadosTotales.filter(function(rows){
     return rows.Sexo === "MASCULINO"
@@ -1305,49 +1743,6 @@ const options = {
   let edad6070 =  this.state.empleadosTotales.filter(function(rows){
     return rows.FechaNacimiento === "60 A 64" || rows.FechaNacimiento === "65 A 69" || rows.FechaNacimiento === "70 A más"
   })
-   
-   let graficaDistribucionInicial;
-   if(this.state.graficaDistribucionInicial === true){
-     graficaDistribucionInicial =  <div>
-     <Chart
-       width={'400px'}
-       height={'250px'}
-       chartType="PieChart"
-       loader={<div>Cargando distribución</div>}
-       data={[
-         ['Género', 'Total'],
-         ['Hombres', hombres.length],
-         ['Mujeres', mujeres.length],
-         
-       ]}
-       options={{
-         title: 'Distribución por Género',
-         is3D: true,
-       }}
-       rootProps={{ 'data-testid': '2' }}
-     />
-     <Chart
-       width={'400px'}
-       height={'250px'}
-       chartType="PieChart"
-       loader={<div>Cargando dostribución</div>}
-       data={[
-         ['Rango', 'Edad'],
-         ['De 15 a 29', edad1529.length],
-         ['De 30 a 34', edad3044.length],
-         ['De 45 a 59', edad4559.length],
-         ['De 60 a 70 años o más', edad6070.length],
-       ]}
-       options={{
-         title: 'Distribción por Edad',
-         is3D: true,
-       }}
-       rootProps={{ 'data-testid': '2' }}
-     />        
-     </div>
-   }
-
-
 ////////////////////// evaluación ATS
   let tablaATSContestado;
   if(this.state.empleadosAts[0] &&  this.state.tablaATSContestado === true){
@@ -1486,68 +1881,166 @@ const options = {
                   tablaATSDetectado = tablaVacia
                 }
    
-    let cardInicial
-      let titulo1 = <h6><strong>Progreso evaluación ATS </strong></h6>;
-      let titulo2 = <h6><strong>Progreso evaluación RP </strong></h6>;
-      let titulo3 = <h6><strong>Progreso evaluación EEO </strong></h6>;
-      let tituloEmpleado = <h6><strong>Empleados registrados, Gráficas de distribución y herramientas del sistema.</strong></h6>
-      if(this.state.tablaEmpleados === true && data[0]){
-      
-      tablaEmpleados = <div  style = {{width:"100%"}}>
-      <MUIDataTable
-       data={data}
-       columns={columns}
-       options={options}
-     />
-     </div> 
+      let cardInicial
+      let titulo1 = <h6 className='family'><strong>Progreso evaluación ATS </strong></h6>;
+      let titulo2 = <h6 className='family'><strong>Progreso evaluación RP </strong></h6>;
+      let titulo3 = <h6 className='family'><strong>Progreso evaluación EEO </strong></h6>;
+      let graficaDistribucionInicial;
+      if(this.state.graficaDistribucionInicial === true && data[0]){
+        graficaDistribucionInicial =  <div className='graficasDistribucion'>
+        
+        <Chart
+          width={'420px'}
+          height={'255px'}
+          chartType="PieChart"
+          loader={<div>Cargando distribución</div>}
+          data={[
+            ['Género', 'Total'],
+            ['Hombres', hombres.length],
+            ['Mujeres', mujeres.length],
+            
+          ]}
+          options={{
+            title: 'Distribución por Género',
+            is3D: true,
+          }}
+          rootProps={{ 'data-testid': '2' }}
+        />
+        <Chart
+          width={'420px'}
+          height={'255px'}
+          chartType="PieChart"
+          loader={<div>Cargando dostribución</div>}
+          data={[
+            ['Rango', 'Edad'],
+            ['De 15 a 29', edad1529.length],
+            ['De 30 a 34', edad3044.length],
+            ['De 45 a 59', edad4559.length],
+            ['De 60 a 70 años o más', edad6070.length],
+          ]}
+          options={{
+            title: 'Distribción por Edad',
+            is3D: true,
+          }}
+          rootProps={{ 'data-testid': '2' }}
+        />        
+        </div>
       }else{
-       tablaEmpleados = <div style = {{width:"100%"}} >
+        graficaDistribucionInicial =   
+       <div style = {{width:"90%",margin:"2%"}} >
        {Alerta}
        {dep}
        {suc}
        {pues}
        </div>
       }
+      let herramintasEmpleados;
+      if(this.state.graficaDistribucionInicial === true && data[0]){
+        herramintasEmpleados =<Space
+        direction="vertical"
+        style={{
+          width: '100%',
+        }}
+      >
+     <Button style={{width:300}} className= 'alignButton' type="info" block onClick={e=>this.detallesPortal()}><i class="fas fa-solid fa-users"></i>&nbsp; Detalles al portal</Button>  
+     <Button style={{width:300}} className='alignButton' type="info" block onClick={e=>this.adminEmpleados()}><i class="fas fa-cog"> </i> &nbsp;  Administración de empleados</Button>
+     <Button style={{width:300}} className= 'alignButton' type="info" block onClick={e=>this.tablaDetalles()}><i class="fas fa-solid fa-info"></i>&nbsp; Empleados registrados</Button>
+     <Button style={{width:300}} className= 'alignButton' type="info" block onClick={e=>this.tablaTeletrabajo()}><i class="fas fa-solid fa-laptop"></i>&nbsp; Gestión a teletrabajo</Button>
+     <Button style={{width:300}} className= 'alignButton' type="info" block onClick={e=>this.tablaTeletrabajoAsignado()}><i class="fas fa-solid fa-laptop"></i>&nbsp; Empleados con teletrabajo</Button>
+
+     </Space>
+      }
+
+      if(this.state.tablaEmpleados === true){
+      tablaEmpleados = <div style={{width:"80%"}}>
+      <Card type='inner' title={<strong>Administración al portal de empleados</strong>} extra={<Button  style={{backgroundColor:"lightgreen",color:"white",border:"lightgreen"}} onClick = {e=> this.cerrarProceso()}>Cerrar proceso</Button>}> 
+      <MUIDataTable
+       data={data}
+       columns={columns}
+       options={options}
+      />
+      </Card> 
+      </div>
+      }
+      let tablaDetalles;
+      if(this.state.tablaDetalles === true){
+        tablaDetalles = 
+        <Card type='inner'  title={<strong>Empleados registrados</strong>} extra={<Button  style={{backgroundColor:"lightgreen",color:"white",border:"lightgreen"}} onClick = {e=> this.cerrarDetalles()}>Cerrar proceso</Button>}> 
+        <MUIDataTable
+        data={dataTablaDetalles}
+        columns={columnsTablaDetalles}
+        options={options2}
+       />
+       </Card>
+      }
+
+      let tablaAcceso;
+      if(this.state.tableDetallesPortal === true){
+        tablaAcceso = 
+        <Card type='inner'  title={<strong>Detalles del portal de empleados</strong>} extra={<Button  style={{backgroundColor:"lightgreen",color:"white",border:"lightgreen"}} onClick = {e=> this.cerrarDetallesPortal()}>Cerrar proceso</Button>}> 
+        <MUIDataTable
+        data={dataTablaAccesoPortal}
+        columns={columnsAccesoPortal}
+        options={options}
+       />
+       </Card>
+      }
+
+      let tablaTeletrabajo;
+      if(this.state.tablaTeletrabajo === true){
+        tablaTeletrabajo = 
+        <Card type='inner'  title={<strong>Selección de empleados a teletrabajo</strong>} extra={<div><Button type='primary' onClick = {e=> this.anadirPlantillaTeletrabajo(datosEmpleados)}>Añadir plantilla</Button>&nbsp;&nbsp;&nbsp;<Button  style={{backgroundColor:"lightgreen",color:"white",border:"lightgreen"}} onClick = {e=> this.cerrarTablaTeleTrabajo()}>Cerrar proceso</Button></div>}> 
+        <MUIDataTable
+        data={dataTeleTrabajo}
+        columns={columnsTeleTrabajo}
+        options={options}
+       />
+       </Card>
+      }
+
+      let tablaTeletrabajoAsignado;
+      if(this.state.tablaTeletrabajoAsignado === true){
+        tablaTeletrabajo = 
+        <Card type='inner'  title={<strong>Empleados con teletrabajo</strong>} extra={<div><Button  style={{backgroundColor:"lightgreen",color:"white",border:"lightgreen"}} onClick = {e=> this.cerrarTablaTeleTrabajoAsignado()}>Cerrar proceso</Button></div>}> 
+        <MUIDataTable
+        data={dataTeleTrabajoAsignado}
+        columns={columnsTeleTrabajoAsignado}
+        options={options2}
+       />
+       </Card>
+      }
+
       let leyendaDemo;
       if(this.state.leyendaDemo){
-        leyendaDemo = <font color = "red"><strong>{this.state.leyendaDemo}</strong></font>
+        leyendaDemo = <font className='family' color = "red"><strong>{this.state.leyendaDemo}</strong></font>
       }else{
-        leyendaDemo = <strong><font color = "green">Licencia vigente  {localStorage.getItem("periodo")}</font></strong>
+        leyendaDemo = <strong><font className='family' color="green">Periodo actual:  {localStorage.getItem("periodo")}</font></strong>
       }
-      cardInicial  = <div style={{width:"90%"}}>
-      {leyendaDemo}   
-      <Card title = {tituloEmpleado}>  
-      <div className='distribucion'>
-            {tablaEmpleados}
-            
-            {graficaDistribucionInicial}
-      <div  style={{marginTop:"1%"}}>
-      <Space className='spaceButtons' direction="vertical">
-      <Button  style={{ color: '#FC1B99',width:"200px" }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}>
-                          Herramientas &nbsp;<i class="fas fa-cog"> </i>
-       </Button>
-      <Space>
-      </Space> 
-      <Space>
-        <Button icon = { <BarChartOutlined />} style={{width:"200px" }}  type="primary" onClick={this.toggle(16)}>Datos generales</Button>
-      </Space>
-      <Space>
+
+      if(this.state.cardInicial === true){
+        cardInicial  = <div style={{width:"91%"}}>
+          <center>
+          <Card title={leyendaDemo} extra={<font  className='family' color="green">Licencia vigente &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </font>}>  
+          <nav class="navbar navbar-light" style={{backgroundColor:"#e3f2fd"}}>
+          <Button className="borderNone" style={{ color: '#FC1B99',width:"200px" }} aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleDropdown}> Herramientas &nbsp;<i class="fas fa-cog"> </i></Button>     
+          <Button className="borderNone" icon = { <BarChartOutlined />} style={{width:"200px" }}  type="link" onClick={this.toggle(16)}>Datos generales</Button>
           {logo} 
-      </Space>
-      <Space>
-        <Button type="primary"  style={{width:"200px" }}  icon = {<VideoCameraOutlined />} onClick={e=>this.showModal2()}>Videos tutoriales</Button>
-      </Space>
-      <Space>
-        <Button  type="primary"  style={{width:"200px" }}  icon = {<UserSwitchOutlined />} onClick = {e=>this.showModal(1)}>ATS detectado</Button>
-      </Space>
-      <Space>
+          <Button className="borderNone" type="link"  style={{width:"200px" }}  icon = {<VideoCameraOutlined />} onClick={e=>this.showModal2()}>Videos tutoriales</Button>
+          <Button className="borderNone" type="link"  style={{width:"200px" }}  icon = {<UserSwitchOutlined />} onClick = {e=>this.showModal(1)}>ATS detectado</Button>
+          </nav>
+          <div className='distribucion'>
+         
+            {herramintasEmpleados}
+            {graficaDistribucionInicial}
+            
+            <Space direction="vertical">
+            </Space>
+          </div>
+          </Card>
+          </center>
+        </div> 
+      }
       
-      </Space>
-      </Space>
-      </div>
-      </div>
-      </Card>
-      </div> 
       let modal =   <Modal
       type="inner"
       width={1100}
@@ -1630,6 +2123,103 @@ const options = {
    }else{
     progressInstanceEEO =<ProgressBar style={{marginTop:"10%"}}> <ProgressBar variant="primary" animated now={50}  label={`Porcentaje no calculado`} /><ProgressBar variant="danger" animated now={50}  label={`Porcentaje no calculado`} /></ProgressBar>;
    }
+
+    let dataEmpleado = this.state.dataAdminEmpleado;
+    let userPortal;
+    let passwordPortal;
+    let habilitarAcceso;
+    let statusEmpleado;
+    if(dataEmpleado.accesoPortal === "true"){
+      statusEmpleado = <font color = "#0751AF"><strong>Acceso Activo</strong></font>      
+    }else if(dataEmpleado.accesoPortal === "false"){
+      statusEmpleado = <font color="#AF0784"><strong>Sin acceso</strong></font>
+    }
+    if(this.state.habilitarAcceso === true && dataEmpleado.accesoPortal === "false"){
+      habilitarAcceso =
+      <tr>
+        <td style = {{ paddingBotom: "2px"}}>Habilitar acceso al portal</td>
+        <td style = {{ paddingBotom: "2px"}}><Button type="success" onClick ={e=>this.habilitarAcceso()}>Habilitar</Button></td>
+      </tr>
+    }else if(this.state.habilitarAcceso === false){
+      habilitarAcceso =
+      <tr>
+        <td style = {{ paddingBotom: "2px"}}></td>
+        <td style = {{ paddingBotom: "2px"}}><Button type="danger" onClick ={e=>this.cancelarHabilitarAcceso()}>Cancelar</Button></td>
+      </tr>
+    }
+    if(this.state.accesoPortal === true){
+    userPortal = <tr>
+      <td style = {{ paddingBotom: "2px"}}>Correo de autorización</td>
+      <td style = {{ paddingBotom: "2px"}}><Input disabled onChange={this.onChangeInputCorreo} placeholder="Correo electrónico" defaultValue={this.state.valueInput || dataEmpleado.correo}/></td>
+    </tr>
+    passwordPortal = <tr>
+      <td style = {{ paddingBotom: "2px"}}>Contraseña</td>
+      <td style = {{ paddingBotom: "2px"}}><Input onChange={this.onChangeInputPass} placeholder="Contraseña" defaultValue={this.state.valueInputPass} /></td>
+    </tr>
+    }
+    let modalAdministracion = <Modal
+    footer={[
+      <Button key="1" type="danger" onClick={e=> this.onOkModalAdministracion()}>Cancelar</Button>,
+      <Button key="2" disabled={!this.state.confirmar} type="primary" onClick={e=> this.confirmAccess()}>Confirmar</Button>
+    ]}
+    width={1000} title="Administración al portal de empleados"  visible={this.state.modalAdministracion}>
+
+      <table className='table table-bordered table table-small table table-striped'>
+        <tr>
+          <td style = {{ paddingBotom: "2px"}}>Datos generales</td>
+          <td style = {{ paddingBotom: "2px"}}>ID: {dataEmpleado.id}</td>
+        </tr>
+        <tr>
+          <td style = {{ paddingBotom: "2px"}}></td>
+          <td style = {{ paddingBotom: "2px"}}>{dataEmpleado.nombre + " " + dataEmpleado.ApellidoP + " " + dataEmpleado.ApellidoM}</td>
+
+        </tr>
+        <tr>
+          <td style = {{ paddingBotom: "2px"}}></td>
+          <td style = {{ paddingBotom: "2px"}}>{dataEmpleado.CentroTrabajo}</td>
+        </tr>
+        <tr>
+          <td style = {{ paddingBotom: "2px"}}></td>
+          <td style = {{ paddingBotom: "2px"}}>{dataEmpleado.Puesto}</td>
+        </tr>
+        <tr>
+          <td style = {{ paddingBotom: "2px"}}></td>
+          <td style = {{ paddingBotom: "2px"}}>{dataEmpleado.Sexo}</td>
+        </tr>
+        <tr>
+          <td style = {{ paddingBotom: "2px"}}>Status</td>
+          <td style = {{ paddingBotom: "2px"}}>{statusEmpleado}</td>
+        </tr>
+        {habilitarAcceso}
+        {userPortal}
+        {passwordPortal}
+      </table>
+
+
+    </Modal>
+
+    let modalSeleccionTeletrabajo = <Modal width={1100} title="Selección de empleados a modalidad Teletrabajo" okText="Añadir plantilla" cancelText="Cancelar" visible={this.state.modalTeletrabajo} onOk={e=>this.registrarPlantilla()} onCancel={e=>this.cancelarPlantilla()}>
+      <table className='table table-bordered table table-small table table-striped'>
+        <tr>
+          <td >Nombre</td>
+          <td >Centro de Trabajo</td>
+          <td >Correo</td>
+          <td >Status</td>
+        </tr>
+        {this.state.seleccionTeletrabajo.map(rows=>{
+          return(
+            <tr>
+            <td >{rows.nombre + " " + rows.ApellidoP + " " + rows.ApellidoM}</td>
+            <td >{rows.CentroTrabajo}</td>
+            <td >{rows.correo}</td>
+            <td ><strong>Teletrabajo asignado</strong></td>
+
+          </tr>
+          )
+        })}
+      </table>
+    </Modal>
+
       return (
       <React.Fragment>
       <div>
@@ -1663,6 +2253,15 @@ const options = {
         </div>
         <div style = {{marginTop:"2%"}} className = "tablaEmpleados">
         {cardInicial}
+        {/* <Dognut verGraficas={true} estadisticas = {this.state.datosGeneralesEmpleados}/> */}
+        {tablaEmpleados}
+        
+        {modalAdministracion}
+        {tablaDetalles}
+        {tablaAcceso}
+        {tablaTeletrabajo}
+        {modalSeleccionTeletrabajo}
+        {tablaTeletrabajoAsignado}
         </div>
         <center>
         {updateLogo}
@@ -1681,7 +2280,7 @@ const options = {
             onClose={this.handleCloseDropdown}
         >
             <MenuItem ><a href = "https://www.youtube.com/@diagnostico0355">Canal de youtube</a></MenuItem>
-            <MenuItem ><a href = "http://madmin.diagnostico035.com/rp">Plataforma multi RFC</a></MenuItem>
+            <MenuItem ><a href = "http://madmin.diagnostico035.com/">Plataforma multi RFC</a></MenuItem>
             <MenuItem onClick={this.handleclick}><i class="fas fa-address-card"></i> &nbsp;Mi Perfil</MenuItem>
             <MenuItem ><a href = "http://ads.com.mx"><i class="fab fa-buysellads"></i> &nbsp;Más sobre ADS</a></MenuItem>
 
