@@ -2222,9 +2222,8 @@ const options = {
 
       return (
       <React.Fragment>
-      <div>
         <Navbar periodo = {periodoActivo}/>
-        <div style = {{marginTop:"5%"}}>
+        <div style = {{marginTop:"5%",marginLeft:"3%", width:"93%"}}>
         <div className = "cardPorcentaje">  
          <Card type="inner" title={ <div><center>{titulo1}{progressInstanceATS}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
          <MDBCardBody style={{padding:"10px"}}> 
@@ -2286,7 +2285,6 @@ const options = {
 
 
         </Menu>
-      </div>
       </React.Fragment>
     );
   }
