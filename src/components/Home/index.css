@@ -63,8 +63,8 @@ html, body {
 .tablaEmpleados{
   display: flex;
   justify-content: space-evenly;
-  margin-left: 3%;
-  width: 95%;
+  margin-left: 2%;
+  width: 97%;
 
   flex-direction: row;
 }
