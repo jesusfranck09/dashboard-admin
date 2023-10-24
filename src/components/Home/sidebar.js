@@ -177,7 +177,7 @@ export default function MiniDrawer() {
           ))}
         </List>    
         </Link>
-        <Link to="/lock" style={{ textDecoration: 'none',color: 'blue' }}>
+        <Link to="/empty" style={{ textDecoration: 'none',color: 'blue' }}>
         <List >
           {['NOM-037-STPS-2023'].map((text) => (
             <ListItem button key={text} >

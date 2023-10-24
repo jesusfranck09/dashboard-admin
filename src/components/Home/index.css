@@ -9,6 +9,7 @@ html, body {
   display: flex;
   justify-content: space-around;
   margin-left: 5%;
+  width: 91%;
 }
 .borderNone{
   padding: 0;
@@ -63,7 +64,7 @@ html, body {
   display: flex;
   justify-content: space-evenly;
   margin-left: 3%;
-  width: 99%;
+  width: 95%;
 
   flex-direction: row;
 }
