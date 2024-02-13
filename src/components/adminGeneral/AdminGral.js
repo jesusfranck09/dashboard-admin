@@ -562,6 +562,7 @@
           const AreaTrabajo= values.AreaTrabajo
           const Puesto = values.Puesto
           const TipoPuesto = values.TipoPuesto
+          const edad = values.edad
           const idAdmin = localStorage.getItem('idAdmin')
           if(values.nombre){
               axios({
@@ -570,7 +571,7 @@
                 data:{
                 query:`
                   mutation{
-                  updateEmployees(data:"${[nombre,ApellidoP,ApellidoM,Curp,rfc,sexo,centro,correoEmployee,AreaTrabajo,Puesto,TipoPuesto,id,idAdmin,telefono]}"){
+                  updateEmployees(data:"${[nombre,ApellidoP,ApellidoM,Curp,rfc,sexo,centro,correoEmployee,AreaTrabajo,Puesto,TipoPuesto,id,idAdmin,telefono,edad]}"){
                       message
                         }
                       }
@@ -1120,6 +1121,23 @@
                           <Field fullWidth required name="TipoPuesto" component={TextField} type="text"
                             defaultValue={this.state.updateRows.TipoPuesto} label = "Tipo de Puesto"/>
                         </Grid>
+                        <Grid item xs={4}>
+                        <Field fullWidth name="edad" type="text"  component={Select} label={`Edad ${this.state.updateRows.FechaNacimiento}`}  formControlProps={{ fullWidth: true }}>
+                          <MenuItem value="15 a 19">15 a 19</MenuItem>
+                          <MenuItem value="20 a 24">20 a 24</MenuItem>
+                          <MenuItem value="25 a 29">25 a 29</MenuItem>
+                          <MenuItem value="30 a 34">30 a 34</MenuItem>
+                          <MenuItem value="35 a 39">35 a 39</MenuItem>
+                          <MenuItem value="40 a 44">40 a 44</MenuItem>
+                          <MenuItem value="45 a 49">45 a 49</MenuItem>
+                          <MenuItem value="50 a 54">50 a 54</MenuItem>
+                          <MenuItem value="55 a 59">55 a 59</MenuItem>
+                          <MenuItem value="60 a 64">60 a 64</MenuItem>
+                          <MenuItem value="65 a 69">65 a 69</MenuItem>
+                          <MenuItem value="70 o más">70 o más</MenuItem>
+                        </Field>
+                        </Grid>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           <Grid item >
                           <Button type="primary" disabled={submitting}
                             onClick={(e) =>this.evaluar(values,this.state.updateRows.id)} className="text-white">Actualizar Empleado </Button>&nbsp;&nbsp;&nbsp;
