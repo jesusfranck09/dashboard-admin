@@ -2423,11 +2423,11 @@ pdfExportComponent ;
         <div className="tabsATS" style={{marginTop:"5%",marginLeft:"5%"}}>
         <Tabs defaultActiveKey="1" size={this.state.size} style={{ marginBottom: 32 }}>
           <TabPane tab="Gráfica de evaluación RP" key="1">
-          <div className = "graficasATS">  
+          <div style={{width:"55%",marginLeft:"23%"}}  className="tabsATS"  >  
               <ReactFusioncharts
               type="pie3d"
-              width="70%"
-              height="60%"
+              width="200%"
+              height="430%"
               dataFormat="JSON"
               dataSource={dataSource}/>
           </div>

@@ -937,22 +937,21 @@ class App extends React.Component {
     </Modal>
     return (
       <React.Fragment>
-      <div>
+      <div >
           <Navbar modulo = {"EVALUACIÓN ATS"}/>
           <div className="tabsATS" style={{marginTop:"5%",marginLeft:"5%"}}>
           <Tabs defaultActiveKey="1" size={this.state.size} style={{ marginBottom: 32 }}>
           <TabPane tab="Gráfica de evaluación ATS" key="1">
-          <div className = "graficasATS">  
-            <ReactFusioncharts
+          <div style={{width:"55%",marginLeft:"23%"}}  className="tabsATS"  >  
+              <ReactFusioncharts
               type="pie3d"
-              width="70%"
-              height="60%"
+              width="200%"
+              height="490%"
               dataFormat="JSON"
-              dataSource={dataSource} 
-            />
+              dataSource={dataSource}/>
           </div>
-           {spinner}
-          </TabPane>    
+          {spinner}  
+          </TabPane> 
           <TabPane tab="Generar reportes periodo vigente" key="2">
             {tablaPeriodoActual}
             {pdfView1} 
