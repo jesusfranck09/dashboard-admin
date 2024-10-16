@@ -44,3 +44,410 @@
     margin-top: 5%;
     width:50%; 
 }
+
+  .form-container {
+    width: 100%;
+    max-width: 80%; /* Ocupa el 80% del ancho de la pantalla */
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: white;
+  }
+  
+  .form-content {
+    width: 100%;
+  }
+  
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px; /* Aumenta el espacio entre filas */
+  }
+  
+  .form-field {
+    flex: 1;
+    min-width: 220px; /* Mínimo ancho para los campos */
+    margin-right: 15px;
+    margin-bottom: 15px; /* Espacio entre campos */
+  }
+  
+  .form-field:last-child {
+    margin-right: 0; /* Sin margen en el último elemento */
+  }
+  
+  .form-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555; /* Color del texto */
+  }
+  
+  .form-field input,
+  .form-field select {
+    width: 100%;
+    padding: 12px; /* Mayor padding para los campos */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: none; /* Sin sombra */
+    transition: border-color 0.3s;
+  }
+  
+  .form-field input:focus,
+  .form-field select:focus {
+    border-color: #007bff; /* Color del borde en foco */
+  }
+  
+  .form-action-buttons {
+    display: flex;
+    justify-content: center; /* Centrar los botones */
+    margin-top: 20px;
+  }
+  
+  .btn {
+    padding: 12px 20px; /* Botones más grandes */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    margin: 0 10px; /* Espaciado entre botones */
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Efecto hover */
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333; /* Efecto hover */
+  }
+  
+  .full-width {
+    flex: 1 0 100%; /* Hacer este campo de ancho completo */
+  }
+  
+
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #f0f4f8;
+    border-radius: 12px;
+    font-family: 'Arial', sans-serif;
+}
+
+.form-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 30px; /* Mayor separación entre grupos */
+}
+
+.input-field {
+    flex: 1 1 100%;
+    margin-right: 20px; /* Mayor separación entre inputs */
+}
+
+.input-field input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #007BFF;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-field input:focus {
+    border-color: #0056b3;
+    outline: none;
+}
+
+.date-pickers,
+.alert-dates {
+    display: flex;
+    justify-content: space-between;
+    flex: 1 1 100%;
+}
+
+.date-pickers .MuiPickerBase-root,
+.alert-dates .MuiPickerBase-root {
+    flex: 1;
+    margin-right: 20px; /* Mayor separación entre selectores de fecha */
+}
+
+.date-pickers .MuiPickerBase-root:last-child,
+.alert-dates .MuiPickerBase-root:last-child {
+    margin-right: 0;
+}
+
+button {
+    align-self: flex-start;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 10px; /* Separación superior para el botón */
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+
+.cardEmpleados {
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    margin: 60px auto;
+    padding: 40px;
+    max-width: 800px;
+    background-color: #ffffff;
+    border: none; /* Sin borde alrededor de la tarjeta */
+}
+
+form {
+    padding: 20px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px; /* Reduce el padding para hacerlo más delgado */
+    margin: 14px 0;
+    border: none; /* Eliminar borde */
+    border-bottom: 2px solid #007bff; /* Borde inferior */
+    border-radius: 0; /* Sin bordes redondeados */
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 16px;
+    background-color: transparent; /* Fondo transparente */
+}
+
+input:focus, select:focus {
+    border-color: #0056b3; /* Color en foco */
+    outline: none;
+    box-shadow: 0 1px 5px rgba(0, 123, 255, 0.5); /* Sombra en foco */
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 24px; /* Mantiene un padding agradable */
+    border: none;
+    border-radius: 8px; /* Bordes redondeados para el botón */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 18px;
+}
+
+button:hover {
+    background-color: #0056b3; /* Color al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de elevación */
+}
+
+fieldset {
+    border: none;
+    margin: 10px 0;
+}
+
+legend {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 20px; /* Tamaño del texto de leyenda */
+}
+
+.text-center {
+    text-align: center;
+}
+
+.alert {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+}
+.turnRotationFieldset, .genderFieldset {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.turnRotationLegend, .genderLegend {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.turnRotationOptions, .genderOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.turnRotationLabel, .genderLabel {
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.turnRotationLabel input, .genderLabel input {
+    display: none; /* Oculta el input real */
+}
+
+.customTurnRotationRadio, .customGenderRadio {
+    width: 20px; /* Ancho del radio button */
+    height: 20px; /* Alto del radio button */
+    border: 2px solid #007bff; /* Color del borde */
+    border-radius: 50%; /* Forma circular */
+    background-color: white; /* Color de fondo */
+    margin-right: 10px; /* Espacio entre el radio button y el texto */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.turnRotationLabel input:checked + .customTurnRotationRadio,
+.genderLabel input:checked + .customGenderRadio {
+    background-color: #007bff; /* Color de fondo cuando está seleccionado */
+    border-color: #0056b3; /* Color del borde cuando está seleccionado */
+}
+.styledCard {
+    padding: 25px;
+    background-color: #f0f4f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .inputCard {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .inputField {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  .inputField:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .registerButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .registerButton:hover {
+    background-color: #218838;
+  }
+  
+  .departamentoButton {
+    background-color: #f8d7da;
+  }
+  
+  .puestoButton {
+    background-color: #cce5ff;
+  }
+
+  .styledCard {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 60px auto; /* Aumenta el margen superior */
+    width: 50%; /* Mantiene el ancho al 50% */
+    border: none; /* Elimina la elevación y el borde */
+    box-shadow: none; /* Elimina cualquier sombra para fusionar visualmente */
+  }
+  
+  .inputCard {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 0; /* Elimina el margen inferior para fusionar */
+  }
+  
+  .inputField {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border 0.3s;
+  }
+  
+  .inputField:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .registerButton {
+    background-color: #078a81;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .registerButton:hover {
+    background-color: #0aa79a;
+  }
+  
+  .departamentoButton,
+  .puestoButton {
+    background-color: #e7f0ff;
+    color: #007bff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .departamentoButton:hover,
+  .puestoButton:hover {
+    background-color: #d1e7ff;
+  }
