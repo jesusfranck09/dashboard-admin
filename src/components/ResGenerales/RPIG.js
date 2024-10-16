@@ -2420,18 +2420,8 @@ pdfExportComponent ;
       <Navbar modulo = {"EVALUACIÓN RP"}/>
         <div className="tabsATS" style={{marginTop:"5%",marginLeft:"5%"}}>
         <Tabs defaultActiveKey="1" size={this.state.size} style={{ marginBottom: 32 }}>
-          <TabPane tab="Gráfica de evaluación RP" key="1">
-          <div className = "graficasATS">  
-              <ReactFusioncharts
-              type="pie3d"
-              width="70%"
-              height="60%"
-              dataFormat="JSON"
-              dataSource={dataSource}/>
-          </div>
-          {spinner}  
-          </TabPane>
-          <TabPane tab="Generar reportes periodo vigente" key="2">
+          
+          <TabPane tab="Generar reportes periodo vigente" key="1">
           {leyendaDemo}
           {tablaPeriodoActual}
           {reporteIndividual}
@@ -2445,7 +2435,7 @@ pdfExportComponent ;
           {modalResultadoEjecutivo}
           {reporteEjecutivo}
           </TabPane>
-          <TabPane tab="Generar reportes históricos" key="3">
+          <TabPane tab="Generar reportes históricos" key="2">
           {listaperiodos}
           {reporteIndividual}
           {ponderacionIndividual}
@@ -2458,6 +2448,17 @@ pdfExportComponent ;
           {modalResultadoEjecutivo}
           {reporteEjecutivo}
           {tablaPeriodoSeleccionado}
+          </TabPane>
+          <TabPane tab="Gráfica de evaluación RP" key="3">
+          <div className = "graficasATS">  
+              <ReactFusioncharts
+              type="pie3d"
+              width="70%"
+              height="60%"
+              dataFormat="JSON"
+              dataSource={dataSource}/>
+          </div>
+          {spinner}  
           </TabPane>
         </Tabs>  
       </div>

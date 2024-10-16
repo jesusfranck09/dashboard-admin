@@ -943,7 +943,27 @@ class App extends React.Component {
  <Navbar modulo = {"EVALUACIÓN ATS"}/>
  <div className="tabsATS" style={{marginTop:"5%",marginLeft:"5%"}}>
  <Tabs defaultActiveKey="1" size={this.state.size} style={{ marginBottom: 32 }}>
- <TabPane tab="Gráfica de evaluación ATS" key="1">
+ 
+ <TabPane tab="Generar reportes periodo vigente" key="1">
+ {tablaPeriodoActual}
+ {pdfView1} 
+ {reporteGlobal}
+ {reporteImasivo}
+ {spinnerReporte}
+ {modalGlobal}
+ {modalMasivo}
+ </TabPane>
+ <TabPane tab="Generar reportes historicos" key="2">
+ {listaperiodos}
+ {tablaPeriodoSeleccionado}
+ {pdfView1} 
+ {reporteGlobal}
+ {reporteImasivo}
+ {spinnerReporte}
+ {modalGlobal}
+ {modalMasivo}
+ </TabPane>
+ <TabPane tab="Gráfica de evaluación ATS" key="3">
  <div className = "graficasATS"> 
  <ReactFusioncharts
  type="pie3d"
@@ -954,25 +974,6 @@ class App extends React.Component {
  />
  </div>
  {spinner}
- </TabPane> 
- <TabPane tab="Generar reportes periodo vigente" key="2">
- {tablaPeriodoActual}
- {pdfView1} 
- {reporteGlobal}
- {reporteImasivo}
- {spinnerReporte}
- {modalGlobal}
- {modalMasivo}
- </TabPane>
- <TabPane tab="Generar reportes historicos" key="3">
- {listaperiodos}
- {tablaPeriodoSeleccionado}
- {pdfView1} 
- {reporteGlobal}
- {reporteImasivo}
- {spinnerReporte}
- {modalGlobal}
- {modalMasivo}
  </TabPane>
  </Tabs>
  </div>

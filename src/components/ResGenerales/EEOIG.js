@@ -2965,18 +2965,8 @@ export default class App extends React.Component {
         <div >
         <div className="tabsATS" style={{marginTop:"5%",marginLeft:"5%"}}>
         <Tabs defaultActiveKey="1" size={this.state.size} style={{ marginBottom: 32 }}>
-          <TabPane tab="Gráfica de evaluación EEO" key="1">
-          <div className = "graficasATS">  
-              <ReactFusioncharts
-              type="pie3d"
-              width="70%"
-              height="60%"
-              dataFormat="JSON"
-              dataSource={dataSource}/>
-          </div>
-          {spinner}  
-          </TabPane>
-          <TabPane tab="Generar reportes periodo vigente" key="2">
+          
+          <TabPane tab="Generar reportes periodo vigente" key="1">
            {leyendaDemo}
            {tablaPeriodoActual}
            {reporteIndividual}
@@ -2990,7 +2980,7 @@ export default class App extends React.Component {
            {modalResultadoEjecutivo}
            {reporteEjecutivo}
           </TabPane>  
-          <TabPane tab="Generar reportes historicos" key="3">
+          <TabPane tab="Generar reportes historicos" key="2">
            {listaperiodos}
            {tablaPeriodoSeleccionado}
            {reporteIndividual}
@@ -3003,7 +2993,18 @@ export default class App extends React.Component {
            {modalResultadosGlobales}
            {modalResultadoEjecutivo}
            {reporteEjecutivo}
-          </TabPane>    
+          </TabPane>   
+          <TabPane tab="Gráfica de evaluación EEO" key="3">
+          <div className = "graficasATS">  
+              <ReactFusioncharts
+              type="pie3d"
+              width="70%"
+              height="60%"
+              dataFormat="JSON"
+              dataSource={dataSource}/>
+          </div>
+          {spinner}  
+          </TabPane> 
         </Tabs>  
         </div>
       </div>
