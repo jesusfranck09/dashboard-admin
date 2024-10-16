@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import MUIDataTable from "mui-datatables";
 import { API} from '../utils/http'
@@ -91,7 +90,7 @@ pdfExportComponent ;
 
    callback(key) {
     console.log(key);
-  } 
+  }
      componentWillMount(){
       var LaFecha=new Date();
       var Mes=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
@@ -101,7 +100,7 @@ pdfExportComponent ;
       var NumeroDeMes="";    
       NumeroDeMes=LaFecha.getMonth();
       FechaCompleta=diasem[diasemana]+" "+LaFecha.getDate()+" de "+Mes[NumeroDeMes]+" de "+LaFecha.getFullYear();
-      this.setState({date:FechaCompleta}) 
+      this.setState({date:FechaCompleta})
       // console.log("ya se esta montando")
       let paquete = localStorage.getItem("paqueteAdquirido")
       if(paquete === "40" || paquete === "41" || paquete === "42"){
@@ -122,7 +121,7 @@ pdfExportComponent ;
   localStorage.removeItem("max")
   this.props.history.push("/")
   DialogUtility.alert({
-    animationSettings: { effect: 'Fade' },           
+    animationSettings: { effect: 'Fade' },          
     title: 'Hasta luego...!',
     position: "fixed",
   })
@@ -133,7 +132,7 @@ pdfExportComponent ;
     let resultadosQuery=[];
     let totalEmpleados=[]
     var id  =localStorage.getItem("idAdmin")  
-    let resultadosEvaluacion=[];     
+    let resultadosEvaluacion=[];    
     let periodo =  localStorage.getItem("periodo")
     let evaluacionesRealizadasPeriodoActual;
     let evaluacionRP;
@@ -153,7 +152,7 @@ pdfExportComponent ;
           `
       }
     })
-    .then(datos => {	
+    .then(datos => {
       this.setState({todosLosPeriodos:datos.data.data.getallPeriodo})
     }).catch(err=>{
     })
@@ -180,13 +179,13 @@ pdfExportComponent ;
         `
       }
     })
-    .then(datos => {	
+    .then(datos => {
       evaluacionesRealizadasPeriodoActual =   datos.data.data.getEmployeesPerido;
       evaluacionesRealizadasPeriodoActual.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
       evaluacionRP= evaluacionesRealizadasPeriodoActual.filter(function(hero){
         return hero.encuesta === "RP"
       })
-      this.setState({evaluacionesTodosLosPeriodos:evaluacionRP}) 
+      this.setState({evaluacionesTodosLosPeriodos:evaluacionRP})
       evaluacionRP.map(rows=>{
         axios({
         url:  API,
@@ -195,32 +194,32 @@ pdfExportComponent ;
         query:`
           query{
             getresultGlobalSurveyRP(data:"${[rows.id,rows.periodo]}"){
-            id 
-            Respuestas 
+            id
+            Respuestas
             fk_preguntasRP
-            fk_empleadosRP 
+            fk_empleadosRP
             ponderacion
-            nombre 
-            ApellidoP 
-            ApellidoM 
-            Curp 
-            RFC 
-            FechaNacimiento 
-            Sexo 
-            EstadoCivil 
-            correo 
-            AreaTrabajo 
-            Puesto 
-            TipoPuesto 
-            NivelEstudios 
-            TipoPersonal 
-            JornadaTrabajo 
-            TipoContratacion 
-            TiempoPuesto 
-            ExperienciaLaboral 
-            RotacionTurnos 
-            fk_administrador 
-            fk_correos 
+            nombre
+            ApellidoP
+            ApellidoM
+            Curp
+            RFC
+            FechaNacimiento
+            Sexo
+            EstadoCivil
+            correo
+            AreaTrabajo
+            Puesto
+            TipoPuesto
+            NivelEstudios
+            TipoPersonal
+            JornadaTrabajo
+            TipoContratacion
+            TiempoPuesto
+            ExperienciaLaboral
+            RotacionTurnos
+            fk_administrador
+            fk_correos
             Periodo
                 }
               }
@@ -231,8 +230,8 @@ pdfExportComponent ;
           this.setState({resultadosInicio:totalEmpleados});
         })
         .catch(err => {
-        }); 
-          
+        });
+         
         axios({
         url:  API,
         method:'post',
@@ -240,51 +239,51 @@ pdfExportComponent ;
         query:`
           query{
           resultSingleSurveyRP(data:"${[rows.id,rows.periodo]}"){
-            id 
-            Respuestas 
+            id
+            Respuestas
             fk_preguntasRP
             fk_empleadosRP
             ponderacion
-            nombre 
-            ApellidoP 
-            ApellidoM 
-            Curp 
-            RFC 
-            FechaNacimiento 
-            Sexo 
-            EstadoCivil 
-            correo 
-            AreaTrabajo 
-            Puesto 
-            TipoPuesto 
-            NivelEstudios 
-            TipoPersonal 
-            JornadaTrabajo 
-            TipoContratacion 
-            TiempoPuesto 
-            ExperienciaLaboral 
-            RotacionTurnos 
-            fk_administrador 
-            fk_correos 
+            nombre
+            ApellidoP
+            ApellidoM
+            Curp
+            RFC
+            FechaNacimiento
+            Sexo
+            EstadoCivil
+            correo
+            AreaTrabajo
+            Puesto
+            TipoPuesto
+            NivelEstudios
+            TipoPersonal
+            JornadaTrabajo
+            TipoContratacion
+            TiempoPuesto
+            ExperienciaLaboral
+            RotacionTurnos
+            fk_administrador
+            fk_correos
             Periodo
                 }
               }
             `
         }
-        }).then(datos => {     
+        }).then(datos => {    
           resultadosEvaluacion.push(datos.data.data.resultSingleSurveyRP )
-          this.setState({evaluacionMasivoResultados : resultadosEvaluacion}) 
+          this.setState({evaluacionMasivoResultados : resultadosEvaluacion})
           resultadosQuery.push(datos.data.data.resultSingleSurveyRP )
-          this.setState({resultadosQueryMasivo : resultadosQuery})   
+          this.setState({resultadosQueryMasivo : resultadosQuery})  
           })
         .catch(err => {
           console.log("el error es  ",err.response)
         });    
       })
       result = evaluacionRP.filter(function(hero){
-        return hero.periodo === periodo 
+        return hero.periodo === periodo
       })
-      this.setState({empleados:result}) 
+      this.setState({empleados:result})
       })
       axios({
         url:  API,
@@ -303,19 +302,19 @@ pdfExportComponent ;
               }
             `
         }
-        }).then(datos => { 
+        }).then(datos => {
           this.setState({getPonderacion: datos.data.data.getPonderacion})
         })
         .catch(err => {
           console.log("el error es  ",err.response)
-        }); 
+        });
         this.setState({spinner:false})
      }
 
      async cargarTablaPeriodoSeleccionado (parametro){
       this.setState({collapse:false})
       let periodo = parametro
-      let empleados  = this.state.evaluacionesTodosLosPeriodos; 
+      let empleados  = this.state.evaluacionesTodosLosPeriodos;
       let arrayFilter = empleados.filter(e => e.periodo == periodo)
       await  this.setState({empleados:[]})
       this.setState({tablaPeriodoActual:false})            
@@ -354,7 +353,7 @@ pdfExportComponent ;
               return hero.fk_empleadosRP === element
             })
               arrayFilter.push(filter)
-            }); 
+            });
       })
       arrayFilter.map(row=>{
         filterArray = row.filter(function(hero){
@@ -367,8 +366,8 @@ pdfExportComponent ;
          }
          let tag = []
        var filtrado2 = filtrado.filter(item => !array_equals(item, tag))
-      this.setState({peticion1:filtrado2}) 
-      this.setState({spinner:false});   
+      this.setState({peticion1:filtrado2})
+      this.setState({spinner:false});  
       let filtros = this.state.filtroTabla
 
       if(filtros){
@@ -420,7 +419,7 @@ pdfExportComponent ;
       }
     }else{
       this.setState({filtro6:"SIN FILTRO"})
-    } 
+    }
       if(parametro === 1){
         this.setState({tablaPeriodoActual:false})
         await this.setState({parametro:parametro})
@@ -453,7 +452,7 @@ pdfExportComponent ;
           arrayFilter.push(filter)
         })
       })
-      
+     
       arrayFilter.map(fila=>{
         filterArray = fila.filter(function(hero){
           return hero.Periodo === periodoTabla[0]
@@ -520,7 +519,7 @@ pdfExportComponent ;
           }
         }else{
           this.setState({filtro6:"SIN FILTRO"})
-        } 
+        }
         await this.setState({descarga:true});
         this.setState({descarga:false})  
         this.setState({datosLength:datos.length})
@@ -613,13 +612,13 @@ pdfExportComponent ;
           }
         }else{
           this.setState({filtro6:"SIN FILTRO"})
-        } 
+        }
         await this.setState({descarga2:true});
-        this.setState({descarga2:false})     
-        this.setState({datosLength:datos.length})   
+        this.setState({descarga2:false})    
+        this.setState({datosLength:datos.length})  
     }
-                  
-    reporteIndividual(id,periodo,parametro){ 
+                 
+    reporteIndividual(id,periodo,parametro){
     axios({
       url:  API,
       method:'post',
@@ -627,37 +626,37 @@ pdfExportComponent ;
       query:`
         query{
         resultSingleSurveyRP(data:"${[id,periodo]}"){
-          id 
-          Respuestas 
+          id
+          Respuestas
           fk_preguntasRP
-          fk_empleadosRP 
-          nombre 
-          ApellidoP 
-          ApellidoM 
-          Curp 
-          RFC 
-          FechaNacimiento 
-          Sexo 
-          EstadoCivil 
-          correo 
-          AreaTrabajo 
-          Puesto 
-          TipoPuesto 
+          fk_empleadosRP
+          nombre
+          ApellidoP
+          ApellidoM
+          Curp
+          RFC
+          FechaNacimiento
+          Sexo
+          EstadoCivil
+          correo
+          AreaTrabajo
+          Puesto
+          TipoPuesto
           ponderacion
-          NivelEstudios 
-          TipoPersonal 
-          JornadaTrabajo 
-          TipoContratacion 
-          TiempoPuesto 
-          ExperienciaLaboral 
-          RotacionTurnos 
-          fk_administrador 
-          fk_correos 
+          NivelEstudios
+          TipoPersonal
+          JornadaTrabajo
+          TipoContratacion
+          TiempoPuesto
+          ExperienciaLaboral
+          RotacionTurnos
+          fk_administrador
+          fk_correos
               }
             }
           `
       }
-      }).then(datos => {   
+      }).then(datos => {  
       if(datos.data.data.resultSingleSurveyRP.length > 0 ){
         if(parametro===1){
           this.setState({botonDisabled:''})
@@ -679,12 +678,12 @@ pdfExportComponent ;
           this.setState({reporteResultadosGlaobales:false})
           this.setState({reporteEjecutivo:false})
           this.setState({tablaPeriodoSeleccionado:false})
-          this.setState({resultados:datos.data.data.resultSingleSurveyRP}) 
+          this.setState({resultados:datos.data.data.resultSingleSurveyRP})
         }
        
       } if(datos.data.data.resultSingleSurveyRP.length <= 0){
         DialogUtility.alert({
-          animationSettings: { effect: 'Zoom' },           
+          animationSettings: { effect: 'Zoom' },          
           title: "Su colaborador aun no responde la evaluación",
           position: "fixed"
           });
@@ -694,14 +693,14 @@ pdfExportComponent ;
         console.log("el error es  ",err.response)
       });  
     }
-      
+     
       handleDropdown = (event) => {
         this.setState({dropdown: event.currentTarget});
       };
       handleClose = () => {
         this.setState({dropdown: null});
       };
-              
+             
       reporteEjecutivo = async (datos,filtro,periodoTabla)=>{
         this.setState({visible4:false})
           let array=[];
@@ -727,7 +726,7 @@ pdfExportComponent ;
                   return hero.fk_empleadosRP === element
                 })
                   arrayFilter.push(filter)
-              }); 
+              });
           })
           arrayFilter.map(fila=>{
             filterArray = fila.filter(function(hero){
@@ -792,7 +791,7 @@ pdfExportComponent ;
             }
           }else{
             this.setState({filtro6:"SIN FILTRO"})
-          } 
+          }
        this.setState({datosLength:datos.length})
        await this.setState({parametro:2})
 
@@ -861,7 +860,7 @@ pdfExportComponent ;
         role="status"
         aria-hidden="true"
       />
-      
+     
     </MDBBtn>{''}
     <MDBBtn className = "text-white"  size="md" color="secondary" disabled>
       <Spinner
@@ -875,7 +874,7 @@ pdfExportComponent ;
       Validando información por favor espere ...
     </MDBBtn>{''}
     </div>
-    }   
+    }  
     let datosEmpleados;
     let filtro;
     let periodoTabla;
@@ -921,7 +920,7 @@ pdfExportComponent ;
                      deleteAria: "Eliminar Filas Seleccionadas",
                    },
                  },
-      
+     
         onTableChange: (action, tableState) => {
         datosEmpleados=tableState.displayData
         periodoTabla = tableState.filterData[4]
@@ -944,8 +943,8 @@ pdfExportComponent ;
           charts(FusionCharts);
          
     let reporteIndividual;
-    let ponderacionIndividual; 
-    if(this.state.resultados[2]){ 
+    let ponderacionIndividual;
+    if(this.state.resultados[2]){
       let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16,value17,value18,value19,value20,value21,value22,value23,value24;
         let value25,value26,value27,value28,value29,value30,value31,value32,value33,value34,value35,value36,value37,value38,value39,value40,value41,value42,value43,value44,value45,value46;
         let filtrar1,filtrar2,filtrar3,filtrar4,filtrar5,filtrar6,filtrar7,filtrar8,filtrar9,filtrar10,
@@ -1059,7 +1058,7 @@ pdfExportComponent ;
         value26 = filtrar26.pop()
         filtrar27 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasRP === "27";
-        }); 
+        });
         value27 = filtrar27.pop()
         filtrar28 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasRP === "28";
@@ -1067,7 +1066,7 @@ pdfExportComponent ;
         value28 = filtrar28.pop()
         filtrar29 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasRP === "29";
-        }); 
+        });
         value29 = filtrar29.pop()
         filtrar30 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasRP === "30";
@@ -1111,11 +1110,11 @@ pdfExportComponent ;
         value39 = filtrar39.pop()
         filtrar40 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasRP === "40";
-        }); 
+        });
         value40 = filtrar40.pop()
         filtrar41 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasRP === "41";
-        });   
+        });  
         value41 = filtrar41.pop()
         filtrar42 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasRP === "42";
@@ -1123,7 +1122,7 @@ pdfExportComponent ;
         value42 = filtrar42.pop()
         filtrar43 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasRP === "43";
-        }); 
+        });
         value43 = filtrar43.pop()
         filtrar44 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasRP === "44";
@@ -1183,21 +1182,21 @@ pdfExportComponent ;
                     return hero.fk_preguntasRP === "1";
                   });
                   array1.push(filtrar1)
-                    
+                   
                   let valor1=[];    
                   array1.map(rows=>{
                     if(rows[0]){
                       valor1.push(rows[0].ponderacion)
-                    } 
+                    }
                   })
-                  
-                  arr1Int = valor1.map(x => Number.parseInt(x, 10)); 
+                 
+                  arr1Int = valor1.map(x => Number.parseInt(x, 10));
                   respuesta1=0;
                   arr1Int.forEach (function(numero){
                     respuesta1 += numero;
                   });
-                  }) 
-          
+                  })
+         
                   var filtrar2 ;
                   var arr2Int;
                   var respuesta2;
@@ -1206,19 +1205,19 @@ pdfExportComponent ;
                     return hero.fk_preguntasRP === "2";
                   });
                   array2.push(filtrar2)
-          
+         
                   let valor2=[];    
                   array2.map(rows=>{
                     if(rows[0]){
                       valor2.push(rows[0].ponderacion)
-                    } 
+                    }
                   })
-                  arr2Int = valor2.map(x => Number.parseInt(x, 10)); 
+                  arr2Int = valor2.map(x => Number.parseInt(x, 10));
                   respuesta2=0;
                   arr2Int.forEach (function(numero){
                     respuesta2 += numero;
                   });
-                  }) 
+                  })
                     var filtrar3 ;
                     var arr3Int;
                     var respuesta3;
@@ -1227,19 +1226,19 @@ pdfExportComponent ;
                       return hero.fk_preguntasRP === "3";
                     });
                     array3.push(filtrar3)
-            
+           
                     let valor3=[];    
                     array3.map(rows=>{
                       if(rows[0]){
                         valor3.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr3Int = valor3.map(x => Number.parseInt(x, 10)); 
+                    arr3Int = valor3.map(x => Number.parseInt(x, 10));
                     respuesta3=0;
                     arr3Int.forEach (function(numero){
                       respuesta3 += numero;
                     });
-                    }) 
+                    })
                     var filtrar4 ;
                     var arr4Int;
                     var respuesta4;
@@ -1248,19 +1247,19 @@ pdfExportComponent ;
                       return hero.fk_preguntasRP === "4";
                     });
                     array4.push(filtrar4)
-            
+           
                     let valor4=[];    
                     array4.map(rows=>{
                       if(rows[0]){
                         valor4.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr4Int = valor4.map(x => Number.parseInt(x, 10)); 
+                    arr4Int = valor4.map(x => Number.parseInt(x, 10));
                     respuesta4=0;
                     arr4Int.forEach (function(numero){
                       respuesta4 += numero;
                     });
-                    }) 
+                    })
                     var filtrar5 ;
                     var arr5Int;
                     var respuesta5;
@@ -1273,14 +1272,14 @@ pdfExportComponent ;
                     array5.map(rows=>{
                       if(rows[0]){
                         valor5.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr5Int = valor5.map(x => Number.parseInt(x, 10)); 
+                    arr5Int = valor5.map(x => Number.parseInt(x, 10));
                     respuesta5=0;
                     arr5Int.forEach (function(numero){
                       respuesta5 += numero;
                     });
-                    }) 
+                    })
                     var filtrar6 ;
                     var arr6Int;
                     var respuesta6;
@@ -1293,14 +1292,14 @@ pdfExportComponent ;
                     array6.map(rows=>{
                       if(rows[0]){
                         valor6.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr6Int = valor6.map(x => Number.parseInt(x, 10)); 
+                    arr6Int = valor6.map(x => Number.parseInt(x, 10));
                     respuesta6=0;
                     arr6Int.forEach (function(numero){
                       respuesta6 += numero;
                     });
-                    }) 
+                    })
                     var filtrar7 ;
                     var arr7Int;
                     var respuesta7;
@@ -1313,9 +1312,9 @@ pdfExportComponent ;
                     array7.map(rows=>{
                       if(rows[0]){
                         valor7.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr7Int = valor7.map(x => Number.parseInt(x, 10)); 
+                    arr7Int = valor7.map(x => Number.parseInt(x, 10));
                     respuesta7=0;
                     arr7Int.forEach (function(numero){
                       respuesta7 += numero;
@@ -1333,9 +1332,9 @@ pdfExportComponent ;
                     array8.map(rows=>{
                       if(rows[0]){
                         valor8.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr8Int = valor8.map(x => Number.parseInt(x, 10)); 
+                    arr8Int = valor8.map(x => Number.parseInt(x, 10));
                     respuesta8=0;
                     arr8Int.forEach (function(numero){
                       respuesta8 += numero;
@@ -1353,9 +1352,9 @@ pdfExportComponent ;
                     array9.map(rows=>{
                       if(rows[0]){
                         valor9.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr9Int = valor9.map(x => Number.parseInt(x, 10)); 
+                    arr9Int = valor9.map(x => Number.parseInt(x, 10));
                     respuesta9=0;
                     arr9Int.forEach (function(numero){
                       respuesta9 += numero;
@@ -1373,15 +1372,15 @@ pdfExportComponent ;
                     array10.map(rows=>{
                       if(rows[0]){
                         valor10.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr10Int = valor10.map(x => Number.parseInt(x, 10)); 
+                    arr10Int = valor10.map(x => Number.parseInt(x, 10));
                     respuesta10=0;
                     arr10Int.forEach (function(numero){
                       respuesta10 += numero;
                     });
                     })
-                  
+                 
                     var filtrar11 ;
                     var arr11Int;
                     var respuesta11;
@@ -1394,9 +1393,9 @@ pdfExportComponent ;
                     array11.map(rows=>{
                       if(rows[0]){
                         valor11.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr11Int = valor11.map(x => Number.parseInt(x, 10)); 
+                    arr11Int = valor11.map(x => Number.parseInt(x, 10));
                     respuesta11=0;
                     arr11Int.forEach (function(numero){
                       respuesta11 += numero;
@@ -1415,14 +1414,14 @@ pdfExportComponent ;
                     array12.map(rows=>{
                       if(rows[0]){
                         valor12.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr12Int = valor12.map(x => Number.parseInt(x, 10)); 
+                    arr12Int = valor12.map(x => Number.parseInt(x, 10));
                     respuesta12=0;
                     arr12Int.forEach (function(numero){
                       respuesta12 += numero;
                     });
-      
+     
                     })
                     var filtrar13 ;
                     var arr13Int;
@@ -1436,9 +1435,9 @@ pdfExportComponent ;
                     array13.map(rows=>{
                       if(rows[0]){
                         valor13.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr13Int = valor13.map(x => Number.parseInt(x, 10)); 
+                    arr13Int = valor13.map(x => Number.parseInt(x, 10));
                     respuesta13=0;
                     arr13Int.forEach (function(numero){
                       respuesta13 += numero;
@@ -1456,9 +1455,9 @@ pdfExportComponent ;
                     array14.map(rows=>{
                       if(rows[0]){
                         valor14.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr14Int = valor14.map(x => Number.parseInt(x, 10)); 
+                    arr14Int = valor14.map(x => Number.parseInt(x, 10));
                     respuesta14=0;
                     arr14Int.forEach (function(numero){
                       respuesta14 += numero;
@@ -1476,9 +1475,9 @@ pdfExportComponent ;
                     array15.map(rows=>{
                       if(rows[0]){
                         valor15.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr15Int = valor15.map(x => Number.parseInt(x, 10)); 
+                    arr15Int = valor15.map(x => Number.parseInt(x, 10));
                     respuesta15=0;
                     arr15Int.forEach (function(numero){
                       respuesta15 += numero;
@@ -1496,9 +1495,9 @@ pdfExportComponent ;
                     array16.map(rows=>{
                       if(rows[0]){
                         valor16.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr16Int = valor16.map(x => Number.parseInt(x, 10)); 
+                    arr16Int = valor16.map(x => Number.parseInt(x, 10));
                     respuesta16=0;
                     arr16Int.forEach (function(numero){
                       respuesta16 += numero;
@@ -1516,9 +1515,9 @@ pdfExportComponent ;
                     array17.map(rows=>{
                       if(rows[0]){
                         valor17.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr17Int = valor17.map(x => Number.parseInt(x, 10)); 
+                    arr17Int = valor17.map(x => Number.parseInt(x, 10));
                     respuesta17=0;
                     arr17Int.forEach (function(numero){
                       respuesta17 += numero;
@@ -1536,9 +1535,9 @@ pdfExportComponent ;
                     array18.map(rows=>{
                       if(rows[0]){
                         valor18.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr18Int = valor18.map(x => Number.parseInt(x, 10)); 
+                    arr18Int = valor18.map(x => Number.parseInt(x, 10));
                     respuesta18=0;
                     arr18Int.forEach (function(numero){
                       respuesta18 += numero;
@@ -1556,9 +1555,9 @@ pdfExportComponent ;
                     array19.map(rows=>{
                       if(rows[0]){
                         valor19.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr19Int = valor19.map(x => Number.parseInt(x, 10)); 
+                    arr19Int = valor19.map(x => Number.parseInt(x, 10));
                     respuesta19=0;
                     arr19Int.forEach (function(numero){
                       respuesta19 += numero;
@@ -1576,9 +1575,9 @@ pdfExportComponent ;
                     array20.map(rows=>{
                       if(rows[0]){
                         valor20.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr20Int = valor20.map(x => Number.parseInt(x, 10)); 
+                    arr20Int = valor20.map(x => Number.parseInt(x, 10));
                     respuesta20=0;
                     arr20Int.forEach (function(numero){
                       respuesta20 += numero;
@@ -1596,9 +1595,9 @@ pdfExportComponent ;
                     array21.map(rows=>{
                       if(rows[0]){
                         valor21.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr21Int = valor21.map(x => Number.parseInt(x, 10)); 
+                    arr21Int = valor21.map(x => Number.parseInt(x, 10));
                     respuesta21=0;
                     arr21Int.forEach (function(numero){
                       respuesta21 += numero;
@@ -1616,9 +1615,9 @@ pdfExportComponent ;
                     array22.map(rows=>{
                       if(rows[0]){
                         valor22.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr22Int = valor22.map(x => Number.parseInt(x, 10)); 
+                    arr22Int = valor22.map(x => Number.parseInt(x, 10));
                     respuesta22=0;
                     arr22Int.forEach (function(numero){
                       respuesta22 += numero;
@@ -1636,9 +1635,9 @@ pdfExportComponent ;
                     array23.map(rows=>{
                       if(rows[0]){
                         valor23.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr23Int = valor23.map(x => Number.parseInt(x, 10)); 
+                    arr23Int = valor23.map(x => Number.parseInt(x, 10));
                     respuesta23=0;
                     arr23Int.forEach (function(numero){
                       respuesta23 += numero;
@@ -1656,9 +1655,9 @@ pdfExportComponent ;
                     array24.map(rows=>{
                       if(rows[0]){
                         valor24.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr24Int = valor24.map(x => Number.parseInt(x, 10)); 
+                    arr24Int = valor24.map(x => Number.parseInt(x, 10));
                     respuesta24=0;
                     arr24Int.forEach (function(numero){
                       respuesta24 += numero;
@@ -1676,9 +1675,9 @@ pdfExportComponent ;
                     array25.map(rows=>{
                       if(rows[0]){
                         valor25.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr25Int = valor25.map(x => Number.parseInt(x, 10)); 
+                    arr25Int = valor25.map(x => Number.parseInt(x, 10));
                     respuesta25=0;
                     arr25Int.forEach (function(numero){
                       respuesta25 += numero;
@@ -1696,9 +1695,9 @@ pdfExportComponent ;
                     array26.map(rows=>{
                       if(rows[0]){
                         valor26.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr26Int = valor26.map(x => Number.parseInt(x, 10)); 
+                    arr26Int = valor26.map(x => Number.parseInt(x, 10));
                     respuesta26=0;
                     arr26Int.forEach (function(numero){
                       respuesta26 += numero;
@@ -1716,9 +1715,9 @@ pdfExportComponent ;
                     array27.map(rows=>{
                       if(rows[0]){
                         valor27.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr27Int = valor27.map(x => Number.parseInt(x, 10)); 
+                    arr27Int = valor27.map(x => Number.parseInt(x, 10));
                     respuesta27=0;
                     arr27Int.forEach (function(numero){
                       respuesta27 += numero;
@@ -1736,9 +1735,9 @@ pdfExportComponent ;
                     array28.map(rows=>{
                       if(rows[0]){
                         valor28.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr28Int = valor28.map(x => Number.parseInt(x, 10)); 
+                    arr28Int = valor28.map(x => Number.parseInt(x, 10));
                     respuesta28=0;
                     arr28Int.forEach (function(numero){
                       respuesta28 += numero;
@@ -1756,9 +1755,9 @@ pdfExportComponent ;
                     array29.map(rows=>{
                       if(rows[0]){
                         valor29.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr29Int = valor29.map(x => Number.parseInt(x, 10)); 
+                    arr29Int = valor29.map(x => Number.parseInt(x, 10));
                     respuesta29=0;
                     arr29Int.forEach (function(numero){
                       respuesta29 += numero;
@@ -1776,9 +1775,9 @@ pdfExportComponent ;
                     array30.map(rows=>{
                       if(rows[0]){
                         valor30.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr30Int = valor30.map(x => Number.parseInt(x, 10)); 
+                    arr30Int = valor30.map(x => Number.parseInt(x, 10));
                     respuesta30=0;
                     arr30Int.forEach (function(numero){
                       respuesta30 += numero;
@@ -1796,9 +1795,9 @@ pdfExportComponent ;
                     array31.map(rows=>{
                       if(rows[0]){
                         valor31.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr31Int = valor31.map(x => Number.parseInt(x, 10)); 
+                    arr31Int = valor31.map(x => Number.parseInt(x, 10));
                     respuesta31=0;
                     arr31Int.forEach (function(numero){
                       respuesta31 += numero;
@@ -1816,9 +1815,9 @@ pdfExportComponent ;
                     array32.map(rows=>{
                       if(rows[0]){
                         valor32.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr32Int = valor32.map(x => Number.parseInt(x, 10)); 
+                    arr32Int = valor32.map(x => Number.parseInt(x, 10));
                     respuesta32=0;
                     arr32Int.forEach (function(numero){
                       respuesta32 += numero;
@@ -1836,9 +1835,9 @@ pdfExportComponent ;
                     array33.map(rows=>{
                       if(rows[0]){
                         valor33.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr33Int = valor33.map(x => Number.parseInt(x, 10)); 
+                    arr33Int = valor33.map(x => Number.parseInt(x, 10));
                     respuesta33=0;
                     arr33Int.forEach (function(numero){
                       respuesta33 += numero;
@@ -1856,9 +1855,9 @@ pdfExportComponent ;
                     array34.map(rows=>{
                       if(rows[0]){
                         valor34.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr34Int = valor34.map(x => Number.parseInt(x, 10)); 
+                    arr34Int = valor34.map(x => Number.parseInt(x, 10));
                     respuesta34=0;
                     arr34Int.forEach (function(numero){
                       respuesta34 += numero;
@@ -1876,9 +1875,9 @@ pdfExportComponent ;
                     array35.map(rows=>{
                       if(rows[0]){
                         valor35.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr35Int = valor35.map(x => Number.parseInt(x, 10)); 
+                    arr35Int = valor35.map(x => Number.parseInt(x, 10));
                     respuesta35=0;
                     arr35Int.forEach (function(numero){
                       respuesta35 += numero;
@@ -1896,9 +1895,9 @@ pdfExportComponent ;
                     array36.map(rows=>{
                       if(rows[0]){
                         valor36.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr36Int = valor36.map(x => Number.parseInt(x, 10)); 
+                    arr36Int = valor36.map(x => Number.parseInt(x, 10));
                     respuesta36=0;
                     arr36Int.forEach (function(numero){
                       respuesta36 += numero;
@@ -1916,9 +1915,9 @@ pdfExportComponent ;
                     array37.map(rows=>{
                       if(rows[0]){
                         valor37.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr37Int = valor37.map(x => Number.parseInt(x, 10)); 
+                    arr37Int = valor37.map(x => Number.parseInt(x, 10));
                     respuesta37=0;
                     arr37Int.forEach (function(numero){
                       respuesta37 += numero;
@@ -1936,9 +1935,9 @@ pdfExportComponent ;
                     array38.map(rows=>{
                       if(rows[0]){
                         valor38.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr38Int = valor38.map(x => Number.parseInt(x, 10)); 
+                    arr38Int = valor38.map(x => Number.parseInt(x, 10));
                     respuesta38=0;
                     arr38Int.forEach (function(numero){
                       respuesta38 += numero;
@@ -1956,9 +1955,9 @@ pdfExportComponent ;
                     array39.map(rows=>{
                       if(rows[0]){
                         valor39.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr39Int = valor39.map(x => Number.parseInt(x, 10)); 
+                    arr39Int = valor39.map(x => Number.parseInt(x, 10));
                     respuesta39=0;
                     arr39Int.forEach (function(numero){
                       respuesta39 += numero;
@@ -1976,9 +1975,9 @@ pdfExportComponent ;
                     array40.map(rows=>{
                       if(rows[0]){
                         valor40.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr40Int = valor40.map(x => Number.parseInt(x, 10)); 
+                    arr40Int = valor40.map(x => Number.parseInt(x, 10));
                     respuesta40=0;
                     arr40Int.forEach (function(numero){
                       respuesta40 += numero;
@@ -1996,9 +1995,9 @@ pdfExportComponent ;
                     array41.map(rows=>{
                       if(rows[0]){
                         valor41.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr41Int = valor41.map(x => Number.parseInt(x, 10)); 
+                    arr41Int = valor41.map(x => Number.parseInt(x, 10));
                     respuesta41=0;
                     arr41Int.forEach (function(numero){
                       respuesta41 += numero;
@@ -2016,9 +2015,9 @@ pdfExportComponent ;
                     array42.map(rows=>{
                       if(rows[0]){
                         valor42.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr42Int = valor42.map(x => Number.parseInt(x, 10)); 
+                    arr42Int = valor42.map(x => Number.parseInt(x, 10));
                     respuesta42=0;
                     arr42Int.forEach (function(numero){
                       respuesta42 += numero;
@@ -2036,9 +2035,9 @@ pdfExportComponent ;
                     array43.map(rows=>{
                       if(rows[0]){
                         valor43.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr43Int = valor43.map(x => Number.parseInt(x, 10)); 
+                    arr43Int = valor43.map(x => Number.parseInt(x, 10));
                     respuesta43=0;
                     arr43Int.forEach (function(numero){
                       respuesta43 += numero;
@@ -2056,9 +2055,9 @@ pdfExportComponent ;
                     array44.map(rows=>{
                       if(rows[0]){
                         valor44.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr44Int = valor44.map(x => Number.parseInt(x, 10)); 
+                    arr44Int = valor44.map(x => Number.parseInt(x, 10));
                     respuesta44=0;
                     arr44Int.forEach (function(numero){
                       respuesta44 += numero;
@@ -2076,9 +2075,9 @@ pdfExportComponent ;
                     array45.map(rows=>{
                       if(rows[0]){
                         valor45.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr45Int = valor45.map(x => Number.parseInt(x, 10)); 
+                    arr45Int = valor45.map(x => Number.parseInt(x, 10));
                     respuesta45=0;
                     arr45Int.forEach (function(numero){
                       respuesta45 += numero;
@@ -2096,22 +2095,22 @@ pdfExportComponent ;
                     array46.map(rows=>{
                       if(rows[0]){
                         valor46.push(rows[0].ponderacion)
-                      } 
+                      }
                     })
-                    arr46Int = valor46.map(x => Number.parseInt(x, 10)); 
+                    arr46Int = valor46.map(x => Number.parseInt(x, 10));
                     respuesta46=0;
                     arr46Int.forEach (function(numero){
                       respuesta46 += numero;
                     });
                     })
-                    
+                   
                     total =(respuesta1+respuesta2+respuesta3+respuesta4+respuesta5+respuesta6+respuesta7+respuesta8+respuesta9+respuesta10+respuesta11+respuesta12+respuesta13+respuesta14+respuesta15+respuesta16+respuesta17+respuesta18+respuesta19+respuesta20
                       +respuesta21+respuesta22+respuesta23+respuesta24+respuesta25+respuesta26+respuesta27+respuesta28+respuesta29+respuesta30+respuesta31+respuesta32+respuesta33+respuesta34+respuesta35+respuesta36+respuesta37+respuesta38+respuesta39+respuesta40
                       +respuesta41+respuesta42+respuesta43+respuesta44+respuesta45+respuesta46).toFixed(2)
                       let length =this.state.resultadosInicio.length;
                       let textoCategoriaUno;
                        categoria1Grafica = ((respuesta2+respuesta1+respuesta3)/length).toFixed(2);
-      
+     
                       if(categoria1Grafica < 3){
                         colorCategoria1Grafica  = "#9BE0F7"
                         textoCategoriaUno = "Nulo"
@@ -2127,7 +2126,7 @@ pdfExportComponent ;
                       }else if(categoria1Grafica >= 9){
                         colorCategoria1Grafica =  "#FF0000"
                         textoCategoriaUno = "Muy alto"
-      
+     
                       }
                       let textoCategoriaDos;
                       categoria2Grafica = ((respuesta4+respuesta9+respuesta5+respuesta6+respuesta7+respuesta8+respuesta41+respuesta42+respuesta43+respuesta10+respuesta11+respuesta12+respuesta13+respuesta20+respuesta21+respuesta22+respuesta18+respuesta19+respuesta26+respuesta27)/length).toFixed(2);
@@ -2147,7 +2146,7 @@ pdfExportComponent ;
                         colorCategoria2Grafica = "#FF0000"
                         textoCategoriaDos = "Muy alto "
                       }
-          
+         
                       let textoCategoriaTre;
                       categoria3Grafica =( (respuesta14+respuesta15+respuesta16+respuesta17)/length).toFixed(2);
                       if(categoria3Grafica < 4){
@@ -2201,7 +2200,7 @@ pdfExportComponent ;
                                 color: colorCategoria1Grafica,
                                 labelFontSize:12,
                                 toolText: textoCategoriaUno
-      
+     
                                 // link:"www.google.com"
                               },
                               {
@@ -2228,7 +2227,7 @@ pdfExportComponent ;
                                 toolText: textoCategoriaCuatro
                                 // link:"www.google.com"
                               },
-                              
+                             
                             ]
                           };    
 
@@ -2251,7 +2250,7 @@ pdfExportComponent ;
       let descarga = this.state.descarga
       let datosLength = this.state.datosLength
       PDFRespuestasMasivos = <ReportRPM datosLength={datosLength} filtro1={filtro1} filtro2={filtro2} filtro3={filtro3}
-      filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8} descarga = {descarga} 
+      filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8} descarga = {descarga}
       reporteImasivo = {this.state.reporteImasivo} fechaCompleta={fechaCompleta}/>
     }    
     let PDFResultadosMasivos;
@@ -2267,7 +2266,7 @@ pdfExportComponent ;
       let descarga = this.state.descarga2
       let datosLength = this.state.datosLength
       PDFResultadosMasivos = <ReportRPMR resultadosEvaluacionMasivo={this.state.resultadosEvaluacionMasivo} datosLength={datosLength} filtro1={filtro1} filtro2={filtro2} filtro3={filtro3}
-      filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8} descarga = {descarga} 
+      filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8} descarga = {descarga}
       fechaCompleta={fechaCompleta}/>
     }
 
@@ -2283,9 +2282,9 @@ pdfExportComponent ;
      let filtro8 = this.state.filtro8
      reporteEjecutivo = <ReportRPGE parametro={this.state.parametro} peticion1 = {this.state.peticion1}  
      filtro1={filtro1} filtro2={filtro2} filtro3={filtro3}
-     filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8}/> 
+     filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8}/>
     }
-          let tablaPeriodoActual;   
+          let tablaPeriodoActual;  
           if(this.state.tablaPeriodoActual === true){
             let periodo;
             periodo = localStorage.getItem("periodo")
@@ -2331,7 +2330,7 @@ pdfExportComponent ;
         <Button type="primary"  onClick={e=>this.showModal2()} disabled={this.state.disabledButtons}>Respuestas masivas&nbsp;&nbsp;<i class="fas fa-hdd"></i></Button>&nbsp;&nbsp;&nbsp;
         <Button style={{backgroundColor:"bisque"}} onClick={e=>this.showModal()} disabled={this.state.disabledButtons}>Resultados masivos&nbsp;&nbsp;<i class="fas fa-chart-line"></i></Button>
         &nbsp;&nbsp;<Button shape="circle" size="middle" type="danger" onClick={e=>this.cerrarTablaPeriodos()}><MDBIcon icon="times" /></Button>
-      </div>}>   
+      </div>}>  
       <MUIDataTable
       title={tituloTablaPeriodoSeleccionado}
       data={data}
@@ -2407,7 +2406,7 @@ pdfExportComponent ;
            if(rows.Descripcion){
              return(
                <Panel  header={rows.Descripcion} key={i}>
-                 <div className="panel">   
+                 <div className="panel">  
                    <h6 style={{marginTop:"2%"}}><strong><font color="rgba(4, 180, 174,0.5)">{rows.Descripcion}</font></strong></h6> &nbsp;&nbsp;&nbsp; <Button shape="circle" size="large" style={{backgroundColor:"azure"}} onClick={e=>this.cargarTablaPeriodoSeleccionado(rows.Descripcion)}><MDBIcon icon="table" /></Button>
                  </div>
                </Panel>
@@ -2431,7 +2430,7 @@ pdfExportComponent ;
               dataSource={dataSource}/>
           </div>
           {spinner}  
-          </TabPane> 
+          </TabPane>
           <TabPane tab="Generar reportes periodo vigente" key="2">
           {leyendaDemo}
           {tablaPeriodoActual}
@@ -2461,11 +2460,11 @@ pdfExportComponent ;
           {tablaPeriodoSeleccionado}
           </TabPane>
         </Tabs>  
-      </div> 
       </div>
-      </React.Fragment> 
+      </div>
+      </React.Fragment>
     )
   }
 }
 
-export default App;
+export default App 

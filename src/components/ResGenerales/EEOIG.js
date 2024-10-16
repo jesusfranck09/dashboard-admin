@@ -92,7 +92,7 @@ export default class App extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0)
   }
-  
+ 
   handleLogOut(){
   localStorage.removeItem("elToken")
   localStorage.removeItem("nombre")
@@ -104,7 +104,7 @@ export default class App extends React.Component {
   localStorage.removeItem("max")
   this.props.history.push("/")
   DialogUtility.alert({
-    animationSettings: { effect: 'Fade' },           
+    animationSettings: { effect: 'Fade' },          
     title: 'Hasta luego...!',
     position: "fixed",})}
 
@@ -112,7 +112,7 @@ export default class App extends React.Component {
     let periodo =  localStorage.getItem("periodo")
     this.setState({spinner:true})
     let totalEmpleados=[];
-    var idAdmin  =localStorage.getItem("idAdmin")   
+    var idAdmin  =localStorage.getItem("idAdmin")  
     let evaluacionesRealizadasPeriodoActual;
     let evaluacionEEO;
     let result;    
@@ -130,7 +130,7 @@ export default class App extends React.Component {
           `
       }
     })
-    .then(datos => {	
+    .then(datos => {
       this.setState({todosLosPeriodos:datos.data.data.getallPeriodo})
     }).catch(err=>{
     })
@@ -157,13 +157,13 @@ export default class App extends React.Component {
         `
       }
     })
-    .then(datos => {	
+    .then(datos => {
       evaluacionesRealizadasPeriodoActual =   datos.data.data.getEmployeesPerido;
       evaluacionesRealizadasPeriodoActual.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
       evaluacionEEO= evaluacionesRealizadasPeriodoActual.filter(function(hero){
         return hero.encuesta === "EEO"
       })
-      this.setState({evaluacionesTodosLosPeriodos:evaluacionEEO}) 
+      this.setState({evaluacionesTodosLosPeriodos:evaluacionEEO})
       evaluacionEEO.map(rows=>{
         axios({
         url:  API,
@@ -172,39 +172,39 @@ export default class App extends React.Component {
         query:`
           query{
             getresultGlobalSurveyEEO(data:"${[rows.id,rows.periodo]}"){
-              id 
-              Respuestas 
+              id
+              Respuestas
               fk_preguntasEEO
-              fk_empleados 
+              fk_empleados
               ponderacion
-              nombre 
-              ApellidoP 
-              ApellidoM 
-              Curp 
-              RFC 
-              FechaNacimiento 
+              nombre
+              ApellidoP
+              ApellidoM
+              Curp
+              RFC
+              FechaNacimiento
               Sexo  
-              EstadoCivil 
-              correo 
-              AreaTrabajo 
-              Puesto 
-              TipoPuesto 
-              NivelEstudios 
-              TipoPersonal 
-              JornadaTrabajo 
-              TipoContratacion 
-              TiempoPuesto 
-              ExperienciaLaboral 
-              RotacionTurnos 
-              fk_administrador 
-              fk_correos 
+              EstadoCivil
+              correo
+              AreaTrabajo
+              Puesto
+              TipoPuesto
+              NivelEstudios
+              TipoPersonal
+              JornadaTrabajo
+              TipoContratacion
+              TiempoPuesto
+              ExperienciaLaboral
+              RotacionTurnos
+              fk_administrador
+              fk_correos
               Periodo
                 }
               }
             `
         }
-        }).then(datos => {   
-          totalEmpleados.push(datos.data.data.getresultGlobalSurveyEEO) 
+        }).then(datos => {  
+          totalEmpleados.push(datos.data.data.getresultGlobalSurveyEEO)
           this.setState({resultadosInicio:totalEmpleados})
           this.setState({evaluacionMasivoResultados : totalEmpleados})  
           if(this.state.evaluacionMasivoResultados.length === this.state.empleados.length){
@@ -212,12 +212,12 @@ export default class App extends React.Component {
           }    
         })
         .catch(err => {
-        }); 
+        });
       })
       result = evaluacionEEO.filter(function(hero){
-        return hero.periodo === periodo 
+        return hero.periodo === periodo
       })
-      this.setState({empleados:result}) 
+      this.setState({empleados:result})
       })
       axios({
         url:  API,
@@ -236,18 +236,18 @@ export default class App extends React.Component {
               }
             `
         }
-        }).then(datos => { 
+        }).then(datos => {
           this.setState({getPonderacion: datos.data.data.getPonderacionEEO})
         })
         .catch(err => {
           console.log("el error es  ",err.response)
-        }); 
+        });
          this.setState({spinner:false})
       }
       async cargarTablaPeriodoSeleccionado (parametro){
       this.setState({collapse:false})
       let periodo = parametro
-      let empleados  = this.state.evaluacionesTodosLosPeriodos; 
+      let empleados  = this.state.evaluacionesTodosLosPeriodos;
       let arrayFilter = empleados.filter(e => e.periodo === periodo)
       await  this.setState({empleados:[]})
       this.setState({tablaPeriodoSeleccionado:true})
@@ -283,7 +283,7 @@ export default class App extends React.Component {
               return hero.fk_empleados === element
             })
               arrayFilter.push(filter)
-            }); 
+            });
       })      
       arrayFilter.map(row=>{
         filterArray = row.filter(function(hero){
@@ -296,7 +296,7 @@ export default class App extends React.Component {
          }
       let tag = []
       let filtrado2 = filtrado.filter(item => !array_equals(item, tag))
-      await this.setState({peticion1:filtrado2}) 
+      await this.setState({peticion1:filtrado2})
       let filtros = this.state.filtroTabla
       if(filtros){
         if(filtros[0]){
@@ -347,7 +347,7 @@ export default class App extends React.Component {
         }
       }else{
         this.setState({filtro6:"SIN FILTRO"})
-      } 
+      }
       this.setState({datosLength:datos.length})
       if(parametro === 1){
         this.setState({tablaPeriodoActual:false})
@@ -391,7 +391,7 @@ export default class App extends React.Component {
        }
       let tag = []
       var filtrado2 = filtrado.filter(item => !array_equals(item, tag))
-      this.setState({reporteImasivo:filtrado2}) 
+      this.setState({reporteImasivo:filtrado2})
       this.setState({spinner:false});    
       let filtros = this.state.filtroTabla
 
@@ -444,7 +444,7 @@ export default class App extends React.Component {
         }
       }else{
         this.setState({filtro6:"SIN FILTRO"})
-      } 
+      }
     await this.setState({descarga:true});
     this.setState({descarga:false})  
     this.setState({datosLength:datos.length})
@@ -535,7 +535,7 @@ export default class App extends React.Component {
         }
       }else{
         this.setState({filtro6:"SIN FILTRO"})
-      } 
+      }
       await this.setState({descarga2:true});
       this.setState({descarga2:false})  
       this.setState({datosLength:datos.length})
@@ -548,37 +548,37 @@ export default class App extends React.Component {
         query:`
           query{
           resultSingleSurveyEEO(data:"${[id,periodo]}"){
-            id 
-            Respuestas 
+            id
+            Respuestas
             fk_preguntasEEO
             fk_empleados
             ponderacion
-            nombre 
-            ApellidoP 
-            ApellidoM 
-            Curp 
-            RFC 
-            FechaNacimiento 
+            nombre
+            ApellidoP
+            ApellidoM
+            Curp
+            RFC
+            FechaNacimiento
             Sexo  
-            EstadoCivil 
-            correo 
-            AreaTrabajo 
-            Puesto 
-            TipoPuesto 
-            NivelEstudios 
-            TipoPersonal 
-            JornadaTrabajo 
-            TipoContratacion 
-            TiempoPuesto 
-            ExperienciaLaboral 
-            RotacionTurnos 
-            fk_administrador 
-            fk_correos 
+            EstadoCivil
+            correo
+            AreaTrabajo
+            Puesto
+            TipoPuesto
+            NivelEstudios
+            TipoPersonal
+            JornadaTrabajo
+            TipoContratacion
+            TiempoPuesto
+            ExperienciaLaboral
+            RotacionTurnos
+            fk_administrador
+            fk_correos
                 }
               }
             `
         }
-        }).then(datos => {               
+        }).then(datos => {              
         if(parametro===1){
           this.setState({botonDisabled:''})
           this.setState({reporteIndividual:true})
@@ -599,7 +599,7 @@ export default class App extends React.Component {
           this.setState({reporteResultadosGlaobales:false})
           this.setState({reporteEjecutivo:false})
           this.setState({tablaPeriodoSeleccionado:false})
-          this.setState({resultados:datos.data.data.resultSingleSurveyEEO}) 
+          this.setState({resultados:datos.data.data.resultSingleSurveyEEO})
         }
         })
         .catch(err => {
@@ -632,7 +632,7 @@ export default class App extends React.Component {
                 return hero.fk_empleados === element
               })
                 arrayFilter.push(filter)
-            }); 
+            });
         })
         arrayFilter.map(fila=>{
           filterArray = fila.filter(function(hero){
@@ -697,7 +697,7 @@ export default class App extends React.Component {
           }
         }else{
           this.setState({filtro6:"SIN FILTRO"})
-        } 
+        }
       this.setState({datosLength:datos.length})
       await this.setState({parametro:2})
       // this.setState({parametro:''})
@@ -843,13 +843,13 @@ export default class App extends React.Component {
     }
 
       let reporteIndividual;
-      let ponderacionIndividual; 
-      if(this.state.resultados[2]){ 
+      let ponderacionIndividual;
+      if(this.state.resultados[2]){
         let value1,value2,value3,value4,value5,value6,value7,value8,value9,value10,value11,value12,value13,value14,value15,value16,value17,value18,value19,value20,value21,value22,value23,value24;
         let value25,value26,value27,value28,value29,value30,value31,value32,value33,value34,value35,value36,value37,value38,value39,value40,value41,value42,value43,value44,value45,value46;
         let value47,value48,value49,value50,value51,value52,value53,value54,value55,value56,value57,value58,value59,value60,value61,value62,value63,value64,value65,value66,value67,value68;
         let value69,value70,value71,value72;
-  
+ 
         let filtrar1,filtrar2,filtrar3,filtrar4,filtrar5,filtrar6,filtrar7,filtrar8,filtrar9,filtrar10,
             filtrar11,filtrar12,filtrar13,filtrar14,filtrar15,filtrar16,filtrar17,filtrar18,filtrar19,filtrar20,
             filtrar21,filtrar22,filtrar23,filtrar24,filtrar25,filtrar26,filtrar27,filtrar28,filtrar29,filtrar30,
@@ -963,7 +963,7 @@ export default class App extends React.Component {
         value26 = filtrar26.pop()
         filtrar27 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasEEO === "27";
-        }); 
+        });
         value27 = filtrar27.pop()
         filtrar28 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasEEO === "28";
@@ -971,7 +971,7 @@ export default class App extends React.Component {
         value28 = filtrar28.pop()
         filtrar29 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasEEO === "29";
-        }); 
+        });
         value29 = filtrar29.pop()
         filtrar30 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasEEO === "30";
@@ -1015,11 +1015,11 @@ export default class App extends React.Component {
         value39 = filtrar39.pop()
         filtrar40 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasEEO === "40";
-        }); 
+        });
         value40 = filtrar40.pop()
         filtrar41 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasEEO === "41";
-        });   
+        });  
         value41 = filtrar41.pop()
         filtrar42 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasEEO === "42";
@@ -1027,7 +1027,7 @@ export default class App extends React.Component {
         value42 = filtrar42.pop()
         filtrar43 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasEEO === "43";
-        }); 
+        });
         value43 = filtrar43.pop()
         filtrar44 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasEEO === "44";
@@ -1083,7 +1083,7 @@ export default class App extends React.Component {
         value56 = filtrar56.pop()
         filtrar57 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasEEO === "57";
-        }); 
+        });
         value57 = filtrar57.pop()
         filtrar58 =  this.state.resultados.filter(function(hero) {
           return hero.fk_preguntasEEO === "58";
@@ -1162,7 +1162,7 @@ export default class App extends React.Component {
         if(this.state.reporteResultadosIndividual === true){
            ponderacionIndividual = <ReportEEORI fechaCompleta={fechaCompleta} data = {array}/>
         }
-      } 
+      }
       let PDFRespuestasMasivos;
       if(this.state.reporteImasivo[0]){
         let filtro1 = this.state.filtro1
@@ -1176,7 +1176,7 @@ export default class App extends React.Component {
         let descarga = this.state.descarga
         let datosLength = this.state.datosLength
         PDFRespuestasMasivos = <ReportEEOM datosLength={datosLength} filtro1={filtro1} filtro2={filtro2} filtro3={filtro3}
-        filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8} descarga = {descarga} 
+        filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8} descarga = {descarga}
         reporteImasivo = {this.state.reporteImasivo} fechaCompleta={fechaCompleta}/>
       }
       let PDFResultadosMasivos;
@@ -1192,7 +1192,7 @@ export default class App extends React.Component {
         let descarga = this.state.descarga2
         let datosLength = this.state.datosLength
         PDFResultadosMasivos = <ReportEEOMR resultadosEvaluacionMasivo={this.state.resultadosEvaluacionMasivo} datosLength={datosLength} filtro1={filtro1} filtro2={filtro2} filtro3={filtro3}
-        filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8} descarga = {descarga} 
+        filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8} descarga = {descarga}
         fechaCompleta={fechaCompleta}/>
       }
       let ponderacion;
@@ -1208,7 +1208,7 @@ export default class App extends React.Component {
         let datosLength  = this.state.datosLength
       ponderacion = <ReportEEOGE  datosLength={datosLength}fechaCompleta = {fechaCompleta} filtro1={filtro1} filtro2={filtro2} filtro3={filtro3}
       filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8} peticion1 = {this.state.peticion1} parametro = {this.state.parametro}/>
-   } 
+   }
    let reporteEjecutivo;
    if(this.state.peticion1[0] && this.state.reporteEjecutivo === true && this.state.parametroRenderizado === 2){
     let filtro1 = this.state.filtro1
@@ -1221,7 +1221,7 @@ export default class App extends React.Component {
     let filtro8 = this.state.filtro8
     reporteEjecutivo = <ReportEEOGE parametro={this.state.parametro} peticion1 = {this.state.peticion1}  
     filtro1={filtro1} filtro2={filtro2} filtro3={filtro3}
-    filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8}/> 
+    filtro4={filtro4} filtro5={filtro5} filtro6={filtro6} filtro7={filtro7} filtro8={filtro8}/>
    }
     if(this.state.resultadosInicio[0]){
       let total;
@@ -1246,14 +1246,14 @@ export default class App extends React.Component {
         array1.map(rows=>{
           if(rows[0]){
             valor1.push(rows[0].ponderacion)
-          } 
+          }
         })
-        arr1Int = valor1.map(x => Number.parseInt(x, 10)); 
+        arr1Int = valor1.map(x => Number.parseInt(x, 10));
         respuesta1=0;
         arr1Int.forEach (function(numero){
           respuesta1 += numero;
         });
-        }) 
+        })
 
         var filtrar2 ;
         var arr2Int;
@@ -1268,14 +1268,14 @@ export default class App extends React.Component {
         array2.map(rows=>{
           if(rows[0]){
             valor2.push(rows[0].ponderacion)
-          } 
+          }
         })
-        arr2Int = valor2.map(x => Number.parseInt(x, 10)); 
+        arr2Int = valor2.map(x => Number.parseInt(x, 10));
         respuesta2=0;
         arr2Int.forEach (function(numero){
           respuesta2 += numero;
         });
-        }) 
+        })
           var filtrar3 ;
           var arr3Int;
           var respuesta3;
@@ -1284,19 +1284,19 @@ export default class App extends React.Component {
             return hero.fk_preguntasEEO == 3;
           });
           array3.push(filtrar3)
-  
+ 
           let valor3=[];    
           array3.map(rows=>{
             if(rows[0]){
               valor3.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr3Int = valor3.map(x => Number.parseInt(x, 10)); 
+          arr3Int = valor3.map(x => Number.parseInt(x, 10));
           respuesta3=0;
           arr3Int.forEach (function(numero){
             respuesta3 += numero;
           });
-          }) 
+          })
           var filtrar4 ;
           var arr4Int;
           var respuesta4;
@@ -1305,19 +1305,19 @@ export default class App extends React.Component {
             return hero.fk_preguntasEEO == 4;
           });
           array4.push(filtrar4)
-  
+ 
           let valor4=[];    
           array4.map(rows=>{
             if(rows[0]){
               valor4.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr4Int = valor4.map(x => Number.parseInt(x, 10)); 
+          arr4Int = valor4.map(x => Number.parseInt(x, 10));
           respuesta4=0;
           arr4Int.forEach (function(numero){
             respuesta4 += numero;
           });
-          }) 
+          })
           var filtrar5 ;
           var arr5Int;
           var respuesta5;
@@ -1330,14 +1330,14 @@ export default class App extends React.Component {
           array5.map(rows=>{
             if(rows[0]){
               valor5.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr5Int = valor5.map(x => Number.parseInt(x, 10)); 
+          arr5Int = valor5.map(x => Number.parseInt(x, 10));
           respuesta5=0;
           arr5Int.forEach (function(numero){
             respuesta5 += numero;
           });
-          }) 
+          })
           var filtrar6 ;
           var arr6Int;
           var respuesta6;
@@ -1350,14 +1350,14 @@ export default class App extends React.Component {
           array6.map(rows=>{
             if(rows[0]){
               valor6.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr6Int = valor6.map(x => Number.parseInt(x, 10)); 
+          arr6Int = valor6.map(x => Number.parseInt(x, 10));
           respuesta6=0;
           arr6Int.forEach (function(numero){
             respuesta6 += numero;
           });
-          }) 
+          })
           var filtrar7 ;
           var arr7Int;
           var respuesta7;
@@ -1370,9 +1370,9 @@ export default class App extends React.Component {
           array7.map(rows=>{
             if(rows[0]){
               valor7.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr7Int = valor7.map(x => Number.parseInt(x, 10)); 
+          arr7Int = valor7.map(x => Number.parseInt(x, 10));
           respuesta7=0;
           arr7Int.forEach (function(numero){
             respuesta7 += numero;
@@ -1390,9 +1390,9 @@ export default class App extends React.Component {
           array8.map(rows=>{
             if(rows[0]){
               valor8.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr8Int = valor8.map(x => Number.parseInt(x, 10)); 
+          arr8Int = valor8.map(x => Number.parseInt(x, 10));
           respuesta8=0;
           arr8Int.forEach (function(numero){
             respuesta8 += numero;
@@ -1410,9 +1410,9 @@ export default class App extends React.Component {
           array9.map(rows=>{
             if(rows[0]){
               valor9.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr9Int = valor9.map(x => Number.parseInt(x, 10)); 
+          arr9Int = valor9.map(x => Number.parseInt(x, 10));
           respuesta9=0;
           arr9Int.forEach (function(numero){
             respuesta9 += numero;
@@ -1430,9 +1430,9 @@ export default class App extends React.Component {
           array10.map(rows=>{
             if(rows[0]){
               valor10.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr10Int = valor10.map(x => Number.parseInt(x, 10)); 
+          arr10Int = valor10.map(x => Number.parseInt(x, 10));
           respuesta10=0;
           arr10Int.forEach (function(numero){
             respuesta10 += numero;
@@ -1450,9 +1450,9 @@ export default class App extends React.Component {
           array11.map(rows=>{
             if(rows[0]){
               valor11.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr11Int = valor11.map(x => Number.parseInt(x, 10)); 
+          arr11Int = valor11.map(x => Number.parseInt(x, 10));
           respuesta11=0;
           arr11Int.forEach (function(numero){
             respuesta11 += numero;
@@ -1471,9 +1471,9 @@ export default class App extends React.Component {
           array12.map(rows=>{
             if(rows[0]){
               valor12.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr12Int = valor12.map(x => Number.parseInt(x, 10)); 
+          arr12Int = valor12.map(x => Number.parseInt(x, 10));
           respuesta12=0;
           arr12Int.forEach (function(numero){
             respuesta12 += numero;
@@ -1491,9 +1491,9 @@ export default class App extends React.Component {
           array13.map(rows=>{
             if(rows[0]){
               valor13.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr13Int = valor13.map(x => Number.parseInt(x, 10)); 
+          arr13Int = valor13.map(x => Number.parseInt(x, 10));
           respuesta13=0;
           arr13Int.forEach (function(numero){
             respuesta13 += numero;
@@ -1511,9 +1511,9 @@ export default class App extends React.Component {
           array14.map(rows=>{
             if(rows[0]){
               valor14.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr14Int = valor14.map(x => Number.parseInt(x, 10)); 
+          arr14Int = valor14.map(x => Number.parseInt(x, 10));
           respuesta14=0;
           arr14Int.forEach (function(numero){
             respuesta14 += numero;
@@ -1531,9 +1531,9 @@ export default class App extends React.Component {
           array15.map(rows=>{
             if(rows[0]){
               valor15.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr15Int = valor15.map(x => Number.parseInt(x, 10)); 
+          arr15Int = valor15.map(x => Number.parseInt(x, 10));
           respuesta15=0;
           arr15Int.forEach (function(numero){
             respuesta15 += numero;
@@ -1551,9 +1551,9 @@ export default class App extends React.Component {
           array16.map(rows=>{
             if(rows[0]){
               valor16.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr16Int = valor16.map(x => Number.parseInt(x, 10)); 
+          arr16Int = valor16.map(x => Number.parseInt(x, 10));
           respuesta16=0;
           arr16Int.forEach (function(numero){
             respuesta16 += numero;
@@ -1571,9 +1571,9 @@ export default class App extends React.Component {
           array17.map(rows=>{
             if(rows[0]){
               valor17.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr17Int = valor17.map(x => Number.parseInt(x, 10)); 
+          arr17Int = valor17.map(x => Number.parseInt(x, 10));
           respuesta17=0;
           arr17Int.forEach (function(numero){
             respuesta17 += numero;
@@ -1591,9 +1591,9 @@ export default class App extends React.Component {
           array18.map(rows=>{
             if(rows[0]){
               valor18.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr18Int = valor18.map(x => Number.parseInt(x, 10)); 
+          arr18Int = valor18.map(x => Number.parseInt(x, 10));
           respuesta18=0;
           arr18Int.forEach (function(numero){
             respuesta18 += numero;
@@ -1611,9 +1611,9 @@ export default class App extends React.Component {
           array19.map(rows=>{
             if(rows[0]){
               valor19.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr19Int = valor19.map(x => Number.parseInt(x, 10)); 
+          arr19Int = valor19.map(x => Number.parseInt(x, 10));
           respuesta19=0;
           arr19Int.forEach (function(numero){
             respuesta19 += numero;
@@ -1631,9 +1631,9 @@ export default class App extends React.Component {
           array20.map(rows=>{
             if(rows[0]){
               valor20.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr20Int = valor20.map(x => Number.parseInt(x, 10)); 
+          arr20Int = valor20.map(x => Number.parseInt(x, 10));
           respuesta20=0;
           arr20Int.forEach (function(numero){
             respuesta20 += numero;
@@ -1651,9 +1651,9 @@ export default class App extends React.Component {
           array21.map(rows=>{
             if(rows[0]){
               valor21.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr21Int = valor21.map(x => Number.parseInt(x, 10)); 
+          arr21Int = valor21.map(x => Number.parseInt(x, 10));
           respuesta21=0;
           arr21Int.forEach (function(numero){
             respuesta21 += numero;
@@ -1671,9 +1671,9 @@ export default class App extends React.Component {
           array22.map(rows=>{
             if(rows[0]){
               valor22.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr22Int = valor22.map(x => Number.parseInt(x, 10)); 
+          arr22Int = valor22.map(x => Number.parseInt(x, 10));
           respuesta22=0;
           arr22Int.forEach (function(numero){
             respuesta22 += numero;
@@ -1691,9 +1691,9 @@ export default class App extends React.Component {
           array23.map(rows=>{
             if(rows[0]){
               valor23.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr23Int = valor23.map(x => Number.parseInt(x, 10)); 
+          arr23Int = valor23.map(x => Number.parseInt(x, 10));
           respuesta23=0;
           arr23Int.forEach (function(numero){
             respuesta23 += numero;
@@ -1711,9 +1711,9 @@ export default class App extends React.Component {
           array24.map(rows=>{
             if(rows[0]){
               valor24.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr24Int = valor24.map(x => Number.parseInt(x, 10)); 
+          arr24Int = valor24.map(x => Number.parseInt(x, 10));
           respuesta24=0;
           arr24Int.forEach (function(numero){
             respuesta24 += numero;
@@ -1731,9 +1731,9 @@ export default class App extends React.Component {
           array25.map(rows=>{
             if(rows[0]){
               valor25.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr25Int = valor25.map(x => Number.parseInt(x, 10)); 
+          arr25Int = valor25.map(x => Number.parseInt(x, 10));
           respuesta25=0;
           arr25Int.forEach (function(numero){
             respuesta25 += numero;
@@ -1751,9 +1751,9 @@ export default class App extends React.Component {
           array26.map(rows=>{
             if(rows[0]){
               valor26.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr26Int = valor26.map(x => Number.parseInt(x, 10)); 
+          arr26Int = valor26.map(x => Number.parseInt(x, 10));
           respuesta26=0;
           arr26Int.forEach (function(numero){
             respuesta26 += numero;
@@ -1771,9 +1771,9 @@ export default class App extends React.Component {
           array27.map(rows=>{
             if(rows[0]){
               valor27.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr27Int = valor27.map(x => Number.parseInt(x, 10)); 
+          arr27Int = valor27.map(x => Number.parseInt(x, 10));
           respuesta27=0;
           arr27Int.forEach (function(numero){
             respuesta27 += numero;
@@ -1791,9 +1791,9 @@ export default class App extends React.Component {
           array28.map(rows=>{
             if(rows[0]){
               valor28.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr28Int = valor28.map(x => Number.parseInt(x, 10)); 
+          arr28Int = valor28.map(x => Number.parseInt(x, 10));
           respuesta28=0;
           arr28Int.forEach (function(numero){
             respuesta28 += numero;
@@ -1811,9 +1811,9 @@ export default class App extends React.Component {
           array29.map(rows=>{
             if(rows[0]){
               valor29.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr29Int = valor29.map(x => Number.parseInt(x, 10)); 
+          arr29Int = valor29.map(x => Number.parseInt(x, 10));
           respuesta29=0;
           arr29Int.forEach (function(numero){
             respuesta29 += numero;
@@ -1831,9 +1831,9 @@ export default class App extends React.Component {
           array30.map(rows=>{
             if(rows[0]){
               valor30.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr30Int = valor30.map(x => Number.parseInt(x, 10)); 
+          arr30Int = valor30.map(x => Number.parseInt(x, 10));
           respuesta30=0;
           arr30Int.forEach (function(numero){
             respuesta30 += numero;
@@ -1851,9 +1851,9 @@ export default class App extends React.Component {
           array31.map(rows=>{
             if(rows[0]){
               valor31.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr31Int = valor31.map(x => Number.parseInt(x, 10)); 
+          arr31Int = valor31.map(x => Number.parseInt(x, 10));
           respuesta31=0;
           arr31Int.forEach (function(numero){
             respuesta31 += numero;
@@ -1871,9 +1871,9 @@ export default class App extends React.Component {
           array32.map(rows=>{
             if(rows[0]){
               valor32.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr32Int = valor32.map(x => Number.parseInt(x, 10)); 
+          arr32Int = valor32.map(x => Number.parseInt(x, 10));
           respuesta32=0;
           arr32Int.forEach (function(numero){
             respuesta32 += numero;
@@ -1891,9 +1891,9 @@ export default class App extends React.Component {
           array33.map(rows=>{
             if(rows[0]){
               valor33.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr33Int = valor33.map(x => Number.parseInt(x, 10)); 
+          arr33Int = valor33.map(x => Number.parseInt(x, 10));
           respuesta33=0;
           arr33Int.forEach (function(numero){
             respuesta33 += numero;
@@ -1911,9 +1911,9 @@ export default class App extends React.Component {
           array34.map(rows=>{
             if(rows[0]){
               valor34.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr34Int = valor34.map(x => Number.parseInt(x, 10)); 
+          arr34Int = valor34.map(x => Number.parseInt(x, 10));
           respuesta34=0;
           arr34Int.forEach (function(numero){
             respuesta34 += numero;
@@ -1931,9 +1931,9 @@ export default class App extends React.Component {
           array35.map(rows=>{
             if(rows[0]){
               valor35.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr35Int = valor35.map(x => Number.parseInt(x, 10)); 
+          arr35Int = valor35.map(x => Number.parseInt(x, 10));
           respuesta35=0;
           arr35Int.forEach (function(numero){
             respuesta35 += numero;
@@ -1951,9 +1951,9 @@ export default class App extends React.Component {
           array36.map(rows=>{
             if(rows[0]){
               valor36.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr36Int = valor36.map(x => Number.parseInt(x, 10)); 
+          arr36Int = valor36.map(x => Number.parseInt(x, 10));
           respuesta36=0;
           arr36Int.forEach (function(numero){
             respuesta36 += numero;
@@ -1971,9 +1971,9 @@ export default class App extends React.Component {
           array37.map(rows=>{
             if(rows[0]){
               valor37.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr37Int = valor37.map(x => Number.parseInt(x, 10)); 
+          arr37Int = valor37.map(x => Number.parseInt(x, 10));
           respuesta37=0;
           arr37Int.forEach (function(numero){
             respuesta37 += numero;
@@ -1991,9 +1991,9 @@ export default class App extends React.Component {
           array38.map(rows=>{
             if(rows[0]){
               valor38.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr38Int = valor38.map(x => Number.parseInt(x, 10)); 
+          arr38Int = valor38.map(x => Number.parseInt(x, 10));
           respuesta38=0;
           arr38Int.forEach (function(numero){
             respuesta38 += numero;
@@ -2011,9 +2011,9 @@ export default class App extends React.Component {
           array39.map(rows=>{
             if(rows[0]){
               valor39.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr39Int = valor39.map(x => Number.parseInt(x, 10)); 
+          arr39Int = valor39.map(x => Number.parseInt(x, 10));
           respuesta39=0;
           arr39Int.forEach (function(numero){
             respuesta39 += numero;
@@ -2031,9 +2031,9 @@ export default class App extends React.Component {
           array40.map(rows=>{
             if(rows[0]){
               valor40.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr40Int = valor40.map(x => Number.parseInt(x, 10)); 
+          arr40Int = valor40.map(x => Number.parseInt(x, 10));
           respuesta40=0;
           arr40Int.forEach (function(numero){
             respuesta40 += numero;
@@ -2051,9 +2051,9 @@ export default class App extends React.Component {
           array41.map(rows=>{
             if(rows[0]){
               valor41.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr41Int = valor41.map(x => Number.parseInt(x, 10)); 
+          arr41Int = valor41.map(x => Number.parseInt(x, 10));
           respuesta41=0;
           arr41Int.forEach (function(numero){
             respuesta41 += numero;
@@ -2071,9 +2071,9 @@ export default class App extends React.Component {
           array42.map(rows=>{
             if(rows[0]){
               valor42.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr42Int = valor42.map(x => Number.parseInt(x, 10)); 
+          arr42Int = valor42.map(x => Number.parseInt(x, 10));
           respuesta42=0;
           arr42Int.forEach (function(numero){
             respuesta42 += numero;
@@ -2091,9 +2091,9 @@ export default class App extends React.Component {
           array43.map(rows=>{
             if(rows[0]){
               valor43.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr43Int = valor43.map(x => Number.parseInt(x, 10)); 
+          arr43Int = valor43.map(x => Number.parseInt(x, 10));
           respuesta43=0;
           arr43Int.forEach (function(numero){
             respuesta43 += numero;
@@ -2111,9 +2111,9 @@ export default class App extends React.Component {
           array44.map(rows=>{
             if(rows[0]){
               valor44.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr44Int = valor44.map(x => Number.parseInt(x, 10)); 
+          arr44Int = valor44.map(x => Number.parseInt(x, 10));
           respuesta44=0;
           arr44Int.forEach (function(numero){
             respuesta44 += numero;
@@ -2131,9 +2131,9 @@ export default class App extends React.Component {
           array45.map(rows=>{
             if(rows[0]){
               valor45.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr45Int = valor45.map(x => Number.parseInt(x, 10)); 
+          arr45Int = valor45.map(x => Number.parseInt(x, 10));
           respuesta45=0;
           arr45Int.forEach (function(numero){
             respuesta45 += numero;
@@ -2151,9 +2151,9 @@ export default class App extends React.Component {
           array46.map(rows=>{
             if(rows[0]){
               valor46.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr46Int = valor46.map(x => Number.parseInt(x, 10)); 
+          arr46Int = valor46.map(x => Number.parseInt(x, 10));
           respuesta46=0;
           arr46Int.forEach (function(numero){
             respuesta46 += numero;
@@ -2171,9 +2171,9 @@ export default class App extends React.Component {
           array47.map(rows=>{
             if(rows[0]){
               valor47.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr47Int = valor47.map(x => Number.parseInt(x, 10)); 
+          arr47Int = valor47.map(x => Number.parseInt(x, 10));
           respuesta47=0;
           arr47Int.forEach (function(numero){
             respuesta47 += numero;
@@ -2191,9 +2191,9 @@ export default class App extends React.Component {
           array48.map(rows=>{
             if(rows[0]){
               valor48.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr48Int = valor48.map(x => Number.parseInt(x, 10)); 
+          arr48Int = valor48.map(x => Number.parseInt(x, 10));
           respuesta48=0;
           arr48Int.forEach (function(numero){
             respuesta48 += numero;
@@ -2211,9 +2211,9 @@ export default class App extends React.Component {
           array49.map(rows=>{
             if(rows[0]){
               valor49.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr49Int = valor49.map(x => Number.parseInt(x, 10)); 
+          arr49Int = valor49.map(x => Number.parseInt(x, 10));
           respuesta49=0;
           arr49Int.forEach (function(numero){
             respuesta49 += numero;
@@ -2231,9 +2231,9 @@ export default class App extends React.Component {
           array50.map(rows=>{
             if(rows[0]){
               valor50.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr50Int = valor50.map(x => Number.parseInt(x, 10)); 
+          arr50Int = valor50.map(x => Number.parseInt(x, 10));
           respuesta50=0;
           arr50Int.forEach (function(numero){
             respuesta50 += numero;
@@ -2251,9 +2251,9 @@ export default class App extends React.Component {
           array51.map(rows=>{
             if(rows[0]){
               valor51.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr51Int = valor51.map(x => Number.parseInt(x, 10)); 
+          arr51Int = valor51.map(x => Number.parseInt(x, 10));
           respuesta51=0;
           arr51Int.forEach (function(numero){
             respuesta51 += numero;
@@ -2271,9 +2271,9 @@ export default class App extends React.Component {
           array52.map(rows=>{
             if(rows[0]){
               valor52.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr52Int = valor52.map(x => Number.parseInt(x, 10)); 
+          arr52Int = valor52.map(x => Number.parseInt(x, 10));
           respuesta52=0;
           arr52Int.forEach (function(numero){
             respuesta52 += numero;
@@ -2291,9 +2291,9 @@ export default class App extends React.Component {
           array53.map(rows=>{
             if(rows[0]){
               valor53.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr53Int = valor53.map(x => Number.parseInt(x, 10)); 
+          arr53Int = valor53.map(x => Number.parseInt(x, 10));
           respuesta53=0;
           arr53Int.forEach (function(numero){
             respuesta53 += numero;
@@ -2311,9 +2311,9 @@ export default class App extends React.Component {
           array54.map(rows=>{
             if(rows[0]){
               valor54.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr54Int = valor54.map(x => Number.parseInt(x, 10)); 
+          arr54Int = valor54.map(x => Number.parseInt(x, 10));
           respuesta54=0;
           arr54Int.forEach (function(numero){
             respuesta54 += numero;
@@ -2331,9 +2331,9 @@ export default class App extends React.Component {
           array55.map(rows=>{
             if(rows[0]){
               valor55.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr55Int = valor55.map(x => Number.parseInt(x, 10)); 
+          arr55Int = valor55.map(x => Number.parseInt(x, 10));
           respuesta55=0;
           arr55Int.forEach (function(numero){
             respuesta55 += numero;
@@ -2351,9 +2351,9 @@ export default class App extends React.Component {
           array56.map(rows=>{
             if(rows[0]){
               valor56.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr56Int = valor56.map(x => Number.parseInt(x, 10)); 
+          arr56Int = valor56.map(x => Number.parseInt(x, 10));
           respuesta56=0;
           arr56Int.forEach (function(numero){
             respuesta56 += numero;
@@ -2371,9 +2371,9 @@ export default class App extends React.Component {
           array57.map(rows=>{
             if(rows[0]){
               valor57.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr57Int = valor57.map(x => Number.parseInt(x, 10)); 
+          arr57Int = valor57.map(x => Number.parseInt(x, 10));
           respuesta57=0;
           arr57Int.forEach (function(numero){
             respuesta57 += numero;
@@ -2391,9 +2391,9 @@ export default class App extends React.Component {
           array58.map(rows=>{
             if(rows[0]){
               valor58.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr58Int = valor58.map(x => Number.parseInt(x, 10)); 
+          arr58Int = valor58.map(x => Number.parseInt(x, 10));
           respuesta58=0;
           arr58Int.forEach (function(numero){
             respuesta58 += numero;
@@ -2411,9 +2411,9 @@ export default class App extends React.Component {
           array59.map(rows=>{
             if(rows[0]){
               valor59.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr59Int = valor59.map(x => Number.parseInt(x, 10)); 
+          arr59Int = valor59.map(x => Number.parseInt(x, 10));
           respuesta59=0;
           arr59Int.forEach (function(numero){
             respuesta59 += numero;
@@ -2431,9 +2431,9 @@ export default class App extends React.Component {
           array60.map(rows=>{
             if(rows[0]){
               valor60.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr60Int = valor60.map(x => Number.parseInt(x, 10)); 
+          arr60Int = valor60.map(x => Number.parseInt(x, 10));
           respuesta60=0;
           arr60Int.forEach (function(numero){
             respuesta60 += numero;
@@ -2451,9 +2451,9 @@ export default class App extends React.Component {
           array61.map(rows=>{
             if(rows[0]){
               valor61.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr61Int = valor61.map(x => Number.parseInt(x, 10)); 
+          arr61Int = valor61.map(x => Number.parseInt(x, 10));
           respuesta61=0;
           arr61Int.forEach (function(numero){
             respuesta61 += numero;
@@ -2471,9 +2471,9 @@ export default class App extends React.Component {
           array62.map(rows=>{
             if(rows[0]){
               valor62.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr62Int = valor62.map(x => Number.parseInt(x, 10)); 
+          arr62Int = valor62.map(x => Number.parseInt(x, 10));
           respuesta62=0;
           arr62Int.forEach (function(numero){
             respuesta62 += numero;
@@ -2491,9 +2491,9 @@ export default class App extends React.Component {
           array63.map(rows=>{
             if(rows[0]){
               valor63.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr63Int = valor63.map(x => Number.parseInt(x, 10)); 
+          arr63Int = valor63.map(x => Number.parseInt(x, 10));
           respuesta63=0;
           arr63Int.forEach (function(numero){
             respuesta63 += numero;
@@ -2511,9 +2511,9 @@ export default class App extends React.Component {
           array64.map(rows=>{
             if(rows[0]){
               valor64.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr64Int = valor64.map(x => Number.parseInt(x, 10)); 
+          arr64Int = valor64.map(x => Number.parseInt(x, 10));
           respuesta64=0;
           arr64Int.forEach (function(numero){
             respuesta64 += numero;
@@ -2531,9 +2531,9 @@ export default class App extends React.Component {
           array65.map(rows=>{
             if(rows[0]){
               valor65.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr65Int = valor65.map(x => Number.parseInt(x, 10)); 
+          arr65Int = valor65.map(x => Number.parseInt(x, 10));
           respuesta65=0;
           arr65Int.forEach (function(numero){
             respuesta65 += numero;
@@ -2551,9 +2551,9 @@ export default class App extends React.Component {
           array66.map(rows=>{
             if(rows[0]){
               valor66.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr66Int = valor66.map(x => Number.parseInt(x, 10)); 
+          arr66Int = valor66.map(x => Number.parseInt(x, 10));
           respuesta66=0;
           arr66Int.forEach (function(numero){
             respuesta66 += numero;
@@ -2571,9 +2571,9 @@ export default class App extends React.Component {
           array67.map(rows=>{
             if(rows[0]){
               valor67.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr67Int = valor67.map(x => Number.parseInt(x, 10)); 
+          arr67Int = valor67.map(x => Number.parseInt(x, 10));
           respuesta67=0;
           arr67Int.forEach (function(numero){
             respuesta67 += numero;
@@ -2591,9 +2591,9 @@ export default class App extends React.Component {
           array68.map(rows=>{
             if(rows[0]){
               valor68.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr68Int = valor68.map(x => Number.parseInt(x, 10)); 
+          arr68Int = valor68.map(x => Number.parseInt(x, 10));
           respuesta68=0;
           arr68Int.forEach (function(numero){
             respuesta68 += numero;
@@ -2611,9 +2611,9 @@ export default class App extends React.Component {
           array69.map(rows=>{
             if(rows[0]){
               valor69.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr69Int = valor69.map(x => Number.parseInt(x, 10)); 
+          arr69Int = valor69.map(x => Number.parseInt(x, 10));
           respuesta69=0;
           arr69Int.forEach (function(numero){
             respuesta69 += numero;
@@ -2631,9 +2631,9 @@ export default class App extends React.Component {
           array70.map(rows=>{
             if(rows[0]){
               valor70.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr70Int = valor70.map(x => Number.parseInt(x, 10)); 
+          arr70Int = valor70.map(x => Number.parseInt(x, 10));
           respuesta70=0;
           arr70Int.forEach (function(numero){
             respuesta70 += numero;
@@ -2651,9 +2651,9 @@ export default class App extends React.Component {
           array71.map(rows=>{
             if(rows[0]){
               valor71.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr71Int = valor71.map(x => Number.parseInt(x, 10)); 
+          arr71Int = valor71.map(x => Number.parseInt(x, 10));
           respuesta71=0;
           arr71Int.forEach (function(numero){
             respuesta71 += numero;
@@ -2671,9 +2671,9 @@ export default class App extends React.Component {
           array72.map(rows=>{
             if(rows[0]){
               valor72.push(rows[0].ponderacion)
-            } 
+            }
           })
-          arr72Int = valor72.map(x => Number.parseInt(x, 10)); 
+          arr72Int = valor72.map(x => Number.parseInt(x, 10));
           respuesta72=0;
           arr72Int.forEach (function(numero){
             respuesta72 += numero;
@@ -2830,7 +2830,7 @@ export default class App extends React.Component {
             ]
           };    }
    
-    let tablaPeriodoActual;   
+    let tablaPeriodoActual;  
     if(this.state.tablaPeriodoActual === true){
       let periodo;
       periodo = localStorage.getItem("periodo")
@@ -2875,7 +2875,7 @@ export default class App extends React.Component {
         <Button type="primary"  onClick={e=>this.showModal2()}  disabled={this.state.disabledButtons}>Respuestas masivas&nbsp;&nbsp;<i class="fas fa-hdd"></i></Button>&nbsp;&nbsp;&nbsp;
         <Button style={{backgroundColor:"bisque"}} onClick={e=>this.showModal()}  disabled={this.state.disabledButtons}>Resultados masivos&nbsp;&nbsp;<i class="fas fa-chart-line"></i></Button>
         &nbsp;&nbsp;<Button shape="circle" size="middle" type="danger" onClick={e=>this.cerrarTablaPeriodos()}><MDBIcon icon="times" /></Button>
-      </div>}>   
+      </div>}>  
       <MUIDataTable
       title={tituloTablaPeriodoSeleccionado}
       data={data}
@@ -2950,7 +2950,7 @@ export default class App extends React.Component {
         if(rows.Descripcion){
           return(
             <Panel  header={rows.Descripcion} key={i}>
-              <div className="panel">   
+              <div className="panel">  
                 <h6 style={{marginTop:"2%"}}><strong><font color="rgba(4, 180, 174,0.5)">{rows.Descripcion}</font></strong></h6> &nbsp;&nbsp;&nbsp; <Button shape="circle" size="large" style={{backgroundColor:"azure"}} onClick={e=>this.cargarTablaPeriodoSeleccionado(rows.Descripcion)}><MDBIcon icon="table" /></Button>
               </div>
             </Panel>
@@ -2975,7 +2975,7 @@ export default class App extends React.Component {
               dataSource={dataSource}/>
           </div>
           {spinner}  
-          </TabPane> 
+          </TabPane>
           <TabPane tab="Generar reportes periodo vigente" key="2">
            {leyendaDemo}
            {tablaPeriodoActual}
@@ -3005,10 +3005,10 @@ export default class App extends React.Component {
            {reporteEjecutivo}
           </TabPane>    
         </Tabs>  
-        </div> 
+        </div>
       </div>
       </div>
-      </React.Fragment> 
+      </React.Fragment>
     )
   }
 }
