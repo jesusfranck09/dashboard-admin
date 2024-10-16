@@ -147,6 +147,7 @@ export default class App extends React.Component {
               ApellidoP
               ApellidoM
               CentroTrabajo
+              AreaTrabajo
               idPeriodo
               periodo
               encuesta
@@ -801,7 +802,7 @@ export default class App extends React.Component {
         },
         onTableChange: (action, tableState) => {
         datosEmpleados=tableState.displayData
-        periodoTabla = tableState.filterData[3]
+        periodoTabla = tableState.filterData[4]
         },
         onFilterChange: (action, filtroTable) => {
           filtro = filtroTable
@@ -2833,12 +2834,12 @@ export default class App extends React.Component {
     if(this.state.tablaPeriodoActual === true){
       let periodo;
       periodo = localStorage.getItem("periodo")
-      const columns = ["Id" , "Nombre","Centro de Trabajo","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
+      const columns = ["Id" , "Nombre","Centro de Trabajo","Departamento","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
       const data = this.state.empleados.map(rows=>{
         if(rows) {
           let botonRespuestas = <Button  disabled={this.state.disabledButtons} className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,1)}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
           let botonResultados = <Button  disabled={this.state.disabledButtons} style={{backgroundColor:"bisque"}} onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,2)}>Resultados &nbsp;&nbsp; <i class="far fa-chart-bar"></i></Button>
-          return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
+          return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.AreaTrabajo,rows.periodo,botonRespuestas,botonResultados])
         }
       })
       let tituloTabla = <h6><strong>Reportes EEO {periodo}</strong></h6>
@@ -2859,12 +2860,12 @@ export default class App extends React.Component {
  
     let tablaPeriodoSeleccionado;
     if(this.state.tablaPeriodoSeleccionado === true){
-      const columns = ["Id" , "Nombre","Centro de Trabajo","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
+      const columns = ["Id" , "Nombre","Centro de Trabajo","Departamento","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
       const data = this.state.empleados.map(rows=>{
         if(rows){
           let botonRespuestas = <Button  disabled={this.state.disabledButtons} className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,1)}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
           let botonResultados = <Button  disabled={this.state.disabledButtons} style={{backgroundColor:"bisque"}} onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,2)}>Resultados &nbsp;&nbsp; <i class="far fa-chart-bar"></i></Button>
-          return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
+          return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.AreaTrabajo,rows.periodo,botonRespuestas,botonResultados])
         }
       })
       let tituloTablaPeriodoSeleccionado = <h6><strong>Reportes EEO {this.state.periodoSeleccionado}</strong></h6>
@@ -2965,11 +2966,11 @@ export default class App extends React.Component {
         <div className="tabsATS" style={{marginTop:"5%",marginLeft:"5%"}}>
         <Tabs defaultActiveKey="1" size={this.state.size} style={{ marginBottom: 32 }}>
           <TabPane tab="Gráfica de evaluación EEO" key="1">
-          <div style={{width:"55%",marginLeft:"23%"}}  className="tabsATS"  >  
+          <div className = "graficasATS">  
               <ReactFusioncharts
               type="pie3d"
-              width="200%"
-              height="1730%"
+              width="70%"
+              height="60%"
               dataFormat="JSON"
               dataSource={dataSource}/>
           </div>

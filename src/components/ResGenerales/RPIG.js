@@ -174,7 +174,7 @@ pdfExportComponent ;
               periodo
               encuesta
               fk_empleados
-
+              AreaTrabajo
             }
           }
         `
@@ -740,7 +740,6 @@ pdfExportComponent ;
             return a.length === b.length && a.every((item,idx) => item === b[idx])
           }
           var filtrado = filtrado2.filter(item => !array_equals(item, tag))
-          console.log("filtrado",filtrado)
           await this.setState({peticion1:filtrado})
 
           let filtros = this.state.filtroTabla
@@ -925,7 +924,7 @@ pdfExportComponent ;
       
         onTableChange: (action, tableState) => {
         datosEmpleados=tableState.displayData
-        periodoTabla = tableState.filterData[3]
+        periodoTabla = tableState.filterData[4]
         },
         onFilterChange: (action, filtroTable) => {
           filtro = filtroTable
@@ -2290,13 +2289,13 @@ pdfExportComponent ;
           if(this.state.tablaPeriodoActual === true){
             let periodo;
             periodo = localStorage.getItem("periodo")
-                       const columns = ["ID","Nombre","Centro de Trabajo","Periodo",{name:"Resultados",label:"Respuestas",options:{filter: false,sort: false,}},{name:"Resultados",label:"Resultados",options:{filter: false,sort: false,}}];
+                       const columns = ["ID","Nombre","Centro de Trabajo","Departamento","Periodo",{name:"Resultados",label:"Respuestas",options:{filter: false,sort: false,}},{name:"Resultados",label:"Resultados",options:{filter: false,sort: false,}}];
 
             const data = this.state.empleados.map(rows=>{
               if(rows) {
                 let botonRespuestas = <Button  className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,1)} disabled={this.state.disabledButtons}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
                 let botonResultados = <Button  style={{backgroundColor:"bisque"}} onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,2)} disabled={this.state.disabledButtons}>Resultados &nbsp;&nbsp; <i class="far fa-chart-bar"></i></Button>
-              return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
+              return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.AreaTrabajo,rows.periodo,botonRespuestas,botonResultados])
               }
                
             })
@@ -2317,12 +2316,12 @@ pdfExportComponent ;
           }
     let tablaPeriodoSeleccionado;
     if(this.state.tablaPeriodoSeleccionado === true){
-      const columns = ["Id" , "Nombre","Centro de Trabajo","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
+      const columns = ["Id" , "Nombre","Centro de Trabajo","Departamento","Periodo",{name:" ",label:"Respuestas",options:{filter: false,sort: true,}},{name:" ",label:"Resultados",options:{filter: false,sort: true,}}];
       const data = this.state.empleados.map(rows=>{
         if(rows){
           let botonRespuestas = <Button  className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,1)} disabled={this.state.disabledButtons}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
           let botonResultados = <Button  style={{backgroundColor:"bisque"}} onClick={(e) => this.reporteIndividual(rows.id,rows.periodo,2)} disabled={this.state.disabledButtons}>Resultados &nbsp;&nbsp; <i class="far fa-chart-bar"></i></Button>
-          return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,botonRespuestas,botonResultados])
+          return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.AreaTrabajo,rows.periodo,botonRespuestas,botonResultados])
         }
       })
       let tituloTablaPeriodoSeleccionado = <h6><strong>Reportes EEO {this.state.periodoSeleccionado}</strong></h6>
@@ -2423,11 +2422,11 @@ pdfExportComponent ;
         <div className="tabsATS" style={{marginTop:"5%",marginLeft:"5%"}}>
         <Tabs defaultActiveKey="1" size={this.state.size} style={{ marginBottom: 32 }}>
           <TabPane tab="Gráfica de evaluación RP" key="1">
-          <div style={{width:"55%",marginLeft:"23%"}}  className="tabsATS"  >  
+          <div className = "graficasATS">  
               <ReactFusioncharts
               type="pie3d"
-              width="200%"
-              height="430%"
+              width="70%"
+              height="60%"
               dataFormat="JSON"
               dataSource={dataSource}/>
           </div>
@@ -2469,4 +2468,4 @@ pdfExportComponent ;
   }
 }
 
-export default App 
+export default App;

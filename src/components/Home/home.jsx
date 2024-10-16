@@ -1,5 +1,5 @@
 import React from 'react';
-import {MDBBtn} from 'mdbreact';
+import {MDBBtn, MDBRow} from 'mdbreact';
 import axios from 'axios'
 import {Alert} from 'reactstrap';
 // import RemoveRedEyeOutlinedIcon from '@material-ui/icons/RemoveRedEyeOutlined';
@@ -534,6 +534,7 @@ class Home extends React.Component {
             this.setState({urlLogo:datos.data.data.getLogo.url})
           }).catch(err=>{
             console.log("datos error url " , err.response)
+            console.log("datos error url " , err )
           })
       }
     toggle = (nr) => () => {  
@@ -2227,25 +2228,31 @@ const options = {
         <div className = "cardPorcentaje">  
          <Card type="inner" title={ <div><center>{titulo1}{progressInstanceATS}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
          <MDBCardBody style={{padding:"10px"}}> 
-         <center>       
+         <center>   
+          <MDBRow>
          <MDBBtn color = "success" size  = "sm" onClick = { e => this.showModal(2)} disabled={this.state.disabledButtons}> Realizada </MDBBtn>  
          <MDBBtn color= "danger" size = "sm" onClick = { e => this.showModal(3)} disabled={this.state.disabledButtons}>No realizada</MDBBtn>
+         </MDBRow>    
          </center>
         </MDBCardBody>
         </Card>
         <Card  type="inner" title={ <div><center>{titulo2}{progressInstanceRP}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
         <MDBCardBody style={{padding:"10px"}}>        
         <center>
+         <MDBRow>
          <MDBBtn color = "success" size  = "sm" onClick = {e => this.showModal(4)} disabled={this.state.disabledButtons}> Realizada </MDBBtn>  
          <MDBBtn color= "danger" size = "sm" onClick = {e => this.showModal(5)} disabled={this.state.disabledButtons}>No realizada</MDBBtn>
+          </MDBRow>
         </center>
         </MDBCardBody>
         </Card>
         <Card  type="inner" title={ <div><center>{titulo3}{progressInstanceEEO}</center></div>} style={{ width: "22rem",height:"12rem",padding:"0px"}}>
         <MDBCardBody style={{padding:"10px"}}>        
-         <center>        
+         <center>   
+         <MDBRow>     
          <MDBBtn color = "success" size  = "sm" onClick = { e => this.showModal(6)} disabled={this.state.disabledButtons}> Realizada </MDBBtn>  
          <MDBBtn color= "danger" size = "sm" onClick = { e => this.showModal(7)} disabled={this.state.disabledButtons}>No realizada</MDBBtn>
+         </MDBRow>
          </center>
        </MDBCardBody>
        </Card>
@@ -2290,4 +2297,3 @@ const options = {
   }
 }
 export default Home;
-

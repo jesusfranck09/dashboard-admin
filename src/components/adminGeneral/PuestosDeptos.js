@@ -1,31 +1,11 @@
 import React from 'react'
 import {Grid} from '@material-ui/core';
 import axios from 'axios';
-import { Form, Field } from 'react-final-form';
-import { TextField} from 'final-form-material-ui';
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import { API} from '../utils/http'
 import Navbar from './navbar'
 import './index.css'
 import {Card,Button,Modal}  from 'antd'
- function onSubmit (values) { 
-	};
-
-	const validate = values => {
-        const errors = {};
-        if (!values.puesto) {
-          errors.puesto = 'Este campo es requerido';
-        }
-        return errors;
-      };
-
-      const validateDepto = values => {
-        const errors = {};
-        if (!values.departamento) {
-          errors.departamento = 'Este campo es requerido';
-        }  
-        return errors;
-      };
 
       class Sucursales extends React.Component {
         constructor(props) {
@@ -37,7 +17,9 @@ import {Card,Button,Modal}  from 'antd'
             datosDeptos:[],
             datosPuestos:[],
             isModalVisible:false,
-            isModalVisible2:false
+            isModalVisible2:false,
+            puesto: '',
+            departamento: '',
           };          
         }
         onClick() {
@@ -87,8 +69,8 @@ import {Card,Button,Modal}  from 'antd'
                   console.log(".cartch" , error.response)
               });   
         }
-        evaluar  = (values) =>{
-          const puesto = values.puesto.replace(/,/g, "");
+        evaluar  = () =>{
+          const puesto = this.state.puesto.replace(/,/g, "");
           const correo = localStorage.getItem('correo')
           if(puesto){
               axios({
@@ -127,8 +109,8 @@ import {Card,Button,Modal}  from 'antd'
           }
         }
 
-        evaluarDepto  = (values) =>{
-          const departamento = values.departamento.replace(/,/g, "");
+        evaluarDepto  = () =>{
+          const departamento = this.state.departamento.replace(/,/g, "");
           const correo = localStorage.getItem('correo')
           if(departamento){
               axios({
@@ -184,6 +166,15 @@ import {Card,Button,Modal}  from 'antd'
         handleCancel2(){
           this.setState({isModalVisible2:false})
         }
+
+        handleChange = (e) => {
+          this.setState({ [e.target.name]: e.target.value });
+        };
+        handleChange2 = (e) => {
+          this.setState({ [e.target.name]: e.target.value });
+        };
+        
+        
         render() { 
           console.log("estado",this.state.datosPuestos)
           let datosDeptos = 
@@ -229,44 +220,66 @@ import {Card,Button,Modal}  from 'antd'
             <div>
             <Navbar modulo = {"PUESTOS Y DEPARTAMENTOS"}/>
             <center>             
-            <Card style={{padding:"25px"}} className = "cardPuestosDeptos" title = {<h6><strong>Registrar puestos y departamentos</strong></h6>} extra = {<div><Button type = "dashed" style={{backgroundColor:"floralwhite"}} onClick={e=>this.showModal()}>Departamentos&nbsp;&nbsp;<i class="fas fa-laptop"></i></Button>&nbsp;&nbsp;&nbsp;<Button type = "dashed" style={{backgroundColor:"azure"}} onClick = {e=>this.showModal2()}>Puestos &nbsp;&nbsp;<i class="fas fa-briefcase"></i></Button></div>}>  
-                  <Form
-                    onSubmit={onSubmit}
-                    validate={validate}
-                    render={({ handleSubmit, submitting,values }) => (
-                      <form onSubmit={handleSubmit}>
-                          <Card title={<strong>Ingrese el puesto a registrar</strong>}style={{padding:"20px"}} >
-                          <Grid container alignItems="flex-start" spacing={2} >
-                            <Grid item xs={6}>
-                              <Field fullWidth required name="puesto" component={TextField} type="text" label="Nuevo Puesto"/>
-                            </Grid>
-                            <Grid item xs={6}>
-                            <Button type="primary" style={{marginTop:"5%"}} disabled={submitting} onClick={(e) =>this.evaluar(values)} className="text-white" >Registrar</Button>
-                            </Grid>
-                          </Grid>
-                          </Card>
-                      </form>
-                    )}
-                  />
-                    <Form
-                      onSubmit={onSubmit}
-                      validate={validateDepto}
-                      render={({ handleSubmit, submitting,values }) => (
-                        <form onSubmit={handleSubmit}>
-                          <Card title={<strong>Ingrese el departamento a registrar</strong>}style={{padding:"20px"}}>
-                            <Grid container alignItems="flex-start" spacing={2} >
-                              <Grid item xs={6}>
-                                <Field fullWidth required name="departamento" component={TextField} type="text" label="Nuevo Departamento"/>
-                              </Grid>
-                              <Grid item xs={6}>
-                                <Button style={{marginTop:"5%"}} type="primary" disabled={submitting} onClick={(e) =>this.evaluarDepto(values)} className="text-white" >Registrar</Button>
-                              </Grid>
-                            </Grid>
-                            </Card>    
-                        </form>
-                      )}
+            <Card className="styledCard" title={<h6><strong>Registrar Puestos y Departamentos</strong></h6>} extra={
+            <div>
+              <Button type="dashed" className="departamentoButton" onClick={e => this.showModal()}>
+                Departamentos&nbsp;&nbsp;<i className="fas fa-laptop"></i>
+              </Button>
+              &nbsp;&nbsp;&nbsp;
+              <Button type="dashed" className="puestoButton" onClick={e => this.showModal2()}>
+                Puestos &nbsp;&nbsp;<i className="fas fa-briefcase"></i>
+              </Button>
+            </div>
+          }>
+            <Card title={<strong>Ingrese el Puesto a Registrar</strong>} className="inputCard">
+              <form>
+                <Grid container alignItems="flex-start" spacing={2}>
+                  <Grid item xs={12}>
+                    <input
+                      required
+                      type="text"
+                      name="puesto"
+                      value={this.state.puesto}
+                      onChange={this.handleChange}
+                      placeholder="Nuevo Puesto"
+                      className="inputField"
                     />
-            </Card>   
+                  </Grid>
+                </Grid>
+              </form>
+              <button
+                className="registerButton"
+                onClick={e => this.evaluar()}
+              >
+                Registrar Puesto
+              </button>
+            </Card>
+
+            <Card title={<strong>Ingrese el Departamento a Registrar</strong>} className="inputCard">
+              <form onSubmit={this.handleSubmit}>
+                <Grid container alignItems="flex-start" spacing={2}>
+                  <Grid item xs={12}>
+                    <input
+                      required
+                      type="text"
+                      name="departamento"
+                      value={this.state.departamento}
+                      onChange={this.handleChange2}
+                      placeholder="Nuevo Departamento"
+                      className="inputField"
+                    />
+                  </Grid>
+                </Grid>
+              </form>
+              <button
+                className="registerButton"
+                onClick={e => this.evaluarDepto()}
+              >
+                Registrar Departamento
+              </button>
+            </Card>
+          </Card>
+
             </center> 
             {datosDeptos}
             {datosPuestos}

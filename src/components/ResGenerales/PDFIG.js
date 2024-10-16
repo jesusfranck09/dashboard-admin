@@ -89,7 +89,6 @@ class App extends React.Component {
       await this.getGlobalEmployees();
       let paquete = localStorage.getItem("paqueteAdquirido")
       if(paquete === "40" || paquete === "41" || paquete === "42"){
-        console.log("entro",paquete)
         this.setState({disabledButtons:true})
         this.setState({leyendaDemo:"Licencia demo adquirida, funciones principales no disponibles"})
       }
@@ -139,7 +138,7 @@ class App extends React.Component {
                   periodo
                   encuesta
                   fk_empleados
-  
+                  AreaTrabajo
                 }
               }
             `
@@ -251,6 +250,9 @@ class App extends React.Component {
       }
  
        consultarDatosFiltrados = async(datos,periodoTabla)=>{
+        console.log("datos",datos)
+        console.log("periodoTabla",periodoTabla)
+  
         await this.setState({confirmLoading:true})
         await setTimeout(() => {
           this.setState({visible:false})
@@ -275,6 +277,7 @@ class App extends React.Component {
             })
           arrayFilter.map(row=>{
           filterArray = row.filter(function(hero){
+            console.log("hero",hero)
             return hero.Periodo === periodoTabla[0]
           })
           filtrado.push(filterArray)
@@ -662,7 +665,7 @@ class App extends React.Component {
       
         onTableChange: (action, tableState) => {
         datosEmpleados=tableState.displayData
-        periodoTabla = tableState.filterData[3]
+        periodoTabla = tableState.filterData[4]
         },
         onFilterChange: (action, filtroTable) => {
           filtro = filtroTable
@@ -692,11 +695,10 @@ class App extends React.Component {
       if(this.state.tablaPeriodoActual === true) {
       let periodo;
       periodo = localStorage.getItem("periodo")
-      const columns = ["ID","Nombre","Centro de Trabajo","Periodo","Evaluación","Status",{name: "Respuestas",label: "Respuestas",options:{filter: false,sort: true,}}];
-      const data = this.state.empleados.map(rows=>{
-        if(rows){
+      const columns = ["ID","Nombre","Centro de Trabajo","Departamento","Periodo","Evaluación","Status",{name: "Respuestas",label: "Respuestas",options:{filter: false,sort: true,}}];
+      const data = this.state.empleados.map(rows=>{        if(rows){
           let boton =<Button  className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo)} disabled={this.state.disabledButtons}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
-          return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,rows.encuesta,"Vigente",boton])
+          return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.AreaTrabajo,rows.periodo,rows.encuesta,"Vigente",boton])
         }
       })
      
@@ -715,11 +717,11 @@ class App extends React.Component {
       }
     let tablaPeriodoSeleccionado;
     if(this.state.tablaPeriodoSeleccionado === true){
-      const columns = ["ID","Nombre","Centro de Trabajo","Periodo","Evaluación","Status",{name: "Respuestas",label: "Respuestas",options:{filter: false,sort: true,}}];
+      const columns = ["ID","Nombre","Centro de Trabajo","Departamento","Periodo","Evaluación","Status",{name: "Respuestas",label: "Respuestas",options:{filter: false,sort: true,}}];
       const data = this.state.empleados.map(rows=>{
         if(rows){
           let boton =<Button  className = "text-white"  type="primary" onClick={(e) => this.reporteIndividual(rows.id,rows.periodo)} disabled={this.state.disabledButtons}>Respuestas&nbsp;&nbsp;<i class="fas fa-diagnoses"></i></Button>
-          return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.periodo,rows.encuesta,"Vigente",boton])
+          return([rows.id,rows.nombre+" "+rows.ApellidoP + " "+rows.ApellidoM,rows.CentroTrabajo,rows.AreaTrabajo,rows.periodo,rows.encuesta,"Vigente",boton])
         }
       })
       tablaPeriodoSeleccionado = <div>
@@ -937,21 +939,22 @@ class App extends React.Component {
     </Modal>
     return (
       <React.Fragment>
-      <div >
+      <div>
           <Navbar modulo = {"EVALUACIÓN ATS"}/>
           <div className="tabsATS" style={{marginTop:"5%",marginLeft:"5%"}}>
           <Tabs defaultActiveKey="1" size={this.state.size} style={{ marginBottom: 32 }}>
           <TabPane tab="Gráfica de evaluación ATS" key="1">
-          <div style={{width:"55%",marginLeft:"23%"}}  className="tabsATS"  >  
-              <ReactFusioncharts
+          <div className = "graficasATS">  
+            <ReactFusioncharts
               type="pie3d"
-              width="200%"
-              height="490%"
+              width="70%"
+              height="60%"
               dataFormat="JSON"
-              dataSource={dataSource}/>
+              dataSource={dataSource} 
+            />
           </div>
-          {spinner}  
-          </TabPane> 
+           {spinner}
+          </TabPane>    
           <TabPane tab="Generar reportes periodo vigente" key="2">
             {tablaPeriodoActual}
             {pdfView1} 
@@ -979,4 +982,4 @@ class App extends React.Component {
     }
   }
 
-  export default App
+  export default App;

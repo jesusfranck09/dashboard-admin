@@ -6,22 +6,11 @@ import {MDBRow,  MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter ,MDBCont
 import '../Home/index.css'
 import { DialogUtility } from '@syncfusion/ej2-popups';
 import { API} from '../utils/http'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import { withRouter } from 'react-router-dom';
 import Navbar from '../adminGeneral/navbar'
 import {Paper,Grid,RadioGroup,FormLabel,MenuItem,FormControl,FormControlLabel} from '@material-ui/core';
-import { Form, Field } from 'react-final-form';
-import { TextField, Radio, Select } from 'final-form-material-ui';
 import {Card,Alert,Button,Modal as Mod} from 'antd'
-import { transcodeData } from 'fusioncharts';
 import MUIDataTable from "mui-datatables";
-
-
 
 class DragDropFile extends React.Component {
 	constructor(props) {
@@ -94,15 +83,38 @@ class DataInput extends React.Component {
 			empleadoNoRegistrado:[],
 			datosEmpleados:[],
 			tablaInicio:true,
-			tablaEmpleados:false
+			tablaEmpleados:false,
+
+
+			Nombre: '',
+			ApellidoP: '',
+			ApellidoM: '',
+			curp: '',
+			rfc: '',
+			Correo: '',
+			puesto2: '',
+			area: '',
+			CentroTrabajo: '',
+			telefono: '',
+			fechaN: '',
+			Estado_Civil: '',
+			tipoPuesto: '',
+			estudios: '',
+			personal: '',
+			Jornada: '',
+			contratacion: '',
+			Tiempo_puestoActual: '',
+			experiencia_Laboral: '',
+			rotacion: '',
+			stooge: '',
 		};
 		this.handleFile = this.handleFile.bind(this);
 		this.exportFile = this.exportFile.bind(this);
 	  }
 
-   componentWillMount(){
+   async componentWillMount(){
    const correoAdmin = localStorage.getItem("correo")
-		axios({
+	await	axios({
 		url:  API,
 		method:'post',
 		data:{
@@ -123,7 +135,7 @@ class DataInput extends React.Component {
 		console.log("este es el error get deptos" , err.response)
 	}) 
 
-	axios({
+	await axios({
 		url:  API,
 		method:'post',
 		data:{
@@ -139,12 +151,13 @@ class DataInput extends React.Component {
 		}
 	})
 	.then(datos => {	
+		console.log("puestos",datos.data.data.getPuestos)
 		this.setState({puestos:datos.data.data.getPuestos})	
 	}).catch(err=>{
 		console.log("este es el error get deptos" , err.response)
 	}) 
 
-	axios({
+	await axios({
 		url:  API,
 		method:'post',
 		data:{
@@ -163,7 +176,7 @@ class DataInput extends React.Component {
 		console.log("este es el error get deptos" , err.response)
 	}) 
 	const idAdmin= localStorage.getItem("idAdmin") 
-	 axios({
+	await axios({
 	  url:  API,
 	  method:'post',
 	  data:{
@@ -207,33 +220,57 @@ class DataInput extends React.Component {
 		});  
 	}
 
- 	evaluar  =async (values) =>{
-		const Nombre = values.Nombre.replace(/,/g, "");
-		const ApellidoP = values.ApellidoP
-		const ApellidoM = values.ApellidoM
-		const curp = values.curp
-		const rfc =  values.rfc
-		const fechaN = values.fechaN
-		const sexo = values.stooge
-		const Estado_Civil= values.Estado_Civil
-		const CentroTrabajo = values.CentroTrabajo.replace(/,/g, "");
-		const area = values.area.replace(/,/g, "");
-		const puesto = values.puesto.replace(/,/g, "");
-		const tipoPuesto =  values.tipoPuesto.replace(/,/g, "");
-		const estudios = values.estudios
-		const personal =  values.personal
-		const Jornada = values.Jornada
-		const contratacion = values.contratacion
-		const Tiempo_puestoActual = values.Tiempo_puestoActual 
-		const experiencia_Laboral = values.experiencia_Laboral  
-		const rotacion = values.rotacion
-		const correos  = values.Correo
-		const telefono  = values.telefono
-		console.log("values",values)
+ 	evaluar  =async () =>{
+		const Nombre = this.state.Nombre.replace(/,/g, "");
+		const ApellidoP = this.state.ApellidoP;
+		const ApellidoM = this.state.ApellidoM;
+		const curp = this.state.curp;
+		const rfc = this.state.rfc;
+		const fechaN = this.state.fechaN;
+		const sexo = this.state.stooge;
+		const Estado_Civil = this.state.Estado_Civil;
+		const CentroTrabajo = this.state.CentroTrabajo.replace(/,/g, "");
+		const area = this.state.area.replace(/,/g, "");
+		const puesto = this.state.puesto2.replace(/,/g, "");
+		const tipoPuesto = this.state.tipoPuesto.replace(/,/g, "");
+		const estudios = this.state.estudios;
+		const personal = this.state.personal;
+		const Jornada = this.state.Jornada;
+		const contratacion = this.state.contratacion;
+		const Tiempo_puestoActual = this.state.Tiempo_puestoActual;
+		const experiencia_Laboral = this.state.experiencia_Laboral;
+		const rotacion = this.state.rotacion;
+		const correos = this.state.Correo;
+		const telefono = this.state.telefono;
+		
 
 		const Correo = correos.replace(/ /g, "")
 	    let idSuperUsuario;
 		const idAdmin =  localStorage.getItem("idAdmin")
+
+		console.log({
+			Nombre,
+			ApellidoP,
+			ApellidoM,
+			curp,
+			rfc,
+			fechaN,
+			sexo,
+			Estado_Civil,
+			CentroTrabajo,
+			area,
+			puesto,
+			tipoPuesto,
+			estudios,
+			personal,
+			Jornada,
+			contratacion,
+			Tiempo_puestoActual,
+			experiencia_Laboral,
+			rotacion,
+			correos,
+			telefono
+		  });
 		await axios({
 			url:  API,
 			method:'post',
@@ -343,45 +380,7 @@ class DataInput extends React.Component {
 		})
 	   } 
 	  }
-	  
-      validate = values => {
-		const errors = {};
-		if (!values.Nombre) {
-		  errors.Nombre = 'Este campo es requerido';
-		}
-		if (!values.ApellidoP) {
-		  errors.ApellidoP = 'Este campo es requerido';
-		}
-		if (!values.ApellidoM) {
-		  errors.ApellidoM = 'Este campo es requerido';
-		}
-		if (!values.curp) {
-		  errors.curp = 'Este campo es requerido';
-		}
-		if (!values.rfc) {
-		  errors.rfc = 'Este campo es requerido';
-		}
-		if (!values.Correo) {
-		  errors.Correo = 'Este campo es requerido';
-		}
-		
-		if(values.rfc){
-			if(values.rfc.length < 12 || values.rfc.length > 13){
-				errors.rfc = 'El número de caracteres no es el correcto';
-			}
-		}
-	
-		if(values.curp){
-			if(values.curp.length !== 18){
-				 errors.curp = 'El número de caracteres no es el correcto';
-			}
-		}
- 
-		if (!values.area) {
-		  errors.area = 'Required';
-		}
-		return errors;
-	  };
+  
 	  showModal = () => {
 		this.setState({isModalVisible:true});
 	  };
@@ -588,6 +587,12 @@ class DataInput extends React.Component {
 			this.setState({tablaInicio:true})
 			this.setState({tablaEmpleados:false})
 		}  
+
+		handleChange = (e) => {
+			const { name, value } = e.target;
+			this.setState({ [name]: value }); // Actualiza el estado respetando el nombre del input
+		};
+	
 	render(){
 		const options = {
 			filterType: "dropdown",
@@ -767,180 +772,351 @@ class DataInput extends React.Component {
 	let tablaInicio; 
 	if(this.state.tablaInicio === true){
 		tablaInicio = 			<center>
-		<Card className="cardEmpleados" style = {{padding:"10px"}}title = {<h6><strong>Registrar empleados</strong></h6>} extra = {<div><Button type = "dashed" style ={{backgroundColor:"azure"}} onClick={e=>this.showModal()}>Importación por csv &nbsp;&nbsp;<i class="fas fa-file-csv"></i></Button>&nbsp;&nbsp;&nbsp;<Button type = "dashed" style ={{backgroundColor:"lightgreen"}} onClick = {e=>this.mostrarEmpleados()}>Empleados&nbsp;&nbsp;<i class="fas fa-user-friends"></i></Button></div>}>	
-			<div style={{ margin: 'auto', maxWidth: 600 }}>
-				<Form onSubmit={this.onSubmit} validate={this.validate} render={({ handleSubmit, submitting,values }) => (
-					<form onSubmit={handleSubmit}>
-						<Grid container alignItems="flex-start" spacing={2}>
-						<Grid item xs={6}>
-							<Field fullWidth required name="Nombre" component={TextField} type="text" label="Nombre"/>
-						</Grid>
-						<Grid item xs={6}>
-							<Field fullWidth required name="ApellidoP" component={TextField} type="text" label="Apellido Paterno"/>
-						</Grid>
-						<Grid item xs={6}>
-							<Field fullWidth required name="ApellidoM" component={TextField} type="text" label="Apelllido Materno" />
-						</Grid>			
-						<Grid item xs={6}>
-							<Field fullWidth required name="curp" component={TextField} type="text" label="CURP" />
-						</Grid>
-						<Grid item xs={6}>
-							<Field fullWidth required name="rfc" component={TextField} type="text" label="RFC" />
-						</Grid>
-						<Grid item xs={6}>
-							<Field name="Correo" fullWidth required component={TextField} type="email" label="Correo" />
-						</Grid>
-						<Grid item xs={6}>
-							<Field fullWidth name="puesto" component={Select} label="Puesto" formControlProps={{ fullWidth: true }}>
-							{this.state.puestos.map(row=>{
-								return(<MenuItem value={row.nombre}>{row.nombre}</MenuItem>)
-							})}
-							</Field>
-							</Grid>
-							<Grid item xs={6}>
-							<Field name="area" fullWidth required type="text" label="Departamento" component={Select} formControlProps={{ fullWidth: true }}>
-							{this.state.deptos.map(rows=>{
-								return(	<MenuItem value={rows.nombre}>{rows.nombre}</MenuItem>)
-							})}
-							</Field>
-						</Grid>
-						<Grid item xs={6}>
-							<Field fullWidth name="CentroTrabajo" label="Centro de trabajo" component={Select} formControlProps={{ fullWidth: true }} >
-							{this.state.sucursalJs.map(row=>{
-								return(<MenuItem value={row.nombreSucursal}>{row.nombreSucursal}</MenuItem>)
-							})}
-							</Field>
-							
-							</Grid>
-							<Grid item xs={6}>
-							<Field fullWidth name="telefono" component={TextField} type="text" label="Teléfono" />
-							</Grid>
-							<Grid item xs={12} style ={{marginTop:20}}>
-							<strong><Alert message="Datos del trabajador" type="success" ></Alert></strong>
-							   </Grid>
-							<Grid item xs={6}>
-							<Field required fullWidth name="fechaN"	component={Select} label="Rango de Edad" formControlProps={{ fullWidth: true }}>
-							<MenuItem value="15 a 19">15 a 19</MenuItem>
-							<MenuItem value="20 a 24">20 a 24</MenuItem>
-							<MenuItem value="25 a 29">25 a 29</MenuItem>
-							<MenuItem value="30 a 34">30 a 34</MenuItem>
-							<MenuItem value="35 a 39">35 a 39</MenuItem>
-							<MenuItem value="40 a 44">40 a 44</MenuItem>
-							<MenuItem value="45 a 49">45 a 49</MenuItem>
-							<MenuItem value="50 a 54">50 a 54</MenuItem>
-							<MenuItem value="55 a 59">55 a 59</MenuItem>
-							<MenuItem value="60 a 64">60 a 64</MenuItem>
-							<MenuItem value="65 a 69">65 a 69</MenuItem>
-							<MenuItem value="70 o más">70 o más</MenuItem>
-							</Field>
-							</Grid>
-							<Grid item xs={6}>
-							<Field fullWidth name="Estado_Civil" component={Select} label="Estado Civil" formControlProps={{ fullWidth: true }} >
-							<MenuItem value="Casado">Casado</MenuItem>
-							<MenuItem value="Soltero">Soltero</MenuItem>
-							<MenuItem value="Unión libre">Unión libre</MenuItem>
-							<MenuItem value="Divorciado">Divorciado</MenuItem>
-							<MenuItem value="Viudo">Viudo</MenuItem>
-							</Field>
-							</Grid>
-							<Grid item xs={6}>
-							<Field fullWidth name="tipoPuesto" component={Select} label="Seleccione el Tipo de Puesto" formControlProps={{ fullWidth: true }} >
-							<MenuItem value="Operativo">Operativo</MenuItem>
-							<MenuItem value="Profesional o Técnico">Profesional o Técnico</MenuItem>
-							<MenuItem value="Supervisor">Supervisor</MenuItem>
-							<MenuItem value="Gerencial">Gerencial</MenuItem>
-							<MenuItem value="Directivo">Directivo</MenuItem>
-							</Field>
-							</Grid>
-							<Grid item xs={6}>
-							<Field fullWidth name="estudios" component={Select} label="Nivel de Estudios" formControlProps={{ fullWidth: true }} >
-							<MenuItem value="Sin formacion">Sin formación</MenuItem>
-							<MenuItem value="Primaria">Primaria</MenuItem>
-							<MenuItem value="Secundaria">Secundaria</MenuItem>
-							<MenuItem value="Preparatoria o Bachillerato">Preparatoria o Bachillerato</MenuItem>
-							<MenuItem value="Licenciatura">Licenciatura</MenuItem>
-							<MenuItem value="Maestria">Maestría</MenuItem>
-							<MenuItem value="Doctorado">Doctorado</MenuItem>
-							</Field>
-							</Grid>
-							<Grid item xs={6}>
-							<Field fullWidth name="personal" component={Select} label="Tipo de Personal" formControlProps={{ fullWidth: true }} >
-							<MenuItem value="Sindicalizado">Sindicalizado</MenuItem>
-							<MenuItem value="Ninguno">Ninguno</MenuItem>
-							<MenuItem value="Confianza">Confianza</MenuItem>
-							</Field>
-							</Grid>
-							<Grid item xs={6}>
-							<Field fullWidth name="Jornada" component={Select} label="Tipo de jornada de trabajo:" formControlProps={{ fullWidth: true }} >
-							<MenuItem value="Fijo nocturno (entre las 20:00 y 6:00 hrs)">Fijo nocturno (entre las 20:00 y 6:00 hrs)</MenuItem>
-							<MenuItem value="Fijo diurno (entre las 6:00 y 20:00 hrs)">Fijo diurno (entre las 6:00 y 20:00 hrs</MenuItem>
-							<MenuItem value="Fijo mixto (combinación de nocturno y diurno)">Fijo mixto (combinación de nocturno y diurno)</MenuItem>								
-							</Field>
-							</Grid>
-							<Grid item xs={6}>
-							<Field fullWidth name="contratacion" component={Select} label="Tipo de Contratación" formControlProps={{ fullWidth: true }} >
-							<MenuItem value="Por obra o proyecto">Por obra o proyecto</MenuItem>
-							<MenuItem value="por tiempo determinado (temporal)">Por tiempo determinado (temporal)</MenuItem>
-							<MenuItem value="Tiempo indeterminado">Tiempo indeterminado</MenuItem>
-							<MenuItem value="Honorarios">Honorarios</MenuItem>
-							</Field>
-							</Grid>
-							<Grid item xs={6}>
-							<Field fullWidth name="Tiempo_puestoActual" component={Select} label="Tiempo en el puesto Actual" formControlProps={{ fullWidth: true }} >
-							<MenuItem value="Menos de 6 meses">Menos de 6 meses</MenuItem>
-							<MenuItem value="Entre 6 meses y 1 año">Entre 6 meses y 1 año</MenuItem>
-							<MenuItem value="Entre 1 a 4 años">Entre 1 a 4 años</MenuItem>
-							<MenuItem value="Entre 5 a 9 años">Entre 5 a 9 años</MenuItem>
-							<MenuItem value="Entre 10 a 14 años">Entre 10 a 14 años</MenuItem>
-							<MenuItem value="Entre 15 a 19 años">Entre 15 a 19 años</MenuItem>
-							<MenuItem value="Entre 20 a 24 años">Entre 20 a 24 años</MenuItem>
-							<MenuItem value="25 años o más">25 años o más</MenuItem>
-							</Field>
-							</Grid>
-							<Grid item xs={12}>
-							<Field fullWidth name="experiencia_Laboral" component={Select} label="Tiempo experiencia laboral" formControlProps={{ fullWidth: true }}>
-							<MenuItem value="Menos de 6 meses">Menos de 6 meses</MenuItem>
-							<MenuItem value="Entre 6 meses y 1 año">Entre 6 meses y 1 año</MenuItem>
-							<MenuItem value="Entre 1 a 4 años">Entre 1 a 4 años</MenuItem>
-							<MenuItem value="Entre 5 a 9 años">Entre 5 a 9 años</MenuItem>
-							<MenuItem value="Entre 10 a 14 años">Entre 10 a 14 años</MenuItem>
-							<MenuItem value="Entre 15 a 19 años">Entre 15 a 19 años</MenuItem>
-							<MenuItem value="Entre 20 a 24 años">Entre 20 a 24 años</MenuItem>
-							<MenuItem value="25 años o más">25 años o más</MenuItem>
-							</Field>
-							</Grid>
-							<Grid  item xs={12}>
-							<FormControl component="fieldset">
-							<FormLabel component="legend" className="text-center mt-3 ml-3">Realiza rotación de turnos:</FormLabel>
-							<RadioGroup row>
-								<center>
-								<FormControlLabel  label="Rotación" control={ <Field required name="rotacion" component={Radio} type="radio" value="si" /> } />
-								<FormControlLabel label="Sin Rotación" control={ <Field required name="rotacion" component={Radio} type="radio" value="no"/> }/>
-								</center>
-							</RadioGroup>
-							</FormControl>
-						</Grid>
-						<Grid  item xs={12}>
-							<FormControl component="fieldset">
-							<FormLabel component="legend" className="text-center mt-3 ml-3">Género</FormLabel>
-							<RadioGroup row>
-							   <center>
-								<FormControlLabel label="Masculino" control={ <Field required name="stooge" component={Radio} type="radio" value="Masculino" />}/>
-								<FormControlLabel label="Femenino" control={ <Field required name="stooge" component={Radio} type="radio" value="Femenino" /> }/>
-								</center>
-							</RadioGroup>
-							</FormControl>
-						</Grid>
-						</Grid>
-						<center>
-							<Button style={{marginTop:"2%"}} size="md"  type="primary"  disabled={submitting} onClick={(e) =>this.evaluar(values)} className="text-white" > Registrar Empleado </Button>
-						</center>
-					</form>
-				)}
-				/>
-			</div>		
-			</Card>
-			</center>
+		<Card className="cardEmpleados" style={{ padding: "10px" }} title={<h6><strong>Registrar empleados</strong></h6>} extra={
+		  <div>
+			<Button type="dashed" style={{ backgroundColor: "azure" }} onClick={e => this.showModal()}>
+			  Importación por csv &nbsp;&nbsp;<i className="fas fa-file-csv"></i>
+			</Button>&nbsp;&nbsp;&nbsp;
+			<Button type="dashed" style={{ backgroundColor: "lightgreen" }} onClick={e => this.mostrarEmpleados()}>
+			  Empleados&nbsp;&nbsp;<i className="fas fa-user-friends"></i>
+			</Button>
+		  </div>
+		}>
+		  <div style={{ margin: 'auto', maxWidth: 600 }}>
+			<form>
+			  <Grid container alignItems="flex-start" spacing={2}>
+				<Grid item xs={6}>
+				  <input
+					required
+					name="Nombre"
+					type="text"
+					placeholder="Nombre"
+					value={this.state.Nombre || ''}
+					onChange={this.handleChange}
+				  />
+				</Grid>
+				<Grid item xs={6}>
+				  <input
+					required
+					name="ApellidoP"
+					type="text"
+					placeholder="Apellido Paterno"
+					value={this.state.ApellidoP || ''}
+					onChange={this.handleChange}
+				  />
+				</Grid>
+				<Grid item xs={6}>
+				  <input
+					required
+					name="ApellidoM"
+					type="text"
+					placeholder="Apellido Materno"
+					value={this.state.ApellidoM || ''}
+					onChange={this.handleChange}
+				  />
+				</Grid>
+				<Grid item xs={6}>
+				  <input
+					required
+					name="curp"
+					type="text"
+					placeholder="CURP"
+					value={this.state.curp || ''}
+					onChange={this.handleChange}
+				  />
+				</Grid>
+				<Grid item xs={6}>
+				  <input
+					required
+					name="rfc"
+					type="text"
+					placeholder="RFC"
+					value={this.state.rfc || ''}
+					onChange={this.handleChange}
+				  />
+				</Grid>
+				<Grid item xs={6}>
+				  <input
+					required
+					name="Correo"
+					type="email"
+					placeholder="Correo"
+					value={this.state.Correo || ''}
+					onChange={this.handleChange}
+				  />
+				</Grid>
+				<Grid item xs={6}>
+				  <select
+					name="puesto2"
+					value={this.state.puesto2 || ''}
+					onChange={this.handleChange}
+					required
+				  >
+					<option value="">Seleccione una opcion</option>
+					{this.state.puestos.map(row => (	
+					  <option key={row.nombre} value={row.nombre}>{row.nombre}</option>
+					))}
+				  </select>
+				</Grid>
+				<Grid item xs={6}>
+				  <select
+					name="area"
+					value={this.state.area || ''}
+					onChange={this.handleChange}
+					required
+				  >
+					<option value="">Seleccione una opcion</option>
+					{this.state.deptos.map(rows => (
+					  <option key={rows.nombre} value={rows.nombre}>{rows.nombre}</option>
+					))}
+				  </select>
+				</Grid>
+				<Grid item xs={6}>
+				  <select
+					name="CentroTrabajo"
+					value={this.state.CentroTrabajo || ''}
+					onChange={this.handleChange}
+				  >
+					<option value="">Seleccione una opcion</option>
+					{this.state.sucursalJs.map(row => (
+					  <option key={row.nombreSucursal} value={row.nombreSucursal}>{row.nombreSucursal}</option>
+					))}
+				  </select>
+				</Grid>
+				<Grid item xs={6}>
+				  <input
+					name="telefono"
+					type="number"
+					placeholder="Teléfono"
+					value={this.state.telefono || ''}
+					onChange={this.handleChange}
+				  />
+				</Grid>
+				<Grid item xs={12} style={{ marginTop: 20 }}>
+				  <strong><Alert message="Datos del trabajador" type="success"></Alert></strong>
+				</Grid>
+				<Grid item xs={6}>
+				  <select
+					name="fechaN"
+					value={this.state.fechaN || ''}
+					onChange={this.handleChange}
+					required
+				  >
+					<option value="">Seleccione una opcion</option>
+					<option value="15 a 19">15 a 19</option>
+					<option value="20 a 24">20 a 24</option>
+					<option value="25 a 29">25 a 29</option>
+					<option value="30 a 34">30 a 34</option>
+					<option value="35 a 39">35 a 39</option>
+					<option value="40 a 44">40 a 44</option>
+					<option value="45 a 49">45 a 49</option>
+					<option value="50 a 54">50 a 54</option>
+					<option value="55 a 59">55 a 59</option>
+					<option value="60 a 64">60 a 64</option>
+					<option value="65 a 69">65 a 69</option>
+					<option value="70 o más">70 o más</option>
+				  </select>
+				</Grid>
+				<Grid item xs={6}>
+				  <select
+					name="Estado_Civil"
+					value={this.state.Estado_Civil || ''}
+					onChange={this.handleChange}
+				  >
+					<option value="">Seleccione una opcion</option>
+					<option value="Casado">Casado</option>
+					<option value="Soltero">Soltero</option>
+					<option value="Unión libre">Unión libre</option>
+					<option value="Divorciado">Divorciado</option>
+					<option value="Viudo">Viudo</option>
+				  </select>
+				</Grid>
+				<Grid item xs={6}>
+				  <select
+					name="tipoPuesto"
+					value={this.state.tipoPuesto || ''}
+					onChange={this.handleChange}
+				  >
+					<option value="">Seleccione una opcion</option>
+					<option value="Operativo">Operativo</option>
+					<option value="Profesional o Técnico">Profesional o Técnico</option>
+					<option value="Supervisor">Supervisor</option>
+					<option value="Gerencial">Gerencial</option>
+					<option value="Directivo">Directivo</option>
+				  </select>
+				</Grid>
+				<Grid item xs={6}>
+				  <select
+					name="estudios"
+					value={this.state.estudios || ''}
+					onChange={this.handleChange}
+				  >
+					<option value="">Seleccione una opcion</option>
+					<option value="Sin formacion">Sin formación</option>
+					<option value="Primaria">Primaria</option>
+					<option value="Secundaria">Secundaria</option>
+					<option value="Preparatoria o Bachillerato">Preparatoria o Bachillerato</option>
+					<option value="Licenciatura">Licenciatura</option>
+					<option value="Maestria">Maestría</option>
+					<option value="Doctorado">Doctorado</option>
+				  </select>
+				</Grid>
+				<Grid item xs={6}>
+				  <select
+					name="personal"
+					value={this.state.personal || ''}
+					onChange={this.handleChange}
+				  >
+					<option value="">Seleccione una opcion</option>
+					<option value="Sindicalizado">Sindicalizado</option>
+					<option value="Ninguno">Ninguno</option>
+					<option value="Confianza">Confianza</option>
+				  </select>
+				</Grid>
+				<Grid item xs={6}>
+				  <select
+					name="Jornada"
+					value={this.state.Jornada || ''}
+					onChange={this.handleChange}
+				  >
+					<option value="">Seleccione una opcion</option>
+					<option value="Fijo nocturno (entre las 20:00 y 6:00 hrs)">
+					  Fijo nocturno (entre las 20:00 y 6:00 hrs)
+					</option>
+					<option value="Fijo diurno (entre las 6:00 y 20:00 hrs)">
+					  Fijo diurno (entre las 6:00 y 20:00 hrs)
+					</option>
+					<option value="Fijo mixto (combinación de nocturno y diurno)">
+					  Fijo mixto (combinación de nocturno y diurno)
+					</option>
+				  </select>
+				</Grid>
+				<Grid item xs={6}>
+				  <select
+					name="contratacion"
+					value={this.state.contratacion || ''}
+					onChange={this.handleChange}
+				  >
+					<option value="">Seleccione una opcion</option>
+					<option value="Por obra o proyecto">Por obra o proyecto</option>
+					<option value="por tiempo determinado (temporal)">
+					  Por tiempo determinado (temporal)
+					</option>
+					<option value="Tiempo indeterminado">Tiempo indeterminado</option>
+					<option value="Honorarios">Honorarios</option>
+				  </select>
+				</Grid>
+				<Grid item xs={6}>
+				  <select
+					name="Tiempo_puestoActual"
+					value={this.state.Tiempo_puestoActual || ''}
+					onChange={this.handleChange}
+				  >
+					<option value="">Seleccione una opcion</option>
+					<option value="">Seleccione una opcion</option>
+					<option value="Menos de 6 meses">Menos de 6 meses</option>
+					<option value="Entre 6 meses y 1 año">Entre 6 meses y 1 año</option>
+					<option value="Entre 1 a 4 años">Entre 1 a 4 años</option>
+					<option value="Entre 5 a 9 años">Entre 5 a 9 años</option>
+					<option value="Entre 10 a 14 años">Entre 10 a 14 años</option>
+					<option value="Entre 15 a 19 años">Entre 15 a 19 años</option>
+					<option value="Entre 20 a 24 años">Entre 20 a 24 años</option>
+					<option value="25 años o más">25 años o más</option>
+				  </select>
+				</Grid>
+				<Grid item xs={12}>
+				  <select
+					name="experiencia_Laboral"
+					value={this.state.experiencia_Laboral || ''}
+					onChange={this.handleChange}
+				  >
+					<option value="">Seleccione una opcion</option>
+					<option value="">Seleccione una opcion</option>
+					<option value="Menos de 6 meses">Menos de 6 meses</option>
+					<option value="Entre 6 meses y 1 año">Entre 6 meses y 1 año</option>
+					<option value="Entre 1 a 4 años">Entre 1 a 4 años</option>
+					<option value="Entre 5 a 9 años">Entre 5 a 9 años</option>
+					<option value="Entre 10 a 14 años">Entre 10 a 14 años</option>
+					<option value="Entre 15 a 19 años">Entre 15 a 19 años</option>
+					<option value="Entre 20 a 24 años">Entre 20 a 24 años</option>
+					<option value="25 años o más">25 años o más</option>
+				  </select>
+				</Grid>
+				<Grid item xs={12}>
+				{/* Componente de Rotación */}
+				<div className="turnRotationFieldset">
+					<legend className="turnRotationLegend">Realiza rotación de turnos:</legend>
+					<div className="turnRotationOptions">
+						<label className="turnRotationLabel">
+							<input
+								required
+								name="rotacion"
+								type="radio"
+								value="si"
+								checked={this.state.rotacion === "si"}
+								onChange={this.handleChange}
+							/>
+							<span className="customTurnRotationRadio"></span>
+							Rotación
+						</label>
+						<label className="turnRotationLabel">
+							<input
+								required
+								name="rotacion"
+								type="radio"
+								value="no"
+								checked={this.state.rotacion === "no"}
+								onChange={this.handleChange}
+							/>
+							<span className="customTurnRotationRadio"></span>
+							Sin Rotación
+						</label>
+					</div>
+				</div>
+
+				{/* Componente de Género */}
+				<div className="genderFieldset">
+					<legend className="genderLegend">Género</legend>
+					<div className="genderOptions">
+						<label className="genderLabel">
+							<input
+								required
+								name="stooge"
+								type="radio"
+								value="Masculino"
+								checked={this.state.stooge === "Masculino"}
+								onChange={this.handleChange}
+							/>
+							<span className="customGenderRadio"></span>
+							Masculino
+						</label>
+						<label className="genderLabel">
+							<input
+								required
+								name="stooge"
+								type="radio"
+								value="Femenino"
+								checked={this.state.stooge === "Femenino"}
+								onChange={this.handleChange}
+							/>
+							<span className="customGenderRadio"></span>
+							Femenino
+						</label>
+					</div>
+				</div>
+			</Grid>
+			  </Grid>
+			  <center>
+
+			  </center>
+			</form>
+			<Button style={{ marginTop: "2%" }} size="md" type="primary"  onClick={(e) => this.evaluar()} className="text-white">
+				  Registrar Empleado
+				</Button>
+		  </div>
+		</Card>
+	  </center>
+	  
 	} 
 	return (
 		<React.Fragment>
