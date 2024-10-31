@@ -87,7 +87,8 @@ export default class App extends React.Component {
       this.setState({disabledButtons:true})
       this.setState({leyendaDemo:"Licencia demo adquirida, funciones principales no disponibles"})
     }
-    //this.getGlobalEmployees();
+    console.log("first",this.getGlobalEmployees())
+    this.getGlobalEmployees();
   }
   componentDidMount() {
     window.scrollTo(0, 0)
