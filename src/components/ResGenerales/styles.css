@@ -7,7 +7,12 @@
   display: flex;
   justify-content: left;
   width:"100%";
-
+}
+.graficasEEO {
+  display: flex;
+  justify-content: left;
+  width: 100%; /* Sin comillas */
+  height: auto; /* Para permitir que el alto se ajuste automáticamente */
 }
 td {
   font-size: 2vmin;
@@ -19,7 +24,7 @@ td {
 }
 .tabsATS {
   display: flex;
-  width:"120%";
+  width:"100%";
   justify-content: center;  
   align-items: center;
 

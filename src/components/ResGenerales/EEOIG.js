@@ -87,7 +87,7 @@ export default class App extends React.Component {
       this.setState({disabledButtons:true})
       this.setState({leyendaDemo:"Licencia demo adquirida, funciones principales no disponibles"})
     }
-    this.getGlobalEmployees();
+    //this.getGlobalEmployees();
   }
   componentDidMount() {
     window.scrollTo(0, 0)
@@ -2965,8 +2965,20 @@ export default class App extends React.Component {
         <div >
         <div className="tabsATS" style={{marginTop:"5%",marginLeft:"5%"}}>
         <Tabs defaultActiveKey="1" size={this.state.size} style={{ marginBottom: 32 }}>
-          
-          <TabPane tab="Generar reportes periodo vigente" key="1">
+        <TabPane tab="Gráfica de evaluación EEO" key="1">
+          <div className = "graficasEEO">  
+          <ReactFusioncharts
+            type="pie3d"
+            width="200%" /* Cambiar a 100% */
+            height="400" /* Define una altura fija o usa un porcentaje */
+            dataFormat="JSON"
+            dataSource={dataSource}
+            />
+
+          </div>
+          {spinner}  
+          </TabPane> 
+          <TabPane tab="Generar reportes periodo vigente" key="2">
            {leyendaDemo}
            {tablaPeriodoActual}
            {reporteIndividual}
@@ -2980,7 +2992,7 @@ export default class App extends React.Component {
            {modalResultadoEjecutivo}
            {reporteEjecutivo}
           </TabPane>  
-          <TabPane tab="Generar reportes historicos" key="2">
+          <TabPane tab="Generar reportes historicos" key="3">
            {listaperiodos}
            {tablaPeriodoSeleccionado}
            {reporteIndividual}
@@ -2994,17 +3006,7 @@ export default class App extends React.Component {
            {modalResultadoEjecutivo}
            {reporteEjecutivo}
           </TabPane>   
-          <TabPane tab="Gráfica de evaluación EEO" key="3">
-          <div className = "graficasATS">  
-              <ReactFusioncharts
-              type="pie3d"
-              width="70%"
-              height="60%"
-              dataFormat="JSON"
-              dataSource={dataSource}/>
-          </div>
-          {spinner}  
-          </TabPane> 
+          
         </Tabs>  
         </div>
       </div>

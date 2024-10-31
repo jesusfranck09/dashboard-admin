@@ -939,12 +939,23 @@ class App extends React.Component {
  </Modal>
  return (
  <React.Fragment>
- <div>
  <Navbar modulo = {"EVALUACIÓN ATS"}/>
  <div className="tabsATS" style={{marginTop:"5%",marginLeft:"5%"}}>
  <Tabs defaultActiveKey="1" size={this.state.size} style={{ marginBottom: 32 }}>
- 
- <TabPane tab="Generar reportes periodo vigente" key="1">
+ <TabPane tab="Gráfica de evaluación ATS" key="1">
+ <div className = "graficasEEO"> 
+ <ReactFusioncharts
+ type="pie3d"
+ width="200%"
+ height="400"
+ dataFormat="JSON"
+ dataSource={dataSource} 
+ />
+ </div>
+ {spinner}
+ </TabPane>
+ <TabPane tab="Generar reportes periodo vigente" key="2">
+ <div className = "graficasEEO"> 
  {tablaPeriodoActual}
  {pdfView1} 
  {reporteGlobal}
@@ -952,8 +963,10 @@ class App extends React.Component {
  {spinnerReporte}
  {modalGlobal}
  {modalMasivo}
+ </div>
  </TabPane>
- <TabPane tab="Generar reportes historicos" key="2">
+ <TabPane tab="Generar reportes historicos" key="3">
+ <div className = "graficasEEO"> 
  {listaperiodos}
  {tablaPeriodoSeleccionado}
  {pdfView1} 
@@ -962,21 +975,10 @@ class App extends React.Component {
  {spinnerReporte}
  {modalGlobal}
  {modalMasivo}
- </TabPane>
- <TabPane tab="Gráfica de evaluación ATS" key="3">
- <div className = "graficasATS"> 
- <ReactFusioncharts
- type="pie3d"
- width="70%"
- height="60%"
- dataFormat="JSON"
- dataSource={dataSource} 
- />
  </div>
- {spinner}
  </TabPane>
+ 
  </Tabs>
- </div>
  </div>
  </React.Fragment>
  )
