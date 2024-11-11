@@ -1,5 +1,6 @@
 import React from "react";
 import MUIDataTable from "mui-datatables";
+import { Progress } from 'reactstrap';
 import {MDBBtn,MDBIcon} from 'mdbreact';
 import { API} from '../utils/http'
 import {Spinner,Button as BotonReactstrap} from 'react-bootstrap'
@@ -19,6 +20,7 @@ import ReportEEOGE from "./reportEEO/reportEEOGE";
 import { Collapse } from 'antd';
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
+
 export default class App extends React.Component {
   pdfExportComponent;
   constructor(props) {
@@ -83,11 +85,9 @@ export default class App extends React.Component {
   componentWillMount(){
     let paquete = localStorage.getItem("paqueteAdquirido")
     if(paquete === "40" || paquete === "41" || paquete === "42"){
-      console.log("entro",paquete)
       this.setState({disabledButtons:true})
       this.setState({leyendaDemo:"Licencia demo adquirida, funciones principales no disponibles"})
     }
-    console.log("first",this.getGlobalEmployees())
     this.getGlobalEmployees();
   }
   componentDidMount() {
@@ -109,155 +109,185 @@ export default class App extends React.Component {
     title: 'Hasta luego...!',
     position: "fixed",})}
 
-  getGlobalEmployees( ){
-    let periodo =  localStorage.getItem("periodo")
-    this.setState({spinner:true})
-    let totalEmpleados=[];
-    var idAdmin  =localStorage.getItem("idAdmin")  
-    let evaluacionesRealizadasPeriodoActual;
-    let evaluacionEEO;
-    let result;    
-     axios({
-      url:  API,
-      method:'post',
-      data:{
-      query:`
-       query{
-        getallPeriodo(data:"${[idAdmin]}"){
-         Descripcion
-         EventoActivo
+    async getGlobalEmployees() {
+      let periodo = localStorage.getItem("periodo");
+      this.setState({ spinner: true, progress: 0 });  // Inicializamos el spinner y el progreso
+      
+      let totalEmpleados = [];
+      var idAdmin = localStorage.getItem("idAdmin");
+      let evaluacionesRealizadasPeriodoActual;
+      let evaluacionEEO;
+      let result;
+      let progress = 0;
+    
+      try {
+        // 1. Obtener todos los periodos
+        const periodosResponse = await axios({
+          url: API,
+          method: 'post',
+          data: {
+            query: `
+              query {
+                getallPeriodo(data:"${[idAdmin]}") {
+                  Descripcion
+                  EventoActivo
+                }
               }
-            }
-          `
-      }
-    })
-    .then(datos => {
-      this.setState({todosLosPeriodos:datos.data.data.getallPeriodo})
-    }).catch(err=>{
-    })
-
-    axios({
-      url:  API,
-      method:'post',
-      data:{
-      query:`
-       query{
-            getEmployeesPerido(data:"${[idAdmin]}"){
-              id
-              nombre
-              ApellidoP
-              ApellidoM
-              CentroTrabajo
-              AreaTrabajo
-              idPeriodo
-              periodo
-              encuesta
-              fk_empleados
-            }
+            `
           }
-        `
-      }
-    })
-    .then(datos => {
-      evaluacionesRealizadasPeriodoActual =   datos.data.data.getEmployeesPerido;
-      evaluacionesRealizadasPeriodoActual.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
-      evaluacionEEO= evaluacionesRealizadasPeriodoActual.filter(function(hero){
-        return hero.encuesta === "EEO"
-      })
-      this.setState({evaluacionesTodosLosPeriodos:evaluacionEEO})
-      evaluacionEEO.map(rows=>{
-        axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:`
-          query{
-            getresultGlobalSurveyEEO(data:"${[rows.id,rows.periodo]}"){
-              id
-              Respuestas
-              fk_preguntasEEO
-              fk_empleados
-              ponderacion
-              nombre
-              ApellidoP
-              ApellidoM
-              Curp
-              RFC
-              FechaNacimiento
-              Sexo  
-              EstadoCivil
-              correo
-              AreaTrabajo
-              Puesto
-              TipoPuesto
-              NivelEstudios
-              TipoPersonal
-              JornadaTrabajo
-              TipoContratacion
-              TiempoPuesto
-              ExperienciaLaboral
-              RotacionTurnos
-              fk_administrador
-              fk_correos
-              Periodo
+        });
+        this.setState({ todosLosPeriodos: periodosResponse.data.data.getallPeriodo });
+        progress += 20; // Incrementamos el progreso al 20%
+        this.setState({ progress });
+    
+        // 2. Obtener empleados por periodo
+        const empleadosResponse = await axios({
+          url: API,
+          method: 'post',
+          data: {
+            query: `
+              query {
+                getEmployeesPerido(data:"${[idAdmin]}") {
+                  id
+                  nombre
+                  ApellidoP
+                  ApellidoM
+                  CentroTrabajo
+                  AreaTrabajo
+                  idPeriodo
+                  periodo
+                  encuesta
+                  fk_empleados
                 }
               }
             `
-        }
-        }).then(datos => {  
-          totalEmpleados.push(datos.data.data.getresultGlobalSurveyEEO)
-          this.setState({resultadosInicio:totalEmpleados})
-          this.setState({evaluacionMasivoResultados : totalEmpleados})  
-          if(this.state.evaluacionMasivoResultados.length === this.state.empleados.length){
-            this.setState({spinner:false})
-          }    
-        })
-        .catch(err => {
+          }
         });
-      })
-      result = evaluacionEEO.filter(function(hero){
-        return hero.periodo === periodo
-      })
-      this.setState({empleados:result})
-      })
-      axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:`
-          query{
-          getPonderacionEEO(data:"${[idAdmin]}"){
-            id
-            siempre
-            casisiempre
-            algunasveces
-            casinunca
-            nunca
+    
+        evaluacionesRealizadasPeriodoActual = empleadosResponse.data.data.getEmployeesPerido;
+        evaluacionesRealizadasPeriodoActual.sort((a, b) =>
+          a.ApellidoP > b.ApellidoP ? 1 : (b.ApellidoP > a.ApellidoP ? -1 : 0)
+        );
+    
+        evaluacionEEO = evaluacionesRealizadasPeriodoActual.filter(hero => hero.encuesta === "EEO");
+        this.setState({ evaluacionesTodosLosPeriodos: evaluacionEEO });
+        
+        progress += 20; // Incrementamos al 40% tras cargar empleados
+        this.setState({ progress });
+    
+        // 3. Obtener los resultados de la encuesta EEO para cada empleado
+        const resultPromises = evaluacionEEO.map(rows => {
+          return axios({
+            url: API,
+            method: 'post',
+            data: {
+              query: `
+                query {
+                  getresultGlobalSurveyEEO(data:"${[rows.id, rows.periodo]}") {
+                    id
+                    Respuestas
+                    fk_preguntasEEO
+                    fk_empleados
+                    ponderacion
+                    nombre
+                    ApellidoP
+                    ApellidoM
+                    Curp
+                    RFC
+                    FechaNacimiento
+                    Sexo
+                    EstadoCivil
+                    correo
+                    AreaTrabajo
+                    Puesto
+                    TipoPuesto
+                    NivelEstudios
+                    TipoPersonal
+                    JornadaTrabajo
+                    TipoContratacion
+                    TiempoPuesto
+                    ExperienciaLaboral
+                    RotacionTurnos
+                    fk_administrador
+                    fk_correos
+                    Periodo
+                  }
+                }
+              `
+            }
+          });
+        });
+    
+        const responses = await Promise.all(resultPromises);
+        totalEmpleados = responses.map(response => response.data.data.getresultGlobalSurveyEEO);
+        this.setState({ resultadosInicio: totalEmpleados });
+        this.setState({ evaluacionMasivoResultados: totalEmpleados });
+    
+        progress += 40; // Incrementamos al 80% tras obtener los resultados
+        this.setState({ progress });
+    
+        if (totalEmpleados.length === this.state.evaluacionMasivoResultados.length) {
+          this.setState({ spinner: false });
+        }
+    
+        result = evaluacionEEO.filter(hero => hero.periodo === periodo);
+        this.setState({ empleados: result });
+    
+        // 4. Obtener la ponderación de las encuestas EEO
+        const ponderacionResponse = await axios({
+          url: API,
+          method: 'post',
+          data: {
+            query: `
+              query {
+                getPonderacionEEO(data:"${[idAdmin]}") {
+                  id
+                  siempre
+                  casisiempre
+                  algunasveces
+                  casinunca
+                  nunca
                 }
               }
             `
-        }
-        }).then(datos => {
-          this.setState({getPonderacion: datos.data.data.getPonderacionEEO})
-        })
-        .catch(err => {
-          console.log("el error es  ",err.response)
+          }
         });
-         this.setState({spinner:false})
+    
+        this.setState({ getPonderacion: ponderacionResponse.data.data.getPonderacionEEO });
+        
+        progress += 20; // Incrementamos al 100% cuando todo haya terminado
+        this.setState({ progress });
+    
+      } catch (err) {
+        console.error("Error en la ejecución de las peticiones: ", err);
+        this.setState({ spinner: false });
       }
-      async cargarTablaPeriodoSeleccionado (parametro){
-      this.setState({collapse:false})
-      let periodo = parametro
-      let empleados  = this.state.evaluacionesTodosLosPeriodos;
-      let arrayFilter = empleados.filter(e => e.periodo === periodo)
-      await  this.setState({empleados:[]})
-      this.setState({tablaPeriodoSeleccionado:true})
-      this.setState({empleados:arrayFilter})
-      this.setState({reporteEjecutivo:false})
-      this.setState({reporteResultadosIndividual:false})
-      this.setState({reporteResultadosGlobales:true})
-      this.setState({reporteIndividual:false})
     }
+    
+    
+    async cargarTablaPeriodoSeleccionado(parametro) {
+      this.setState({ collapse: false });
+    
+      const periodo = parametro;
+      const empleados = this.state.evaluacionesTodosLosPeriodos;
+    
+      // Filtrar empleados por el periodo seleccionado
+      const arrayFilter = empleados.filter(e => e.periodo === periodo);
+    
+      // Limpiar los empleados antes de aplicar el filtro
+      await this.setState({ empleados: [] });
+    
+      // Actualizar el estado con los empleados del periodo seleccionado
+      this.setState({ tablaPeriodoSeleccionado: true });
+      this.setState({ empleados: arrayFilter });
+    
+      // Actualizar otros estados relacionados con el reporte
+      this.setState({ reporteEjecutivo: false });
+      this.setState({ reporteResultadosIndividual: false });
+      this.setState({ reporteResultadosGlobales: true });
+      this.setState({ reporteIndividual: false });
+    }
+    
    
      consultarDatosFiltrados =  async(datos,filtro,periodoTabla,parametro)=>{
       let array=[];

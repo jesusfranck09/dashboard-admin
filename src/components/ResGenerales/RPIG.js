@@ -127,189 +127,207 @@ pdfExportComponent ;
   })
   }
 
-  getGlobalEmployees = async( ) => {
-    this.setState({spinner:true})
-    let resultadosQuery=[];
-    let totalEmpleados=[]
-    var id  =localStorage.getItem("idAdmin")  
-    let resultadosEvaluacion=[];    
-    let periodo =  localStorage.getItem("periodo")
+  getGlobalEmployees = async () => {
+    this.setState({ spinner: true });
+    let resultadosQuery = [];
+    let totalEmpleados = [];
+    let resultadosEvaluacion = [];
+    let id = localStorage.getItem("idAdmin");
+    let periodo = localStorage.getItem("periodo");
     let evaluacionesRealizadasPeriodoActual;
     let evaluacionRP;
     let result;
-
-    await axios({
-      url:  API,
-      method:'post',
-      data:{
-      query:`
-       query{
-        getallPeriodo(data:"${[id]}"){
-         Descripcion
-         EventoActivo
+  
+    try {
+      // 1. Obtener todos los periodos
+      const periodosResponse = await axios({
+        url: API,
+        method: 'post',
+        data: {
+          query: `
+            query {
+              getallPeriodo(data:"${[id]}") {
+                Descripcion
+                EventoActivo
               }
             }
           `
-      }
-    })
-    .then(datos => {
-      this.setState({todosLosPeriodos:datos.data.data.getallPeriodo})
-    }).catch(err=>{
-    })
-
-    axios({
-      url:  API,
-      method:'post',
-      data:{
-      query:`
-       query{
-            getEmployeesPerido(data:"${[id]}"){
-              id
-              nombre
-              ApellidoP
-              ApellidoM
-              CentroTrabajo
-              idPeriodo
-              periodo
-              encuesta
-              fk_empleados
-              AreaTrabajo
+        }
+      });
+      this.setState({ todosLosPeriodos: periodosResponse.data.data.getallPeriodo });
+  
+      // 2. Obtener empleados por periodo
+      const empleadosResponse = await axios({
+        url: API,
+        method: 'post',
+        data: {
+          query: `
+            query {
+              getEmployeesPerido(data:"${[id]}") {
+                id
+                nombre
+                ApellidoP
+                ApellidoM
+                CentroTrabajo
+                idPeriodo
+                periodo
+                encuesta
+                fk_empleados
+                AreaTrabajo
+              }
             }
-          }
-        `
-      }
-    })
-    .then(datos => {
-      evaluacionesRealizadasPeriodoActual =   datos.data.data.getEmployeesPerido;
-      evaluacionesRealizadasPeriodoActual.sort(function(a,b) {return (a.ApellidoP > b.ApellidoP) ? 1 : ((b.ApellidoP > a.ApellidoP) ? -1 : 0);} );
-      evaluacionRP= evaluacionesRealizadasPeriodoActual.filter(function(hero){
-        return hero.encuesta === "RP"
-      })
-      this.setState({evaluacionesTodosLosPeriodos:evaluacionRP})
-      evaluacionRP.map(rows=>{
-        axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:`
-          query{
-            getresultGlobalSurveyRP(data:"${[rows.id,rows.periodo]}"){
-            id
-            Respuestas
-            fk_preguntasRP
-            fk_empleadosRP
-            ponderacion
-            nombre
-            ApellidoP
-            ApellidoM
-            Curp
-            RFC
-            FechaNacimiento
-            Sexo
-            EstadoCivil
-            correo
-            AreaTrabajo
-            Puesto
-            TipoPuesto
-            NivelEstudios
-            TipoPersonal
-            JornadaTrabajo
-            TipoContratacion
-            TiempoPuesto
-            ExperienciaLaboral
-            RotacionTurnos
-            fk_administrador
-            fk_correos
-            Periodo
-                }
-              }
-            `
+          `
         }
-        }).then(datos => {              
-          totalEmpleados.push(datos.data.data.getresultGlobalSurveyRP);  
-          this.setState({resultadosInicio:totalEmpleados});
-        })
-        .catch(err => {
-        });
-         
-        axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:`
-          query{
-          resultSingleSurveyRP(data:"${[rows.id,rows.periodo]}"){
-            id
-            Respuestas
-            fk_preguntasRP
-            fk_empleadosRP
-            ponderacion
-            nombre
-            ApellidoP
-            ApellidoM
-            Curp
-            RFC
-            FechaNacimiento
-            Sexo
-            EstadoCivil
-            correo
-            AreaTrabajo
-            Puesto
-            TipoPuesto
-            NivelEstudios
-            TipoPersonal
-            JornadaTrabajo
-            TipoContratacion
-            TiempoPuesto
-            ExperienciaLaboral
-            RotacionTurnos
-            fk_administrador
-            fk_correos
-            Periodo
+      });
+  
+      // Asignar la respuesta a la variable evaluacionesRealizadasPeriodoActual
+      evaluacionesRealizadasPeriodoActual = empleadosResponse.data.data.getEmployeesPerido;
+  
+      // Ordenar la lista de empleados por ApellidoP
+      evaluacionesRealizadasPeriodoActual.sort((a, b) =>
+        a.ApellidoP > b.ApellidoP ? 1 : (b.ApellidoP > a.ApellidoP ? -1 : 0)
+      );
+  
+      // Filtrar los empleados con la encuesta 'RP'
+      evaluacionRP = evaluacionesRealizadasPeriodoActual.filter(hero => hero.encuesta === "RP");
+  
+      // Actualizar el estado con los empleados que tienen la encuesta 'RP'
+      this.setState({ evaluacionesTodosLosPeriodos: evaluacionRP });
+  
+      // 3. Obtener los resultados de la encuesta RP para cada empleado
+      const resultPromises = evaluacionRP.map(async (rows) => {
+        try {
+          const resultSurveyResponse = await axios({
+            url: API,
+            method: 'post',
+            data: {
+              query: `
+                query {
+                  getresultGlobalSurveyRP(data:"${[rows.id, rows.periodo]}") {
+                    id
+                    Respuestas
+                    fk_preguntasRP
+                    fk_empleadosRP
+                    ponderacion
+                    nombre
+                    ApellidoP
+                    ApellidoM
+                    Curp
+                    RFC
+                    FechaNacimiento
+                    Sexo
+                    EstadoCivil
+                    correo
+                    AreaTrabajo
+                    Puesto
+                    TipoPuesto
+                    NivelEstudios
+                    TipoPersonal
+                    JornadaTrabajo
+                    TipoContratacion
+                    TiempoPuesto
+                    ExperienciaLaboral
+                    RotacionTurnos
+                    fk_administrador
+                    fk_correos
+                    Periodo
+                  }
                 }
-              }
-            `
-        }
-        }).then(datos => {    
-          resultadosEvaluacion.push(datos.data.data.resultSingleSurveyRP )
-          this.setState({evaluacionMasivoResultados : resultadosEvaluacion})
-          resultadosQuery.push(datos.data.data.resultSingleSurveyRP )
-          this.setState({resultadosQueryMasivo : resultadosQuery})  
-          })
-        .catch(err => {
-          console.log("el error es  ",err.response)
-        });    
-      })
-      result = evaluacionRP.filter(function(hero){
-        return hero.periodo === periodo
-      })
-      this.setState({empleados:result})
-      })
-      axios({
-        url:  API,
-        method:'post',
-        data:{
-        query:`
-          query{
-          getPonderacion(data:"${[id]}"){
-            id
-            siempre
-            casisiempre
-            algunasveces
-            casinunca
-            nunca
+              `
+            }
+          });
+  
+          totalEmpleados.push(resultSurveyResponse.data.data.getresultGlobalSurveyRP);
+          this.setState({ resultadosInicio: totalEmpleados });
+  
+          // Obtener los resultados de la encuesta individual
+          const resultSingleSurveyResponse = await axios({
+            url: API,
+            method: 'post',
+            data: {
+              query: `
+                query {
+                  resultSingleSurveyRP(data:"${[rows.id, rows.periodo]}") {
+                    id
+                    Respuestas
+                    fk_preguntasRP
+                    fk_empleadosRP
+                    ponderacion
+                    nombre
+                    ApellidoP
+                    ApellidoM
+                    Curp
+                    RFC
+                    FechaNacimiento
+                    Sexo
+                    EstadoCivil
+                    correo
+                    AreaTrabajo
+                    Puesto
+                    TipoPuesto
+                    NivelEstudios
+                    TipoPersonal
+                    JornadaTrabajo
+                    TipoContratacion
+                    TiempoPuesto
+                    ExperienciaLaboral
+                    RotacionTurnos
+                    fk_administrador
+                    fk_correos
+                    Periodo
+                  }
                 }
-              }
-            `
+              `
+            }
+          });
+  
+          resultadosEvaluacion.push(resultSingleSurveyResponse.data.data.resultSingleSurveyRP);
+          this.setState({ evaluacionMasivoResultados: resultadosEvaluacion });
+  
+          resultadosQuery.push(resultSingleSurveyResponse.data.data.resultSingleSurveyRP);
+          this.setState({ resultadosQueryMasivo: resultadosQuery });
+  
+        } catch (err) {
+          console.error("Error al obtener los resultados de la encuesta o encuesta individual", err);
         }
-        }).then(datos => {
-          this.setState({getPonderacion: datos.data.data.getPonderacion})
-        })
-        .catch(err => {
-          console.log("el error es  ",err.response)
-        });
-        this.setState({spinner:false})
-     }
+      });
+  
+      // Esperamos a que todas las promesas se resuelvan
+      await Promise.all(resultPromises);
+  
+      // 4. Filtrar empleados por el periodo seleccionado
+      result = evaluacionRP.filter(hero => hero.periodo === periodo);
+      this.setState({ empleados: result });
+  
+      // 5. Obtener la ponderación
+      const ponderacionResponse = await axios({
+        url: API,
+        method: 'post',
+        data: {
+          query: `
+            query {
+              getPonderacion(data:"${[id]}") {
+                id
+                siempre
+                casisiempre
+                algunasveces
+                casinunca
+                nunca
+              }
+            }
+          `
+        }
+      });
+  
+      this.setState({ getPonderacion: ponderacionResponse.data.data.getPonderacion });
+  
+    } catch (err) {
+      console.error("Error general en las peticiones:", err);
+    }
+  
+    this.setState({ spinner: false });
+  }
+  
 
      async cargarTablaPeriodoSeleccionado (parametro){
       this.setState({collapse:false})

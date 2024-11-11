@@ -65,3 +65,17 @@ td {
   flex-direction: row;
   justify-content: space-evenly;
 }
+
+/* Estilos opcionales para la barra de progreso y el texto */
+.progress-text {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.progress {
+  height: 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
