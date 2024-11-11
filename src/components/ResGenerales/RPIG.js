@@ -127,206 +127,163 @@ pdfExportComponent ;
   })
   }
 
-  getGlobalEmployees = async () => {
-    this.setState({ spinner: true });
-    let resultadosQuery = [];
-    let totalEmpleados = [];
-    let resultadosEvaluacion = [];
-    let id = localStorage.getItem("idAdmin");
+  async getGlobalEmployees() {
     let periodo = localStorage.getItem("periodo");
+    this.setState({ spinner: true, progress: 0 });  // Inicializamos el spinner y el progreso
+    
+    let totalEmpleados = [];
+    var idAdmin = localStorage.getItem("idAdmin");
     let evaluacionesRealizadasPeriodoActual;
     let evaluacionRP;
     let result;
-  
+    let progress = 0;
+
     try {
-      // 1. Obtener todos los periodos
-      const periodosResponse = await axios({
-        url: API,
-        method: 'post',
-        data: {
-          query: `
-            query {
-              getallPeriodo(data:"${[id]}") {
-                Descripcion
-                EventoActivo
-              }
-            }
-          `
-        }
-      });
-      this.setState({ todosLosPeriodos: periodosResponse.data.data.getallPeriodo });
-  
-      // 2. Obtener empleados por periodo
-      const empleadosResponse = await axios({
-        url: API,
-        method: 'post',
-        data: {
-          query: `
-            query {
-              getEmployeesPerido(data:"${[id]}") {
-                id
-                nombre
-                ApellidoP
-                ApellidoM
-                CentroTrabajo
-                idPeriodo
-                periodo
-                encuesta
-                fk_empleados
-                AreaTrabajo
-              }
-            }
-          `
-        }
-      });
-  
-      // Asignar la respuesta a la variable evaluacionesRealizadasPeriodoActual
-      evaluacionesRealizadasPeriodoActual = empleadosResponse.data.data.getEmployeesPerido;
-  
-      // Ordenar la lista de empleados por ApellidoP
-      evaluacionesRealizadasPeriodoActual.sort((a, b) =>
-        a.ApellidoP > b.ApellidoP ? 1 : (b.ApellidoP > a.ApellidoP ? -1 : 0)
-      );
-  
-      // Filtrar los empleados con la encuesta 'RP'
-      evaluacionRP = evaluacionesRealizadasPeriodoActual.filter(hero => hero.encuesta === "RP");
-  
-      // Actualizar el estado con los empleados que tienen la encuesta 'RP'
-      this.setState({ evaluacionesTodosLosPeriodos: evaluacionRP });
-  
-      // 3. Obtener los resultados de la encuesta RP para cada empleado
-      const resultPromises = evaluacionRP.map(async (rows) => {
-        try {
-          const resultSurveyResponse = await axios({
+        // 1. Obtener todos los periodos
+        const periodosResponse = await axios({
             url: API,
             method: 'post',
             data: {
-              query: `
-                query {
-                  getresultGlobalSurveyRP(data:"${[rows.id, rows.periodo]}") {
-                    id
-                    Respuestas
-                    fk_preguntasRP
-                    fk_empleadosRP
-                    ponderacion
-                    nombre
-                    ApellidoP
-                    ApellidoM
-                    Curp
-                    RFC
-                    FechaNacimiento
-                    Sexo
-                    EstadoCivil
-                    correo
-                    AreaTrabajo
-                    Puesto
-                    TipoPuesto
-                    NivelEstudios
-                    TipoPersonal
-                    JornadaTrabajo
-                    TipoContratacion
-                    TiempoPuesto
-                    ExperienciaLaboral
-                    RotacionTurnos
-                    fk_administrador
-                    fk_correos
-                    Periodo
-                  }
-                }
-              `
+                query: `
+                    query {
+                        getallPeriodo(data:"${[idAdmin]}") {
+                            Descripcion
+                            EventoActivo
+                        }
+                    }
+                `
             }
-          });
-  
-          totalEmpleados.push(resultSurveyResponse.data.data.getresultGlobalSurveyRP);
-          this.setState({ resultadosInicio: totalEmpleados });
-  
-          // Obtener los resultados de la encuesta individual
-          const resultSingleSurveyResponse = await axios({
+        });
+
+        this.setState({ todosLosPeriodos: periodosResponse.data.data.getallPeriodo });
+        progress += 20; // Incrementamos el progreso al 20%
+        this.setState({ progress });
+
+        // 2. Obtener empleados por periodo
+        const empleadosResponse = await axios({
             url: API,
             method: 'post',
             data: {
-              query: `
-                query {
-                  resultSingleSurveyRP(data:"${[rows.id, rows.periodo]}") {
-                    id
-                    Respuestas
-                    fk_preguntasRP
-                    fk_empleadosRP
-                    ponderacion
-                    nombre
-                    ApellidoP
-                    ApellidoM
-                    Curp
-                    RFC
-                    FechaNacimiento
-                    Sexo
-                    EstadoCivil
-                    correo
-                    AreaTrabajo
-                    Puesto
-                    TipoPuesto
-                    NivelEstudios
-                    TipoPersonal
-                    JornadaTrabajo
-                    TipoContratacion
-                    TiempoPuesto
-                    ExperienciaLaboral
-                    RotacionTurnos
-                    fk_administrador
-                    fk_correos
-                    Periodo
-                  }
+                query: `
+                    query {
+                        getEmployeesPerido(data:"${[idAdmin]}") {
+                            id
+                            nombre
+                            ApellidoP
+                            ApellidoM
+                            CentroTrabajo
+                            AreaTrabajo
+                            idPeriodo
+                            periodo
+                            encuesta
+                            fk_empleados
+                        }
+                    }
+                `
+            }
+        });
+
+        evaluacionesRealizadasPeriodoActual = empleadosResponse.data.data.getEmployeesPerido;
+        evaluacionesRealizadasPeriodoActual.sort((a, b) =>
+            a.ApellidoP > b.ApellidoP ? 1 : (b.ApellidoP > a.ApellidoP ? -1 : 0)
+        );
+
+        // Filtrar los empleados con la encuesta 'RP'
+        evaluacionRP = evaluacionesRealizadasPeriodoActual.filter(hero => hero.encuesta === "RP");
+        this.setState({ evaluacionesTodosLosPeriodos: evaluacionRP });
+
+        progress += 20; // Incrementamos al 40% tras cargar empleados
+        this.setState({ progress });
+
+        // 3. Obtener los resultados de la encuesta RP para cada empleado
+        const resultPromises = evaluacionRP.map(rows => {
+            return axios({
+                url: API,
+                method: 'post',
+                data: {
+                    query: `
+                        query {
+                            getresultGlobalSurveyRP(data:"${[rows.id, rows.periodo]}") {
+                                id
+                                Respuestas
+                                fk_preguntasRP
+                                fk_empleadosRP
+                                ponderacion
+                                nombre
+                                ApellidoP
+                                ApellidoM
+                                Curp
+                                RFC
+                                FechaNacimiento
+                                Sexo
+                                EstadoCivil
+                                correo
+                                AreaTrabajo
+                                Puesto
+                                TipoPuesto
+                                NivelEstudios
+                                TipoPersonal
+                                JornadaTrabajo
+                                TipoContratacion
+                                TiempoPuesto
+                                ExperienciaLaboral
+                                RotacionTurnos
+                                fk_administrador
+                                fk_correos
+                                Periodo
+                            }
+                        }
+                    `
                 }
-              `
-            }
-          });
-  
-          resultadosEvaluacion.push(resultSingleSurveyResponse.data.data.resultSingleSurveyRP);
-          this.setState({ evaluacionMasivoResultados: resultadosEvaluacion });
-  
-          resultadosQuery.push(resultSingleSurveyResponse.data.data.resultSingleSurveyRP);
-          this.setState({ resultadosQueryMasivo: resultadosQuery });
-  
-        } catch (err) {
-          console.error("Error al obtener los resultados de la encuesta o encuesta individual", err);
+            });
+        });
+
+        const responses = await Promise.all(resultPromises);
+        totalEmpleados = responses.map(response => response.data.data.getresultGlobalSurveyRP);
+        this.setState({ resultadosInicio: totalEmpleados });
+        this.setState({ evaluacionMasivoResultados: totalEmpleados });
+
+        progress += 40; // Incrementamos al 80% tras obtener los resultados
+        this.setState({ progress });
+
+        if (totalEmpleados.length === this.state.evaluacionMasivoResultados.length) {
+            this.setState({ spinner: false });
         }
-      });
-  
-      // Esperamos a que todas las promesas se resuelvan
-      await Promise.all(resultPromises);
-  
-      // 4. Filtrar empleados por el periodo seleccionado
-      result = evaluacionRP.filter(hero => hero.periodo === periodo);
-      this.setState({ empleados: result });
-  
-      // 5. Obtener la ponderación
-      const ponderacionResponse = await axios({
-        url: API,
-        method: 'post',
-        data: {
-          query: `
-            query {
-              getPonderacion(data:"${[id]}") {
-                id
-                siempre
-                casisiempre
-                algunasveces
-                casinunca
-                nunca
-              }
+
+        result = evaluacionRP.filter(hero => hero.periodo === periodo);
+        this.setState({ empleados: result });
+
+        // 4. Obtener la ponderación de las encuestas RP
+        const ponderacionResponse = await axios({
+            url: API,
+            method: 'post',
+            data: {
+                query: `
+                    query {
+                        getPonderacionRP(data:"${[idAdmin]}") {
+                            id
+                            siempre
+                            casisiempre
+                            algunasveces
+                            casinunca
+                            nunca
+                        }
+                    }
+                `
             }
-          `
-        }
-      });
-  
-      this.setState({ getPonderacion: ponderacionResponse.data.data.getPonderacion });
-  
+        });
+
+        this.setState({ getPonderacion: ponderacionResponse.data.data.getPonderacionRP });
+
+        progress += 20; // Incrementamos al 100% cuando todo haya terminado
+        this.setState({ progress });
+
     } catch (err) {
-      console.error("Error general en las peticiones:", err);
+        console.error("Error en la ejecución de las peticiones: ", err);
+        this.setState({ spinner: false });
     }
-  
-    this.setState({ spinner: false });
-  }
+}
+
   
 
      async cargarTablaPeriodoSeleccionado (parametro){
@@ -868,31 +825,68 @@ pdfExportComponent ;
     let colorCategoria3Grafica;
     let colorCategoria4Grafica;
     let spinner;
-    if(this.state.spinner== true){
-      spinner = <div><MDBBtn className = "text-white"  size="md" color="danger" disabled>
-      <Spinner
-        as="span"
-        outline
-        animation="border"
-        size="sm"
-        role="status"
-        aria-hidden="true"
-      />
-     
-    </MDBBtn>{''}
-    <MDBBtn className = "text-white"  size="md" color="secondary" disabled>
-      <Spinner
-        as="span"
-        outlined
-        animation="border"
-        size="sm"
-        role="status"
-        aria-hidden="true"
-      />
-      Validando información por favor espere ...
-    </MDBBtn>{''}
-    </div>
-    }  
+    if (this.state.spinner === true) {
+        spinner = (
+            <div style={{ width: '100%', padding: '10px', textAlign: 'center' }}>
+                <div
+                    style={{
+                        backgroundColor: '#f0f0f0',
+                        borderRadius: '50px',
+                        position: 'relative',
+                        width: '100%',
+                        height: '12px',
+                        marginBottom: '10px',
+                    }}
+                >
+                    <div
+                        style={{
+                            backgroundColor: '#28a745', // Color verde RP
+                            height: '100%',
+                            width: `${this.state.progress}%`,
+                            borderRadius: '50px',
+                            transition: 'width 0.3s ease-in-out',
+                        }}
+                    />
+                    <div
+                        style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            fontSize: '14px',
+                            color: '#fff',
+                        }}
+                    >
+                        {this.state.progress}% Cargando resultados RP...
+                    </div>
+                </div>
+    
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div
+                        style={{
+                            backgroundColor: '#17a2b8', // Color del spinner RP
+                            padding: '8px 20px',
+                            borderRadius: '30px',
+                            color: '#fff',
+                            fontSize: '14px',
+                            fontWeight: '500',
+                        }}
+                    >
+                        <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                            style={{ marginRight: '10px' }}
+                        />
+                        Procesando información RP... Por favor espera
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    
     let datosEmpleados;
     let filtro;
     let periodoTabla;

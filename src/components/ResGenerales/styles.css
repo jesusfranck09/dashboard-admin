@@ -66,16 +66,115 @@ td {
   justify-content: space-evenly;
 }
 
-/* Estilos opcionales para la barra de progreso y el texto */
-.progress-text {
-  text-align: center;
-  font-size: 14px;
-  margin-top: 10px;
-  font-weight: bold;
+/* Contenedor principal para la carga */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;  /* Espacio encima para separarlo de la gráfica */
 }
 
-.progress {
-  height: 20px;
-  border-radius: 10px;
-  margin-bottom: 15px;
+/* Contenedor de la barra de progreso y el texto */
+.progress-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 500px; /* Máximo ancho para que no se desborde */
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* Estilo del spinner de carga */
+.spinner-loading {
+  margin-bottom: 10px;
+  color: #28a745;  /* Color verde para la animación */
+  font-size: 20px;
+}
+
+/* Texto de validación */
+.progress-text {
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Contenedor de la barra de progreso */
+.progress-bar-container {
+  background-color: #ddd;
+  border-radius: 25px;
+  height: 8px;  /* Barra de progreso delgada */
+  width: 100%;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+/* Barra de progreso real */
+.progress-bar {
+  background-color: #4caf50;  /* Verde brillante para el progreso */
+  height: 100%;
+  border-radius: 25px;
+  position: relative;
+  transition: width 0.5s ease-in-out; /* Transición suave para el cambio de progreso */
+}
+
+/* Texto dentro de la barra de progreso */
+.progress-percentage {
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.spinner-container {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+}
+
+.progress-bar {
+  background-color: #0b808f;
+  border-radius: 50px;
+  position: relative;
+  height: 12px;
+  margin-bottom: 10px;
+}
+
+.progress-bar-fill {
+  background-color: #28a745; /* Verde RP */
+  height: 100%;
+  border-radius: 50px;
+  transition: width 0.3s ease-in-out;
+}
+
+.progress-bar-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  color: #fff;
+}
+
+.spinner-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-btn .btn-spinner {
+  background-color: #17a2b8; /* Azul RP */
+  padding: 8px 20px;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
 }

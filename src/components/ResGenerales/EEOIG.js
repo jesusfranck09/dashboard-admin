@@ -852,16 +852,27 @@ export default class App extends React.Component {
     let dataSource;
     charts(FusionCharts);
     let spinner;
-    if(this.state.spinner=== true){
-      spinner = <div><MDBBtn className = "text-white"  size="sm" color="danger" disabled>
-         <Spinner as="span" outline animation="border" size="sm" role="status" aria-hidden="true" />
-      </MDBBtn>{''}
-    <MDBBtn size="sm" className = "text-white"  color="success" disabled>
-      <Spinner as="span" outlined animation="border" size="sm" role="status" aria-hidden="true" />
-      Validando información por favor espere ...
-    </MDBBtn>{''}
-    </div>
-    }    
+    if (this.state.spinner === true) {
+      spinner = (
+        <div className="loading-container">
+          <div className="progress-wrapper">
+            <Spinner as="span" outline animation="border" size="sm" role="status" aria-hidden="true" className="spinner-loading" />
+            <div className="progress-text">
+              Validando información, por favor espere...
+            </div>
+            
+            {/* Barra de progreso */}
+            <div className="progress-bar-container">
+              <div className="progress-bar" style={{ width: `${this.state.progress}%` }}>
+                <span className="progress-percentage">{this.state.progress}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
+
     if(this.state.spinnerReporte=== true){
       spinner = <div><BotonReactstrap variant="warning" disabled>
       <Spinner as="span" outline animation="border" size="sm" role="status" aria-hidden="true" />      
