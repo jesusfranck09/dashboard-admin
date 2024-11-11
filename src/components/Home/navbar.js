@@ -116,7 +116,7 @@ class Navbar extends React.Component {
                         <MDBNavbarNav left>
                         </MDBNavbarNav>
                         <MDBNavbarNav left>
-                        <strong>Version 3.1.1</strong>
+                        <strong>Version 3.1.2</strong>
                         </MDBNavbarNav>  
                         <MDBNavbarNav left>
                         <img src={localStorage.getItem("urlLogo")} alt="logo" style = {{width:50,heigth:20}}/>                                          
